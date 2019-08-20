@@ -1,0 +1,4 @@
+#!/bin/bash
+bundle exec bundle-audit --update
+bundle exec brakeman --run-all-checks --exit-on-warn .
+bundle exec rake
