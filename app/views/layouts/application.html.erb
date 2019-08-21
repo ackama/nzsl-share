@@ -36,7 +36,7 @@
 
     <%= render "application/header" %>
     <%= render("application/messages") %>
-    <%= yield %>
+    <%= content_tag(:main, yield) %>
     <%= render "application/footer" %>
 
   </body>
