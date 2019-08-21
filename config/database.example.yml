@@ -17,7 +17,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: nzsl_community_glossary_development
+  database: nzsl_share_development
   min_messages: WARNING
   pool: 5
 
@@ -42,6 +42,6 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: nzsl_community_glossary_test
+  database: nzsl_share_test
   min_messages: WARNING
   pool: 5

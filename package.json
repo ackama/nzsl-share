@@ -1,5 +1,5 @@
 {
-  "name": "nzsl_community_glossary",
+  "name": "nzsl_share",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0-alpha",
