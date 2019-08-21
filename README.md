@@ -1,4 +1,4 @@
-# nzsl_community_glossary
+# nzsl_share
 
 This is a Rails 6 app.
 
