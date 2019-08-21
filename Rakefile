@@ -8,6 +8,6 @@ Rails.application.load_tasks
 begin
   require "rubocop/rake_task"
   RuboCop::RakeTask.new
-  task default: %w[spec spec:system rubocop]
+  task default: %w[spec rubocop]
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
