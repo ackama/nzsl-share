@@ -41,4 +41,6 @@ group :test do
   gem "mock_redis"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "axe-matchers"
+  gem "lighthouse-matchers"
 end
