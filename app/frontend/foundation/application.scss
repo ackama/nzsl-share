@@ -8,6 +8,7 @@
 @include foundation-global-styles;
 @include foundation-forms;
 @include foundation-typography;
+@include foundation-prototype-classes;
 
 // Grids (choose one)
 @include foundation-xy-grid-classes;
@@ -27,7 +28,7 @@
 // @include foundation-badge;
 @include foundation-breadcrumbs;
 @include foundation-callout;
-// @include foundation-card;
+@include foundation-card;
 @include foundation-dropdown;
 @include foundation-pagination;
 // @include foundation-tooltip;
@@ -61,8 +62,11 @@
 
 @import "base/base";
 @import "base/buttons";
+@import "base/callouts";
 @import "base/containers";
 @import "base/forms";
+@import "base/menus";
+@import "base/typography";
 @import "components/footer";
 @import "components/header";
 @import "components/navigation";

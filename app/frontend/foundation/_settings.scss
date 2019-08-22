@@ -67,25 +67,28 @@ $fa-font-path: "~font-awesome/fonts";
 // 1. Global
 // ---------
 
-$global-font-size: 100%;
+$global-font-size: 18px;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
-$foundation-palette: (
-  primary: #075ea3,
-  secondary: #767676,
-  success: #3adb76,
-  warning: #ffae00,
-  alert: #ba2f2f,
-);
-$extra-light-gray: #dfdfdf;
-$light-gray: #cacaca;
+$extra-light-gray: #F6F8FA;
+$light-gray: #DEE5EA;
 $medium-gray: #8a8a8a;
 $dark-gray: #707070;
 $black: #0a0a0a;
-$white: #fefefe;
-$body-background: $white;
-$body-font-color: $black;
-$body-font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+$white: #fff;
+$foundation-palette: (
+  primary: #18435F,
+  secondary: #E0EEF7,
+  accent: #FF571F,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #ba2f2f,
+  light: $light-gray
+);
+
+$body-background: #FDFDFD;
+$body-font-color: #001C2E;;
+$body-font-family: "Montserrat", sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -93,7 +96,7 @@ $global-position: 1rem;
 $global-weight-normal: normal;
 $global-weight-bold: bold;
 $global-radius: 0;
-$global-menu-padding: 0.7rem 1rem;
+$global-menu-padding: 1.5rem 1rem;
 $global-menu-nested-margin: 1rem;
 $global-text-direction: ltr;
 $global-flexbox: true;
@@ -135,7 +138,7 @@ $block-grid-max: 8;
 // ------------------
 
 $header-font-family: $body-font-family;
-$header-font-weight: $global-weight-normal;
+$header-font-weight: $global-weight-bold;
 $header-font-style: normal;
 $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 $header-color: inherit;
@@ -144,18 +147,18 @@ $header-margin-bottom: 0.5rem;
 $header-styles: (
   small: (
     "h1": ("font-size": 24),
-    "h2": ("font-size": 20),
+    "h2": ("font-size": 20, "font-weight": 500),
     "h3": ("font-size": 19),
     "h4": ("font-size": 18),
     "h5": ("font-size": 17),
     "h6": ("font-size": 16),
   ),
   medium: (
-    "h1": ("font-size": 36),
-    "h2": ("font-size": 32),
-    "h3": ("font-size": 28),
-    "h4": ("font-size": 24),
-    "h5": ("font-size": 20),
+    "h1": ("font-size": 40),
+    "h2": ("font-size": 36, "font-weight": 500),
+    "h3": ("font-size": 22),
+    "h4": ("font-size": 22),
+    "h5": ("font-size": 22),
     "h6": ("font-size": 18),
   ),
 );
@@ -318,13 +321,13 @@ $buttongroup-radius-on-each: true;
 // -----------
 
 $callout-background: $white;
-$callout-background-fade: 85%;
-$callout-border: 1px solid rgba($black, 0.25);
+$callout-background-fade: 0%;
+$callout-border: none;
 $callout-margin: 0 0 1rem 0;
 $callout-padding: 1rem;
 $callout-font-color: $body-font-color;
-$callout-font-color-alt: $body-background;
-$callout-radius: $global-radius;
+$callout-font-color-alt: $white;
+$callout-radius: false;
 $callout-link-tint: 30%;
 
 // 14. Card
@@ -333,8 +336,8 @@ $callout-link-tint: 30%;
 $card-background: $white;
 $card-font-color: $body-font-color;
 $card-divider-background: $light-gray;
-$card-border: 1px solid $light-gray;
-$card-shadow: none;
+$card-border: none;
+$card-shadow: 0 2px 27px 0 rgba(0,0,0,0.05);;
 $card-border-radius: $global-radius;
 $card-padding: $global-padding;
 $card-margin-bottom: $global-margin;
@@ -475,7 +478,7 @@ $mediaobject-image-width-stacked: 100%;
 
 $menu-margin: 0;
 $menu-nested-margin: $global-menu-nested-margin;
-$menu-items-padding: $global-menu-padding;
+$menu-items-padding: 1.5rem 1rem;
 $menu-simple-margin: 1rem;
 $menu-item-color-active: $white;
 $menu-item-background-active: get-color(primary);
@@ -654,7 +657,7 @@ $prototype-position-z-index: 975;
 // ---------------------
 
 $prototype-rounded-breakpoints: $global-prototype-breakpoints;
-$prototype-border-radius: rem-calc(3);
+$prototype-border-radius: 0.7rem;
 
 // 39. Prototype Separator
 // -----------------------
