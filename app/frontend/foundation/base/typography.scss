@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i&display=swap');
 
 
-h2 {
-  font-weight: 500;
+h2 { font-weight: 500; }
+
+h2.underlined:after {
+  background: map-get($foundation-palette, accent);
+  content: " ";
+  display: block;
+  height: 0.25rem;
+  margin: 0.5rem 0 2rem 0;
+  width: 40%;
 }
