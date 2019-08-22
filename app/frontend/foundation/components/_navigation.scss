@@ -26,7 +26,7 @@
     }
 
     @include breakpoint(large) {
-      background-color: $white;
+      background-color: $primary-color;
     }
   }
 
@@ -83,7 +83,7 @@
     }
 
     a {
-      color: $primary-color;
+      color: $white;
       font-weight: bold;
       line-height: 1.25;
       width: 100%;

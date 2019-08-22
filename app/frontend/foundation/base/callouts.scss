@@ -1,0 +1,9 @@
+.callout {
+  // &.radius {
+  //   border-radius: $prototype-border-radius;
+  // }
+
+  &.accent {
+    color: $callout-font-color-alt;
+  }
+}
