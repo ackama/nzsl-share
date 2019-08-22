@@ -6,4 +6,23 @@
   &.accent {
     color: $callout-font-color-alt;
   }
+
+  hr {
+    border-color: $callout-font-color-alt;
+    width: 150%;
+    margin-left: -25%;
+  }
+
+  &__action { /** Intended to be applied to a button */
+    text-align: left;
+    font-size: map-get($button-sizes, large);
+    font-weight: bold;
+    padding: $button-padding;
+    padding-left: 0;
+    padding-right: 0;
+
+    @include button-hollow;
+    @include button-style(transparent, transparent, $callout-font-color-alt);
+    &.expanded { @include button-expand; }
+  }
 }
