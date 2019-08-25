@@ -71,12 +71,20 @@
 
   <div class="cell medium-12 large-4">
     <ul class="callout extra-light vertical menu">
-      <li><a href="#">Home</a></li>
+      <li><a href="#">
+        <%= image_pack_tag "home.svg", :"aria-hidden" => true %>
+        <%= content_tag :span, "Home" %>
+      </a></li>
       <li class="menu-divider"></li>
       <li class="menu-text">Manage videos</li>
-      <li class="is-active"><a href="#">Collections</a></li>
-      <li><a href="#">My videos</a></li>
-      <li><a href="#">Four</a></li>
+      <li class="is-active"><a href="#">
+        <%= image_pack_tag "folder-alt.svg", :"aria-hidden" => true %>
+        <%= content_tag :span, "Collections" %>
+      </a></li>
+      <li><a href="#">
+        <%= image_pack_tag "control-play.svg", :"aria-hidden" => true %>
+        <%= content_tag :span, "My videos" %>
+      </a></li>
     </ul>
 
     <div class="card">
