@@ -1,0 +1,24 @@
+.byline {
+  margin: 1rem 0;
+
+  &__profile-image {
+    @include badge;
+    background-color: $primary-color;
+    color: $white;
+    width: 2rem;
+    height: 2rem;
+    line-height: 1.75rem;
+    margin-right: 0.5rem;
+  }
+
+  &__attribution {
+    display: inline-block;
+    font-size: 0.75rem;
+    opacity: 0.75;
+    letter-spacing: -0.2px;
+  }
+
+  &__attribution, &__attribution a {
+    color: $body-font-color;
+  }
+}
