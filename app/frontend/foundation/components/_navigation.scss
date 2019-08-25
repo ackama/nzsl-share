@@ -8,7 +8,7 @@
   }
 
   &__wrapper {
-    background-color: $light-gray;
+    background-color: $primary-color;
     margin-bottom: 2 * $global-margin;
 
     @include breakpoint(medium down) {
