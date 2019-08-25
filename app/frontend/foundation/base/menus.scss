@@ -3,3 +3,13 @@
   border-bottom: $hr-border;
   width: 100%;
 }
+
+
+.menu li img {
+  transform: scale(2.5);
+  margin-left: 1rem;
+}
+
+.menu li img + span {
+  margin-left: 2rem;
+}
