@@ -6,20 +6,20 @@
     <ul class="menu navigation__list--right small-vertical">
       <li class="navigation__item">
         <a href="#">
-          <%= image_pack_tag "eye.svg", data: { tooltip: true, position: :bottom, alignment: :center }, title: "Restricted mode" %>
+          <%= image_pack_tag "eye.svg", data: { tooltip: true, position: :bottom, alignment: :center }, alt: "Restricted mode", title: "Restricted mode" %>
           <span class="hide-for-large">Restricted mode</span>
         </a>
       </li>
 
       <li class="navigation__item">
         <a href="#" class="badged">
-          <%= image_pack_tag "bell.svg", data: { tooltip: true, position: :bottom, alignment: :center }, title: "Notifications" %>
+          <%= image_pack_tag "bell.svg", data: { tooltip: true, position: :bottom, alignment: :center }, alt: "Notifications", title: "Notifications" %>
           <span class="hide-for-large">Notifications</span>
         </a>
       </li>
       <li class="navigation__item">
         <a href="#">
-          <%= image_pack_tag "emotsmile.svg", data: { tooltip: true, position: :bottom, alignment: :center }, title: "Smile?" %>
+          <%= image_pack_tag "emotsmile.svg", data: { tooltip: true, position: :bottom, alignment: :center }, alt: "Smile?", title: "Smile?" %>
           <span class="hide-for-large">Smile?</span>
         </a>
       </li>
@@ -37,11 +37,12 @@
   </button>
 
   <div class="callout callout light expanded">
-  <label class="sr-only">Search</label>
-  <input
-    type="search"
-    class="rounded"
-    placeholder="Search by English or Search by English or Māori keywords"
-  />
+  <label><span class="sr-only">Search</span>
+    <input
+      type="search"
+      class="rounded"
+      placeholder="Search by English or Search by English or Māori keywords"
+    />
+  </label>
 </div>
 </section>
