@@ -1,17 +1,33 @@
 <section class="navigation__wrapper" id="main-menu" data-toggler=".navigation__wrapper--open">
   <nav class="navigation">
     <ul class="navigation__list">
-      <li class="navigation__item"><a href="/"><strong>NZSL</strong> <em>Share</em></a></li>
+      <li class="navigation__title"><a href="/"><strong>NZSL</strong> <em>Share</em></a></li>
     </ul>
-    <ul class="navigation__list navigation__list--right" data-accordion-menu data-slide-speed="0" data-multi-open="false">
-      <li class="navigation__item"><a href="#">Right item 1</a></li>
-      <li class="navigation__item"><a href="#">Right item 2</a></li>
-      <li class="navigation__item"><a href="#">Right item 3</a></li>
+    <ul class="menu navigation__list--right">
       <li class="navigation__item">
-        <a class="expanded button">
+        <a href="#">
+          <%= image_pack_tag "eye.svg", :"aria-hidden" => true %>
+          <span class="sr-only">Restricted mode</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="#" class="badged">
+          <%= image_pack_tag "bell.svg", :"aria-hidden" => true %>
+          <span class="sr-only">Notifications</span>
+        </a>
+      </li>
+      <li class="navigation__item">
+        <a href="#">
+          <%= image_pack_tag "emotsmile.svg", :"aria-hidden" => true %>
+          <span class="sr-only">Smile?</span>
+        </a>
+      </li>
+      <li class="navigation__item">
+        <button class="navigation__button--upload accent">
           <i class="fa fa-2x fas fa-plus-circle"></i>
           Upload a term
-        </a>
+        </button>
       </li>
     </ul>
   </nav>
