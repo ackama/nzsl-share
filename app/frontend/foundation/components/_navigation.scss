@@ -108,8 +108,9 @@
     &--upload {
       @extend .button;
       @include button-expand(true);
+      font-size: 1.5rem;
       margin-right: 1rem;
-      padding: $button-padding !important;
+      padding: 0.5rem 1rem !important;
     }
 
     &--close {
