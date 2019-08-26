@@ -1,15 +1,15 @@
-.menu .menu-divider {
-  border: 0;
-  border-bottom: $hr-border;
-  width: 100%;
-}
+.manu {
+  .menu-divider {
+    border: 0;
+    border-bottom: $hr-border;
+    width: 100%;
+  }
 
-
-.menu li img {
-  transform: scale(2.5);
-  margin-left: 1rem;
-}
-
-.menu li img + span {
-  margin-left: 2rem;
+  li {
+    img {
+      margin-left: 1rem;
+      transform: scale(2.5);
+      & + span { margin-left: 2rem; }
+    }
+  }
 }

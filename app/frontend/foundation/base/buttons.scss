@@ -1,15 +1,14 @@
 .button {
-  min-width: 80px;
   font-weight: bold;
+  min-width: 80px;
 
   .button-group--spaced & {
     margin: 0 5%;
   }
 
-}
-
-.button > i.fa {
-  padding-right: 0.85rem;
+  & > .fa {
+    padding-right: 0.85rem;
+  }
 }
 
 .button-group {

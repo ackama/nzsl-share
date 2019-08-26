@@ -70,16 +70,16 @@ $fa-font-path: "~font-awesome/fonts";
 $global-font-size: 18px;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
-$extra-light-gray: #F6F8FA;
-$light-gray: #DEE5EA;
+$extra-light-gray: #f6f8fa;
+$light-gray: #dee5ea;
 $dark-gray: #8a8a8a;
-$medium-gray: #9DAFBC;
+$medium-gray: #9dafbc;
 $black: #0a0a0a;
 $white: #fff;
 $foundation-palette: (
-  primary: #18435F,
-  secondary: #E0EEF7,
-  accent: #FF571F,
+  primary: #18435f,
+  secondary: #e0eef7,
+  accent: #ff571f,
   success: #3adb76,
   warning: #ffae00,
   alert: #ba2f2f,
@@ -87,8 +87,8 @@ $foundation-palette: (
   extra-light: $extra-light-gray,
 );
 
-$body-background: #FDFDFD;
-$body-font-color: #001C2E;;
+$body-background: #fdfdfd;
+$body-font-color: #001c2e;;
 $body-font-family: "Montserrat", sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
@@ -338,7 +338,7 @@ $card-background: $white;
 $card-font-color: $body-font-color;
 $card-divider-background: $light-gray;
 $card-border: none;
-$card-shadow: 0 2px 27px 0 rgba(0,0,0,0.05);;
+$card-shadow: 0 2px 27px 0 rgba(0, 0, 0, 0.05);
 $card-border-radius: $global-radius;
 $card-padding: $global-padding;
 $card-margin-bottom: $global-margin;
