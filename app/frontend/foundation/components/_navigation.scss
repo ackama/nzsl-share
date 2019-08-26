@@ -1,4 +1,4 @@
-.navigation {
+.navigation {  // sass-lint:disable-block no-important
 
   @include breakpoint(large) {
     @include flex;
@@ -75,15 +75,20 @@
 
   &__title {
     @extend .navigation__item;
-    &, & a { font-weight: normal !important; font-size: 1.25rem; }
+
+    &,
+    & a {
+      font-size: 1.25rem;
+      font-weight: normal !important;
+    }
   }
 
   &__item {
-    @include breakpoint(large) {  // sass-lint:disable-block no-important
+    @include breakpoint(large) {
       @include flex;
       @include flex-align(left, middle);
-      width: auto !important;
       padding: 1rem 0;
+      width: auto !important;
 
     }
 
@@ -94,7 +99,7 @@
       width: 100%;
 
       @include breakpoint(large) {
-        padding: 1rem 2rem 1rem 1rem
+        padding: 1rem 2rem 1rem 1rem;
       }
     }
   }
@@ -103,8 +108,8 @@
     &--upload {
       @extend .button;
       @include button-expand(true);
-      padding: $button-padding !important;
       margin-right: 1rem;
+      padding: $button-padding !important;
     }
 
     &--close {
