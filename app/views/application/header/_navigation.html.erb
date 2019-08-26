@@ -3,24 +3,24 @@
     <ul class="navigation__list">
       <li class="navigation__title"><a href="/"><strong>NZSL</strong> <em>Share</em></a></li>
     </ul>
-    <ul class="menu navigation__list--right">
+    <ul class="menu navigation__list--right small-vertical">
       <li class="navigation__item">
         <a href="#">
-          <%= image_pack_tag "eye.svg", :"aria-hidden" => true %>
-          <span class="sr-only">Restricted mode</span>
+          <%= image_pack_tag "eye.svg", data: { tooltip: true, position: :bottom, alignment: :center }, title: "Restricted mode" %>
+          <span class="hide-for-large">Restricted mode</span>
         </a>
       </li>
 
       <li class="navigation__item">
         <a href="#" class="badged">
-          <%= image_pack_tag "bell.svg", :"aria-hidden" => true %>
-          <span class="sr-only">Notifications</span>
+          <%= image_pack_tag "bell.svg", data: { tooltip: true, position: :bottom, alignment: :center }, title: "Notifications" %>
+          <span class="hide-for-large">Notifications</span>
         </a>
       </li>
       <li class="navigation__item">
         <a href="#">
-          <%= image_pack_tag "emotsmile.svg", :"aria-hidden" => true %>
-          <span class="sr-only">Smile?</span>
+          <%= image_pack_tag "emotsmile.svg", data: { tooltip: true, position: :bottom, alignment: :center }, title: "Smile?" %>
+          <span class="hide-for-large">Smile?</span>
         </a>
       </li>
       <li class="navigation__item">
