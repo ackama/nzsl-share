@@ -11,6 +11,11 @@
     "sass-lint": "^1.13.1",
     "turbolinks": "^5.2.0"
   },
+  "browserslist": [
+    "> 0.25% in NZ and last 2 versions",
+    "not ie 11",
+    "not opera mini all"
+  ],
   "version": "0.1.0",
   "devDependencies": {
     "font-awesome": "^4.7.0",
@@ -18,3 +23,4 @@
     "webpack-dev-server": "^3.8.0"
   }
 }
+
