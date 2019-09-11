@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_234154) do
+ActiveRecord::Schema.define(version: 2019_09_11_221750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
+    t.string "english", limit: 512, null: false
+    t.string "maori", limit: 512
+    t.string "secondary", limit: 512
+    t.datetime "updated_at", null: false
+    t.datetime "created_at", null: false
+    t.index ["english"], name: "idx_freelex_signs_english"
+    t.index ["maori"], name: "idx_freelex_signs_maori"
+    t.index ["secondary"], name: "idx_freelex_signs_secondary"
+  end
+
+  create_table "signs", id: :serial, force: :cascade do |t|
+    t.string "english", limit: 256, null: false
+    t.string "maori", limit: 256
+    t.string "secondary", limit: 256
+    t.datetime "updated_at", null: false
+    t.datetime "created_at", null: false
+    t.index ["english"], name: "idx_signs_english"
+    t.index ["maori"], name: "idx_signs_maori"
+    t.index ["secondary"], name: "idx_signs_secondary"
+  end
 
 end
