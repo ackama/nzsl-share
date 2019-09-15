@@ -1,0 +1,9 @@
+freelex:
+  protocol: http://
+  domain: freelex.nzsl.vuw.ac.nz
+  path: /dnzsl/freelex/publicsearch
+  query_string: ?xmldump=1
+  file:
+    name: freelex
+    ext: xml
+    to_disk: /tmp/
