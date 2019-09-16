@@ -5,7 +5,6 @@ require:
 inherit_from:
   - https://bitbucket.org/rabidtech/rabid-dotfiles/raw/master/.rubocop.yml
 
-
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -28,6 +27,9 @@ AllCops:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
+Metrics/CyclomaticComplexity:
+  Max: 12
+
 Metrics/AbcSize:
   Exclude:
     - "spec/**/*"
@@ -36,6 +38,8 @@ Metrics/BlockLength:
   Exclude:
     - "config/**/*"
     - "spec/**/*"
+    - "rspec/**/*"
+    - "lib/tasks/**/*"
 
 Metrics/ClassLength:
   Exclude:
@@ -51,6 +55,7 @@ Metrics/MethodLength:
   Exclude:
     - "db/migrate/*"
     - "spec/**/*"
+    - "lib/tasks/**/*"
 
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: optional
