@@ -2,8 +2,11 @@ freelex:
   protocol: http://
   domain: freelex.nzsl.vuw.ac.nz
   path: /dnzsl/freelex/publicsearch
+  timeout: 120
   query_string: ?xmldump=1
+  obscene_query_string: ?usage=3
   file:
     name: freelex
+    obscene_name: freelex_obscene
     ext: xml
     to_disk: /tmp/
