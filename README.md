@@ -71,3 +71,5 @@ We support the latest 2 versions (stable releases) of major browsers for desktop
 | Edge          | 17, 16      | N/A    | 15, 14  |
 | Firefox       | 69, 68      | 18, 17 | 68, 67  |
 | Safari        | 13, 12      | 12, 11 | N/A     |
+
+You can check the versions covered by our `browserslist` configuration [here](https://browserl.ist/?q=%3E+0.25%25+in+NZ+and+last+2+versions%2C+not+ie+11%2C+not+op_mini+all)
