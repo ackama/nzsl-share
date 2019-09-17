@@ -33,6 +33,7 @@ Metrics/CyclomaticComplexity:
 Metrics/AbcSize:
   Exclude:
     - "spec/**/*"
+    - "lib/tasks/**/*"
 
 Metrics/BlockLength:
   Exclude:

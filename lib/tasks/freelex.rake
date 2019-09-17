@@ -4,27 +4,21 @@ namespace :freelex do
   namespace :download do
     desc "Download an entire copy of freelex and save to /tmp as xml"
     task all: :environment do
-      fetch_and_save(:path, :xml)
+      fetch_xml_and_save(:path, :xml)
     end
 
     desc "Download only the obscene copy of freelex and save to /tmp as xml"
     task obscene: :environment do
-      fetch_and_save(:obscene_path, :obscene_xml)
+      fetch_xml_and_save(:obscene_path, :obscene_xml)
     end
   end
 
   desc "Parse the xml and insert into freelex table"
   task create: :environment do
     config_setup
-    doc = Nokogiri::XML(File.read(str_builder(:xml)))
+    doc = Nokogiri::XML(File.read(fetch_config_str(:xml)))
     data = doc.xpath("//entry").inject([]) do |arr, att|
-      arr << {
-        id: att.xpath("headwordid").text,
-        english: att.xpath("glossmain").text,
-        maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
-        updated_at: fetch_date_time,
-        created_at: fetch_date_time
-      }
+      arr << fetch_freelex_values(att)
     end
 
     truncate_freelex_table
@@ -38,10 +32,21 @@ namespace :freelex do
 
   private
 
-  def fetch_and_save(path, file)
+  def fetch_freelex_values(att)
+    {
+      id: att.xpath("headwordid").text.to_i,
+      english: att.xpath("glossmain").text,
+      maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
+      secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
+      updated_at: fetch_date_time,
+      created_at: fetch_date_time
+    }
+  end
+
+  def fetch_xml_and_save(path, file)
     config_setup
-    doc = Nokogiri::XML(http_connection.get(str_builder(path)).body)
-    File.open(str_builder(file), "w") { |f| doc.write_xml_to f }
+    doc = Nokogiri::XML(http_connection.get(fetch_config_str(path)).body)
+    File.open(fetch_config_str(file), "w") { |f| doc.write_xml_to f }
   end
 
   def fetch_date_time
@@ -59,13 +64,13 @@ namespace :freelex do
   end
 
   def http_connection
-    Faraday.new(url: str_builder(:url)) do |faraday|
-      faraday.options.timeout = str_builder(:timeout).to_i
+    Faraday.new(url: fetch_config_str(:url)) do |faraday|
+      faraday.options.timeout = fetch_config_str(:timeout).to_i
       faraday.adapter Faraday.default_adapter
     end
   end
 
-  def str_builder(opt)
+  def fetch_config_str(opt)
     case opt
     when :url
       "#{@free["protocol"]}#{@free["domain"]}"
