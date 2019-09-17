@@ -10,7 +10,7 @@ namespace :developers do
       truncate_table
 
       500.times do
-        Sign.create(english: FFaker::Food.fruit)
+        Sign.create(english: FFaker::Food.fruit, maori: FFaker::Internet.email)
       end
     end
   end

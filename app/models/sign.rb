@@ -3,5 +3,5 @@
 class Sign < ApplicationRecord
   include Searchable
 
-  validates :english, length: 3..256, allow_blank: false
+  validates :english, :maori, length: 3..256, allow_blank: false
 end

@@ -19,8 +19,9 @@ namespace :freelex do
     doc = Nokogiri::XML(File.read(str_builder(:xml)))
     data = doc.xpath("//entry").inject([]) do |arr, att|
       arr << {
-        ref_id: att.attributes["id"].value.to_i,
-        headword: att.children[0].text,
+        id: att.xpath("headwordid").text,
+        english: att.xpath("glossmain").text,
+        maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
         updated_at: fetch_date_time,
         created_at: fetch_date_time
       }
