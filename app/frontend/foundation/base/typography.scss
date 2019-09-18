@@ -1,0 +1,24 @@
+// sass-lint:disable no-url-domains, no-url-protocols
+@import url("//fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i&display=swap");
+// sass-lint:enable no-url-domains, no-url-protocols
+
+
+h2 { font-weight: 500; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &.underlined {
+    &::after {
+      background: map-get($foundation-palette, accent);
+      content: " ";
+      display: block;
+      height: 0.25rem;
+      margin: 0.5rem 0 2rem;
+      width: 40%;
+    }
+  }
+}

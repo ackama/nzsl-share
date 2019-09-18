@@ -1,0 +1,140 @@
+.navigation {  // sass-lint:disable-block no-important
+
+  @include breakpoint(large) {
+    @include flex;
+    border-bottom: $light-gray solid 1px;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+
+  &__wrapper {
+    background-color: $primary-color;
+    margin-bottom: 2 * $global-margin;
+
+    @include breakpoint(medium down) {
+      height: 100%;
+      left: -100%;
+      position: absolute;
+      top: 0;
+      transition: 0.5s ease;
+      width: 320px;
+      z-index: 10;
+
+      &--open {
+        left: 0;
+      }
+    }
+
+    @include breakpoint(large) {
+      background-color: $primary-color;
+    }
+  }
+
+  &__list {
+    @extend .accordion-menu;
+    @include menu-base;
+    @include menu-direction(vertical);
+
+    @include breakpoint(large) {
+      @include menu-direction(horizontal);
+      justify-content: flex-end;
+      margin-bottom: 0;
+      width: auto;
+    }
+
+    &.is-active {
+      background: $extra-light-gray;
+      padding-left: $global-padding;
+
+      @include breakpoint(large) {
+        background: $white;
+        border: $light-gray solid 1px;
+        left: 0;
+        margin-left: $global-margin;
+        position: absolute;
+        top: 100%;
+        width: auto;
+        z-index: 100;
+      }
+    }
+
+    &--right {
+      justify-self: right;
+      margin-left: auto;
+
+      .navigation__item {
+        &:last-child {
+          .navigation__list {
+            left: auto;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &__title {
+    @extend .navigation__item;
+
+    &,
+    & a {
+      font-size: 1.25rem;
+      font-weight: normal !important;
+    }
+  }
+
+  &__item {
+    @include breakpoint(large) {
+      @include flex;
+      @include flex-align(left, middle);
+      padding: 1rem 0;
+      width: auto !important;
+
+    }
+
+    a {
+      color: $white;
+      font-weight: bold;
+      line-height: 1.25;
+      width: 100%;
+
+      @include breakpoint(large) {
+        padding: 1rem 2rem 1rem 1rem;
+      }
+    }
+  }
+
+  &__button {
+    &--upload {
+      @extend .button;
+      @include button-expand(true);
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      padding: 0.5rem 1rem !important;
+    }
+
+    &--close {
+      @extend .close-button;
+
+      @include breakpoint(large) {
+        display: none;
+      }
+    }
+
+    &--toggle {
+      @extend .menu-icon;
+    }
+  }
+}
+
+.submenu-toggle {
+  outline: none;
+}
+
+.no-js {
+  .navigation__list {
+    .navigation__list {
+      display: none;
+    }
+  }
+}

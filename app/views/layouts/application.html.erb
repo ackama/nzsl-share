@@ -15,7 +15,7 @@
     <!-- NZSL Share <%= Rails.application.config.version %> (<%= l(Rails.application.config.version_time) %>) -->
 
     <%# CSS should go closest to the top of the document as possible. %>
-    <%= stylesheet_link_tag("application",
+    <%= stylesheet_pack_tag("application",
                             media: "all",
                             "data-turbolinks-track" => "reload") %>
 
@@ -32,10 +32,12 @@
     <%# Specifies the default name of home screen bookmark in iOS %>
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
   </head>
-  <body>
+  <body class="no-js">
 
-    <%= render("shared/flash") %>
-    <%= yield %>
+    <%= render "application/header" %>
+    <%= render("application/messages") %>
+    <%= content_tag(:main, yield, class: "grid-container full") %>
+    <%= render "application/footer" %>
 
   </body>
 </html>

@@ -8,6 +8,4 @@ RSpec.describe "Homepage", type: :system do
     assert_selector("body p")
     assert_match(/Home/, page.title)
   end
-
-  it_behaves_like "an accessible page"
 end

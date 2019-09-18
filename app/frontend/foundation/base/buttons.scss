@@ -1,0 +1,25 @@
+.button {
+  font-weight: bold;
+  min-width: 80px;
+
+  .button-group--spaced & {
+    margin: 0 5%;
+  }
+
+  & > .fa {
+    padding-right: 0.85rem;
+  }
+}
+
+.button-group {
+  flex: wrap;
+
+  &--spaced {
+    justify-content: center;
+    margin: $global-margin 0 2 * $global-margin;
+  }
+
+  &--reversed {
+    flex-direction: row-reverse;
+  }
+}

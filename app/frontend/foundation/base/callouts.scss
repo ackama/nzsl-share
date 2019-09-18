@@ -1,0 +1,33 @@
+.callout {
+  // &.radius {
+  //   border-radius: $prototype-border-radius;
+  // }
+
+  &.accent {
+    color: $callout-font-color-alt;
+  }
+
+  &.large {
+    padding: 3rem 2rem;
+  }
+
+  hr {
+    border-color: $callout-font-color-alt;
+    margin-left: -25%;
+    width: 150%;
+  }
+
+  &__action { // Intended to be applied to a button
+    @include button-hollow;
+    @include button-style(transparent, transparent, $callout-font-color-alt);
+
+    font-size: map-get($button-sizes, large);
+    font-weight: bold;
+    padding: $button-padding;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left;
+
+    &.expanded { @include button-expand; }
+  }
+}

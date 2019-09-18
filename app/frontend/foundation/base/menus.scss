@@ -1,0 +1,15 @@
+.menu {
+  .menu-divider {
+    border: 0;
+    border-bottom: $hr-border;
+    width: 100%;
+  }
+
+  li {
+    img {
+      margin-left: 1rem;
+      transform: scale(2.5);
+      & + span { margin-left: 2rem; }
+    }
+  }
+}
