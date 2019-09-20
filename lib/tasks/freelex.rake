@@ -16,7 +16,7 @@ namespace :freelex do
   desc "Parse the xml and insert into freelex table"
   task create: :environment do
     config_setup
-    doc = Nokogiri::XML(File.read(fetch_config_str(:xml)))
+    doc = Nokogiri::XML(File.read(@config[:xml]))
     data = doc.xpath("//entry").inject([]) do |arr, att|
       arr << fetch_freelex_values(att)
     end
@@ -45,8 +45,8 @@ namespace :freelex do
 
   def fetch_xml_and_save(path, file)
     config_setup
-    doc = Nokogiri::XML(http_connection.get(fetch_config_str(path)).body)
-    File.open(fetch_config_str(file), "w") { |f| doc.write_xml_to f }
+    doc = Nokogiri::XML(http_connection.get(@config[path]).body)
+    File.open(@config[file], "w") { |f| doc.write_xml_to f }
   end
 
   def fetch_date_time
@@ -57,35 +57,25 @@ namespace :freelex do
     ActiveRecord::Base.connection.execute("TRUNCATE #{FreelexSign.table_name} RESTART IDENTITY")
   end
 
-  def config_setup
-    hsh = YAML.safe_load(File.read("#{ENV["PWD"]}/config/freelex.yml"))
-    @free = hsh["freelex"]
-    @file = hsh["freelex"]["file"]
-  end
-
   def http_connection
-    Faraday.new(url: fetch_config_str(:url)) do |faraday|
-      faraday.options.timeout = fetch_config_str(:timeout).to_i
+    Faraday.new(url: @config[:url]) do |faraday|
+      faraday.options.timeout = @config[:timeout].to_i
       faraday.adapter Faraday.default_adapter
     end
   end
 
-  def fetch_config_str(opt)
-    case opt
-    when :url
-      "#{@free["protocol"]}#{@free["domain"]}"
-    when :path
-      "#{@free["path"]}#{@free["query_string"]}"
-    when :obscene_path
-      "#{@free["path"]}#{@free["obscene_query_string"]}"
-    when :xml
-      "#{@file["to_disk"]}#{@file["name"]}.#{@file["ext"]}"
-    when :obscene_xml
-      "#{@file["to_disk"]}#{@file["obscene_name"]}.#{@file["ext"]}"
-    when :timeout
-      @free["timeout"]
-    else
-      "noop"
-    end
+  def config_setup
+    hsh = YAML.safe_load(File.read("#{ENV["PWD"]}/config/freelex.yml"))
+    free = hsh["freelex"]
+    file = hsh["freelex"]["file"]
+
+    @config = {
+      url: "#{free["protocol"]}#{free["domain"]}",
+      path: "#{free["path"]}#{free["query_string"]}",
+      obscene_path: "#{free["path"]}#{free["obscene_query_string"]}",
+      xml: "#{file["to_disk"]}#{file["name"]}.#{file["ext"]}",
+      obscene_xml: "#{file["to_disk"]}#{file["obscene_name"]}.#{file["ext"]}",
+      timeout: free["timeout"]
+    }
   end
 end

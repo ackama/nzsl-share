@@ -27,9 +27,6 @@ AllCops:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
-Metrics/CyclomaticComplexity:
-  Max: 12
-
 Metrics/AbcSize:
   Exclude:
     - "spec/**/*"
