@@ -8,15 +8,15 @@ RSpec.describe SearchService, type: :service do
       end
 
       it "returns results given a word fragment" do
-        expect(SearchService.call(word: "tes").results.data.count).to eq 3
-        expect(SearchService.call(word: "sla").results.data.count).to eq 2
-        expect(SearchService.call(word: "app").results.data.count).to eq 2
+        expect(SearchService.call(search: Search.new(word: "tes")).data.count).to eq 3
+        expect(SearchService.call(search: Search.new(word: "sla")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(word: "app")).data.count).to eq 2
       end
 
       it "returns results given a complete word" do
-        expect(SearchService.call(word: "test").results.data.count).to eq 2
-        expect(SearchService.call(word: "apple").results.data.count).to eq 1
-        expect(SearchService.call(word: "tesla").results.data.count).to eq 1
+        expect(SearchService.call(search: Search.new(word: "test")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(word: "apple")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(word: "tesla")).data.count).to eq 1
       end
     end
   end
