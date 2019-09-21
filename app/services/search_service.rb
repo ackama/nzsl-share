@@ -1,23 +1,20 @@
 # frozen_string_literal: true
 
 class SearchService < ApplicationService
-  attr_reader :results
+  attr_reader :search, :results
 
   def initialize(params)
-    @word = params[:word]
-    @results = ApplicationService::Results.new
-    execute
+    @search = params[:search]
+    @results = ApplicationService.new_results
   end
 
-  private
-
-  def execute
+  def process
     results.data = %w[FreelexSign Sign].inject([]) do |arr, name|
       arr << name.constantize
                  .select(:id, :english, :maori)
-                 .where(["LOWER(english) LIKE ?", "%#{@word.strip.downcase}%"])
+                 .where(["LOWER(english) LIKE ?", "%#{search.word.strip.downcase}%"])
                  .map(&:serializable_hash)
     end
-    results.data.flatten!
+    results
   end
 end
