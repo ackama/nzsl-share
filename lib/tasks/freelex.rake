@@ -65,17 +65,6 @@ namespace :freelex do
   end
 
   def config_setup
-    hsh = YAML.safe_load(File.read("#{ENV["PWD"]}/config/freelex.yml"))
-    free = hsh["freelex"]
-    file = hsh["freelex"]["file"]
-
-    @config = {
-      url: "#{free["protocol"]}#{free["domain"]}",
-      path: "#{free["path"]}#{free["query_string"]}",
-      obscene_path: "#{free["path"]}#{free["obscene_query_string"]}",
-      xml: "#{file["to_disk"]}#{file["name"]}.#{file["ext"]}",
-      obscene_xml: "#{file["to_disk"]}#{file["obscene_name"]}.#{file["ext"]}",
-      timeout: free["timeout"]
-    }
+    @config = FreelexConfigService.call.data
   end
 end
