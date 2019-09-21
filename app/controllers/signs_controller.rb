@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class SignsController < ApplicationController
-  def search
+  def index
   end
 
   private
 
   def sign_params
-    params.require(:sign).permit(:english)
+    params.require(:sign).permit(:english, :maori)
   end
 end
