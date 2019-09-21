@@ -4,10 +4,8 @@ require "rails_helper"
 
 RSpec.describe SignsController, type: :routing do
   describe "routing" do
-    describe "/signs/search" do
-      it("routes to signs#search on /search with a GET") do
-        expect(get: "/signs/search").to route_to("signs#search")
-      end
+    describe "/signs" do
+      it { expect(get: "/signs").to route_to("signs#index") }
     end
   end
 end
