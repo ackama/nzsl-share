@@ -9,12 +9,18 @@ class SearchService < ApplicationService
   end
 
   def process
-    results.data = %w[FreelexSign Sign].inject([]) do |arr, name|
+    results.data = build_results
+    results
+  end
+
+  private
+
+  def build_results
+    %w[FreelexSign Sign].inject([]) do |arr, name|
       arr << name.constantize
                  .select(:id, :english, :maori)
                  .where(["LOWER(english) LIKE ?", "%#{search.word.strip.downcase}%"])
                  .map(&:serializable_hash)
     end
-    results
   end
 end
