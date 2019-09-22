@@ -1,8 +1,7 @@
 <h4><%= " #{@results.count} search result(s) returned" %></h4>
-<% @count = 0 %>
-<% @results.each do |result| %>
+<% @results.each_with_index do |result, idx| %>
   <br>
-  <h4><%= @count = @count + 1 %></h4>
+  <h4><%= idx + 1 %></h4>
   <%= "Id: #{result["id"]}" %><br>
   <%= "English: #{result["english"]}" %><br>
   <%= "Maori: #{result["maori"]}" %><br>
