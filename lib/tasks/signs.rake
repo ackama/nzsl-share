@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
 namespace :developers do
-  namespace :create do
+  namespace :seed do
     desc "The developers need test data so lets create some!"
     task titles: :environment do
       return unless development?
 
-      require "ffaker"
+      require "faker"
       truncate_table
 
       500.times do
-        Sign.create(english: FFaker::Food.fruit, maori: FFaker::Internet.email)
+        Sign.create(
+          english: Faker::Name.first_name,
+          maori: Faker::Name.last_name, # until we have better data
+          secondary: Faker::Name.middle_name
+        )
       end
     end
   end

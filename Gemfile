@@ -46,6 +46,5 @@ group :test do
   gem "webdrivers"
   gem "axe-matchers"
   gem "lighthouse-matchers"
-  gem "shoulda-matchers"
-  gem "ffaker"
+  gem "faker"
 end
