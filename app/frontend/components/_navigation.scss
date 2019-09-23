@@ -1,8 +1,8 @@
 .navigation {  // sass-lint:disable-block no-important
 
-  @include breakpoint(large) {
+  @include breakpoint(medium) {
     @include flex;
-    border-bottom: $light-gray solid 1px;
+    border-top: get-color(accent) solid 4px;
     justify-content: space-between;
     margin-bottom: 0;
   }
@@ -11,7 +11,7 @@
     background-color: $primary-color;
     margin-bottom: 2 * $global-margin;
 
-    @include breakpoint(medium down) {
+    @include breakpoint(small down) {
       height: 100%;
       left: -100%;
       position: absolute;
@@ -78,8 +78,24 @@
 
     &,
     & a {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: normal !important;
+    }
+  }
+
+  &__input {
+    background: get-color(primary-x-light);
+    margin: 0;
+    @include breakpoint(medium) {
+      border-radius: $global-radius;
+      margin: 0.5rem auto !important;
+    }
+
+    &--search {
+      background-image: url("images/search.svg");
+      background-position: calc(100% - 1rem);
+      background-repeat: no-repeat;
+      padding-right: 2rem;
     }
   }
 
@@ -87,7 +103,6 @@
     @include breakpoint(large) {
       @include flex;
       @include flex-align(left, middle);
-      padding: 1rem 0;
       width: auto !important;
 
     }
@@ -95,11 +110,10 @@
     a {
       color: $white;
       font-weight: bold;
-      line-height: 1.25;
       width: 100%;
 
-      @include breakpoint(large) {
-        padding: 1rem 2rem 1rem 1rem;
+      @include breakpoint(medium) {
+        padding: 1rem;
       }
     }
   }
@@ -116,7 +130,7 @@
     &--close {
       @extend .close-button;
 
-      @include breakpoint(large) {
+      @include breakpoint(medium) {
         display: none;
       }
     }
