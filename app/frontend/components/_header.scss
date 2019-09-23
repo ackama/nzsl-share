@@ -1,10 +1,11 @@
 .header {
+  border-top: solid 2px get-color(accent);
   margin-bottom: $global-margin;
 
   &__bar {
     @extend .title-bar;
 
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       display: none;
     }
 
@@ -19,5 +20,6 @@
 
   &__bar-title {
     @extend .title-bar-title;
+    font-size: 1.2rem;
   }
 }
