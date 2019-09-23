@@ -13,8 +13,7 @@
   },
   "browserslist": [
     "> 0.25% in NZ and last 2 versions",
-    "not ie 11",
-    "not opera mini all"
+    "not ie 11"
   ],
   "version": "0.1.0",
   "devDependencies": {
