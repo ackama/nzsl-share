@@ -1,12 +1,6 @@
 class ApplicationService
   class Results
-    attr_writer :data
-
-    def data
-      return @data.flatten! if @data.respond_to?(:flatten!)
-
-      @data
-    end
+    attr_accessor :data
   end
 
   class << self

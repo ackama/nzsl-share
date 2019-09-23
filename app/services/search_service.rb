@@ -16,11 +16,64 @@ class SearchService < ApplicationService
   private
 
   def build_results
-    %w[FreelexSign Sign].inject([]) do |arr, name|
-      arr << name.constantize
-                 .select(:id, :english, :maori)
-                 .where(["LOWER(english) LIKE ?", "%#{search.word.strip.downcase}%"])
-                 .map(&:serializable_hash)
-    end
+    sql_arr = [search_sql, "^#{search.word}", ".#{search.word}", "^#{search.word}", ".#{search.word}"]
+    rs = exec_query(sql_arr).to_json
+    JSON(rs)
+  end
+
+  def exec_query(sql_arr)
+    ApplicationRecord.connection.execute(ApplicationRecord.send(:sanitize_sql_array, sql_arr))
+  end
+
+  def search_sql
+    <<-SQL
+      WITH
+      sign_search(sign_id, query_rank, word_rank)
+      AS
+      (
+        SELECT
+          results.*
+          FROM
+          (
+            SELECT
+              signs.id,
+              1,
+              RANK() OVER (ORDER BY signs.english)
+              FROM signs
+              WHERE signs.english  ~* ?
+            UNION ALL
+            SELECT
+              signs.id,
+              2,
+              RANK() OVER (ORDER BY signs.english)
+              FROM signs
+              WHERE signs.english ~* ?
+            UNION ALL
+            SELECT
+              signs.id,
+              3,
+              RANK() OVER (ORDER BY signs.secondary)
+              FROM signs
+              WHERE signs.secondary ~* ?
+      	    UNION ALL
+            SELECT
+              signs.id,
+              4,
+              RANK() OVER (ORDER BY signs.secondary)
+              FROM signs
+              WHERE signs.secondary ~* ?
+          ) AS results
+      )
+      SELECT
+        signs.id,
+        signs.english,
+        signs.maori,
+        signs.secondary
+        FROM signs
+        JOIN sign_search
+          ON signs.id = sign_search.sign_id
+        ORDER BY signs.english
+		    -- ORDER BY sign_search.query_rank, sign_search.word_rank -- uncomment when we are ready to search by relevance
+    SQL
   end
 end
