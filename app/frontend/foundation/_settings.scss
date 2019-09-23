@@ -67,28 +67,33 @@ $fa-font-path: "~font-awesome/fonts";
 // 1. Global
 // ---------
 
-$global-font-size: 18px;
+$global-font-size: 15px;
 $global-width: rem-calc(1200);
-$global-lineheight: 1.5;
-$extra-light-gray: #f6f8fa;
+$global-lineheight: 1.6;
+$extra-light-gray: #f2f5f7;
 $light-gray: #dee5ea;
-$dark-gray: #8a8a8a;
-$medium-gray: #9dafbc;
-$black: #0a0a0a;
+$medium-gray: #5d7389;
+$dark-gray: $medium-gray;
+$black: #041723;
 $white: #fff;
+
 $foundation-palette: (
   primary: #18435f,
-  secondary: #e0eef7,
+  primary-light: #d6e2ee,
+  primary-x-light: #eff4f8,
   accent: #ff571f,
+  accent-x-light: #ffe8e0,
+  royal: #354ae7,
+  royal-x-light: #f1f2fb,
   success: #3adb76,
   warning: #ffae00,
   alert: #ba2f2f,
   light: $light-gray,
-  extra-light: $extra-light-gray,
+  extra-light: $extra-light-gray
 );
 
-$body-background: #fdfdfd;
-$body-font-color: #001c2e;;
+$body-background: $extra-light-gray;
+$body-font-color: $black;
 $body-font-family: "Montserrat", sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
@@ -114,8 +119,8 @@ $print-hrefs: true;
 
 $breakpoints: (
   small: 0,
-  medium: 640px,
-  large: 1024px,
+  medium: 680px,
+  large: 960px,
   xlarge: 1200px,
   xxlarge: 1440px,
 );
@@ -439,15 +444,15 @@ $select-radius: $global-radius;
 $input-color: $black;
 $input-placeholder-color: $dark-gray;
 $input-font-family: inherit;
-$input-font-size: rem-calc(16);
+$input-font-size: 1rem;
 $input-font-weight: $global-weight-normal;
 $input-line-height: $global-lineheight;
 $input-background: $white;
 $input-background-focus: $white;
 $input-background-disabled: $light-gray;
-$input-border: 1px solid $dark-gray;
-$input-border-focus: 1px solid $light-gray;
-$input-padding: $form-spacing / 2;
+$input-border: 0 solid $dark-gray;
+$input-border-focus: 0 solid $light-gray;
+$input-padding: $form-spacing / 2 $form-spacing;
 $input-shadow: inset 0 1px 2px rgba($black, 0.1);
 $input-shadow-focus: 0 0 5px $dark-gray;
 $input-cursor-disabled: not-allowed;
@@ -827,8 +832,8 @@ $thumbnail-radius: $global-radius;
 
 $titlebar-background: $primary-color;
 $titlebar-color: $white;
-$titlebar-padding: 0.5rem;
-$titlebar-text-font-weight: bold;
+$titlebar-padding: 1rem;
+$titlebar-text-font-weight: normal;
 $titlebar-icon-color: $white;
 $titlebar-icon-color-hover: $dark-gray;
 $titlebar-icon-spacing: 0.25rem;
