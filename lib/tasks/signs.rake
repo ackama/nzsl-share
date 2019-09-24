@@ -13,7 +13,8 @@ namespace :developers do
         Sign.create(
           english: Faker::Name.first_name,
           maori: Faker::Name.last_name, # until we have better data
-          secondary: Faker::Name.middle_name
+          secondary: Faker::Name.middle_name,
+          published_at: DateTime.now - (rand * 1000)
         )
       end
     end
