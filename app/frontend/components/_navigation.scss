@@ -87,31 +87,7 @@
     }
   }
 
-  &__input {
-    background: get-color(primary-x-light);
-    margin: 0;
-    @include breakpoint(medium) {
-      border-radius: $global-radius;
-      margin: 0.5rem auto !important;
-    }
 
-    &--search {
-      background-image: url("images/search.svg");
-      background-position: calc(100% - 1rem);
-      background-repeat: no-repeat;
-      padding-right: 2rem;
-      transition: box-shadow background-color linear 0.5s;
-
-      &:hover {
-        box-shadow: 0 0 16px 0 rgba($white, 0.5);
-      }
-
-      &:focus {
-        background-color: $white;
-        box-shadow: none;
-      }
-    }
-  }
 
   &__item {
     @include breakpoint(large) {
@@ -131,14 +107,6 @@
   }
 
   &__button {
-    &--upload {
-      @extend .button;
-      @include button-expand(true);
-      font-size: 1.5rem;
-      margin-right: 1rem;
-      padding: 0.5rem 1rem !important;
-    }
-
     &--close {
       @extend .close-button;
 
