@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  USERNAME_REGEXP = /^[a-zA-Z0-9_\.]*$/.freeze
+  USERNAME_REGEXP = /\A[a-zA-Z0-9_\.]*\Z/.freeze
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
