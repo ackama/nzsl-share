@@ -17,8 +17,8 @@ class SearchService < ApplicationService
 
   def build_results
     sql_arr = [search_sql, "^#{search.word}", ".#{search.word}", "^#{search.word}", ".#{search.word}"]
-    rs = exec_query(sql_arr).to_json
-    JSON(rs)
+    result = exec_query(sql_arr).to_json
+    JSON(result)
   end
 
   def exec_query(sql_arr)
