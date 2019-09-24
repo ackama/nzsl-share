@@ -12,7 +12,7 @@
 
 // Grids (choose one)
 @include foundation-xy-grid-classes;
-// @include foundation-grid;
+@include foundation-grid;
 // @include foundation-flex-grid;
 
 // Generic components
@@ -60,18 +60,12 @@
 @include foundation-visibility-classes;
 // @include foundation-prototype-classes;
 
-@import "base/base";
-@import "base/buttons";
-@import "base/callouts";
-@import "base/containers";
-@import "base/forms";
-@import "base/icons";
-@import "base/menus";
-@import "base/tooltips";
-@import "base/typography";
-@import "components/byline";
-@import "components/footer";
-@import "components/header";
-@import "components/navigation";
-@import "components/search-bar";
-@import "components/social-media";
+@import "overrides/base";
+@import "overrides/buttons";
+@import "overrides/callouts";
+@import "overrides/containers";
+@import "overrides/forms";
+@import "overrides/icons";
+@import "overrides/menus";
+@import "overrides/tooltips";
+@import "overrides/typography";
