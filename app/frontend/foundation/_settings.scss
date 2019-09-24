@@ -109,6 +109,7 @@ $global-flexbox: true;
 $global-prototype-breakpoints: false;
 $global-button-cursor: auto;
 $global-color-pick-contrast-tolerance: 0;
+$contrast-warnings: false;
 $print-transparent-backgrounds: true;
 
 @include add-foundation-colors;
