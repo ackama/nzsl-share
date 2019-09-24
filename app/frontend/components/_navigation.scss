@@ -35,9 +35,9 @@
     @include menu-base;
     @include menu-direction(vertical);
 
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       @include menu-direction(horizontal);
-      justify-content: flex-end;
+      align-items: center;
       margin-bottom: 0;
       width: auto;
     }
@@ -46,7 +46,7 @@
       background: $extra-light-gray;
       padding-left: $global-padding;
 
-      @include breakpoint(large) {
+      @include breakpoint(medium) {
         background: $white;
         border: $light-gray solid 1px;
         left: 0;
@@ -56,6 +56,10 @@
         width: auto;
         z-index: 100;
       }
+    }
+
+    &--expand {
+      flex: 2;
     }
 
     &--right {
@@ -96,6 +100,16 @@
       background-position: calc(100% - 1rem);
       background-repeat: no-repeat;
       padding-right: 2rem;
+      transition: box-shadow background-color linear 0.5s;
+
+      &:hover {
+        box-shadow: 0 0 16px 0 rgba($white, 0.5);
+      }
+
+      &:focus {
+        background-color: $white;
+        box-shadow: none;
+      }
     }
   }
 
@@ -113,7 +127,7 @@
       width: 100%;
 
       @include breakpoint(medium) {
-        padding: 1rem;
+        padding: 1rem 1.6rem;
       }
     }
   }
