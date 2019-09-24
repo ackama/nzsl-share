@@ -312,7 +312,7 @@ DEPENDENCIES
   lighthouse-matchers
   listen (>= 3.0.5)
   mock_redis
-  nokogiri (~> 1.10.4)
+  nokogiri (~> 1.10)
   overcommit (>= 0.37.0)
   pg (>= 0.18)
   pry-rails
