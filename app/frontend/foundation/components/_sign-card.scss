@@ -1,0 +1,5 @@
+.sign-card {
+  @extend .card;
+  height: rem-calc(334);
+  width: rem-calc(258);
+}
