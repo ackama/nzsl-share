@@ -1,12 +1,16 @@
-freelex:
-  protocol: http://
-  domain: freelex.nzsl.vuw.ac.nz
-  path: /dnzsl/freelex/publicsearch
+default: &default
+  url: http://freelex.nzsl.vuw.ac.nz
+  path: /dnzsl/freelex/publicsearch?xmldump=1
+  obscene_path: /dnzsl/freelex/publicsearch?usage=3
+  xml: /tmp/freelex.xml
+  obscene_xml: /tmp/freelex_obscene.xml
   timeout: 120
-  query_string: ?xmldump=1
-  obscene_query_string: ?usage=3
-  file:
-    name: freelex
-    obscene_name: freelex_obscene
-    ext: xml
-    to_disk: /tmp/
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

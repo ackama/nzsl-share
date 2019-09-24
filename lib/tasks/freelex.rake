@@ -14,7 +14,7 @@ namespace :freelex do
   end
 
   desc "Parse the xml and insert into freelex table"
-  task create: :environment do
+  task seed: :environment do
     config_setup
     doc = Nokogiri::XML(File.read(@config[:xml]))
     data = doc.xpath("//entry").inject([]) do |arr, att|
@@ -65,6 +65,6 @@ namespace :freelex do
   end
 
   def config_setup
-    @config = FreelexConfigService.call.data
+    @config = Rails.application.config.x.freelex
   end
 end
