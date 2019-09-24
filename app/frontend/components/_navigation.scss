@@ -117,8 +117,6 @@
     @include breakpoint(large) {
       @include flex;
       @include flex-align(left, middle);
-      width: auto !important;
-
     }
 
     a {
