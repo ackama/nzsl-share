@@ -1,0 +1,36 @@
+.search-bar {
+  @include flex;
+  flex: 1;
+  height: 100%;
+
+
+  label { flex: 1; }
+
+  &__input {
+    background: get-color(primary-x-light);
+    background-image: url("images/search.svg");
+    background-position: calc(100% - 1rem);
+    background-repeat: no-repeat;
+    margin: 0;
+    padding-right: 2rem;
+    transition: box-shadow, background-color linear 0.5s;
+
+    @include breakpoint(small) {
+      border-radius: 5000px;
+    }
+
+    @include breakpoint(medium) {
+      border-radius: $global-radius;
+      margin: 0.5rem auto !important;
+    }
+
+    &:hover {
+      box-shadow: 0 0 16px 0 rgba($white, 0.5);
+    }
+
+    &:focus {
+      background-color: $white;
+      box-shadow: none;
+    }
+  }
+}

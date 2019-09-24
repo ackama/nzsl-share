@@ -1,0 +1,9 @@
+.avatar {
+  border: solid 2px $white;
+  border-radius: 50%;
+
+  &--small {
+    height: 32px;
+    width: 32px;
+  }
+}
