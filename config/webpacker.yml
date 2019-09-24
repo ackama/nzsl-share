@@ -94,3 +94,6 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+  # Provide output for deployment precompilation
+  webpack_compile_output: true
