@@ -1,7 +1,10 @@
 <section class="navigation__wrapper" id="main-menu" data-toggler=".navigation__wrapper--open">
   <nav class="navigation">
     <ul class="navigation__list navigation__list--left">
-      <li class="navigation__title"><a href="/"><strong>NZSL</strong> <em>Share</em></a></li>
+      <li class="navigation__title"><a href="/">
+        <%= image_pack_tag "logo.svg", alt: "NZSL Share", class: "hide-for-medium-only" %>
+        <%= image_pack_tag "logo-stacked.svg", alt: "NZSL Share", class: "show-for-medium-only" %>
+      </a></li>
     </ul>
     <ul class="row align-center navigation__list navigation__list--left navigation__list--expand">
       <li class="navigation__item columns medium-10">
