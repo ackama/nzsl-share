@@ -37,17 +37,17 @@ RSpec.describe User, type: :model do
 
     context "user exists (username)" do
       let(:conditions) { { login: model.tap(&:save!).username } }
-      it { is_expected.to eq [model] }
+      it { is_expected.to eq model }
     end
 
     context "user exists (email)" do
       let(:conditions) { { login: model.tap(&:save!).email } }
-      it { is_expected.to eq [model] }
+      it { is_expected.to eq model }
     end
 
     context "user does not exist" do
       let(:conditions) { { login: Faker::Internet.username } }
-      it { is_expected.to be_empty }
+      it { is_expected.to eq nil }
     end
   end
 end
