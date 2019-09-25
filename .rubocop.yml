@@ -31,11 +31,13 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Metrics/AbcSize:
   Exclude:
     - "spec/**/*"
+    - "lib/tasks/**/*"
 
 Metrics/BlockLength:
   Exclude:
     - "config/**/*"
     - "spec/**/*"
+    - "lib/tasks/**/*"
 
 Metrics/ClassLength:
   Exclude:
