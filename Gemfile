@@ -14,6 +14,9 @@ gem "sidekiq"
 gem "turbolinks"
 gem "webpacker"
 gem "devise"
+gem "nokogiri", "~> 1.10"
+gem "faraday"
+gem "faraday_middleware"
 
 gem "rack-canonical-host"
 
