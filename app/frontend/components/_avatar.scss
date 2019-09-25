@@ -2,6 +2,12 @@
   border: solid 2px $white;
   border-radius: 50%;
 
+
+  // Required to avoid avatar elements inside menus getting scaled by
+  // .menu li > img
+  // sass-lint:disable-next-line no-important
+  transform: none !important;
+
   &--small {
     height: 32px;
     width: 32px;
