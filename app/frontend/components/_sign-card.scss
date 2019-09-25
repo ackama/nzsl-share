@@ -1,0 +1,81 @@
+.sign-card {
+  @extend .card;
+  height: rem-calc(334);
+  position: relative;
+  width: rem-calc(258);
+
+  & .avatar {
+    position: absolute;
+    right: 16px;
+    top: 132px;
+  }
+
+  &__folder {
+    background: $white;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+    height: 40px;
+    position: relative;
+    width: 40px;
+
+    &:hover {
+      background: rgba(4, 23, 35, 0.1);
+    }
+
+    &--icon {
+      left: 10px;
+      position: absolute;
+      top: 10px;
+    }
+  }
+
+  &__section {
+    @extend .card-section;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__title {
+    color: get-color(royal);
+    font-weight: bold;
+    margin: 8px 0;
+    text-decoration: underline;
+  }
+
+  &__subtitle {
+    color: get-color(medium);
+    display: flex;
+    flex-direction: row;
+    font-size: rem-calc(13);
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__votes {
+    color: get-color(medium);
+    display: flex;
+    flex-direction: row;
+    font-size: rem-calc(13);
+    font-weight: 600;
+
+    &--agree {
+      display: flex;
+      margin-right: 25px;
+    }
+
+    &--disagree {
+      display: flex;
+    }
+
+    &--icon {
+      height: rem-calc(16);
+      margin-right: 8px;
+      width: rem-calc(16);
+    }
+  }
+}
