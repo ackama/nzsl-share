@@ -11,10 +11,8 @@
         <%= render "application/header/search" %>
       </li>
     </ul>
-    <ul class="menu navigation__list small-vertical">
-      <li class="navigation__item">
-        <a href="#">Sign In</a>
-      </li>
+    <ul class="menu navigation__list small-vertical medium-horizontal">
+      <%= render "application/header/#{user_signed_in? ? "signed_in" : "signed_out"}_navigation" %>
     </ul>
   </nav>
 

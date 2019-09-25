@@ -1,0 +1,9 @@
+<li class="navigation__item">
+  <a href="#">
+    <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
+    <%= current_user.username %>
+  </a>
+</li>
+<li class="navigation__item">
+  <%= link_to "Sign out", user_session_path, method: :delete %>
+</li>
