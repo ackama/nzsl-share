@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resource :styleguide, only: :show
 
   require "sidekiq/web"
