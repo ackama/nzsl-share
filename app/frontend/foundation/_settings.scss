@@ -89,7 +89,8 @@ $foundation-palette: (
   warning: #ffae00,
   alert: #ba2f2f,
   light: $light-gray,
-  extra-light: $extra-light-gray
+  extra-light: $extra-light-gray,
+  medium: $medium-gray
 );
 
 $body-background: $extra-light-gray;
@@ -369,7 +370,7 @@ $callout-link-tint: 30%;
 $card-background: $white;
 $card-font-color: $body-font-color;
 $card-divider-background: $light-gray;
-$card-border: none;
+$card-border: 1px solid $light-gray;
 $card-shadow: 0 2px 27px 0 rgba(0, 0, 0, 0.05);
 $card-border-radius: $global-radius * 2;
 $card-padding: $global-padding;
