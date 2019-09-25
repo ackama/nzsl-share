@@ -15,8 +15,7 @@ namespace :freelex do
 
   desc "Parse the xml and insert into freelex table"
   task seed: :environment do
-    config_setup
-    doc = Nokogiri::XML(File.read(@config[:xml]))
+    doc = Nokogiri::XML(File.read(FREELEX_CONFIG[:xml]))
     data = doc.xpath("//entry").inject([]) do |arr, att|
       arr << fetch_freelex_values(att)
     end
@@ -44,9 +43,8 @@ namespace :freelex do
   end
 
   def fetch_xml_and_save(path, file)
-    config_setup
-    doc = Nokogiri::XML(http_connection.get(@config[path]).body)
-    File.open(@config[file], "w") { |f| doc.write_xml_to f }
+    doc = Nokogiri::XML(http_connection.get(FREELEX_CONFIG[path]).body)
+    File.open(FREELEX_CONFIG[file], "w") { |f| doc.write_xml_to f }
   end
 
   def fetch_date_time
@@ -58,13 +56,9 @@ namespace :freelex do
   end
 
   def http_connection
-    Faraday.new(url: @config[:url]) do |faraday|
-      faraday.options.timeout = @config[:timeout].to_i
+    Faraday.new(url: FREELEX_CONFIG[:url]) do |faraday|
+      faraday.options.timeout = FREELEX_CONFIG[:timeout].to_i
       faraday.adapter Faraday.default_adapter
     end
-  end
-
-  def config_setup
-    @config = Rails.application.config.x.freelex
   end
 end

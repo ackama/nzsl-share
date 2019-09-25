@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
-  config.x.freelex = config_for(:freelex)
+  FREELEX_CONFIG = config_for(:freelex)
 end
