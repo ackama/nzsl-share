@@ -31,7 +31,6 @@
   }
 
   &__list {
-    @extend .accordion-menu;
     @include menu-base;
     @include menu-direction(vertical);
 
