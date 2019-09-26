@@ -68,7 +68,7 @@ $fa-font-path: "~font-awesome/fonts";
 // ---------
 
 $global-font-size: 15px;
-$global-width: rem-calc(1200);
+$global-width: rem-calc(1080);
 $global-lineheight: 1.6;
 $extra-light-gray: #f2f5f7;
 $light-gray: #dee5ea;
@@ -136,8 +136,9 @@ $breakpoint-classes: (small medium large);
 $grid-row-width: $global-width;
 $grid-column-count: 12;
 $grid-column-gutter: (
-  small: 20px,
-  medium: 30px
+  small: 16px,
+  medium: 30px,
+  large: 42px
 );
 $grid-column-align-edge: true;
 $grid-column-alias: "columns";
@@ -867,8 +868,9 @@ $xy-grid: true;
 $grid-container: $global-width;
 $grid-columns: 12;
 $grid-margin-gutters: (
-  small: 20px,
-  medium: 30px
+  small: 12px,
+  medium: 34px,
+  large: 38px
 );
 $grid-padding-gutters: $grid-margin-gutters;
 $grid-container-padding: $grid-padding-gutters;
