@@ -9,6 +9,10 @@
   & > .fa {
     padding-right: 0.85rem;
   }
+
+  &.primary-light {
+    color: $button-color-alt;
+  }
 }
 
 .button-group {
