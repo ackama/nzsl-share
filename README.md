@@ -7,6 +7,7 @@ This is a Rails 6 app.
 This README describes the purpose of this repository and how to set up a development environment. Other sources of documentation are as follows:
 
 * UI and API designs are in `doc/`
+* The authorisation policy for this app can also be found in `doc/` - this details the types of users and the permissions they have.
 
 ## Prerequisites
 

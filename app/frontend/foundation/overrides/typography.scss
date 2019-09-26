@@ -26,3 +26,11 @@ h6 {
 a {
   font-weight: bold;
 }
+
+.bullet {
+  color: get-color(medium);
+  font-family: "Lucida Grande";
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0 rem-calc(8);
+}
