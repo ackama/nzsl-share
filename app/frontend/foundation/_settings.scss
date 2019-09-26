@@ -386,14 +386,14 @@ $drilldown-arrow-size: 6px;
 // ------------
 
 $dropdown-padding: 1rem;
-$dropdown-background: $body-background;
-$dropdown-border: 1px solid $dark-gray;
+$dropdown-background: $white;
+$dropdown-border: 1px solid $light-gray;
 $dropdown-font-size: 1rem;
-$dropdown-width: 300px;
+$dropdown-width: 320px;
 $dropdown-radius: $global-radius;
 $dropdown-sizes: (
   tiny: 100px,
-  small: 200px,
+  small: 320px,
   large: 400px,
 );
 
@@ -410,8 +410,8 @@ $dropdownmenu-submenu-background: $white;
 $dropdownmenu-padding: $global-menu-padding;
 $dropdownmenu-nested-margin: 0;
 $dropdownmenu-submenu-padding: $dropdownmenu-padding;
-$dropdownmenu-border: 1px solid $dark-gray;
-$dropdown-menu-item-color-active: get-color(primary);
+$dropdownmenu-border: 1px solid $light-gray;
+$dropdown-menu-item-color-active: $white;
 $dropdown-menu-item-background-active: transparent;
 
 // 19. Flexbox Utilities
