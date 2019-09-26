@@ -1,9 +1,38 @@
-<li class="navigation__item">
-  <a href="#">
-    <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
-    <%= current_user.username %>
-  </a>
-</li>
-<li class="navigation__item">
-  <%= link_to "Sign out", user_session_path, method: :delete %>
-</li>
+<ul class="navigation__list small-vertical medium-horizontal">
+  <li class="navigation__item navigation__item--account">
+    <a href="#account-controls" data-toggle="account-controls">
+      <span class="show-for-large"><%= current_user.username %></span>
+      <img
+        class="avatar avatar--small avatar--right"
+        src="https://picsum.photos/id/550/32/32"
+        alt="Profile Image"
+      />
+    </a>
+  </li>
+</ul>
+
+<div
+  id="account-controls"
+  class="dropdown-pane account-controls bottom"
+  data-dropdown
+  data-hover="true"
+  data-hover-pane="true"
+>
+  <div class="media-object">
+    <div class="media-object-section">
+      <%= %>
+      <img
+        class="avatar"
+        src="https://picsum.photos/id/550/64/64"
+        alt="Profile Image"
+      />
+    </div>
+    <div class="media-object-section">
+      <strong><%= current_user.username %></strong>
+      <p>
+        <%= link_to "Edit my profile ›", edit_user_registration_path %>
+      </p>
+    </div>
+  </div>
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button pull-right" %>
+</div>
