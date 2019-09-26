@@ -1,0 +1,27 @@
+.sidebar {
+  @include breakpoint(medium) {
+    border-right: solid 1px $medium-gray;
+    height: calc(100% - 72px - 65px); // Height of footer
+    margin-top: 72px; // Height of title bar
+  }
+
+  @include breakpoint(large) {
+    height: calc(100% - 68px - 65px); // Height of footer
+    margin-top: 68px;
+  }
+
+
+  // https://foundation.zurb.com/sites/docs/off-canvas.html#off-canvas-sizes:
+  // Please note the sizes maps do currently not work perfectly for the reveal classes.
+  // If sizes are defined for medium and large, .reveal-for-medium will only consider the medium value.
+  // This is going to get fixed in a future release.
+  &.position-left {
+    &.reveal-for-medium ~ .off-canvas-content {
+      padding-left: 22px;
+
+      @include breakpoint(large) {
+        margin-left: map-get($offcanvas-sizes, large);
+      }
+    }
+  }
+}
