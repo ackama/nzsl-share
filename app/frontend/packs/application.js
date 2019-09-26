@@ -9,6 +9,8 @@
 
 
 require.context('../images', true);
+import Rails from '@rails/ujs';
+Rails.start();
 import "foundation";
 import "../application.scss";
 import "../components/header";

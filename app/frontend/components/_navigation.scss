@@ -31,7 +31,6 @@
   }
 
   &__list {
-    @extend .accordion-menu;
     @include menu-base;
     @include menu-direction(vertical);
 
@@ -95,13 +94,19 @@
       @include flex-align(left, middle);
     }
 
-    a {
+    & > a,
+    & > li > a {
       color: $white;
       font-weight: bold;
+      text-decoration: none;
       width: 100%;
 
       @include breakpoint(medium) {
         padding: 1rem 1.6rem;
+      }
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
@@ -120,6 +125,7 @@
     }
   }
 }
+
 
 .submenu-toggle {
   outline: none;

@@ -208,10 +208,10 @@ $code-font-weight: $global-weight-normal;
 $code-background: $light-gray;
 $code-border: 1px solid $dark-gray;
 $code-padding: rem-calc(2 5 1);
-$anchor-color: $primary-color;
+$anchor-color: get-color(royal);
 $anchor-color-hover: scale-color($anchor-color, $lightness: -14%);
-$anchor-text-decoration: none;
-$anchor-text-decoration-hover: none;
+$anchor-text-decoration: underline;
+$anchor-text-decoration-hover: underline;
 $hr-width: $global-width;
 $hr-border: 1px solid $medium-gray;
 $hr-margin: rem-calc(20) auto;
@@ -413,15 +413,15 @@ $drilldown-arrow-size: 6px;
 // ------------
 
 $dropdown-padding: 1rem;
-$dropdown-background: $body-background;
-$dropdown-border: 1px solid $dark-gray;
+$dropdown-background: $white;
+$dropdown-border: 1px solid $light-gray;
 $dropdown-font-size: 1rem;
-$dropdown-width: 300px;
+$dropdown-width: 320px;
 $dropdown-radius: $global-radius;
 $dropdown-sizes: (
   tiny: 100px,
-  small: 200px,
-  large: 400px
+  small: 320px,
+  large: 400px,
 );
 
 // 18. Dropdown Menu
@@ -437,8 +437,8 @@ $dropdownmenu-submenu-background: $white;
 $dropdownmenu-padding: $global-menu-padding;
 $dropdownmenu-nested-margin: 0;
 $dropdownmenu-submenu-padding: $dropdownmenu-padding;
-$dropdownmenu-border: 1px solid $dark-gray;
-$dropdown-menu-item-color-active: get-color(primary);
+$dropdownmenu-border: 1px solid $light-gray;
+$dropdown-menu-item-color-active: $white;
 $dropdown-menu-item-background-active: transparent;
 
 // 19. Flexbox Utilities

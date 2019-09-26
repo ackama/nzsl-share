@@ -1,5 +1,5 @@
 .sign-card {
-  @include card-container();
+  @include card-container;
   height: rem-calc(334);
   position: relative;
   width: rem-calc(258);

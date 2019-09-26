@@ -23,6 +23,6 @@ class User < ApplicationRecord
       fail ArgumentError, "Expected Warden conditions to include :login and it did not: #{warden_conditions}"
     end
 
-    where(conditions.to_h).where("lower(username) = :value OR lower(email) = :value", value: login)
+    where(conditions.to_h).find_by("lower(username) = :value OR lower(email) = :value", value: login)
   end
 end
