@@ -35,7 +35,7 @@
 
 // Containers
 @include foundation-accordion;
-// @include foundation-media-object;
+@include foundation-media-object;
 // @include foundation-orbit;
 // @include foundation-responsive-embed;
 // @include foundation-tabs;
@@ -64,6 +64,7 @@
 @import "overrides/buttons";
 @import "overrides/callouts";
 @import "overrides/containers";
+@import "overrides/dropdown";
 @import "overrides/forms";
 @import "overrides/icons";
 @import "overrides/menus";

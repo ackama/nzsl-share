@@ -1,0 +1,16 @@
+.account-controls {
+  // Dropdown pane needs to be pushed to one side to align itself with the
+  // dropdown trigger.
+  // .is-open must be targeted so that the positioning is not recalculated
+  // by Foundation JS.
+  &.is-open {
+    margin-left: -1.6rem;
+    margin-top: 0.7rem;
+  }
+
+  .media-object-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
