@@ -95,15 +95,35 @@
       </a></li>
     </ul>
 
-    <div class="card">
-      <div class="card-section">
-        <img src="http://placehold.it/640x480" alt="Placeholder image" />
-      </div>
-      <div class="card-section">
-        <h4>This is a card.</h4>
-        <p>
-          It has an easy to override visual style, and is appropriately subdued.
-        </p>
+    <div class="responsive-embed">
+      <div class="sign-card">
+        <iframe aria-label="Sign card video" src="https://player.vimeo.com/video/155731367?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay"></iframe>
+        <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
+        <div class="sign-card__section">
+          <div>
+            <div class="sign-card__title">Sign title ›</div>
+            <div class="sign-card__subtitle">
+              <p>Username</p>
+              <div class="bullet">•</div>
+              <p>Date</p>
+            </div>
+          </div>
+          <div class="sign-card__bottom grid-x align-middle">
+            <div class="sign-card__votes">
+              <div class="sign-card__votes--agree grid-x align-middle">
+                <%= image_pack_tag "agree.svg", alt: "Agree", class: "sign-card__votes--icon" %>
+                <div>2.1k</div>
+              </div>
+              <div class="sign-card__votes--disagree grid-x align-middle">
+              <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
+              <div>33</div>
+              </div>
+            </div>
+            <div class="sign-card__folder">
+              <%= image_pack_tag "folder-add.svg", alt: "Agree", class: "sign-card__folder--icon" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
