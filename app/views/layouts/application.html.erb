@@ -32,11 +32,9 @@
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
   </head>
   <body class="no-js">
-
     <%= render "application/header" %>
     <%= render("application/messages") %>
-    <%= content_tag(:main, yield, class: "grid-container") %>
+    <%= content_for?(:content) ? yield(:content) : content_tag(:main, yield, class: "grid-container") %>
     <%= render "application/footer" %>
-
   </body>
 </html>
