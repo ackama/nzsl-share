@@ -1,0 +1,15 @@
+<div class="grid-x folders">
+  <div class="folders__title-section cell grid-x align-middle">
+    <h1>My folders</h1>
+    <button class="button royal">+ New folder</button>
+  </div>
+  <hr/>
+  <div class="folders__list-section cell grid-x">
+    <% @folders.each do |folder| %>
+      <div class="folder cell grid-x align-middle">
+        <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
+        <div class="folder__title"><%= folder.title %> ›</div>
+      </div>
+    <% end %>
+  </div>
+</div>
