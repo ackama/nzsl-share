@@ -32,48 +32,54 @@ class SearchService < ApplicationService
       AS
       (
         SELECT
-          results.*
-          FROM
-          (
-            SELECT
-              signs.id,
-              1,
-              RANK() OVER (ORDER BY signs.english)
-              FROM signs
-              WHERE signs.english  ~* ?
-            UNION ALL
-            SELECT
-              signs.id,
-              2,
-              RANK() OVER (ORDER BY signs.english)
-              FROM signs
-              WHERE signs.english ~* ?
-            UNION ALL
-            SELECT
-              signs.id,
-              3,
-              RANK() OVER (ORDER BY signs.secondary)
-              FROM signs
-              WHERE signs.secondary ~* ?
-      	    UNION ALL
-            SELECT
-              signs.id,
-              4,
-              RANK() OVER (ORDER BY signs.secondary)
-              FROM signs
-              WHERE signs.secondary ~* ?
-          ) AS results
+          signs.id,
+          1,
+          RANK() OVER (ORDER BY signs.english)
+          FROM signs
+          WHERE signs.english  ~* ?
+        UNION ALL
+        SELECT
+          signs.id,
+          2,
+          RANK() OVER (ORDER BY signs.english)
+          FROM signs
+          WHERE signs.english ~* ?
+        UNION ALL
+        SELECT
+          signs.id,
+          3,
+          RANK() OVER (ORDER BY signs.secondary)
+          FROM signs
+          WHERE signs.secondary ~* ?
+        UNION ALL
+        SELECT
+          signs.id,
+          4,
+          RANK() OVER (ORDER BY signs.secondary)
+          FROM signs
+          WHERE signs.secondary ~* ?
       )
       SELECT
         signs.id,
         signs.english,
         signs.maori,
-        signs.secondary
+        signs.secondary,
+        signs.published_at,
+        TO_CHAR(signs.published_at:: DATE, 'Mon dd yyyy') AS nice_published_at
         FROM signs
         JOIN sign_search
           ON signs.id = sign_search.sign_id
-        ORDER BY signs.english
-		    -- ORDER BY sign_search.query_rank, sign_search.word_rank -- uncomment when we are ready to search by relevance
+        ORDER BY #{order_by}
     SQL
+  end
+
+  def order_by
+    order = if search.published
+              "signs.published_at #{search.published}"
+            else
+              "signs.english"
+            end
+
+    ApplicationRecord.send(:sanitize_sql_for_order, order)
   end
 end
