@@ -3,17 +3,17 @@ class FoldersController < ApplicationController
 
   def index
     folders
-  end
-
-  def new
     @folder = Folder.new
   end
 
   def create
-    if @folder.save
-      redirect_to folders_path, notice: "Folder was successfully created."
-    else
-      render :new
+    @folder = Folder.new(folders_params)
+    respond_to do |format|
+      if @folder.save
+        format.js { flash[:notice] = "Folder successfully created." }
+      else
+        format.js { render :new }
+      end
     end
   end
 
@@ -21,5 +21,9 @@ class FoldersController < ApplicationController
 
   def folders
     @folders = current_user.folders
+  end
+
+  def folders_params
+    params.require(:folder).permit(:title, :description, :user_id)
   end
 end

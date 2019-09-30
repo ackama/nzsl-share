@@ -1,0 +1,25 @@
+<h3>Create a folder</h3>
+<%= form_with(model: folder) do |f| %>
+  <% if folder.errors.any? %>
+      <p><strong><%= pluralize(folder.errors.count, "error") %> prohibited this article from being saved:</strong></p>
+      <ul>
+      <% folder.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+  <% end %>
+  <fieldset>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 3 %>
+  </fieldset>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit class: "button", id: "new_article" %>
+<% end %>
+<button class="close-button" data-close aria-label="Close reveal" type="button">
+  <span aria-hidden="true">&times;</span>
+</button>
