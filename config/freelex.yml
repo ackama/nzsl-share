@@ -1,0 +1,16 @@
+default: &default
+  url: http://freelex.nzsl.vuw.ac.nz
+  path: /dnzsl/freelex/publicsearch?xmldump=1
+  obscene_path: /dnzsl/freelex/publicsearch?usage=3
+  xml: /tmp/freelex.xml
+  obscene_xml: /tmp/freelex_obscene.xml
+  timeout: 120
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
