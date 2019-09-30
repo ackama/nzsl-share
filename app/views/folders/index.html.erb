@@ -1,7 +1,7 @@
 <div class="grid-x folders">
   <div class="folders__title-section cell grid-x align-middle">
     <h1>My folders</h1>
-    <button class="button royal">+ New folder</button>
+    <button class="button royal" data-open="new-folder">+ New folder</button>
   </div>
   <hr/>
   <div class="folders__list-section cell grid-x">
@@ -12,4 +12,7 @@
       </div>
     <% end %>
   </div>
+</div>
+<div class="reveal" id="new-folder" data-reveal>
+  <%= render 'form', folder: @folder%>
 </div>
