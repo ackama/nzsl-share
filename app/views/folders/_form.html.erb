@@ -1,16 +1,13 @@
 <h3>Create a folder</h3>
 <%= form_with(model: folder) do |f| %>
-  <% if folder.errors.any? %>
-      <p><strong><%= pluralize(folder.errors.count, "error") %> prohibited this article from being saved:</strong></p>
-      <ul>
-      <% folder.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-  <% end %>
   <fieldset>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.label :title, class: "required" %>
+    <%= f.text_field :title, class: (folder.errors[:title].any? ? "error__input" : "") %>
+     <% if folder.errors[:title].any? %>
+      <% folder.errors[:title].each do |message| %>
+        <div class="error__helper-text"><%= message %></div>
+      <% end %>
+    <% end %>
   </fieldset>
 
   <fieldset>

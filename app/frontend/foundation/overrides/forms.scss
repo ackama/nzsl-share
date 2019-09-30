@@ -5,3 +5,10 @@
     top: -1 * $global-margin;
   }
 }
+
+.required {
+  &::after {
+    content: "*";
+    margin-left: 0.25em;
+  }
+}
