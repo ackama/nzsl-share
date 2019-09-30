@@ -15,7 +15,7 @@
     <%= f.text_area :description, rows: 3 %>
   </fieldset>
   <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.submit class: "button", id: "new_article" %>
+  <%= f.submit class: "button" %>
 <% end %>
 <button class="close-button" data-close aria-label="Close reveal" type="button">
   <span aria-hidden="true">&times;</span>
