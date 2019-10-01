@@ -339,11 +339,11 @@ $buttongroup-radius-on-each: true;
 $callout-background: $white;
 $callout-background-fade: 0%;
 $callout-border: none;
-$callout-margin: 0 0 1rem 0;
+$callout-margin: 1rem;
 $callout-padding: 1rem;
 $callout-font-color: $body-font-color;
 $callout-font-color-alt: $white;
-$callout-radius: false;
+$callout-radius: $global-radius;
 $callout-link-tint: 30%;
 
 // 14. Card

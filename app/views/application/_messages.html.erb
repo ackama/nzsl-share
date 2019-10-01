@@ -1,9 +1,9 @@
-<%# Notice %>
-<% if flash[:notice].present? %>
-  <div class="notice notice__success"><%= flash[:notice] %></div>
-<% end %>
+  <%# Notice %>
+  <% if flash[:notice].present? %>
+    <div class="callout success"><%= flash[:notice] %></div>
+  <% end %>
 
-<%# Alert %>
-<% if flash[:alert].present? %>
-  <div class="notice notice__alert"><%= flash[:alert] %></div>
-<% end %>
+  <%# Alert %>
+  <% if flash[:alert].present? %>
+    <div class="callout alert"><%= flash[:alert] %></div>
+  <% end %>
