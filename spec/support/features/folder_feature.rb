@@ -29,7 +29,7 @@ class FolderFeature
     return if current_path != "/users/sign_in"
 
     within "form#new_user" do
-      fill_in "Login", with: user.email
+      fill_in "Username/Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Log in"
     end
