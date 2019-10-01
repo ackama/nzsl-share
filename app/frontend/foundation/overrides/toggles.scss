@@ -53,6 +53,10 @@
     }
   }
 
+  input:focus + label::before {
+    background: url("images/checkbox-hover.svg");
+  }
+
   input:checked + label::before {
     background: url("images/checkbox-checked.svg");
   }
@@ -67,6 +71,10 @@
     &:hover::before {
       background: url("images/radio-hover.svg");
     }
+  }
+
+  input:focus + label::before {
+    background: url("images/radio-hover.svg");
   }
 
   input:checked + label::before {
