@@ -116,13 +116,18 @@
     </fieldset>
 
 
-    <button class="button primary">Primary Button</button>
-    <button class="button royal">Royal Button</button>
-    <button class="button primary-light rounded">Light Rounded Button</button>
+    <button class="button primary">Primary Button</button><br />
+    <button class="button primary"><%= image_pack_tag("bell.svg", alt: "Yes", "aria-hidden": "true") %>Primary Button</button><br>
+    <button class="button primary icon-only"><%= image_pack_tag("bell.svg", alt: "Yes") %></button><br>
 
-    <button class="button secondary">Secondary button</button>
-    <button class="button hollow">Hollow button</button>
-    <button class="button clear">Clear button</button>
+    <button class="button secondary">Secondary Button</button><br />
+    <button class="button secondary"><%= image_pack_tag("agree.svg", alt: "Yes", "aria-hidden": "true") %>Secondary Button</button><br>
+    <button class="button secondary icon-only"><%= image_pack_tag("agree.svg", alt: "Yes") %></button><br>
+
+    <button class="button clear">Frameless Button</button><br />
+    <button class="button clear"><%= image_pack_tag("agree.svg", alt: "Yes", "aria-hidden": "true") %>Yes</button><br>
+    <button class="button clear icon-only"><%= image_pack_tag("agree.svg", alt: "Yes") %></button><br>
+
   </div>
 
   <div class="cell small-12 large-4">

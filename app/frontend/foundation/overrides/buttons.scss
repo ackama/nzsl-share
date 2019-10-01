@@ -1,18 +1,67 @@
-.button {
+// important! is allowed here because active states must overrride
+// hover states
+.button { //sass-lint:disable-block no-important
+  align-items: center;
+  display: inline-flex;
   font-weight: bold;
-  min-width: 80px;
   text-decoration: none;
 
   .button-group--spaced & {
     margin: 0 5%;
   }
 
-  & > .fa {
+  & > img {
     padding-right: 0.85rem;
   }
 
-  &.primary-light {
-    color: $button-color-alt;
+  &.icon-only > img {
+    padding-right: 0;
+  }
+
+  &:active {
+    box-shadow: none !important;
+    outline: none;
+    transform: translateY(2px);
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  &.primary {
+    &:active {
+      background: get-color(primary) !important;
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 4px 16px 0 rgba(get-color(royal), 0.6);
+    }
+  }
+
+  &.secondary {
+    &:active {
+      background: get-color(primary) !important;
+      color: $button-color;
+    }
+
+    &:hover,
+    &:focus {
+      background: $button-color-alt;
+      color: $button-color;
+    }
+  }
+
+  &.clear {
+    &:active {
+      background: rgba($black, 0.1) !important;
+    }
+
+    &:hover,
+    &:focus {
+      background: get-color(royal-x-light);
+    }
   }
 }
 
