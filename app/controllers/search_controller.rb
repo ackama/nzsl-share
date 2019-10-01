@@ -2,7 +2,7 @@
 
 class SearchController < ApplicationController
   def index
-    @results = SearchService.call(search: new_search).data
+    @results = SearchService.call(search: new_search)
   end
 
   private
@@ -12,6 +12,6 @@ class SearchController < ApplicationController
   end
 
   def search_params
-    params.permit(:word, :published)
+    params.permit(:word, :published, :page)
   end
 end
