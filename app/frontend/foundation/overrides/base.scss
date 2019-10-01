@@ -7,3 +7,7 @@
 .show { //sass-lint:disable-block no-important
   display: block !important;
 }
+
+legend {
+  @extend label;
+}
