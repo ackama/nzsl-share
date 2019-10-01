@@ -4,6 +4,8 @@ RSpec.describe "Folders", type: :system, uses_javascript: true do
   let(:process) { FolderFeature.new }
   before { process.start }
 
+  it_behaves_like "an accessible page"
+
   describe "Creating a new folder" do
     it "can add a new folder successfully" do
       title = "My Folder"
