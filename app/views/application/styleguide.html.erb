@@ -62,8 +62,29 @@
       molestie tur.
     </p>
 
-    <label for="example-input">This is a field label</label>
+    <label for="example-input">This is a field label*</label>
+    <p class="help-text">Only use alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores</p>
     <input type="text" id="example-input" placeholder="This is an example field" />
+
+    <label for="error-input">Invalid</label>
+    <input type="text" class="invalid" id="error-input" placeholder="This is an example field" />
+    <p class="form-error show">Inline error message</p>
+
+    <div class="callout">
+      Use the <code>show</code> class on backend error messages to
+      ensure they are shown.
+    </div>
+
+
+
+    <label for="icon-input">Icon Input</label>
+    <div class="input-group">
+      <span class="input-group-label"><%= image_pack_tag "bell.svg" %></span>
+      <input type="text" id="icon-input" placeholder="This is an example field" />
+      <span class="input-group-label"><%= image_pack_tag "agree.svg" %></span>
+
+    </div>
+    <p class="help-text text-right">12/30 character limit</p>
 
     <label for="example-select">This is a select label</label>
     <select  id="example-select" placeholder="This is an example select"><option>A value</option></select>
