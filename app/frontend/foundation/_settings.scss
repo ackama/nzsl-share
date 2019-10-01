@@ -73,7 +73,7 @@ $global-lineheight: 1.6;
 $extra-light-gray: #f2f5f7;
 $light-gray: #dee5ea;
 $lighter-gray: #b1b7bc;
-$medium-gray: #5d7389;
+$medium-gray: #6a7077;
 $dark-gray: $medium-gray;
 $black: #041723;
 $white: #fff;
@@ -82,13 +82,14 @@ $foundation-palette: (
   primary: #18435f,
   primary-light: #d6e2ee,
   primary-x-light: #eff4f8,
+  alert-x-light: #ffe9e8,
   accent: #ff571f,
   accent-x-light: #ffe8e0,
   royal: #354ae7,
   royal-x-light: #f1f2fb,
   success: #3adb76,
   warning: #ffae00,
-  alert: #ba2f2f,
+  alert: #cc1a19,
   light: $light-gray,
   extra-light: $extra-light-gray,
   medium: $medium-gray
