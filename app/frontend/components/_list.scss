@@ -1,9 +1,10 @@
-.folders {
+.list {
   background: $white;
   border-radius: rem-calc(8);
+  margin-top: $global-margin;
   padding: 0 $global-padding;
 
-  &__title-section {
+  &__title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -14,7 +15,7 @@
     }
   }
 
-  &__list-section {
+  &__items {
     padding: $global-padding 0;
   }
 
@@ -26,19 +27,5 @@
     height: 1px;
     margin: 0;
     width: 100%;
-  }
-}
-
-.folder {
-  border-radius: 11px;
-  padding: rem-calc(20) 0;
-
-  &__title {
-    font-weight: bold;
-  }
-
-  &__icon {
-    margin-left: rem-calc(24);
-    margin-right: rem-calc(12);
   }
 }

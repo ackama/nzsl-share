@@ -1,12 +1,12 @@
 <div class="grid-container">
   <div class="grid-x grid-margin-x align-center">
-    <div class="grid-x cell folders">
-    <div class="folders__title-section cell grid-x align-middle">
+    <div class="grid-x cell list">
+    <div class="list__title cell grid-x align-middle">
       <h1>My folders</h1>
       <button class="button royal" data-open="new-folder">+ New folder</button>
     </div>
     <hr/>
-    <div class="folders__list-section cell grid-x">
+    <div class="list__items cell grid-x">
       <% @folders.each do |folder| %>
         <div class="folder cell grid-x align-middle">
           <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
