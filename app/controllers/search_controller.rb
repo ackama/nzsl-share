@@ -12,6 +12,6 @@ class SearchController < ApplicationController
   end
 
   def search_params
-    params.permit(:word, :published, :page)
+    params.permit(:word, :page, order: %i[default published])
   end
 end

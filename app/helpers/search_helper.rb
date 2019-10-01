@@ -4,7 +4,7 @@ module SearchHelper
   end
 
   def search_results?(results)
-    results.data.count > 1
+    results.data.any?
   end
 
   def search_count(results)
@@ -26,11 +26,21 @@ module SearchHelper
     }
   end
 
-  def published_params(support)
+  def published_asc_params(support)
+    published_params(support, "ASC")
+  end
+
+  def published_desc_params(support)
+    published_params(support, "DESC")
+  end
+
+  private
+
+  def published_params(support, direction)
     {
-      page: support[:this_page],
+      page: support[:current_page],
       word: support[:word],
-      published: support[:next_pub]
+      order: { published: direction }
     }
   end
 end

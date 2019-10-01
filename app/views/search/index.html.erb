@@ -15,5 +15,6 @@
   <% unless show_more?(@results) %>
     <%= render(partial: 'show_more', locals: { support: @results.support }) %>
   <% end %>
-  <%= render(partial: 'show_published', locals: { support: @results.support }) %>
+  <%= render(partial: 'published_asc', locals: { support: @results.support }) %>
+  <%= render(partial: 'published_desc', locals: { support: @results.support }) %>
 <% end %>

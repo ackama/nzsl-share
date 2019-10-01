@@ -3,37 +3,42 @@
 class Search
   include ActiveModel::Model
 
-  DIRECTION = /\A(0|1)\Z/.freeze
+  DIRECTION = /\A(asc|desc)\Z/i.freeze
   PAGE = /\A[0-9]{1,2}\Z/.freeze
-  LIMIT = 16
+  DEFAULT_LIMIT = 16
+  DEFAULT_ORDER = { default: "ASC" }.freeze
+  ALLOWED_ORDER_KEYS = %w[default published].freeze
 
-  attr_reader :word, :published
+  attr_reader :word, :order
 
   def word=(value)
-    @word = value.to_s.strip[0, 50] # word limit 50 chars
+    @word = value.to_s.strip[0, 50] # is 50 to much?
   end
 
-  def published=(value)
-    return if value.to_s.match(DIRECTION).blank?
+  def order=(value)
+    unless check_value?(value)
+      @order = DEFAULT_ORDER
+      return
+    end
 
-    direction = if value.to_s == "0"
-                  "ASC"
-                else
-                  "DESC"
-                end
+    hsh = if match_direction(value).blank?
+            DEFAULT_ORDER
+          else
+            { fetch_key(value).to_s => match_direction(value).to_s }
+          end
 
-    @published = direction
+    @order = hsh
   end
 
   def page
-    @page || build_page(LIMIT)
+    @page || build_page(DEFAULT_LIMIT)
   end
 
   def page=(value)
-    limit = if value.to_s.match(PAGE).blank?
-              LIMIT
+    limit = if match_page(value).blank?
+              DEFAULT_LIMIT
             else
-              LIMIT * value.to_i
+              DEFAULT_LIMIT * value.to_i
             end
 
     @page = build_page(limit)
@@ -41,22 +46,29 @@ class Search
 
   private
 
-  def build_page(limit)
-    page = (limit.to_f / LIMIT).ceil
-    {
-      this_page: page,
-      next_page: page + 1,
-      limit: limit,
-      word: word,
-      next_pub: fetch_published
-    }
+  def check_value?(value)
+    value.is_a?(Hash) && ALLOWED_ORDER_KEYS.include?(fetch_key(value))
   end
 
-  def fetch_published
-    return "0" if published.nil?
+  def match_direction(value)
+    value.values.first.to_s.match(DIRECTION)
+  end
 
-    return "1" if published.downcase == "asc"
+  def match_page(value)
+    value.to_s.match(PAGE)
+  end
 
-    "0"
+  def fetch_key(value)
+    value.keys.first.to_s
+  end
+
+  def build_page(limit)
+    page = (limit.to_f / DEFAULT_LIMIT).ceil
+    {
+      current_page: page,
+      next_page: page + 1,
+      limit: limit,
+      word: word
+    }
   end
 end
