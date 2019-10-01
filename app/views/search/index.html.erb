@@ -1,10 +1,13 @@
-<h4><%= " #{@results.count} search result(s) returned" %></h4>
-<% @results.each_with_index do |result, idx| %>
-  <br>
-  <h4><%= idx+1 %></h4>
-  <%= "Id: #{result["id"]}" %><br>
-  <%= "English: #{result["english"]}" %><br>
-  <%= "Maori: #{result["maori"]}" %><br>
-  <%= "Secondary: #{result["secondary"]}" %><br>
-  <%= "Published: #{result["nice_published_at"]}" %><br>
-<% end %>
+<h4>
+  <%= " #{@results.data.count} Result(s) for '#{@results.support[:word]}'" %>
+</h4>
+<div class="grid-x grid-margin-x">
+  <% @results.data.each do |result| %>
+    <div class="cell small-3">
+      <%= render(partial: 'results', locals: { result: result }) %>
+    </div>
+  <% end %>
+</div>
+
+<%= render(partial: 'show_more', locals: { support: @results.support }) %>
+<%= render(partial: 'show_published', locals: { support: @results.support }) %>
