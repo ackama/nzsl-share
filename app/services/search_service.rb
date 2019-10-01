@@ -10,6 +10,7 @@ class SearchService < ApplicationService
 
   def process
     results.data = build_results
+    results.support = search.page
     results
   end
 
@@ -59,17 +60,19 @@ class SearchService < ApplicationService
           FROM signs
           WHERE signs.secondary ~* ?
       )
-      SELECT
-        signs.id,
+      SELECT                          -- will have some problems with dupes
         signs.english,
-        signs.maori,
         signs.secondary,
-        signs.published_at,
+        signs.maori,
+        'nzsl dev user' AS user_name, -- temp user
+        '256' AS agree,               -- temp agree int will come from signs
+        '512' AS disagree,            -- temp disagree int will come from signs
         TO_CHAR(signs.published_at:: DATE, 'Mon dd yyyy') AS nice_published_at
         FROM signs
         JOIN sign_search
           ON signs.id = sign_search.sign_id
         ORDER BY #{order_by}
+        LIMIT #{limit}
     SQL
   end
 
@@ -81,5 +84,9 @@ class SearchService < ApplicationService
             end
 
     ApplicationRecord.send(:sanitize_sql_for_order, order)
+  end
+
+  def limit
+    search.page[:limit] # need to sanitize
   end
 end
