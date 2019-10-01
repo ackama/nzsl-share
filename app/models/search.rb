@@ -10,7 +10,7 @@ class Search
   attr_reader :word, :published
 
   def word=(value)
-    @word = value.to_s[0, 50] # word limit 50 chars
+    @word = value.to_s.strip[0, 50] # word limit 50 chars
   end
 
   def published=(value)
