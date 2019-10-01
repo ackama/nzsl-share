@@ -48,7 +48,7 @@
       background: url("images/checkbox.svg");
     }
 
-    &:hover {
+    &:hover::before {
       background: url("images/checkbox-hover.svg");
     }
   }
@@ -64,7 +64,7 @@
       background: url("images/radio.svg");
     }
 
-    &:hover {
+    &:hover::before {
       background: url("images/radio-hover.svg");
     }
   }
