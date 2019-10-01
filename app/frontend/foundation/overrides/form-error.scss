@@ -1,0 +1,14 @@
+input,
+select,
+textarea {
+  &:invalid,
+  &.invalid {
+    border: solid 2px get-color(alert);
+  }
+}
+
+.form-error {
+  background: get-color(alert-x-light);
+  padding: 0.25rem;
+  text-align: right;
+}
