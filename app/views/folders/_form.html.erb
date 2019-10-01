@@ -1,13 +1,9 @@
 <h3>Create a folder</h3>
-<%= form_with(model: folder) do |f| %>
+<%= form_with(model: folder, html: {"data-abide" => '', "novalidate" => ""}) do |f| %>
   <fieldset>
     <%= f.label :title, class: "required" %>
-    <%= f.text_field :title, class: (folder.errors[:title].any? ? "error__input" : "") %>
-     <% if folder.errors[:title].any? %>
-      <% folder.errors[:title].each do |message| %>
-        <div class="error__helper-text"><%= message %></div>
-      <% end %>
-    <% end %>
+    <%= f.text_field :title, class: (folder.errors[:title].any? ? "error__input" : ""), required: true %>
+      <span class="form-error">Please enter a title.</span>
   </fieldset>
 
   <fieldset>
