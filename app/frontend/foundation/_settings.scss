@@ -236,9 +236,9 @@ $stat-font-size: 2.5rem;
 $abide-inputs: true;
 $abide-labels: true;
 $input-background-invalid: get-color(alert);
-$form-label-color-invalid: get-color(alert);
+$form-label-color-invalid: $black;
 $input-error-color: get-color(alert);
-$input-error-font-size: rem-calc(12);
+$input-error-font-size: rem-calc(13);
 $input-error-font-weight: $global-weight-bold;
 
 // 7. Accordion
