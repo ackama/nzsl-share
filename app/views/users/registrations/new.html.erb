@@ -1,12 +1,8 @@
-<h2>Sign up</h2>
+<div class="cell small-12 medium-8 medium-offset-2 large-6 large-offset-3">
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <legend><h2>Sign up</h2></legend>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
   <div class="field">
     <%= f.label :username %>
@@ -14,11 +10,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+    <span class="help-text pull-right">(<%= @minimum_password_length %> characters minimum)</span>
+    <% end %><br />
   </div>
 
   <div class="field">
@@ -27,7 +28,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: "button" %>
   </div>
 <% end %>
 

@@ -68,7 +68,7 @@ $fa-font-path: "~font-awesome/fonts";
 // ---------
 
 $global-font-size: 15px;
-$global-width: rem-calc(1200);
+$global-width: rem-calc(1080);
 $global-lineheight: 1.6;
 $extra-light-gray: #f2f5f7;
 $light-gray: #dee5ea;
@@ -136,8 +136,9 @@ $breakpoint-classes: (small medium large);
 $grid-row-width: $global-width;
 $grid-column-count: 12;
 $grid-column-gutter: (
-  small: 20px,
-  medium: 30px
+  small: 16px,
+  medium: 30px,
+  large: 42px
 );
 $grid-column-align-edge: true;
 $grid-column-alias: "columns";
@@ -156,14 +157,13 @@ $header-margin-bottom: 0.5rem;
 $header-styles: (
   small: (
     "h1": (
-      "font-size": 24
+      "font-size": 28
     ),
     "h2": (
-      "font-size": 20,
-      "font-weight": 500
+      "font-size": 22,
     ),
     "h3": (
-      "font-size": 19
+      "font-size": 18
     ),
     "h4": (
       "font-size": 18
@@ -173,27 +173,6 @@ $header-styles: (
     ),
     "h6": (
       "font-size": 16
-    )
-  ),
-  medium: (
-    "h1": (
-      "font-size": 40
-    ),
-    "h2": (
-      "font-size": 36,
-      "font-weight": 500
-    ),
-    "h3": (
-      "font-size": 22
-    ),
-    "h4": (
-      "font-size": 22
-    ),
-    "h5": (
-      "font-size": 22
-    ),
-    "h6": (
-      "font-size": 18
     )
   )
 );
@@ -536,14 +515,16 @@ $meter-fill-bad: $alert-color;
 // --------------
 
 $offcanvas-sizes: (
-  small: 250px
+  small: 250px,
+  medium: 80px,
+  large: 240px
 );
 $offcanvas-vertical-sizes: (
   small: 250px
 );
-$offcanvas-background: $primary-color;
-$offcanvas-shadow: 0 0 10px rgba($black, 0.7);
-$offcanvas-inner-shadow-size: 20px;
+$offcanvas-background: $white;
+$offcanvas-shadow: none;
+$offcanvas-inner-shadow-size: 0;
 $offcanvas-inner-shadow-color: rgba($black, 0.25);
 $offcanvas-overlay-zindex: 11;
 $offcanvas-push-zindex: 12;
@@ -867,8 +848,9 @@ $xy-grid: true;
 $grid-container: $global-width;
 $grid-columns: 12;
 $grid-margin-gutters: (
-  small: 20px,
-  medium: 30px
+  small: 12px,
+  medium: 34px,
+  large: 38px
 );
 $grid-padding-gutters: $grid-margin-gutters;
 $grid-container-padding: $grid-padding-gutters;

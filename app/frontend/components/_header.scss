@@ -1,6 +1,5 @@
 .header {
   border-top: solid 2px get-color(accent);
-  margin-bottom: $global-margin;
 
   &__bar {
     @extend .title-bar;

@@ -9,7 +9,6 @@
 
   &__wrapper {
     background-color: $primary-color;
-    margin-bottom: 2 * $global-margin;
 
     @include breakpoint(small down) {
       height: 100%;
