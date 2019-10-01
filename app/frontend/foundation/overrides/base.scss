@@ -3,3 +3,7 @@
     visibility: hidden;
   }
 }
+
+.show { //sass-lint:disable-block no-important
+  display: block !important;
+}
