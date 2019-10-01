@@ -1,13 +1,19 @@
+<br>
 <h4>
-  <%= " #{@results.data.count} Result(s) for '#{@results.support[:word]}'" %>
+  <%= "#{search_count(@results)} Result(s) for '#{search_word(@results)}'" %>
 </h4>
-<div class="grid-x grid-margin-x">
-  <% @results.data.each do |result| %>
-    <div class="cell small-3">
-      <%= render(partial: 'results', locals: { result: result }) %>
-    </div>
-  <% end %>
-</div>
+<br>
+<% if search_results?(@results) %>
+  <div class="grid-x grid-margin-x">
+    <% search_results(@results).each do |result| %>
+      <div class="cell small-3">
+        <%= render(partial: 'results', locals: { result: result }) %>
+      </div>
+    <% end %>
+  </div>
 
-<%= render(partial: 'show_more', locals: { support: @results.support }) %>
-<%= render(partial: 'show_published', locals: { support: @results.support }) %>
+  <% unless show_more?(@results) %>
+    <%= render(partial: 'show_more', locals: { support: @results.support }) %>
+  <% end %>
+  <%= render(partial: 'show_published', locals: { support: @results.support }) %>
+<% end %>
