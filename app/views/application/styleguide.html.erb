@@ -62,9 +62,15 @@
       molestie tur.
     </p>
 
-    <label for="example-input">This is a field label*</label>
+    <label for="example-input" class="required">This is a field label</label>
     <p class="help-text">Only use alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores</p>
     <input type="text" id="example-input" placeholder="This is an example field" />
+
+    <div class="callout">
+      Labels can have a <code>.required</code> class added to the element
+      to automatically add an asterisk indictor to show that the field is
+      required.
+    </div>
 
     <label for="error-input">Invalid</label>
     <input type="text" class="invalid" id="error-input" placeholder="This is an example field" />
