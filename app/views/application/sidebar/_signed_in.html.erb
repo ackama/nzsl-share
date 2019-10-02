@@ -7,3 +7,18 @@
   <li><a href="#"><%= image_pack_tag "media/images/camera.svg" %><span>My signs</span></a></li>
   <li><a href="#"><%= image_pack_tag "media/images/folder-collection.svg" %><span>My folders</span></a></li>
 </ul>
+
+<ul class="vertical menu icons hide-for-medium">
+  <li>
+    <a href="#">
+      <img
+        class="avatar"
+        src="https://picsum.photos/id/550/20/20"
+        alt="Profile Image"
+      />
+      <span><strong><%= current_user.username %></strong></span>
+    </a>
+  </li>
+  <li><%= link_to "Edit my profile ›", edit_user_registration_path %></li>
+  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+</ul>

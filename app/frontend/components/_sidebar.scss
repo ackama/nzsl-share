@@ -1,5 +1,19 @@
 .sidebar {
-  @include breakpoint(medium down) {
+  @include breakpoint(small only) {
+    padding-top: 2rem; // Make space for the close button
+    width: 70%;
+
+    .menu > li > a {
+      flex-direction: row;
+
+      img + span {
+        flex: 1;
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  @include breakpoint(medium only) {
     margin-top: 72px; // Height of title bar
 
     .menu > li > a {
