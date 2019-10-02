@@ -21,7 +21,7 @@ RSpec.describe "Folders", type: :system, uses_javascript: true do
     it "displays correct validation errors" do
       process.click_create_new
       process.submit_new_folder_form
-      expect(process).to have_content "Please enter a title."
+      expect(process).to have_content "can't be blank"
     end
   end
 end
