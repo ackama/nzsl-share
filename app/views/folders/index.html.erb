@@ -2,10 +2,7 @@
   <div class="grid-x cell list">
   <div class="list__title cell grid-x align-middle">
     <h1>My folders</h1>
-    <noscript>
-      <%= link_to "+ New Folder", new_folder_path, class: "button royal" %>
-    </noscript>
-    <button class="button royal javascript hide" data-open="new-folder">+ New folder</button>
+    <%= link_to "+ New folder", new_folder_path, class: "button royal", data: { open: "new-folder" }, remote: true %>
   </div>
   <hr/>
   <div class="list__items cell grid-x">
@@ -18,6 +15,6 @@
   </div>
   </div>
   <div class="reveal" id="new-folder" data-reveal>
-  <%= render 'form', folder: @folder%>
+    <%= render 'form', folder: @folder %>
   </div>
 </div>

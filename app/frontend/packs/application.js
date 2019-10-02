@@ -14,4 +14,5 @@ Rails.start();
 import "foundation";
 import "../application.scss";
 import "../components/header";
-import "../components/js-elements";
+import "../components/modal";
+
