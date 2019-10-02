@@ -2,7 +2,10 @@
   <div class="grid-x cell list">
   <div class="list__title cell grid-x align-middle">
     <h1>My folders</h1>
-    <button class="button royal" data-open="new-folder">+ New folder</button>
+    <noscript>
+      <%= link_to "+ New Folder", new_folder_path, class: "button royal" %>
+    </noscript>
+    <button class="button royal javascript hide" data-open="new-folder">+ New folder</button>
   </div>
   <hr/>
   <div class="list__items cell grid-x">
