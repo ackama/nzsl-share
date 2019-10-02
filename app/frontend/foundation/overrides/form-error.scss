@@ -9,6 +9,7 @@ textarea {
 
 .form-error {
   background: get-color(alert-x-light);
+  border-radius: $global-radius;
   padding: 0.25rem;
   text-align: right;
 }
