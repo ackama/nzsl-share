@@ -2,12 +2,13 @@ class FoldersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    folders
+    authorize folders
     @folder = Folder.new
+    authorize @folder
   end
 
   def create
-    @folder = Folder.new(folders_params)
+    authorize create_folder
     respond_to do |format|
       if @folder.save
         format.js { flash[:notice] = "Folder successfully created." }
@@ -20,10 +21,14 @@ class FoldersController < ApplicationController
   private
 
   def folders
-    @folders = current_user.folders
+    @folders = policy_scope(Folder).all.order("title ASC")
   end
 
   def folders_params
     params.require(:folder).permit(:title, :description, :user_id)
+  end
+
+  def create_folder
+    @folder = Folder.new(folders_params)
   end
 end
