@@ -7,13 +7,20 @@ class FoldersController < ApplicationController
     authorize @folder
   end
 
+  def new
+    @folder = Folder.new
+    authorize @folder
+  end
+
   def create
     authorize create_folder
     respond_to do |format|
       if @folder.save
         format.js { flash[:notice] = "Folder successfully created." }
+        format.html { redirect_to folders_path, notice: "Folder successfully created." }
       else
         format.js { render :new }
+        format.html { render :new }
       end
     end
   end
