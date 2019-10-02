@@ -28,7 +28,7 @@ class FoldersController < ApplicationController
   private
 
   def folders
-    @folders = policy_scope(Folder).all.order("title ASC")
+    @folders = policy_scope(Folder).order("title ASC")
   end
 
   def folders_params
