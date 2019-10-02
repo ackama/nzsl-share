@@ -1,5 +1,7 @@
 .header {
   border-top: solid 2px get-color(accent);
+  position: fixed;
+  width: 100%;
 
   &__bar {
     @extend .title-bar;
