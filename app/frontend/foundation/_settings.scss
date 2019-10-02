@@ -70,10 +70,10 @@ $fa-font-path: "~font-awesome/fonts";
 $global-font-size: 15px;
 $global-width: rem-calc(1080);
 $global-lineheight: 1.6;
-$extra-light-gray: #f2f5f7;
-$light-gray: #dee5ea;
-$lighter-gray: #b1b7bc;
-$medium-gray: #5d7389;
+$extra-light-gray: #eceeee;
+$light-gray: #a0a7ab;
+$lighter-gray: #d6dadb;
+$medium-gray: #6a7077;
 $dark-gray: $medium-gray;
 $black: #041723;
 $white: #fff;
@@ -89,7 +89,7 @@ $foundation-palette: (
   success: #3adb76,
   warning: #ffae00,
   alert: #ba2f2f,
-  light: $light-gray,
+  light: $lighter-gray,
   extra-light: $extra-light-gray,
   medium: $medium-gray
 );
