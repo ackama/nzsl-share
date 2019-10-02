@@ -13,7 +13,8 @@ class FoldersController < ApplicationController
   end
 
   def create
-    authorize create_folder
+    @folder = Folder.new(folders_params)
+    authorize @folder
     respond_to do |format|
       if @folder.save
         format.js { flash[:notice] = "Folder successfully created." }
@@ -33,9 +34,5 @@ class FoldersController < ApplicationController
 
   def folders_params
     params.require(:folder).permit(:title, :description, :user_id)
-  end
-
-  def create_folder
-    @folder = Folder.new(folders_params)
   end
 end
