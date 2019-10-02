@@ -1,6 +1,5 @@
 .sidebar {
   @include breakpoint(medium) {
-    border-right: solid 1px $medium-gray;
     height: calc(100% - 72px - 65px); // Height of footer
     margin-top: 72px; // Height of title bar
   }
@@ -8,6 +7,16 @@
   @include breakpoint(large) {
     height: calc(100% - 68px - 65px); // Height of footer
     margin-top: 68px;
+  }
+
+  .is-active > a {
+    border-bottom-right-radius: rem-calc(24);
+    border-top-right-radius: rem-calc(24);
+  }
+
+  .menu  {
+    border-bottom: solid 1px $extra-light-gray;
+    padding: 1rem 0.5rem 1rem 0;
   }
 
 
