@@ -17,6 +17,7 @@ gem "devise"
 gem "nokogiri", "~> 1.10"
 gem "faraday"
 gem "faraday_middleware"
+gem "aws-sdk-s3"
 
 gem "rack-canonical-host"
 
