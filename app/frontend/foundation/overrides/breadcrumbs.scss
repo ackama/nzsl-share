@@ -1,0 +1,11 @@
+.breadcrumbs {
+  background: get-color(accent-blue);
+  border-radius: $global-radius * 2;
+  color: get-color(medium);
+  font-weight: 600;
+  padding: 8px 16px;
+
+  a {
+    text-decoration: none;
+  }
+}
