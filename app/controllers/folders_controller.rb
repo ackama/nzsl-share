@@ -17,8 +17,7 @@ class FoldersController < ApplicationController
     authorize @folder
     respond_to do |format|
       if @folder.save
-        format.js { flash[:notice] = "Folder successfully created." }
-        format.html { redirect_to folders_path, notice: "Folder successfully created." }
+        redirect_after_create(format)
       else
         format.js { render :new }
         format.html { render :new }
@@ -34,5 +33,11 @@ class FoldersController < ApplicationController
 
   def folders_params
     params.require(:folder).permit(:title, :description, :user_id)
+  end
+
+  def redirect_after_create(format)
+    flash[:notice] = "Folder successfully created."
+    format.js { render inline: "location.reload();" }
+    format.html { redirect_to folders_path }
   end
 end
