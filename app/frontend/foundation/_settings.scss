@@ -77,6 +77,7 @@ $medium-gray: #6a7077;
 $dark-gray: $medium-gray;
 $black: #041723;
 $white: #fff;
+$background: #f2f5f7;
 
 $foundation-palette: (
   primary: #18435f,
@@ -93,10 +94,11 @@ $foundation-palette: (
   alert: #ba2f2f,
   light: $lighter-gray,
   extra-light: $extra-light-gray,
-  medium: $medium-gray
+  medium: $medium-gray,
+  accent-blue: #e9eef2
 );
 
-$body-background: $extra-light-gray;
+$body-background: $background;
 $body-font-color: $black;
 $body-font-family: "Montserrat", sans-serif;
 $body-antialiased: true;
