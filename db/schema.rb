@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_003651) do
+ActiveRecord::Schema.define(version: 2019_10_03_021419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_003651) do
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
+    t.text "description"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["english"], name: "idx_signs_english"
     t.index ["maori"], name: "idx_signs_maori"
