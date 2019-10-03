@@ -1,6 +1,24 @@
-<ul class="vertical menu">
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Add a sign</a></li>
-  <li><a href="#">My videos</a></li>
-  <li><%= link_to "My folders", folders_path %></li>
+<ul class="vertical menu icons">
+  <li class="is-active"><a href="#"><%= image_pack_tag "media/images/home.svg", "aria-hidden": true %><span>Home</span></a></li>
+</ul>
+
+<ul class="vertical menu icons">
+  <li><a href="#"><%= image_pack_tag "media/images/add.svg", "aria-hidden": true %><span>Add a sign</span></a></li>
+  <li><a href="#"><%= image_pack_tag "media/images/camera.svg", "aria-hidden": true %><span>My signs</span></a></li>
+  <li><a href="#"><%= image_pack_tag "media/images/folder-collection.svg", "aria-hidden": true %><span>My folders</span></a></li>
+</ul>
+
+<ul class="vertical menu icons hide-for-medium">
+  <li>
+    <a href="#">
+      <img
+        class="avatar"
+        src="https://picsum.photos/id/550/20/20"
+        alt="Profile Image"
+      />
+      <span><strong><%= current_user.username %></strong></span>
+    </a>
+  </li>
+  <li><%= link_to "Edit my profile ›", edit_user_registration_path %></li>
+  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
 </ul>
