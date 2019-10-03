@@ -5,8 +5,10 @@ class AddContributorToSigns < ActiveRecord::Migration[6.0]
                                 foreign_key: { to_table: :users }
 
     if %w[development test].include?(Rails.env)
-      Sign.where(contributor: nil)
-          .update_all(contributor_id: User.first!.id)
+      user = User.where(username: "Unknown Contributor")
+                 .first_or_initialize
+                 .tap { |u| u.save(validate: false) }
+      Sign.where(contributor: nil).update_all(contributor_id: user.id)
     end
 
     change_column_null :signs, :contributor_id, false
