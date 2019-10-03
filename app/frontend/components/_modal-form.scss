@@ -1,4 +1,6 @@
 .modal-form {
+  border-radius: $global-radius * 2;
+  box-shadow: 0 8px 22px 0 $black;
   max-width: rem-calc(514);
 
   &__close-button {
@@ -19,5 +21,13 @@
 
   &__fields {
     margin-bottom: 1rem;
+  }
+
+  &__buttons {
+    margin-top: $global-margin * 2;
+
+    .button {
+      margin: 0;
+    }
   }
 }
