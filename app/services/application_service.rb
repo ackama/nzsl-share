@@ -1,6 +1,6 @@
 class ApplicationService
   class Results
-    attr_accessor :data
+    attr_accessor :data, :support
   end
 
   class << self

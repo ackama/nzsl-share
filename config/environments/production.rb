@@ -74,10 +74,19 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = {
-    host: "glossary.nzsl.nz",
+    host: ENV["HOSTNAME"],
     protocol: "https"
   }
-  config.action_mailer.asset_host = "https://glossary.nzsl.nz"
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.secrets.smtp_hostname,
+    port: 587,
+    enable_starttls_auto: true,
+    user_name: Rails.application.secrets.smtp_user_name,
+    password: Rails.application.secrets.smtp_password,
+    authentication: "login",
+    domain: ENV["HOSTNAME"]
+  }
+  config.action_mailer.asset_host = "https://#{ENV["HOSTNAME"]}"
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

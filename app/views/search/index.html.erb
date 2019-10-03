@@ -1,0 +1,20 @@
+<br>
+<h4>
+  <%= "#{search_count(@results)} Result(s) for '#{search_word(@results)}'" %>
+</h4>
+<br>
+<% if search_results?(@results) %>
+  <div class="grid-x grid-margin-x">
+    <% search_results(@results).each do |result| %>
+      <div class="cell small-3">
+        <%= render(partial: 'results', locals: { result: result }) %>
+      </div>
+    <% end %>
+  </div>
+
+  <% unless show_more?(@results) %>
+    <%= render(partial: 'show_more', locals: { support: @results.support }) %>
+  <% end %>
+  <%= render(partial: 'published_asc', locals: { support: @results.support }) %>
+  <%= render(partial: 'published_desc', locals: { support: @results.support }) %>
+<% end %>

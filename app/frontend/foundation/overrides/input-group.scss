@@ -1,0 +1,23 @@
+.input-group {
+  position: relative;
+
+  .input-group-label {
+    background: transparent;
+    border: 0;
+    left: 0;
+    padding: 0 0.5rem;
+    position: absolute;
+    top: 0.75rem;
+
+    &:last-child {
+      left: auto;
+      right: 0;
+    }
+
+    & ~ input,
+    & ~ select {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}

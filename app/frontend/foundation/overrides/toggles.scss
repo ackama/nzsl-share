@@ -1,0 +1,83 @@
+.checkbox,
+.radio {
+  margin-bottom: $form-spacing;
+  position: relative;
+
+  [type="checkbox"],
+  [type="radio"] {
+    appearance: none;
+    height: rem-calc(16);
+    left: 0;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    width: rem-calc(16);
+  }
+
+  label {
+    align-items: center;
+    display: flex;
+
+    // We want regular input labels to be bold,
+    // but not the ones aligned next to toggles
+    font-weight: normal;
+    justify-content: flex-start;
+    position: relative;
+
+    &::before,
+    &::after {
+      pointer-events: none;
+    }
+
+    &::before {
+      content: " ";
+      display: flex;
+      height: rem-calc(16);
+      margin-right: $form-spacing;
+      min-height: rem-calc(16);
+      min-width: rem-calc(16);
+      width: rem-calc(16);
+    }
+  }
+}
+
+
+.checkbox { //sass-lint:disable-block force-pseudo-nesting
+  label {
+    &::before {
+      background: url("images/checkbox.svg");
+    }
+
+    &:hover::before {
+      background: url("images/checkbox-hover.svg");
+    }
+  }
+
+  input:focus + label::before {
+    background: url("images/checkbox-hover.svg");
+  }
+
+  input:checked + label::before {
+    background: url("images/checkbox-checked.svg");
+  }
+}
+
+.radio { //sass-lint:disable-block force-pseudo-nesting
+  label {
+    &::before {
+      background: url("images/radio.svg");
+    }
+
+    &:hover::before {
+      background: url("images/radio-hover.svg");
+    }
+  }
+
+  input:focus + label::before {
+    background: url("images/radio-hover.svg");
+  }
+
+  input:checked + label::before {
+    background: url("images/radio-checked.svg");
+  }
+}
