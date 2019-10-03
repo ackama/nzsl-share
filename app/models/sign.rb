@@ -6,4 +6,5 @@ class Sign < ApplicationRecord
 
   def agree_count; 0; end
   def disagree_count; 0; end
+  def tags; []; end
 end
