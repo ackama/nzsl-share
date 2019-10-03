@@ -2,9 +2,9 @@ class FoldersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    authorize folders
     @new_folder = Folder.new
     authorize @new_folder
+    authorize folders
   end
 
   def new
