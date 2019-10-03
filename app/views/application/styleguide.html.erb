@@ -1,5 +1,3 @@
-
-
 <div class="grid-x grid-margin-x">
   <div class="cell small-12 large-4">
     <div class="grid-x">
@@ -137,22 +135,24 @@
   </div>
 
   <div class="cell small-12 large-4">
-    <ul class="callout extra-light vertical menu">
-      <li><a href="#">
-        <%= image_pack_tag "home.svg", :"aria-hidden" => true %>
-        <%= content_tag :span, "Home" %>
-      </a></li>
-      <li class="menu-divider"></li>
-      <li class="menu-text">Manage videos</li>
-      <li class="is-active"><a href="#">
-        <%= image_pack_tag "folder-alt.svg", :"aria-hidden" => true %>
-        <%= content_tag :span, "Collections" %>
-      </a></li>
-      <li><a href="#">
-        <%= image_pack_tag "control-play.svg", :"aria-hidden" => true %>
-        <%= content_tag :span, "My videos" %>
-      </a></li>
-    </ul>
+    <div class="callout">
+      <ul class="vertical menu">
+        <li><a href="#">
+          <%= image_pack_tag "home.svg", :"aria-hidden" => true %>
+          <%= content_tag :span, "Home" %>
+        </a></li>
+        <li class="menu-divider"></li>
+        <li class="menu-text">Manage videos</li>
+        <li class="is-active"><a href="#">
+          <%= image_pack_tag "folder-alt.svg", :"aria-hidden" => true %>
+          <%= content_tag :span, "Collections" %>
+        </a></li>
+        <li><a href="#">
+          <%= image_pack_tag "control-play.svg", :"aria-hidden" => true %>
+          <%= content_tag :span, "My videos" %>
+        </a></li>
+      </ul>
+    </div>
 
     <div class="responsive-embed">
       <div class="sign-card">
@@ -179,7 +179,7 @@
               </div>
             </div>
             <div class="sign-card__folder">
-              <%= image_pack_tag "folder-add.svg", alt: "Agree", class: "sign-card__folder--icon" %>
+              <%= image_pack_tag "folder-add.svg", alt: "Add to folder", class: "sign-card__folder--icon" %>
             </div>
           </div>
         </div>

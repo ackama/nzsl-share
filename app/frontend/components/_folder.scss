@@ -1,0 +1,13 @@
+.folder {
+  border-radius: 11px;
+  padding: rem-calc(20) 0;
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__icon {
+    margin-left: rem-calc(24);
+    margin-right: rem-calc(12);
+  }
+}

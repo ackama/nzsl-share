@@ -8,6 +8,7 @@ class User < ApplicationRecord
          authentication_keys: [:login]
 
   attr_writer :login
+  has_many :folders, dependent: :destroy
 
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },

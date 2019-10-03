@@ -1,0 +1,20 @@
+<div class="grid-x grid-margin-x align-center">
+  <div class="grid-x cell list">
+  <div class="list__title cell grid-x align-middle">
+    <h1>My folders</h1>
+    <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
+  </div>
+  <hr class="list__divider"/>
+  <div class="list__items cell grid-x">
+    <% @folders.each do |folder| %>
+      <div class="folder cell grid-x align-middle">
+        <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
+        <div class="folder__title"><%= folder.title %> ›</div>
+      </div>
+    <% end %>
+  </div>
+  </div>
+  <div class="reveal" id="create-folder" data-reveal>
+    <%= render 'form', folder: @new_folder %>
+  </div>
+</div>

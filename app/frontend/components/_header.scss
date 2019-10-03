@@ -1,5 +1,9 @@
 .header {
   border-top: solid 2px get-color(accent);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 
   &__bar {
     @extend .title-bar;
@@ -21,4 +25,23 @@
     @extend .title-bar-title;
     font-size: 1.2rem;
   }
+}
+
+// Push content down to account for the header
+body {
+  @include breakpoint(small) {
+    padding-top: 133px;
+  }
+
+  @include breakpoint(medium) {
+    padding-top: 72px;
+  }
+
+  @include breakpoint(large) {
+    padding-top: 68px;
+  }
+}
+
+.header__bar + .header__bar {
+  padding-top: 0;
 }

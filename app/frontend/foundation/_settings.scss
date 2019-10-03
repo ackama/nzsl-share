@@ -70,9 +70,9 @@ $fa-font-path: "~font-awesome/fonts";
 $global-font-size: 15px;
 $global-width: rem-calc(1080);
 $global-lineheight: 1.6;
-$extra-light-gray: #f2f5f7;
-$light-gray: #dee5ea;
-$lighter-gray: #b1b7bc;
+$extra-light-gray: #eceeee;
+$light-gray: #a0a7ab;
+$lighter-gray: #d6dadb;
 $medium-gray: #6a7077;
 $dark-gray: $medium-gray;
 $black: #041723;
@@ -87,10 +87,12 @@ $foundation-palette: (
   accent-x-light: #ffe8e0,
   royal: #354ae7,
   royal-x-light: #f1f2fb,
-  success: #3adb76,
+  success: #038500,
+  success-x-light: #e2f0e1,
   warning: #ffae00,
-  alert: #cc1a19,
-  light: $light-gray,
+  alert-x-light: #ffe9e8,
+  alert: #ba2f2f,
+  light: $lighter-gray,
   extra-light: $extra-light-gray,
   medium: $medium-gray
 );
@@ -341,11 +343,11 @@ $buttongroup-radius-on-each: true;
 $callout-background: $white;
 $callout-background-fade: 0%;
 $callout-border: none;
-$callout-margin: 0 0 1rem 0;
+$callout-margin: 1rem;
 $callout-padding: 1rem;
 $callout-font-color: $body-font-color;
 $callout-font-color-alt: $white;
-$callout-radius: false;
+$callout-radius: $global-radius;
 $callout-link-tint: 30%;
 
 // 14. Card
@@ -496,9 +498,9 @@ $mediaobject-image-width-stacked: 100%;
 
 $menu-margin: 0;
 $menu-nested-margin: $global-menu-nested-margin;
-$menu-items-padding: 1.5rem 1rem;
+$menu-items-padding: 1rem;
 $menu-simple-margin: 1rem;
-$menu-item-color-active: get-color(primary);
+$menu-item-color-active: $black;
 $menu-item-background-active: get-color(light);
 $menu-icon-spacing: 0.25rem;
 $menu-state-back-compat: true;
