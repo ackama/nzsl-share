@@ -1,0 +1,61 @@
+
+  <div class="responsive-embed">
+    <iframe
+      src="https://player.vimeo.com/video/361959003"
+      width="1080"
+      height="720"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <h1>
+    <%= @sign.english %><br />
+    <small>Posted at <%= l(@sign.created_at, format: :short) %></small>
+  </h1>
+
+  <hr />
+
+  <div class="pull-left">
+    <%= link_to "#", class: "button" do %>
+      <%= image_pack_tag "media/images/agree.svg", :"aria-hidden" => true %>
+      <%= @sign.agree_count %> Agree
+    <% end %>
+    <%= link_to "#", class: "button" do %>
+      <%= image_pack_tag "media/images/disagree.svg", :"aria-hidden" => true %>
+      <%= @sign.disagree_count %>
+      Disagree
+    <% end %>
+  </div>
+
+  <div class="pull-right">
+    <%= link_to "#", class: "button" do %>
+      Comment
+    <% end %>
+    <%= link_to "#", class: "button" do %>
+      <%= image_pack_tag "media/images/folder-add.svg", :"aria-hidden" => true %>
+      Add to Folder
+    <% end %>
+    <%= link_to "#", class: "button" do %>
+      Share
+    <% end %>
+  </div>
+
+  <hr />
+
+  <dl>
+    <dt>Posted by:</dt>
+    <dd><%= @sign.contributor.username %></dd>
+
+    <% if @sign.topic %>
+    <dt>Topic:</dt>
+    <dd><%= @sign.topic.name %></dd>
+    <% end %>
+
+    <dt>Tags:</dt>
+    <dd><%= @sign.tags.join(", ").presence || "(None)" %></dd>
+
+    <dt>Description:</dt>
+    <dd><%= simple_format @sign.description %></dd>
+  </dl>
