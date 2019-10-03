@@ -6,38 +6,38 @@
   </div>
 
   <div class="grid-x cell list">
-  <div class="list__title cell grid-x align-middle">
-    <h1>My folders</h1>
-    <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
-  </div>
-  <hr class="list__divider"/>
-  <div class="list__items cell grid-x">
-    <% @folders.each do |folder| %>
-      <div class="folder cell grid-x align-middle">
-        <div class="cell small-6 grid-x align-middle">
-          <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
-          <div class="folder__title"><%= folder.title %> ›</div>
-        </div>
-        <div class="cell small-3 folder__details">
-          created <%= folder.created_at.strftime("%d %b %Y") %>
-        </div>
-        <div class="cell small-3 folder__details">
-          0 signs
-          <a href="#" class="folder__options" data-toggle="folder-options"><%= image_pack_tag "media/images/options.svg", "aria-hidden": true %></a>
-          <div class="folder__dropdown-pane" id="folder-options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
-            <ul class="folder__menu vertical icons">
-              <li><a href="#"><%= image_pack_tag "media/images/share.svg", "aria-hidden": true %><span>Share</span></a></li>
-              <li><a href="#"><%= image_pack_tag "media/images/options-copy.svg", "aria-hidden": true %><span>Edit</span></a></li>
-              <li><a href="#"><%= image_pack_tag "media/images/trash.svg", "aria-hidden": true %><span>Delete</span></a></li>
-            </ul>
+    <div class="list__title cell grid-x align-middle">
+      <h1>My folders</h1>
+      <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
+    </div>
+    <hr class="list__divider"/>
+    <div class="list__items cell grid-x">
+      <% @folders.each do |folder| %>
+        <div class="folder cell grid-x align-middle">
+          <div class="cell small-6 grid-x align-middle">
+            <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
+            <div class="folder__title"><%= folder.title %> ›</div>
           </div>
-        </div>
+          <div class="cell small-3 folder__details">
+            created <%= folder.created_at.strftime("%d %b %Y") %>
+          </div>
+          <div class="cell small-3 folder__details">
+            0 signs
+            <a href="#" class="folder__options" data-toggle="folder-options"><%= image_pack_tag "media/images/options.svg", "aria-hidden": true %></a>
+            <div class="folder__dropdown-pane" id="folder-options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+              <ul class="folder__menu vertical icons">
+                <li><a href="#"><%= image_pack_tag "media/images/share.svg", "aria-hidden": true %><span>Share</span></a></li>
+                <li><a href="#"><%= image_pack_tag "media/images/edit.svg", "aria-hidden": true %><span>Edit</span></a></li>
+                <li><a href="#"><%= image_pack_tag "media/images/trash.svg", "aria-hidden": true %><span>Delete</span></a></li>
+              </ul>
+            </div>
+          </div>
 
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  </div>
-  <div class="reveal" id="create-folder" data-reveal>
+  <div class="reveal modal-form align-center" id="create-folder" data-reveal>
     <%= render 'form', folder: @new_folder %>
   </div>
 </div>
