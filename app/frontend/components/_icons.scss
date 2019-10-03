@@ -5,15 +5,21 @@ $icon-sizes: (
 );
 
 @mixin icon-fill($color: $black) {
+  // Icons are almost always drawn with paths rather than geometric shapes
+  // If we target everything here (*), we usually pick up something we didn't
+  // want, like a containing <rect>
   &,
-  & * {
+  & path {
     fill: $color;
   }
 }
 
 @mixin icon-stroke($color: $black) {
+  // Icons are almost always drawn with paths rather than geometric shapes
+  // If we target everything here (*), we usually pick up something we didn't
+  // want, like a containing <rect>
   &,
-  & * {
+  & path {
     stroke: $color;
   }
 }
