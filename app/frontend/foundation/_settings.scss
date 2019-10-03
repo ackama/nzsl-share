@@ -86,8 +86,10 @@ $foundation-palette: (
   accent-x-light: #ffe8e0,
   royal: #354ae7,
   royal-x-light: #f1f2fb,
-  success: #3adb76,
+  success: #038500,
+  success-x-light: #e2f0e1,
   warning: #ffae00,
+  alert-x-light: #ffe9e8,
   alert: #ba2f2f,
   light: $lighter-gray,
   extra-light: $extra-light-gray,
@@ -337,11 +339,11 @@ $buttongroup-radius-on-each: true;
 $callout-background: $white;
 $callout-background-fade: 0%;
 $callout-border: none;
-$callout-margin: 0 0 1rem 0;
+$callout-margin: 1rem;
 $callout-padding: 1rem;
 $callout-font-color: $body-font-color;
 $callout-font-color-alt: $white;
-$callout-radius: false;
+$callout-radius: $global-radius;
 $callout-link-tint: 30%;
 
 // 14. Card
@@ -459,7 +461,7 @@ $input-background: $white;
 $input-background-focus: $white;
 $input-background-disabled: $light-gray;
 $input-border: 1px solid $lighter-gray;
-$input-border-focus: 1px solid get-color(royal);
+$input-border-focus: 2px solid get-color(royal);
 $input-padding: $form-spacing / 2 $form-spacing;
 $input-shadow: none;
 $input-shadow-focus: none;

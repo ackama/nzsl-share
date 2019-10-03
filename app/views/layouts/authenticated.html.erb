@@ -12,8 +12,10 @@
     <%= render "application/sidebar/signed_in" %>
   </div>
 
-  <div class="off-canvas-content grid-container fluid" data-off-canvas-content>
-    <%= yield %>
+  <div class="off-canvas-content" data-off-canvas-content>
+    <div class="grid-container">
+      <%= yield %>
+    </div>
   </div>
 <% end %>
 

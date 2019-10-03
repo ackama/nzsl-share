@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 2019_10_02_215237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "folders", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_folders_on_user_id"
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
