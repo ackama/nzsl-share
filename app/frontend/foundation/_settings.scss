@@ -70,6 +70,7 @@ $fa-font-path: "~font-awesome/fonts";
 $global-font-size: 15px;
 $global-width: rem-calc(1080);
 $global-lineheight: 1.6;
+$background: #f2f5f7;
 $extra-light-gray: #eceeee;
 $light-gray: #a0a7ab;
 $lighter-gray: #d6dadb;
@@ -96,7 +97,7 @@ $foundation-palette: (
   medium: $medium-gray
 );
 
-$body-background: $extra-light-gray;
+$body-background: $background;
 $body-font-color: $black;
 $body-font-family: "Montserrat", sans-serif;
 $body-antialiased: true;
