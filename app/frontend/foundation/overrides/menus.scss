@@ -5,11 +5,15 @@
     width: 100%;
   }
 
+  &.icons {
+    a { align-items: center; }
+  }
+
   li {
+    a { color: $medium-gray; }
+
     img {
-      margin-left: 1rem;
-      transform: scale(2.5);
-      & + span { margin-left: 2rem; }
+      & + span { margin-left: 1rem; }
     }
   }
 }

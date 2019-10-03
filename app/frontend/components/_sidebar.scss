@@ -1,15 +1,42 @@
 .sidebar {
-  @include breakpoint(medium) {
-    border-right: solid 1px $medium-gray;
-    height: calc(100% - 72px - 65px); // Height of footer
+  @include breakpoint(small only) {
+    padding-top: 2rem; // Make space for the close button
+    width: 70%;
+
+    .menu > li > a {
+      flex-direction: row;
+
+      img + span {
+        flex: 1;
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  @include breakpoint(medium only) {
     margin-top: 72px; // Height of title bar
+
+    .menu > li > a {
+      flex-direction: column;
+      font-size: 80%;
+      padding: 1rem 0 1rem 0.5rem;
+      img + span { margin: 1rem auto auto; }
+    }
   }
 
   @include breakpoint(large) {
-    height: calc(100% - 68px - 65px); // Height of footer
-    margin-top: 68px;
+    margin-top: 68px; // Height of title bar
   }
 
+  .is-active > a {
+    border-bottom-right-radius: rem-calc(24);
+    border-top-right-radius: rem-calc(24);
+  }
+
+  .menu  {
+    border-bottom: solid 1px $extra-light-gray;
+    padding: 1rem 0.5rem 1rem 0;
+  }
 
   // https://foundation.zurb.com/sites/docs/off-canvas.html#off-canvas-sizes:
   // Please note the sizes maps do currently not work perfectly for the reveal classes.
