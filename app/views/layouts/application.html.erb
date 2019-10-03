@@ -33,7 +33,8 @@
   </head>
   <body class="no-js">
     <%= render "application/header" %>
-    <%= render("application/messages") %>
+    <% # Authenticated layout renders these %>
+    <%= render("application/messages") unless user_signed_in?  %>
     <%= content_for?(:content) ? yield(:content) : content_tag(:main, yield, class: "grid-container") %>
     <%= render "application/footer" %>
   </body>
