@@ -3,8 +3,8 @@ class FoldersController < ApplicationController
 
   def index
     authorize folders
-    @folder = Folder.new
-    authorize @folder
+    @new_folder = Folder.new
+    authorize @new_folder
   end
 
   def new
