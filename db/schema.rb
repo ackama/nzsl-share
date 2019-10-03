@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_221941) do
+ActiveRecord::Schema.define(version: 2019_10_03_003651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
     t.string "english", limit: 512, null: false
@@ -33,9 +54,21 @@ ActiveRecord::Schema.define(version: 2019_09_25_221941) do
     t.datetime "published_at"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
+    t.bigint "contributor_id", null: false
+    t.bigint "topic_id"
+    t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["english"], name: "idx_signs_english"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["secondary"], name: "idx_signs_secondary"
+    t.index ["topic_id"], name: "index_signs_on_topic_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "featured_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["featured_at"], name: "index_topics_on_featured_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,4 +85,7 @@ ActiveRecord::Schema.define(version: 2019_09_25_221941) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "signs", "topics"
+  add_foreign_key "signs", "users", column: "contributor_id"
 end
