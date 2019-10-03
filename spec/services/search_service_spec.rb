@@ -67,20 +67,20 @@ RSpec.describe SearchService, type: :service do
       end
 
       it "orders ascending given a '0'" do
-        rs1 = SearchService.call(search: Search.new(word: "a", published: "0"))
+        rs1 = SearchService.call(search: Search.new(word: "a", order: { published: "ASC" }))
                            .data.map { |hsh| hsh["published_at"] }
 
-        rs2 = SearchService.call(search: Search.new(word: "a", published: "0"))
+        rs2 = SearchService.call(search: Search.new(word: "a", order: { published: "DESC" }))
                            .data.map { |hsh| hsh["published_at"] }.sort
 
         expect(rs1 == rs2).to be true
       end
 
       it "orders descending given a '1'" do
-        rs1 = SearchService.call(search: Search.new(word: "a", published: "1"))
+        rs1 = SearchService.call(search: Search.new(word: "a", order: { published: "DESC" }))
                            .data.map { |hsh| hsh["published_at"] }
 
-        rs2 = SearchService.call(search: Search.new(word: "a", published: "0"))
+        rs2 = SearchService.call(search: Search.new(word: "a", order: { published: "ASC" }))
                            .data.map { |hsh| hsh["published_at"] }.sort.reverse
 
         expect(rs1 == rs2).to be true

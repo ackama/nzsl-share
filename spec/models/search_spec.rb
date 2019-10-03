@@ -20,17 +20,23 @@ RSpec.describe Search, type: :model do
   describe "published" do
     context "direction" do
       it "return 'ASC' given value 0" do
-        expect(Search.new(published: 0).published).to eq("ASC")
+        expect(Search.new(order: { published: "ASC" }).order).to eq("published" => "ASC")
       end
 
       it "return 'DESC' given value 1" do
-        expect(Search.new(published: 1).published).to eq("DESC")
+        expect(Search.new(order: { published: "DESC" }).order).to eq("published" => "DESC")
       end
 
-      it "return falsey given other value" do
-        expect(Search.new(published: 2).published).to be_nil
-        expect(Search.new(published: "xxx").published).to be_nil
-        expect(Search.new(published: -1000).published).to be_nil
+      it "return a default order given other key/value" do
+        default_value = { "default" => "ASC" }
+
+        expect(Search.new(order: { published: 42 }).order.stringify_keys).to eq(default_value)
+        expect(Search.new(order: { published: "qwerty" }).order.stringify_keys).to eq(default_value)
+        expect(Search.new(order: { published: -42 }).order.stringify_keys).to eq(default_value)
+
+        expect(Search.new(order: { pesto: "olive" }).order.stringify_keys).to eq(default_value)
+        expect(Search.new(order: { chess: "ASC" }).order.stringify_keys).to eq(default_value)
+        expect(Search.new(order: { spritz: "yum!" }).order.stringify_keys).to eq(default_value)
       end
     end
   end
@@ -38,18 +44,10 @@ RSpec.describe Search, type: :model do
   describe "page" do
     context "pagination" do
       it "increments attributes given a word and page" do
-        expect(Search.new(word: "a", page: 1).page).to eq(
-          this_page: 1, next_page: 2, limit: 16, word: "a", next_pub: "0"
-        )
-        expect(Search.new(word: "a", page: 2).page).to eq(
-          this_page: 2, next_page: 3, limit: 32, word: "a", next_pub: "0"
-        )
-        expect(Search.new(word: "a", page: 3).page).to eq(
-          this_page: 3, next_page: 4, limit: 48, word: "a", next_pub: "0"
-        )
-        expect(Search.new(word: "a", page: 4).page).to eq(
-          this_page: 4, next_page: 5, limit: 64, word: "a", next_pub: "0"
-        )
+        expect(Search.new(word: "a", page: 1).page).to eq(current_page: 1, next_page: 2, limit: 16, word: "a")
+        expect(Search.new(word: "a", page: 2).page).to eq(current_page: 2, next_page: 3, limit: 32, word: "a")
+        expect(Search.new(word: "a", page: 3).page).to eq(current_page: 3, next_page: 4, limit: 48, word: "a")
+        expect(Search.new(word: "a", page: 4).page).to eq(current_page: 4, next_page: 5, limit: 64, word: "a")
       end
     end
   end

@@ -60,7 +60,7 @@ class SearchService < ApplicationService
           FROM signs
           WHERE signs.secondary ~* ?
       )
-      SELECT                          -- will have some problems with dupes
+      SELECT                          -- problems with dupes but can fix with relevance
         signs.english,
         signs.secondary,
         signs.maori,
@@ -77,16 +77,18 @@ class SearchService < ApplicationService
   end
 
   def order_by
-    order = if search.published
-              "signs.published_at #{search.published}"
+    order = if search.order.blank?
+              "signs.english ASC"
+            elsif search.order.key?("published")
+              "signs.published_at #{search.order.values.first}"
             else
-              "signs.english"
+              "signs.secondary ASC" # place holder until we can include relevance
             end
 
     ApplicationRecord.send(:sanitize_sql_for_order, order)
   end
 
   def limit
-    search.page[:limit] # need to sanitize
+    search.page[:limit]
   end
 end
