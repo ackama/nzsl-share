@@ -1,23 +1,34 @@
-<h3>Create a folder</h3>
-<%= form_with(model: folder) do |f| %>
-  <fieldset>
-    <%= f.label :title, class: "required" %>
-    <%= f.text_field :title %>
-    <% if folder.errors[:title].any? %>
-      <% folder.errors[:title].each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    <% end %>
-  </fieldset>
+<div class="grid-x grid-padding-x">
+  <div class="cell grid-x align-middle modal-form__title">
+    <h2>Create a folder</h2>
+    <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
+      <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
+    </button>
+  </div>
+  <div class="cell">
+  <%= form_with(model: folder) do |f| %>
+    <div class="modal-form__fields">
+      <fieldset>
+        <%= f.label :title, "Folder name", class: "required" %>
+        <%= f.text_field :title, placeholder: "Enter a title" %>
+        <% if folder.errors[:title].any? %>
+          <% folder.errors[:title].each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+        <% end %>
+      </fieldset>
 
-  <fieldset>
-    <%= f.label :description %>
-    <%= f.text_area :description, rows: 3 %>
-  </fieldset>
+      <fieldset>
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 3, placeholder: "Enter a description" %>
+      </fieldset>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    </div>
 
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.submit class: "button" %>
-<% end %>
-<button class="close-button" data-close aria-label="Close reveal" type="button">
-  <span aria-hidden="true">&times;</span>
-</button>
+    <div class="grid-x align-middle align-right">
+      <button class="button clear">Cancel</button>
+      <%= f.submit class: "button royal" %>
+    </div>
+  <% end %>
+</div>
+</div>
