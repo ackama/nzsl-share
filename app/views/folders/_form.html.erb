@@ -10,10 +10,10 @@
     <div class="modal-form__fields">
       <fieldset>
         <%= f.label :title, "Folder name", class: "required" %>
-        <%= f.text_field :title, placeholder: "Enter a title" %>
+        <%= f.text_field :title, placeholder: "Enter a title", class: (folder.errors[:title].any? && "invalid") %>
         <% if folder.errors[:title].any? %>
           <% folder.errors[:title].each do |message| %>
-            <div><%= message %></div>
+            <div class="form-error show"><%= message %></div>
           <% end %>
         <% end %>
       </fieldset>
@@ -21,11 +21,12 @@
       <fieldset>
         <%= f.label :description %>
         <%= f.text_area :description, rows: 3, placeholder: "Enter a description" %>
+        <p class="help-text text-right">character limit</p>
       </fieldset>
       <%= f.hidden_field :user_id, value: current_user.id %>
     </div>
 
-    <div class="grid-x align-middle align-right">
+    <div class="grid-x align-middle align-right modal-form__buttons">
       <button class="button clear">Cancel</button>
       <%= f.submit class: "button royal" %>
     </div>
