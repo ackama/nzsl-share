@@ -19,7 +19,7 @@
     padding: $global-padding 0;
   }
 
-  hr {
+  &__divider {
     background-color: get-color(primary-x-light);
     border: 0;
     clear: both;

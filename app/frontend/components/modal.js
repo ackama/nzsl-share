@@ -1,5 +1,2 @@
-var $modal = $('#new-folder');
-
-
-$(() => $("a[data-remote]").on("ajax:success", event => $('#new-folder').foundation('open')));
+$(() => $("#new-folder").on("ajax:success", event => $('#create-folder').foundation('open')));
 
