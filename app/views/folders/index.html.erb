@@ -8,8 +8,16 @@
   <div class="list__items cell grid-x">
     <% @folders.each do |folder| %>
       <div class="folder cell grid-x align-middle">
-        <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
-        <div class="folder__title"><%= folder.title %> ›</div>
+        <div class="cell small-6 grid-x align-middle">
+          <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
+          <div class="folder__title"><%= folder.title %> ›</div>
+        </div>
+        <div class="cell small-3">
+          created <%= folder.created_at.strftime("%d %b %Y") %>
+        </div>
+        <div class="cell small-3">
+          0 signs
+        </div>
       </div>
     <% end %>
   </div>
