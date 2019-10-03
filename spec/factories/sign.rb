@@ -4,5 +4,6 @@ FactoryBot.define do
     maori     { Faker::Name.last_name    } # until we get some proper data
     secondary { Faker::Name.middle_name  }
     association :topic
+    association :contributor, factory: :user
   end
 end
