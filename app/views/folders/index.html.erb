@@ -23,7 +23,14 @@
         </div>
         <div class="cell small-3 folder__details">
           0 signs
-          <a href="#" class="folder__options"><%= image_pack_tag "media/images/options.svg", "aria-hidden": true %></a>
+          <a href="#" class="folder__options" data-toggle="folder-options"><%= image_pack_tag "media/images/options.svg", "aria-hidden": true %></a>
+          <div class="folder__dropdown-pane" id="folder-options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+            <ul class="folder__menu vertical icons">
+              <li><a href="#"><%= image_pack_tag "media/images/share.svg", "aria-hidden": true %><span>Share</span></a></li>
+              <li><a href="#"><%= image_pack_tag "media/images/options-copy.svg", "aria-hidden": true %><span>Edit</span></a></li>
+              <li><a href="#"><%= image_pack_tag "media/images/trash.svg", "aria-hidden": true %><span>Delete</span></a></li>
+            </ul>
+          </div>
         </div>
 
       </div>

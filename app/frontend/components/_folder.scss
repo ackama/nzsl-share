@@ -29,4 +29,25 @@
     position: absolute;
     right: 21px;
   }
+
+  &__menu {
+    @extend .menu;
+    font-size: 13px;
+    padding: 0;
+
+    > li > a {
+      color: $black;
+      padding: 0.5rem;
+
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &__dropdown-pane {
+    @include dropdown-container;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+    max-width: rem-calc(161);
+  }
 }
