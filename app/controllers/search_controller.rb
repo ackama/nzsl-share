@@ -2,8 +2,7 @@
 
 class SearchController < ApplicationController
   def index
-    @results = SearchService.call(search: new_search).data
-    render template: "home/results"
+    @results = SearchService.call(search: new_search)
   end
 
   private
@@ -13,6 +12,6 @@ class SearchController < ApplicationController
   end
 
   def search_params
-    params.require(:search).permit(:word)
+    params.permit(:word, :page, order: %i[default published])
   end
 end
