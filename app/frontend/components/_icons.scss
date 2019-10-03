@@ -1,0 +1,41 @@
+$icon-sizes: (
+  default: rem-calc(16),
+  mid: rem-calc(20),
+  large: rem-calc(64)
+);
+
+@mixin icon-fill($color: $black) {
+  &,
+  & * {
+    fill: $color;
+  }
+}
+
+@mixin icon-stroke($color: $black) {
+  &,
+  & * {
+    stroke: $color;
+  }
+}
+
+@mixin icon-size($size: default) {
+  height: map-get($icon-sizes, $size);
+  width: map-get($icon-sizes, $size);
+}
+
+.icon {
+  @include icon-fill;
+  @include icon-size;
+
+
+  @each $name, $color in $foundation-palette {
+    &--#{$name} { @include icon-fill($color); }
+    &--stroke-#{$name} { @include icon-stroke($color); }
+  }
+
+  @each $name, $size in $icon-sizes {
+    &--#{$name} { @include icon-size($name); }
+  }
+
+  &--hollow { @include icon-fill(transparent); }
+}
