@@ -3,8 +3,11 @@ class AddContributorToSigns < ActiveRecord::Migration[6.0]
     add_reference :signs,
                   :contributor, null: true,
                                 foreign_key: { to_table: :users }
-    Sign.where(contributor: nil)
-        .update_all(contributor_id: User.first!.id)
+
+    if %w[development test].include?(Rails.env)
+      Sign.where(contributor: nil)
+          .update_all(contributor_id: User.first!.id)
+    end
 
     change_column_null :signs, :contributor_id, false
   end
