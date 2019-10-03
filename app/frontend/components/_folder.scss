@@ -3,6 +3,15 @@
   padding: rem-calc(20) 0;
   position: relative;
 
+  &:hover {
+    background: get-color(royal-x-light);
+
+    .folder__title {
+      color: get-color(royal);
+      text-decoration: underline;
+    }
+  }
+
   &__details {
     color: get-color(medium);
   }
