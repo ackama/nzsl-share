@@ -1,0 +1,6 @@
+.required {
+  &::after {
+    content: "*";
+    padding-left: 0.25em;
+  }
+}

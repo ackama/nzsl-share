@@ -60,19 +60,78 @@
       molestie tur.
     </p>
 
-    <label for="example-input">This is a field label</label>
+    <label for="example-input" class="required">This is a field label</label>
+    <p class="help-text">Only use alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores</p>
     <input type="text" id="example-input" placeholder="This is an example field" />
+
+    <div class="callout">
+      Labels can have a <code>.required</code> class added to the element
+      to automatically add an asterisk indictor to show that the field is
+      required.
+    </div>
+
+    <label for="error-input">Invalid</label>
+    <input type="text" class="invalid" id="error-input" placeholder="This is an example field" />
+    <p class="form-error show">Inline error message</p>
+
+    <div class="callout">
+      Use the <code>show</code> class on backend error messages to
+      ensure they are shown.
+    </div>
+
+
+
+    <label for="icon-input">Icon Input</label>
+    <div class="input-group">
+      <span class="input-group-label"><%= image_pack_tag "disagree.svg", alt: "Disagree" %></span>
+      <input type="text" id="icon-input" placeholder="This is an example field" />
+      <span class="input-group-label"><%= image_pack_tag "agree.svg", alt: "Agree" %></span>
+    </div>
+    <p class="help-text text-right">12/30 character limit</p>
 
     <label for="example-select">This is a select label</label>
     <select  id="example-select" placeholder="This is an example select"><option>A value</option></select>
 
-    <button class="button primary">Primary Button</button>
-    <button class="button royal">Royal Button</button>
-    <button class="button primary-light rounded">Light Rounded Button</button>
+    <fieldset>
+      <legend>User type</legend>
 
-    <button class="button secondary">Secondary button</button>
-    <button class="button hollow">Hollow button</button>
-    <button class="button clear">Clear button</button>
+      <div class="checkbox">
+        <input type="checkbox" id="sample_checkbox" name="checkbox" />
+        <label for="sample_checkbox"><span>I am interested in being an <a href="#">approved user</a></span></label>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="sample_checkbox_2" name="checkbox" />
+        <label for="sample_checkbox_2"><span>I am interested in being an <a href="#">magic user</a></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Option Selection</legend>
+      <div class="radio">
+        <input type="radio" id="sample_radio" name="radio" />
+        <label for="sample_radio">Option 1</a></label>
+      </div>
+
+      <div class="radio">
+        <input type="radio" id="sample_radio_2" name="radio" />
+        <label for="sample_radio_2">Option 2</label>
+      </div>
+    </fieldset>
+
+
+    <button class="button primary">Primary Button</button><br />
+    <button class="button primary"><%= image_pack_tag("bell.svg", alt: "Yes", "aria-hidden": "true") %>Primary Button</button><br>
+    <button class="button primary icon-only"><%= image_pack_tag("bell.svg", alt: "Yes") %></button><br>
+
+    <button class="button secondary">Secondary Button</button><br />
+    <button class="button secondary"><%= image_pack_tag("agree.svg", alt: "Yes", "aria-hidden": "true") %>Secondary Button</button><br>
+    <button class="button secondary icon-only"><%= image_pack_tag("agree.svg", alt: "Yes") %></button><br>
+
+    <button class="button clear">Frameless Button</button><br />
+    <button class="button clear"><%= image_pack_tag("agree.svg", alt: "Yes", "aria-hidden": "true") %>Yes</button><br>
+    <button class="button clear icon-only"><%= image_pack_tag("agree.svg", alt: "Yes") %></button><br>
+
   </div>
 
   <div class="cell small-12 large-4">
