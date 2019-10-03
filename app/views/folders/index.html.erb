@@ -4,7 +4,7 @@
     <h1>My folders</h1>
     <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
   </div>
-  <hr/>
+  <hr class="list__divider"/>
   <div class="list__items cell grid-x">
     <% @folders.each do |folder| %>
       <div class="folder cell grid-x align-middle">
