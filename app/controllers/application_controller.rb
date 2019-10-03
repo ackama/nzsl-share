@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   before_action :http_basic_auth
   layout -> { user_signed_in? ? "authenticated" : "application" }
 

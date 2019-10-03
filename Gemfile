@@ -17,6 +17,7 @@ gem "devise"
 gem "nokogiri", "~> 1.10"
 gem "faraday"
 gem "faraday_middleware"
+gem "pundit"
 
 gem "rack-canonical-host"
 
