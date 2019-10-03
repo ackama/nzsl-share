@@ -12,12 +12,14 @@
           <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
           <div class="folder__title"><%= folder.title %> ›</div>
         </div>
-        <div class="cell small-3">
+        <div class="cell small-3 folder__details">
           created <%= folder.created_at.strftime("%d %b %Y") %>
         </div>
-        <div class="cell small-3">
+        <div class="cell small-3 folder__details">
           0 signs
+          <a href="#" class="folder__options"><%= image_pack_tag "media/images/options.svg", "aria-hidden": true %></a>
         </div>
+
       </div>
     <% end %>
   </div>

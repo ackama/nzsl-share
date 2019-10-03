@@ -1,6 +1,11 @@
 .folder {
   border-radius: 11px;
   padding: rem-calc(20) 0;
+  position: relative;
+
+  &__details {
+    color: get-color(medium);
+  }
 
   &__title {
     font-weight: bold;
@@ -9,5 +14,10 @@
   &__icon {
     margin-left: rem-calc(24);
     margin-right: rem-calc(12);
+  }
+
+  &__options {
+    position: absolute;
+    right: 21px;
   }
 }
