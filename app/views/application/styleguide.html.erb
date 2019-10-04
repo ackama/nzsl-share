@@ -170,21 +170,40 @@
           <div class="sign-card__bottom grid-x align-middle">
             <div class="sign-card__votes">
               <div class="sign-card__votes--agree grid-x align-middle">
-                <%= image_pack_tag "agree.svg", alt: "Agree", class: "sign-card__votes--icon" %>
+                <%= inline_svg "media/images/agree.svg", title: "Agree", aria: true, class: "sign-card__votes--icon" %>
                 <div>2.1k</div>
               </div>
               <div class="sign-card__votes--disagree grid-x align-middle">
-              <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
+              <%= inline_svg "media/images/disagree.svg", title: "Disagree", aria: true, class: "sign-card__votes--icon" %>
               <div>33</div>
               </div>
             </div>
             <div class="sign-card__folder">
-              <%= image_pack_tag "folder-add.svg", alt: "Add to folder", class: "sign-card__folder--icon" %>
+              <%= inline_svg "media/images/folder-add.svg", title: "Add to folder", aria: true, class: "sign-card__folder--icon" %>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <h4>Icons</h4>
+
+    <% %w[
+        primary primary-light primary-x-light accent
+        accent-x-light royal royal-x-light success success-x-light
+        warning alert-x-light alert light extra-light medium]
+    .each do |tint| %>
+      <%= inline_svg "media/images/agree.svg", class: "icon icon--#{tint}" %>
+      <%= inline_svg "media/images/agree.svg", class: "icon icon--hollow icon--stroke-#{tint}" %>
+      <br>
+    <% end %>
+
+    <br>
+
+    <% %w[default mid large].each do |size| %>
+      <%= inline_svg "media/images/bell.svg", class: "icon icon--#{size}" %>
+      <br>
+    <% end %>
   </div>
 </div>
 
