@@ -6,6 +6,13 @@
   &:hover {
     background: get-color(royal-x-light);
 
+    .folder__icon {
+      &,
+      & path {
+        fill: get-color(royal);
+      }
+    }
+
     .folder__title {
       color: get-color(royal);
       text-decoration: underline;
@@ -21,13 +28,16 @@
   }
 
   &__icon {
-    margin-left: rem-calc(24);
-    margin-right: rem-calc(12);
-  }
 
-  &__options {
-    position: absolute;
-    right: 21px;
+    &--folder {
+      margin-left: rem-calc(24);
+      margin-right: rem-calc(12);
+    }
+
+    &--options {
+      position: absolute;
+      right: 21px;
+    }
   }
 
   &__menu {
