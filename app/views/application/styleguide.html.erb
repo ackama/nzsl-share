@@ -61,12 +61,31 @@
     </p>
 
     <label for="example-input" class="required">This is a field label</label>
-    <p class="help-text">Only use alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores</p>
+    <p class="help-text">
+      Only use alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores.
+      <br>
+      <a href="https://vimeo.com/361959003" onclick="return false;" data-toggle="nzsl-help-text">View in NZSL</a>
+
+    </p>
     <input type="text" id="example-input" placeholder="This is an example field" />
+    <div class="reveal" id="nzsl-help-text" data-reveal data-close-on-click="true" >
+      <button class="close-button" data-close aria-label="Close" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <br> <!-- Spacing for embed to not obscure close button -->
+      <div class="responsive-embed">
+        <iframe src="https://player.vimeo.com/video/361959003"
+                width="640"
+                height="360"
+                frameborder="0"
+                allow="autoplay; fullscreen"
+                allowfullscreen></iframe>
+      </div>
+    </div>
 
     <div class="callout">
       Labels can have a <code>.required</code> class added to the element
-      to automatically add an asterisk indictor to show that the field is
+      to automatically add indictor text to show that the field is
       required.
     </div>
 

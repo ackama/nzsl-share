@@ -1,6 +1,6 @@
 .required {
   &::after {
-    content: "*";
+    content: "(required)";
     padding-left: 0.25em;
   }
 }
