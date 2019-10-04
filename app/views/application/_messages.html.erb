@@ -1,9 +1,15 @@
-  <%# Notice %>
-  <% if flash[:notice].present? %>
-    <div class="callout success"><%= flash[:notice] %></div>
-  <% end %>
+<div class="grid-container", style="width:100%">
+  <div class="grid-x grid-margin-x">
+    <div class="cell auto">
+      <%# Notice %>
+      <% if flash[:notice].present? %>
+        <div class="callout success"><%= flash[:notice] %></div>
+      <% end %>
 
-  <%# Alert %>
-  <% if flash[:alert].present? %>
-    <div class="callout alert"><%= flash[:alert] %></div>
-  <% end %>
+      <%# Alert %>
+      <% if flash[:alert].present? %>
+        <div class="callout alert"><%= flash[:alert] %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
