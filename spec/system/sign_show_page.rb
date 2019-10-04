@@ -7,7 +7,7 @@ RSpec.describe "Sign show page", system: true do
   before { subject.start }
 
   it "displays the sign word" do
-    expect(subject).to have_selector "h1", text: sign.english
+    expect(subject).to have_selector "h2", text: sign.english
   end
 
   it "displays the sign video" do
@@ -20,5 +20,11 @@ RSpec.describe "Sign show page", system: true do
 
   it "displays the sign topic" do
     expect(subject).to have_content sign.topic.name
+  end
+
+  it "displays the sign description" do
+    sign.update!(description: "Hello, world!")
+    visit current_path # Reload
+    expect(subject).to have_selector "p", text: "Hello, world!"
   end
 end
