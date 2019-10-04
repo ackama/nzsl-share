@@ -43,8 +43,7 @@ ActiveRecord::Schema.define(version: 2019_10_08_220401) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "index_folders_on_user_id"
+    t.string "share_token", limit: 100
   end
 
   create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
