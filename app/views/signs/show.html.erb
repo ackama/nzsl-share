@@ -17,6 +17,10 @@
         <%= @sign.contributor.username %>
         &nbsp;•&nbsp;
         <%= localize(@sign.created_at, format: "%-d %B %Y") %>
+        <% if @sign.topic %>
+          &nbsp;•&nbsp;
+          <%= @sign.topic.name %>
+        <% end %>
       </small>
       <hr />
 
