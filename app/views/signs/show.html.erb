@@ -1,11 +1,6 @@
 
-  <div class="grid-x grid-margin-x ">
+  <div class="grid-x grid-margin-x align-center" style="margin-top:1rem;">
     <div class="cell">
-      <div class="callout">
-        As an admin you can edit this sign.
-        <a href="#">Edit sign</a>
-      </div>
-
       <div class="responsive-embed">
         <iframe
           src="https://player.vimeo.com/video/361959003"
@@ -18,51 +13,43 @@
       </div>
 
       <h2><%= @sign.english %></h2>
-      <small><%= @sign.contributor.username %>&nbsp;•&nbsp;<%= localize(@sign.created_at, format: :short) %></small>
+      <small>
+        <%= @sign.contributor.username %>
+        &nbsp;•&nbsp;
+        <%= localize(@sign.created_at, format: "%-d %B %Y") %>
+      </small>
       <hr />
 
-      <div class="pull-left">
-        <%= link_to "#", class: "button" do %>
-          <%= image_pack_tag "media/images/agree.svg", :"aria-hidden" => true %>
-          <%= @sign.agree_count %> Agree
-        <% end %>
-        <%= link_to "#", class: "button" do %>
-          <%= image_pack_tag "media/images/disagree.svg", :"aria-hidden" => true %>
-          <%= @sign.disagree_count %>
-          Disagree
-        <% end %>
-      </div>
-
-      <div class="pull-right">
-        <%= link_to "#", class: "button" do %>
-          Comment
-        <% end %>
-        <%= link_to "#", class: "button" do %>
-          <%= image_pack_tag "media/images/folder-add.svg", :"aria-hidden" => true %>
-          Add to Folder
-        <% end %>
-        <%= link_to "#", class: "button" do %>
-          Share
-        <% end %>
+      <div class="grid-x">
+        <div class="cell shrink">
+          <%= link_to "#", class: "button" do %>
+            <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--white" %>
+            <%= @sign.agree_count %> Agree
+          <% end %>
+          <%= link_to "#", class: "button" do %>
+            <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--white" %>
+            <%= @sign.disagree_count %>
+            Disagree
+          <% end %>
+        </div>
+        <div class="cell auto"></div>
+        <div class="cell shrink">
+          <%= link_to "#", class: "button" do %>
+            Comment
+          <% end %>
+          <%= link_to "#", class: "button" do %>
+            <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--white" %>
+            Add to Folder
+          <% end %>
+          <%= link_to "#", class: "button" do %>
+            Share
+          <% end %>
+        </div>
       </div>
 
       <hr />
 
-      <dl>
-        <dt>Posted by:</dt>
-        <dd><%= @sign.contributor.username %></dd>
-
-        <% if @sign.topic %>
-        <dt>Topic:</dt>
-        <dd><%= @sign.topic.name %></dd>
-        <% end %>
-
-        <dt>Tags:</dt>
-        <dd><%= @sign.tags.join(", ").presence || "(None)" %></dd>
-
-        <dt>Description:</dt>
-        <dd><%= simple_format @sign.description %></dd>
-      </dl>
+      <%= simple_format @sign.description %>
     </div>
   </div>
 </div>
