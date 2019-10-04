@@ -10,6 +10,7 @@ class SearchService < ApplicationService
 
   def process
     results.data = build_results
+    results.support = search.page
     results
   end
 
@@ -32,48 +33,62 @@ class SearchService < ApplicationService
       AS
       (
         SELECT
-          results.*
-          FROM
-          (
-            SELECT
-              signs.id,
-              1,
-              RANK() OVER (ORDER BY signs.english)
-              FROM signs
-              WHERE signs.english  ~* ?
-            UNION ALL
-            SELECT
-              signs.id,
-              2,
-              RANK() OVER (ORDER BY signs.english)
-              FROM signs
-              WHERE signs.english ~* ?
-            UNION ALL
-            SELECT
-              signs.id,
-              3,
-              RANK() OVER (ORDER BY signs.secondary)
-              FROM signs
-              WHERE signs.secondary ~* ?
-      	    UNION ALL
-            SELECT
-              signs.id,
-              4,
-              RANK() OVER (ORDER BY signs.secondary)
-              FROM signs
-              WHERE signs.secondary ~* ?
-          ) AS results
+          signs.id,
+          1,
+          RANK() OVER (ORDER BY signs.english)
+          FROM signs
+          WHERE signs.english  ~* ?
+        UNION ALL
+        SELECT
+          signs.id,
+          2,
+          RANK() OVER (ORDER BY signs.english)
+          FROM signs
+          WHERE signs.english ~* ?
+        UNION ALL
+        SELECT
+          signs.id,
+          3,
+          RANK() OVER (ORDER BY signs.secondary)
+          FROM signs
+          WHERE signs.secondary ~* ?
+        UNION ALL
+        SELECT
+          signs.id,
+          4,
+          RANK() OVER (ORDER BY signs.secondary)
+          FROM signs
+          WHERE signs.secondary ~* ?
       )
-      SELECT
-        signs.id,
+      SELECT                          -- problems with dupes but can fix with relevance
         signs.english,
+        signs.secondary,
         signs.maori,
-        signs.secondary
+        'nzsl dev user' AS user_name, -- temp user
+        '256' AS agree,               -- temp agree int will come from signs
+        '512' AS disagree,            -- temp disagree int will come from signs
+        TO_CHAR(signs.published_at:: DATE, 'Mon dd yyyy') AS nice_published_at
         FROM signs
         JOIN sign_search
           ON signs.id = sign_search.sign_id
-        ORDER BY signs.english
-		    -- ORDER BY sign_search.query_rank, sign_search.word_rank -- uncomment when we are ready to search by relevance
+        ORDER BY #{order_by}
+        LIMIT #{limit}
     SQL
+  end
+
+  def order_by
+    order = if search.order.blank?
+              "signs.english ASC"
+            elsif search.order.key?("published")
+              "signs.published_at #{search.order.values.first}"
+            else
+              "signs.secondary ASC" # place holder until we can include relevance
+            end
+
+    ApplicationRecord.send(:sanitize_sql_for_order, order)
+  end
+
+  def limit
+    search.page[:limit]
   end
 end

@@ -18,6 +18,8 @@ gem "nokogiri", "~> 1.10"
 gem "faraday"
 gem "faraday_middleware"
 gem "pundit"
+gem "aws-sdk-s3"
+gem "inline_svg"
 
 gem "rack-canonical-host"
 

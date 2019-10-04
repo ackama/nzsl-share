@@ -70,10 +70,11 @@ $fa-font-path: "~font-awesome/fonts";
 $global-font-size: 15px;
 $global-width: rem-calc(1080);
 $global-lineheight: 1.6;
-$extra-light-gray: #f2f5f7;
-$light-gray: #dee5ea;
-$lighter-gray: #b1b7bc;
-$medium-gray: #5d7389;
+$background: #f2f5f7;
+$extra-light-gray: #eceeee;
+$light-gray: #a0a7ab;
+$lighter-gray: #d6dadb;
+$medium-gray: #6a7077;
 $dark-gray: $medium-gray;
 $black: #041723;
 $white: #fff;
@@ -86,15 +87,17 @@ $foundation-palette: (
   accent-x-light: #ffe8e0,
   royal: #354ae7,
   royal-x-light: #f1f2fb,
-  success: #3adb76,
+  success: #038500,
+  success-x-light: #e2f0e1,
   warning: #ffae00,
   alert: #ba2f2f,
-  light: $light-gray,
+  alert-x-light: #ffe9e8,
+  light: $lighter-gray,
   extra-light: $extra-light-gray,
   medium: $medium-gray
 );
 
-$body-background: $extra-light-gray;
+$body-background: $background;
 $body-font-color: $black;
 $body-font-family: "Montserrat", sans-serif;
 $body-antialiased: true;
@@ -235,9 +238,9 @@ $stat-font-size: 2.5rem;
 $abide-inputs: true;
 $abide-labels: true;
 $input-background-invalid: get-color(alert);
-$form-label-color-invalid: get-color(alert);
+$form-label-color-invalid: $black;
 $input-error-color: get-color(alert);
-$input-error-font-size: rem-calc(12);
+$input-error-font-size: rem-calc(13);
 $input-error-font-weight: $global-weight-bold;
 
 // 7. Accordion
@@ -303,10 +306,10 @@ $button-font-family: inherit;
 $button-padding: 0.85em 1em;
 $button-margin: 0 0 $global-margin 0;
 $button-fill: solid;
-$button-background: $black;
-$button-background-hover: scale-color($button-background, $lightness: -15%);
+$button-background: get-color(royal);
+$button-background-hover: $button-background;
 $button-color: $white;
-$button-color-alt: $black;
+$button-color-alt: get-color(royal);
 $button-radius: $global-radius;
 $button-hollow-border-width: 1px;
 $button-sizes: (
@@ -315,11 +318,14 @@ $button-sizes: (
   default: 0.9rem,
   large: 1.25rem
 );
-$button-palette: $foundation-palette;
+$button-palette: (
+  primary: get-color(royal),
+  secondary: get-color(royal-x-light)
+);
 $button-opacity-disabled: 0.25;
-$button-background-hover-lightness: -20%;
-$button-hollow-hover-lightness: -50%;
-$button-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+$button-background-hover-lightness: 0%;
+$button-hollow-hover-lightness: 0%;
+$button-transition: background-color, box-shadow, transform 0.25s ease-out, color 0.25s ease-out;
 $button-responsive-expanded: false;
 
 // 12. Button Group
@@ -337,11 +343,11 @@ $buttongroup-radius-on-each: true;
 $callout-background: $white;
 $callout-background-fade: 0%;
 $callout-border: none;
-$callout-margin: 0 0 1rem 0;
+$callout-margin: 1rem auto auto auto;
 $callout-padding: 1rem;
 $callout-font-color: $body-font-color;
 $callout-font-color-alt: $white;
-$callout-radius: false;
+$callout-radius: $global-radius;
 $callout-link-tint: 30%;
 
 // 14. Card
@@ -434,18 +440,18 @@ $fieldset-border: 1px solid $dark-gray;
 $fieldset-padding: rem-calc(20);
 $fieldset-margin: rem-calc(18 0);
 $legend-padding: rem-calc(0 3);
-$form-spacing: rem-calc(16);
-$helptext-color: $black;
+$form-spacing: rem-calc(8);
+$helptext-color: $medium-gray;
 $helptext-font-size: rem-calc(13);
-$helptext-font-style: italic;
+$helptext-font-style: normal;
 $input-prefix-color: $black;
 $input-prefix-background: $light-gray;
 $input-prefix-border: 1px solid $dark-gray;
 $input-prefix-padding: 1rem;
-$form-label-color: $black;
-$form-label-font-size: rem-calc(13);
+$form-label-color: $medium-gray;
+$form-label-font-size: 1rem;
 $form-label-font-weight: bold;
-$form-label-line-height: 1.8;
+$form-label-line-height: 1.6;
 $select-background: $white;
 $select-triangle-color: $dark-gray;
 $select-radius: $global-radius;
@@ -459,8 +465,8 @@ $input-background: $white;
 $input-background-focus: $white;
 $input-background-disabled: $light-gray;
 $input-border: 1px solid $lighter-gray;
-$input-border-focus: 1px solid get-color(royal);
-$input-padding: $form-spacing / 2 $form-spacing;
+$input-border-focus: 2px solid get-color(royal);
+$input-padding: $form-spacing;
 $input-shadow: none;
 $input-shadow-focus: none;
 $input-cursor-disabled: not-allowed;
@@ -492,9 +498,9 @@ $mediaobject-image-width-stacked: 100%;
 
 $menu-margin: 0;
 $menu-nested-margin: $global-menu-nested-margin;
-$menu-items-padding: 1.5rem 1rem;
+$menu-items-padding: 1rem;
 $menu-simple-margin: 1rem;
-$menu-item-color-active: get-color(primary);
+$menu-item-color-active: $black;
 $menu-item-background-active: get-color(light);
 $menu-icon-spacing: 0.25rem;
 $menu-state-back-compat: true;

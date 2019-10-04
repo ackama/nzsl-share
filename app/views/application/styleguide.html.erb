@@ -1,5 +1,3 @@
-
-
 <div class="grid-x grid-margin-x">
   <div class="cell small-12 large-4">
     <div class="grid-x">
@@ -62,38 +60,99 @@
       molestie tur.
     </p>
 
-    <label for="example-input">This is a field label</label>
+    <label for="example-input" class="required">This is a field label</label>
+    <p class="help-text">Only use alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores</p>
     <input type="text" id="example-input" placeholder="This is an example field" />
+
+    <div class="callout">
+      Labels can have a <code>.required</code> class added to the element
+      to automatically add an asterisk indictor to show that the field is
+      required.
+    </div>
+
+    <label for="error-input">Invalid</label>
+    <input type="text" class="invalid" id="error-input" placeholder="This is an example field" />
+    <p class="form-error show">Inline error message</p>
+
+    <div class="callout">
+      Use the <code>show</code> class on backend error messages to
+      ensure they are shown.
+    </div>
+
+
+
+    <label for="icon-input">Icon Input</label>
+    <div class="input-group">
+      <span class="input-group-label"><%= image_pack_tag "disagree.svg", alt: "Disagree" %></span>
+      <input type="text" id="icon-input" placeholder="This is an example field" />
+      <span class="input-group-label"><%= image_pack_tag "agree.svg", alt: "Agree" %></span>
+    </div>
+    <p class="help-text text-right">12/30 character limit</p>
 
     <label for="example-select">This is a select label</label>
     <select  id="example-select" placeholder="This is an example select"><option>A value</option></select>
 
-    <button class="button primary">Primary Button</button>
-    <button class="button royal">Royal Button</button>
-    <button class="button primary-light rounded">Light Rounded Button</button>
+    <fieldset>
+      <legend>User type</legend>
 
-    <button class="button secondary">Secondary button</button>
-    <button class="button hollow">Hollow button</button>
-    <button class="button clear">Clear button</button>
+      <div class="checkbox">
+        <input type="checkbox" id="sample_checkbox" name="checkbox" />
+        <label for="sample_checkbox"><span>I am interested in being an <a href="#">approved user</a></span></label>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="sample_checkbox_2" name="checkbox" />
+        <label for="sample_checkbox_2"><span>I am interested in being an <a href="#">magic user</a></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Option Selection</legend>
+      <div class="radio">
+        <input type="radio" id="sample_radio" name="radio" />
+        <label for="sample_radio">Option 1</a></label>
+      </div>
+
+      <div class="radio">
+        <input type="radio" id="sample_radio_2" name="radio" />
+        <label for="sample_radio_2">Option 2</label>
+      </div>
+    </fieldset>
+
+
+    <button class="button primary">Primary Button</button><br />
+    <button class="button primary"><%= image_pack_tag("bell.svg", alt: "Yes", "aria-hidden": "true") %>Primary Button</button><br>
+    <button class="button primary icon-only"><%= image_pack_tag("bell.svg", alt: "Yes") %></button><br>
+
+    <button class="button secondary">Secondary Button</button><br />
+    <button class="button secondary"><%= image_pack_tag("agree.svg", alt: "Yes", "aria-hidden": "true") %>Secondary Button</button><br>
+    <button class="button secondary icon-only"><%= image_pack_tag("agree.svg", alt: "Yes") %></button><br>
+
+    <button class="button clear">Frameless Button</button><br />
+    <button class="button clear"><%= image_pack_tag("agree.svg", alt: "Yes", "aria-hidden": "true") %>Yes</button><br>
+    <button class="button clear icon-only"><%= image_pack_tag("agree.svg", alt: "Yes") %></button><br>
+
   </div>
 
   <div class="cell small-12 large-4">
-    <ul class="callout extra-light vertical menu">
-      <li><a href="#">
-        <%= image_pack_tag "home.svg", :"aria-hidden" => true %>
-        <%= content_tag :span, "Home" %>
-      </a></li>
-      <li class="menu-divider"></li>
-      <li class="menu-text">Manage videos</li>
-      <li class="is-active"><a href="#">
-        <%= image_pack_tag "folder-alt.svg", :"aria-hidden" => true %>
-        <%= content_tag :span, "Collections" %>
-      </a></li>
-      <li><a href="#">
-        <%= image_pack_tag "control-play.svg", :"aria-hidden" => true %>
-        <%= content_tag :span, "My videos" %>
-      </a></li>
-    </ul>
+    <div class="callout">
+      <ul class="vertical menu">
+        <li><a href="#">
+          <%= image_pack_tag "home.svg", :"aria-hidden" => true %>
+          <%= content_tag :span, "Home" %>
+        </a></li>
+        <li class="menu-divider"></li>
+        <li class="menu-text">Manage videos</li>
+        <li class="is-active"><a href="#">
+          <%= image_pack_tag "folder-alt.svg", :"aria-hidden" => true %>
+          <%= content_tag :span, "Collections" %>
+        </a></li>
+        <li><a href="#">
+          <%= image_pack_tag "control-play.svg", :"aria-hidden" => true %>
+          <%= content_tag :span, "My videos" %>
+        </a></li>
+      </ul>
+    </div>
 
     <div class="responsive-embed">
       <div class="sign-card">
@@ -111,21 +170,40 @@
           <div class="sign-card__bottom grid-x align-middle">
             <div class="sign-card__votes">
               <div class="sign-card__votes--agree grid-x align-middle">
-                <%= image_pack_tag "agree.svg", alt: "Agree", class: "sign-card__votes--icon" %>
+                <%= inline_svg "media/images/agree.svg", title: "Agree", aria: true, class: "sign-card__votes--icon" %>
                 <div>2.1k</div>
               </div>
               <div class="sign-card__votes--disagree grid-x align-middle">
-              <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
+              <%= inline_svg "media/images/disagree.svg", title: "Disagree", aria: true, class: "sign-card__votes--icon" %>
               <div>33</div>
               </div>
             </div>
             <div class="sign-card__folder">
-              <%= image_pack_tag "folder-add.svg", alt: "Agree", class: "sign-card__folder--icon" %>
+              <%= inline_svg "media/images/folder-add.svg", title: "Add to folder", aria: true, class: "sign-card__folder--icon" %>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <h4>Icons</h4>
+
+    <% %w[
+        primary primary-light primary-x-light accent
+        accent-x-light royal royal-x-light success success-x-light
+        warning alert-x-light alert light extra-light medium]
+    .each do |tint| %>
+      <%= inline_svg "media/images/agree.svg", class: "icon icon--#{tint}" %>
+      <%= inline_svg "media/images/agree.svg", class: "icon icon--hollow icon--stroke-#{tint}" %>
+      <br>
+    <% end %>
+
+    <br>
+
+    <% %w[default mid large].each do |size| %>
+      <%= inline_svg "media/images/bell.svg", class: "icon icon--#{size}" %>
+      <br>
+    <% end %>
   </div>
 </div>
 

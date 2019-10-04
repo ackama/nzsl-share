@@ -1,0 +1,31 @@
+.list {
+  background: $white;
+  border-radius: rem-calc(8);
+  margin-top: $global-margin;
+  padding: 0 $global-padding;
+
+  &__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $global-padding * 2 0;
+
+    .button {
+      margin: 0;
+    }
+  }
+
+  &__items {
+    padding: $global-padding 0;
+  }
+
+  &__divider {
+    background-color: get-color(primary-x-light);
+    border: 0;
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 0;
+    width: 100%;
+  }
+}

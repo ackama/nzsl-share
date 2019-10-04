@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2019_10_03_021419) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "folders", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_folders_on_user_id"
+  end
+
   create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
     t.string "english", limit: 512, null: false
     t.string "maori", limit: 512
