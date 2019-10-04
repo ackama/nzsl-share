@@ -20,8 +20,8 @@
 
       <fieldset>
         <%= f.label :description %>
-        <%= f.text_area :description, rows: 3, placeholder: "Enter a description" %>
-        <p class="help-text text-right">character limit</p>
+        <%= f.text_area :description, rows: 5, maxlength: "250", placeholder: "Enter a description", data: {characters: ""} %>
+        <p class="help-text text-right"><span data-character-count>0</span>/250 characters</p>
       </fieldset>
       <%= f.hidden_field :user_id, value: current_user.id %>
     </div>
