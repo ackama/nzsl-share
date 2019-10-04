@@ -4,18 +4,19 @@
   align-items: center;
   display: inline-flex;
   font-weight: bold;
+  line-height: 1.2;
   text-decoration: none;
 
   .button-group--spaced & {
     margin: 0 5%;
   }
 
-  & > img {
-    padding-right: 0.85rem;
+  & > .icon {
+    margin-right: 0.85rem;
   }
 
-  &.icon-only > img {
-    padding-right: 0;
+  &.icon-only > .icon {
+    margin-right: 0;
   }
 
   &:active {
