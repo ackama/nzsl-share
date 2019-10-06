@@ -48,6 +48,11 @@
     text-decoration: underline;
   }
 
+  &__media {
+    @include responsive-embed;
+    margin-bottom: 0;
+  }
+
   &__subtitle {
     color: get-color(medium);
     display: flex;
