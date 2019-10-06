@@ -1,8 +1,7 @@
-
-  <div class="grid-x grid-margin-x align-center" style="margin-top:1rem;">
-    <div class="cell">
-      <div class="responsive-embed">
-        <iframe
+<div class="grid-x grid-margin-x" style="margin-top:1rem;">
+  <div class="cell sign-card small-12 large-10 sign-card--borderless">
+    <div class="sign-card__media">
+      <iframe
           src="https://player.vimeo.com/video/361959003"
           width="1080"
           height="720"
@@ -10,10 +9,10 @@
           allow="autoplay; fullscreen"
           allowfullscreen
         ></iframe>
-      </div>
-
-      <h2><%= @sign.english %></h2>
-      <small>
+    </div>
+    <div class="sign-card__section">
+      <h2 class="primary"><%= @sign.english %></h2>
+      <p class="sign-card__subtitle">
         <%= @sign.contributor.username %>
         &nbsp;•&nbsp;
         <%= localize(@sign.created_at, format: "%-d %B %Y") %>
@@ -21,39 +20,32 @@
           &nbsp;•&nbsp;
           <%= @sign.topic.name %>
         <% end %>
-      </small>
-      <hr />
-
-      <div class="grid-x">
-        <div class="cell shrink">
-          <%= link_to "#", class: "button" do %>
-            <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--white" %>
-            <%= @sign.agree_count %> Agree
-          <% end %>
-          <%= link_to "#", class: "button" do %>
-            <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--white" %>
-            <%= @sign.disagree_count %>
-            Disagree
-          <% end %>
-        </div>
-        <div class="cell auto"></div>
-        <div class="cell shrink">
-          <%= link_to "#", class: "button" do %>
-            Comment
-          <% end %>
-          <%= link_to "#", class: "button" do %>
-            <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--white" %>
-            Add to Folder
-          <% end %>
-          <%= link_to "#", class: "button" do %>
-            Share
-          <% end %>
-        </div>
+      </p>
+    </div>
+    <hr class="sign-card__divider">
+    <div class="grid-x sign-card__bottom grid-padding-x">
+      <div class="cell shrink">
+        <%= link_to "#", class: "button clear success" do %>
+          <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--success" %>
+          <%= @sign.agree_count %> Agree
+        <% end %>
+        <%= link_to "#", class: "button clear medium" do %>
+          <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--medium" %>
+          <%= @sign.disagree_count %>
+          Disagree
+        <% end %>
       </div>
-
-      <hr />
-
-      <%= simple_format @sign.description %>
+      <div class="cell auto"></div>
+      <div class="cell shrink">
+        <%= link_to "#", class: "button clear medium" do %>
+          <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--medium" %>
+          Add to Folder
+        <% end %>
+        <%= link_to "#", class: "button clear medium" do %>
+          <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
+          Share
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
