@@ -4,6 +4,11 @@ $icon-sizes: (
   large: rem-calc(64)
 );
 
+$icon-palette: map-merge(
+  $foundation-palette,
+  ( "white": $white, "black": $black)
+);
+
 @mixin icon-fill($color: $black) {
   // Icons are almost always drawn with paths rather than geometric shapes
   // If we target everything here (*), we usually pick up something we didn't
@@ -34,7 +39,7 @@ $icon-sizes: (
   @include icon-size;
 
 
-  @each $name, $color in $foundation-palette {
+  @each $name, $color in $icon-palette {
     &--#{$name} { @include icon-fill($color); }
     &--stroke-#{$name} { @include icon-stroke($color); }
   }

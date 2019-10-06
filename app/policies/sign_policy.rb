@@ -1,0 +1,2 @@
+class SignPolicy < ApplicationPolicy
+end
