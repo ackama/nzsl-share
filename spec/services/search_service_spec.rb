@@ -5,8 +5,8 @@ RSpec.describe SearchService, type: :service do
   describe "search" do
     context "english and secondary" do
       before(:each) do
-        Refined::Search::Data.signs.each do |hsh|
-          Sign.create(hsh)
+        Refined::Search::Data.signs.each do |sign_attrs|
+          FactoryBot.create(:sign, sign_attrs)
         end
       end
 
