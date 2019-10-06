@@ -34,6 +34,11 @@
     }
   }
 
+  &__divider {
+    border-bottom: solid 1px $background;
+    margin: 0 0 1rem;
+  }
+
   &__section {
     @extend .card-section;
     display: flex;
