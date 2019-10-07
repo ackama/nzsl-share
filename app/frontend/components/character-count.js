@@ -1,9 +1,5 @@
-$(document).ready(function() {
-
-  var calculate = function() {
-      var characters = $("textarea[data-characters]").val().length;
-      $("span[data-character-count]").text(characters)
-  };
-
-  $("body").on('keyup', "textarea[data-characters]", calculate);
+$(document).ready(() => {
+  $("body").on("keyup", ":input", ({target}) =>
+    $(`[data-character-count='${target.id}'`).text(target.value.length)
+  );
 });
