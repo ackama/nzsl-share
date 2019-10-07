@@ -6,4 +6,8 @@ class SignPage
     @sign = sign
     visit "/signs/#{@sign.to_param}"
   end
+
+  def breadcrumb
+    within(".breadcrumbs") { yield }
+  end
 end
