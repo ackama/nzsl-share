@@ -1,20 +1,49 @@
-<div class="grid-x grid-margin-x align-center">
+<div class="grid-x grid-margin-x">
+
+  <nav class="cell shrink" aria-label="You are here:" role="navigation">
+    <ul class="breadcrumbs">
+      <li><a href="/">Home</a></li>
+      <li>
+        <span class="show-for-sr">Current: </span> My folders
+      </li>
+    </ul>
+  </nav>
+
   <div class="grid-x cell list">
-  <div class="list__title cell grid-x align-middle">
-    <h1>My folders</h1>
-    <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
+    <div class="list__title cell grid-x align-middle">
+      <h1>My folders</h1>
+      <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
+    </div>
+    <hr class="list__divider"/>
+    <div class="list__items cell grid-x">
+      <% @folders.each do |folder| %>
+        <div class="folder cell grid-x align-middle">
+          <div class="cell small-6 grid-x align-middle">
+            <%= inline_svg "media/images/folder-collection.svg", class: "folder__icon folder__icon--folder icon--medium" %>
+            <div class="folder__title"><%= folder.title %> ›</div>
+          </div>
+          <div class="cell small-3 folder__details">
+            created <%= folder.created_at.strftime("%d %b %Y") %>
+          </div>
+          <div class="cell small-3 folder__details">
+            0 signs
+            <a href="#" class="folder__icon--options" data-toggle="folder-options">
+              <%= inline_svg "media/images/options.svg", class: "icon--medium folder__icon" %>
+            </a>
+            <div class="folder__dropdown-pane" id="folder-options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+              <ul class="folder__menu vertical icons">
+                <li><a href="#"><%= inline_svg "media/images/share.svg", class: "icon--medium" %><span>Share</span></a></li>
+                <li><a href="#"><%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span></a></li>
+                <li><a href="#"><%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span></a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
   </div>
-  <hr class="list__divider"/>
-  <div class="list__items cell grid-x">
-    <% @folders.each do |folder| %>
-      <div class="folder cell grid-x align-middle">
-        <%= image_pack_tag "folder-collection.svg", alt: "Folder", class: "folder__icon" %>
-        <div class="folder__title"><%= folder.title %> ›</div>
-      </div>
-    <% end %>
-  </div>
-  </div>
-  <div class="reveal" id="create-folder" data-reveal>
+  <div class="reveal modal-form align-center" id="create-folder" data-reveal>
     <%= render 'form', folder: @new_folder %>
   </div>
 </div>

@@ -74,10 +74,11 @@ $background: #f2f5f7;
 $extra-light-gray: #eceeee;
 $light-gray: #a0a7ab;
 $lighter-gray: #d6dadb;
-$medium-gray: #6a7077;
+$medium-gray: #646970;
 $dark-gray: $medium-gray;
 $black: #041723;
 $white: #fff;
+$background: #f2f5f7;
 
 $foundation-palette: (
   primary: #18435f,
@@ -94,7 +95,8 @@ $foundation-palette: (
   alert-x-light: #ffe9e8,
   light: $lighter-gray,
   extra-light: $extra-light-gray,
-  medium: $medium-gray
+  medium: $medium-gray,
+  accent-blue: #e9eef2
 );
 
 $body-background: $background;
@@ -287,17 +289,17 @@ $badge-font-size: 0.6rem;
 // 10. Breadcrumbs
 // ---------------
 
-$breadcrumbs-margin: 0 0 $global-margin 0;
-$breadcrumbs-item-font-size: rem-calc(11);
-$breadcrumbs-item-color: $primary-color;
-$breadcrumbs-item-color-current: $black;
+$breadcrumbs-margin: $global-margin * 2 0 $global-margin;
+$breadcrumbs-item-font-size: 13px;
+$breadcrumbs-item-color: get-color(royal);
+$breadcrumbs-item-color-current: get-color(medium);
 $breadcrumbs-item-color-disabled: $dark-gray;
 $breadcrumbs-item-margin: 0.75rem;
-$breadcrumbs-item-uppercase: true;
+$breadcrumbs-item-uppercase: false;
 $breadcrumbs-item-separator: true;
 $breadcrumbs-item-separator-item: "/";
 $breadcrumbs-item-separator-item-rtl: "\\";
-$breadcrumbs-item-separator-color: $dark-gray;
+$breadcrumbs-item-separator-color: get-color(medium);
 
 // 11. Button
 // ----------
@@ -400,7 +402,7 @@ $drilldown-arrow-size: 6px;
 
 $dropdown-padding: 1rem;
 $dropdown-background: $white;
-$dropdown-border: 1px solid $light-gray;
+$dropdown-border: 1px solid $lighter-gray;
 $dropdown-font-size: 1rem;
 $dropdown-width: 320px;
 $dropdown-radius: $global-radius;
@@ -501,7 +503,7 @@ $menu-nested-margin: $global-menu-nested-margin;
 $menu-items-padding: 1rem;
 $menu-simple-margin: 1rem;
 $menu-item-color-active: $black;
-$menu-item-background-active: get-color(light);
+$menu-item-background-active: get-color(royal-x-light);
 $menu-icon-spacing: 0.25rem;
 $menu-state-back-compat: true;
 $menu-centered-back-compat: true;
