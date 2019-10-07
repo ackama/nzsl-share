@@ -17,7 +17,7 @@ class SearchService < ApplicationService
   private
 
   def build_results
-    search_word = search.word.parameterize # replace special characters in a string
+    search_word = search.word.parameterize(separator: "")
     sql_arr = [search_sql, "^#{search_word}", ".#{search_word}", "^#{search_word}", ".#{search_word}"]
     result = exec_query(sql_arr).to_json
     JSON(result)
