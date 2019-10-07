@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :topic do
-    # Returns a 'categorisation: "Grocery, Books, Health & Beauty"
-    name { Faker::Commerce.department }
+    sequence(:name) { |n| "Topic ##{n}" }
     trait :featured do
       featured_at { Time.zone.now }
     end
