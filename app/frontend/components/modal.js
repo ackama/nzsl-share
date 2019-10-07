@@ -1,2 +1,2 @@
-$(() => $("#new-folder").on("ajax:success", event => $('#create-folder').foundation('open')));
+$(() => $("#new-folder").on("ajax:success", () => $("#create-folder").foundation("open")));
 

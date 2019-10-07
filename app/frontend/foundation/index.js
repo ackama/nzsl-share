@@ -1,11 +1,10 @@
-/* global $ */
 import "jquery";
-import "foundation-sites";
+import Foundation from "foundation-sites";
 
-$(document).ready(function () {
+$(document).ready(function() {
   Foundation.MediaQuery._init();
 });
 
-$(window).on("load", function () {
+$(window).on("load", function() {
   $(document).foundation();
 });

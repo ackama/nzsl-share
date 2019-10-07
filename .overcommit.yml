@@ -50,6 +50,10 @@ PreCommit:
   YamlSyntax:
     enabled: true
 
+  EsLint:
+    required_executable: 'bin/js-lint'
+    enabled: true
+
 PostCheckout:
   ALL:
     quiet: true
