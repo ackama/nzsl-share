@@ -59,6 +59,28 @@ RSpec.describe SearchService, type: :service do
       end
     end
 
+    context "macrons" do
+      before(:each) do
+        Refined::Search::Data.signs_with_macrons.each do |sign_attrs|
+          FactoryBot.create(:sign, sign_attrs)
+        end
+      end
+
+      it "return result(s) regardless of macron" do
+        expect(SearchService.call(search: Search.new(word: "āporo")).data.first["maori"]).to eq("āporo")
+        expect(SearchService.call(search: Search.new(word: "aporo")).data.first["maori"]).to eq("āporo")
+
+        expect(SearchService.call(search: Search.new(word: "rahopūru")).data.first["maori"]).to eq("rahopūru")
+        expect(SearchService.call(search: Search.new(word: "rahopuru")).data.first["maori"]).to eq("rahopūru")
+
+        expect(SearchService.call(search: Search.new(word: "pīti")).data.first["maori"]).to eq("pīti")
+        expect(SearchService.call(search: Search.new(word: "piti")).data.first["maori"]).to eq("pīti")
+
+        expect(SearchService.call(search: Search.new(word: "parāoa")).data.first["maori"]).to eq("kihu parāoa")
+        expect(SearchService.call(search: Search.new(word: "paraoa")).data.first["maori"]).to eq("kihu parāoa")
+      end
+    end
+
     context "published date" do
       before(:each) do
         Refined::Search::Data.signs.each do |sign_attrs|
