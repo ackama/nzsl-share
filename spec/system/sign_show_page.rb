@@ -11,7 +11,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "displays the sign video" do
-    expect(subject).to have_selector ".responsive-embed > iframe[src^='https://player.vimeo.com']"
+    expect(subject).to have_selector ".sign-card__media > iframe[src^='https://player.vimeo.com']"
   end
 
   it "displays the contributor's username" do
@@ -20,6 +20,14 @@ RSpec.describe "Sign show page", system: true do
 
   it "displays the sign topic" do
     expect(subject).to have_content sign.topic.name
+  end
+
+  it "shows a breadcrumb to the sign" do
+    subject.breadcrumb { expect(subject).to have_content "Current: #{sign.english}" }
+  end
+
+  it "shows a breadcrumb to the topic" do
+    subject.breadcrumb { expect(subject).to have_link sign.topic.name }
   end
 
   it "displays the sign description" do
