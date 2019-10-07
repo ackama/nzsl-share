@@ -18,6 +18,10 @@ h6 {
       width: 40%;
     }
   }
+
+  @each $name, $color in $foundation-palette {
+    &.#{$name} { color: $color; }
+  }
 }
 
 a {
@@ -30,4 +34,10 @@ a {
   font-size: 13px;
   font-weight: bold;
   margin: 0 rem-calc(8);
+}
+
+small {
+  font-size: rem-calc(13);
+  font-weight: bold;
+  line-height: 1.8;
 }

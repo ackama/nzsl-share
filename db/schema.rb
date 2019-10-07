@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_215237) do
+ActiveRecord::Schema.define(version: 2019_10_03_021419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "folders", force: :cascade do |t|
-    t.string "title", default: "", null: false
-    t.text "description"
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_folders_on_user_id"
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -45,6 +36,15 @@ ActiveRecord::Schema.define(version: 2019_10_02_215237) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "folders", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_folders_on_user_id"
+  end
+
   create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
     t.string "english", limit: 512, null: false
     t.string "maori", limit: 512
@@ -63,9 +63,22 @@ ActiveRecord::Schema.define(version: 2019_10_02_215237) do
     t.datetime "published_at"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
+    t.bigint "contributor_id", null: false
+    t.bigint "topic_id"
+    t.text "description"
+    t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["english"], name: "idx_signs_english"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["secondary"], name: "idx_signs_secondary"
+    t.index ["topic_id"], name: "index_signs_on_topic_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "featured_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["featured_at"], name: "index_topics_on_featured_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,4 +96,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_215237) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "signs", "topics"
+  add_foreign_key "signs", "users", column: "contributor_id"
 end

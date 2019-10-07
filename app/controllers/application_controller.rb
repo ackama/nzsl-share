@@ -7,6 +7,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  ##
+  # Rails' built in stale? caching helper method does not
+  # respect whether caching is enabled or not.
+  # While this is a different kind of cahing, it is unexpected
+  # for an action to be served with 304 status in a development
+  # or test environment.
+  def stale?(*args)
+    return true unless perform_caching
+
+    super
+  end
+
   def configure_permitted_parameters
     sign_in_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: sign_in_attrs + [:remember_me]

@@ -1,8 +1,13 @@
 .sign-card {
   @include card-container;
-  height: rem-calc(334);
+  min-height: rem-calc(334);
   position: relative;
   width: rem-calc(258);
+
+  &--borderless {
+    border-color: transparent;
+    box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.02);
+  }
 
   & .avatar {
     position: absolute;
@@ -29,6 +34,11 @@
     }
   }
 
+  &__divider {
+    border-bottom: solid 1px $background;
+    margin: 0 0 1rem;
+  }
+
   &__section {
     @extend .card-section;
     display: flex;
@@ -43,11 +53,17 @@
     text-decoration: underline;
   }
 
+  &__media {
+    @include responsive-embed;
+    margin-bottom: 0;
+  }
+
   &__subtitle {
     color: get-color(medium);
     display: flex;
     flex-direction: row;
     font-size: rem-calc(13);
+    font-weight: 500;
   }
 
   &__bottom {

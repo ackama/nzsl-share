@@ -1,21 +1,30 @@
+$clear-button-default-active: rgba($black, 0.1);
+
+$clear-button-palette: (
+  default: ( normal: get-color(royal), active: $clear-button-default-active, hover: get-color(royal-x-light) ),
+  success: ( normal: get-color(success), hover: get-color(success-x-light)),
+  medium: ( normal: get-color(medium), hover: get-color(extra-light))
+);
+
 // important! is allowed here because active states must overrride
 // hover states
 .button { //sass-lint:disable-block no-important
   align-items: center;
   display: inline-flex;
   font-weight: bold;
+  line-height: 1.2;
   text-decoration: none;
 
   .button-group--spaced & {
     margin: 0 5%;
   }
 
-  & > img {
-    padding-right: 0.85rem;
+  & > .icon {
+    margin-right: 0.85rem;
   }
 
-  &.icon-only > img {
-    padding-right: 0;
+  &.icon-only > .icon {
+    margin-right: 0;
   }
 
   &:active {
@@ -54,13 +63,26 @@
   }
 
   &.clear {
+    @each $name, $states in $clear-button-palette {
+      &.#{$name} {
+        color: map-get($states, normal);
+        &:active { background: (map-get($states, active) or $clear-button-default-active); }
+
+        &:hover,
+        &:focus {
+          background: map-get($states, hover);
+        }
+
+      }
+    }
+
     &:active {
-      background: rgba($black, 0.1) !important;
+      background: map-get(map-get($clear-button-palette, default), active) !important;
     }
 
     &:hover,
     &:focus {
-      background: get-color(royal-x-light);
+      background: map-get(map-get($clear-button-palette, default), hover);
     }
   }
 }
