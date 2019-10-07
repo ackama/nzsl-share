@@ -37,28 +37,28 @@ class SearchService < ApplicationService
           1,
           RANK() OVER (ORDER BY signs.english)
           FROM signs
-          WHERE signs.english  ~* ?
+          WHERE UNACCENT(signs.english)  ~* ?
         UNION ALL
         SELECT
           signs.id,
           2,
           RANK() OVER (ORDER BY signs.english)
           FROM signs
-          WHERE signs.english ~* ?
+          WHERE UNACCENT(signs.english) ~* ?
         UNION ALL
         SELECT
           signs.id,
           3,
           RANK() OVER (ORDER BY signs.secondary)
           FROM signs
-          WHERE signs.secondary ~* ?
+          WHERE UNACCENT(signs.secondary) ~* ?
         UNION ALL
         SELECT
           signs.id,
           4,
           RANK() OVER (ORDER BY signs.secondary)
           FROM signs
-          WHERE signs.secondary ~* ?
+          WHERE UNACCENT(signs.secondary) ~* ?
       )
       SELECT                          -- problems with dupes but can fix with relevance
         signs.english,
