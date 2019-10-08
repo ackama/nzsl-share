@@ -1,7 +1,10 @@
 .sidebar {
   @include breakpoint(small only) {
+    margin-top: 120px;
+    max-height: 100vh;
+    max-width: 100vw;
     padding-top: 2rem; // Make space for the close button
-    width: 70%;
+    width: 100%;
 
     .menu > li > a {
       flex-direction: row;

@@ -32,7 +32,7 @@
 
   &__list {
     @include menu-base;
-    @include menu-direction(vertical);
+    @include menu-direction(horizontal);
 
     @include breakpoint(medium) {
       @include menu-direction(horizontal);
@@ -99,6 +99,7 @@
       //sass-lint:disable-next-line no-important
       color: $white !important; // Override default menu styles
       font-weight: bold;
+      padding: 0.5rem;
       text-decoration: none;
       width: auto;
 
