@@ -27,7 +27,7 @@
     </div>
 
     <div class="grid-x align-middle align-right modal-form__buttons">
-      <button class="button clear">Cancel</button>
+      <%= link_to "Cancel", folders_path, data: { close: true }, class: "button clear" %>
       <%= f.submit class: "button royal" %>
     </div>
   <% end %>
