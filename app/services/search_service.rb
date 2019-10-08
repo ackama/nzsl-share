@@ -17,7 +17,8 @@ class SearchService < ApplicationService
   private
 
   def build_results
-    sql_arr = [search_sql, "^#{search.word}", ".#{search.word}", "^#{search.word}", ".#{search.word}"]
+    search_word = search.word.parameterize(separator: "")
+    sql_arr = [search_sql, "^#{search_word}", ".#{search_word}", "^#{search_word}", ".#{search_word}"]
     result = exec_query(sql_arr).to_json
     JSON(result)
   end
@@ -37,28 +38,28 @@ class SearchService < ApplicationService
           1,
           RANK() OVER (ORDER BY signs.english)
           FROM signs
-          WHERE signs.english  ~* ?
+          WHERE UNACCENT(signs.english)  ~* ?
         UNION ALL
         SELECT
           signs.id,
           2,
           RANK() OVER (ORDER BY signs.english)
           FROM signs
-          WHERE signs.english ~* ?
+          WHERE UNACCENT(signs.english) ~* ?
         UNION ALL
         SELECT
           signs.id,
           3,
           RANK() OVER (ORDER BY signs.secondary)
           FROM signs
-          WHERE signs.secondary ~* ?
+          WHERE UNACCENT(signs.secondary) ~* ?
         UNION ALL
         SELECT
           signs.id,
           4,
           RANK() OVER (ORDER BY signs.secondary)
           FROM signs
-          WHERE signs.secondary ~* ?
+          WHERE UNACCENT(signs.secondary) ~* ?
       )
       SELECT                          -- problems with dupes but can fix with relevance
         signs.english,
