@@ -7,7 +7,7 @@
   <div class="grid-x grid-margin-x">
     <% search_results(@results).each do |result| %>
       <div class="cell small-3">
-        <%= render(partial: 'results', locals: { result: result }) %>
+        <%= render(partial: 'result', locals: { result: result }) %>
       </div>
     <% end %>
   </div>
