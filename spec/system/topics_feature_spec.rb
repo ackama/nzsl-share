@@ -14,4 +14,13 @@ RSpec.describe "Topics", type: :system do
       expect(page).to have_selector(".sign-card", count: 20) # 4 preview signs, 5 topics
     end
   end
+
+  describe "show" do
+    let(:topic) { topics.first }
+    subject { page }
+    before { visit topic_path(topic) }
+
+    it { is_expected.to have_content topic.name }
+    it { is_expected.to have_selector(".sign-card", count: topic.signs.count) }
+  end
 end
