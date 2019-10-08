@@ -1,0 +1,21 @@
+<div class="grid-x grid-margin-x">
+  <nav class="cell" aria-label="You are here:" role="navigation">
+    <ul class="breadcrumbs">
+      <li><a href="/">Home</a></li>
+      <li>
+        <span class="show-for-sr">Current: </span> Topics
+      </li>
+    </ul>
+  </nav>
+
+  <div class="grid-x cell">
+    <% @topics.each do |topic| %>
+      <div class="cell"><h2><%= topic.name %></h2></div>
+      <div class="grid-x grid-margin-x cell">
+        <% topic.signs.preview.each do |sign| %>
+          <div class="cell shrink"><%= render "signs/card", sign: sign %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
