@@ -5,6 +5,7 @@
     border-top: get-color(accent) solid 4px;
     justify-content: space-between;
     margin-bottom: 0;
+    padding: 0 1.6rem;
   }
 
   &__wrapper {
@@ -88,7 +89,7 @@
 
 
   &__item {
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       @include flex;
       @include flex-align(left, middle);
     }
@@ -99,10 +100,10 @@
       color: $white !important; // Override default menu styles
       font-weight: bold;
       text-decoration: none;
-      width: 100%;
+      width: auto;
 
       @include breakpoint(medium) {
-        padding: 1rem 1.6rem;
+        padding: 1rem;
       }
 
       &:hover {

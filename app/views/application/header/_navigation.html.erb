@@ -7,8 +7,9 @@
       </a></li>
     </ul>
     <ul class="row align-center navigation__list navigation__list--left navigation__list--expand">
-      <li class="navigation__item columns medium-10">
+      <li class="navigation__item columns medium-12 large-10">
         <%= render "application/header/search" %>
+        <%= link_to "Browse Topics", topics_path, class: "search-bar__helper-link" %>
       </li>
     </ul>
 
