@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :folders
+
+  resources :folders do
+    member do
+      patch :share
+      put :share
+    end
+  end
+
   resource :styleguide, only: :show
 
   require "sidekiq/web"
