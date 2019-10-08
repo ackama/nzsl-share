@@ -30,4 +30,12 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  folders:
+    edit:
+      title: Edit '%{title}'
+    new:
+      title: Create a Folder
+    create:
+      success: Folder successfully created.
+    update:
+      success: Folder successfully updated.
