@@ -27,13 +27,18 @@
           </div>
           <div class="cell small-3 folder__details">
             0 signs
-            <a href="#" class="folder__icon--options" data-toggle="folder-options">
+            <a href="#" class="folder__icon--options" data-toggle="folder-options" title="Folder Options">
               <%= inline_svg "media/images/options.svg", class: "icon--medium folder__icon" %>
             </a>
             <div class="folder__dropdown-pane" id="folder-options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
               <ul class="folder__menu vertical icons">
                 <li><a href="#"><%= inline_svg "media/images/share.svg", class: "icon--medium" %><span>Share</span></a></li>
                 <li><a href="#"><%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span></a></li>
+                <li>
+                  <%= link_to edit_folder_path(folder), remote: true do %>
+                    <%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+                  <% end %>
+                </li>
                 <li><a href="#"><%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span></a></li>
               </ul>
             </div>
