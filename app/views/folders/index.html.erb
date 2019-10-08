@@ -32,7 +32,11 @@
             </a>
             <div class="folder__dropdown-pane" id="<%= dom_id(folder, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
               <ul class="folder__menu vertical icons">
-                <li><a href="#"><%= inline_svg "media/images/share.svg", class: "icon--medium" %><span>Share</span></a></li>
+                <li>
+                  <%= link_to share_folder_url(folder), method: :patch do %>
+                    <%= inline_svg "media/images/share.svg", class: "icon--medium" %><span>Share</span>
+                  <% end %>
+                </li>
                 <li>
                   <%= link_to edit_folder_path(folder), remote: true do %>
                     <%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
