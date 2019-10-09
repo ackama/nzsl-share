@@ -31,6 +31,10 @@ class FolderPolicy < ApplicationPolicy
     update?
   end
 
+  def shared?
+    show?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(user: user)
