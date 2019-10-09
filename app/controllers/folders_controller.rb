@@ -7,9 +7,9 @@ class FoldersController < ApplicationController
 
   def show
     @folder = if uuid?
-                policy_scope(Folder).find_by(share_token: id)
+                policy_scope(Folder).find_by!(share_token: id)
               else
-                policy_scope(Folder).find_by(id: id)
+                policy_scope(Folder).find_by!(id: id)
               end
 
     authorize @folder
@@ -55,7 +55,7 @@ class FoldersController < ApplicationController
   end
 
   def share
-    @folder = policy_scope(Folder).find_by(id: id)
+    @folder = policy_scope(Folder).find_by!(id: id)
     authorize @folder
     @folder.update(share_token: SecureRandom.uuid)
 
