@@ -25,6 +25,14 @@ class FoldersController < ApplicationController
     end
   end
 
+  def destroy
+    @folder = folders.find(params[:id])
+    authorize @folder
+
+    redirect_to folders_path,
+                (@folder.destroy ? { notice: t(".success") } : { alert: t(".failure") })
+  end
+
   private
 
   def folders
