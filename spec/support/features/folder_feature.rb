@@ -24,14 +24,7 @@ class FolderFeature
     click_on "Create Folder"
   end
 
-  def sign_in(user)
-    visit "/users/sign_in"
-    return if current_path != "/users/sign_in"
-
-    within "form#new_user" do
-      fill_in "Username/Email", with: user.email
-      fill_in "Password", with: user.password
-      click_on "Log in"
-    end
+  def sign_in
+    AuthenticateFeature.new(user).sign_in
   end
 end
