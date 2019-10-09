@@ -6,12 +6,7 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folder = if uuid?
-                policy_scope(Folder).find_by!(share_token: id)
-              else
-                policy_scope(Folder).find_by!(id: id)
-              end
-
+    @folder = policy_scope(Folder).find_by!(id: id)
     authorize @folder
 
     respond_to do |format|
@@ -54,21 +49,28 @@ class FoldersController < ApplicationController
                 (@folder.destroy ? { notice: t(".success") } : { alert: t(".failure") })
   end
 
+  def shared
+    @folder = policy_scope(Folder).find_by!(share_token: id)
+    authorize @folder
+
+    respond_to do |format|
+      format.html { render :shared }
+    end
+  end
+
   def share
     @folder = policy_scope(Folder).find_by!(id: id)
     authorize @folder
     @folder.update(share_token: SecureRandom.uuid)
 
     if @folder.errors.empty?
-      redirect_to action: "show", id: @folder.share_token
+      redirect_to action: "shared", id: @folder.share_token
     else
       render :new
     end
   end
 
   private
-
-  UUID_SHAPE = /\A[a-z\d]{8}-[a-z\d]{4}-[a-z\d]{4}-[a-z\d]{4}-[a-z\d]{12}\Z/i.freeze
 
   def folders
     @folders = policy_scope(Folder).order("title ASC")
@@ -89,9 +91,5 @@ class FoldersController < ApplicationController
 
   def id
     params[:id]
-  end
-
-  def uuid?
-    id.to_s.match(UUID_SHAPE).present?
   end
 end
