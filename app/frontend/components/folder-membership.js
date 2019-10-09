@@ -28,7 +28,7 @@ const updateMembership = (evt) => {
 };
 
 const init = () => {
-  $("[data-trigger='update-folder-membership']").change(updateMembership);
+  $("body").on("change", "[data-trigger='update-folder-membership']", updateMembership);
 };
 
 
