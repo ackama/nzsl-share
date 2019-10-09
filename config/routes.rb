@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       patch :share
       put :share
+      get :shared
     end
   end
 
