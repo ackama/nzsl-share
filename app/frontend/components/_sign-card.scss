@@ -1,6 +1,7 @@
 .sign-card {
   @include card-container;
   min-height: rem-calc(334);
+  overflow: visible;
   position: relative;
   width: rem-calc(258);
 
@@ -15,22 +16,41 @@
     top: 132px;
   }
 
-  &__folder {
-    background: $white;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
-    height: 40px;
-    position: relative;
-    width: 40px;
 
-    &:hover {
-      background: rgba(4, 23, 35, 0.1);
+
+  &__folders {
+    &__button {
+      background: $white;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+      height: 40px;
+      position: relative;
+      width: 40px;
+
+      svg {
+        @include icon-fill(royal);
+        @include icon-size(mid);
+      }
+
+      &:hover {
+        background: rgba(4, 23, 35, 0.1);
+      }
+
+      // This actually means 'active' in Foundation
+      &.hover {
+        background: get-color(royal);
+
+        svg {
+          @include icon-fill(white);
+        }
+      }
     }
 
-    &--icon {
-      left: 10px;
-      position: absolute;
-      top: 10px;
+    &__menu {
+      @include dropdown-container;
+      border: solid 1px #bdc1c4;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
     }
   }
 
@@ -95,3 +115,14 @@
     }
   }
 }
+
+// sass-lint:disable force-element-nesting,force-pseudo-nesting,no-important
+.no-js .sign-card {
+  .sign-card__folders__menu:hover,
+  &:active .sign-card__folders__menu,
+  &:active .sign-card__folders__menu:hover {
+    display: block !important;
+    visibility: visible !important;
+  }
+}
+// sass-lint:enable
