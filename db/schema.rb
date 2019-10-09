@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_021419) do
+ActiveRecord::Schema.define(version: 2019_10_09_021713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,12 +36,23 @@ ActiveRecord::Schema.define(version: 2019_10_03_021419) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "folder_memberships", force: :cascade do |t|
+    t.bigint "folder_id", null: false
+    t.bigint "sign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["folder_id", "sign_id"], name: "index_folder_memberships_on_folder_id_and_sign_id", unique: true
+    t.index ["folder_id"], name: "index_folder_memberships_on_folder_id"
+    t.index ["sign_id"], name: "index_folder_memberships_on_sign_id"
+  end
+
   create_table "folders", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.text "description"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
@@ -96,6 +107,8 @@ ActiveRecord::Schema.define(version: 2019_10_03_021419) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "folder_memberships", "folders"
+  add_foreign_key "folder_memberships", "signs"
   add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end
