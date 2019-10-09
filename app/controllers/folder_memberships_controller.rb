@@ -16,15 +16,20 @@ class FolderMembershipsController < ApplicationController
   private
 
   def respond_to_modification(succeeded)
+    return render if format.js?
+
+    modification_flashes(succeeded)
+    redirect_back fallback_location: folders_path
+  end
+
+  def modification_flashes(succeeded)
     translation_interpolations = { sign: @membership.sign.english, folder: @membership.folder.title }
 
     if succeeded
-      flash[:notice] = t(".success", translation_interpolations)
+      flash.now[:notice] = t(".success", translation_interpolations)
     else
-      flash[:alert] = t(".failure", translation_interpolations)
+      flash.now[:alert] = t(".failure", translation_interpolations)
     end
-
-    redirect_back fallback_location: folders_path
   end
 
   def folder_membership_params
