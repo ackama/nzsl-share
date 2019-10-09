@@ -6,7 +6,7 @@ const add = (signId, folderId) => {
     url: "/folder_memberships",
     // Params must be submitted in correct format
     // eslint-disable-next-line camelcase
-    data: { folder_collection: { sign_id: signId, folder_id: folderId } },
+    data: { folder_membership: { sign_id: signId, folder_id: folderId } },
     dataType: "script"
   });
 };
