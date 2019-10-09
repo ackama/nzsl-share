@@ -3,6 +3,10 @@ body { // sass-lint:disable-block no-important
     .hide-if-no-js {
       display: none !important;
     }
+
+    .show-if-no-js {
+      display: block !important;
+    }
   }
 
   &:not(.no-js) {
