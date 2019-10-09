@@ -1,3 +1,5 @@
+<% sign = present(sign) %>
+
 <div class="sign-card">
   <div class="sign-card__media">
     <iframe aria-label="Sign card video" src="https://player.vimeo.com/video/155731367?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay"></iframe>
@@ -9,27 +11,12 @@
       <div class="sign-card__subtitle">
         <p><%= sign.contributor.username %></p>
         <div class="bullet">•</div>
-        <p><%= localize sign.created_at %></p>
+        <p><%= sign.friendly_date %></p>
       </div>
     </div>
     <div class="sign-card__bottom grid-x align-middle">
-      <div class="sign-card__votes">
-        <div class="sign-card__votes--agree grid-x align-middle">
-          <%= image_pack_tag "agree.svg", alt: "Agree", class: "sign-card__votes--icon" %>
-          <div><%= sign.agree_count %></div>
-        </div>
-        <div class="sign-card__votes--disagree grid-x align-middle">
-          <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
-          <div><%= sign.disagree_count %></div>
-        </div>
-      </div>
-      <div class="sign-card__folders">
-        <button class="sign-card__folders__button" data-toggle="<%= dom_id(sign, :folders) %>">
-          <%= inline_svg "media/images/folder-add.svg", title: "Folders", aria: true, class: "icon icon-white" %>
-        </button>
-
-        <%= render "signs/card/folders-menu", sign: sign %>
-      </div>
+      <%= render "signs/card/votes", sign: sign %>
+      <%= render "signs/card/folders", sign: sign %>
     </div>
   </div>
 </div>

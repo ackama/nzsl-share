@@ -1,4 +1,5 @@
-$("<%= escape_javascript(render 'signs/card/folders-menu', sign: @membership.sign) %>")
-  .replaceAll("#<%= dom_id(@membership.sign, :folders) %>")
+<% sign = present(@membership.sign) %>
+$("<%= escape_javascript(render 'signs/card/folders-menu', sign: sign) %>")
+  .replaceAll("#<%= sign.dom_id(:folders) %>")
   .foundation()
   .foundation("open");

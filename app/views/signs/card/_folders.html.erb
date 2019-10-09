@@ -1,0 +1,7 @@
+ <div class="sign-card__folders">
+  <button class="sign-card__folders__button" data-toggle="<%= sign.dom_id(:folders) %>">
+    <%= inline_svg "media/images/folder-add.svg", title: "Folders", aria: true, class: "icon icon-white" %>
+  </button>
+
+  <%= render "signs/card/folders-menu", sign: sign %>
+</div>
