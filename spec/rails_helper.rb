@@ -82,6 +82,7 @@ RSpec.configure do |config|
 
   # Make a 'view' object available to presenter specs
   config.include ActionView::TestCase::Behavior, type: :presenter
+  config.include Devise::Test::ControllerHelpers, type: :presenter
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
