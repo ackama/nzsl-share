@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   root "home#index"
   resources :search, only: [:index]
   resources :signs, only: [:show]
+  resources :topics, only: %i[index show]
 end

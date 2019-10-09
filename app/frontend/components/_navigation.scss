@@ -5,6 +5,7 @@
     border-top: get-color(accent) solid 4px;
     justify-content: space-between;
     margin-bottom: 0;
+    padding: 0 1.6rem;
   }
 
   &__wrapper {
@@ -31,7 +32,7 @@
 
   &__list {
     @include menu-base;
-    @include menu-direction(vertical);
+    @include menu-direction(horizontal);
 
     @include breakpoint(medium) {
       @include menu-direction(horizontal);
@@ -88,7 +89,7 @@
 
 
   &__item {
-    @include breakpoint(large) {
+    @include breakpoint(medium) {
       @include flex;
       @include flex-align(left, middle);
     }
@@ -98,11 +99,12 @@
       //sass-lint:disable-next-line no-important
       color: $white !important; // Override default menu styles
       font-weight: bold;
+      padding: 0.5rem;
       text-decoration: none;
-      width: 100%;
+      width: auto;
 
       @include breakpoint(medium) {
-        padding: 1rem 1.6rem;
+        padding: 1rem;
       }
 
       &:hover {

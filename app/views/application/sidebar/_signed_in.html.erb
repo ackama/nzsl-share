@@ -1,11 +1,11 @@
 <ul class="vertical menu icons">
-  <li class="is-active"><a href="#"><%= image_pack_tag "media/images/home.svg", "aria-hidden": true %><span>Home</span></a></li>
+   <li class="is-active"><%= link_to root_path do %><%= inline_svg "media/images/home.svg", aria_hidden: true, class: "icon--medium" %><span>Home</span><% end %>
 </ul>
 
 <ul class="vertical menu icons">
-  <li><a href="#"><%= image_pack_tag "media/images/add.svg", "aria-hidden": true %><span>Add a sign</span></a></li>
-  <li><a href="#"><%= image_pack_tag "media/images/camera.svg", "aria-hidden": true %><span>My signs</span></a></li>
-  <li><a href="/folders"><%= image_pack_tag "media/images/folder-collection.svg", "aria-hidden": true %><span>My folders</span></a></li>
+  <li><a href="#"><%= inline_svg "media/images/add.svg", aria_hidden: true %><span>Add a sign</span></a></li>
+  <li><a href="#"><%= inline_svg "media/images/camera.svg", aria_hidden: true %><span>My signs</span></a></li>
+  <li><a href="/folders"><%= inline_svg "media/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
 </ul>
 
 <ul class="vertical menu icons hide-for-medium">
