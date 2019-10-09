@@ -1,5 +1,5 @@
 class FolderMembership < ApplicationRecord
-  belongs_to :folder
+  belongs_to :folder, counter_cache: :signs_count
   belongs_to :sign
 
   def self.for(sign, user=nil)
