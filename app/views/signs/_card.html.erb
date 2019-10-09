@@ -19,12 +19,32 @@
           <div><%= sign.agree_count %></div>
         </div>
         <div class="sign-card__votes--disagree grid-x align-middle">
-        <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
-        <div><%= sign.disagree_count %></div>
+          <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
+          <div><%= sign.disagree_count %></div>
         </div>
       </div>
-      <div class="sign-card__folder">
-        <%= image_pack_tag "folder-add.svg", alt: "Agree", class: "sign-card__folder--icon" %>
+      <div class="sign-card__folders">
+        <button class="sign-card__folders__button" data-toggle="<%= dom_id(sign, :folders) %>">
+          <%= inline_svg "media/images/folder-add.svg", title: "Folders", aria: true, class: "icon icon-white" %>
+        </button>
+        <div class="sign-card__folders__menu" id="<%= dom_id(sign, :folders) %>" data-v-offset="8" data-dropdown data-auto-focus="true">
+          <% memberships = FolderMembership.for(sign, current_user) %>
+          <ul class="no-bullet">
+            <% memberships.each do |membership| %>
+              <li>
+                <%= membership.folder.title %>
+                <%= link_to "&times;".html_safe, folder_membership_path(membership), method: :delete, title: "Remove from Folder" %>
+              </li>
+            <% end %>
+          </ul>
+
+          <%= form_tag folder_memberships_path(sign_id: sign.id) do %>
+            <%= hidden_field_tag :"folder_membership[sign_id]", sign.id %>
+            <%= label_tag :"folder_membership[folder_id]", "Add to Folder:" %>
+            <%= select_tag :"folder_membership[folder_id]", options_for_select((policy_scope(Folder) - memberships.map(&:folder)).map { |m| [m.title, m.id]  }) %>
+            <%= submit_tag "Save", class: "button" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
