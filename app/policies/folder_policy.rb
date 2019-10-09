@@ -29,7 +29,7 @@ class FolderPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(user: user).order(title: :asc)
+      scope.where(user: user).in_order
     end
   end
 

@@ -13,7 +13,7 @@ class SignPresenter < ApplicationPresenter
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
-    @folders ||= h.current_user.folders
+    @folders ||= h.current_user.folders.in_order
     @memberships ||= sign.folder_memberships.includes(:folder).where(folder_id: @folders.map(&:id))
 
     map_folders_to_memberships(@folders, @memberships, &block)
