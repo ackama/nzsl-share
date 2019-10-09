@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :search, only: [:index]
   resources :signs, only: [:show]
   resources :topics, only: %i[index show]
+  resources :folder_memberships, only: %i[create destroy]
 end
