@@ -16,7 +16,7 @@ class FolderMembershipsController < ApplicationController
   private
 
   def respond_to_modification(succeeded)
-    return render if format.js?
+    return render if request.format.js?
 
     modification_flashes(succeeded)
     redirect_back fallback_location: folders_path
