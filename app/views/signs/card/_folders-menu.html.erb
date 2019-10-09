@@ -1,0 +1,42 @@
+
+<div class="sign-card__folders__menu" id="<%= dom_id(sign, :folders) %>" data-v-offset="8" data-dropdown data-auto-focus="true">
+  <% memberships = FolderMembership.for(sign, current_user) %>
+  <% folders = policy_scope(Folder) %>
+  <form class="hide-if-no-js">
+    <% folders.each do |folder| %>
+      <% membership = memberships.find { |m| m.folder_id == folder.id } %>
+      <div class="checkbox">
+        <%= check_box_tag :folder_ids,
+                                  folder,
+                                  membership.present?,
+                                  data: {
+                                    trigger: "update-folder-membership",
+                                    folder_id: folder.id,
+                                    sign_id: sign.id,
+                                    membership_id: membership&.id
+                                  },
+                                  id: dom_id(sign, dom_id(folder, :membership)) %>
+        <%= label_tag dom_id(sign, dom_id(folder, :membership)) do %>
+          <strong style="flex:1"><%= folder.title %></strong>
+          <strong>(<%= folder.signs_count %>)</strong>
+        <% end %>
+      </div>
+    <% end %>
+  </form>
+  <div class="show-if-no-js">
+    <ul class="no-bullet">
+      <% memberships.each do |membership| %>
+        <li>
+          <%= membership.folder.title %>
+          <%= link_to "&times;".html_safe, folder_membership_path(membership), method: :delete, title: "Remove from Folder" %>
+        </li>
+      <% end %>
+    </ul>
+    <%= form_tag folder_memberships_path(sign_id: sign.id) do %>
+      <%= hidden_field_tag :"folder_membership[sign_id]", sign.id %>
+      <%= label_tag :"folder_membership[folder_id]", "Add to Folder:" %>
+      <%= select_tag :"folder_membership[folder_id]", options_for_select((folders - memberships.map(&:folder)).map { |m| [m.title, m.id]  }) %>
+      <%= submit_tag "Save", class: "button" %>
+    <% end %>
+  </div>
+</div>
