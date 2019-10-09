@@ -36,6 +36,8 @@
         background: rgba(4, 23, 35, 0.1);
       }
 
+      &:focus { outline: none; }
+
       // This actually means 'active' in Foundation
       &.hover {
         background: get-color(royal);
