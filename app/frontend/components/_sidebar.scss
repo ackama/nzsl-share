@@ -1,15 +1,19 @@
 .sidebar {
   @include breakpoint(small only) {
+    margin-top: 120px;
+    max-height: 100vh;
+    max-width: 100vw;
     padding-top: 2rem; // Make space for the close button
-    width: 70%;
+    width: 100%;
+  }
 
-    .menu > li > a {
-      flex-direction: row;
+  .menu > li > a {
+    flex-direction: row;
 
-      img + span {
-        flex: 1;
-        margin-left: 1rem;
-      }
+    img + span,
+    svg + span {
+      flex: 1;
+      margin-left: 1rem;
     }
   }
 
@@ -20,7 +24,11 @@
       flex-direction: column;
       font-size: 80%;
       padding: 1rem 0 1rem 0.5rem;
-      img + span { margin: 1rem auto auto; }
+
+      img + span,
+      svg + span {
+        margin: 1rem auto auto;
+      }
     }
   }
 

@@ -38,7 +38,11 @@
                     <%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
                   <% end %>
                 </li>
-                <li><a href="#"><%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span></a></li>
+                <li>
+                  <%= link_to folder_path(folder), method: :delete do %>
+                    <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
+                  <% end %>
+                </li>
               </ul>
             </div>
           </div>

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Folders", type: :system, uses_javascript: true do
+RSpec.describe "Folders", type: :system do
   let(:process) { FolderFeature.new }
 
   describe "Creating a new folder" do
@@ -60,6 +60,21 @@ RSpec.describe "Folders", type: :system, uses_javascript: true do
 
     context "without JS" do
       it_behaves_like "editing a folder"
+    end
+  end
+
+  describe "Removing a folder" do
+    let!(:folders) { FactoryBot.create_list(:folder, 3, user: process.user) }
+    before { process.start }
+
+    it "removes the folder" do
+      process.remove_folder
+      expect(process).to have_selector(".folder", count: folders.size - 1)
+    end
+
+    it "posts a success message" do
+      process.remove_folder
+      expect(process).to have_content "Folder successfully deleted."
     end
   end
 end

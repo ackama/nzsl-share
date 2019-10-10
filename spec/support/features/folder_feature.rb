@@ -38,6 +38,10 @@ class FolderFeature
     end
   end
 
+  def remove_folder
+    within(find(".folder", match: :first)) { click_on "Delete" }
+  end
+
   def sign_in(user)
     visit "/users/sign_in"
     return if current_path != "/users/sign_in"
