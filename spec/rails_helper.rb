@@ -9,6 +9,7 @@ require "capybara/rspec"
 require "selenium-webdriver"
 require "lighthouse/matchers/rspec"
 require "axe/rspec"
+require "pundit/rspec"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -78,6 +79,9 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  # Make a 'view' object available to presenter specs
+  config.include ActionView::TestCase::Behavior, type: :presenter
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
