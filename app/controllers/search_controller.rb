@@ -2,7 +2,10 @@
 
 class SearchController < ApplicationController
   def index
-    @results = SearchService.call(search: new_search)
+    service = SearchService.call(search: new_search)
+
+    @signs = service.data
+    @support = service.support
   end
 
   private
