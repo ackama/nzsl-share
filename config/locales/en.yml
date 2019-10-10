@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  signs:
+    create:
+      success: Sign was uploaded successfully. Please provide more information below.
   folders:
     destroy:
       success: Folder was deleted successfully!
