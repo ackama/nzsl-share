@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   include Pundit
   before_action :http_basic_auth
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :current_user_folders
 
   layout -> { user_signed_in? ? "authenticated" : "application" }
 
@@ -24,12 +23,6 @@ class ApplicationController < ActionController::Base
     sign_in_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: sign_in_attrs + [:remember_me]
     devise_parameter_sanitizer.permit :account_update, keys: sign_in_attrs
-  end
-
-  # Caches across the lifetime of the request.
-  # This helper can be used to prevent reloading folders over and over again
-  def current_user_folders
-    @current_user_folders ||= policy_scope(Folder)
   end
 
   private
