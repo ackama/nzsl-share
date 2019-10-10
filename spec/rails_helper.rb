@@ -84,6 +84,8 @@ RSpec.configure do |config|
   config.include ActionView::TestCase::Behavior, type: :presenter
   config.include Devise::Test::ControllerHelpers, type: :presenter
 
+  config.include WaitForAjax, type: :system
+
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
