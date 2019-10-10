@@ -24,14 +24,12 @@ class SearchService < ApplicationService
   end
 
   def fetch_results(ids)
-    limit = search.page[:limit]
-
     signs = if search.order.blank?
-              default_order(ids, limit)
+              Sign.search_default_order(ids: ids)
             elsif search.order.key?("published")
-              published_order(ids, limit)
+              Sign.search_published_order(ids: ids, direction: search.direction)
             else
-              default_order(ids, limit)
+              Sign.search_default_order(ids: ids)
             end
     signs
   end
@@ -76,7 +74,27 @@ class SearchService < ApplicationService
       )
       SELECT
         sign_id
-        FROM sign_search
+        FROM signs
+        JOIN sign_search
+          ON signs.id = sign_search.sign_id
+        ORDER BY #{order_by}
+        LIMIT #{limit}
     SQL
+  end
+
+  def order_by
+    order = if search.order.blank?
+              "signs.english ASC"
+            elsif search.order.key?("published")
+              "signs.published_at #{search.order.values.first}"
+            else
+              "signs.english ASC"
+            end
+
+    ApplicationRecord.send(:sanitize_sql_for_order, order)
+  end
+
+  def limit
+    search.page[:limit]
   end
 end
