@@ -5,6 +5,20 @@ RSpec.describe Sign, type: :model do
 
   it { is_expected.to be_valid }
 
+  describe ".english" do
+    context "blank" do
+      before { sign.english = "" }
+      it { is_expected.not_to be_valid }
+    end
+  end
+
+  describe ".video" do
+    context "blank" do
+      before { sign.video = nil }
+      it { is_expected.not_to be_valid }
+    end
+  end
+
   describe ".preview" do
     before { FactoryBot.create_list(:sign, 5) } # The limit is 4
     subject { Sign.preview }

@@ -5,6 +5,8 @@ class Sign < ApplicationRecord
   belongs_to :topic, optional: true
   has_one_attached :video
 
+  validates :video, :english, presence: true
+
   # For now, this just returns the first 4 signs
   # It is defined here so the concept of a sign preview
   # is shared amongst the application code and so we can
