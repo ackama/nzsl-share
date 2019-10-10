@@ -31,6 +31,7 @@
 
 en:
   signs:
+    default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
   folders:
