@@ -21,12 +21,17 @@
     <% end %>
   </form>
   <div class="show-if-no-js">
-    <ul class="no-bullet">
+    <ul class="no-bullet list list--compact">
       <% sign.available_folders.each do |folder, membership| %>
         <% next unless membership # Ignore folders that this sign is not in %>
-        <li>
-          <%= membership.folder.title %>
-          <%= link_to "&times;".html_safe, folder_membership_path(membership), method: :delete, title: "Remove from Folder" %>
+        <li class="list__item">
+          <span><%= membership.folder.title %></span>
+          <%= button_to folder_membership_path(membership),
+                        method: :delete,
+                        class: "button icon-only clear medium small",
+                        title: "Remove from Folder" do %>
+                        <%= inline_svg "media/images/close.svg", class: "icon icon--small icon--medium" %>
+          <% end %>
         </li>
       <% end %>
     </ul>
