@@ -1,0 +1,41 @@
+<div class="grid-x grid-margin-x" style="margin-top:1rem;">
+  <div class="cell">
+  <%= form_with model: @sign, class: "cell" do |f| %>
+    <%= f.label :video, "Upload your video" %>
+
+    <div class="drop-target">
+      <h4 class="medium">Drag and drop your video file here</h4>
+      <%= f.label :video, "Browse files", class: "button primary large" %>
+
+      <div class="show-if-no-js hide small-12 medium-6 offset-3 text-center">
+        <%= f.file_field :video, direct_upload: true, required: true %>
+        <%= f.label :english, "What word does this video describe?" %>
+        <%= f.text_field :english, required: true %>
+        <%= f.submit "Start Upload", class: "button secondary large" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="callout cell grid-x grid-margin-x align-middle">
+    <div class="small-12 medium-6">
+      <div class="responsive-embed">
+        <iframe src="https://player.vimeo.com/video/361959003"
+                width="640"
+                height="360"
+                frameborder="0"
+                allow="autoplay; fullscreen"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="cell small-12 medium-6">
+      <h5>Tips to record a good sign video</h5>
+      <ol>
+        <li>Record the sign on its own (you can record an example sentence or other detail later if you want to)</li>
+        <li>Keep recordings under 5 seconds</li>
+        <li>Include head to waist</li>
+        <li>If using your phone, record in landscape mode</li>
+      </ol>
+    </div>
+  </div>
+</div>
