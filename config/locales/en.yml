@@ -37,3 +37,7 @@ en:
     destroy:
       success: "Successfully removed '%{sign}' from '%{folder}'"
       failure: "Failed to remove '%{sign}' from '%{folder}'. Please try again."
+  folders:
+    destroy:
+      success: Folder was deleted successfully!
+      failure: Folder couldn't be deleted. Please try again.

@@ -27,4 +27,8 @@ class FolderFeature
   def sign_in
     AuthenticateFeature.new(user).sign_in
   end
+
+  def remove_folder
+    within(find(".folder", match: :first)) { click_on "Delete" }
+  end
 end
