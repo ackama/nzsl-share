@@ -4,7 +4,7 @@ class FolderFeature
 
   def start(user=FactoryBot.create(:user))
     @user = user
-    sign_in user
+    sign_in
     visit "/folders"
   end
 
