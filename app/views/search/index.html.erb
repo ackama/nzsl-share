@@ -7,17 +7,15 @@
   <div class="grid-x grid-margin-x">
     <% @signs.each do |sign| %>
       <div class="cell small-3">
-        <% present(sign) do |sign| %>
-          <%= render partial: 'result', locals: { sign: sign } %>
-        <% end %>
+        <%= render "result", sign: sign %>
       </div>
     <% end %>
   </div>
 
   <% unless @signs.count < @support[:limit] %>
-    <%= render partial: 'show_more', locals: { support: @support } %>
+    <%= render "show_more", support: @support %>
   <% end %>
 
-  <%= render partial: 'published_asc', locals: { support: @support } %>
-  <%= render partial: 'published_desc', locals: { support: @support } %>
+  <%= render "published_asc", support: @support %>
+  <%= render "published_desc", support: @support %>
 <% end %>
