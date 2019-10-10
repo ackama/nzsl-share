@@ -3,22 +3,22 @@
   <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
   <div class="sign-card__section">
     <div>
-      <div class="sign-card__title"><%= result["english"] %></div>
+      <div class="sign-card__title"><%= sign.english %></div>
       <div class="sign-card__subtitle">
-        <p><%= result["user_name"] %></p>
+        <p><%= sign.contributor.username %></p>
         <div class="bullet">•</div>
-        <p><%= result["nice_published_at"] %></p>
+        <p><%= sign.friendly_date %></p>
       </div>
     </div>
     <div class="sign-card__bottom grid-x align-middle">
       <div class="sign-card__votes">
         <div class="sign-card__votes--agree grid-x align-middle">
           <%= image_pack_tag "agree.svg", alt: "Agree", class: "sign-card__votes--icon" %>
-          <div><%= result["agree"] %></div>
+          <div><%= sign.agree_count %></div>
         </div>
         <div class="sign-card__votes--disagree grid-x align-middle">
         <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
-        <div><%= result["disagree"] %></div>
+        <div><%= sign.disagree_count %></div>
         </div>
       </div>
       <div class="sign-card__folder">
