@@ -4,8 +4,8 @@
       <h4 class="medium hide-for-no-js">Drag and drop your video file here</h4>
       <%= f.label :video, "Browse files", class: "button hide-if-no-js primary large" %>
 
-      <div class="show-if-no-js hide small-12 medium-6 offset-3 text-center">
-        <%= f.label :video, "Select file", class: "show-for-no-js" %>
+      <div class="show-if-no-js small-12 medium-6 offset-3 text-center sign-video-fields">
+        <%= f.label :video, "Select file" %>
         <%= f.file_field :video, direct_upload: true %>
         <%= f.label :english, "What word does this video describe?", class: "text-left" %>
         <%= f.text_field :english %>
