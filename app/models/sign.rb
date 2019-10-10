@@ -10,10 +10,16 @@ class Sign < ApplicationRecord
   # modify the rules later to take into account activity
   # or some other measure of popularity
   scope :preview, -> { limit(4) }
-  scope :search, ->(ids) { where(id: ids) }
-  scope :published_order, ->(direction) { order(published_at: direction) }
-  scope :default_order, -> { order(english: :asc) }
-  scope :search_limit, ->(limit) { limit(limit) }
+
+  scope :search_default_order, lambda { |args|
+    where(id: args[:ids])
+      .order(english: :asc)
+  }
+
+  scope :search_published_order, lambda { |args|
+    where(id: args[:ids])
+      .order(published_at: args[:direction])
+  }
 
   def agree_count; 0; end
   def disagree_count; 0; end

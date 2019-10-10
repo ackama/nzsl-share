@@ -34,14 +34,6 @@ class SearchService < ApplicationService
     signs
   end
 
-  def default_order(ids, limit)
-    Sign.search(ids).default_order.search_limit(limit)
-  end
-
-  def published_order(ids, limit)
-    Sign.search(ids).published_order(search.direction).search_limit(limit)
-  end
-
   def exec_query(sql_arr)
     ApplicationRecord.connection.execute(ApplicationRecord.send(:sanitize_sql_array, sql_arr))
   end
