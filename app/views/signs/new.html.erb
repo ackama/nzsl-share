@@ -7,8 +7,6 @@
       <div class="show-if-no-js small-12 medium-6 offset-3 text-center sign-video-fields">
         <%= f.label :video, "Select file" %>
         <%= f.file_field :video, direct_upload: true %>
-        <%= f.label :english, "What word does this video describe?", class: "text-left" %>
-        <%= f.text_field :english %>
         <%= f.submit "Start Upload", class: "button secondary large" %>
       </div>
     </div>

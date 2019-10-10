@@ -14,7 +14,7 @@ class SignsController < ApplicationController
   end
 
   def create
-    @sign = policy_scope(Sign).build(create_sign_params)
+    @sign = build_sign
     authorize @sign
     return render(:new) unless @sign.save
 
@@ -27,10 +27,14 @@ class SignsController < ApplicationController
 
   private
 
+  def build_sign(builder: SignBuilder.new)
+    builder.build(create_sign_params)
+  end
+
   def create_sign_params
     params
       .require(:sign)
-      .permit(:video, :english)
+      .permit(:video)
       .merge(contributor: current_user)
   end
 end
