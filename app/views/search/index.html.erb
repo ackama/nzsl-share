@@ -1,20 +1,23 @@
 <br>
 <h4>
-  <%= "#{search_count(@results)} Result(s) for '#{search_word(@results)}'" %>
+  <%= "#{@signs.count} Result(s) for '#{@support[:word]}'" %>
 </h4>
 <br>
-<% if search_results?(@results) %>
+<% if @signs.any? %>
   <div class="grid-x grid-margin-x">
-    <% search_results(@results).each do |result| %>
+    <% @signs.each do |sign| %>
       <div class="cell small-3">
-        <%= render(partial: 'result', locals: { result: result }) %>
+        <% present(sign) do |sign| %>
+          <%= render partial: 'result', locals: { sign: sign } %>
+        <% end %>
       </div>
     <% end %>
   </div>
 
-  <% unless show_more?(@results) %>
-    <%= render(partial: 'show_more', locals: { support: @results.support }) %>
+  <% unless @signs.count < @support[:limit] %>
+    <%= render partial: 'show_more', locals: { support: @support } %>
   <% end %>
-  <%= render(partial: 'published_asc', locals: { support: @results.support }) %>
-  <%= render(partial: 'published_desc', locals: { support: @results.support }) %>
+
+  <%= render partial: 'published_asc', locals: { support: @support } %>
+  <%= render partial: 'published_desc', locals: { support: @support } %>
 <% end %>
