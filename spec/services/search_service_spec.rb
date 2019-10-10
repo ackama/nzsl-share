@@ -84,7 +84,7 @@ RSpec.describe SearchService, type: :service do
     context "published date" do
       before(:each) do
         Refined::Search::Data.signs.each do |sign_attrs|
-          FactoryBot.create(:sign, sign_attrs)
+          FactoryBot.create(:sign, :published, sign_attrs)
         end
       end
 
