@@ -11,7 +11,9 @@
 
 require.context("../images", true);
 import Rails from "@rails/ujs";
+require("@rails/activestorage").start();
 Rails.start();
+
 import "foundation";
 import "../application.scss";
 import "../components/header";
