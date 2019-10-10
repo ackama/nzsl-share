@@ -10,8 +10,6 @@ class ContributeSignFeature
   end
 
   def choose_file(path=default_attachment_path)
-    page.execute_script("$('.sign-video-fields').removeClass('show-if-no-js');") if supports_javascript?
-
     page.attach_file("Browse files", path)
   end
 
