@@ -32,6 +32,9 @@
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
   </head>
   <body class="no-js">
+    <%# Prevent FOUS on page load %>
+    <script>document.body.classList.remove("no-js");</script>
+
     <%= render "application/header" %>
     <% # Authenticated layout renders these %>
     <%= render("application/messages") unless user_signed_in?  %>
