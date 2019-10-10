@@ -43,7 +43,6 @@
   &__menu {
     @extend .menu;
     font-size: 13px;
-    padding: 0;
 
     > li > a {
       color: $black;
@@ -55,9 +54,29 @@
     }
   }
 
+  &__menu-item {
+    padding: 0 1rem;
+
+    &:hover {
+      background: get-color(royal-x-light);
+
+      .icon--medium {
+        &,
+        & path {
+          fill: get-color(royal);
+        }
+      }
+
+      > a {
+        color: get-color(royal);
+      }
+    }
+  }
+
   &__dropdown-pane {
     @include dropdown-container;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
     max-width: rem-calc(161);
+    padding: 1rem 0;
   }
 }
