@@ -5,7 +5,13 @@ class Sign < ApplicationRecord
   belongs_to :topic, optional: true
   has_one_attached :video
 
-  validates :video, :english, presence: true
+  validates :english, presence: true
+
+  # See app/validators/README.md for details on these
+  # validations
+  validates :video, attached: true,
+                    content_type: { with: %r{\Avideo/.+\Z} },
+                    size: { less_than: 250.megabytes }
 
   # For now, this just returns the first 4 signs
   # It is defined here so the concept of a sign preview
