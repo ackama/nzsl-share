@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :search, only: [:index]
   resources :signs, only: %i[show new create]
   resources :topics, only: %i[index show]
+  post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 end
