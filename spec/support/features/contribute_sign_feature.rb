@@ -18,6 +18,12 @@ class ContributeSignFeature
     wait_for_path if supports_javascript?
   end
 
+  def has_error?(message)
+    within "#sign-upload-errors" do
+      page.has_selector?("li", text: message)
+    end
+  end
+
   def sign_in(user)
     visit "/users/sign_in"
     return if current_path != "/users/sign_in"

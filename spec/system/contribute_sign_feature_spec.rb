@@ -19,11 +19,10 @@ RSpec.describe "Contributing a new sign", type: :system do
       expect(subject).to have_content I18n.t!("signs.create.success")
     end
 
-    it "is prevented from contributing an invalid file", pending: "Waiting for file validations" do
-      expect do
-        subject.choose_file(Rails.root.join("spec", "fixtures", "dummy.exe"))
-        subject.submit
-      end.not_to change(subject.user.signs, :count)
+    it "is prevented from contributing an invalid file" do
+      subject.choose_file(Rails.root.join("spec", "fixtures", "dummy.exe"))
+      subject.click_on("Start Upload")
+      expect(subject).to have_error "Video isn't a valid video file"
     end
   end
 
