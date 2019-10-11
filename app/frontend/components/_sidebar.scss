@@ -36,9 +36,17 @@
     margin-top: 68px; // Height of title bar
   }
 
-  .is-active > a {
-    border-bottom-right-radius: rem-calc(24);
-    border-top-right-radius: rem-calc(24);
+  .is-active  {
+    &,
+    & path {
+      fill: get-color(royal);
+    }
+
+    a {
+      border-bottom-right-radius: rem-calc(24);
+      border-top-right-radius: rem-calc(24);
+      font-weight: bold;
+    }
   }
 
   .menu  {
