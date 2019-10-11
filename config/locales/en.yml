@@ -31,6 +31,14 @@
 
 en:
   folders:
+    edit:
+      title: Edit '%{title}'
+    new:
+      title: Create a Folder
+    create:
+      success: Folder successfully created.
+    update:
+      success: Folder successfully updated.
     destroy:
-      success: Folder was deleted successfully!
+      success: Folder successfully deleted.
       failure: Folder couldn't be deleted. Please try again.

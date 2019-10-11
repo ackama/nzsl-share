@@ -12,7 +12,7 @@
   <div class="grid-x cell list">
     <div class="list__title cell grid-x align-middle">
       <h1>My folders</h1>
-      <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", data: { open: "create-folder" }, remote: true %>
+      <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal", remote: true %>
     </div>
     <hr class="list__divider"/>
     <div class="list__items cell grid-x">
@@ -27,13 +27,17 @@
           </div>
           <div class="cell small-3 folder__details">
             0 signs
-            <a href="#" class="folder__icon--options" data-toggle="folder-options">
+            <a href="#" class="folder__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
               <%= inline_svg "media/images/options.svg", class: "icon--medium folder__icon" %>
             </a>
-            <div class="folder__dropdown-pane" id="folder-options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+            <div class="folder__dropdown-pane" id="<%= dom_id(folder, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
               <ul class="folder__menu vertical icons">
                 <li class="folder__menu-item"><a href="#"><%= inline_svg "media/images/share.svg", class: "icon--medium" %><span>Share</span></a></li>
-                <li class="folder__menu-item"><a href="#"><%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span></a></li>
+                <li class="folder__menu-item">
+                  <%= link_to edit_folder_path(folder), remote: true do %>
+                    <%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+                  <% end %>
+                </li>
                 <li class="folder__menu-item">
                   <%= link_to folder_path(folder), method: :delete, data: { confirm: "Are you sure?" } do %>
                     <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
@@ -47,7 +51,7 @@
       <% end %>
     </div>
   </div>
-  <div class="reveal modal-form align-center" id="create-folder" data-reveal>
-    <%= render 'form', folder: @new_folder %>
+  <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>
+    Loading...
   </div>
 </div>
