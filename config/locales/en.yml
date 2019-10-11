@@ -38,11 +38,12 @@ en:
     destroy:
       success: Folder was deleted successfully!
       failure: Folder couldn't be deleted. Please try again.
+  activemodel:
+    errors: &activemodel_errors
+      messages:
+        content_type_invalid: isn't a valid video file
+        file_size_out_of_range: file is too large (%{file_size})
+
   activerecord:
-    errors:
-      models:
-        sign:
-          attributes:
-            video:
-              content_type_invalid: "isn't a valid video file"
-              file_size_out_of_range: "file is too large (%{file_size})"
+    <<: *activemodel_errors
+
