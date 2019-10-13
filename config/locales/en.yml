@@ -45,5 +45,6 @@ en:
         file_size_out_of_range: file is too large (%{file_size})
 
   activerecord:
-    <<: *activemodel_errors
+    errors:
+      <<: *activemodel_errors
 
