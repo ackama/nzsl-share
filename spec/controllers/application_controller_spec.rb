@@ -16,8 +16,8 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     it "redirects back to the referer" do
-      request.env["HTTP_REFERER"] = new_sign_path
-      expect(subject).to redirect_to new_sign_path
+      request.env["HTTP_REFERER"] = "/test-path"
+      expect(subject).to redirect_to "/test-path"
     end
 
     it "redirects to root when there is no referer" do
