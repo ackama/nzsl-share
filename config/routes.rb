@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :search, only: [:index]
-  resources :signs, only: %i[index show new]
+  resources :signs, only: %i[show new]
   resources :topics, only: %i[index show]
+  scope "/user" do
+    resources :signs, only: [:index]
+  end
 end
