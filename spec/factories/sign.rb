@@ -9,5 +9,11 @@ FactoryBot.define do
     trait :published do
       published_at { DateTime.now - (rand * 1000) }
     end
+
+    trait :with_contributor do
+      after :build do |sign|
+        sign.contributor = FactoryBot.create(:user)
+      end
+    end
   end
 end
