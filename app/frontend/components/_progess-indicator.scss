@@ -1,0 +1,43 @@
+$pi: 3.141592653589793;
+$progress-indicator-diameter: 48px;
+$progress-indicator-stroke-width: 8px;
+$progress-indicator-radius: ($progress-indicator-diameter / 2) - ($progress-indicator-stroke-width / 2);
+$progress-indicator-circumference: $progress-indicator-radius * 2 * $pi;
+
+.progress-indicator {
+  height: $progress-indicator-diameter;
+  width: $progress-indicator-diameter;
+
+  &__background,
+  &__progress {
+    stroke-width: $progress-indicator-stroke-width;
+  }
+
+  &__background {
+    stroke: get-color(primary-x-light);
+  }
+
+  &__progress {
+    stroke: get-color(royal);
+    transform: rotate(-90deg) scale(1, -1); // Correct origin to top, and flip horizontally
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.35s;
+  }
+
+  &--indeterminate {
+    .progress-indicator__progress {
+      animation: 2s infinite linear progress-indicator-rotate;
+      stroke-dashoffset: $progress-indicator-circumference * 0.33; // One-third
+    }
+  }
+}
+
+@keyframes progress-indicator-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
