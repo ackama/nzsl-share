@@ -1,7 +1,7 @@
 class SignsController < ApplicationController
   def show
-    @sign = Sign.includes(:contributor, :topic)
-                .find(params[:id])
+    @sign = policy_scope(Sign.includes(:contributor, :topic))
+            .find(params[:id])
     authorize @sign
     return unless stale?(@sign)
 
@@ -20,6 +20,6 @@ class SignsController < ApplicationController
   private
 
   def signs
-    @signs = policy_scope(Sign).order("english ASC")
+    @signs = policy_scope(Sign.where(contributor: current_user)).order("english ASC")
   end
 end

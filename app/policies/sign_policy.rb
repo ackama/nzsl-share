@@ -27,12 +27,6 @@ class SignPolicy < ApplicationPolicy
     owns_record?
   end
 
-  class Scope < Scope
-    def resolve
-      scope.where(contributor: user)
-    end
-  end
-
   private
 
   def owns_record?
