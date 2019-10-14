@@ -11,24 +11,24 @@ RSpec.describe SearchService, type: :service do
       end
 
       it "returns result(s) given a word fragment" do
-        expect(SearchService.call(search: Search.new(word: "a")).data.count).to eq 14
+        expect(SearchService.call(search: Search.new(word: "a")).data.count).to eq 7
         expect(SearchService.call(search: Search.new(word: "ap")).data.count).to eq 2
         expect(SearchService.call(search: Search.new(word: "app")).data.count).to eq 1
         expect(SearchService.call(search: Search.new(word: "appl")).data.count).to eq 1
 
-        expect(SearchService.call(search: Search.new(word: "p")).data.count).to eq 9
+        expect(SearchService.call(search: Search.new(word: "p")).data.count).to eq 6
         expect(SearchService.call(search: Search.new(word: "pp")).data.count).to eq 1
         expect(SearchService.call(search: Search.new(word: "ppl")).data.count).to eq 1
         expect(SearchService.call(search: Search.new(word: "pple")).data.count).to eq 1
 
-        expect(SearchService.call(search: Search.new(word: "p")).data.count).to eq 9
+        expect(SearchService.call(search: Search.new(word: "p")).data.count).to eq 6
         expect(SearchService.call(search: Search.new(word: "pl")).data.count).to eq 1
         expect(SearchService.call(search: Search.new(word: "ple")).data.count).to eq 1
 
         expect(SearchService.call(search: Search.new(word: "l")).data.count).to eq 7
         expect(SearchService.call(search: Search.new(word: "le")).data.count).to eq 2
 
-        expect(SearchService.call(search: Search.new(word: "e")).data.count).to eq 9
+        expect(SearchService.call(search: Search.new(word: "e")).data.count).to eq 7
       end
 
       it "returns result(s) given a complete word" do
@@ -43,19 +43,19 @@ RSpec.describe SearchService, type: :service do
 
       it "returns an exact match first given a complete word" do
         expect(SearchService.call(search: Search.new(word: "apple"))
-           .data.first.fetch_values("english", "secondary").to_s.include?("apple")).to be true
+           .data.pluck(:english, :secondary).flatten.to_s.include?("apple")).to be true
         expect(SearchService.call(search: Search.new(word: "pie"))
-          .data.first.fetch_values("english", "secondary").to_s.include?("pie")).to be true
+          .data.pluck(:english, :secondary).flatten.to_s.include?("pie")).to be true
         expect(SearchService.call(search: Search.new(word: "banana"))
-          .data.first.fetch_values("english", "secondary").to_s.include?("banana")).to be true
+          .data.pluck(:english, :secondary).flatten.to_s.include?("banana")).to be true
         expect(SearchService.call(search: Search.new(word: "england"))
-          .data.first.fetch_values("english", "secondary").to_s.include?("england")).to be true
+          .data.pluck(:english, :secondary).flatten.to_s.include?("england")).to be true
         expect(SearchService.call(search: Search.new(word: "cream"))
-          .data.first.fetch_values("english", "secondary").to_s.include?("cream")).to be true
+          .data.pluck(:english, :secondary).flatten.to_s.include?("cream")).to be true
         expect(SearchService.call(search: Search.new(word: "risotto"))
-          .data.first.fetch_values("english", "secondary").to_s.include?("risotto")).to be true
+          .data.pluck(:english, :secondary).flatten.to_s.include?("risotto")).to be true
         expect(SearchService.call(search: Search.new(word: "blueberry"))
-          .data.first.fetch_values("english", "secondary").to_s.include?("blueberry")).to be true
+          .data.pluck(:english, :secondary).flatten.to_s.include?("blueberry")).to be true
       end
     end
 
