@@ -16,10 +16,7 @@ module.exports = {
   },
   settings: {
     react: {
-      // For both Preact and preact/compat, version compatibility is measured against the current and previous major releases of React.
-      // Thus, the website and documentation reflect React 0.16.x and 15.x when discussing compatibility or making comparisons.
-      // - https://preactjs.com/guide/v10/differences-to-react#version-compatibility
-      version: "15.0"
+      version: "detect"
     }
   },
   rules: {
@@ -57,6 +54,7 @@ module.exports = {
     "spaced-comment": [ "warn", "always", { markers: [ "=" ] } ],
     "camelcase": "error",
     "quotes": [ "error", "double" ],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
   }
 };
