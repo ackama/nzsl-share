@@ -25,7 +25,41 @@
         </a>
       </div>
     </div>
+
+    <button class="button royal" data-open="styleguide-modal">Click me for a modal</button>
+
+    <div class="reveal modal-form align-center" id="styleguide-modal" data-reveal>
+      <div class="grid-x grid-padding-x">
+        <div class="cell grid-x align-middle modal-form__title">
+          <h2>Title goes here</h2>
+          <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
+            <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
+          </button>
+        </div>
+        <div class="cell">
+          <form>
+            <div class="modal-form__fields">
+              <fieldset>
+              <label>Input</label>
+              <input type="text">
+              </fieldset>
+
+              <fieldset>
+                <label>Another input</label>
+                <textarea rows="5">Text goes here</textarea>
+              </fieldset>
+            </div>
+
+            <div class="grid-x align-middle align-right modal-form__buttons">
+              <%= link_to "Cancel", styleguide_path, data: { close: true }, class: "button clear" %>
+              <button class="button royal">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="cell small-12 large-4">
     <div class="callout callout secondary radius large">
       <h1>Finibus urna condimentum</h1>
