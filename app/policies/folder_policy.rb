@@ -27,14 +27,6 @@ class FolderPolicy < ApplicationPolicy
     owns_record?
   end
 
-  def share?
-    update?
-  end
-
-  def shared?
-    show?
-  end
-
   class Scope < Scope
     def resolve
       scope.where(user: user)

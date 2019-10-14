@@ -8,10 +8,7 @@ class FoldersController < ApplicationController
   def show
     @folder = policy_scope(Folder).find_by!(id: id)
     authorize @folder
-
-    respond_to do |format|
-      format.html { render :show }
-    end
+    render :show
   end
 
   def new
@@ -28,12 +25,12 @@ class FoldersController < ApplicationController
   end
 
   def edit
-    @folder = folders.find(params[:id])
+    @folder = folders.find(id)
     authorize @folder
   end
 
   def update
-    @folder = folders.find(params[:id])
+    @folder = folders.find(id)
     @folder.assign_attributes(folders_params)
     authorize @folder
     return render :edit unless @folder.save
@@ -42,32 +39,11 @@ class FoldersController < ApplicationController
   end
 
   def destroy
-    @folder = folders.find(params[:id])
+    @folder = folders.find(id)
     authorize @folder
 
     redirect_to folders_path,
                 (@folder.destroy ? { notice: t(".success") } : { alert: t(".failure") })
-  end
-
-  def shared
-    @folder = policy_scope(Folder).find_by!(share_token: id)
-    authorize @folder
-
-    respond_to do |format|
-      format.html { render :shared }
-    end
-  end
-
-  def share
-    @folder = policy_scope(Folder).find_by!(id: id)
-    authorize @folder
-    @folder.update(share_token: SecureRandom.uuid)
-
-    if @folder.errors.empty?
-      redirect_to action: "shared", id: @folder.share_token
-    else
-      render :new
-    end
   end
 
   private
