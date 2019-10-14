@@ -1,3 +1,5 @@
+@import "icons";
+
 .folder {
   border-radius: 11px;
   padding: rem-calc(20) 0;
@@ -7,10 +9,7 @@
     background: get-color(royal-x-light);
 
     .folder__icon {
-      &,
-      & path {
-        fill: get-color(royal);
-      }
+      @include icon-fill(get-color(royal));
     }
 
     .folder__title {
