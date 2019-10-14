@@ -30,6 +30,14 @@ $progress-indicator-circumference: $progress-indicator-radius * 2 * $pi;
       stroke-dashoffset: $progress-indicator-circumference * 0.33; // One-third
     }
   }
+
+  @for $i from 0 through 100 {
+    &--progress-#{$i} {
+      .progress-indicator__progress {
+        stroke-dashoffset: $progress-indicator-circumference * ((100 - $i) / 100);
+      }
+    }
+  }
 }
 
 @keyframes progress-indicator-rotate {
