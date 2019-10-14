@@ -14,5 +14,6 @@ import Rails from "@rails/ujs";
 Rails.start();
 import "foundation";
 import "../application.scss";
+import "../components/file-upload";
 import "../components/header";
 import "../components/character-count";

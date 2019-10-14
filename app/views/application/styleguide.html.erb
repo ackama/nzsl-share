@@ -240,17 +240,52 @@
     <% %w[primary royal success alert medium].each do |tint| %>
       <h3 class="<%= tint %>"><%= tint %></h3>
     <% end %>
-    <em>(Available for all heading styles: h1, h2, h3, h4, h5, h6)</em><br>
+    <em>(Available for all heading styles: h1, h2, h3, h4, 6, h6)</em><br>
     <em>!!! <code>.accent</code> is also available but will only pass
         contrast checks at or above <code>h2</code>.<br>
+    </em>
     <em>!!!
         <%= safe_join(%w[primary-light primary-x-light accent-x-light
                royal-x-light success success-x-light alert-x-light
                light extra-light].map { |var| content_tag(:code, var) }, ", ") %>
         variant classes are also available, but will only pass contrast
         checks against a dark background and are not recommended.
+    </em>
   </div>
 </div>
+
+<div class="cell">
+<h3>File uploads</h3>
+
+<h5>Default state:</h5>
+<form class="file-upload">
+  <h4 class="medium">Drag and drop your video file here</h4>
+  <%= label_tag :file, "Browse files", class: "button primary large" %>
+  <%= file_field_tag :file, direct_upload: true, class: "show-for-sr" %>
+
+  <%= submit_tag "Start Upload", class: "button secondary large" %>
+</form>
+
+<h5>Indeterminate state:</h5>
+<form class="file-upload file-upload--uploading">
+  <h6 class="medium">Processing, please wait...</h6>
+  <%= inline_svg "media/images/progress-indicator.svg",
+                 class: "progress-indicator--indeterminate" %>
+</form>
+
+<h5>Uploading state:</h5>
+<style type="text/css">
+  .styleguide__progress-indicator--fixed .progress-indicator__progress {
+    stroke-dasharray: 126 19;
+  }
+</style>
+<form class="file-upload file-upload--uploading">
+  <h6 class="medium">File(s) uploading&hellip; <span data-file-upload-progress>81%<span></h6>
+  <%= inline_svg "media/images/progress-indicator.svg",
+                 class: "styleguide__progress-indicator--fixed" %>
+</form>
+</div>
+
 <style type="text/css">
   .styleguide-standard-grid {
     background: #ccc;
@@ -260,7 +295,7 @@
     background: #fff;
   }
 </style>
-<h3>Standard grid</h3>
+<h3 class="cell">Standard grid</h3>
 <div class="grid-x grid-margin-x styleguide-standard-grid">
   <div class="cell small-1">Column 1</div>
   <div class="cell small-1">Column 2</div>
