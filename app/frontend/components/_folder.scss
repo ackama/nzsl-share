@@ -41,10 +41,11 @@
 
   &__menu {
     @extend .menu;
-    font-size: 13px;
 
     > li > a {
       color: $black;
+      font-size: 13px;
+      font-weight: 600;
       padding: 0.5rem;
 
       span {
@@ -56,14 +57,15 @@
   &__menu-item {
     padding: 0 1rem;
 
+    svg {
+      @include icon-size
+    }
+
     &:hover {
       background: get-color(royal-x-light);
 
-      .icon--medium {
-        &,
-        & path {
-          fill: get-color(royal);
-        }
+      svg {
+        @include icon-fill(get-color(royal));
       }
 
       > a {
