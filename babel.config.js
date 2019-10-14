@@ -66,7 +66,11 @@ module.exports = function(api) {
         {
           async: false
         }
-      ]
+      ],
+      ["@babel/plugin-transform-react-jsx", {
+        "pragma": "h",
+        "pragmaFrag": "Fragment",
+      }],
     ].filter(Boolean)
   }
 }
