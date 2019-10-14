@@ -21,6 +21,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@svgr/webpack": "^4.3.3",
     "eslint": "^6.5.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",

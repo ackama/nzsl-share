@@ -10,6 +10,26 @@ environment.plugins.prepend("Provide",
   })
 );
 
+const svgrLoader = {
+  test: /\.svg$/,
+  use: [
+    {
+      loader: '@svgr/webpack',
+      options: {
+        svgoConfig: {
+          plugins: [{ prefixIds: false }],
+        },
+      },
+    },
+    "file-loader"
+  ],
+};
+
+// Insert json loader at the top of list
+environment.loaders.prepend('svgr', svgrLoader);
+
+
+
 const config = environment.toWebpackConfig();
 
 config.resolve.alias = {
