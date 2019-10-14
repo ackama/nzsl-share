@@ -37,10 +37,7 @@
   }
 
   .is-active  {
-    &,
-    & path {
-      fill: get-color(royal);
-    }
+    @include icon-fill(get-color(royal));
 
     a {
       border-bottom-right-radius: rem-calc(24);
