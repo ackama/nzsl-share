@@ -1,14 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-
-  resources :folders do
-    member do
-      patch :share
-      put :share
-      get :shared
-    end
-  end
-
   resource :styleguide, only: :show
 
   require "sidekiq/web"
@@ -18,4 +9,8 @@ Rails.application.routes.draw do
   resources :search, only: [:index]
   resources :signs, only: [:show]
   resources :topics, only: %i[index show]
+
+  resources :folders do
+    resources :share, only: %i[create show destroy]
+  end
 end
