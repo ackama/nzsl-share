@@ -16,4 +16,4 @@ import "foundation";
 import "../application.scss";
 import "../components/header";
 import "../components/character-count";
-import "../components/active-state";
+// import "../components/active-state";
