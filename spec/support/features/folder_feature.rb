@@ -8,7 +8,6 @@ class FolderFeature
   end
 
   def start
-    sign_in user
     visit "/folders"
   end
 
