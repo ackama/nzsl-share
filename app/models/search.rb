@@ -9,7 +9,7 @@ class Search
   DEFAULT_ORDER = { default: "ASC" }.freeze
   ALLOWED_ORDER_KEYS = %w[default published].freeze
 
-  attr_reader :word, :order
+  attr_reader :word, :order, :total
 
   def word=(value)
     @word = value.to_s.strip[0, 50] # is 50 to much?
@@ -30,6 +30,10 @@ class Search
     @order = hsh
   end
 
+  def total=(value)
+    @total = value.to_i
+  end
+
   def page
     @page || build_page(DEFAULT_LIMIT)
   end
@@ -46,6 +50,14 @@ class Search
             end
 
     @page = build_page(limit)
+  end
+
+  def new_search?
+    page[:current_page].to_i == 1
+  end
+
+  def page_with_total
+    page.merge!(total: total)
   end
 
   private
