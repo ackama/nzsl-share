@@ -1,6 +1,6 @@
 <br>
 <h4>
-  <%= "#{@signs.count} Result(s) for '#{@support[:word]}'" %>
+  <%= "#{@page[:total]} Result(s) for '#{@page[:word]}'" %>
 </h4>
 <br>
 <% if @signs.any? %>
@@ -12,10 +12,26 @@
     <% end %>
   </div>
 
-  <% unless @signs.count < @support[:limit] %>
-    <%= render "show_more", support: @support %>
+  <% unless @signs.count < @page[:limit] %>
+    <%= button_to "Show More",
+      search_index_path,
+      method: :get,
+      params: default_params(@page),
+      class: "button primary"
+    %>
   <% end %>
 
-  <%= render "published_asc", support: @support %>
-  <%= render "published_desc", support: @support %>
+  <%= button_to "Published Ascending",
+    search_index_path,
+    method: :get,
+    params: published_asc_params(@page),
+    class: "button primary"
+  %>
+
+  <%= button_to "Published Descending",
+    search_index_path,
+    method: :get,
+    params: published_desc_params(@page),
+    class: "button primary"
+  %>
 <% end %>
