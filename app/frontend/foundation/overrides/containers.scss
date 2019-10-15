@@ -31,6 +31,10 @@ footer {
   }
 }
 
+.content-container {
+  margin-top: $global-margin;
+}
+
 .block {
   @include xy-cell;
 

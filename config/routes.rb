@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :search, only: [:index]
-  resources :signs, only: [:show]
+  resources :signs, only: %i[show new create]
   resources :topics, only: %i[index show]
 end
