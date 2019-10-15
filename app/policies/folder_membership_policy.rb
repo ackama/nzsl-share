@@ -1,9 +1,15 @@
 class FolderMembershipPolicy < ApplicationPolicy
   def create?
-    record.folder.user_id == user.id
+    owns_folder?
   end
 
   def destroy?
+    owns_folder?
+  end
+
+  private
+
+  def owns_folder?
     record.folder.user_id == user.id
   end
 
