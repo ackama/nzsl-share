@@ -2,8 +2,6 @@ class FoldersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @new_folder = Folder.new
-    authorize @new_folder
     authorize folders
   end
 
@@ -13,16 +11,25 @@ class FoldersController < ApplicationController
   end
 
   def create
-    @folder = Folder.new(folders_params)
+    @folder = folders.build(folders_params)
     authorize @folder
-    respond_to do |format|
-      if @folder.save
-        redirect_after_create(format)
-      else
-        format.js { render :new }
-        format.html { render :new }
-      end
-    end
+    return render :new unless @folder.save
+
+    redirect_after_save
+  end
+
+  def edit
+    @folder = folders.find(params[:id])
+    authorize @folder
+  end
+
+  def update
+    @folder = folders.find(params[:id])
+    @folder.assign_attributes(folders_params)
+    authorize @folder
+    return render :edit unless @folder.save
+
+    redirect_after_save
   end
 
   def destroy
@@ -40,12 +47,15 @@ class FoldersController < ApplicationController
   end
 
   def folders_params
-    params.require(:folder).permit(:title, :description, :user_id)
+    params.require(:folder).permit(:title, :description)
   end
 
-  def redirect_after_create(format)
-    flash[:notice] = "Folder successfully created."
-    format.js { render inline: "location.reload();" }
-    format.html { redirect_to folders_path }
+  def redirect_after_save
+    flash[:notice] = t(".success")
+
+    respond_to do |format|
+      format.js { render inline: "location.reload();" }
+      format.html { redirect_to folders_path }
+    end
   end
 end
