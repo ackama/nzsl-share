@@ -7,7 +7,6 @@ class Search
   PAGE = /\A[0-9]{1,2}\Z/.freeze
   DEFAULT_LIMIT = 16
   DEFAULT_ORDER = { default: "ASC" }.freeze
-  ALLOWED_ORDER_KEYS = %w[default published].freeze
 
   attr_reader :word, :order, :total
 
@@ -16,7 +15,7 @@ class Search
   end
 
   def order=(value)
-    unless check_value?(value)
+    unless value.is_a?(Hash)
       @order = DEFAULT_ORDER
       return
     end
@@ -39,7 +38,7 @@ class Search
   end
 
   def direction
-    order.values.first || "ASC"
+    order.values.first || DEFAULT_ORDER[:default]
   end
 
   def page=(value)
@@ -61,10 +60,6 @@ class Search
   end
 
   private
-
-  def check_value?(value)
-    value.is_a?(Hash) && ALLOWED_ORDER_KEYS.include?(fetch_key(value))
-  end
 
   def match_direction(value)
     value.values.first.to_s.match(DIRECTION)
