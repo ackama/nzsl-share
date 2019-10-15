@@ -12,7 +12,7 @@
     <% end %>
   </div>
 
-  <% unless @signs.count < @page[:limit] %>
+  <% unless @page[:total] <= @page[:limit] %>
     <%= button_to "Show More",
       search_index_path,
       method: :get,
