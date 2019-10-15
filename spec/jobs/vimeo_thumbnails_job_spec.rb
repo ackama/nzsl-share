@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.describe VimeoThumbnailsJob, type: :job do
   let(:vimeo_client) { double(VimeoClient) }
-  let(:attachment) do
-    attachment = FactoryBot.create(:sign).video
-    attachment.metadata[:vimeo] = { id: 123, link: "https://stub.vimeo/123" }
-    attachment.blob
+  let(:blob) do
+    blob = FactoryBot.create(:sign).video
+    blob.metadata[:vimeo] = { id: 123, link: "https://stub.vimeo/123" }
+    blob.blob
   end
 
   before do
@@ -15,18 +15,18 @@ RSpec.describe VimeoThumbnailsJob, type: :job do
       .and_return(vimeo_client)
   end
 
-  subject { VimeoThumbnailsJob.perform_now(attachment) }
+  subject { VimeoThumbnailsJob.perform_now(blob) }
 
   context "thumbnails are not ready" do
     before { allow(vimeo_client).to receive(:get).and_return(inactive_response) }
 
     it "re-queues the job" do
-      expect { subject }.to have_enqueued_job(described_class).with(attachment)
+      expect { subject }.to have_enqueued_job(described_class).with(blob)
     end
   end
 
-  context "attachment is not stored in Vimeo" do
-    let(:attachment) { FactoryBot.create(:sign).video }
+  context "blob is not stored in Vimeo" do
+    let(:blob) { FactoryBot.create(:sign).video }
 
     it "returns without processing the job" do
       expect(vimeo_client).not_to receive(:get)
@@ -37,6 +37,12 @@ RSpec.describe VimeoThumbnailsJob, type: :job do
   it "processes the expected variants" do
     allow(vimeo_client).to receive(:get).and_return(active_response)
     expect { subject }.to change(ActiveStorage::Blob, :count).by(1)
+  end
+
+  it "doesn't reprocess variants that already exist" do
+    allow(vimeo_client).to receive(:get).and_return(active_response)
+    subject
+    expect { subject }.not_to change(ActiveStorage::Blob, :count)
   end
 
   private
