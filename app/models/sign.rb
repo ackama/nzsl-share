@@ -14,6 +14,15 @@ class Sign < ApplicationRecord
   scope :preview, -> { limit(4) }
 
   scope :for_cards, -> { includes(:contributor) }
+  scope :search_default_order, lambda { |args|
+    where(id: args[:ids])
+      .order(english: :asc)
+  }
+
+  scope :search_published_order, lambda { |args|
+    where(id: args[:ids])
+      .order(published_at: args[:direction])
+  }
 
   def agree_count; 0; end
   def disagree_count; 0; end

@@ -19,8 +19,19 @@ class SearchService < ApplicationService
   def build_results
     search_word = search.word.parameterize(separator: "")
     sql_arr = [search_sql, "^#{search_word}", ".#{search_word}", "^#{search_word}", ".#{search_word}"]
-    result = exec_query(sql_arr).to_json
-    JSON(result)
+    ids = exec_query(sql_arr).values.flatten
+    fetch_results(ids)
+  end
+
+  def fetch_results(ids)
+    signs = if search.order.blank?
+              Sign.search_default_order(ids: ids)
+            elsif search.order.key?("published")
+              Sign.search_published_order(ids: ids, direction: search.direction)
+            else
+              Sign.search_default_order(ids: ids)
+            end
+    signs
   end
 
   def exec_query(sql_arr)
@@ -30,45 +41,31 @@ class SearchService < ApplicationService
   def search_sql
     <<-SQL
       WITH
-      sign_search(sign_id, query_rank, word_rank)
+      sign_search(sign_id)
       AS
       (
         SELECT
-          signs.id,
-          1,
-          RANK() OVER (ORDER BY signs.english)
+          signs.id
           FROM signs
           WHERE UNACCENT(signs.english)  ~* ?
-        UNION ALL
+        UNION
         SELECT
-          signs.id,
-          2,
-          RANK() OVER (ORDER BY signs.english)
+          signs.id
           FROM signs
           WHERE UNACCENT(signs.english) ~* ?
-        UNION ALL
+        UNION
         SELECT
-          signs.id,
-          3,
-          RANK() OVER (ORDER BY signs.secondary)
+          signs.id
           FROM signs
           WHERE UNACCENT(signs.secondary) ~* ?
-        UNION ALL
+        UNION
         SELECT
-          signs.id,
-          4,
-          RANK() OVER (ORDER BY signs.secondary)
+          signs.id
           FROM signs
           WHERE UNACCENT(signs.secondary) ~* ?
       )
-      SELECT                          -- problems with dupes but can fix with relevance
-        signs.english,
-        signs.secondary,
-        signs.maori,
-        'nzsl dev user' AS user_name, -- temp user
-        '256' AS agree,               -- temp agree int will come from signs
-        '512' AS disagree,            -- temp disagree int will come from signs
-        TO_CHAR(signs.published_at:: DATE, 'Mon dd yyyy') AS nice_published_at
+      SELECT
+        sign_id
         FROM signs
         JOIN sign_search
           ON signs.id = sign_search.sign_id
@@ -83,7 +80,7 @@ class SearchService < ApplicationService
             elsif search.order.key?("published")
               "signs.published_at #{search.order.values.first}"
             else
-              "signs.secondary ASC" # place holder until we can include relevance
+              "signs.english ASC"
             end
 
     ApplicationRecord.send(:sanitize_sql_for_order, order)

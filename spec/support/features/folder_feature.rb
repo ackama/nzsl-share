@@ -2,9 +2,13 @@ class FolderFeature
   include Capybara::DSL
   attr_reader :user
 
-  def start(user=FactoryBot.create(:user))
+  def initialize(user=FactoryBot.create(:user))
     @user = user
     sign_in
+  end
+
+  def start
+    sign_in user
     visit "/folders"
   end
 
@@ -26,6 +30,17 @@ class FolderFeature
 
   def sign_in
     AuthenticateFeature.new(user).sign_in
+  end
+
+  def submit_edit_folder_form
+    click_on "Update Folder"
+  end
+
+  def edit_folder(dropdown: false)
+    within(find(".folder", match: :first)) do
+      click_on "Folder Options" if dropdown
+      click_on "Edit"
+    end
   end
 
   def remove_folder

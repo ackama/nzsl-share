@@ -1,1 +1,3 @@
-$("#create-folder").html("<%= escape_javascript(render 'form', folder: @folder) %>");
+$("#manage-folder-modal")
+  .html("<%= escape_javascript(render template: "folders/new", formats: [:html]) %>")
+  .foundation('open');

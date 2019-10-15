@@ -4,4 +4,5 @@ class Folder < ApplicationRecord
   has_many :folder_memberships, dependent: :destroy
   has_many :signs, through: :folder_memberships
   scope :in_order, -> { order(title: :asc) }
+  validates :title, presence: true, uniqueness: { scope: :user_id }
 end

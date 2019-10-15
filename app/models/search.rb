@@ -34,6 +34,10 @@ class Search
     @page || build_page(DEFAULT_LIMIT)
   end
 
+  def direction
+    order.values.first || "ASC"
+  end
+
   def page=(value)
     limit = if match_page(value).blank?
               DEFAULT_LIMIT
