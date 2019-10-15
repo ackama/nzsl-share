@@ -34,6 +34,7 @@
 
       &:hover {
         background: rgba(4, 23, 35, 0.1);
+        cursor: pointer;
       }
 
       &:focus { outline: none; }
@@ -53,6 +54,8 @@
       border: solid 1px #bdc1c4;
       border-radius: 8px;
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+      max-height: 300px;
+      overflow-y: auto;
     }
   }
 
