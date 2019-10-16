@@ -10,8 +10,12 @@ class SignsController < ApplicationController
     render
   end
 
+  def index
+    authorize signs
+  end
+
   def new
-    @sign = policy_scope(Sign).build
+    @sign = Sign.new
     authorize @sign
   end
 
@@ -28,6 +32,10 @@ class SignsController < ApplicationController
   end
 
   private
+
+  def signs
+    @signs = policy_scope(Sign.where(contributor: current_user)).order(english: :asc)
+  end
 
   def build_sign(builder: SignBuilder.new)
     builder.build(create_sign_params)
