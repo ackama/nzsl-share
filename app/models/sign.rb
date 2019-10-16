@@ -6,6 +6,8 @@ class Sign < ApplicationRecord
 
   belongs_to :contributor, class_name: :User
   belongs_to :topic, optional: true
+  has_many :folder_memberships, dependent: :destroy
+  has_many :folders, through: :folder_memberships
   has_one_attached :video
 
   validates :english, presence: true
@@ -23,6 +25,7 @@ class Sign < ApplicationRecord
   # or some other measure of popularity
   scope :preview, -> { limit(4) }
 
+  scope :for_cards, -> { includes(:contributor) }
   scope :search_default_order, lambda { |args|
     where(id: args[:ids])
       .order(english: :asc)

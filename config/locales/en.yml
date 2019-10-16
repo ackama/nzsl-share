@@ -30,6 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  folder_memberships:
+    create:
+      success: "Successfully added '%{sign}' to '%{folder}'"
+      failure: "Failed to add '%{sign}' to '%{folder}'. Please try again."
+    destroy:
+      success: "Successfully removed '%{sign}' from '%{folder}'"
+      failure: "Failed to remove '%{sign}' from '%{folder}'. Please try again."
   signs:
     default_placeholder_word: My New Sign
     create:

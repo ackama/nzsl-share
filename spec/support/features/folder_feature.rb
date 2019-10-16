@@ -4,10 +4,10 @@ class FolderFeature
 
   def initialize(user=FactoryBot.create(:user))
     @user = user
+    sign_in
   end
 
   def start
-    sign_in user
     visit "/folders"
   end
 
@@ -27,6 +27,10 @@ class FolderFeature
     click_on "Create Folder"
   end
 
+  def sign_in
+    AuthenticateFeature.new(user).sign_in
+  end
+
   def submit_edit_folder_form
     click_on "Update Folder"
   end
@@ -42,17 +46,6 @@ class FolderFeature
     within(find(".folder", match: :first)) do
       click_on "Folder Options" if dropdown
       click_on "Delete"
-    end
-  end
-
-  def sign_in(user)
-    visit "/users/sign_in"
-    return if current_path != "/users/sign_in"
-
-    within "form#new_user" do
-      fill_in "Username/Email", with: user.email
-      fill_in "Password", with: user.password
-      click_on "Log in"
     end
   end
 end

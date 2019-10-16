@@ -16,8 +16,8 @@
   <li class="<%= current_page?("/folders") && "is-active" %>"><a href="/folders"><%= inline_svg "media/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
 </ul>
 
-<ul class="vertical menu icons hide-for-medium">
-  <li>
+<ul class="vertical menu icons hide-for-medium show-if-no-js">
+  <li class="hide-if-no-js"> <!-- Don't need to duplicate the navbar here -->
     <a href="#">
       <img
         class="avatar"

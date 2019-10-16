@@ -19,3 +19,4 @@ import "../application.scss";
 import "../components/file-upload";
 import "../components/header";
 import "../components/character-count";
+import "../components/folder-membership";
