@@ -64,9 +64,8 @@ RSpec.describe "share_folder", type: :request do
         allowed_folder.save
       end
 
-      it "redirects to folders" do
-        invalid_show.call("soup", "pretzel")
-        expect(response).to redirect_to folders_path
+      it "raises an exception" do
+        expect { invalid_show.call("soup", "pretzel") }.to raise_exception(ActiveRecord::RecordNotFound)
       end
     end
   end
