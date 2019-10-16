@@ -27,7 +27,13 @@ class VimeoPublisher
     blob
   end
 
+  def ensure_active_storage_host
+    ActiveStorage::Current.host ||= Rails.application.routes.default_url_options[:host]
+  end
+
   def serialize_upload(blob)
+    ensure_active_storage_host
+
     {
       approach: :pull,
       size: blob.byte_size,
