@@ -9,13 +9,11 @@
   </nav>
 
   <div class="grid-x cell">
+    <h1>Topics</h1>
+    <div class="grid-x grid-margin-x">
     <% @topics.each do |topic| %>
-      <div class="cell"><h2 class="primary"><%= link_to topic.name, topic %></h2></div>
-      <div class="grid-x grid-margin-x cell">
-        <% topic.signs.for_cards.preview.each do |sign| %>
-          <div class="cell shrink"><%= render "signs/card", sign: sign %></div>
-        <% end %>
-      </div>
+      <div class="cell medium-6 large-4 small-12 content-container"><%= link_to content_tag(:h4, topic.name, class: "primary"), topic %></div>
     <% end %>
+    </div>
   </div>
 </div>
