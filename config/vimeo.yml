@@ -1,0 +1,19 @@
+default: &default
+  host: https://api.vimeo.com
+  access_token: <%= ENV["VIMEO_ACCESS_TOKEN"] %>
+  embed_preset: <%= ENV["VIMEO_EMBED_PRESET_ID"] %>
+  upload_options:
+    privacy:
+      comments: "nobody"
+      add: "nobody"
+      view: "unlisted"
+
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
