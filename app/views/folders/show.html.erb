@@ -1,1 +1,18 @@
-<h3>nothing to show yet.<h3>
+<div class="grid-x grid-margin-x">
+  <nav class="cell" aria-label="You are here:" role="navigation">
+    <ul class="breadcrumbs">
+      <li><a href="/">Home</a></li>
+      <li><%= link_to "Folders", folders_path %></li>
+      <li>
+        <span class="show-for-sr">Current: </span> <%= @folder.title %>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="grid-x cell">
+    <h1><%= @folder.title %></h1>
+    <div class="grid-x grid-margin-x cell">
+      Folder signs go here ...
+    </div>
+  </div>
+</div>
