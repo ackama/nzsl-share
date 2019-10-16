@@ -8,12 +8,12 @@ class SignVideoPublisher
   cattr_accessor :default_publisher
   self.default_publisher = VimeoPublisher.new
 
-  def initialize(sign, publisher: default_publisher)
-    @sign = sign
+  def initialize(publisher: default_publisher)
     @publisher = publisher
   end
 
-  def publish
+  def publish(sign)
+    @sign = sign
     @publisher.publish(@sign.video.blob, metadata)
   end
 

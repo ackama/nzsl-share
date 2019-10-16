@@ -4,10 +4,10 @@ RSpec.describe SignVideoPublisher, type: :service do
   let(:publisher) { double(LocalPublisher) }
   let(:sign) { FactoryBot.build_stubbed(:sign) }
 
-  subject(:service) { described_class.new(sign, publisher: publisher) }
+  subject(:service) { described_class.new(publisher: publisher) }
 
   describe "#publish" do
-    subject { service.publish }
+    subject { service.publish(sign) }
     it "invokes the publisher with the expected blob" do
       expect(publisher).to receive(:publish).with(an_instance_of(ActiveStorage::Blob), any_args)
       subject
