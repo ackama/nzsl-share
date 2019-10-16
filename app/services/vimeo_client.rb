@@ -5,13 +5,15 @@ class VimeoClient
 
   def initialize(configuration=nil)
     @configuration = configuration || Rails.application.config_for(:vimeo)
-    @connection = Faraday.new(url: @configuration[:host], headers: { user_agent: user_agent }) do |conn|
+    @connection = Faraday.new(url: @configuration[:host], headers: headers) do |conn|
       conn.response :logger, logger: Rails.logger if @configuration[:debug]
+      conn.request  :json
       conn.response :json, parser_options: { object_class: OpenStruct }
       conn.response :raise_error
-      conn.token_auth(@configuration[:access_token])
 
       yield conn if block_given?
+
+      conn.adapter Faraday.default_adapter
     end
   end
 
@@ -25,6 +27,10 @@ class VimeoClient
     define_method(verb) do |*args|
       public_send("raw_#{verb}", *args).body
     end
+  end
+
+  def headers
+    { authorization: "bearer #{@configuration[:access_token]}", user_agent: user_agent }
   end
 
   def user_agent
