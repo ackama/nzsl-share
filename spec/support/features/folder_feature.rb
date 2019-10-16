@@ -42,7 +42,10 @@ class FolderFeature
     end
   end
 
-  def remove_folder
-    within(find(".folder", match: :first)) { click_on "Delete" }
+  def remove_folder(dropdown: false)
+    within(find(".folder", match: :first)) do
+      click_on "Folder Options" if dropdown
+      click_on "Delete"
+    end
   end
 end
