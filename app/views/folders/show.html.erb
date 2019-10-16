@@ -8,5 +8,7 @@
       </li>
     </ul>
   </nav>
-  <%= render "signs/card", collection: @folder.signs, as: :sign %>
+  <% @folder.signs.each do |sign| %>
+    <%= render "signs/card", sign: sign %>
+  <% end %>
 </div>
