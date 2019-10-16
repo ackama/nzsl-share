@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   resources :topics, only: %i[index show]
 
   resources :folders do
-    resources :share, only: %i[create show destroy]
+    resources :share
   end
 end
