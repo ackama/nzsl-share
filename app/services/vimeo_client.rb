@@ -3,7 +3,7 @@ require "ostruct"
 class VimeoClient
   class Error < StandardError; end
 
-  def initialize(configuration=nil)
+  def initialize(configuration=nil, stubs=nil)
     @configuration = configuration || Rails.application.config_for(:vimeo)
     @connection = Faraday.new(url: @configuration[:host], headers: headers) do |conn|
       conn.response :logger, logger: Rails.logger if @configuration[:debug]
@@ -11,9 +11,7 @@ class VimeoClient
       conn.response :json, parser_options: { object_class: OpenStruct }
       conn.response :raise_error
 
-      yield conn if block_given?
-
-      conn.adapter Faraday.default_adapter
+      stubs ? conn.adapter(:test, stubs) : conn.adapter(Faraday.default_adapter)
     end
   end
 

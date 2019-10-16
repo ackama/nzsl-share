@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe VimeoClient, type: :service do
   let(:stubs)  { Faraday::Adapter::Test::Stubs.new }
-  subject { VimeoClient.new { |conn| conn.adapter(:test, stubs) } }
+  subject { VimeoClient.new(nil, stubs) }
 
   it "has methods corresponding to each HTTP verb" do
     %i[get post patch put delete].each do |verb|
@@ -43,7 +43,7 @@ RSpec.describe VimeoClient, type: :service do
       stubs.post("/post-test") do |env|
         expect(env.request_headers["Authorization"]).to be_present
         expect(env.url.host).to eq "api.vimeo.com"
-        expect(env.body).to eq(in_test: true)
+        expect(env.body).to eq({ in_test: true }.to_json)
         [200, { "Content-Type" => "application/json" }, '{"success": true}']
       end
 
@@ -53,7 +53,7 @@ RSpec.describe VimeoClient, type: :service do
   end
 
   describe "with custom configuration" do
-    subject { described_class.new(host: "https://mycustomhost.example.com") { |conn| conn.adapter(:test, stubs) } }
+    subject { described_class.new({ host: "https://mycustomhost.example.com" }, stubs) }
 
     it "uses this configuration when making requests" do
       stubs.get("/test") do |env|
