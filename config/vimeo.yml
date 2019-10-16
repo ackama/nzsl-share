@@ -5,8 +5,8 @@ default: &default
   upload_options:
     privacy:
       comments: "nobody"
-      add: "nobody"
-      view: "unlisted"
+      add: false
+      view: "nobody"
 
 
 development:
