@@ -1,4 +1,6 @@
 ---
 :queues:
   - default
+  - active_storage_analysis
+  - sign_video_publishing
   - mailers
