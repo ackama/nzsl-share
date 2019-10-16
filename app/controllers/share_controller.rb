@@ -25,7 +25,7 @@ class ShareController < ApplicationController
     with_exception_handling do
       @folder = fetch_folder_by_token
       authorize @folder
-      render :show
+      render "folders/show"
     end
   end
 
