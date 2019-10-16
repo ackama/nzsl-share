@@ -33,8 +33,7 @@ class ShareController < ApplicationController
 
   def with_exception_handling
     yield if block_given?
-  rescue StandardError => e
-    logger.error { "Intercepted : #{e.inspect}" }
+  rescue ActiveRecord::RecordNotFound
     redirect_to_folders
   end
 
