@@ -3,6 +3,9 @@
 class Sign < ApplicationRecord
   belongs_to :contributor, class_name: :User
   belongs_to :topic, optional: true
+  has_one_attached :video
+
+  validates :video, :english, presence: true
 
   # For now, this just returns the first 4 signs
   # It is defined here so the concept of a sign preview
@@ -10,6 +13,16 @@ class Sign < ApplicationRecord
   # modify the rules later to take into account activity
   # or some other measure of popularity
   scope :preview, -> { limit(4) }
+
+  scope :search_default_order, lambda { |args|
+    where(id: args[:ids])
+      .order(english: :asc)
+  }
+
+  scope :search_published_order, lambda { |args|
+    where(id: args[:ids])
+      .order(published_at: args[:direction])
+  }
 
   def agree_count; 0; end
   def disagree_count; 0; end

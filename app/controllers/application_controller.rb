@@ -25,7 +25,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: sign_in_attrs
   end
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   private
+
+  def user_not_authorized
+    redirect_back fallback_location: root_path,
+                  alert: t("application.unauthorized")
+  end
 
   def http_basic_auth
     return unless ENV["HTTP_BASIC_AUTH_USERNAME"] && ENV["HTTP_BASIC_AUTH_PASSWORD"]

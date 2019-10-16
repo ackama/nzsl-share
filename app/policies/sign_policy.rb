@@ -8,7 +8,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    contributor?
   end
 
   def new?
@@ -31,5 +31,9 @@ class SignPolicy < ApplicationPolicy
 
   def owns_record?
     record.contributor == user
+  end
+
+  def contributor?
+    user.present?
   end
 end

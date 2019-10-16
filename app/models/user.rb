@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   attr_writer :login
   has_many :folders, dependent: :destroy
+  has_many :signs, foreign_key: :contributor_id, inverse_of: :contributor, dependent: :nullify
 
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },

@@ -11,9 +11,12 @@
 
 require.context("../images", true);
 import Rails from "@rails/ujs";
+require("@rails/activestorage").start();
 Rails.start();
+
 import "foundation";
 import "../application.scss";
+import "../components/file-upload";
 import "../components/header";
 import "../components/character-count";
 // import "../components/active-state";

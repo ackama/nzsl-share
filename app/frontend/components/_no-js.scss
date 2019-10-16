@@ -1,0 +1,17 @@
+body { // sass-lint:disable-block no-important
+  &.no-js {
+    .hide-if-no-js {
+      display: none !important;
+    }
+
+    .show-if-no-js {
+      display: block !important;
+    }
+  }
+
+  &:not(.no-js) {
+    .show-if-no-js {
+      display: none !important;
+    }
+  }
+}
