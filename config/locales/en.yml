@@ -48,3 +48,6 @@ en:
     destroy:
       success: Folder successfully deleted.
       failure: Folder couldn't be deleted. Please try again.
+  published_sign_video:
+    name: "NZSL Share: Contributed sign for '%{word}'"
+    description: "Video contributed to NZSL Share. More information: %{url}"
