@@ -14,8 +14,9 @@ class ContributeSignFeature
   end
 
   def submit
+    return wait_for_path if supports_javascript?
+
     click_on("Start Upload")
-    wait_for_path if supports_javascript?
   end
 
   def has_error?(message)

@@ -66,7 +66,8 @@ module.exports = function(api) {
         {
           async: false
         }
-      ]
+      ],
+      ["@babel/plugin-transform-react-jsx"],
     ].filter(Boolean)
   }
 }

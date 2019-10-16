@@ -4,12 +4,20 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module'
   },
-  extends: 'eslint:recommended',
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended'
+  ],
   env: {
     browser: true
   },
   globals: {
     "$": "readonly"
+  },
+  settings: {
+    react: {
+      version: "detect"
+    }
   },
   rules: {
     "no-underscore-dangle": "off",
@@ -45,6 +53,8 @@ module.exports = {
     "comma-spacing": "error",
     "spaced-comment": [ "warn", "always", { markers: [ "=" ] } ],
     "camelcase": "error",
-    "quotes": [ "error", "double" ]
+    "quotes": [ "error", "double" ],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
   }
 };
