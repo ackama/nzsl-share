@@ -46,5 +46,6 @@ en:
     update:
       success: Folder successfully updated.
     destroy:
+      confirm: Are you sure you want to delete this folder?
       success: Folder successfully deleted.
       failure: Folder couldn't be deleted. Please try again.
