@@ -38,9 +38,9 @@
                     <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
                   <% end %>
                 </li>
-                <li class="folder__menu-item">
-                  <%= link_to folder_path(folder), method: :delete, data: { confirm: "Are you sure?" } do %>
-                    <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
+                <li>
+                  <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
+                    <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
                   <% end %>
                 </li>
               </ul>

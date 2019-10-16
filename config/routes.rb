@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   scope "/user" do
     resources :signs, only: [:index]
   end
+  post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 end
