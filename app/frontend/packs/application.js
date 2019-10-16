@@ -18,5 +18,4 @@ import "foundation";
 import "../application.scss";
 import "../components/file-upload";
 import "../components/header";
-import "../components/modal";
 import "../components/character-count";

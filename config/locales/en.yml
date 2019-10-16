@@ -34,9 +34,20 @@ en:
     default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
+  application:
+    unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   folders:
+    edit:
+      title: Edit '%{title}'
+    new:
+      title: Create a Folder
+    create:
+      success: Folder successfully created.
+    update:
+      success: Folder successfully updated.
     destroy:
-      success: Folder was deleted successfully!
+      confirm: Are you sure you want to delete this folder?
+      success: Folder successfully deleted.
       failure: Folder couldn't be deleted. Please try again.
   activemodel:
     errors: &activemodel_errors
