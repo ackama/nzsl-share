@@ -1,25 +1,27 @@
 module SearchHelper
-  def default_params(support)
+  def default_params(page)
     {
-      page: support[:next_page],
-      word: support[:word]
+      page: page[:next_page],
+      word: page[:word],
+      total: page[:total]
     }
   end
 
-  def published_asc_params(support)
-    published_params(support, "ASC")
+  def published_asc_params(page)
+    published_params(page, "ASC")
   end
 
-  def published_desc_params(support)
-    published_params(support, "DESC")
+  def published_desc_params(page)
+    published_params(page, "DESC")
   end
 
   private
 
-  def published_params(support, direction)
+  def published_params(page, direction)
     {
-      page: support[:current_page],
-      word: support[:word],
+      page: page[:current_page],
+      word: page[:word],
+      total: page[:total],
       order: { published: direction }
     }
   end

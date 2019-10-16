@@ -35,7 +35,6 @@ RSpec.describe Search, type: :model do
         expect(Search.new(order: { published: -42 }).order.stringify_keys).to eq(default_value)
 
         expect(Search.new(order: { pesto: "olive" }).order.stringify_keys).to eq(default_value)
-        expect(Search.new(order: { chess: "ASC" }).order.stringify_keys).to eq(default_value)
         expect(Search.new(order: { spritz: "yum!" }).order.stringify_keys).to eq(default_value)
       end
     end

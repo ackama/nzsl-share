@@ -7,16 +7,15 @@ class Search
   PAGE = /\A[0-9]{1,2}\Z/.freeze
   DEFAULT_LIMIT = 16
   DEFAULT_ORDER = { default: "ASC" }.freeze
-  ALLOWED_ORDER_KEYS = %w[default published].freeze
 
-  attr_reader :word, :order
+  attr_reader :word, :order, :total
 
   def word=(value)
     @word = value.to_s.strip[0, 50] # is 50 to much?
   end
 
   def order=(value)
-    unless check_value?(value)
+    unless value.is_a?(Hash)
       @order = DEFAULT_ORDER
       return
     end
@@ -30,12 +29,16 @@ class Search
     @order = hsh
   end
 
+  def total=(value)
+    @total = value.to_i
+  end
+
   def page
     @page || build_page(DEFAULT_LIMIT)
   end
 
   def direction
-    order.values.first || "ASC"
+    order.values.first || DEFAULT_ORDER[:default]
   end
 
   def page=(value)
@@ -48,11 +51,15 @@ class Search
     @page = build_page(limit)
   end
 
-  private
-
-  def check_value?(value)
-    value.is_a?(Hash) && ALLOWED_ORDER_KEYS.include?(fetch_key(value))
+  def new_search?
+    page[:current_page].to_i == 1
   end
+
+  def page_with_total
+    page.merge!(total: total)
+  end
+
+  private
 
   def match_direction(value)
     value.values.first.to_s.match(DIRECTION)
