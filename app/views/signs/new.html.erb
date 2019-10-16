@@ -1,7 +1,8 @@
 <%= content_for :head do %>
   <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
 <% end %>
-<div class="grid-x grid-margin-x" style="margin-top:1rem;">
+
+<div class="grid-x grid-margin-x content-container">
   <%= render "errors" %>
   <%= form_with model: @sign, class: "cell" do |f| %>
     <div class="file-upload" data-file-upload-controller>
