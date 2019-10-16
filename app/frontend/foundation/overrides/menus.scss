@@ -60,7 +60,6 @@
 
   .opens-right > .is-dropdown-submenu {
     // JS classes override this without !important
-    //sass-lint:disable-next-line no-important
-    left: 1rem;
+    left: 1rem !important; //sass-lint:disable-line no-important
   }
 }
