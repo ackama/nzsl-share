@@ -49,6 +49,9 @@ en:
       confirm: Are you sure you want to delete this folder?
       success: Folder successfully deleted.
       failure: Folder couldn't be deleted. Please try again.
+  published_sign_video:
+    name: "NZSL Share: Contributed sign for '%{word}'"
+    description: "Video contributed to NZSL Share. More information: %{url}"
   activemodel:
     errors: &activemodel_errors
       messages:
@@ -58,4 +61,3 @@ en:
   activerecord:
     errors:
       <<: *activemodel_errors
-
