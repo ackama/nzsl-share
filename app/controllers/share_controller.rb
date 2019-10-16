@@ -4,38 +4,26 @@ class ShareController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    with_exception_handling do
-      @folder = fetch_folder
-      authorize @folder
-      @folder.update(share_token: SecureRandom.uuid)
-      redirect_to_folders
-    end
+    @folder = fetch_folder
+    authorize @folder
+    @folder.update(share_token: SecureRandom.uuid)
+    redirect_to_folders
   end
 
   def destroy
-    with_exception_handling do
-      @folder = fetch_folder_by_token
-      authorize @folder
-      @folder.update(share_token: nil)
-      redirect_to_folders
-    end
+    @folder = fetch_folder_by_token
+    authorize @folder
+    @folder.update(share_token: nil)
+    redirect_to_folders
   end
 
   def show
-    with_exception_handling do
-      @folder = fetch_folder_by_token
-      authorize @folder
-      render "folders/show"
-    end
+    @folder = fetch_folder_by_token
+    authorize @folder
+    render "folders/show"
   end
 
   private
-
-  def with_exception_handling
-    yield if block_given?
-  rescue ActiveRecord::RecordNotFound
-    redirect_to_folders
-  end
 
   def fetch_folder
     policy_scope(Folder).find_by!(id: folder_id)
