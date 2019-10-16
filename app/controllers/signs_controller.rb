@@ -16,10 +16,10 @@ class SignsController < ApplicationController
   end
 
   def create
-    @builder = build_sign
+    builder = build_sign
     @sign = builder.sign
     authorize @sign
-    return render(:new) unless @builder.save
+    return render(:new) unless builder.save
 
     flash[:notice] = t(".success")
     respond_to do |format|
