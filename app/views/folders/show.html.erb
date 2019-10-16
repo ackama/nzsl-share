@@ -8,11 +8,5 @@
       </li>
     </ul>
   </nav>
-
-  <div class="grid-x cell">
-    <h1><%= @folder.title %></h1>
-    <div class="grid-x grid-margin-x cell">
-      Folder signs go here ...
-    </div>
-  </div>
+  <%= render "signs/card", collection: @folder.signs, as: :sign %>
 </div>
