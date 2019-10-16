@@ -18,5 +18,10 @@ module NzslShare
 
     # Use sidekiq to process Active Jobs (e.g. ActionMailer's deliver_later)
     config.active_job.queue_adapter = :sidekiq
+
+    # Set the default host to link to
+    hostname = ENV.fetch("HOSTNAME", "localhost:3000")
+    routes.default_url_options[:host] = hostname
+    (config.action_mailer.default_url_options ||= {})[:host] = hostname
   end
 end

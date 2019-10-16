@@ -73,10 +73,7 @@ Rails.application.configure do
   # Production email config
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = {
-    host: ENV["HOSTNAME"],
-    protocol: "https"
-  }
+  config.action_mailer.default_url_options[:protocol] = "https"
   config.action_mailer.smtp_settings = {
     address: Rails.application.secrets.smtp_hostname,
     port: 587,
