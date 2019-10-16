@@ -39,7 +39,7 @@
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to folder_path(folder), method: :delete do %>
+                  <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
                     <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
                   <% end %>
                 </li>

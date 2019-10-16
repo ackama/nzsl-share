@@ -17,6 +17,28 @@ RSpec.describe Sign, type: :model do
       before { sign.video = nil }
       it { is_expected.not_to be_valid }
     end
+
+    context "too large" do
+      let(:invalid_blob_size) { 500.megabytes }
+      before do
+        allow(subject.video.blob).to receive(:byte_size) { invalid_blob_size }
+        subject.valid?
+      end
+
+      it { is_expected.not_to be_valid }
+      it { expect(subject.errors.full_messages).to include "Video file is too large (500 MB)" }
+    end
+
+    context "wrong type" do
+      let(:invalid_content_type) { "application/pdf" }
+      before do
+        allow(subject.video.blob).to receive(:content_type) { invalid_content_type }
+        subject.valid?
+      end
+
+      it { is_expected.not_to be_valid }
+      it { expect(subject.errors.full_messages).to include "Video isn't a valid video file" }
+    end
   end
 
   describe ".preview" do
