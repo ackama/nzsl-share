@@ -11,5 +11,8 @@ Rails.application.routes.draw do
   resources :signs, only: %i[show new create]
   resources :topics, only: %i[index show]
   resources :folder_memberships, only: %i[create destroy]
+  scope "/user" do
+    resources :signs, only: [:index]
+  end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 end
