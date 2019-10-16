@@ -16,9 +16,9 @@ RSpec.describe SignVideoPublisher, type: :service do
     it "invokes the publisher with the expected metadata" do
       expect(publisher).to receive(:publish) do |_blob, metadata|
         expect(metadata[:name]).to eq "NZSL Share: Contributed sign for '#{sign.english}'"
-        expect(metadata[:description]).to eq <<~DESC
-          Video contributed to NZSL Share. More information: http://localhost:3000/signs/#{sign.id}"
-        DESC
+        expect(metadata[:description]).to eq "
+          Video contributed to NZSL Share. More information: http://localhost:3000/signs/#{sign.id}
+        ".strip
       end
 
       subject
