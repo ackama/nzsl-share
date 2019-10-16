@@ -10,7 +10,10 @@
   }
 
   li {
-    a { color: $medium-gray; }
+    a {
+      color: $black;
+      font-weight: normal;
+     }
 
     img {
       & + span { margin-left: 1rem; }

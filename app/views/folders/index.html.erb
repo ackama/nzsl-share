@@ -39,11 +39,11 @@
                 </li>
                 <li>
                   <%= link_to edit_folder_path(folder), remote: true do %>
-                    <%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+                    <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
                   <% end %>
                 </li>
-                <li>
-                  <%= link_to folder_path(folder), method: :delete do %>
+                <li class="folder__menu-item">
+                  <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
                     <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
                   <% end %>
                 </li>

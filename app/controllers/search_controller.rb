@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     service = SearchService.call(search: new_search)
 
     @signs = service.data
-    @support = service.support
+    @page = service.support
   end
 
   private
@@ -15,6 +15,6 @@ class SearchController < ApplicationController
   end
 
   def search_params
-    params.permit(:word, :page, order: %i[default published])
+    params.permit(:word, :page, :total, order: %i[default published])
   end
 end

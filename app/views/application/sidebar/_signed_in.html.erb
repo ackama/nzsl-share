@@ -1,15 +1,23 @@
 <ul class="vertical menu icons">
-   <li class="is-active"><%= link_to root_path do %><%= inline_svg "media/images/home.svg", aria_hidden: true, class: "icon--medium" %><span>Home</span><% end %>
+   <li class="<%= current_page?("/") && "is-active" %>"><%= link_to root_path do %><%= inline_svg "media/images/home.svg", aria_hidden: true, class: "icon--medium" %><span>Home</span><% end %>
 </ul>
 
 <ul class="vertical menu icons">
-  <li><a href="#"><%= inline_svg "media/images/add.svg", aria_hidden: true %><span>Add a sign</span></a></li>
-  <li><a href="#"><%= inline_svg "media/images/camera.svg", aria_hidden: true %><span>My signs</span></a></li>
-  <li><a href="/folders"><%= inline_svg "media/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
+  <li class="<%= current_page?("/signs/new") && "is-active" %>">
+    <%= link_to new_sign_path do %>
+      <%= inline_svg "media/images/add.svg", aria_hidden: true %><span>Add a sign</span>
+    <% end %>
+  </li>
+  <li class="<%= current_page?("/user/signs") && "is-active" %>">
+    <%= link_to signs_path do %>
+      <%= inline_svg "media/images/ok.svg", aria_hidden: true %><span>My signs</span>
+    <% end %>
+  </li>
+  <li class="<%= current_page?("/folders") && "is-active" %>"><a href="/folders"><%= inline_svg "media/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
 </ul>
 
-<ul class="vertical menu icons hide-for-medium">
-  <li>
+<ul class="vertical menu icons hide-for-medium show-if-no-js">
+  <li class="hide-if-no-js"> <!-- Don't need to duplicate the navbar here -->
     <a href="#">
       <img
         class="avatar"

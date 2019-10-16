@@ -76,5 +76,11 @@ RSpec.describe "Folders", type: :system do
       process.remove_folder
       expect(process).to have_content "Folder successfully deleted."
     end
+
+    it "confirms before deleting with JS", uses_javascript: true do
+      process.remove_folder(dropdown: true)
+      confirmation = page.driver.browser.switch_to.alert
+      expect(confirmation.text).to eq I18n.t!("folders.destroy.confirm")
+    end
   end
 end

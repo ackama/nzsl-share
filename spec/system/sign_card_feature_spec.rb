@@ -1,0 +1,125 @@
+require "rails_helper"
+
+RSpec.describe "Sign card features", type: :system do
+  let!(:sign) { FactoryBot.create(:sign) }
+  let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
+  let(:authenticator) { AuthenticateFeature.new }
+
+  before do |example|
+    authenticator.sign_in unless example.metadata[:signed_out]
+    visit topic_path(sign.topic)
+  end
+
+  def sign_card
+    find(".sign-card", match: :first)
+  end
+
+  def inside_card(&block)
+    within(sign_card, &block)
+  end
+
+  it "shows the title" do
+    expect(sign_card).to have_selector ".sign-card__title", text: sign.english
+  end
+
+  it "shows the contributor's username" do
+    expect(sign_card).to have_content sign.contributor.username
+  end
+
+  it "shows a formatted date" do
+    expect(sign_card).to have_content presenter.friendly_date
+  end
+
+  it "shows the embedded media" do
+    expect(sign_card).to have_selector ".sign-card__media > iframe[src^='https://player.vimeo.com']"
+  end
+
+  describe "Adding & removing from folders with JS", uses_javascript: true do
+    let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
+
+    # We have added records so need to reload
+    before { visit topic_path(sign.topic) }
+
+    it "shows existing folder state" do
+      inside_card do
+        click_on "Folders"
+        active_checkbox = page.find_field("membership_folder_#{folder.id}_sign_#{sign.id}")
+        inactive_checkbox = page.find_field("membership_folder_#{other_folder.id}_sign_#{sign.id}")
+        expect(active_checkbox).to be_checked
+        expect(inactive_checkbox).not_to be_checked
+      end
+    end
+
+    it "adds the sign to a folder" do
+      inside_card do
+        click_on "Folders"
+        expect do
+          page.find("label", text: other_folder.title).click
+          wait_for_ajax
+        end.to change(FolderMembership, :count).by(1)
+      end
+    end
+
+    it "removes the sign from a folder" do
+      inside_card do
+        click_on "Folders"
+        expect do
+          page.find("label", text: folder.title).click
+          wait_for_ajax
+        end.to change(FolderMembership, :count).by(-1)
+      end
+    end
+
+    it "does not show the folder icon", signed_out: true do
+      expect(page).not_to have_selector ".sign-card__folders"
+    end
+  end
+
+  describe "Adding & removing from folders without JS" do
+    let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
+
+    # We have added records so need to reload
+    before { visit current_path }
+
+    it "shows existing folder state" do
+      inside_card do
+        within ".sign-card__folders__menu" do
+          expect(page).to have_content folder.title
+        end
+      end
+    end
+
+    it "adds the sign to a folder" do
+      inside_card do
+        within ".sign-card__folders__menu" do
+          select other_folder.title, from: "Add to Folder:"
+          click_on "Save"
+        end
+      end
+
+      expect(page).to have_content I18n.t("folder_memberships.create.success",
+                                          sign: sign.english,
+                                          folder: other_folder.title)
+    end
+
+    it "removes the sign from a folder" do
+      inside_card do
+        within ".sign-card__folders__menu" do
+          click_on "Remove from Folder"
+        end
+      end
+
+      expect(page).to have_content I18n.t("folder_memberships.destroy.success",
+                                          sign: sign.english,
+                                          folder: folder.title)
+    end
+
+    it "does not show the folder icon", signed_out: true do
+      expect(page).not_to have_selector ".sign-card__folders"
+    end
+  end
+end
