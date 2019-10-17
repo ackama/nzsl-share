@@ -21,6 +21,7 @@ gem "pundit"
 gem "aws-sdk-s3"
 gem "inline_svg"
 gem "sidekiq-batch"
+gem "image_processing"
 
 gem "rack-canonical-host"
 
