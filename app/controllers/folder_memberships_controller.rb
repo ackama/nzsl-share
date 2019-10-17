@@ -23,7 +23,7 @@ class FolderMembershipsController < ApplicationController
   end
 
   def modification_flashes(succeeded)
-    translation_interpolations = { sign: @membership.sign.english, folder: @membership.folder.title }
+    translation_interpolations = { sign: @membership.sign.word, folder: @membership.folder.title }
 
     if succeeded
       flash[:notice] = t(".success", translation_interpolations)

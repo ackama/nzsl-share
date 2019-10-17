@@ -4,7 +4,7 @@ class SignBuilder
 
   def build(sign_params)
     @sign = Sign.new(sign_params).tap do |sign|
-      sign.english.presence || (sign.english = derive_word_from_attachment(sign.video))
+      sign.word.presence || (sign.word = derive_word_from_attachment(sign.video))
     end
 
     self

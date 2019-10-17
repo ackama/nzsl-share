@@ -11,7 +11,7 @@ namespace :developers do
 
       500.times do
         Sign.create(
-          english: Faker::Name.first_name,
+          word: Faker::Name.first_name,
           maori: Faker::Name.last_name, # until we have better data
           secondary: Faker::Name.middle_name,
           published_at: DateTime.now - (rand * 1000)

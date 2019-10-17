@@ -20,7 +20,7 @@ class SignVideoPublisher
   private
 
   def metadata
-    word = @sign.english
+    word = @sign.word
     url = sign_url(@sign)
 
     {

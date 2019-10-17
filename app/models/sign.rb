@@ -10,7 +10,7 @@ class Sign < ApplicationRecord
   has_many :folders, through: :folder_memberships
   has_one_attached :video
 
-  validates :english, presence: true
+  validates :word, presence: true
 
   # See app/validators/README.md for details on these
   # validations
@@ -28,7 +28,7 @@ class Sign < ApplicationRecord
   scope :for_cards, -> { includes(:contributor) }
   scope :search_default_order, lambda { |args|
     where(id: args[:ids])
-      .order(english: :asc)
+      .order(word: :asc)
   }
 
   scope :search_published_order, lambda { |args|

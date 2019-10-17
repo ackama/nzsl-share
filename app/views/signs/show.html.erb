@@ -6,7 +6,7 @@
         <li><%= link_to "Topics", "/topics" %></li>
         <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
       <% end %>
-      <li><span class="show-for-sr">Current: </span> <%= @sign.english %></li>
+      <li><span class="show-for-sr">Current: </span> <%= @sign.word %></li>
     </ul>
   </nav>
 </div>
@@ -24,7 +24,7 @@
         ></iframe>
     </div>
     <div class="sign-card__section">
-      <h2 class="primary"><%= @sign.english %></h2>
+      <h2 class="primary"><%= @sign.word %></h2>
       <p class="sign-card__subtitle">
         <%= @sign.contributor.username %>
         &nbsp;•&nbsp;

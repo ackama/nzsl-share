@@ -19,7 +19,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the title" do
-    expect(sign_card).to have_selector ".sign-card__title", text: sign.english
+    expect(sign_card).to have_selector ".sign-card__title", text: sign.word
   end
 
   it "shows the contributor's username" do
@@ -102,7 +102,7 @@ RSpec.describe "Sign card features", type: :system do
       end
 
       expect(page).to have_content I18n.t("folder_memberships.create.success",
-                                          sign: sign.english,
+                                          sign: sign.word,
                                           folder: other_folder.title)
     end
 
@@ -114,7 +114,7 @@ RSpec.describe "Sign card features", type: :system do
       end
 
       expect(page).to have_content I18n.t("folder_memberships.destroy.success",
-                                          sign: sign.english,
+                                          sign: sign.word,
                                           folder: folder.title)
     end
 

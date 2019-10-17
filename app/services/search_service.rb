@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SearchService < ApplicationService
-  DEFAULT_ORDER = "signs.english ASC"
+  DEFAULT_ORDER = "signs.word ASC"
   PUBLISHED_ORDER = "signs.published_at"
 
   attr_reader :search, :results
@@ -83,12 +83,12 @@ class SearchService < ApplicationService
         SELECT
           signs.id
           FROM signs
-          WHERE UNACCENT(signs.english)  ~* ?
+          WHERE UNACCENT(signs.word)  ~* ?
         UNION
         SELECT
           signs.id
           FROM signs
-          WHERE UNACCENT(signs.english) ~* ?
+          WHERE UNACCENT(signs.word) ~* ?
         UNION
         SELECT
           signs.id

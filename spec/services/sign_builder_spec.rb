@@ -11,21 +11,21 @@ RSpec.describe SignBuilder, type: :service do
       end
 
       it "has left the word set to its initial value" do
-        expect(subject.english).to eq attrs[:english]
+        expect(subject.word).to eq attrs[:word]
       end
     end
 
     context "attachment is present" do
-      let(:attrs) { FactoryBot.attributes_for(:sign, english: "") }
+      let(:attrs) { FactoryBot.attributes_for(:sign, word: "") }
       it "has assigned the word to the attachment filename" do
-        expect(subject.english).to eq "dummy"
+        expect(subject.word).to eq "dummy"
       end
     end
 
     context "attachment is not present" do
-      let(:attrs) { FactoryBot.attributes_for(:sign, english: "", video: nil) }
+      let(:attrs) { FactoryBot.attributes_for(:sign, word: "", video: nil) }
       it "has assigned the word to the default placeholder value" do
-        expect(subject.english).to eq "My New Sign"
+        expect(subject.word).to eq "My New Sign"
       end
     end
   end

@@ -6,7 +6,7 @@ require "./spec/support/refined_data/search/signs_with_macrons"
 
 RSpec.describe SearchService, type: :service do
   describe "search" do
-    context "english and secondary" do
+    context "primary word and secondary" do
       before(:each) do
         Refined::Search::Signs.default.each do |sign_attrs|
           FactoryBot.create(:sign, sign_attrs)
@@ -46,19 +46,19 @@ RSpec.describe SearchService, type: :service do
 
       it "returns an exact match first given a complete word" do
         expect(SearchService.call(search: Search.new(word: "apple"))
-           .data.pluck(:english, :secondary).flatten.to_s.include?("apple")).to be true
+           .data.pluck(:word, :secondary).flatten.to_s.include?("apple")).to be true
         expect(SearchService.call(search: Search.new(word: "pie"))
-          .data.pluck(:english, :secondary).flatten.to_s.include?("pie")).to be true
+          .data.pluck(:word, :secondary).flatten.to_s.include?("pie")).to be true
         expect(SearchService.call(search: Search.new(word: "banana"))
-          .data.pluck(:english, :secondary).flatten.to_s.include?("banana")).to be true
+          .data.pluck(:word, :secondary).flatten.to_s.include?("banana")).to be true
         expect(SearchService.call(search: Search.new(word: "england"))
-          .data.pluck(:english, :secondary).flatten.to_s.include?("england")).to be true
+          .data.pluck(:word, :secondary).flatten.to_s.include?("england")).to be true
         expect(SearchService.call(search: Search.new(word: "cream"))
-          .data.pluck(:english, :secondary).flatten.to_s.include?("cream")).to be true
+          .data.pluck(:word, :secondary).flatten.to_s.include?("cream")).to be true
         expect(SearchService.call(search: Search.new(word: "risotto"))
-          .data.pluck(:english, :secondary).flatten.to_s.include?("risotto")).to be true
+          .data.pluck(:word, :secondary).flatten.to_s.include?("risotto")).to be true
         expect(SearchService.call(search: Search.new(word: "blueberry"))
-          .data.pluck(:english, :secondary).flatten.to_s.include?("blueberry")).to be true
+          .data.pluck(:word, :secondary).flatten.to_s.include?("blueberry")).to be true
       end
     end
 
