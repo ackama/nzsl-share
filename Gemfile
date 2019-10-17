@@ -20,6 +20,7 @@ gem "faraday_middleware"
 gem "pundit"
 gem "aws-sdk-s3"
 gem "inline_svg"
+gem "sidekiq-batch"
 
 gem "rack-canonical-host"
 
