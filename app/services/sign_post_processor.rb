@@ -3,7 +3,7 @@ class SignPostProcessor
     def on_complete(status, options)
       sign = Sign.find(options.fetch("sign_id"))
       status = status.failures.zero? ? "complete" : "failed"
-      sign.video.update!(metadata: sign.video.metadata.merge(post_processing_status: status))
+      sign.video.update!(metadata: sign.video.metadata.merge(processing: status))
     end
   end
 
@@ -32,7 +32,8 @@ class SignPostProcessor
   end
 
   def update_status
-    sign.video.update!(metadata: sign.video.metadata.merge(post_processing_status: "incomplete"))
+    video = sign.video
+    video.update!(metadata: video.metadata.merge(processing: "incomplete"))
   end
 
   def batch(&block)
