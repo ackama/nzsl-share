@@ -502,7 +502,7 @@ $menu-margin: 0;
 $menu-nested-margin: $global-menu-nested-margin;
 $menu-items-padding: 1rem;
 $menu-simple-margin: 1rem;
-$menu-item-color-active: $black;
+$menu-item-color-active: get-color(royal);
 $menu-item-background-active: get-color(royal-x-light);
 $menu-icon-spacing: 0.25rem;
 $menu-state-back-compat: true;

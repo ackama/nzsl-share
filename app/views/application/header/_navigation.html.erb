@@ -10,12 +10,12 @@
       <li class="navigation__item columns medium-12 large-10">
         <%= render "application/header/search" %>
 
-        <ul class="dropdown menu" data-dropdown-menu>
+        <ul class="dropdown menu" data-dropdown-menu data-v-offset="8" data-h-offset="8">
         <li class="navigation__item">
-          <%= link_to "Browse Topics", topics_path, class: "search-bar__helper-link" %>
+          <%= link_to "Browse Topics", topics_path %>
           <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
             <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
-            <hr>
+            <hr class="menu-divider" />
             <li><%= link_to "All Topics", topics_path %></li>
           </ul>
         </ul>

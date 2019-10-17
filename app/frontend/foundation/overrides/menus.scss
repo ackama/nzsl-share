@@ -1,7 +1,41 @@
+@import "../../components/icons";
+
+@mixin menu-item {
+  padding: 0 1rem;
+  width: 100%;
+
+  & > a {
+    color: $black;
+    font-weight: 600;
+  }
+
+  &.is-submenu-item { @include menu-sub-item; }
+
+  img {
+    & + span { margin-left: 1rem; }
+  }
+
+  svg {
+    @include icon-size;
+  }
+}
+
+@mixin menu-sub-item {
+  font-size: 13px;
+  padding: 0.5rem;
+
+  &:hover {
+    background: get-color(royal-x-light);
+    & svg { @include icon-fill(get-color(royal)); }
+    & > a { color: get-color(royal); }
+  }
+}
+
 .menu {
   .menu-divider {
     border: 0;
     border-bottom: $hr-border;
+    margin: 0;
     width: 100%;
   }
 
@@ -10,13 +44,22 @@
   }
 
   li {
-    a {
-      color: $black;
-      font-weight: normal;
-     }
+    @include menu-item;
+  }
 
-    img {
-      & + span { margin-left: 1rem; }
-    }
+  // Position adjustments for nested menus
+  &.is-dropdown-submenu {
+    border-radius: $global-radius;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+    margin-top: 0.5rem;
+    max-width: rem-calc(161);
+    z-index: -1;
+  }
+
+  .opens-right > .is-dropdown-submenu {
+    // JS classes override this without !important
+    left: 1rem !important; //sass-lint:disable-line no-important
   }
 }

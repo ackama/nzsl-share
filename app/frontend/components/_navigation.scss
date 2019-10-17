@@ -98,7 +98,7 @@
     & > li > a {
       //sass-lint:disable-next-line no-important
       color: $white !important; // Override default menu styles
-      font-weight: bold;
+      font-weight: bold !important; //Override default menu styles
       padding: 0.5rem;
       text-decoration: none;
       width: auto;
