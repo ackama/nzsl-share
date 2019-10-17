@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_014624) do
+ActiveRecord::Schema.define(version: 2019_10_17_221029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 2019_10_15_014624) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "collections", force: :cascade do |t|
+    t.bigint "sign_id"
+    t.bigint "folder_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["folder_id"], name: "index_collections_on_folder_id"
+    t.index ["sign_id"], name: "index_collections_on_sign_id"
+  end
+
   create_table "folder_memberships", force: :cascade do |t|
     t.bigint "folder_id", null: false
     t.bigint "sign_id", null: false
@@ -53,10 +62,10 @@ ActiveRecord::Schema.define(version: 2019_10_15_014624) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "share_token", limit: 100
-    t.index ["share_token"], name: "index_folders_on_share_token"
     t.integer "signs_count", default: 0
+    t.string "share_token", limit: 100
     t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
+    t.index ["share_token"], name: "index_folders_on_share_token"
     t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
@@ -73,7 +82,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_014624) do
   end
 
   create_table "signs", id: :serial, force: :cascade do |t|
-    t.string "english", limit: 256, null: false
+    t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
     t.string "secondary", limit: 256
     t.datetime "published_at"
@@ -83,10 +92,10 @@ ActiveRecord::Schema.define(version: 2019_10_15_014624) do
     t.bigint "topic_id"
     t.text "description"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
-    t.index ["english"], name: "idx_signs_english"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["topic_id"], name: "index_signs_on_topic_id"
+    t.index ["word"], name: "idx_signs_english"
   end
 
   create_table "topics", force: :cascade do |t|
