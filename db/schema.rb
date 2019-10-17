@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_221029) do
+ActiveRecord::Schema.define(version: 2019_10_17_221525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,8 +91,10 @@ ActiveRecord::Schema.define(version: 2019_10_17_221029) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
+    t.text "notes"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
+    t.index ["notes"], name: "index_signs_on_notes"
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["topic_id"], name: "index_signs_on_topic_id"
     t.index ["word"], name: "idx_signs_english"
