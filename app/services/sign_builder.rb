@@ -12,7 +12,7 @@ class SignBuilder
 
   def save!
     @sign.save!
-    enqueue_jobs
+    post_process
 
     true
   end
@@ -25,8 +25,8 @@ class SignBuilder
 
   private
 
-  def enqueue_jobs
-    SignPublishVideoJob.perform_later @sign
+  def post_process
+    SignPostProcessor.new(@sign).process
   end
 
   def derive_word_from_attachment(attachment)
