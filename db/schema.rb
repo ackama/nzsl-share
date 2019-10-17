@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 2019_10_15_014624) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "share_token", limit: 100
+    t.index ["share_token"], name: "index_folders_on_share_token"
     t.integer "signs_count", default: 0
     t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
     t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true

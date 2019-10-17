@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :folders
   resource :styleguide, only: :show
 
   require "sidekiq/web"
@@ -10,6 +9,11 @@ Rails.application.routes.draw do
   resources :search, only: [:index]
   resources :signs, only: %i[show new create]
   resources :topics, only: %i[index show]
+
+  resources :folders do
+    resources :share
+  end
+
   resources :folder_memberships, only: %i[create destroy]
   scope "/user" do
     resources :signs, only: [:index]

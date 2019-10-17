@@ -5,6 +5,12 @@ class FoldersController < ApplicationController
     authorize folders
   end
 
+  def show
+    @folder = policy_scope(Folder).find_by!(id: id)
+    authorize @folder
+    render :show
+  end
+
   def new
     @folder = Folder.new
     authorize @folder
@@ -19,12 +25,12 @@ class FoldersController < ApplicationController
   end
 
   def edit
-    @folder = folders.find(params[:id])
+    @folder = folders.find(id)
     authorize @folder
   end
 
   def update
-    @folder = folders.find(params[:id])
+    @folder = folders.find(id)
     @folder.assign_attributes(folders_params)
     authorize @folder
     return render :edit unless @folder.save
@@ -33,7 +39,7 @@ class FoldersController < ApplicationController
   end
 
   def destroy
-    @folder = folders.find(params[:id])
+    @folder = folders.find(id)
     authorize @folder
 
     redirect_to folders_path,
@@ -57,5 +63,9 @@ class FoldersController < ApplicationController
       format.js { render inline: "location.reload();" }
       format.html { redirect_to folders_path }
     end
+  end
+
+  def id
+    params[:id]
   end
 end
