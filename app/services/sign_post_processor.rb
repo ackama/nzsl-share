@@ -1,7 +1,7 @@
 class SignPostProcessor
   class Callbacks
     def on_complete(status, options)
-      sign = Sign.find(options.fetch(:sign_id))
+      sign = Sign.find(options.fetch("sign_id"))
       status = status.failures.zero? ? "complete" : "failed"
       sign.video.update!(metadata: sign.video.metadata.merge(post_processing_status: status))
     end
