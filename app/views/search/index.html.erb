@@ -11,10 +11,10 @@
       </div>
     <% end %>
   </div>
-
   <% unless @page[:total] <= @page[:limit] %>
+    <a name="show-more"></a>
     <%= button_to "Show More",
-      search_index_path,
+      search_index_path(anchor: "show-more"),
       method: :get,
       params: default_params(@page),
       class: "button primary"
