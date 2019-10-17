@@ -9,7 +9,7 @@
     <% end %>
   </li>
   <li class="<%= current_page?("/user/signs") && "is-active" %>">
-    <%= link_to signs_path do %>
+    <%= link_to user_signs_path do %>
       <%= inline_svg "media/images/ok.svg", aria_hidden: true %><span>My signs</span>
     <% end %>
   </li>
