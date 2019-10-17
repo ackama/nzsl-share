@@ -12,12 +12,11 @@
 #
 class ThumbnailPreset
   def self.default
-    new
+    new.scale_720
   end
 
   def initialize(overrides={})
-    @presets = {}
-    scale_720.add!(overrides)
+    @presets = {}.merge(overrides)
   end
 
   def to_h
@@ -30,14 +29,14 @@ class ThumbnailPreset
   end
 
   def scale_1080
-    add!(resize: "1080x720^")
+    add!(resize: "1080x720", gravity: "center", background: "black", extent: "1080x720")
   end
 
   def scale_720
-    add!(resize: "720x560")
+    add!(resize: "720x560", gravity: "center", background: "black", extent: "720x560")
   end
 
   def scale_360
-    add!(resize: "360x240")
+    add!(resize: "360x240", gravity: "center", background: "black", extent: "360x240")
   end
 end
