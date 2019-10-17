@@ -5,13 +5,30 @@
 <br>
 <% if @signs.any? %>
   <div class="grid-x grid-margin-x">
+    <div class="cell small-3">
+      <%= button_to "Order by Date (oldest first)",
+        search_index_path,
+        method: :get,
+        params: published_asc_params(@page),
+        class: "button primary"
+      %>
+    </div>
+    <div class="cell auto">
+      <%= button_to "Order by Date (newest first)",
+        search_index_path,
+        method: :get,
+        params: published_desc_params(@page),
+        class: "button primary"
+      %>
+    </div>
+  </div>
+  <div class="grid-x grid-margin-x">
     <% @signs.each do |sign| %>
       <div class="cell small-3">
         <%= render "result", sign: sign %>
       </div>
     <% end %>
   </div>
-
   <% unless @page[:total] <= @page[:limit] %>
     <%= button_to "Show More",
       search_index_path,
@@ -20,18 +37,4 @@
       class: "button primary"
     %>
   <% end %>
-
-  <%= button_to "Published Ascending",
-    search_index_path,
-    method: :get,
-    params: published_asc_params(@page),
-    class: "button primary"
-  %>
-
-  <%= button_to "Published Descending",
-    search_index_path,
-    method: :get,
-    params: published_desc_params(@page),
-    class: "button primary"
-  %>
 <% end %>
