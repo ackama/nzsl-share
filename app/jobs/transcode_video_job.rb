@@ -1,4 +1,4 @@
-class EncodeVideoJob < ApplicationJob
+class TranscodeVideoJob < ApplicationJob
   queue_as :video_encoding
 
   def perform(blob, ffmpeg_args)
