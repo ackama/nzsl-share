@@ -24,7 +24,7 @@ class SignPostProcessor
   private
 
   def video_processes
-    @presets[:video].each { |preset| EncodeVideoJob.perform_later(sign.video.blob, preset.to_a) }
+    @presets[:video].each { |preset| TranscodeVideoJob.perform_later(sign.video.blob, preset.to_a) }
   end
 
   def thumbnail_processes
