@@ -3,7 +3,7 @@ class SignsController < ApplicationController
 
   def show
     @sign = policy_scope(Sign.includes(:contributor, :topic))
-            .find(params[:id])
+            .find(id)
     authorize @sign
     return unless stale?(@sign)
 
@@ -11,7 +11,7 @@ class SignsController < ApplicationController
   end
 
   def index
-    authorize signs
+    authorize my_signs
   end
 
   def new
@@ -32,10 +32,24 @@ class SignsController < ApplicationController
     end
   end
 
+  def edit
+    @sign = my_signs.find(id)
+    authorize @sign
+  end
+
+  def update
+    @sign = my_signs.find(id)
+    @sign.assign_attributes(create_signs_params)
+    authorize @sign
+    return render :edit unless @sign.save
+
+    redirect_after_save
+  end
+
   private
 
-  def signs
-    @signs = policy_scope(Sign.where(contributor: current_user)).order(english: :asc)
+  def my_signs
+    @signs = policy_scope(Sign.where(contributor: current_user)).order(word: :asc)
   end
 
   def build_sign(builder: SignBuilder.new)
@@ -47,5 +61,9 @@ class SignsController < ApplicationController
       .require(:sign)
       .permit(:video)
       .merge(contributor: current_user)
+  end
+
+  def id
+    params[:id]
   end
 end
