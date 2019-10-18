@@ -62,6 +62,11 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
+  # Clear Sidekiq jobs between test runs
+  config.before(:each) do
+    Sidekiq::Worker.clear_all
+  end
+
   # System tests indicating that they use Javascript should be run with headless Chrome
   config.before(:each, type: :system, uses_javascript: true) do
     driven_by :chrome
