@@ -5,6 +5,25 @@
 <br>
 <% if @signs.any? %>
   <div class="grid-x grid-margin-x">
+    <div class="cell small-3">
+      <%= button_to "Order by Date (oldest first)",
+        search_index_path,
+        method: :get,
+        params: published_asc_params(@page),
+        class: "button secondary"
+      %>
+    </div>
+    <div class="cell auto">
+      <%= button_to "Order by Date (newest first)",
+        search_index_path,
+        method: :get,
+        params: published_desc_params(@page),
+        class: "button secondary"
+      %>
+    </div>
+  </div>
+
+  <div class="grid-x grid-margin-x">
     <% @signs.each do |sign| %>
       <div class="cell small-3">
         <%= render "result", sign: sign %>
@@ -12,26 +31,32 @@
     <% end %>
   </div>
 
+  <div class="grid-x grid-margin-x">
   <% unless @page[:total] <= @page[:limit] %>
-    <%= button_to "Show More",
-      search_index_path,
-      method: :get,
-      params: default_params(@page),
-      class: "button primary"
-    %>
+    <div class="cell small-3">
+      <%= button_to "Show More",
+        search_index_path,
+        method: :get,
+        params: show_more_params(@page),
+        class: "button primary"
+      %>
+      </div>
   <% end %>
-
-  <%= button_to "Published Ascending",
-    search_index_path,
-    method: :get,
-    params: published_asc_params(@page),
-    class: "button primary"
-  %>
-
-  <%= button_to "Published Descending",
-    search_index_path,
-    method: :get,
-    params: published_desc_params(@page),
-    class: "button primary"
-  %>
+    <div class="cell small-3">
+      <%= button_to "Show Ascending",
+        search_index_path,
+        method: :get,
+        params: show_asc_params(@page),
+        class: "button secondary"
+      %>
+    </div>
+    <div class="cell auto">
+      <%= button_to "Show Descending",
+        search_index_path,
+        method: :get,
+        params: show_desc_params(@page),
+        class: "button secondary"
+      %>
+    </div>
+  </div>
 <% end %>
