@@ -167,7 +167,7 @@ RSpec.describe SearchService, type: :service do
         end
       end
 
-      it "orders ascending given a '0'" do
+      it "orders ascending" do
         rs1 = SearchService.call(search: Search.new(word: "a", order: { published: "ASC" }))
                            .data.map { |hsh| hsh["published_at"] }
 
@@ -177,7 +177,7 @@ RSpec.describe SearchService, type: :service do
         expect(rs1 == rs2).to be true
       end
 
-      it "orders descending given a '1'" do
+      it "orders descending" do
         rs1 = SearchService.call(search: Search.new(word: "a", order: { published: "DESC" }))
                            .data.map { |hsh| hsh["published_at"] }
 
