@@ -11,6 +11,10 @@ class CachedVideoTranscoder
     service.exist?(key)
   end
 
+  def process_later
+    TranscodeVideoJob.perform_later(@blob, @options)
+  end
+
   def processed
     ensure_active_storage_host
     return process unless processed?
