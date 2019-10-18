@@ -12,7 +12,7 @@ class CachedVideoTranscoder
   end
 
   def process_later
-    TranscodeVideoJob.perform_later(@blob, @options)
+    TranscodeVideoJob.perform_unique_later(@blob, @options)
   end
 
   def processed
