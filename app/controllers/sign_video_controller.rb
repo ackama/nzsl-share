@@ -6,10 +6,12 @@ class SignVideoController < ApplicationController
   }.freeze
 
   def show
-    @representation = representation
-    return head(:accepted) unless @representation.exist?
+    unless representation.exist?
+      representation.process_later
+      return head(:accepted)
+    end
 
-    redirect_to @representation.processed
+    redirect_to representation.processed
   end
 
   private
@@ -29,6 +31,6 @@ class SignVideoController < ApplicationController
   end
 
   def representation
-    CachedVideoTranscoder.new(sign.video.blob, preset)
+    @representation ||= CachedVideoTranscoder.new(sign.video.blob, preset.to_a)
   end
 end

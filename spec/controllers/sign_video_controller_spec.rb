@@ -4,7 +4,7 @@ RSpec.describe SignVideoController, type: :controller do
   include Devise::Test::ControllerHelpers
 
   let(:fake_representation_url) { "https://example.com/fake-representation" }
-  let(:fake_representation) { double(exist?: true, processed: fake_representation_url) }
+  let(:fake_representation) { double(exist?: true, process_later: true, processed: fake_representation_url) }
 
   describe "GET #show" do
     let!(:sign_id) { FactoryBot.create(:sign).id }
@@ -18,6 +18,11 @@ RSpec.describe SignVideoController, type: :controller do
 
         it { expect(subject.status).to eq 202 }
         it { expect(subject.body).to be_empty }
+
+        it "enqueues a job to transcode the missing representation" do
+          expect(fake_representation).to receive(:process_later)
+          subject
+        end
       end
 
       context "preset representation exists" do
