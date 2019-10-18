@@ -14,7 +14,7 @@
 <div class="grid-x grid-margin-x">
   <div class="cell sign-card small-12 large-10 sign-card--borderless">
     <div class="sign-card__media">
-      <video class="sign-card__media--video">
+      <video controls class="sign-card__media--video">
         <source src="<%= sign_video_path(sign_id: @sign, preset: "1080p") %>" type="video/mp4" />
         <source src="<%= sign_video_path(sign_id: @sign, preset: "720p") %>" type="video/mp4" />
         <source src="<%= sign_video_path(sign_id: @sign, preset: "360p") %>"  type="video/mp4" />
