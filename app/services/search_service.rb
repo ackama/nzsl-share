@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class SearchService < ApplicationService
-  DEFAULT_ORDER = "signs.english ASC"
-  PUBLISHED_ORDER = "signs.published_at"
-
   attr_reader :search, :results
 
   def initialize(params)
@@ -26,17 +23,15 @@ class SearchService < ApplicationService
   end
 
   def fetch_results(ids)
-    if search.order.blank?
-      Sign.search_default_order(ids: ids)
-    elsif search.order.key?("published")
+    if published?
       Sign.search_published_order(ids: ids, direction: search.direction)
     else
-      Sign.search_default_order(ids: ids)
+      Sign.search_default_order(ids: ids, direction: search.direction)
     end
   end
 
   def fetch_total
-    if search.new_search?
+    if search.new_word?
       exec_query(build_qry(search_total_sql)).values.flatten.first
     else
       search.total
@@ -103,13 +98,15 @@ class SearchService < ApplicationService
     SQL
   end
 
+  def published?
+    search.order_name == "published"
+  end
+
   def order_by
-    order = if search.order.blank?
-              DEFAULT_ORDER
-            elsif search.order.key?("published")
-              "#{PUBLISHED_ORDER} #{search.order.values.first}"
+    order = if published?
+              "signs.published_at #{search.direction}"
             else
-              DEFAULT_ORDER
+              "signs.english #{search.direction}"
             end
 
     ApplicationRecord.send(:sanitize_sql_for_order, order)
