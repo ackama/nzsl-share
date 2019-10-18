@@ -1,0 +1,15 @@
+<h1>Edit</h1>
+
+<div class="grid-x grid-margin-x content-container">
+  <%= form_with model: @sign, class: "cell" do |f| %>
+    <%= f.label :word, "Word", class: "required" %>
+    <%= f.text_field :word, placeholder: "Enter the name of your sign", class: (@sign.errors[:word].any? && "invalid") %>
+    <%= f.label :secondary, "Other words" %>
+    <%= f.text_field :secondary, placeholder: "Enter any relevant synonyms here", class: (@sign.errors[:secondary].any? && "invalid") %>
+    <%= f.label :maori, "Māori translation" %>
+    <%= f.text_field :maori, placeholder: "Enter Te Reo here", class: (@sign.errors[:maori].any? && "invalid") %>
+    <%= f.label :notes, "Notes" %>
+    <%= f.text_area :notes, placeholder: "Enter any additional notes here", rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
+    <%= f.submit class: "button royal" %>
+  <% end %>
+</div>
