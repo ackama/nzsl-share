@@ -26,9 +26,10 @@ class SignsController < ApplicationController
     return render(:new) unless builder.save
 
     flash[:notice] = t(".success")
+
     respond_to do |format|
-      format.html { redirect_to @sign }
-      format.js { render inline: "window.location = '#{sign_path(@sign)}'" }
+      format.html { redirect_to edit_sign_path(@sign) }
+      format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
     end
   end
 
@@ -39,11 +40,12 @@ class SignsController < ApplicationController
 
   def update
     @sign = my_signs.find(id)
-    @sign.assign_attributes(create_signs_params)
+    @sign.assign_attributes(edit_sign_params)
     authorize @sign
-    return render :edit unless @sign.save
+    return render(:edit) unless @sign.save
 
-    redirect_after_save
+    flash[:notice] = t(".success")
+    redirect_after_update(@sign)
   end
 
   private
@@ -63,7 +65,21 @@ class SignsController < ApplicationController
       .merge(contributor: current_user)
   end
 
+  def edit_sign_params
+    params
+      .require(:sign)
+      .permit(:video, :maori, :secondary, :notes, :word, :topic)
+      .merge(contributor: current_user)
+  end
+
   def id
     params[:id]
+  end
+
+  def redirect_after_update(sign)
+    respond_to do |format|
+      format.html { redirect_to sign }
+      format.js { render inline: "window.location = '#{sign_path(sign)}'" }
+    end
   end
 end
