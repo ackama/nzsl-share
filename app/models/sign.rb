@@ -28,7 +28,7 @@ class Sign < ApplicationRecord
   scope :for_cards, -> { includes(:contributor) }
   scope :search_default_order, lambda { |args|
     where(id: args[:ids])
-      .order(english: :asc)
+      .order(english: args[:direction])
   }
 
   scope :search_published_order, lambda { |args|
