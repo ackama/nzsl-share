@@ -25,7 +25,6 @@ module SearchHelper
     {
       page: page[:current_page],
       word: page[:word],
-      total: page[:total],
       order: order
     }
   end
@@ -34,7 +33,6 @@ module SearchHelper
     {
       page: page[:next_page],
       word: page[:word],
-      total: page[:total],
       order: order
     }
   end
