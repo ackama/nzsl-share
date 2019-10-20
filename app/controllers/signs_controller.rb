@@ -68,7 +68,7 @@ class SignsController < ApplicationController
   def edit_sign_params
     params
       .require(:sign)
-      .permit(:video, :maori, :secondary, :notes, :word, :topic)
+      .permit(:video, :maori, :secondary, :notes, :word, :topic_id)
       .merge(contributor: current_user)
   end
 
