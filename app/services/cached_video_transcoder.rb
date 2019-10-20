@@ -37,12 +37,12 @@ class CachedVideoTranscoder
   end
 
   def process
-    service.purge(key) if processed?
+    @blob.purge if processed?
 
     @processor.transcode(@blob) do |file|
       service.upload(key, file[:io], **file)
       @encoded_blob = persist_blob(file)
-      processed
+      @encoded_blob.service_url
     end
   end
 
