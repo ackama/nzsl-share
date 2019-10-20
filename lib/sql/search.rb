@@ -7,56 +7,52 @@ module SQL
     def search(args)
       <<-SQL
         WITH
-        sign_search(sign_id)
+        sign_search(ids, total)
         AS
         (
-          #{union}
-        )
-        SELECT
-          sign_id
-          FROM signs
-          JOIN sign_search
-            ON signs.id = sign_search.sign_id
-          ORDER BY #{args[:order]}
-          LIMIT #{args[:limit]}
-      SQL
-    end
-
-    def total
-      <<-SQL
-        WITH
-        sign_search(sign_id)
+          SELECT
+            ARRAY_AGG(rs.id::INT),
+            ARRAY_LENGTH(ARRAY_AGG(rs.id::INT), 1) AS total
+            FROM
+            (
+              SELECT
+                signs.id
+                FROM signs
+                WHERE UNACCENT(signs.english)  ~* ?
+              UNION
+              SELECT
+                signs.id
+                FROM signs
+                WHERE UNACCENT(signs.english) ~* ?
+              UNION
+              SELECT
+                signs.id
+                FROM signs
+                WHERE UNACCENT(signs.secondary) ~* ?
+              UNION
+              SELECT
+                signs.id
+                FROM signs
+                WHERE UNACCENT(signs.secondary) ~* ?
+            ) AS rs
+        ),
+        sign_order_limit(ids, total)
         AS
         (
-          #{union}
+          SELECT
+            signs.id,
+            sign_search.total
+            FROM signs
+            JOIN sign_search
+              ON signs.id = ANY(sign_search.ids)
+            ORDER BY #{args[:order]}
+            LIMIT #{args[:limit]}
         )
         SELECT
-          COUNT(*)
-          FROM sign_search
-      SQL
-    end
-
-    def union
-      <<-SQL
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.english)  ~* ?
-        UNION
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.english) ~* ?
-        UNION
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.secondary) ~* ?
-        UNION
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.secondary) ~* ?
+          ARRAY_AGG(sign_order_limit.ids::INT) AS ids,
+          sign_order_limit.total
+          FROM sign_order_limit
+          GROUP BY sign_order_limit.total
       SQL
     end
   end
