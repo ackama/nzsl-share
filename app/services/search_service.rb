@@ -19,9 +19,11 @@ class SearchService < ApplicationService
   private
 
   def build_results
-    search.total = fetch_total
-    ids = exec_query(build_qry(SQL::Search.search(search_args))).values.flatten
-    fetch_results(ids)
+    word = search.word.parameterize(separator: "")
+    sql_arr = [SQL::Search.search(search_args), "^#{word}", ".#{word}", "^#{word}", ".#{word}"]
+    results = parse_results(exec_query(sql_arr).first)
+    search.total = results[1]
+    fetch_results(results[0])
   end
 
   def fetch_results(ids)
@@ -32,17 +34,10 @@ class SearchService < ApplicationService
     end
   end
 
-  def fetch_total
-    if search.new_word?
-      exec_query(build_qry(SQL::Search.total)).values.flatten.first
-    else
-      search.total
-    end
-  end
+  def parse_results(results)
+    return [[], 0] if results.blank?
 
-  def build_qry(sql)
-    search_word = search.word.parameterize(separator: "")
-    [sql, "^#{search_word}", ".#{search_word}", "^#{search_word}", ".#{search_word}"]
+    [results["ids"].tr("{}", "").split(",").map(&:to_i), results["total"].to_i]
   end
 
   def exec_query(sql_arr)
