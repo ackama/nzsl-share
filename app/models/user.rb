@@ -15,6 +15,10 @@ class User < ApplicationRecord
                        uniqueness: { case_sensitive: false },
                        format: { with: USERNAME_REGEXP, multiline: true }
 
+  def username=(value)
+    super(value.downcase)
+  end
+
   def login
     @login || username || email
   end
@@ -25,6 +29,6 @@ class User < ApplicationRecord
       fail ArgumentError, "Expected Warden conditions to include :login and it did not: #{warden_conditions}"
     end
 
-    where(conditions.to_h).find_by("lower(username) = :value OR lower(email) = :value", value: login)
+    where(conditions.to_h).find_by("lower(username) = :value OR lower(email) = :value", value: login.downcase)
   end
 end
