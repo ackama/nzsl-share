@@ -10,9 +10,15 @@ class VideoTranscoder
   def transcode(blob)
     download_blob_to_tempfile(blob) do |input|
       draw "ffmpeg", "-y", "-i", input.path, *@options do |output|
-        yield io: output,
-              filename: filename(blob, output),
-              content_type: content_type(output)
+        result = {
+          io: output,
+          filename: filename(blob, output),
+          content_type: content_type(output)
+        }
+
+        return result unless block_given?
+
+        yield result
       end
     end
   end
