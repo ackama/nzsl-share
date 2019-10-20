@@ -1,9 +1,14 @@
 <h1>Edit</h1>
 
 <div class="grid-x grid-margin-x content-container">
-  <%= form_with model: @sign, class: "cell" do |f| %>
+  <%= form_with model: @sign, local: true, class: "cell" do |f| %>
     <%= f.label :word, "Word", class: "required" %>
     <%= f.text_field :word, placeholder: "Enter the name of your sign", class: (@sign.errors[:word].any? && "invalid") %>
+    <% if @sign.errors[:word].any? %>
+      <% @sign.errors[:word].each do |message| %>
+        <div class="form-error show"><%= message %></div>
+      <% end %>
+    <% end %>
     <%= f.label :secondary, "Other words" %>
     <%= f.text_field :secondary, placeholder: "Enter any relevant synonyms here", class: (@sign.errors[:secondary].any? && "invalid") %>
     <%= f.label :maori, "Māori translation" %>
