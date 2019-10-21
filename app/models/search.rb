@@ -44,10 +44,6 @@ class Search
     @page = build_page(limit)
   end
 
-  def new_word?
-    page[:current_page].to_i == 1
-  end
-
   def order_name
     fetch_key(order)
   end
