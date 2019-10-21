@@ -59,6 +59,12 @@
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
         <% end %>
+        <% if @sign.contributor_id === current_user.id %>
+          <%= link_to edit_sign_path(@sign), class: "button clear medium" do %>
+            <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--medium" %>
+            Edit
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
