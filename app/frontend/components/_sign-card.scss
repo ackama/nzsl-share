@@ -80,7 +80,15 @@
 
   &__media {
     @include responsive-embed;
+    border-top-left-radius: $global-radius * 2;
+    border-top-right-radius: $global-radius * 2;
     margin-bottom: 0;
+
+    video {
+      &[poster] {
+        object-fit: cover;
+      }
+    }
   }
 
   &__subtitle {
