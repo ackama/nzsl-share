@@ -14,5 +14,23 @@ FactoryBot.define do
     trait :published do
       published_at { DateTime.now - (rand * 1000) }
     end
+
+    trait :unprocessed do
+      processed_videos { false }
+      processed_thumbnails { false }
+    end
+
+    trait :processed_thumbnails do
+      processed_thumbnails { true }
+    end
+
+    trait :processed_videos do
+      processed_videos { true }
+    end
+
+    trait :processed do
+      processed_videos { true }
+      processed_thumbnails { true }
+    end
   end
 end

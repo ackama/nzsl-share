@@ -1,17 +1,32 @@
 require "rails_helper"
 
 RSpec.describe "Sign show page", system: true do
-  subject { SignPage.new }
-  let(:sign) { subject.sign }
+  let(:sign) { FactoryBot.create(:sign) }
+  subject(:sign_page) { SignPage.new }
 
-  before { subject.start }
+  before { sign_page.start(sign) }
 
   it "displays the sign word" do
     expect(subject).to have_selector "h2", text: sign.english
   end
 
-  it "displays the sign video" do
-    expect(subject).to have_selector ".sign-card__media > iframe[src^='https://player.vimeo.com']"
+  describe "sign video" do
+    subject { sign_page.video_player }
+    context "sign is unprocessed" do
+      let(:sign) { FactoryBot.create(:sign, :unprocessed) }
+      it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+    end
+
+    context "sign has thumbnails processed, but not videos" do
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails) }
+      it { expect(subject[:poster]).to match(%r{/rails/active_storage}) }
+    end
+
+    context "sign has videos" do
+      let(:sign) { FactoryBot.create(:sign, :processed_videos) }
+      # 1080p, 720p, 360p
+      it { expect(subject).to have_selector("source[src^='/signs/#{sign.id}/videos']", count: 3) }
+    end
   end
 
   it "displays the contributor's username" do
