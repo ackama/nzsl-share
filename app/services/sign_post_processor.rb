@@ -1,9 +1,15 @@
 class SignPostProcessor
-  class Callbacks
-    def on_complete(status, options)
+  class ThumbnailCallback
+    def on_success(_status, options)
       sign = Sign.find(options.fetch("sign_id"))
-      status = status.failures.zero? ? "complete" : "failed"
-      sign.video.update!(metadata: sign.video.metadata.merge(processing: status))
+      sign.update!(processed_thumbnails: true)
+    end
+  end
+
+  class VideoCallback
+    def on_success(_status, options)
+      sign = Sign.find(options.fetch("sign_id"))
+      sign.update!(processed_videos: true)
     end
   end
 
@@ -13,12 +19,12 @@ class SignPostProcessor
   end
 
   def process
-    update_status
+    sign.update!(processed_videos: false, processed_thumbnails: false)
 
-    batch do
-      video_processes
-      thumbnail_processes
-    end
+    [
+      batch("Generate thumbnails", ThumbnailCallback) { thumbnail_processes },
+      batch("Transcode videos", VideoCallback) { video_processes }
+    ]
   end
 
   private
@@ -31,17 +37,23 @@ class SignPostProcessor
     @presets[:thumbnail].each { |preset| GenerateThumbnailJob.perform_later(sign.video.blob, preset.to_h) }
   end
 
-  def update_status
-    video = sign.video
-    video.update!(metadata: video.metadata.merge(processing: "incomplete"))
-  end
+  def batch(description, callback_handler, &block)
+    batch = new_batch
+    batch.description = "Post processing: #{description} for Sign ##{sign.id}"
 
-  def batch(&block)
-    batch = Sidekiq::Batch.new
-    batch.description = "Post processing for Sign ##{sign.id}"
-    batch.on(:complete, SignPostProcessor::Callbacks, sign_id: sign.id)
+    # We intentionally don't monitor completion, since that can be triggered
+    # for incomplete runs. Instead, we just listen for success and allow failed
+    # batches to run through the failed/retry/dead Sidekiq workflow.
+    batch.on(:success, callback_handler, sign_id: sign.id)
+
     batch.jobs(&block)
     Rails.logger.info "Started batch: #{batch.bid} - #{batch.description}"
+
+    batch
+  end
+
+  def new_batch
+    Sidekiq::Batch.new
   end
 
   def default_presets
