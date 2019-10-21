@@ -43,4 +43,15 @@ RSpec.describe SignPostProcessor, type: :service do
     end
   end
 
+  describe SignPostProcessor::ThumbnailCallback do
+    subject { described_class.new.on_success(nil, "sign_id" => sign.id); sign.reload }
+    it { expect { subject }.not_to change(sign, :processed_videos?) }
+    it { expect { subject }.to change(sign, :processed_thumbnails?).to eq true }
+  end
+
+  describe SignPostProcessor::VideoCallback do
+    subject { described_class.new.on_success(nil, "sign_id" => sign.id); sign.reload }
+    it { expect { subject }.to change(sign, :processed_videos?).to eq true }
+    it { expect { subject }.not_to change(sign, :processed_thumbnails?) }
+  end
 end

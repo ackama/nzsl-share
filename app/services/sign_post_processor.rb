@@ -1,9 +1,15 @@
 class SignPostProcessor
-  class Callbacks
-    def on_complete(status, options)
+  class ThumbnailCallback
+    def on_success(_status, options)
       sign = Sign.find(options.fetch("sign_id"))
-      status = status.failures.zero? ? "complete" : "failed"
-      sign.video.update!(metadata: sign.video.metadata.merge(processing: status))
+      sign.update!(processed_thumbnails: true)
+    end
+  end
+
+  class VideoCallback
+    def on_success(_status, options)
+      sign = Sign.find(options.fetch("sign_id"))
+      sign.update!(processed_videos: true)
     end
   end
 
@@ -19,7 +25,7 @@ class SignPostProcessor
       batch("Generate thumbnails", ThumbnailCallback) { thumbnail_processes },
       batch("Transcode videos", VideoCallback) { video_processes }
     ]
-    end
+  end
 
   private
 
