@@ -14,22 +14,16 @@
 <div class="grid-x grid-margin-x">
   <div class="cell sign-card small-12 large-10 sign-card--borderless">
     <div class="sign-card__media">
-      <video controls  controlsList="nodownload" class="sign-card__media--video">
-        <source src="<%= sign_video_path(sign_id: @sign, preset: "1080p") %>" type="video/mp4" />
-        <source src="<%= sign_video_path(sign_id: @sign, preset: "720p") %>" type="video/mp4" />
-        <source src="<%= sign_video_path(sign_id: @sign, preset: "360p") %>"  type="video/mp4" />
-
+      <video <%= @sign.enabled_video_controls %> poster="<%= @sign.poster_url %>" class="sign-card__media--video">
+        <%= @sign.sign_video_sourceset %>
       </video>
-
-      <!-- Fallback for when the video is not encoded -->
-      <%= image_tag @sign.video.preview(ThumbnailPreset.default.scale_1080.to_h), class: "sign-card__media__fallback" %>
     </div>
     <div class="sign-card__section">
       <h2 class="primary"><%= @sign.english %></h2>
       <p class="sign-card__subtitle">
         <%= @sign.contributor.username %>
         &nbsp;•&nbsp;
-        <%= localize(@sign.created_at, format: "%-d %B %Y") %>
+        <%= @sign.friendly_date %>
         <% if @sign.topic %>
           &nbsp;•&nbsp;
           <%= @sign.topic.name %>
