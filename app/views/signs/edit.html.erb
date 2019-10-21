@@ -1,4 +1,5 @@
-<div class="grid-x grid-margin-x content-container">
+<div class="grid-x grid-margin-x content-container form">
+  <h2 class="cell">Edit sign details</h2>
   <%= form_with model: @sign, local: true, class: "cell" do |f| %>
     <%= f.label :word, "Word", class: "required" %>
     <%= f.text_field :word, placeholder: "Enter the word/phrase for this sign", class: (@sign.errors[:word].any? && "invalid") %>
@@ -11,10 +12,13 @@
     <%= f.text_field :maori, placeholder: "Enter the Te Reo Māori word/phrase for this sign here", class: (@sign.errors[:maori].any? && "invalid") %>
     <%= f.label :topic_id, "Topic" %>
     <%= f.collection_select :topic_id, Topic.all, :id, :name %>
-    <%= f.label :secondary, "Other information" %>
-    <%= f.text_field :secondary, placeholder: "You can include the meaning of this word/phrase, or why you use or like this sign here", class: (@sign.errors[:secondary].any? && "invalid") %>
+    <%= f.label :secondary, "Other words" %>
+    <%= f.text_field :secondary, placeholder: "Enter any alternative spellings or synonyms for this sign here", class: (@sign.errors[:secondary].any? && "invalid") %>
     <%= f.label :notes, "Notes" %>
     <%= f.text_area :notes, placeholder: "Enter any additional notes here", rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
-    <%= f.submit class: "button royal" %>
+    <div class="grid-x align-right form__buttons">
+      <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
+      <%= f.submit class: "button royal" %>
+    </div>
   <% end %>
 </div>
