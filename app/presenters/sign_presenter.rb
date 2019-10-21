@@ -1,6 +1,7 @@
 class SignPresenter < ApplicationPresenter
   presents :sign
-  delegate :id, :english, :contributor, :agree_count, :disagree_count, to: :sign
+  delegate :id, :english, :contributor, :agree_count,
+           :disagree_count, :topic, :video, :description, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)
@@ -22,6 +23,33 @@ class SignPresenter < ApplicationPresenter
   def assignable_folder_options
     assignable_folders = available_folders.reject { |_folder, membership| membership.present? }
     h.options_for_select(assignable_folders.map { |f, _m| [f.title, f.id] })
+  end
+
+  def poster_url(size: 1080)
+    return h.asset_pack_path("media/images/processing.svg") unless sign.processed_thumbnails?
+
+    preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
+    video.preview(preset).processed.service_url
+  end
+
+  def sign_video_source(preset)
+    h.content_tag(:source, nil, src: h.sign_video_path(sign_id: sign.id, preset: preset))
+  end
+
+  def sign_video_sourceset(presets=%w[1080p 720p 360p])
+    return unless sign.processed_videos?
+
+    h.safe_join(presets.map { |preset| sign_video_source(preset) })
+  end
+
+  def enabled_video_controls
+    return unless sign.processed_videos?
+
+    "controls controlslist=\"nodownload\""
+  end
+
+  def self.policy_class
+    SignPolicy
   end
 
   private
