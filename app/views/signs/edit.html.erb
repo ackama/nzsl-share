@@ -1,0 +1,6 @@
+<div class="grid-x grid-margin-x content-container">
+  <h1><%= @sign.english %></h1>
+  <video <%= @sign.enabled_video_controls %> poster="<%= @sign.poster_url %>" class="sign-card__media--video">
+        <%= @sign.sign_video_sourceset %>
+  </video>
+</div>

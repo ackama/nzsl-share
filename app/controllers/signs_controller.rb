@@ -32,6 +32,13 @@ class SignsController < ApplicationController
     end
   end
 
+  def edit
+    @sign = present(signs.find(params[:id]))
+    authorize @sign
+
+    render
+  end
+
   private
 
   def signs
