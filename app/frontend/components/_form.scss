@@ -1,0 +1,13 @@
+.form {
+  background: $white;
+  border-radius: rem-calc(8);
+  padding: $global-padding 0 0;
+
+  &__buttons {
+    margin-top: $global-margin;
+
+    &--cancel {
+      margin-right: 1rem;
+    }
+  }
+}
