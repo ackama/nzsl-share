@@ -13,7 +13,9 @@ class ApplicationJob < ActiveJob::Base
       next if job.item["class"] != "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"
 
       # Don't enqueue this job if it's already been enqueued with the same args
-      return false if job.item["args"].first["arguments"] == key
+      # any? is used because the schema of the job structure is such that multiple "args"
+      # values could be present.
+      return false if job.item["args"].any? { |job_data| job_data["arguments"] == key }
     end
 
     perform_later(*arguments)
