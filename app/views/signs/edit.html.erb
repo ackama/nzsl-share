@@ -11,7 +11,7 @@
 <% unless @sign.fully_processed? %>
   <%= javascript_tag defer: "defer", nonce: true do %>
     var selector = ".js-sign-video-container";
-    var updateInterval = 5000; // ms
+    var updateInterval = <%= Rails.env.test? ? 500 : 5000 %>; // ms
     var intervalId
 
     function refresh() {
@@ -29,7 +29,7 @@
 
         // Only refresh the HTML of the element if the classes of the video have changed
         if ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value) {
-          $current.html($newVideoContainer.html());
+          $currentContainer.html($newVideoContainer.html());
         }
       });
     }
