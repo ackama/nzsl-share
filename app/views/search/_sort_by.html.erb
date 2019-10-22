@@ -21,7 +21,8 @@
         %>
       </li>
       <li>
-        <%= button_to "Alphabetical (A-Z)",
+        <%=
+          button_to "Alphabetical (A-Z)",
           search_index_path,
           method: :get,
           params: show_asc_params(page),
@@ -29,7 +30,8 @@
         %>
       </li>
       <li>
-        <%= button_to "Alphabetical (Z-A)",
+        <%=
+          button_to "Alphabetical (Z-A)",
           search_index_path,
           method: :get,
           params: show_desc_params(page),

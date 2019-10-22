@@ -3,28 +3,27 @@
   <div class="cell small-9">
     <h4><%= "#{@page[:total]} Result(s) for '#{@page[:word]}'" %></h4>
   </div>
-  <div class="cell auto">
-    <% if @signs.any? %>
+  <% if @signs.any? %>
+    <div class="cell auto">
       <%= render "sort_by", page: @page %>
-    <% end %>
-  </div>
-</div>
-<br>
-<% if @signs.any? %>
-  <div class="grid-x grid-margin-x">
+    </div>
+    <br>
     <% @signs.each do |sign| %>
       <div class="cell small-3">
         <%= render "signs/card", sign: sign %>
       </div>
     <% end %>
-  </div>
 
-  <% unless @page[:total] <= @page[:limit] %>
-    <%= button_to "Show More",
-      search_index_path,
-      method: :get,
-      params: show_more_params(@page),
-      class: "button primary"
-    %>
+    <% unless @page[:total] <= @page[:limit] %>
+      <div class="cell auto">
+        <%=
+          button_to "Show More",
+          search_index_path,
+          method: :get,
+          params: show_more_params(@page),
+          class: "button primary"
+        %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
