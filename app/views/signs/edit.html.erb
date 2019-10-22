@@ -1,24 +1,47 @@
-<div class="grid-x grid-margin-x content-container form">
-  <h2 class="cell">Edit sign details</h2>
-  <%= form_with model: @sign, local: true, class: "cell" do |f| %>
-    <%= f.label :word, "Word", class: "required" %>
-    <%= f.text_field :word, placeholder: "Enter the word/phrase for this sign", class: (@sign.errors[:word].any? && "invalid") %>
-    <% if @sign.errors[:word].any? %>
-      <% @sign.errors[:word].each do |message| %>
-        <div class="form-error show"><%= message %></div>
+
+<div class="grid-x grid-margin-x content-container">
+  <nav class="cell" aria-label="You are here:" role="navigation">
+    <ul class="breadcrumbs">
+      <li class="disabled">1. Upload Video</li>
+      <li>
+        <span class="show-for-sr">Current: </span>2. Edit Details
+      </li>
+      <li class="disabled">
+        3. Complete!
+      </li>
+    </ul>
+  </nav>
+  <%= form_with model: @sign, local: true, class: "cell form" do |f| %>
+    <h1 class="">Edit sign details</h1>
+    <hr class="form__divider"/>
+    <fieldset class="content-container">
+      <%= f.label :word, "Word", class: "required" %>
+      <%= f.text_field :word, placeholder: "Enter the word/phrase for this sign", class: (@sign.errors[:word].any? && "invalid") %>
+      <% if @sign.errors[:word].any? %>
+        <% @sign.errors[:word].each do |message| %>
+          <div class="form-error show"><%= message %></div>
+        <% end %>
       <% end %>
-    <% end %>
+    </fieldset>
+    <fieldset>
     <%= f.label :maori, "Te Reo Māori" %>
     <%= f.text_field :maori, placeholder: "Enter the Te Reo Māori word/phrase for this sign here", class: (@sign.errors[:maori].any? && "invalid") %>
+    </fieldset>
+    <fieldset>
     <%= f.label :topic_id, "Topic" %>
     <%= f.collection_select :topic_id, Topic.all, :id, :name %>
+    </fieldset>
+    <fieldset>
     <%= f.label :secondary, "Other words" %>
     <%= f.text_field :secondary, placeholder: "Enter any alternative spellings or synonyms for this sign here", class: (@sign.errors[:secondary].any? && "invalid") %>
+    </fieldset>
+    <fieldset>
     <%= f.label :notes, "Notes" %>
     <%= f.text_area :notes, placeholder: "Enter any additional notes here", rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
+    </fieldset>
     <div class="grid-x align-right form__buttons">
       <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
-      <%= f.submit class: "button royal" %>
+      <%= f.submit class: "button royal primary" %>
     </div>
   <% end %>
 </div>

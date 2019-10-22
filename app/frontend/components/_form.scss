@@ -1,7 +1,8 @@
 .form {
   background: $white;
   border-radius: rem-calc(8);
-  padding: $global-padding 0 0;
+  margin-bottom: 2rem;
+  padding: $global-padding;
 
   &__buttons {
     margin-top: $global-margin;
@@ -9,5 +10,15 @@
     &--cancel {
       margin-right: 1rem;
     }
+  }
+
+  &__divider {
+    background-color: get-color(primary-x-light);
+    border: 0;
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 0;
+    width: 100%;
   }
 }
