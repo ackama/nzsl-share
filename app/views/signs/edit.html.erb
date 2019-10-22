@@ -1,5 +1,7 @@
 <div class="grid-x grid-margin-x content-container">
   <h1><%= @sign.english %></h1>
+
+  <p><%= link_to "View sign", sign_path(@sign) %></p>
   <div class="js-sign-video-container">
   <video  <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>">
         <%= @sign.sign_video_sourceset %>
