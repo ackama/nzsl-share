@@ -18,5 +18,13 @@ RSpec.describe "Topics", type: :system do
 
     it { is_expected.to have_content topic.name }
     it { is_expected.to have_selector(".sign-card", count: topic.signs.count) }
+
+    it "can click through to the sign card show page" do
+      within find(".sign-card", match: :first) do
+        path = find(".sign-card__title")[:href]
+        find(".sign-card__title").click
+        expect(current_url).to eq path
+      end
+    end
   end
 end
