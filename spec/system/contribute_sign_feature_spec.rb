@@ -15,7 +15,7 @@ RSpec.describe "Contributing a new sign", type: :system do
     it "shows a success message and navigates to the sign page" do
       subject.choose_file
       subject.submit
-      expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+      expect(subject.current_path).to eq edit_sign_path(Sign.order(created_at: :desc).first)
       expect(subject).to have_content I18n.t!("signs.create.success")
     end
 

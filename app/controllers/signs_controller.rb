@@ -27,8 +27,8 @@ class SignsController < ApplicationController
 
     flash[:notice] = t(".success")
     respond_to do |format|
-      format.html { redirect_to @sign }
-      format.js { render inline: "window.location = '#{sign_path(@sign)}'" }
+      format.html { redirect_to [:edit, @sign] }
+      format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
     end
   end
 
