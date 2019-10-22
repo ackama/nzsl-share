@@ -13,20 +13,20 @@
       <% end %>
     </fieldset>
     <fieldset>
-    <%= f.label :maori, "Te Reo Māori" %>
-    <%= f.text_field :maori, placeholder: "Enter the Te Reo Māori word/phrase for this sign here", class: (@sign.errors[:maori].any? && "invalid") %>
+      <%= f.label :maori, "Te Reo Māori" %>
+      <%= f.text_field :maori, placeholder: "Enter the Te Reo Māori word/phrase for this sign here", class: (@sign.errors[:maori].any? && "invalid") %>
     </fieldset>
     <fieldset>
-    <%= f.label :topic_id, "Topic" %>
-    <%= f.collection_select :topic_id, Topic.all, :id, :name %>
+      <%= f.label :topic_id, "Topic" %>
+      <%= f.collection_select :topic_id, Topic.all, :id, :name %>
     </fieldset>
     <fieldset>
-    <%= f.label :secondary, "Other words" %>
-    <%= f.text_field :secondary, placeholder: "Enter any alternative spellings or synonyms for this sign here", class: (@sign.errors[:secondary].any? && "invalid") %>
+      <%= f.label :secondary, "Other words" %>
+      <%= f.text_field :secondary, placeholder: "Enter any alternative spellings or synonyms for this sign here", class: (@sign.errors[:secondary].any? && "invalid") %>
     </fieldset>
     <fieldset>
-    <%= f.label :notes, "Notes" %>
-    <%= f.text_area :notes, placeholder: "Enter any additional notes here", rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
+      <%= f.label :notes, "Notes" %>
+      <%= f.text_area :notes, placeholder: "Enter any additional notes here", rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
     </fieldset>
     <div class="grid-x align-right form__buttons">
       <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
