@@ -26,7 +26,7 @@
             created <%= folder.created_at.strftime("%d %b %Y") %>
           </div>
           <div class="cell small-3 folder__details">
-            0 signs
+            <%= pluralize(folder.signs_count, "sign") %>
             <a href="#" class="folder__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
               <%= inline_svg "media/images/options.svg", class: "icon--medium folder__icon" %>
             </a>

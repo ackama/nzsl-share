@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-class SearchService < ApplicationService
-  DEFAULT_ORDER = "signs.word ASC"
-  PUBLISHED_ORDER = "signs.published_at"
+require "./lib/sql/search"
 
+class SearchService < ApplicationService
   attr_reader :search, :results
 
   def initialize(params)
@@ -20,102 +19,44 @@ class SearchService < ApplicationService
   private
 
   def build_results
-    search.total = fetch_total
-    ids = exec_query(build_qry(search_sql)).values.flatten
-    fetch_results(ids)
+    word = search.word.parameterize(separator: "")
+    sql_arr = [SQL::Search.search(search_args), "^#{word}", ".#{word}", "^#{word}", ".#{word}"]
+    results = parse_results(exec_query(sql_arr).first)
+    search.total = results[0]
+    fetch_results(results[1])
   end
 
   def fetch_results(ids)
-    if search.order.blank?
-      Sign.search_default_order(ids: ids)
-    elsif search.order.key?("published")
+    if published?
       Sign.search_published_order(ids: ids, direction: search.direction)
     else
-      Sign.search_default_order(ids: ids)
+      Sign.search_default_order(ids: ids, direction: search.direction)
     end
   end
 
-  def fetch_total
-    if search.new_search?
-      exec_query(build_qry(search_total_sql)).values.flatten.first
-    else
-      search.total
-    end
-  end
+  def parse_results(results)
+    return [0, []] if results.blank?
 
-  def build_qry(sql)
-    search_word = search.word.parameterize(separator: "")
-    [sql, "^#{search_word}", ".#{search_word}", "^#{search_word}", ".#{search_word}"]
+    ids = results["ids"].tr("{}", "").split(",").map(&:to_i)
+    total = results["total"].to_i
+    [total, ids]
   end
 
   def exec_query(sql_arr)
     ApplicationRecord.connection.execute(ApplicationRecord.send(:sanitize_sql_array, sql_arr))
   end
 
-  def search_sql
-    <<-SQL
-      #{search_str}
-      SELECT
-        sign_id
-        FROM signs
-        JOIN sign_search
-          ON signs.id = sign_search.sign_id
-        ORDER BY #{order_by}
-        LIMIT #{limit}
-    SQL
+  def published?
+    search.order_name == "published"
   end
 
-  def search_total_sql
-    <<-SQL
-      #{search_str}
-      SELECT
-        COUNT(*)
-        FROM sign_search
-    SQL
-  end
-
-  def search_str
-    <<-SQL
-      WITH
-      sign_search(sign_id)
-      AS
-      (
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.word)  ~* ?
-        UNION
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.word) ~* ?
-        UNION
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.secondary) ~* ?
-        UNION
-        SELECT
-          signs.id
-          FROM signs
-          WHERE UNACCENT(signs.secondary) ~* ?
-      )
-    SQL
-  end
-
-  def order_by
-    order = if search.order.blank?
-              DEFAULT_ORDER
-            elsif search.order.key?("published")
-              "#{PUBLISHED_ORDER} #{search.order.values.first}"
+  def search_args
+    order = if published?
+              "signs.published_at #{search.direction}"
             else
-              DEFAULT_ORDER
+              "signs.english #{search.direction}"
             end
 
-    ApplicationRecord.send(:sanitize_sql_for_order, order)
-  end
-
-  def limit
-    search.page[:limit]
+    { order: ApplicationRecord.send(:sanitize_sql_for_order, order), limit: search.page[:limit] }
   end
 end

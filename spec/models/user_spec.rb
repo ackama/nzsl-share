@@ -25,6 +25,11 @@ RSpec.describe User, type: :model do
       subject { FactoryBot.build(:user, username: "test@example.com") }
       it { is_expected.not_to be_valid }
     end
+
+    context "saved lowercase" do
+      subject { FactoryBot.create(:user, username: "SPAGSAUCEUSER") }
+      it { expect(subject.username).to eq "spagsauceuser" }
+    end
   end
 
   describe ".find_for_database_authentication" do
@@ -48,6 +53,11 @@ RSpec.describe User, type: :model do
     context "user does not exist" do
       let(:conditions) { { login: Faker::Internet.username } }
       it { is_expected.to eq nil }
+    end
+
+    context "user exists (given uppercase username)" do
+      let(:conditions) { { login: model.tap(&:save!).username.upcase } }
+      it { is_expected.to eq model }
     end
   end
 end

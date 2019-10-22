@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_223900) do
+ActiveRecord::Schema.define(version: 2019_10_21_091806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_223900) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "share_token", limit: 100
     t.integer "signs_count", default: 0
     t.string "share_token", limit: 100
     t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
@@ -92,6 +93,8 @@ ActiveRecord::Schema.define(version: 2019_10_17_223900) do
     t.bigint "topic_id"
     t.text "description"
     t.text "notes"
+    t.boolean "processed_videos", default: false, null: false
+    t.boolean "processed_thumbnails", default: false, null: false
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["notes"], name: "index_signs_on_notes"

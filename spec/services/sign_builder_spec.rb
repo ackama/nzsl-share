@@ -41,8 +41,11 @@ RSpec.describe SignBuilder, type: :service do
     end
 
     it "enqueues a job to publish the sign video" do
-      ActiveJob::Base.queue_adapter = :test
-      expect { subject }.to have_enqueued_job(SignPublishVideoJob).with(sign)
+      post_processor = double
+      expect(SignPostProcessor).to receive(:new).with(sign).and_return(post_processor)
+      expect(post_processor).to receive(:process)
+
+      subject
     end
   end
 end
