@@ -58,6 +58,11 @@ en:
       confirm: Are you sure you want to delete this folder?
       success: Folder successfully deleted.
       failure: Folder couldn't be deleted. Please try again.
+  share:
+    create:
+      success: Folder Share created and accessible via %{share_url}
+    destroy:
+      success: Folder Share successfully deleted.
   published_sign_video:
     name: "NZSL Share: Contributed sign for '%{word}'"
     description: "Video contributed to NZSL Share. More information: %{url}"
