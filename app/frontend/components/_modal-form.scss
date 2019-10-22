@@ -20,14 +20,14 @@
   }
 
   &__fields {
-    margin-bottom: 1rem;
+    margin-bottom: $global-margin;
   }
 
   &__buttons {
     margin-top: $global-margin * 2;
 
-    .button {
-      margin: 0;
+    &--cancel {
+      margin-right: $global-margin;
     }
   }
 }
