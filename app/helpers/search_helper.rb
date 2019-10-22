@@ -1,14 +1,14 @@
 module SearchHelper
   def show_more_params(page)
-    next_page_params(page, english: "ASC")
+    next_page_params(page, word: "ASC")
   end
 
   def show_asc_params(page)
-    current_page_params(page, english: "ASC")
+    current_page_params(page, word: "ASC")
   end
 
   def show_desc_params(page)
-    current_page_params(page, english: "DESC")
+    current_page_params(page, word: "DESC")
   end
 
   def published_asc_params(page)

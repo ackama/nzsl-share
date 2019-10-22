@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 2019_10_21_091806) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "collections", force: :cascade do |t|
+    t.bigint "sign_id"
+    t.bigint "folder_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["folder_id"], name: "index_collections_on_folder_id"
+    t.index ["sign_id"], name: "index_collections_on_sign_id"
+  end
+
   create_table "folder_memberships", force: :cascade do |t|
     t.bigint "folder_id", null: false
     t.bigint "sign_id", null: false
@@ -55,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_10_21_091806) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "share_token", limit: 100
     t.integer "signs_count", default: 0
+    t.string "share_token", limit: 100
     t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
     t.index ["share_token"], name: "index_folders_on_share_token"
     t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
@@ -62,18 +72,18 @@ ActiveRecord::Schema.define(version: 2019_10_21_091806) do
   end
 
   create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
-    t.string "english", limit: 512, null: false
+    t.string "word", limit: 512, null: false
     t.string "maori", limit: 512
     t.string "secondary", limit: 512
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
-    t.index ["english"], name: "idx_freelex_signs_english"
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"
+    t.index ["word"], name: "idx_freelex_signs_word"
   end
 
   create_table "signs", id: :serial, force: :cascade do |t|
-    t.string "english", limit: 256, null: false
+    t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
     t.string "secondary", limit: 256
     t.datetime "published_at"
@@ -82,13 +92,15 @@ ActiveRecord::Schema.define(version: 2019_10_21_091806) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
+    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
-    t.index ["english"], name: "idx_signs_english"
     t.index ["maori"], name: "idx_signs_maori"
+    t.index ["notes"], name: "index_signs_on_notes"
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["topic_id"], name: "index_signs_on_topic_id"
+    t.index ["word"], name: "idx_signs_word"
   end
 
   create_table "topics", force: :cascade do |t|

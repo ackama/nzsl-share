@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :search, only: [:index]
-  resources :signs, only: %i[show new create] do
+  resources :signs, only: %i[show new create edit update] do
     resources :videos, param: :preset, only: :show, controller: :sign_video
   end
   resources :topics, only: %i[index show]

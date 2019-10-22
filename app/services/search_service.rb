@@ -54,7 +54,7 @@ class SearchService < ApplicationService
     order = if published?
               "signs.published_at #{search.direction}"
             else
-              "signs.english #{search.direction}"
+              "signs.word #{search.direction}"
             end
 
     { order: ApplicationRecord.send(:sanitize_sql_for_order, order), limit: search.page[:limit] }

@@ -18,12 +18,12 @@ module SQL
               SELECT
                 signs.id
                 FROM signs
-                WHERE UNACCENT(signs.english)  ~* ?
+                WHERE UNACCENT(signs.word)  ~* ?
               UNION
               SELECT
                 signs.id
                 FROM signs
-                WHERE UNACCENT(signs.english) ~* ?
+                WHERE UNACCENT(signs.word) ~* ?
               UNION
               SELECT
                 signs.id

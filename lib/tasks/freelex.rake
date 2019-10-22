@@ -34,7 +34,7 @@ namespace :freelex do
   def fetch_freelex_values(att)
     {
       id: att.xpath("headwordid").text.to_i,
-      english: att.xpath("glossmain").text,
+      word: att.xpath("glossmain").text,
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
       updated_at: fetch_date_time,

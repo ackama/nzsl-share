@@ -18,5 +18,10 @@ RSpec.describe "Topics", type: :system do
 
     it { is_expected.to have_content topic.name }
     it { is_expected.to have_selector(".sign-card", count: topic.signs.count) }
+    it "can click through to the sign card show page" do
+      sign = topic.signs.first
+      click_on sign.word
+      expect(current_path).to eq sign_path(sign)
+    end
   end
 end

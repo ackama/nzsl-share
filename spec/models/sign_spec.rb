@@ -5,9 +5,9 @@ RSpec.describe Sign, type: :model do
 
   it { is_expected.to be_valid }
 
-  describe ".english" do
+  describe ".word" do
     context "blank" do
-      before { sign.english = "" }
+      before { sign.word = "" }
       it { is_expected.not_to be_valid }
     end
   end
