@@ -22,8 +22,8 @@ class SearchService < ApplicationService
     word = search.word.parameterize(separator: "")
     sql_arr = [SQL::Search.search(search_args), "^#{word}", ".#{word}", "^#{word}", ".#{word}"]
     results = parse_results(exec_query(sql_arr).first)
-    search.total = results[1]
-    fetch_results(results[0])
+    search.total = results[0]
+    fetch_results(results[1])
   end
 
   def fetch_results(ids)
@@ -35,9 +35,11 @@ class SearchService < ApplicationService
   end
 
   def parse_results(results)
-    return [[], 0] if results.blank?
+    return [0, []] if results.blank?
 
-    [results["ids"].tr("{}", "").split(",").map(&:to_i), results["total"].to_i]
+    ids = results["ids"].tr("{}", "").split(",").map(&:to_i)
+    total = results["total"].to_i
+    [total, ids]
   end
 
   def exec_query(sql_arr)

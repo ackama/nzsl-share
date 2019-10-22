@@ -11,8 +11,8 @@ module SQL
         AS
         (
           SELECT
-            ARRAY_AGG(rs.id::INT),
-            ARRAY_LENGTH(ARRAY_AGG(rs.id::INT), 1) AS total
+            ARRAY_AGG(rs1.id::INT),
+            ARRAY_LENGTH(ARRAY_AGG(rs1.id::INT), 1)
             FROM
             (
               SELECT
@@ -34,25 +34,23 @@ module SQL
                 signs.id
                 FROM signs
                 WHERE UNACCENT(signs.secondary) ~* ?
-            ) AS rs
-        ),
-        sign_order_limit(ids, total)
-        AS
-        (
-          SELECT
-            signs.id,
-            sign_search.total
-            FROM signs
-            JOIN sign_search
-              ON signs.id = ANY(sign_search.ids)
-            ORDER BY #{args[:order]}
-            LIMIT #{args[:limit]}
+            ) AS rs1
         )
         SELECT
-          ARRAY_AGG(sign_order_limit.ids::INT) AS ids,
-          sign_order_limit.total
-          FROM sign_order_limit
-          GROUP BY sign_order_limit.total
+          ARRAY_AGG(rs2.id::INT) AS ids,
+          rs2.total
+          FROM
+	        (
+            SELECT
+              signs.id,
+              sign_search.total
+              FROM signs
+              JOIN sign_search
+                ON signs.id = ANY(sign_search.ids)
+              ORDER BY #{args[:order]}
+              LIMIT #{args[:limit]}
+          ) AS rs2
+          GROUP BY rs2.total
       SQL
     end
   end
