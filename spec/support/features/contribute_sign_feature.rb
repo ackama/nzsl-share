@@ -1,6 +1,6 @@
 class ContributeSignFeature
   include Capybara::DSL
-  include WaitForPath
+  # include WaitForPath
   attr_reader :user
 
   def start(user=FactoryBot.create(:user))
