@@ -19,23 +19,15 @@ RSpec.describe Search, type: :model do
 
   describe "published" do
     context "direction" do
-      it "return 'ASC' given value 0" do
-        expect(Search.new(order: { published: "ASC" }).order).to eq("published" => "ASC")
-      end
+      it { expect(Search.new(order: { published: "ASC" }).order).to eq("published" => "ASC") }
+      it { expect(Search.new(order: { published: "DESC" }).order).to eq("published" => "DESC") }
 
-      it "return 'DESC' given value 1" do
-        expect(Search.new(order: { published: "DESC" }).order).to eq("published" => "DESC")
-      end
-
-      it "return a default order given other key/value" do
-        default_value = { "default" => "ASC" }
-
-        expect(Search.new(order: { published: 42 }).order.stringify_keys).to eq(default_value)
-        expect(Search.new(order: { published: "qwerty" }).order.stringify_keys).to eq(default_value)
-        expect(Search.new(order: { published: -42 }).order.stringify_keys).to eq(default_value)
-
-        expect(Search.new(order: { pesto: "olive" }).order.stringify_keys).to eq(default_value)
-        expect(Search.new(order: { spritz: "yum!" }).order.stringify_keys).to eq(default_value)
+      it "returns an empty hash given invalid key/value" do
+        expect(Search.new(order: { published: 42 }).order).to eq({})
+        expect(Search.new(order: { published: "qwerty" }).order).to eq({})
+        expect(Search.new(order: { published: -42 }).order).to eq({})
+        expect(Search.new(order: { pesto: "olive" }).order).to eq({})
+        expect(Search.new(order: { spritz: "yum!" }).order).to eq({})
       end
     end
   end
