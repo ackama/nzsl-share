@@ -5,3 +5,35 @@
         <%= @sign.sign_video_sourceset %>
   </video>
 </div>
+
+<% unless @sign.fully_processed? %>
+  <%= javascript_tag defer: "defer", nonce: true do %>
+    var selector = ".js-sign-video-container";
+    var updateInterval = 5000; // ms
+    var intervalId
+
+    function refresh() {
+      var $currentContainer = jQuery(selector);
+      var $currentVideo = $currentContainer.find("video.sign-video");
+      jQuery.ajax( {
+        url: window.location,
+        dataType: "html"
+      }).done(function(responseText) {
+        var $newVideoContainer = jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector);
+        var $newVideo = $newVideoContainer.find("video.sign-video");
+
+        // Stop polling once the video has been processed
+        if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
+
+        // Only refresh the HTML of the element if the classes of the video have changed
+        if ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value) {
+          $current.html($newVideoContainer.html());
+        }
+      });
+    }
+
+    jQuery(function() {
+      intervalId = setInterval(refresh, updateInterval);
+    });
+  <% end %>
+<% end %>
