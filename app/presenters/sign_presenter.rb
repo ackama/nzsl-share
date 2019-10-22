@@ -11,6 +11,10 @@ class SignPresenter < ApplicationPresenter
     h.localize(sign.published_at || sign.created_at, format: "%-d %B %Y")
   end
 
+  def fully_processed?
+    sign.processed_thumbnails? && sign.processed_videos?
+  end
+
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
@@ -42,10 +46,12 @@ class SignPresenter < ApplicationPresenter
     h.safe_join(presets.map { |preset| sign_video_source(preset) })
   end
 
-  def enabled_video_controls
-    return unless sign.processed_videos?
+  def sign_video_attributes
+    class_list = ["sign-video"]
+    class_list << " has-thumbnails" if sign.processed_thumbnails?
+    class_list << " has-video" if sign.processed_videos?
 
-    "controls controlslist=\"nodownload\""
+    h.raw "#{"controls" if sign.processed_videos?} class=\"#{h.safe_join(class_list)}\" controlslist=\"nodownload\""
   end
 
   def self.policy_class
