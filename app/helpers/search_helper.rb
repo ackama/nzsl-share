@@ -1,4 +1,12 @@
 module SearchHelper
+  def anchor_here?(idx, page)
+    idx + 1 == page[:previous_limit].to_i
+  end
+
+  def total_reached?(page)
+    page[:total] <= page[:limit]
+  end
+
   def show_more_params(page)
     next_page_params(page, word: "ASC")
   end
