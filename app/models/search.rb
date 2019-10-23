@@ -74,12 +74,19 @@ class Search
     value.present? && value.is_a?(Hash)
   end
 
+  def previous_limit(limit=0)
+    return DEFAULT_LIMIT if limit <= DEFAULT_LIMIT
+
+    limit - DEFAULT_LIMIT
+  end
+
   def build_page(limit)
     page = (limit.to_f / DEFAULT_LIMIT).ceil
     {
       current_page: page,
       next_page: page + 1,
       limit: limit,
+      previous_limit: previous_limit(limit),
       word: word
     }
   end
