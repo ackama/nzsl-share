@@ -8,17 +8,21 @@
       <%= render "sort_by", page: @page %>
     </div>
     <br>
-    <% @signs.each do |sign| %>
+    <% @signs.each_with_index do |sign, idx| %>
       <div class="cell small-3">
-        <%= render "signs/card", sign: sign %>
+        <% if anchor_here?(idx, @page) %>
+          <a id="sign"><%= render "signs/card", sign: sign %></a>
+        <% else %>
+          <%= render "signs/card", sign: sign %>
+        <% end %>
       </div>
     <% end %>
 
-    <% unless @page[:total] <= @page[:limit] %>
+    <% unless total_reached?(@page) %>
       <div class="cell auto">
         <%=
           button_to "Show More",
-          search_index_path,
+          search_index_path(anchor: "sign"),
           method: :get,
           params: show_more_params(@page),
           class: "button primary"
