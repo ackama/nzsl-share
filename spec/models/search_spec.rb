@@ -35,10 +35,14 @@ RSpec.describe Search, type: :model do
   describe "page" do
     context "pagination" do
       it "increments attributes given a word and page" do
-        expect(Search.new(word: "a", page: 1).page).to eq(current_page: 1, next_page: 2, limit: 16, word: "a")
-        expect(Search.new(word: "a", page: 2).page).to eq(current_page: 2, next_page: 3, limit: 32, word: "a")
-        expect(Search.new(word: "a", page: 3).page).to eq(current_page: 3, next_page: 4, limit: 48, word: "a")
-        expect(Search.new(word: "a", page: 4).page).to eq(current_page: 4, next_page: 5, limit: 64, word: "a")
+        expect(Search.new(word: "a", page: 1).page)
+          .to eq(current_page: 1, next_page: 2, limit: 16, previous_limit: 16, word: "a")
+        expect(Search.new(word: "a", page: 2).page)
+          .to eq(current_page: 2, next_page: 3, limit: 32, previous_limit: 16, word: "a")
+        expect(Search.new(word: "a", page: 3)
+          .page).to eq(current_page: 3, next_page: 4, limit: 48, previous_limit: 32, word: "a")
+        expect(Search.new(word: "a", page: 4)
+          .page).to eq(current_page: 4, next_page: 5, limit: 64, previous_limit: 48, word: "a")
       end
     end
   end
