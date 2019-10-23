@@ -7,7 +7,7 @@
           <button class="close-button" aria-label="Close alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
           </button>
-          <%= flash[:notice] %>
+          <%= sanitize(flash[:notice]) %>
         </div>
       <% end %>
 
