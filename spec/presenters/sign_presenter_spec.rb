@@ -5,7 +5,7 @@ RSpec.describe SignPresenter, type: :presenter do
   subject(:presenter) { SignPresenter.new(sign, view) }
 
   it "exposes a selection of core sign attributes" do
-    %w[english id agree_count disagree_count].each do |sign_attr|
+    %w[word id agree_count disagree_count].each do |sign_attr|
       expect(sign).to receive(sign_attr)
       subject.public_send(sign_attr)
     end

@@ -6,83 +6,83 @@ module Refined
       def with_chocolate
         [
           {
-            english: "chocolate ice cream",
+            word: "chocolate ice cream",
             secondary: "smooth, rich and creamy"
           },
           {
-            english: "chocolate fondant",
+            word: "chocolate fondant",
             secondary: "sublime when made right"
           },
           {
-            english: "chocolate souffle",
+            word: "chocolate souffle",
             secondary: "difficult"
           },
           {
-            english: "chocolate eclairs",
+            word: "chocolate eclairs",
             secondary: "masterpiece"
           },
           {
-            english: "chocolate fish",
+            word: "chocolate fish",
             secondary: "comfort food"
           },
           {
-            english: "chocolate frosting",
+            word: "chocolate frosting",
             secondary: "cover everything"
           },
           {
-            english: "chocolate parfait",
+            word: "chocolate parfait",
             secondary: "rich and creamy"
           },
           {
-            english: "chocolate butter",
+            word: "chocolate butter",
             secondary: "spread for the kids"
           },
           {
-            english: "chocolate sauce",
+            word: "chocolate sauce",
             secondary: "cover everything"
           },
           {
-            english: "chocolate ganache",
+            word: "chocolate ganache",
             secondary: "glossy, petit fours"
           },
           {
-            english: "chocolate brownie",
+            word: "chocolate brownie",
             secondary: "heated, raspberries"
           },
           {
-            english: "chocolate cake",
+            word: "chocolate cake",
             secondary: "good with cream"
           },
           {
-            english: "chocolate bar",
+            word: "chocolate bar",
             secondary: "sugar rush"
           },
           {
-            english: "chocolate fruit",
+            word: "chocolate fruit",
             secondary: "romance"
           },
           {
-            english: "chocolate sponge",
+            word: "chocolate sponge",
             secondary: "trifle"
           },
           {
-            english: "chocolate fingers",
+            word: "chocolate fingers",
             secondary: "childhood"
           },
           {
-            english: "chocolate sorbet",
+            word: "chocolate sorbet",
             secondary: "ice"
           },
           {
-            english: "chocolate soup",
+            word: "chocolate soup",
             secondary: "interesting, cold"
           },
           {
-            english: "chocolate chip cookies",
+            word: "chocolate chip cookies",
             secondary: "common but good with hot chocolate"
           },
           {
-            english: "chocolate hot dog",
+            word: "chocolate hot dog",
             secondary: "wierd"
           }
         ]

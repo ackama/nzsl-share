@@ -11,7 +11,7 @@ class SignsController < ApplicationController
   end
 
   def index
-    authorize signs
+    authorize my_signs
   end
 
   def new
@@ -26,6 +26,7 @@ class SignsController < ApplicationController
     return render(:new) unless builder.save
 
     flash[:notice] = t(".success")
+
     respond_to do |format|
       format.html { redirect_to [:edit, @sign] }
       format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
@@ -33,16 +34,26 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = present(signs.find(params[:id]))
+    @sign = present(my_signs.find(params[:id]))
     authorize @sign
 
     render
   end
 
+  def update
+    @sign = my_signs.find(id)
+    @sign.assign_attributes(edit_sign_params)
+    authorize @sign
+    return render(:edit) unless @sign.save
+
+    flash[:notice] = t(".success")
+    redirect_after_update(@sign)
+  end
+
   private
 
-  def signs
-    @signs = policy_scope(Sign.where(contributor: current_user)).order(english: :asc)
+  def my_signs
+    @signs = policy_scope(Sign.where(contributor: current_user)).order(word: :asc)
   end
 
   def build_sign(builder: SignBuilder.new)
@@ -54,5 +65,23 @@ class SignsController < ApplicationController
       .require(:sign)
       .permit(:video)
       .merge(contributor: current_user)
+  end
+
+  def edit_sign_params
+    params
+      .require(:sign)
+      .permit(:video, :maori, :secondary, :notes, :word, :topic_id)
+      .merge(contributor: current_user)
+  end
+
+  def id
+    params[:id]
+  end
+
+  def redirect_after_update(sign)
+    respond_to do |format|
+      format.html { redirect_to sign }
+      format.js { render inline: "window.location = '#{sign_path(sign)}'" }
+    end
   end
 end

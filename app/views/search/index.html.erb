@@ -1,37 +1,29 @@
 <br>
-<h4>
-  <%= "#{@page[:total]} Result(s) for '#{@page[:word]}'" %>
-</h4>
-<br>
-<% if @signs.any? %>
-  <div class="grid-x grid-margin-x">
+<div class="grid-x grid-margin-x">
+  <div class="cell small-9">
+    <h4><%= "#{@page[:total]} Result(s) for '#{@page[:word]}'" %></h4>
+  </div>
+  <% if @signs.any? %>
+    <div class="cell auto">
+      <%= render "sort_by", page: @page %>
+    </div>
+    <br>
     <% @signs.each do |sign| %>
       <div class="cell small-3">
-        <%= render "result", sign: sign %>
+        <%= render "signs/card", sign: sign %>
       </div>
     <% end %>
-  </div>
 
-  <% unless @page[:total] <= @page[:limit] %>
-    <%= button_to "Show More",
-      search_index_path,
-      method: :get,
-      params: default_params(@page),
-      class: "button primary"
-    %>
+    <% unless @page[:total] <= @page[:limit] %>
+      <div class="cell auto">
+        <%=
+          button_to "Show More",
+          search_index_path,
+          method: :get,
+          params: show_more_params(@page),
+          class: "button primary"
+        %>
+      </div>
+    <% end %>
   <% end %>
-
-  <%= button_to "Published Ascending",
-    search_index_path,
-    method: :get,
-    params: published_asc_params(@page),
-    class: "button primary"
-  %>
-
-  <%= button_to "Published Descending",
-    search_index_path,
-    method: :get,
-    params: published_desc_params(@page),
-    class: "button primary"
-  %>
-<% end %>
+</div>

@@ -6,7 +6,7 @@
         <li><%= link_to "Topics", "/topics" %></li>
         <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
       <% end %>
-      <li><span class="show-for-sr">Current: </span> <%= @sign.english %></li>
+      <li><span class="show-for-sr">Current: </span> <%= @sign.word %></li>
     </ul>
   </nav>
 </div>
@@ -19,7 +19,7 @@
       </video>
     </div>
     <div class="sign-card__section">
-      <h2 class="primary"><%= @sign.english %></h2>
+      <h2 class="primary"><%= @sign.word %></h2>
       <p class="sign-card__subtitle">
         <%= @sign.contributor.username %>
         &nbsp;•&nbsp;
@@ -53,6 +53,12 @@
         <%= link_to "#", class: "button clear medium" do %>
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
+        <% end %>
+        <% if signed_in? && @sign.contributor_id === current_user.id %>
+          <%= link_to edit_sign_path(@sign), class: "button clear medium" do %>
+            <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--medium" %>
+            Edit
+          <% end %>
         <% end %>
       </div>
     </div>

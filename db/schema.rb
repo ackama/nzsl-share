@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_21_091806) do
+ActiveRecord::Schema.define(version: 20191017223900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,18 +62,18 @@ ActiveRecord::Schema.define(version: 2019_10_21_091806) do
   end
 
   create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
-    t.string "english", limit: 512, null: false
+    t.string "word", limit: 512, null: false
     t.string "maori", limit: 512
     t.string "secondary", limit: 512
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
-    t.index ["english"], name: "idx_freelex_signs_english"
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"
+    t.index ["word"], name: "idx_freelex_signs_word"
   end
 
   create_table "signs", id: :serial, force: :cascade do |t|
-    t.string "english", limit: 256, null: false
+    t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
     t.string "secondary", limit: 256
     t.datetime "published_at"
@@ -82,13 +82,15 @@ ActiveRecord::Schema.define(version: 2019_10_21_091806) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
+    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
-    t.index ["english"], name: "idx_signs_english"
     t.index ["maori"], name: "idx_signs_maori"
+    t.index ["notes"], name: "index_signs_on_notes"
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["topic_id"], name: "index_signs_on_topic_id"
+    t.index ["word"], name: "idx_signs_word"
   end
 
   create_table "topics", force: :cascade do |t|

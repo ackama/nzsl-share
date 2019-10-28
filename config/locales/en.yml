@@ -41,6 +41,8 @@ en:
     default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
+    update:
+      success: Sign successfully updated.
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   folders:
