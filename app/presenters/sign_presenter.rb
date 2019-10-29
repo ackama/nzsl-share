@@ -49,7 +49,7 @@ class SignPresenter < ApplicationPresenter
   end
 
   def sign_video_attributes
-    class_list = ["sign-video"]
+    class_list = ["cell small-6 medium-4 sign-video"]
     class_list << " has-thumbnails" if sign.processed_thumbnails?
     class_list << " has-video" if sign.processed_videos?
 
