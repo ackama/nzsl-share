@@ -72,8 +72,11 @@ RSpec.describe "Sign card features", type: :system do
       end
     end
 
-    it "does not show the folder icon", signed_out: true do
-      expect(page).not_to have_selector ".sign-card__folders"
+    it "redirects the user to sign in page if they are logged out", signed_out: true do
+      inside_card do
+        click_on "Folders"
+        expect(current_path).to eq new_user_session_path
+      end
     end
   end
 
