@@ -7,6 +7,7 @@ class ShareController < ApplicationController
     @folder = fetch_folder
     authorize @folder
     @folder.update(share_token: SecureRandom.uuid)
+    flash[:notice] = t(".success", share_url: share_url)
     redirect_to_folders
   end
 
@@ -14,6 +15,7 @@ class ShareController < ApplicationController
     @folder = fetch_folder_by_token
     authorize @folder
     @folder.update(share_token: nil)
+    flash[:notice] = t(".success")
     redirect_to_folders
   end
 
@@ -24,6 +26,10 @@ class ShareController < ApplicationController
   end
 
   private
+
+  def share_url
+    view_context.link_to("Share folder", "#{request.path}/#{@folder.share_token}")
+  end
 
   def fetch_folder
     policy_scope(Folder).find_by!(id: folder_id)
