@@ -1,42 +1,11 @@
-<% unless @sign.fully_processed? %>
-  <%= javascript_tag defer: "defer", nonce: true do %>
-    var selector = ".js-sign-video-container";
-    var updateInterval = <%= Rails.env.test? ? 500 : 5000 %>; // ms
-    var intervalId
-
-    function refresh() {
-      var $currentContainer = jQuery(selector);
-      var $currentVideo = $currentContainer.find("video.sign-video");
-      jQuery.ajax( {
-        url: window.location,
-        dataType: "html"
-      }).done(function(responseText) {
-        var $newVideoContainer = jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector);
-        var $newVideo = $newVideoContainer.find("video.sign-video");
-
-        // Stop polling once the video has been processed
-        if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
-
-        // Only refresh the HTML of the element if the classes of the video have changed
-        if ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value) {
-          $currentContainer.html($newVideoContainer.html());
-        }
-      });
-    }
-
-    jQuery(function() {
-      intervalId = setInterval(refresh, updateInterval);
-    });
-  <% end %>
-<% end %>
 
 <div class="grid-x grid-margin-x content-container">
-  <%= form_with model: @sign, local: true, class: "cell form" do |f| %>
+  <%= form_with model: @sign, local: true, class: "cell form", method: "Patch" do |f| %>
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
     <div class="js-sign-video-container"/>
     <div class="row align-middle small-12">
-      <video class="cell small-6 medium-4" <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>">
+      <video <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>">
         <%= @sign.sign_video_sourceset %>
       </video>
       <b class="small-6 medium-4 "><%=@sign.word %></b>
@@ -72,3 +41,35 @@
     </div>
   <% end %>
 </div>
+
+<% unless @sign.fully_processed? %>
+  <%= javascript_tag defer: "defer", nonce: true do %>
+    var selector = ".js-sign-video-container";
+    var updateInterval = <%= Rails.env.test? ? 500 : 5000 %>; // ms
+    var intervalId
+
+    function refresh() {
+      var $currentContainer = jQuery(selector);
+      var $currentVideo = $currentContainer.find("video.sign-video");
+      jQuery.ajax( {
+        url: window.location,
+        dataType: "html"
+      }).done(function(responseText) {
+        var $newVideoContainer = jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector);
+        var $newVideo = $newVideoContainer.find("video.sign-video");
+
+        // Stop polling once the video has been processed
+        if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
+
+        // Only refresh the HTML of the element if the classes of the video have changed
+        if ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value) {
+          $currentContainer.html($newVideoContainer.html());
+        }
+      });
+    }
+
+    jQuery(function() {
+      intervalId = setInterval(refresh, updateInterval);
+    });
+  <% end %>
+<% end %>
