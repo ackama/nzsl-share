@@ -4,9 +4,15 @@ $(document).on("DOMContentLoaded", () => {
   $(".file-upload").html(initialHTML());
 });
 
-$(document).on("change", "input[type=file][data-direct-upload-url]", () =>
-   start(event)
-);
+$(document).on("change", "input[type=file][data-direct-upload-url]", () => {
+  const fileSize = event.target.files[0].file.size / 1024 / 1024; // in MB
+
+  if (fileSize > 20) {
+    return event.target.insertAdjacentHTML("beforebegin", errorHTML(`Upload failed - file is too large (${fileSize})`));
+  }
+
+  start(event);
+});
 
 $(document).on("direct-upload:initialize", event => {
   const { target, detail: { id } } = event;
