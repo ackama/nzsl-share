@@ -25,8 +25,8 @@ $(document).on("direct-upload:start", event => {
 });
 
 $(document).on("direct-upload:progress", event => {
-  const { id, progress } = event.detail;
-  $(`#direct-upload-${id}`).html(progressHTML(Math.round(progress || 0)));
+  const { id, progress, file: { name: filename } } = event.detail;
+  $(`#direct-upload-${id}`).html(progressHTML(Math.round(progress || 0), filename));
 });
 
 $(document).on("direct-upload:error", event => {
@@ -67,9 +67,9 @@ const errorHTML = (error) => (
   </div>`
 );
 
-const progressHTML = (progress) => (
+const progressHTML = (progress, filename) => (
   `<div class="file-upload--uploading text-center">
-   <h6 class="medium">File(s) uploading&hellip; <span data-file-upload-progress>${progress}%</span></h6>
+   <h6 class="medium">File(s) uploading(${filename})&hellip; <span data-file-upload-progress>${progress}%</span></h6>
     ${progressIndicator(`progress-${progress}`)}
  </div>`
 );
