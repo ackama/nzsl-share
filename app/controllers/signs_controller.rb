@@ -41,7 +41,7 @@ class SignsController < ApplicationController
   end
 
   def update
-    @sign = my_signs.find(id)
+    @sign = present(my_signs.find(id))
     @sign.assign_attributes(edit_sign_params)
     authorize @sign
     return render(:edit) unless @sign.save

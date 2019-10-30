@@ -2,7 +2,7 @@ class SignPresenter < ApplicationPresenter
   presents :sign
   delegate :id, :word, :contributor, :agree_count,
            :disagree_count, :topic, :video, :description,
-           :errors, :to_model, :contributor_id,
+           :errors, :assign_attributes, :save, :to_model, :contributor_id,
            :to_param, to: :sign
 
   def dom_id(suffix=nil)
@@ -49,7 +49,7 @@ class SignPresenter < ApplicationPresenter
   end
 
   def sign_video_attributes
-    class_list = ["cell small-6 medium-4 sign-video"]
+    class_list = ["small-12 medium-6 sign-video"]
     class_list << " has-thumbnails" if sign.processed_thumbnails?
     class_list << " has-video" if sign.processed_videos?
 
