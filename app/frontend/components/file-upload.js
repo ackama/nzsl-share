@@ -5,10 +5,10 @@ $(document).on("DOMContentLoaded", () => {
 });
 
 $(document).on("change", "input[type=file][data-direct-upload-url]", () => {
-  const fileSize = event.target.files[0].file.size / 1024 / 1024; // in MB
+  const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
 
-  if (fileSize > 20) {
-    return event.target.insertAdjacentHTML("beforebegin", errorHTML(`Upload failed - file is too large (${fileSize})`));
+  if (fileSize > 40) {
+    return $("#sign-upload-errors").html(errorHTML(`Upload failed - file is too large (${Math.round(fileSize)} MB)`));
   }
 
   start(event);
