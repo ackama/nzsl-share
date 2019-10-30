@@ -23,7 +23,7 @@ $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event
 $(document).on("change", "input[type=file][data-direct-upload-url]", event => {
   const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
 
-  if (fileSize > 40) {
+  if (fileSize > 250) { // same file size as app/models/signs.rb MAXIMUM_VIDEO_FILE_SIZE
     return $("#sign-upload-errors").html(errorHTML(`Upload failed - file is too large (${Math.round(fileSize)} MB)`));
   }
 
