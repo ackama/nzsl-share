@@ -12,7 +12,7 @@
   <ul role="listbox" class="menu vertical">
     <li role="option">
       <%=
-        button_to "Order by Date (newest first)",
+        button_to "Date (newest first)",
         search_index_path,
         method: :get,
         params: published_desc_params(page),
@@ -21,7 +21,7 @@
     </li>
     <li role="option">
       <%=
-        button_to "Order by Date (oldest first)",
+        button_to "Date (oldest first)",
         search_index_path,
         method: :get,
         params: published_asc_params(page),
