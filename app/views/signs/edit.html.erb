@@ -1,15 +1,16 @@
 
 <div class="grid-x grid-margin-x content-container">
-  <%= form_with model: @sign, local: true, class: "cell form", method: "Patch" do |f| %>
+  <%= form_with model: @sign, local: true, class: "cell form", method: :patch do |f| %>
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
-    <div class="js-sign-video-container"/>
-    <div class="row align-middle small-12">
+
+    <div class="row align-middle small-12 js-sign-video-container">
       <video <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>">
         <%= @sign.sign_video_sourceset %>
       </video>
       <b class="small-6 medium-4 "><%=@sign.word %></b>
     </div>
+
     <fieldset class="content-container">
       <%= f.label :word, "Word", class: "required" %>
       <%= f.text_field :word, placeholder: "Enter the word/phrase for this sign", class: (@sign.errors[:word].any? && "invalid") %>
