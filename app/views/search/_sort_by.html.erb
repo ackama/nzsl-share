@@ -1,43 +1,50 @@
-<ul class="dropdown menu" data-dropdown-menu>
-  <li class="is-dropdown-submenu-parent">
-    <button class="dropdown button clear">Sort By</button>
-    <ul class="menu">
-      <li>
-        <%=
-          button_to "Order by Date (newest first)",
-          search_index_path,
-          method: :get,
-          params: published_desc_params(page),
-          class: "button clear medium expanded"
-        %>
-      </li>
-      <li>
-        <%=
-          button_to "Order by Date (oldest first)",
-          search_index_path,
-          method: :get,
-          params: published_asc_params(page),
-          class: "button clear medium expanded"
-        %>
-      </li>
-      <li>
-        <%=
-          button_to "Alphabetical (A-Z)",
-          search_index_path,
-          method: :get,
-          params: show_asc_params(page),
-          class: "button clear medium expanded"
-        %>
-      </li>
-      <li>
-        <%=
-          button_to "Alphabetical (Z-A)",
-          search_index_path,
-          method: :get,
-          params: show_desc_params(page),
-          class: "button clear medium expanded"
-        %>
-      </li>
-    </ul>
-  </li>
-</ul>
+<button class="button dropdown clear" data-toggle="search-relevance">Sort By</button>
+<div
+  class="dropdown-pane"
+  id="search-relevance"
+  data-position="bottom"
+  data-alignment="left"
+  data-dropdown
+  data-hover="true"
+  data-hover-pane="true"
+  data-h-offset="-30"
+  >
+  <ul role="listbox" class="menu vertical">
+    <li role="option">
+      <%=
+        button_to "Order by Date (newest first)",
+        search_index_path,
+        method: :get,
+        params: published_desc_params(page),
+        class: "button clear medium"
+      %>
+    </li>
+    <li role="option">
+      <%=
+        button_to "Order by Date (oldest first)",
+        search_index_path,
+        method: :get,
+        params: published_asc_params(page),
+        class: "button clear medium"
+      %>
+    </li>
+    <li role="option">
+      <%=
+        button_to "Alphabetical (A-Z)",
+        search_index_path,
+        method: :get,
+        params: show_asc_params(page),
+        class: "button clear medium"
+      %>
+    </li>
+    <li role="option">
+      <%=
+        button_to "Alphabetical (Z-A)",
+        search_index_path,
+        method: :get,
+        params: show_desc_params(page),
+        class: "button clear medium"
+      %>
+    </li>
+  </ul>
+</div>
