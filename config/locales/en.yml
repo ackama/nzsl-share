@@ -60,7 +60,7 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   share:
     create:
-      success: "%{share_url}"
+      success: Folder %{share_folder} can now be shared using this link %{share_url}
     destroy:
       success: "Folder is no longer shared."
   published_sign_video:
