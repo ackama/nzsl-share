@@ -62,7 +62,7 @@ en:
     create:
       success: "%{share_url}"
     destroy:
-      success: Share folder has successfully been deleted.
+      success: "Folder is no longer shared."
   published_sign_video:
     name: "NZSL Share: Contributed sign for '%{word}'"
     description: "Video contributed to NZSL Share. More information: %{url}"
