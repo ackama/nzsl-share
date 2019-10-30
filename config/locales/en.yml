@@ -60,9 +60,9 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   share:
     create:
-      success: "%{share_url} has successfully been created."
+      success: Folder %{share_folder} can now be shared using this link %{share_url}
     destroy:
-      success: Share folder has successfully been deleted.
+      success: "Folder is no longer shared."
   published_sign_video:
     name: "NZSL Share: Contributed sign for '%{word}'"
     description: "Video contributed to NZSL Share. More information: %{url}"
