@@ -7,7 +7,7 @@ class ShareController < ApplicationController
     @folder = fetch_folder
     authorize @folder
     @folder.update(share_token: SecureRandom.uuid)
-    flash[:notice] = t(".success", share_folder: @folder.title, share_url: share_url)
+    flash[:notice] = t(".success", share_url: share_url)
     redirect_to_folders
   end
 
