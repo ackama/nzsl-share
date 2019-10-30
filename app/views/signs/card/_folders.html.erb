@@ -1,8 +1,14 @@
- <% return if !user_signed_in? %>
- <div class="sign-card__folders">
-  <button class="sign-card__folders__button" data-toggle="<%= sign.dom_id(:folders) %>">
-    <%= inline_svg "media/images/folder-add.svg", title: "Folders", aria: true, class: "icon icon-white" %>
-  </button>
-
-  <%= render "signs/card/folders-menu", sign: sign %>
+<div class="sign-card__folders">
+  <% if user_signed_in? %>
+    <button class="sign-card__folders__button" data-toggle="<%= sign.dom_id(:folders) %>">
+      <%= inline_svg "media/images/folder-add.svg", title: "Folders", aria: true, class: "icon icon-white" %>
+    </button>
+    <%= render "signs/card/folders-menu", sign: sign %>
+  <% else %>
+    <%= link_to new_user_session_path do %>
+      <button class="sign-card__folders__button">
+        <%= inline_svg "media/images/folder-add.svg", title: "Folders", aria: true, class: "icon icon-white" %>
+      </button>
+    <% end %>
+  <% end %>
 </div>
