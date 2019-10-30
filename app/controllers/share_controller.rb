@@ -28,7 +28,7 @@ class ShareController < ApplicationController
   private
 
   def share_url
-    view_context.link_to("Share folder", "#{request.path}/#{@folder.share_token}")
+    "#{request.original_url}/#{@folder.share_token}"
   end
 
   def fetch_folder

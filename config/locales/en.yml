@@ -60,7 +60,7 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   share:
     create:
-      success: "%{share_url} has successfully been created."
+      success: "%{share_url}"
     destroy:
       success: Share folder has successfully been deleted.
   published_sign_video:
