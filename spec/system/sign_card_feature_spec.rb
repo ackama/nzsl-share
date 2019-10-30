@@ -38,7 +38,6 @@ RSpec.describe "Sign card features", type: :system do
     let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-    let!(:other_sign) { FactoryBot.create(:sign, topic: sign.topic) }
 
     # We have added records so need to reload
     before { visit topic_path(sign.topic) }
@@ -64,6 +63,11 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "updates the signs count on another sign card automatically" do
+      FactoryBot.create(:sign, topic: sign.topic)
+
+      # We have added records so need to reload
+      visit topic_path(sign.topic)
+
       cards = all(".sign-card")
       this_card = cards.first
       other_card = cards.last
