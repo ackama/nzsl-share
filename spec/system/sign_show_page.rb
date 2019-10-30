@@ -1,10 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Sign show page", system: true do
+  let(:user) { nil }
   let(:sign) { FactoryBot.create(:sign) }
+  let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
-  before { sign_page.start(sign) }
+  before do
+    auth.sign_in if user
+    sign_page.start(sign)
+  end
 
   it "displays the sign word" do
     expect(subject).to have_selector "h2", text: sign.word
@@ -26,6 +31,22 @@ RSpec.describe "Sign show page", system: true do
       let(:sign) { FactoryBot.create(:sign, :processed_videos) }
       # 1080p, 720p, 360p
       it { expect(subject).to have_selector("source[src^='/signs/#{sign.id}/videos']", count: 3) }
+    end
+  end
+
+  describe "sign controls" do
+    context "owned by the current user" do
+      let(:user) { sign.contributor }
+      it { within(".sign-card__bottom") { expect(sign_page).to have_link "Edit" } }
+    end
+
+    context "not logged in" do
+      it { within(".sign-card__bottom") { expect(sign_page).not_to have_link "Edit" } }
+    end
+
+    context "not owned by the current user" do
+      let(:user) { FactoryBot.create(:user) }
+      it { within(".sign-card__bottom") { expect(sign_page).not_to have_link "Edit" } }
     end
   end
 
