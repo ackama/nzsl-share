@@ -4,8 +4,8 @@
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
     <fieldset class="content-container">
-      <%= f.label :word, "Word", class: "required" %>
-      <%= f.text_field :word, placeholder: "Enter the word/phrase for this sign", class: (@sign.errors[:word].any? && "invalid") %>
+      <%= f.label :word, "Sign / word", class: "required" %>
+      <%= f.text_field :word, class: (@sign.errors[:word].any? && "invalid") %>
       <% if @sign.errors[:word].any? %>
         <% @sign.errors[:word].each do |message| %>
           <div class="form-error show"><%= message %></div>
@@ -13,20 +13,20 @@
       <% end %>
     </fieldset>
     <fieldset>
-      <%= f.label :maori, "Te Reo Māori" %>
-      <%= f.text_field :maori, placeholder: "Enter the Te Reo Māori word/phrase for this sign here", class: (@sign.errors[:maori].any? && "invalid") %>
+      <%= f.label :maori, "Māori translation" %>
+      <%= f.text_field :maori, class: (@sign.errors[:maori].any? && "invalid") %>
     </fieldset>
     <fieldset>
       <%= f.label :topic_id, "Topic" %>
       <%= f.collection_select :topic_id, Topic.all, :id, :name %>
     </fieldset>
     <fieldset>
-      <%= f.label :secondary, "Other words" %>
-      <%= f.text_field :secondary, placeholder: "Enter any alternative spellings or synonyms for this sign here", class: (@sign.errors[:secondary].any? && "invalid") %>
+      <%= f.label :secondary, "Other words for this sign" %>
+      <%= f.text_field :secondary, class: (@sign.errors[:secondary].any? && "invalid") %>
     </fieldset>
     <fieldset>
-      <%= f.label :notes, "Notes" %>
-      <%= f.text_area :notes, placeholder: "Enter any additional notes here", rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
+      <%= f.label :notes, "Notes (e.g. where have you seen the sign used?)" %>
+      <%= f.text_area :notes, rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
     </fieldset>
     <div class="grid-x align-right form__buttons">
       <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
