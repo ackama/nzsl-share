@@ -73,10 +73,8 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "links the user to sign in page if they are logged out", signed_out: true do
-      inside_card do
-        click_on "Folders"
-        expect(current_path).to eq new_user_session_path
-      end
+      find(".sign-card__folders__button", match: :first).click
+      expect(current_path).to eq new_user_session_path
     end
   end
 
@@ -122,10 +120,8 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "links the user to sign in page if they are logged out", signed_out: true do
-      inside_card do
-        click_on "Folders"
-        expect(current_path).to eq new_user_session_path
-      end
+      find(".sign-card__folders__button", match: :first).click
+      expect(current_path).to eq new_user_session_path
     end
   end
 end
