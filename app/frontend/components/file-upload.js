@@ -4,23 +4,23 @@ $(document).on("DOMContentLoaded", () => {
   $(".file-upload").html(initialHTML());
 });
 
-$(document).on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
-  e.preventDefault();
-  e.stopPropagation();
+$(document).on("drag dragstart dragend dragover dragenter dragleave drop", event => {
+  event.preventDefault();
+  event.stopPropagation();
 })
-.on("dragover dragenter", function() {
+.on("dragover dragenter", () => {
   $(".file-upload").addClass("file-upload-drag-border");
 })
-.on("dragleave dragend drop", function() {
+.on("dragleave dragend drop", () => {
   $(".file-upload").removeClass("file-upload-drag-border");
 })
-.on("drop", function(e) {
+.on("drop", event => {
   let fileInput = document.querySelector("#sign_video");
-  fileInput.files = e.originalEvent.dataTransfer.files;
+  fileInput.files = event.originalEvent.dataTransfer.files;
   $(fileInput).trigger("change");
 });
 
-$(document).on("change", "input[type=file][data-direct-upload-url]", (event) => {
+$(document).on("change", "input[type=file][data-direct-upload-url]", event => {
   const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
 
   if (fileSize > 40) {
