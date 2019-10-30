@@ -4,7 +4,23 @@ $(document).on("DOMContentLoaded", () => {
   $(".file-upload").html(initialHTML());
 });
 
-$(document).on("change", "input[type=file][data-direct-upload-url]", () => {
+$(document).on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+})
+.on("dragover dragenter", function() {
+  $(".file-upload").addClass("file-upload-drag-border");
+})
+.on("dragleave dragend drop", function() {
+  $(".file-upload").removeClass("file-upload-drag-border");
+})
+.on("drop", function(e) {
+  let fileInput = document.querySelector("#sign_video");
+  fileInput.files = e.originalEvent.dataTransfer.files;
+  $(fileInput).trigger("change");
+});
+
+$(document).on("change", "input[type=file][data-direct-upload-url]", (event) => {
   const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
 
   if (fileSize > 40) {
