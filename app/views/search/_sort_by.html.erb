@@ -9,8 +9,8 @@
   data-hover-pane="true"
   data-h-offset="-30"
   >
-  <ul class="menu vertical">
-    <li>
+  <ul role="listbox" class="menu vertical">
+    <li role="option">
       <%=
         button_to "Order by Date (newest first)",
         search_index_path,
@@ -19,7 +19,7 @@
         class: "button clear medium"
       %>
     </li>
-    <li>
+    <li role="option">
       <%=
         button_to "Order by Date (oldest first)",
         search_index_path,
@@ -28,7 +28,7 @@
         class: "button clear medium"
       %>
     </li>
-    <li>
+    <li role="option">
       <%=
         button_to "Alphabetical (A-Z)",
         search_index_path,
@@ -37,7 +37,7 @@
         class: "button clear medium"
       %>
     </li>
-    <li>
+    <li role="option">
       <%=
         button_to "Alphabetical (Z-A)",
         search_index_path,
