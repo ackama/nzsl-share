@@ -38,6 +38,7 @@ RSpec.describe "Sign card features", type: :system do
     let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
+    let!(:other_sign) { FactoryBot.create(:sign, topic: sign.topic) }
 
     # We have added records so need to reload
     before { visit topic_path(sign.topic) }
@@ -59,6 +60,24 @@ RSpec.describe "Sign card features", type: :system do
           page.find("label", text: other_folder.title).click
           wait_for_ajax
         end.to change(FolderMembership, :count).by(1)
+      end
+    end
+
+    it "updates the signs count on another sign card automatically" do
+      cards = all(".sign-card")
+      this_card = cards.first
+      other_card = cards.last
+
+      within(this_card) do
+        click_on "Folders"
+        page.find("label", text: other_folder.title).click
+      end
+
+      wait_for_ajax
+
+      within(other_card) do
+        click_on "Folders"
+        expect(page).to have_text "#{other_folder.title}\n(1)"
       end
     end
 
