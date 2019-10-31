@@ -38,6 +38,7 @@ RSpec.describe "Sign card features", type: :system do
     let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
+    let(:user) { authenticator.user }
 
     # We have added records so need to reload
     before { visit topic_path(sign.topic) }
@@ -96,8 +97,15 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "links the user to sign in page if they are logged out", signed_out: true do
+      original_path = current_path
       find(".sign-card__folders__button", match: :first).click
-      expect(current_path).to eq new_user_session_path
+      expect(page).to have_current_path(new_user_session_path)
+      within "form#new_user" do
+        fill_in "Username/Email", with: user.email
+        fill_in "Password", with: user.password
+        click_on "Log in"
+      end
+      expect(page).to have_current_path(original_path)
     end
   end
 
@@ -105,6 +113,7 @@ RSpec.describe "Sign card features", type: :system do
     let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
+    let(:user) { authenticator.user }
 
     # We have added records so need to reload
     before { visit current_path }
@@ -143,10 +152,17 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "links the user to sign in page if they are logged out", signed_out: true do
+      original_path = current_path
       within ".sign-card__folders" do
         find("a[href='/users/sign_in']").click
-        expect(page).to have_current_path(new_user_session_path)
       end
+      expect(page).to have_current_path(new_user_session_path)
+      within "form#new_user" do
+        fill_in "Username/Email", with: user.email
+        fill_in "Password", with: user.password
+        click_on "Log in"
+      end
+      expect(page).to have_current_path(original_path)
     end
   end
 end
