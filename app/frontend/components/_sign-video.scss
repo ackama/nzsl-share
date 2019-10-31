@@ -1,0 +1,29 @@
+.sign-video {
+  // Hide the controls on Chrome
+  &::-webkit-media-controls {
+    display: none;
+  }
+
+  &[poster] {
+    object-fit: cover;
+  }
+
+  &--playing {
+    & + .sign-video__overlay {
+      display: none;
+    }
+  }
+
+  &__overlay {
+    background-color: rgba(0, 0, 0, 0.25);
+    background-image: url("images/video-play.svg");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 5000;
+  }
+}
