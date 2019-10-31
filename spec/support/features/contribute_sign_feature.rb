@@ -11,7 +11,7 @@ class ContributeSignFeature
 
   def drop_file_in_file_upload
     page.driver.execute_script(
-      <<-HEREDOC
+      <<-JS
         dt = new DataTransfer();
         evt = jQuery.Event('drop', {
           preventDefault: function () {},
@@ -28,7 +28,7 @@ class ContributeSignFeature
           )
         )
         $(document).trigger(evt)
-      HEREDOC
+      JS
     )
   end
 
