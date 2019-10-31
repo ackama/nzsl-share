@@ -57,9 +57,9 @@ class SignPresenter < ApplicationPresenter
       class: class_list.join(" "),
       controls: true,
       controlslist: "nodownload",
-      preload: "metadata",
+      preload: false,
       muted: true,
-      poster: !sign.processed_videos? ? poster_url : nil
+      poster: poster_url
     }
   end
 
