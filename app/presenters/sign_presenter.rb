@@ -53,7 +53,14 @@ class SignPresenter < ApplicationPresenter
     class_list << " has-thumbnails" if sign.processed_thumbnails?
     class_list << " has-video" if sign.processed_videos?
 
-    h.raw "#{"controls" if sign.processed_videos?} class=\"#{h.safe_join(class_list)}\" controlslist=\"nodownload\""
+    {
+      class: class_list.join(" "),
+      controls: true,
+      controlslist: "nodownload",
+      preload: "metadata",
+      muted: true,
+      poster: !sign.processed_videos? ? poster_url : nil
+    }
   end
 
   def self.policy_class
