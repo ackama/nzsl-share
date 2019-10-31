@@ -34,7 +34,7 @@ RSpec.describe "share_folder", type: :request do
         expect(allowed_folder.share_token).to be_nil
         create.call(allowed_folder.id)
         expect(allowed_folder.reload.share_token).to be_truthy
-        expect(response).to redirect_to folder_path(allowed_folder)
+        expect(response).to redirect_to folders_path
         expect(allowed_folder.share_token
           .match(/\A[a-z\d]{8}-[a-z\d]{4}-[a-z\d]{4}-[a-z\d]{4}-[a-z\d]{12}\Z/i).present?).to be true
       end
@@ -45,7 +45,7 @@ RSpec.describe "share_folder", type: :request do
         expect(allowed_folder.reload.share_token).to be_truthy
         destroy.call(allowed_folder.id, allowed_folder.share_token)
         expect(allowed_folder.reload.share_token).to be_nil
-        expect(response).to redirect_to folder_path(allowed_folder)
+        expect(response).to redirect_to folders_path
       end
 
       it "shows" do
