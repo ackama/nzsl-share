@@ -114,6 +114,7 @@
     &--vertical {
       background-color: get-color(medium);
       height: 24px;
+      margin: 0 $global-margin / 2;
       width: 1px;
     }
   }
