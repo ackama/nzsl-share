@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  include ActiveStorage::SetCurrent
+  include PresentersHelper
+  
   before_action :store_user_location!, if: :storable_location?
   before_action :http_basic_auth
   before_action :configure_permitted_parameters, if: :devise_controller?
