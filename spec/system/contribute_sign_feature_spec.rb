@@ -12,6 +12,13 @@ RSpec.describe "Contributing a new sign", type: :system do
       end.to change(subject.user.signs, :count).by(1)
     end
 
+    it "using drag and drop can contribute a valid video file", uses_javascript: true do
+      expect do
+        subject.drop_file_in_file_upload
+        page.find("h1", text: "Edit sign details")
+      end.to change(subject.user.signs, :count).by(1)
+    end
+
     it "shows a success message and navigates to the sign page" do
       subject.choose_file
       subject.submit
