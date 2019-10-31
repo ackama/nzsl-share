@@ -36,14 +36,14 @@ class FolderFeature
   end
 
   def edit_folder(dropdown: false)
-    within(find(".folder", match: :first)) do
+    within(find(".list__item", match: :first)) do
       click_on "Folder Options" if dropdown
       click_on "Edit"
     end
   end
 
   def remove_folder(dropdown: false)
-    within(find(".folder", match: :first)) do
+    within(find(".list__item", match: :first)) do
       click_on "Folder Options" if dropdown
       click_on "Delete"
     end
