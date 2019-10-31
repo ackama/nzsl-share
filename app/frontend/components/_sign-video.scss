@@ -8,9 +8,16 @@
     object-fit: cover;
   }
 
+  &.has-video {
+    & + .sign-video__overlay {
+      display: block;
+    }
+  }
+
   &--playing {
     & + .sign-video__overlay {
-      display: none;
+      // Make sure the overlay is always hidden when it should be
+      display: none !important; // sass-lint:disable-line no-important
     }
   }
 
@@ -19,8 +26,8 @@
     background-image: url("images/video-play.svg");
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: 100px;
-    display: block;
+    background-size: 32px;
+    display: none;
     height: 100%;
     position: absolute;
     width: 100%;
