@@ -1,6 +1,7 @@
 .list {
   background: $white;
   border-radius: rem-calc(8);
+  margin-bottom: $global-margin * 2;
   margin-top: $global-margin;
   padding: 0 $global-padding;
 
@@ -16,11 +17,18 @@
     padding: $global-padding * 2 0;
   }
 
+  &__description {
+    color: get-color(medium);
+    font-size: 15px;
+    margin-top: $global-margin / 2;
+  }
+
   .button {
     margin: 0;
   }
 
   &__items {
+    justify-content: space-between;
     padding: $global-padding 0;
   }
 
@@ -102,5 +110,11 @@
     height: 1px;
     margin: 0;
     width: 100%;
+
+    &--vertical {
+      background-color: get-color(medium);
+      height: 24px;
+      width: 1px;
+    }
   }
 }
