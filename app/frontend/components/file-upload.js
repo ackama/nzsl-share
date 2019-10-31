@@ -9,10 +9,10 @@ $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event
   event.stopPropagation();
 })
 .on("dragover dragenter", () => {
-  $(".file-upload").addClass("file-upload-drag-border");
+  $(".file-upload").addClass("file-upload__dragged-over");
 })
 .on("dragleave dragend drop", () => {
-  $(".file-upload").removeClass("file-upload-drag-border");
+  $(".file-upload").removeClass("file-upload__dragged-over");
 })
 .on("drop", event => {
   let fileInput = document.querySelector("#sign_video");
