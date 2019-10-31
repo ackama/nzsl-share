@@ -62,6 +62,29 @@ RSpec.describe "Sign card features", type: :system do
       end
     end
 
+    it "updates the signs count on another sign card automatically" do
+      FactoryBot.create(:sign, topic: sign.topic)
+
+      # We have added records so need to reload
+      visit topic_path(sign.topic)
+
+      cards = all(".sign-card")
+      this_card = cards.first
+      other_card = cards.last
+
+      within(this_card) do
+        click_on "Folders"
+        page.find("label", text: other_folder.title).click
+      end
+
+      wait_for_ajax
+
+      within(other_card) do
+        click_on "Folders"
+        expect(page).to have_text "#{other_folder.title}\n(1)"
+      end
+    end
+
     it "removes the sign from a folder" do
       inside_card do
         click_on "Folders"

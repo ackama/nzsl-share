@@ -15,7 +15,7 @@
                                   id: sign.dom_id(dom_id(folder, :membership)) %>
         <%= label_tag sign.dom_id(dom_id(folder, :membership)) do %>
           <strong style="flex:1"><%= folder.title %></strong>
-          <strong>(<%= folder.signs_count %>)</strong>
+          <strong class="count" data-folder-id="<%= folder.id %>">(<%= folder.signs_count %>)</strong>
         <% end %>
       </div>
     <% end %>
