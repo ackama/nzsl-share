@@ -2,8 +2,8 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = policy_scope(Sign.includes(:contributor, :topic))
-            .find(id)
+    @sign = present(policy_scope(Sign.includes(:contributor, :topic))
+            .find(params[:id]))
     authorize @sign
     return unless stale?(@sign)
 
@@ -28,18 +28,20 @@ class SignsController < ApplicationController
     flash[:notice] = t(".success")
 
     respond_to do |format|
-      format.html { redirect_to edit_sign_path(@sign) }
+      format.html { redirect_to [:edit, @sign] }
       format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
     end
   end
 
   def edit
-    @sign = my_signs.find(id)
+    @sign = present(my_signs.find(params[:id]))
     authorize @sign
+
+    render
   end
 
   def update
-    @sign = my_signs.find(id)
+    @sign = present(my_signs.find(id))
     @sign.assign_attributes(edit_sign_params)
     authorize @sign
     return render(:edit) unless @sign.save

@@ -10,4 +10,8 @@ class SignPage
   def breadcrumb
     within(".breadcrumbs") { yield }
   end
+
+  def video_player
+    find(".sign-card__media > video")
+  end
 end

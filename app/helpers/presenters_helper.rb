@@ -2,7 +2,7 @@ module PresentersHelper
   def present(object, klass=nil)
     presenter = if !object.is_a?(ApplicationPresenter)
                   klass ||= "#{object.class}Presenter".constantize
-                  klass.new(object, self)
+                  klass.new(object, is_a?(ActionController::Base) ? view_context : self)
                 else
                   object
                 end
