@@ -8,7 +8,7 @@ class ShareController < ApplicationController
     authorize @folder
     @folder.update(share_token: SecureRandom.uuid)
     flash[:notice] = t(".success", share_url: share_url)
-    redirect_to_folders
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
