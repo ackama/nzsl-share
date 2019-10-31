@@ -69,7 +69,7 @@ RSpec.describe "Folders", type: :system do
 
     it "removes the folder" do
       process.remove_folder
-      expect(process).to have_selector(".folder", count: folders.size - 1)
+      expect(process).to have_selector(".list__item", count: folders.size - 1)
     end
 
     it "posts a success message" do
@@ -81,6 +81,15 @@ RSpec.describe "Folders", type: :system do
       process.remove_folder(dropdown: true)
       confirmation = page.driver.browser.switch_to.alert
       expect(confirmation.text).to eq I18n.t!("folders.destroy.confirm")
+    end
+  end
+
+  describe "The folders index page" do
+    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    before { process.start }
+    it "links folder titles to their corresponding show page" do
+      click_on folder.title
+      expect(page).to have_current_path(folder_path(folder))
     end
   end
 end

@@ -24,7 +24,7 @@
     <ul class="no-bullet list list--compact">
       <% sign.available_folders.each do |folder, membership| %>
         <% next unless membership # Ignore folders that this sign is not in %>
-        <li class="list__item">
+        <li class="list__item--compact">
           <span><%= membership.folder.title %></span>
           <%= button_to folder_membership_path(membership),
                         method: :delete,

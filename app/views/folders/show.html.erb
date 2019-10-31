@@ -1,5 +1,5 @@
 <div class="grid-x grid-margin-x">
-  <nav class="cell" aria-label="You are here:" role="navigation">
+  <nav class="cell shrink" aria-label="You are here:" role="navigation">
     <ul class="breadcrumbs">
       <li><a href="/">Home</a></li>
       <li><%= link_to "Folders", folders_path %></li>
@@ -8,7 +8,35 @@
       </li>
     </ul>
   </nav>
-  <% @folder.signs.each do |sign| %>
-    <%= render "signs/card", sign: sign %>
-  <% end %>
+
+  <div class="grid-x cell list">
+  <div class="list__title cell grid-x align-middle">
+      <div class="cell grid-x align-middle">
+        <h1 class="cell auto"><%= @folder.title %></h1>
+        <div class="cell shrink grid-x align-middle">
+
+          <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear" do %>
+            <%= inline_svg "media/images/share.svg", class: "icon icon--royal" %>Share
+          <% end %>
+          <div class="list__divider--vertical"></div>
+          <%= link_to edit_folder_path(@folder), remote: true, class: "button clear" do %>
+            <%= inline_svg "media/images/edit.svg", class: "icon icon--royal" %>Edit
+          <% end %>
+        </div>
+      </div>
+      <div class="list__description cell grid-x align-middle">
+        <%= @folder.description %>
+      </div>
+  </div>
+  <hr class="list__divider"/>
+  <div class="list__items cell grid-x">
+    <% @folder.signs.each do |sign| %>
+    <div class="">
+      <%= render "signs/card", sign: sign %>
+    </div>
+    <% end %>
+  </div>
+  <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>
+    Loading...
+  </div>
 </div>
