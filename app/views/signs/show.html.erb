@@ -1,12 +1,14 @@
+<% sign = present(@sign) %>
+
 <div class="grid-x grid-margin-x">
   <nav class="cell shrink" aria-label="You are here:" role="navigation">
     <ul class="breadcrumbs">
       <li><%= link_to "Home", root_path %></li>
-      <% if @sign.topic %>
+      <% if sign.topic %>
         <li><%= link_to "Topics", "/topics" %></li>
-        <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
+        <li><%= link_to sign.topic.name, "/topics/#{sign.topic.to_param}" %></li>
       <% end %>
-      <li><span class="show-for-sr">Current: </span> <%= @sign.word %></li>
+      <li><span class="show-for-sr">Current: </span> <%= sign.word %></li>
     </ul>
   </nav>
 </div>
@@ -14,33 +16,33 @@
 <div class="grid-x grid-margin-x">
   <div class="cell sign-card small-12 large-10 sign-card--borderless">
     <div class="sign-card__media">
-      <video <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>" class="sign-card__media--video">
-        <%= @sign.sign_video_sourceset %>
+      <video <%= sign.sign_video_attributes %> poster="<%= sign.poster_url %>" class="sign-card__media--video">
+        <%= sign.sign_video_sourceset %>
       </video>
     </div>
     <div class="sign-card__section">
-      <h2 class="primary"><%= @sign.word %></h2>
+      <h2 class="primary"><%= sign.word %></h2>
       <p class="sign-card__subtitle">
-        <%= @sign.contributor.username %>
+        <%= sign.contributor.username %>
         &nbsp;•&nbsp;
-        <%= @sign.friendly_date %>
-        <% if @sign.topic %>
+        <%= sign.friendly_date %>
+        <% if sign.topic %>
           &nbsp;•&nbsp;
-          <%= @sign.topic.name %>
+          <%= sign.topic.name %>
         <% end %>
       </p>
-      <%= content_tag(:p, simple_format(@sign.description)) %>
+      <%= content_tag(:p, simple_format(sign.description)) %>
     </div>
     <hr class="sign-card__divider">
     <div class="grid-x sign-card__bottom grid-padding-x">
       <div class="cell shrink">
         <%= link_to "#", class: "button clear success" do %>
           <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--success" %>
-          <%= @sign.agree_count %> Agree
+          <%= sign.agree_count %> Agree
         <% end %>
         <%= link_to "#", class: "button clear medium" do %>
           <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--medium" %>
-          <%= @sign.disagree_count %>
+          <%= sign.disagree_count %>
           Disagree
         <% end %>
       </div>
@@ -50,14 +52,14 @@
           <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--medium" %>
           Add to Folder
         <% end %>
-        <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>
+        <%= link_to sign_share_index_path(sign), method: :post, class: "button clear medium" do %>
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
         <% end %>
-        <%= link_to edit_sign_path(@sign), class: "button clear medium" do %>
+        <%= link_to edit_sign_path(sign), class: "button clear medium" do %>
           <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--medium" %>
           Edit
-        <% end if policy(@sign).edit? %>
+        <% end if policy(sign).edit? %>
       </div>
     </div>
   </div>
