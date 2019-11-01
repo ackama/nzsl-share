@@ -19,6 +19,10 @@ h6 {
     }
   }
 
+  &.normal {
+    font-weight: normal;
+  }
+
   @each $name, $color in $foundation-palette {
     &.#{$name} { color: $color; }
   }

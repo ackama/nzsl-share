@@ -1,12 +1,19 @@
-<br>
-<div class="grid-x grid-margin-x">
+<div class="grid-x grid-margin-x margin-2">
   <div class="cell small-9">
-    <h4><%= "#{@page[:total]} Result(s) for '#{@page[:word]}'" %></h4>
+    <h2 class="normal">
+      <%= pluralize(@page[:total], "result") %>
+      for
+      <strong>‘<%= @page[:word] %>’</strong>
+    </h2>
   </div>
 
   <div class="cell auto">
     <%= render "sort_by", page: @page if @signs.any? %>
   </div>
+</div>
+
+<div class="grid-x grid-margin-x">
+  <hr class=" cell auto">
 </div>
 
 <div class="cell auto grid-x sign-grid">
@@ -22,7 +29,8 @@
       search_index_path,
       method: :get,
       params: show_more_params(@page),
-      class: "button primary"
+      class: "button primary",
+      form_class: "text-center margin-2"
     %>
   </div>
 <% end %>
