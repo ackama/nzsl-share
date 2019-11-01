@@ -4,9 +4,31 @@ $(document).on("DOMContentLoaded", () => {
   $(".file-upload").html(initialHTML());
 });
 
-$(document).on("change", "input[type=file][data-direct-upload-url]", () =>
-   start(event)
-);
+$(document).on("drag dragstart dragend dragover dragenter dragleave drop", event => {
+  event.preventDefault();
+  event.stopPropagation();
+})
+.on("dragover dragenter", () => {
+  $(".file-upload").addClass("file-upload--dragged-over");
+})
+.on("dragleave dragend drop", () => {
+  $(".file-upload").removeClass("file-upload--dragged-over");
+})
+.on("drop", event => {
+  let fileInput = document.querySelector("#sign_video");
+  fileInput.files = event.originalEvent.dataTransfer.files;
+  $(fileInput).trigger("change");
+});
+
+$(document).on("change", "input[type=file][data-direct-upload-url]", event => {
+  const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
+
+  if (fileSize > 250) { // same file size as app/models/signs.rb MAXIMUM_VIDEO_FILE_SIZE
+    return $("#sign-upload-errors").html(errorHTML(`Upload failed - file is too large (${Math.round(fileSize)} MB)`));
+  }
+
+  start(event);
+});
 
 $(document).on("direct-upload:initialize", event => {
   const { target, detail: { id } } = event;
@@ -25,8 +47,8 @@ $(document).on("direct-upload:start", event => {
 });
 
 $(document).on("direct-upload:progress", event => {
-  const { id, progress } = event.detail;
-  $(`#direct-upload-${id}`).html(progressHTML(Math.round(progress || 0)));
+  const { id, progress, file: { name: filename } } = event.detail;
+  $(`#direct-upload-${id}`).html(progressHTML(Math.round(progress || 0), filename));
 });
 
 $(document).on("direct-upload:error", event => {
@@ -67,9 +89,9 @@ const errorHTML = (error) => (
   </div>`
 );
 
-const progressHTML = (progress) => (
+const progressHTML = (progress, filename) => (
   `<div class="file-upload--uploading text-center">
-   <h6 class="medium">File(s) uploading&hellip; <span data-file-upload-progress>${progress}%</span></h6>
+   <h6 class="medium">File(s) uploading(${filename})&hellip; <span data-file-upload-progress>${progress}%</span></h6>
     ${progressIndicator(`progress-${progress}`)}
  </div>`
 );
