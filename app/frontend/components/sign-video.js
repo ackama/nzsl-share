@@ -2,7 +2,7 @@ $(document).ready(() => {
   // Hide sign controls on Firefox and other browsers not implementing
   // pseodoclasses for controls
   $(".sign-video").attr("controls", false);
-  $("<i class=\"sign-video__overlay\" alt=\"Play video\"></i>").insertAfter(".sign-video");
+  $("<i class=\"sign-video__overlay\" alt=\"Play video\"></i>").appendTo(".sign-video-wrapper");
 
   const togglePlayPause = (el) => {
     el.classList.toggle("sign-video--playing");

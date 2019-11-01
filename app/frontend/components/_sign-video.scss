@@ -1,4 +1,11 @@
+.sign-video-wrapper {
+  display: flex;
+  position: relative;
+}
+
 .sign-video {
+  max-width: 100%;
+
   // Hide the controls on Chrome
   &::-webkit-media-controls {
     display: none;
@@ -29,7 +36,9 @@
     background-size: 32px;
     display: none;
     height: 100%;
+    left: 0;
     position: absolute;
+    top: 0;
     width: 100%;
     z-index: 5000;
   }
