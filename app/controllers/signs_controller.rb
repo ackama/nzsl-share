@@ -34,17 +34,17 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = present(my_signs.find(params[:id]))
-    authorize @sign
+    @sign = EditSignForm.new present(my_signs.find(params[:id]))
+    fail Pundit::NotAuthorizedError unless SignPolicy.new(current_user, @sign).edit?
 
-    render
+    render :edit
   end
 
   def update
-    @sign = present(my_signs.find(id))
-    @sign.assign_attributes(edit_sign_params)
-    authorize @sign
-    return render(:edit) unless @sign.save
+    @sign = EditSignForm.new present(my_signs.find(id)), edit_sign_params
+    authorize @sign.html.rb
+    @sign.save
+    # false render edit form
 
     flash[:notice] = t(".success")
     redirect_after_update(@sign)
@@ -70,7 +70,7 @@ class SignsController < ApplicationController
   def edit_sign_params
     params
       .require(:sign)
-      .permit(:video, :maori, :secondary, :notes, :word, :topic_id)
+      .permit(:video, :maori, :secondary, :notes, :word, :topic_id, :should_submit_for_publishing)
       .merge(contributor: current_user)
   end
 

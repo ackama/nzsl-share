@@ -1,6 +1,6 @@
 
 <div class="grid-x grid-margin-x content-container">
-  <%= form_with model: @sign, local: true, class: "cell form", method: :patch do |f| %>
+  <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell form", method: :patch do |f| %>
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
 
