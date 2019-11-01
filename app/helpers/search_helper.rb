@@ -1,22 +1,22 @@
 module SearchHelper
   def show_more_params(page)
-    next_page_params(page, word: "ASC")
+    next_page_params(page, params.fetch(:order, Search::DEFAULT_SORT))
   end
 
   def show_asc_params(page)
-    current_page_params(page, word: "ASC")
+    current_page_params(page, :word_asc)
   end
 
   def show_desc_params(page)
-    current_page_params(page, word: "DESC")
+    current_page_params(page, :word_desc)
   end
 
   def published_asc_params(page)
-    current_page_params(page, published: "ASC")
+    current_page_params(page, :published_at_asc)
   end
 
   def published_desc_params(page)
-    current_page_params(page, published: "DESC")
+    current_page_params(page, :published_at_desc)
   end
 
   private
