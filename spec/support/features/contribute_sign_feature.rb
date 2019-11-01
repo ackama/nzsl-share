@@ -30,6 +30,7 @@ class ContributeSignFeature
         $(document).trigger(evt)
       JS
     )
+    wait_for_path
   end
 
   def choose_file(path=default_attachment_path)

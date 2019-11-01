@@ -15,7 +15,6 @@ RSpec.describe "Contributing a new sign", type: :system do
     it "using drag and drop can contribute a valid video file", uses_javascript: true do
       expect do
         subject.drop_file_in_file_upload
-        wait_for_path
       end.to change(subject.user.signs, :count).by(1)
     end
 
