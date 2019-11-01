@@ -8,7 +8,7 @@ class FolderShareController < ApplicationController
     authorize @folder
     @folder.update(share_token: SecureRandom.uuid)
     flash[:notice] = t(".success", share_url: share_url)
-    redirect_to_folders
+    redirect_fallback
   end
 
   def destroy
@@ -16,7 +16,7 @@ class FolderShareController < ApplicationController
     authorize @folder
     @folder.update(share_token: nil)
     flash[:notice] = t(".success")
-    redirect_to_folders
+    redirect_fallback
   end
 
   def show
@@ -39,8 +39,8 @@ class FolderShareController < ApplicationController
     policy_scope(Folder).find_by!(id: folder_id, share_token: share_token)
   end
 
-  def redirect_to_folders
-    redirect_to folders_path
+  def redirect_fallback
+    redirect_back(fallback_location: @folder)
   end
 
   def folder_id
