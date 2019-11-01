@@ -13,7 +13,7 @@
     <div class="cell auto">
       <select name="order" onchange="this.form.submit()">
         <% Search.permitted_sort_keys.each do |key| %>
-          <option value="<%= key %>" selected="<%= params[:order] == key %>">
+          <option <%= "selected" if params[:order].try(:to_sym) == key %> value="<%= key %>">
             <%= t("search.order.#{key}") %>
           </option>
         <% end %>
