@@ -43,6 +43,12 @@ en:
       success: Sign was uploaded successfully. Please provide more information below.
     update:
       success: Sign successfully updated.
+  search:
+    order:
+      word_asc: Alphabetical (A-Z)
+      word_desc: Alphabetical (Z-A)
+      published_at_desc: Most Recent
+      published_at_asc: Least Recent
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   folders:
