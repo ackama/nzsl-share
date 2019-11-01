@@ -27,11 +27,7 @@ class SearchService < ApplicationService
   end
 
   def fetch_results(ids)
-    if published?
-      Sign.search_published_order(ids: ids, direction: search.direction)
-    else
-      Sign.search_default_order(ids: ids, direction: search.direction)
-    end
+    Sign.where(id: ids).order(search_args[:order])
   end
 
   def parse_results(results)
@@ -46,17 +42,10 @@ class SearchService < ApplicationService
     ApplicationRecord.connection.execute(ApplicationRecord.send(:sanitize_sql_array, sql_arr))
   end
 
-  def published?
-    search.order_name == "published"
-  end
-
   def search_args
-    order = if published?
-              "signs.published_at #{search.direction}"
-            else
-              "signs.word #{search.direction}"
-            end
-
-    { order: ApplicationRecord.send(:sanitize_sql_for_order, order), limit: search.page[:limit] }
+    {
+      order: ApplicationRecord.send(:sanitize_sql_for_order, search.order),
+      limit: search.page[:limit]
+    }
   end
 end

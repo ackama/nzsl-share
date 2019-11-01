@@ -3,23 +3,32 @@
 class Search
   include ActiveModel::Model
 
-  DEFAULT_DIRECTION = "ASC"
-  DIRECTION = /\A(asc|desc)\Z/i.freeze
+  DEFAULT_SORT = :word_asc
   PAGE = /\A[0-9]{1,2}\Z/.freeze
   DEFAULT_LIMIT = 16
+  KNOWN_SORTS = {
+    "word_asc": "word ASC",
+    "word_desc": "word DESC",
+    "published_at_desc": "published_at DESC",
+    "published_at_asc": "published_at ASC"
+  }.freeze
 
-  attr_reader :word, :order, :total
+  attr_reader :word, :total
+
+  def self.permitted_sort_keys
+    KNOWN_SORTS.keys
+  end
 
   def word=(value)
     @word = value.to_s.strip[0, 50] # is 50 to much?
   end
 
+  def order
+    @order || KNOWN_SORTS.fetch(DEFAULT_SORT)
+  end
+
   def order=(value)
-    @order = if match_direction(value).present?
-               { fetch_key(value).to_s => match_direction(value).to_s }
-             else
-               {}
-             end
+    @order = KNOWN_SORTS.fetch(value.to_sym)
   end
 
   def total=(value)
@@ -28,10 +37,6 @@ class Search
 
   def page
     @page || build_page(DEFAULT_LIMIT)
-  end
-
-  def direction
-    fetch_value(order) || DEFAULT_DIRECTION
   end
 
   def page=(value)
@@ -44,19 +49,11 @@ class Search
     @page = build_page(limit)
   end
 
-  def order_name
-    fetch_key(order)
-  end
-
   def page_with_total
     page.merge!(total: total)
   end
 
   private
-
-  def match_direction(value)
-    value.values.first.to_s.match(DIRECTION)
-  end
 
   def match_page(value)
     value.to_s.match(PAGE)
