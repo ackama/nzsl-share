@@ -8,7 +8,7 @@ class SignShareController < ApplicationController
     authorize @sign
     @sign.update(share_token: SecureRandom.uuid)
     flash[:notice] = t(".success", share_url: share_url)
-    redirect_to_signs
+    redirect_fallback
   end
 
   def destroy
@@ -16,7 +16,7 @@ class SignShareController < ApplicationController
     authorize @sign
     @sign.update(share_token: nil)
     flash[:notice] = t(".success")
-    redirect_to_signs
+    redirect_fallback
   end
 
   def show
@@ -39,8 +39,8 @@ class SignShareController < ApplicationController
     policy_scope(Sign).find_by!(id: sign_id, share_token: share_token)
   end
 
-  def redirect_to_signs
-    redirect_to "#{signs_path}/#{sign_id}"
+  def redirect_fallback
+    redirect_back(fallback_location: @sign)
   end
 
   def sign_id
