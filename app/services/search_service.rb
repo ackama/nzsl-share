@@ -7,7 +7,7 @@ class SearchService < ApplicationService
 
   def initialize(params)
     @search = params[:search]
-    @results = ApplicationService.new_results
+    @results = new_results
   end
 
   def process
@@ -17,6 +17,10 @@ class SearchService < ApplicationService
   end
 
   private
+
+  def new_results
+    SearchResults.new
+  end
 
   def build_results
     word = search.word.parameterize(separator: "")
