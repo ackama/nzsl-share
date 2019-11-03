@@ -5,10 +5,8 @@
     <hr class="form__divider"/>
 
     <div class="row align-middle small-12 js-sign-video-container">
-      <video <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>">
-        <%= @sign.sign_video_sourceset %>
-      </video>
-      <b class="small-6 medium-4 "><%=@sign.word %></b>
+      <div class="small-12 medium-6"><%= render "signs/card/video", sign: @sign %></div>
+      <b class="small-12 medium-6"><%=@sign.word %></b>
     </div>
 
     <fieldset class="content-container">

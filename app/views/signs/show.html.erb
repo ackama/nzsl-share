@@ -14,9 +14,7 @@
 <div class="grid-x grid-margin-x">
   <div class="cell sign-card small-12 large-10 sign-card--borderless">
     <div class="sign-card__media">
-      <video <%= @sign.sign_video_attributes %> poster="<%= @sign.poster_url %>" class="sign-card__media--video">
-        <%= @sign.sign_video_sourceset %>
-      </video>
+      <%= render "signs/card/video", sign: @sign %>
     </div>
     <div class="sign-card__section">
       <h2 class="primary"><%= @sign.word %></h2>

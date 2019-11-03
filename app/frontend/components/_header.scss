@@ -3,7 +3,9 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+
+  // An impossibly (?) large value so the header is always on top
+  z-index: 10000;
 
   &__bar {
     @extend .title-bar;

@@ -31,7 +31,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the embedded media" do
-    expect(sign_card).to have_selector ".sign-card__media > iframe[src^='https://player.vimeo.com']"
+    expect(sign_card).to have_selector ".sign-card__media > .sign-video-wrapper > video.sign-video"
   end
 
   describe "Adding & removing from folders with JS", uses_javascript: true do
