@@ -1,0 +1,9 @@
+$sign-card-width: rem-calc(258);
+
+.sign-grid {
+  display: grid;
+
+  // Sass-lint doesn't know about the 'gap' property?
+  gap: 1rem; // sass-lint:disable-line no-misspelled-properties
+  grid-template-columns: repeat(auto-fill, $sign-card-width);
+}
