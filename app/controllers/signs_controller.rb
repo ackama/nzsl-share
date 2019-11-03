@@ -40,10 +40,10 @@ class SignsController < ApplicationController
     render
   end
 
-  def update # rubocop:disable Metrics/AbcSize
+  def update
     @sign = present(my_signs.find(id))
     @sign.assign_attributes(edit_sign_params)
-    set_signs_submitted_state if params["should_submit_for_publishing"]
+    set_signs_submitted_state
     authorize @sign
     return render(:edit) unless @sign.save
 
@@ -80,6 +80,8 @@ class SignsController < ApplicationController
   end
 
   def set_signs_submitted_state
+    return unless params["should_submit_for_publishing"]
+
     submit = params[:should_submit_for_publishing] == "true"
     submit ? @sign.submit_for_publishing! : @sign.set_sign_to_personal!
   end
