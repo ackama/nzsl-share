@@ -7,28 +7,29 @@ class SignShareController < ApplicationController
     @sign = fetch_sign
     authorize @sign
     @sign.update(share_token: SecureRandom.uuid)
-    flash[:notice] = t(".success", share_url: share_url)
-    redirect_fallback
+
+    redirect_back(fallback_location: @sign, notice: t(".success", share_url: share_url))
   end
 
   def destroy
     @sign = fetch_sign_by_token
     authorize @sign
     @sign.update(share_token: nil)
-    flash[:notice] = t(".success")
-    redirect_fallback
+
+    redirect_back(fallback_location: @sign, notice: t(".success"))
   end
 
   def show
     @sign = present(fetch_sign_by_token)
     authorize @sign
+
     render "signs/show"
   end
 
   private
 
   def share_url
-    "#{request.original_url}/#{@sign.share_token}"
+    sign_share_url(@sign, @sign.share_token)
   end
 
   def fetch_sign
@@ -39,15 +40,11 @@ class SignShareController < ApplicationController
     policy_scope(Sign).find_by!(id: sign_id, share_token: share_token)
   end
 
-  def redirect_fallback
-    redirect_back(fallback_location: @sign)
-  end
-
   def sign_id
     params[:sign_id]
   end
 
   def share_token
-    params[:id]
+    params[:token]
   end
 end
