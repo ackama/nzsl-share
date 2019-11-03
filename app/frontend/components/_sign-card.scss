@@ -1,5 +1,6 @@
 .sign-card {
   @include card-container;
+  margin-bottom: 0;
   min-height: rem-calc(334);
   overflow: visible;
   position: relative;
@@ -83,6 +84,17 @@
     border-top-left-radius: $global-radius * 2;
     border-top-right-radius: $global-radius * 2;
     margin-bottom: 0;
+
+    // See responsive-embed - we need to target the
+    // sign video wrapper seperately from video, embed, iframe
+    // etc.
+    .sign-video-wrapper {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
 
     video {
       &[poster] {

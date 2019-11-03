@@ -5,8 +5,7 @@
 
   // Required to avoid avatar elements inside menus getting scaled by
   // .menu li > img
-  //sass-lint:disable-next-line no-important
-  transform: none !important;
+  transform: none !important; //sass-lint:disable-line no-important
 
   &--small {
     height: 32px;

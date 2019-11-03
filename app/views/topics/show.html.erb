@@ -11,9 +11,9 @@
 
   <div class="grid-x cell">
     <h1><%= @topic.name %></h1>
-    <div class="grid-x grid-margin-x cell">
+    <div class="sign-grid cell">
       <% @topic.signs.for_cards.each do |sign| %>
-        <div class="cell shrink"><%= render "signs/card", sign: sign %></div>
+        <%= render "signs/card", sign: sign %>
       <% end %>
     </div>
   </div>
