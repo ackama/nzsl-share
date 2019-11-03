@@ -36,6 +36,13 @@
       <%= f.label :notes, "Notes (e.g. where have you seen the sign used?):" %>
       <%= f.text_area :notes, rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
     </fieldset>
+    <h2 class="">Public</h2>
+    <hr class="form__divider"/>
+      <%= label :should_submit_for_publishing, "Do you want your sign to be public? Your sign will go through a validation process wit hour NZSL Share moderators before it is published." %>
+      <%= radio_button :should_submit_for_publishing, true, :checked => sign.sign_submitted_to_publish %>
+        <%= f.label :should_submit_for_publishing_true, "Yes, request my sign be public" %>
+      <%= f.radio_button :should_submit_for_publishing, false, :checked => !sign.sign_submitted_to_publish %>
+        <%= f.label :should_submit_for_publishing_false, "No, keep my sign private" %>
     <div class="grid-x align-right form__buttons">
       <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
       <%= f.submit class: "button royal primary" %>
