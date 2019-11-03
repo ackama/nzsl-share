@@ -23,8 +23,8 @@ class SearchService < ApplicationService
   end
 
   def build_results
-    word = search.word.parameterize(separator: "")
-    sql_arr = [SQL::Search.search(search_args), "^#{word}", ".#{word}", "^#{word}", ".#{word}"]
+    term = search.term.parameterize(separator: "")
+    sql_arr = [SQL::Search.search(search_args), "^#{term}", ".#{term}", "^#{term}", ".#{term}"]
     results = parse_results(exec_query(sql_arr).first)
     search.total = results[0]
     fetch_results(results[1])

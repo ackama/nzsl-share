@@ -13,14 +13,14 @@ class Search
     "published_at_asc": "published_at ASC"
   }.freeze
 
-  attr_reader :word, :total
+  attr_reader :term, :total
 
   def self.permitted_sort_keys
     KNOWN_SORTS.keys
   end
 
-  def word=(value)
-    @word = value.to_s.strip[0, 50] # is 50 to much?
+  def term=(value)
+    @term = value.to_s.strip[0, 50] # is 50 to much?
   end
 
   def order
@@ -77,7 +77,7 @@ class Search
       current_page: page,
       next_page: page + 1,
       limit: limit,
-      word: word
+      term: term
     }
   end
 end
