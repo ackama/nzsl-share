@@ -29,11 +29,9 @@
       </div>
   </div>
   <hr class="list__divider"/>
-  <div class="list__items cell grid-x">
+  <div class="list__items cell sign-grid">
     <% @folder.signs.each do |sign| %>
-    <div class="">
       <%= render "signs/card", sign: sign %>
-    </div>
     <% end %>
   </div>
   <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>

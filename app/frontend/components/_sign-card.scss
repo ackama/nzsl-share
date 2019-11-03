@@ -1,5 +1,6 @@
 .sign-card {
   @include card-container;
+  margin-bottom: 0;
   min-height: rem-calc(334);
   overflow: visible;
   position: relative;
