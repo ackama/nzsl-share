@@ -9,12 +9,12 @@ Rails.application.routes.draw do
   resources :search, only: [:index]
   resources :signs, only: %i[show new create edit update] do
     resources :videos, param: :preset, only: :show, controller: :sign_video
-    resources :share, only: %i[show create destroy], controller: :sign_share
+    resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
   end
   resources :topics, only: %i[index show]
 
   resources :folders do
-    resources :share, only: %i[show create destroy], controller: :folder_share
+    resources :share, only: %i[show create destroy], controller: :folder_share, param: :token
   end
 
   resources :folder_memberships, only: %i[create destroy]
