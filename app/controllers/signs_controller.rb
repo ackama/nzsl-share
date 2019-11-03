@@ -34,17 +34,18 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = EditSignForm.new present(my_signs.find(params[:id]))
-    fail Pundit::NotAuthorizedError unless SignPolicy.new(current_user, @sign).edit?
+    @sign = present(my_signs.find(params[:id]))
+    authorize @sign
 
-    render :edit
+    render
   end
 
-  def update
-    @sign = EditSignForm.new present(my_signs.find(id)), edit_sign_params
-    authorize @sign.html.rb
-    @sign.save
-    # false render edit form
+  def update # rubocop:disable Metrics/AbcSize
+    @sign = present(my_signs.find(id))
+    @sign.assign_attributes(edit_sign_params)
+    set_signs_submitted_state if params["should_submit_for_publishing"]
+    authorize @sign
+    return render(:edit) unless @sign.save
 
     flash[:notice] = t(".success")
     redirect_after_update(@sign)
@@ -70,12 +71,19 @@ class SignsController < ApplicationController
   def edit_sign_params
     params
       .require(:sign)
-      .permit(:video, :maori, :secondary, :notes, :word, :topic_id, :should_submit_for_publishing)
+      .permit(:video, :maori, :secondary, :notes, :word, :topic_id)
       .merge(contributor: current_user)
   end
 
   def id
     params[:id]
+  end
+
+  def set_signs_submitted_state
+    if params["should_submit_for_publishing"] == "true" && !@sign.sign_submitted_to_publish?
+      @sign.submit_for_publishing!
+    end
+    @sign.set_sign_to_personal! if params["should_submit_for_publishing"] == "false" && !@sign.personal?
   end
 
   def redirect_after_update(sign)
