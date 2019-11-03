@@ -48,13 +48,10 @@ RSpec.describe "share_sign", type: :request do
         expect(response).to redirect_to "#{signs_path}/#{allowed_sign.id}"
       end
 
-      # NOTE: could be a data issue or nil values in the sign_presenter
-      # disable this expecation until we can fix the issue
-      xit "shows" do
+      it "shows" do
         create.call(allowed_sign.id)
         expect(allowed_sign.reload.share_token).to be_truthy
         show.call(allowed_sign.id, allowed_sign.share_token)
-        expect(allowed_sign.reload.share_token).to be_truthy
         expect(response).to be_successful
       end
     end
