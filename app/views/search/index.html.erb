@@ -22,15 +22,8 @@
   <% end %>
 </div>
 
- <% unless @signs.any? && @page[:total] <= @page[:limit] %>
-  <div class="cell auto">
-    <%=
-      button_to "Show More",
-      search_index_path,
-      method: :get,
-      params: show_more_params(@page),
-      class: "button primary",
-      form_class: "text-center margin-2"
-    %>
+ <% if @signs.any? && @page[:total] >= @page[:limit] %>
+  <div class="cell auto text-center margin-2">
+    <%= link_to "Show More", params.to_unsafe_h.merge(page: @page[:next_page], anchor: dom_id(@signs.last, :card)), class: "button primary" %>
   </div>
 <% end %>
