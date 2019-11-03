@@ -9,6 +9,30 @@ class ContributeSignFeature
     click_on "Add a sign"
   end
 
+  def drop_file_in_file_upload
+    page.driver.execute_script(
+      <<-JS
+        dt = new DataTransfer();
+        evt = jQuery.Event('drop', {
+          preventDefault: function () {},
+          stopPropagation: function () {},
+          originalEvent: {
+            dataTransfer: dt,
+          }
+        })
+        dt.items.add(
+          new File(
+            ['foo'],
+            'filenamme',
+            {type: "video/mp4"}
+          )
+        )
+        $(document).trigger(evt)
+      JS
+    )
+    wait_for_path
+  end
+
   def choose_file(path=default_attachment_path)
     page.attach_file("Browse files", path)
   end
