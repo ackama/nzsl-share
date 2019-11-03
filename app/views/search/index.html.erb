@@ -1,4 +1,4 @@
-<div class="grid-x grid-margin-x margin-2">
+<div class="grid-x sign-grid__header">
   <div class="cell small-8">
     <h2 class="normal">
       <%= pluralize(@page[:total], "result") %>
@@ -12,9 +12,6 @@
   </div>
 </div>
 
-<div class="grid-x grid-margin-x">
-  <hr class=" cell auto">
-</div>
 
 <div class="cell auto grid-x sign-grid">
   <% @signs.each do |sign| %>
