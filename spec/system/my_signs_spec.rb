@@ -1,0 +1,31 @@
+require "rails_helper"
+
+RSpec.describe "My Signs", type: :system do
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:signs) { FactoryBot.create_list(:sign, 5, contributor: user) }
+  let!(:unowned_sign) { FactoryBot.create(:sign) }
+  let(:auth) { AuthenticateFeature.new(user) }
+
+  before do
+    auth.sign_in
+    click_on "My signs"
+  end
+
+  describe "header" do
+    it "is titled" do
+      expect(page).to have_selector "h1", text: "My signs"
+    end
+  end
+
+  describe "signs" do
+    it "includes the expected signs" do
+      signs.each do |sign|
+        expect(page).to have_selector ".sign-card .sign-card__title", text: sign.word
+      end
+    end
+
+    it "doesn't include unexpected signs" do
+      expect(page).not_to have_selector ".sign-card .sign-card__title", text: unowned_sign.word
+    end
+  end
+end
