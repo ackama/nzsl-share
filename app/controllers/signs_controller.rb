@@ -80,8 +80,8 @@ class SignsController < ApplicationController
   end
 
   def set_signs_submitted_state
-    @sign.submit_for_publishing! if params["should_submit_for_publishing"] == "true" && !@sign.submitted_to_publish?
-    @sign.set_sign_to_personal! if params["should_submit_for_publishing"] == "false" && !@sign.personal?
+    submit = params[:should_submit_for_publishing] == "true"
+    submit ? @sign.submit_for_publishing! : @sign.set_sign_to_personal!
   end
 
   def redirect_after_update(sign)
