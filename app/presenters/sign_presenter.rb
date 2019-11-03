@@ -18,7 +18,7 @@ class SignPresenter < ApplicationPresenter
     sign.processed_thumbnails? && sign.processed_videos?
   end
 
-  def sign_submitted_to_publish?
+  def submitted_to_publish?
     sign.submitted? || sign.published? || sign.declined?
   end
 

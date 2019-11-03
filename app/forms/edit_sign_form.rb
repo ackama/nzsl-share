@@ -14,7 +14,7 @@ class EditSignForm
   end
 
   def should_submit_for_publishing
-    @should_submit_for_publishing || sign_submitted_to_publish
+    @should_submit_for_publishing || submitted_to_publish
   end
 
   def save
@@ -32,7 +32,7 @@ class EditSignForm
     @sign ||= Sign.new
   end
 
-  def sign_submitted_to_publish
+  def submitted_to_publish
     sign.submitted? || sign.published? || sign.declined?
   end
 end

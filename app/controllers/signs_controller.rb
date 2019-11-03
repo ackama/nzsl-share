@@ -80,9 +80,7 @@ class SignsController < ApplicationController
   end
 
   def set_signs_submitted_state
-    if params["should_submit_for_publishing"] == "true" && !@sign.sign_submitted_to_publish?
-      @sign.submit_for_publishing!
-    end
+    @sign.submit_for_publishing! if params["should_submit_for_publishing"] == "true" && !@sign.submitted_to_publish?
     @sign.set_sign_to_personal! if params["should_submit_for_publishing"] == "false" && !@sign.personal?
   end
 
