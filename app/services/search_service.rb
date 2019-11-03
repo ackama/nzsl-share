@@ -31,7 +31,7 @@ class SearchService < ApplicationService
   end
 
   def fetch_results(ids)
-    Sign.where(id: ids).order(search_args[:order])
+    Sign.for_cards.where(id: ids).order(search_args[:order])
   end
 
   def parse_results(results)
