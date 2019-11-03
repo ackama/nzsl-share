@@ -20,7 +20,7 @@ class SignShareController < ApplicationController
   end
 
   def show
-    @sign = fetch_sign_by_token
+    @sign = present(fetch_sign_by_token)
     authorize @sign
     render "signs/show"
   end
