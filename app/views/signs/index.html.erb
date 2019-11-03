@@ -1,5 +1,10 @@
-<h1>My signs</h1>
+<div class="sign-grid__header">
+  <h1>My signs</h1>
+  <p>Signs you have contributed.</p>
+</div>
 
-<% @signs.each do |sign| %>
-  <%= render "card", sign: sign %>
-<% end %>
+<div class="sign-grid">
+  <% @signs.each do |sign| %>
+    <%= render "card", sign: sign %>
+  <% end %>
+</div>
