@@ -48,7 +48,7 @@ class SearchService < ApplicationService
 
   def search_args
     {
-      order: ApplicationRecord.send(:sanitize_sql_for_order, search.order),
+      order: search.order_clause,
       limit: search.page[:limit]
     }
   end
