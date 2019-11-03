@@ -42,7 +42,7 @@ class Sign < ApplicationRecord
   def disagree_count; 0; end
   def tags; []; end
 
-  aasm do
+  aasm whiny_transitions: false do
     state :personal, initial: true
     state :submitted, before_enter: :set_submitted_at
     state :published, before_enter: :set_published_at
