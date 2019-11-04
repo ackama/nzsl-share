@@ -13,51 +13,51 @@ RSpec.describe SearchService, type: :service do
         end
       end
 
-      it "returns result(s) given a word fragment" do
-        expect(SearchService.call(search: Search.new(word: "a")).data.count).to eq 7
-        expect(SearchService.call(search: Search.new(word: "ap")).data.count).to eq 2
-        expect(SearchService.call(search: Search.new(word: "app")).data.count).to eq 1
-        expect(SearchService.call(search: Search.new(word: "appl")).data.count).to eq 1
+      it "returns result(s) given a term fragment" do
+        expect(SearchService.call(search: Search.new(term: "a")).data.count).to eq 7
+        expect(SearchService.call(search: Search.new(term: "ap")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(term: "app")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(term: "appl")).data.count).to eq 1
 
-        expect(SearchService.call(search: Search.new(word: "p")).data.count).to eq 6
-        expect(SearchService.call(search: Search.new(word: "pp")).data.count).to eq 1
-        expect(SearchService.call(search: Search.new(word: "ppl")).data.count).to eq 1
-        expect(SearchService.call(search: Search.new(word: "pple")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(term: "p")).data.count).to eq 6
+        expect(SearchService.call(search: Search.new(term: "pp")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(term: "ppl")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(term: "pple")).data.count).to eq 1
 
-        expect(SearchService.call(search: Search.new(word: "p")).data.count).to eq 6
-        expect(SearchService.call(search: Search.new(word: "pl")).data.count).to eq 1
-        expect(SearchService.call(search: Search.new(word: "ple")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(term: "p")).data.count).to eq 6
+        expect(SearchService.call(search: Search.new(term: "pl")).data.count).to eq 1
+        expect(SearchService.call(search: Search.new(term: "ple")).data.count).to eq 1
 
-        expect(SearchService.call(search: Search.new(word: "l")).data.count).to eq 7
-        expect(SearchService.call(search: Search.new(word: "le")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(term: "l")).data.count).to eq 7
+        expect(SearchService.call(search: Search.new(term: "le")).data.count).to eq 2
 
-        expect(SearchService.call(search: Search.new(word: "e")).data.count).to eq 7
+        expect(SearchService.call(search: Search.new(term: "e")).data.count).to eq 7
       end
 
-      it "returns result(s) given a complete word" do
-        expect(SearchService.call(search: Search.new(word: "pie")).data.count).to eq 3
-        expect(SearchService.call(search: Search.new(word: "america")).data.count).to eq 3
-        expect(SearchService.call(search: Search.new(word: "risotto")).data.count).to eq 2
-        expect(SearchService.call(search: Search.new(word: "england")).data.count).to eq 2
-        expect(SearchService.call(search: Search.new(word: "soup")).data.count).to eq 2
-        expect(SearchService.call(search: Search.new(word: "cream")).data.count).to eq 2
-        expect(SearchService.call(search: Search.new(word: "apple")).data.count).to eq 1
+      it "returns result(s) given a complete term" do
+        expect(SearchService.call(search: Search.new(term: "pie")).data.count).to eq 3
+        expect(SearchService.call(search: Search.new(term: "america")).data.count).to eq 3
+        expect(SearchService.call(search: Search.new(term: "risotto")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(term: "england")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(term: "soup")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(term: "cream")).data.count).to eq 2
+        expect(SearchService.call(search: Search.new(term: "apple")).data.count).to eq 1
       end
 
-      it "returns an exact match first given a complete word" do
-        expect(SearchService.call(search: Search.new(word: "apple"))
+      it "returns an exact match first given a complete term" do
+        expect(SearchService.call(search: Search.new(term: "apple"))
            .data.pluck(:word, :secondary).flatten.to_s.include?("apple")).to be true
-        expect(SearchService.call(search: Search.new(word: "pie"))
+        expect(SearchService.call(search: Search.new(term: "pie"))
           .data.pluck(:word, :secondary).flatten.to_s.include?("pie")).to be true
-        expect(SearchService.call(search: Search.new(word: "banana"))
+        expect(SearchService.call(search: Search.new(term: "banana"))
           .data.pluck(:word, :secondary).flatten.to_s.include?("banana")).to be true
-        expect(SearchService.call(search: Search.new(word: "england"))
+        expect(SearchService.call(search: Search.new(term: "england"))
           .data.pluck(:word, :secondary).flatten.to_s.include?("england")).to be true
-        expect(SearchService.call(search: Search.new(word: "cream"))
+        expect(SearchService.call(search: Search.new(term: "cream"))
           .data.pluck(:word, :secondary).flatten.to_s.include?("cream")).to be true
-        expect(SearchService.call(search: Search.new(word: "risotto"))
+        expect(SearchService.call(search: Search.new(term: "risotto"))
           .data.pluck(:word, :secondary).flatten.to_s.include?("risotto")).to be true
-        expect(SearchService.call(search: Search.new(word: "blueberry"))
+        expect(SearchService.call(search: Search.new(term: "blueberry"))
           .data.pluck(:word, :secondary).flatten.to_s.include?("blueberry")).to be true
       end
     end
@@ -70,17 +70,17 @@ RSpec.describe SearchService, type: :service do
       end
 
       it "return result(s) regardless of macron" do
-        expect(SearchService.call(search: Search.new(word: "āporo")).data.first["maori"]).to eq("āporo")
-        expect(SearchService.call(search: Search.new(word: "aporo")).data.first["maori"]).to eq("āporo")
+        expect(SearchService.call(search: Search.new(term: "āporo")).data.first["maori"]).to eq("āporo")
+        expect(SearchService.call(search: Search.new(term: "aporo")).data.first["maori"]).to eq("āporo")
 
-        expect(SearchService.call(search: Search.new(word: "rahopūru")).data.first["maori"]).to eq("rahopūru")
-        expect(SearchService.call(search: Search.new(word: "rahopuru")).data.first["maori"]).to eq("rahopūru")
+        expect(SearchService.call(search: Search.new(term: "rahopūru")).data.first["maori"]).to eq("rahopūru")
+        expect(SearchService.call(search: Search.new(term: "rahopuru")).data.first["maori"]).to eq("rahopūru")
 
-        expect(SearchService.call(search: Search.new(word: "pīti")).data.first["maori"]).to eq("pīti")
-        expect(SearchService.call(search: Search.new(word: "piti")).data.first["maori"]).to eq("pīti")
+        expect(SearchService.call(search: Search.new(term: "pīti")).data.first["maori"]).to eq("pīti")
+        expect(SearchService.call(search: Search.new(term: "piti")).data.first["maori"]).to eq("pīti")
 
-        expect(SearchService.call(search: Search.new(word: "parāoa")).data.first["maori"]).to eq("kihu parāoa")
-        expect(SearchService.call(search: Search.new(word: "paraoa")).data.first["maori"]).to eq("kihu parāoa")
+        expect(SearchService.call(search: Search.new(term: "parāoa")).data.first["maori"]).to eq("kihu parāoa")
+        expect(SearchService.call(search: Search.new(term: "paraoa")).data.first["maori"]).to eq("kihu parāoa")
       end
     end
 
@@ -93,34 +93,34 @@ RSpec.describe SearchService, type: :service do
         end
 
         it "returns result(s) total" do
-          rs1 = SearchService.call(search: Search.new(word: "a"))
+          rs1 = SearchService.call(search: Search.new(term: "a"))
           expect(rs1.data.count).to eq rs1.support[:total]
 
-          rs2 = SearchService.call(search: Search.new(word: "ap"))
+          rs2 = SearchService.call(search: Search.new(term: "ap"))
           expect(rs2.data.count).to eq rs2.support[:total]
 
-          rs3 = SearchService.call(search: Search.new(word: "app"))
+          rs3 = SearchService.call(search: Search.new(term: "app"))
           expect(rs3.data.count).to eq rs3.support[:total]
 
-          rs4 = SearchService.call(search: Search.new(word: "p"))
+          rs4 = SearchService.call(search: Search.new(term: "p"))
           expect(rs4.data.count).to eq rs4.support[:total]
 
-          rs5 = SearchService.call(search: Search.new(word: "pp"))
+          rs5 = SearchService.call(search: Search.new(term: "pp"))
           expect(rs5.data.count).to eq rs5.support[:total]
 
-          rs6 = SearchService.call(search: Search.new(word: "l"))
+          rs6 = SearchService.call(search: Search.new(term: "l"))
           expect(rs6.data.count).to eq rs6.support[:total]
 
-          rs7 = SearchService.call(search: Search.new(word: "le"))
+          rs7 = SearchService.call(search: Search.new(term: "le"))
           expect(rs7.data.count).to eq rs7.support[:total]
 
-          rs8 = SearchService.call(search: Search.new(word: "e"))
+          rs8 = SearchService.call(search: Search.new(term: "e"))
           expect(rs8.data.count).to eq rs8.support[:total]
 
-          rs9 = SearchService.call(search: Search.new(word: "123"))
+          rs9 = SearchService.call(search: Search.new(term: "123"))
           expect(rs9.data.count).to eq rs9.support[:total]
 
-          rs10 = SearchService.call(search: Search.new(word: "#$%"))
+          rs10 = SearchService.call(search: Search.new(term: "#$%"))
           expect(rs10.data.count).to eq rs10.support[:total]
         end
       end
@@ -133,58 +133,65 @@ RSpec.describe SearchService, type: :service do
         end
 
         it "returns page default limit and result(s) total" do
-          rs1 = SearchService.call(search: Search.new(word: "ch"))
+          rs1 = SearchService.call(search: Search.new(term: "ch"))
           expect(rs1.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs1.support[:total]).to eq 20
 
-          rs2 = SearchService.call(search: Search.new(word: "oco"))
+          rs2 = SearchService.call(search: Search.new(term: "oco"))
           expect(rs2.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs2.support[:total]).to eq 20
 
-          rs3 = SearchService.call(search: Search.new(word: "choc"))
+          rs3 = SearchService.call(search: Search.new(term: "choc"))
           expect(rs3.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs3.support[:total]).to eq 20
 
-          rs4 = SearchService.call(search: Search.new(word: "a"))
+          rs4 = SearchService.call(search: Search.new(term: "a"))
           expect(rs4.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs4.support[:total]).to eq 20
 
-          rs5 = SearchService.call(search: Search.new(word: "chocolate"))
+          rs5 = SearchService.call(search: Search.new(term: "chocolate"))
           expect(rs5.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs5.support[:total]).to eq 20
 
-          rs6 = SearchService.call(search: Search.new(word: "ate"))
+          rs6 = SearchService.call(search: Search.new(term: "ate"))
           expect(rs6.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs6.support[:total]).to eq 20
         end
       end
     end
 
-    context "published date" do
+    describe "sorting" do
       before(:each) do
         Refined::Search::Signs.default.each do |sign_attrs|
           FactoryBot.create(:sign, :published, sign_attrs)
         end
       end
 
-      it "orders ascending" do
-        rs1 = SearchService.call(search: Search.new(word: "a", order: { published: "ASC" }))
-                           .data.map { |hsh| hsh["published_at"] }
+      context "by recent" do
+        example "be in the expected order" do
+          publish_dates = SearchService.call(search: Search.new(term: "a", sort: "recent"))
+                                       .data.map { |hsh| hsh["published_at"] }
 
-        rs2 = SearchService.call(search: Search.new(word: "a", order: { published: "DESC" }))
-                           .data.map { |hsh| hsh["published_at"] }.sort
-
-        expect(rs1 == rs2).to be true
+          expect(publish_dates.sort.reverse).to eq publish_dates
+        end
       end
 
-      it "orders descending" do
-        rs1 = SearchService.call(search: Search.new(word: "a", order: { published: "DESC" }))
-                           .data.map { |hsh| hsh["published_at"] }
+      context "alphabetically ascending" do
+        example "be in the expected order" do
+          words = SearchService.call(search: Search.new(term: "a", sort: "alpha_asc"))
+                               .data.map { |hsh| hsh["word"] }
 
-        rs2 = SearchService.call(search: Search.new(word: "a", order: { published: "ASC" }))
-                           .data.map { |hsh| hsh["published_at"] }.sort.reverse
+          expect(words.sort).to eq words
+        end
+      end
 
-        expect(rs1 == rs2).to be true
+      context "alphabetically descending" do
+        example "be in the expected order" do
+          words = SearchService.call(search: Search.new(term: "a", sort: "alpha_desc"))
+                               .data.map { |hsh| hsh["word"] }
+
+          expect(words.sort.reverse).to eq words
+        end
       end
     end
   end
