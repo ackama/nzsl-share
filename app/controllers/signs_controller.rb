@@ -34,7 +34,7 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = my_signs.find(params[:id])
+    @sign = my_signs.find(id)
     authorize @sign
 
     render
@@ -49,6 +49,14 @@ class SignsController < ApplicationController
 
     flash[:notice] = t(".success")
     redirect_after_update(@sign)
+  end
+
+  def destroy
+    @sign = my_signs.find(id)
+    authorize @sign
+    @sign.destroy
+
+    redirect_to user_signs_path, notice: t(".success", sign_name: @sign.word)
   end
 
   private

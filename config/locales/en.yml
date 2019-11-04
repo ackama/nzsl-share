@@ -43,6 +43,10 @@ en:
       success: Sign was uploaded successfully. Please provide more information below.
     update:
       success: Sign successfully updated.
+    destroy:
+      link: "Remove from NZSL Share"
+      confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."
+      success: Your sign, '%{sign_name}' has been removed from NZSL Share
   search:
     sort_by:
       alpha_asc: Alphabetical (A-Z)
