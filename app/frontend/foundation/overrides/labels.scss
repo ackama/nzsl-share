@@ -1,0 +1,7 @@
+label {
+  &.inline {
+    @extend .middle;
+    line-height: 2; // Match form input
+    padding-right: 1rem;
+  }
+}
