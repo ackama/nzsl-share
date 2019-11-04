@@ -50,6 +50,14 @@ class SignsController < ApplicationController
     redirect_after_update(@sign)
   end
 
+  def destroy
+    @sign = my_signs.find(id)
+    authorize @sign
+    @sign.destroy
+
+    redirect_to user_signs_path, notice: t(".success", sign_name: @sign.word)
+  end
+
   private
 
   def my_signs
