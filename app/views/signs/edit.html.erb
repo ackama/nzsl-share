@@ -34,9 +34,20 @@
       <%= f.label :notes, "Notes (e.g. where have you seen the sign used?):" %>
       <%= f.text_area :notes, rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
     </fieldset>
-    <div class="grid-x align-right form__buttons">
-      <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
-      <%= f.submit class: "button royal primary" %>
+
+    <div class="grid-x form__buttons align-justify">
+      <div class="pull-left">
+        <%= link_to t("signs.destroy.link"),
+                    sign_path(@sign),
+                    method: :delete,
+                    data: { confirm: t("signs.destroy.confirm") },
+                    class: "button alert" %>
+      </div>
+
+      <div class="pull-right">
+        <%= link_to "Cancel", sign_path(@sign), class: "button clear form__buttons--cancel" %>
+        <%= f.submit class: "button royal primary" %>
+      </div>
     </div>
   <% end %>
 </div>
