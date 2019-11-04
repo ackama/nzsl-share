@@ -1,6 +1,6 @@
-
+<% @sign = present(@sign) %>
 <div class="grid-x grid-margin-x content-container">
-  <%= form_with model: @sign, local: true, class: "cell form", method: :patch do |f| %>
+  <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell form", method: :patch do |f| %>
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
 
@@ -35,6 +35,28 @@
       <%= f.text_area :notes, rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
     </fieldset>
 
+    <br/>
+    <h2 class="">Public</h2>
+    <hr class="form__divider"/>
+    <br/>
+    <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
+      <span>
+        <h3>Do you want your sign to be public?</h3>
+        <p> Your sign will go through a validation process with our NZSL Share moderators before it is published. </p>
+      </span>
+    <% end %>
+    <br/>
+    <fieldset>
+    <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?) %>
+      <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
+    </fieldset>
+    <br/>
+    <fieldset>
+    <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
+      <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
+    </fieldset>
+    <br/>
+    <hr class="form__divider"/>
     <div class="grid-x form__buttons align-justify">
       <div class="pull-left">
         <%= link_to t("signs.destroy.link"),

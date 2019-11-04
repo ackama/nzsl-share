@@ -1,6 +1,6 @@
 <% sign = present(sign) %>
 
-<div class="sign-card">
+<div class="sign-card" id="<%= dom_id(sign, :card) %>">
   <div class="sign-card__media">
     <%= render "signs/card/video", sign: sign %>
   </div>

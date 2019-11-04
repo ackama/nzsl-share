@@ -15,6 +15,6 @@ class SearchController < ApplicationController
   end
 
   def search_params
-    params.permit(:word, :page, order: %i[published word])
+    { term: params.require(:term) }.merge(params.permit(:page, :sort))
   end
 end

@@ -1,50 +1,21 @@
-<button class="button dropdown clear" data-toggle="search-relevance">Sort By</button>
-<div
-  class="dropdown-pane"
-  id="search-relevance"
-  data-position="bottom"
-  data-alignment="left"
-  data-dropdown
-  data-hover="true"
-  data-hover-pane="true"
-  data-h-offset="-30"
-  >
-  <ul role="listbox" class="menu vertical">
-    <li role="option">
-      <%=
-        button_to "Date (newest first)",
-        search_index_path,
-        method: :get,
-        params: published_desc_params(page),
-        class: "button clear medium"
-      %>
-    </li>
-    <li role="option">
-      <%=
-        button_to "Date (oldest first)",
-        search_index_path,
-        method: :get,
-        params: published_asc_params(page),
-        class: "button clear medium"
-      %>
-    </li>
-    <li role="option">
-      <%=
-        button_to "Alphabetical (A-Z)",
-        search_index_path,
-        method: :get,
-        params: show_asc_params(page),
-        class: "button clear medium"
-      %>
-    </li>
-    <li role="option">
-      <%=
-        button_to "Alphabetical (Z-A)",
-        search_index_path,
-        method: :get,
-        params: show_desc_params(page),
-        class: "button clear medium"
-      %>
-    </li>
-  </ul>
-</div>
+<%= form_with method: :get do %>
+  <% params.except(:controller, :action).each do |search_param, value| %>
+    <%= hidden_field_tag search_param, value %>
+  <% end %>
+
+  <div class="grid-x">
+    <div class="cell shrink">
+      <%= label_tag :sort, "Sort by", class: "middle inline" %>
+    </div>
+
+    <div class="cell auto">
+      <select name="sort" onchange="this.form.submit()">
+        <% Search.permitted_sort_keys.each do |key| %>
+          <option <%= "selected" if params[:sort] == key %> value="<%= key %>">
+            <%= t("search.sort_by.#{key}") %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+<% end %>
