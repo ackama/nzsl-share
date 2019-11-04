@@ -62,6 +62,22 @@ $clear-button-palette: (
     }
   }
 
+  &.alert {
+    background: get-color(alert-x-light) !important;
+    color: get-color(alert);
+
+    &:active {
+      background: get-color(alert) !important;
+      color: $button-color;
+    }
+
+    &:hover,
+    &:focus {
+      background: get-color(alert) !important;
+      color: $button-color;
+    }
+  }
+
   &.clear {
     @each $name, $states in $clear-button-palette {
       &.#{$name} {
