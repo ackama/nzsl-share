@@ -44,9 +44,9 @@ class Sign < ApplicationRecord
 
   aasm whiny_transitions: false do
     state :personal, initial: true
-    state :submitted, before_enter: :set_submitted_at
-    state :published, before_enter: :set_published_at
-    state :declined, before_enter: :set_declined_at
+    state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
+    state :published, before_enter: -> { self.published_at = Time.zone.now }
+    state :declined, before_enter: -> { self.declined_at = Time.zone.now }
 
     event :set_sign_to_personal do
       transitions from: %i[submitted declined], to: :personal
@@ -63,19 +63,5 @@ class Sign < ApplicationRecord
     event :decline do
       transitions from: %i[submitted published], to: :declined
     end
-  end
-
-  private
-
-  def set_submitted_at
-    self.submitted_at = Time.zone.now
-  end
-
-  def set_published_at
-    self.published_at = Time.zone.now
-  end
-
-  def set_declined_at
-    self.declined_at = Time.zone.now
   end
 end
