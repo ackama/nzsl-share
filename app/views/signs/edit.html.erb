@@ -1,4 +1,4 @@
-
+<%= @sign = present(@sign) %>
 <div class="grid-x grid-margin-x content-container">
   <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell form", method: :patch do |f| %>
     <h1 class="">Edit sign details</h1>
@@ -51,7 +51,7 @@
     </fieldset>
     <br/>
     <fieldset>
-    <%= radio_button_tag(:should_submit_for_publishing, "false", !!@sign.personal?) %>
+    <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
       <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
     </fieldset>
     <br/>

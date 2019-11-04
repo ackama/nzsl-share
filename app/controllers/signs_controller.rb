@@ -34,14 +34,14 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = present(my_signs.find(params[:id]))
+    @sign = my_signs.find(params[:id])
     authorize @sign
 
     render
   end
 
   def update
-    @sign = present(my_signs.find(id))
+    @sign = my_signs.find(id)
     @sign.assign_attributes(edit_sign_params)
     set_signs_submitted_state
     authorize @sign
