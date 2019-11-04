@@ -34,7 +34,7 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = present(my_signs.find(params[:id]))
+    @sign = present(my_signs.find(id))
     authorize @sign
 
     render
