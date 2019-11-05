@@ -39,7 +39,7 @@ RSpec.describe "Sign show page", system: true do
       let(:user) { sign.contributor }
       it { within(".callout") { expect(sign_page).to have_link "Edit" } }
       it { within(".callout") { expect(sign_page).to have_content "private" } }
-      it { within(".callout") { expect(sign_page).to have_content "Request publication" } }
+      it { within(".callout") { expect(sign_page).to have_link "Request publication" } }
       it {
         within(".callout") do
           title = find("#sign_status")["title"]
