@@ -32,5 +32,25 @@ FactoryBot.define do
       processed_videos { true }
       processed_thumbnails { true }
     end
+
+    trait :personal do
+      aasm_state { "personal" }
+    end
+    trait :submitted do
+      aasm_state { "submitted" }
+      submitted_at { Time.zone.now - 5 }
+    end
+    trait :published do
+      aasm_state { "published" }
+      published_at { Time.zone.now - 5 }
+    end
+    trait :declined do
+      aasm_state { "declined" }
+      declined_at { Time.zone.now - 5 }
+    end
+    trait :deletion_requested do
+      aasm_state { "deletion_requested" }
+      deletion_requsted_at { Time.zone.now - 5 }
+    end
   end
 end
