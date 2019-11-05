@@ -87,6 +87,11 @@ RSpec.describe "Folders", type: :system do
   describe "The folders index page" do
     let!(:folder) { FactoryBot.create(:folder, user: process.user) }
     before { process.start }
+
+    it "has the expected page title" do
+      expect(page).to have_title "My Folders – NZSL Share"
+    end
+
     it "links folder titles to their corresponding show page" do
       click_on folder.title
       expect(page).to have_current_path(folder_path(folder))
