@@ -89,6 +89,8 @@ en:
       success: "To share, copy this link: %{share_url} <br> ! If someone clicks on the link, they will see all signs in the folder (including private signs)."
     destroy:
       success: "Folder is no longer shared."
+    warning:
+      confirm: "If someone clicks on the link created, they will see all signs in the folder (including private signs). Proceed?"
   sign_share:
     create:
       success: "To share, copy this link: %{share_url}"
