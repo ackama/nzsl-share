@@ -21,16 +21,31 @@
 
   &__folders {
     &__button {
+      align-items: center;
       background: $white;
       border-radius: 50%;
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+      display: flex;
       height: 40px;
+      justify-content: center;
       position: relative;
       width: 40px;
+
 
       svg {
         @include icon-fill(royal);
         @include icon-size(mid);
+      }
+
+
+      &--in-folder {
+        &:not(:hover) {
+          background: get-color(success-x-light);
+
+          svg {
+            @include icon-fill(success);
+          }
+        }
       }
 
       &:hover {
