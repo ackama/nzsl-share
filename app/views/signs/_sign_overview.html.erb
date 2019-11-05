@@ -1,6 +1,6 @@
 <div class="callout cell small-12 large-10 grid-x">
   <div class="cell auto">
-    <h3> Hey you are the creator of this sign</h3>
+    <h3> Hey <%= current_user.username %>, you are the creator of this sign</h3>
     <div class="grid-x margin-bottom-0">
       <h6 class="cell shrink subheader">It is</h6>
       <h6 title="<%= t("signs.#{@sign.sign_status}.title") %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%=t("signs.#{@sign.sign_status}.status") %> </h6>
