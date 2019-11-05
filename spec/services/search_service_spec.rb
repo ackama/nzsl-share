@@ -217,6 +217,15 @@ RSpec.describe SearchService, type: :service do
         end
       end
 
+      context "by relevance" do
+        example "be in the expected order" do
+          words = SearchService.call(search: Search.new(term: "ap", sort: "relevant"))
+                               .data.map { |hsh| hsh["word"] }
+
+          expect(words.sort).to eq words
+        end
+      end
+
       context "alphabetically ascending" do
         example "be in the expected order" do
           words = SearchService.call(search: Search.new(term: "a", sort: "alpha_asc"))
