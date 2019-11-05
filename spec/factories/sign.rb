@@ -32,5 +32,25 @@ FactoryBot.define do
       processed_videos { true }
       processed_thumbnails { true }
     end
+
+    trait :personal do
+      status { "personal" }
+    end
+    trait :submitted do
+      status { "submitted" }
+      submitted_at { Time.zone.now - 5 }
+    end
+    trait :published do
+      status { "published" }
+      published_at { Time.zone.now - 5 }
+    end
+    trait :declined do
+      status { "declined" }
+      declined_at { Time.zone.now - 5 }
+    end
+    trait :unpublish_requested do
+      status { "unpublish_requested" }
+      unpublish_requsted_at { Time.zone.now - 5 }
+    end
   end
 end

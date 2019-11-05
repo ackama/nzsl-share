@@ -15,7 +15,11 @@ $icon-palette: map-merge(
   // want, like a containing <rect>
   &,
   & path {
-    fill: $color;
+    @if (map-has-key($icon-palette, $color)) {
+      fill: map-get($icon-palette, $color);
+    } @else {
+      fill: $color;
+    }
   }
 }
 
@@ -25,7 +29,11 @@ $icon-palette: map-merge(
   // want, like a containing <rect>
   &,
   & path {
-    stroke: $color;
+    @if (map-has-key($icon-palette, $color)) {
+      stroke: map-get($icon-palette, $color);
+    } @else {
+      stroke: $color;
+    }
   }
 }
 

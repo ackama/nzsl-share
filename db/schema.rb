@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_214656) do
+ActiveRecord::Schema.define(version: 2019_11_05_032033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,15 +86,16 @@ ActiveRecord::Schema.define(version: 2019_10_31_214656) do
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
     t.string "share_token"
-    t.string "aasm_state", null: false
+    t.string "status", null: false
     t.datetime "submitted_at"
     t.datetime "declined_at"
-    t.index ["aasm_state"], name: "index_signs_on_aasm_state"
+    t.datetime "requested_unpublish_at"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["notes"], name: "index_signs_on_notes"
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["share_token"], name: "index_signs_on_share_token", unique: true
+    t.index ["status"], name: "index_signs_on_status"
     t.index ["topic_id"], name: "index_signs_on_topic_id"
     t.index ["word"], name: "idx_signs_word"
   end

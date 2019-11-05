@@ -1,9 +1,10 @@
 <% sign = present(@membership.sign) %>
 
 <%# Re-render the folders menu for this sign %>
-$("<%= escape_javascript(render 'signs/card/folders-menu', sign: sign) %>")
+$("<%= escape_javascript(render 'signs/card/folders', sign: sign) %>")
   .replaceAll("#<%= sign.dom_id(:folders) %>")
   .foundation()
+  .find(".sign-card__folders__menu")
   .foundation("open");
 
 <%# Update the counter for any other folder menus for this folder on the page %>

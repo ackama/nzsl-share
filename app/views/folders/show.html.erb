@@ -10,13 +10,11 @@
       </li>
     </ul>
   </nav>
-
   <div class="grid-x cell list">
-  <div class="list__title cell grid-x align-middle">
+    <div class="list__title cell grid-x align-middle">
       <div class="cell grid-x align-middle">
         <h1 class="cell auto"><%= @folder.title %></h1>
         <div class="cell shrink grid-x align-middle">
-
           <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear" do %>
             <%= inline_svg "media/images/share.svg", class: "icon icon--royal" %>Share
           <% end %>
@@ -29,14 +27,15 @@
       <div class="list__description cell grid-x align-middle">
         <%= @folder.description %>
       </div>
-  </div>
-  <hr class="list__divider"/>
-  <div class="list__items cell sign-grid">
-    <% @folder.signs.each do |sign| %>
-      <%= render "signs/card", sign: sign %>
-    <% end %>
-  </div>
-  <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>
-    Loading...
+    </div>
+    <hr class="list__divider"/>
+    <div class="list__items cell sign-grid">
+      <% @folder.signs.each do |sign| %>
+        <%= render "signs/card", sign: sign %>
+      <% end %>
+    </div>
+    <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>
+      Loading...
+    </div>
   </div>
 </div>
