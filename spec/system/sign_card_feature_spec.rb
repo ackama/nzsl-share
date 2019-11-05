@@ -50,6 +50,7 @@ RSpec.describe "Sign card features", type: :system do
         inactive_checkbox = page.find_field("membership_folder_#{other_folder.id}_sign_#{sign.id}")
         expect(active_checkbox).to be_checked
         expect(inactive_checkbox).not_to be_checked
+        expect(page).to have_selector ".sign-card__folders__button--in-folder"
       end
     end
 
@@ -120,6 +121,7 @@ RSpec.describe "Sign card features", type: :system do
 
     it "shows existing folder state" do
       inside_card do
+        expect(page).to have_selector ".sign-card__folders__button--in-folder"
         within ".sign-card__folders__menu" do
           expect(page).to have_content folder.title
         end
@@ -154,7 +156,7 @@ RSpec.describe "Sign card features", type: :system do
     it "links the user to sign in page if they are logged out", signed_out: true do
       original_path = current_path
       within ".sign-card__folders" do
-        find("a[href='/users/sign_in']").click
+        click_on("Folders")
       end
       expect(page).to have_current_path(new_user_session_path)
       within "form#new_user" do
