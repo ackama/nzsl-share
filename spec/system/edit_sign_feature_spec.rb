@@ -37,6 +37,19 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject).to have_css ".invalid"
   end
 
+  describe "removing a sign" do
+    before { click_on "Remove from NZSL Share" }
+
+    it { expect { sign.reload }.to raise_error ActiveRecord::RecordNotFound }
+    it { expect(current_path).to eq user_signs_path }
+    it { expect(page).to have_content "Your sign, '#{sign.word}' has been removed from NZSL Share" }
+
+    it "confirms before deleting", uses_javascript: true do
+      confirmation = page.driver.browser.switch_to.alert
+      expect(confirmation.text).to eq I18n.t!("signs.destroy.confirm")
+    end
+  end
+
   describe "video processing", uses_javascript: true do
     subject { page.find(".sign-video") }
 

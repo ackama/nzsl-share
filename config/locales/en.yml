@@ -58,6 +58,10 @@ en:
     deletion-requested:
       status: "deletion requested"
       title: "'deletion requested' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+    destroy:
+      link: "Remove from NZSL Share"
+      confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."
+      success: Your sign, '%{sign_name}' has been removed from NZSL Share
   search:
     sort_by:
       alpha_asc: Alphabetical (A-Z)
