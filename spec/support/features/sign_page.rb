@@ -12,6 +12,6 @@ class SignPage
   end
 
   def video_player
-    find(".sign-card__media > video")
+    find(".sign-card__media > .sign-video-wrapper > video.sign-video")
   end
 end
