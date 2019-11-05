@@ -1,0 +1,31 @@
+.banner {
+  background-color: get-color(primary-light);
+  border-radius: 0 0 58px 0;
+  left: 0;
+  margin-right: 2rem;
+  min-height: 360px;
+  padding: 0 rem-calc(132);
+  position: absolute;
+
+  &__play-icon {
+    background: get-color(light);
+  }
+
+  &__text {
+    margin-bottom: 0;
+  }
+
+  &__divider {
+    background-color: get-color(accent);
+    border: 0;
+    clear: both;
+    display: block;
+    height: 8px;
+    margin: 2rem 0;
+    width: 80px;
+  }
+
+  &__container {
+    padding: rem-calc(64) 0 rem-calc(32) 2rem;
+  }
+}
