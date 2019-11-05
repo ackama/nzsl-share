@@ -1,0 +1,22 @@
+<div class="grid-x grid-margin-x margin-bottom-1">
+  <div class="callout cell small-12 large-10 grid-x">
+    <div class="cell auto">
+      <h3> Hey <%= current_user.username %>, you are the creator of this sign</h3>
+      <div class="grid-x margin-bottom-0">
+        <h6 class="cell shrink subheader margin-top-0">It is</h6>
+        <h6 id="sign_status" title="<%= t("signs.#{@sign.status}.description") %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%=t("signs.#{@sign.status}.display_name") %> </h6>
+        <% if @sign.status == "personal" %>
+          <%= link_to edit_sign_path(@sign, anchor: "should_submit_for_publishing_true"), class: "cell auto text-center" do %>
+            Request publication
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="cell small-2">
+      <%= link_to edit_sign_path(@sign), class: "button clear" do %>
+        <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--royal" %>
+        Edit
+      <% end if policy(@sign).edit? %>
+    </div>
+  </div>
+</div>
