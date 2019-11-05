@@ -43,6 +43,10 @@ RSpec.describe "Contributing a new sign", type: :system do
     end
   end
 
+  it "has the expected page title" do
+    expect(subject).to have_title "New Sign – NZSL Share"
+  end
+
   describe "with Javascript disabled" do
     include_examples "sign contribution feature"
   end

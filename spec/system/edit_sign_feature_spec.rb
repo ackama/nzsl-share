@@ -14,6 +14,10 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject.current_path).to eq edit_sign_path(Sign.order(created_at: :desc).first)
   end
 
+  it "shows the expected page title" do
+    expect(subject).to have_title "Edit '#{sign.word}' – NZSL Share"
+  end
+
   it "can successfully enter metadata about a sign" do
     fill_in "sign_word", with: "Dog"
     fill_in "sign_maori", with: "Kuri"
