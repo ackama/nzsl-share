@@ -43,6 +43,21 @@ en:
       success: Sign was uploaded successfully. Please provide more information below.
     update:
       success: Sign successfully updated.
+    personal:
+      status: "private"
+      title: "'private' means that you have not asked for the sign to be made public."
+    submitted:
+      status: "in progress"
+      title: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+    published:
+      status: "public"
+      title: "'public' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+    declined:
+      status: "changes requested"
+      title: "'changes requested' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+    deletion-requested:
+      status: "deletion requested"
+      title: "'deletion requested' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
   search:
     sort_by:
       alpha_asc: Alphabetical (A-Z)

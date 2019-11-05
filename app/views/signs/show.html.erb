@@ -11,6 +11,12 @@
   </nav>
 </div>
 
+<% if policy(@sign).update?  %>
+  <div class="grid-x grid-margin-x margin-bottom-1">
+      <%= render "signs/sign_overview", sign: @sign %>
+  </div>
+<% end %>
+
 <div class="grid-x grid-margin-x">
   <div class="cell sign-card small-12 large-10 sign-card--borderless">
     <div class="sign-card__media">
@@ -52,10 +58,6 @@
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
         <% end %>
-        <%= link_to edit_sign_path(@sign), class: "button clear medium" do %>
-          <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--medium" %>
-          Edit
-        <% end if policy(@sign).edit? %>
       </div>
     </div>
   </div>
