@@ -57,7 +57,7 @@ module SQL
               JOIN sign_search
                 ON signs.id = sign_search.id
               WHERE sign_search.row_num = 1
-              ORDER BY #{args[:order]}, sign_search.rank_precedence, sign_search.rank_order
+              ORDER BY #{args[:order]}
               LIMIT #{args[:limit]}
           ) AS rs2
       SQL
