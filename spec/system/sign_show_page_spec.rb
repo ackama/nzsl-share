@@ -15,6 +15,10 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_selector "h2", text: sign.word
   end
 
+  it "has the expected page title" do
+    expect(page).to have_title "#{sign.word} – NZSL Share"
+  end
+
   describe "sign video" do
     subject { sign_page.video_player }
     context "sign is unprocessed" do
