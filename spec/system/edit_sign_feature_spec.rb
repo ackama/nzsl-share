@@ -55,7 +55,7 @@ RSpec.describe "Editing a sign", type: :system do
     fill_in "sign_word", with: ""
     click_on "Update Sign"
 
-    expect(subject).to have_content "Edit sign details"
+    expect(subject).to have_content "Edit sign"
     expect(subject).to have_css ".invalid"
   end
 
