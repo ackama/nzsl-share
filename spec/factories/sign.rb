@@ -34,23 +34,23 @@ FactoryBot.define do
     end
 
     trait :personal do
-      aasm_state { "personal" }
+      status { "personal" }
     end
     trait :submitted do
-      aasm_state { "submitted" }
+      status { "submitted" }
       submitted_at { Time.zone.now - 5 }
     end
     trait :published do
-      aasm_state { "published" }
+      status { "published" }
       published_at { Time.zone.now - 5 }
     end
     trait :declined do
-      aasm_state { "declined" }
+      status { "declined" }
       declined_at { Time.zone.now - 5 }
     end
-    trait :deletion_requested do
-      aasm_state { "deletion_requested" }
-      deletion_requsted_at { Time.zone.now - 5 }
+    trait :unpublish_requested do
+      status { "unpublish_requested" }
+      unpublish_requsted_at { Time.zone.now - 5 }
     end
   end
 end

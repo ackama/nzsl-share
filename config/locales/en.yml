@@ -44,20 +44,20 @@ en:
     update:
       success: Sign successfully updated.
     personal:
-      status: "private"
-      title: "'private' means that you have not asked for the sign to be made public."
+      display_name: "private"
+      description: "'private' means that you have not asked for the sign to be made public."
     submitted:
-      status: "in progress"
-      title: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+      display_name: "in progress"
+      description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
     published:
-      status: "public"
-      title: "'public' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+      display_name: "public"
+      description: "'public' means that the sign to visible to everybody."
     declined:
-      status: "changes requested"
-      title: "'changes requested' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
-    deletion-requested:
-      status: "deletion requested"
-      title: "'deletion requested' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+      display_name: "changes requested"
+      description: "'changes requested' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
+    unpublish-requested:
+      display_name: "unpublish requested"
+      description: "'unpublish requested' means that you have asked for the sign to be made unpublished. An admin will do this soon."
     destroy:
       link: "Remove from NZSL Share"
       confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."

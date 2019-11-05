@@ -3,14 +3,10 @@ class SignPresenter < ApplicationPresenter
   delegate :id, :word, :contributor, :agree_count,
            :disagree_count, :topic, :video, :description,
            :errors, :to_model, :contributor_id,
-           :to_param, to: :sign
+           :status, :to_param, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)
-  end
-
-  def sign_status
-    sign.aasm_state
   end
 
   def friendly_date
