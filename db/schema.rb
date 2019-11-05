@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_214656) do
+ActiveRecord::Schema.define(version: 2019_11_05_000114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2019_10_31_214656) do
     t.string "aasm_state", null: false
     t.datetime "submitted_at"
     t.datetime "declined_at"
+    t.datetime "requested_deletion_at"
     t.index ["aasm_state"], name: "index_signs_on_aasm_state"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
