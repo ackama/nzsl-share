@@ -37,11 +37,11 @@ RSpec.describe "Sign show page", system: true do
   describe "sign controls" do
     context "owned by the current user" do
       let(:user) { sign.contributor }
-      it { within(".callout") { expect(sign_page).to have_link "Edit" } }
-      it { within(".callout") { expect(sign_page).to have_content "private" } }
-      it { within(".callout") { expect(sign_page).to have_link "Request publication" } }
+      it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
+      it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
+      it { within("#sign_overview") { expect(sign_page).to have_link "Request publication" } }
       it {
-        within(".callout") do
+        within("#sign_overview") do
           title = find("#sign_status")["title"]
           assert_equal(title, "'private' means that you have not asked for the sign to be made public.")
         end
@@ -49,19 +49,19 @@ RSpec.describe "Sign show page", system: true do
 
       context "sign has been submitted for publishing" do
         let(:sign) { FactoryBot.create(:sign, :submitted) }
-        it { within(".callout") { expect(sign_page).to have_link "Edit" } }
+        it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
         it { expect(sign_page).to have_content "in progress" }
-        it { within(".callout") { expect(sign_page).not_to have_content "Request publication" } }
+        it { within("#sign_overview") { expect(sign_page).not_to have_content "Request publication" } }
       end
     end
 
     context "not logged in" do
-      it { expect(sign_page).not_to have_css ".callout" }
+      it { expect(sign_page).not_to have_css "#sign_overview" }
     end
 
     context "not owned by the current user" do
       let(:user) { FactoryBot.create(:user) }
-      it { expect(sign_page).not_to have_css ".callout" }
+      it { expect(sign_page).not_to have_css "#sign_overview" }
     end
   end
 
