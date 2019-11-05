@@ -17,7 +17,11 @@
       <%= render "signs/card/video", sign: @sign %>
     </div>
     <div class="sign-card__section">
-      <h2 class="primary"><%= @sign.word %></h2>
+      <h2>
+        <%= @sign.word %>
+        <% if @sign.maori %><small>•&nbsp;<%= @sign.maori %></small><% end %>
+      </h2>
+
       <p class="sign-card__subtitle">
         <%= @sign.contributor.username %>
         &nbsp;•&nbsp;
@@ -27,6 +31,8 @@
           <%= @sign.topic.name %>
         <% end %>
       </p>
+
+      <p class="sign-card__supplementary-titles__secondary"><%= @sign.secondary %></p>
       <%= content_tag(:p, simple_format(@sign.description)) %>
     </div>
     <hr class="sign-card__divider">
