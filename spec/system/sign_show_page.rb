@@ -39,7 +39,7 @@ RSpec.describe "Sign show page", system: true do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
-      it { within("#sign_overview") { expect(sign_page).to have_link "Request publication" } }
+      it { within("#sign_overview") { expect(sign_page).to have_link "ask to make public" } }
       it {
         within("#sign_overview") do
           title = find("#sign_status")["title"]
@@ -51,7 +51,7 @@ RSpec.describe "Sign show page", system: true do
         let(:sign) { FactoryBot.create(:sign, :submitted) }
         it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
         it { expect(sign_page).to have_content "in progress" }
-        it { within("#sign_overview") { expect(sign_page).not_to have_content "Request publication" } }
+        it { within("#sign_overview") { expect(sign_page).not_to have_content "ask to make public" } }
       end
     end
 

@@ -7,7 +7,7 @@
         <h6 id="sign_status" title="<%= t("signs.#{@sign.status}.description") %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%=t("signs.#{@sign.status}.display_name") %> </h6>
         <% if @sign.status == "personal" %>
           <%= link_to edit_sign_path(@sign, anchor: "should_submit_for_publishing_true"), class: "cell auto text-center" do %>
-            Request publication
+            ask to make public
           <% end %>
         <% end %>
       </div>
