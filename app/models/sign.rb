@@ -13,6 +13,9 @@ class Sign < ApplicationRecord
   has_one_attached :video
 
   validates :word, presence: true
+  validates :conditions_accepted,
+            presence: { message: I18n.t("signs.agree_to_conditions") },
+            unless: -> { personal? }
 
   # See app/validators/README.md for details on these
   # validations

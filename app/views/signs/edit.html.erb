@@ -1,5 +1,6 @@
 <% @sign = present(@sign) %>
 <div class="grid-x grid-margin-x content-container">
+  <%= render "errors" %>
   <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell form", method: :patch do |f| %>
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
@@ -47,13 +48,13 @@
     <% end %>
     <br/>
     <fieldset>
-    <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?) %>
-      <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
+      <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?) %>
+        <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
     </fieldset>
     <br/>
     <fieldset>
-    <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
-      <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
+      <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
+        <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
     </fieldset>
     <br/>
     <br/>
@@ -62,7 +63,7 @@
       <hr class="form__divider"/>
       <br/>
       <fieldset>
-        <%= f.check_box :conditions_accepted %>
+        <%= f.check_box :conditions_accepted, class: (@sign.errors[:secondary].any? && "invalid")%>
         <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
       </fieldset>
     </div>
@@ -88,15 +89,18 @@
 
 <%= javascript_tag defer: "defer", nonce: true do %>
   $(document).on("DOMContentLoaded", () => {
+    console.log('why not?')
     $("#terms_and_conditions").hide()
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
+    console.log('why no?')
     $("#terms_and_conditions").show()
-    $("#conditions_accepted").prop('required',true);
+    $("#sign_conditions_accepted").prop('required', true);
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
+    console.log('why nottttt?')
     $("#terms_and_conditions").hide()
-    $("#conditions_accepted").prop('required',false);
+    $("#sign_conditions_accepted").prop('required', false);
   });
 <% end %>
 
