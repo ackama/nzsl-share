@@ -4,10 +4,7 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
   <head>
-    <title>
-      <%= strip_tags(yield(:title)) + " – " if content_for?(:title) %>
-      NZSL Share
-    </title>
+    <title><%= strip_tags(yield(:title)) + " – " if content_for?(:title) -%>NZSL Share</title>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

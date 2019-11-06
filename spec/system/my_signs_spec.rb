@@ -11,6 +11,10 @@ RSpec.describe "My Signs", type: :system do
     click_on "My signs"
   end
 
+  it "has the expected page title" do
+    expect(page).to have_title "My signs – NZSL Share"
+  end
+
   describe "header" do
     it "is titled" do
       expect(page).to have_selector "h1", text: "My signs"
