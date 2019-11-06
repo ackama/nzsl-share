@@ -1,8 +1,11 @@
 import Rails from "@rails/ujs";
 
-$(document).on("DOMContentLoaded", () => {
-  $(".file-upload").html(initialHTML());
-});
+$(document).ready(() => $("[data-file-upload-controller]").each(init));
+
+const init = (controller) => {
+  const $controller = $(controller);
+  $controller.html(initialHTML());
+};
 
 $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event => {
   event.preventDefault();
