@@ -1,13 +1,34 @@
-<div class="banner grid-x">
-  <div class="banner__play-icon cell small-4">
+<div class="grid-y">
+<div class="banner cell grid-x">
+  <div class="banner__play-icon banner__container cell medium-4">
   </div>
-  <div class="cell auto grid-x banner__container">
+
+  <div class="cell medium-8 grid-x banner__container">
     <h1 class="banner__text cell">Search this community space for NZSL signs posted by the New Zealand Deaf Community</h1>
     <div class="cell">
       <hr class="banner__divider" />
     </div>
-    <div class="cell">
-      <%= render "application/header/search"%>
+
+    <div class="cell grid-x align-middle">
+      <div class="cell medium-8">
+        <%= render "application/header/search"%>
+      </div>
+      <div class="cell medium-4">
+        <ul class="dropdown menu" data-dropdown-menu data-v-offset="8" data-h-offset="8">
+          <li class="banner__browse-link">
+            <%= link_to "Browse Topics", topics_path, class: "banner__browse-link--button" %>
+            <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
+              <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
+              <hr class="menu-divider" />
+              <li><%= link_to "All Topics", topics_path %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+</div>
+<div class="cell medium-6">
+  Hello world
   </div>
 </div>
