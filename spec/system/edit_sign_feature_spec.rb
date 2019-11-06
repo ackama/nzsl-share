@@ -34,10 +34,22 @@ RSpec.describe "Editing a sign", type: :system do
     expect(sign.submitted?).to eq true
   end
 
-  #  - can submit if private true and not conditions
-  #  - cannot submit if private true and not conditions
-  #  - can submit without JS
-  #  - can recieve error without JS
+  it "can update a private sign without accepting the conditions" do
+    choose "should_submit_for_publishing_false"
+    click_on "Update Sign"
+    sign.reload
+    expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+    expect(subject).to have_content I18n.t!("signs.update.success")
+    expect(sign.submitted?).to eq false
+  end
+
+  it "cannot request a sign be made public without accepting the conditions" do
+    choose "should_submit_for_publishing_true"
+    click_on "Update Sign"
+    sign.reload
+    expect(subject).to have_content I18n.t!("signs.update.conditions_accepted")
+    expect(sign.submitted?).to eq false
+  end
 
   it "displays validation errors" do
     fill_in "sign_word", with: ""
