@@ -99,7 +99,7 @@ en:
   activemodel:
     errors: &activemodel_errors
       messages:
-        content_type_invalid: isn't a valid video file
+        content_type_invalid: file is not of an accepted type
         file_size_out_of_range: file is too large (%{file_size})
 
   activerecord:
@@ -111,3 +111,7 @@ en:
             conditions_accepted:
               format: '%{message}'
               blank: "For your sign to be made public you must agree to follow the terms and conditions (rules)"
+            illustrations:
+              too_long: are limited to %{count} files
+            usage_examples:
+              too_long: are limited to %{count} files
