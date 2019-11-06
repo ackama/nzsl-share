@@ -15,6 +15,10 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_selector "h2", text: sign.word
   end
 
+  it "has the expected page title" do
+    expect(page).to have_title "#{sign.word} – NZSL Share"
+  end
+
   describe "sign video" do
     subject { sign_page.video_player }
     context "sign is unprocessed" do
@@ -39,11 +43,10 @@ RSpec.describe "Sign show page", system: true do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
-      it { within("#sign_overview") { expect(sign_page).to have_link "Request publication" } }
       it {
         within("#sign_overview") do
           title = find("#sign_status")["title"]
-          assert_equal(title, "'private' means that you have not asked for the sign to be made public.")
+          assert_equal(title, "'private' means that you have not asked for the sign to be made public. To ask for this sign to be public click Edit") # rubocop:disable Metrics/LineLength
         end
       }
 
@@ -51,7 +54,6 @@ RSpec.describe "Sign show page", system: true do
         let(:sign) { FactoryBot.create(:sign, :submitted) }
         it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
         it { expect(sign_page).to have_content "in progress" }
-        it { within("#sign_overview") { expect(sign_page).not_to have_content "Request publication" } }
       end
     end
 

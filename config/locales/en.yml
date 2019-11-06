@@ -46,7 +46,7 @@ en:
       success: Sign successfully updated.
     personal:
       display_name: "private"
-      description: "'private' means that you have not asked for the sign to be made public."
+      description: "'private' means that you have not asked for the sign to be made public. To ask for this sign to be public click Edit"
     submitted:
       display_name: "in progress"
       description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
