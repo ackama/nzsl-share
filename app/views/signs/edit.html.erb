@@ -10,7 +10,7 @@
     <fieldset class="form-section">
       <legend class="form-section__header"><h1 class="black">Edit sign</h1></legend>
       <div class="form-section__content">
-        <fieldset class="form-section">
+ <fieldset class="form-section">
           <legend class="form-section__header"><h2 class="primary">Sign details</h2></legend>
 
           <div class="form-section__content">
@@ -64,31 +64,47 @@
             <p class="help-text">Upload up to 2 videos showing in usage</p>
             <div class="file-upload" data-file-upload-controller>
               <%= f.label :usage_examples, "Browse files", class: "button primary large" %>
-              <%= f.file_field :usage_examples, direct_upload: true, class: "show-for-sr" %>
-              <%= f.submit "Start Upload", class: "button secondary large" %>
+              <%= f.file_field :usage_examples, direct_upload: true %>
             </div>
 
             <ul class="no-bullet list list--compact">
+              <% f.object.usage_examples.each do |attach| %>
                 <li class="list__item--compact">
-                  <span>mov-214.mp4</span>
-                  <aside class="list__item__details margin-right-1">84 MB&nbsp;</aside>
+                  <span><%= attach.filename %></span>
+                  <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
                   <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
-                  <%= button_to "/",
+                  <%= link_to "/",
                                 method: :delete,
                                 class: "button icon-only clear medium small",
                                 title: "Remove File" do %>
                                 <%= inline_svg "media/images/close.svg", class: "icon icon--small icon--medium" %>
                   <% end %>
                 </li>
+              <% end %>
             </ul>
 
             <%= f.label :illustrations, "Illustration", class: "margin-top-1" %>
             <p class="help-text">Upload up to 3 images of this sign being used</p>
             <div class="file-upload" data-file-upload-controller>
               <%= f.label :illustrations, "Browse files", class: "button primary large" %>
-              <%= f.file_field :illustrations, direct_upload: true, class: "show-for-sr" %>
-              <%= f.submit "Start Upload", class: "button secondary large" %>
+              <%= f.file_field :illustrations, direct_upload: true %>
             </div>
+
+            <ul class="no-bullet list list--compact">
+              <% f.object.illustrations.each do |attach| %>
+                <li class="list__item--compact">
+                  <span><%= attach.filename %></span>
+                  <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
+                  <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
+                  <%= link_to "/",
+                                method: :delete,
+                                class: "button icon-only clear medium small",
+                                title: "Remove File" do %>
+                                <%= inline_svg "media/images/close.svg", class: "icon icon--small icon--medium" %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </fieldset>
 
