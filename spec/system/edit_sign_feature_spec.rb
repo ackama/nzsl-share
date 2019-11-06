@@ -51,6 +51,13 @@ RSpec.describe "Editing a sign", type: :system do
     expect(sign.submitted?).to eq false
   end
 
+  it "displays information about the video belonging to the sign" do
+    within ".file-preview" do
+      expect(subject).to have_content "dummy.mp4"
+      expect(subject).to have_content "1 MB"
+    end
+  end
+
   it "displays validation errors" do
     fill_in "sign_word", with: ""
     click_on "Update Sign"
