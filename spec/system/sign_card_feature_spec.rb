@@ -30,6 +30,10 @@ RSpec.describe "Sign card features", type: :system do
     expect(sign_card).to have_content presenter.friendly_date
   end
 
+  it "shows the sign status" do
+    expect(sign_card).to have_content "private"
+  end
+
   it "shows the embedded media" do
     expect(sign_card).to have_selector ".sign-card__media > .sign-video-wrapper > video.sign-video"
   end
