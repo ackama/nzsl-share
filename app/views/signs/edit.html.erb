@@ -56,8 +56,16 @@
       <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
     </fieldset>
     <br/>
-    <fieldset id="terms_and_conditions">
-    </fieldset>
+    <br/>
+    <div id="terms_and_conditions">
+      <h2 class="">Terms and Conditions</h2>
+      <hr class="form__divider"/>
+      <br/>
+      <fieldset>
+        <%= check_box_tag(:agree_to_terms_and_conditions) %>
+        <%= label_tag(:agree_to_terms_and_conditions, "I agree to follow the terms and conditions (rules)") %>
+      </fieldset>
+    </div>
     <br/>
     <hr class="form__divider"/>
     <div class="grid-x form__buttons align-justify">
@@ -79,9 +87,12 @@
 
 
 <%= javascript_tag defer: "defer", nonce: true do %>
+  $(document).on("DOMContentLoaded", () => {
+    $("#terms_and_conditions").empty()
+  });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
     console.log(event)
-    $("#terms_and_conditions").empty().append('<input name="agree_to_terms_and_conditions" type="checkbox" required=true oninvalid="this.setCustomValidity(`To ask for you sign to be made public you must agree to the terms and conditions`)" /><label for="agree_to_terms_and_conditions" >To ask for your sign to be made public you must agree to the terms and conditions of NZSL</label>')
+    $("#terms_and_conditions").empty().append('<h2 class="">Terms and Conditions</h2><hr class="form__divider"/><br/><fieldset><input id="agree_to_terms_and_conditions" type="checkbox" required=true oninvalid="this.setCustomValidity(`To ask for you sign to be made public you must  agree to follow the terms and conditions (rules)`)" /><label for="agree_to_terms_and_conditions" > I agree to follow the terms and conditions (rules)</label></fieldset>')
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
     console.log(event)
