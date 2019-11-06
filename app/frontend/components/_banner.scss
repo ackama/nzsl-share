@@ -46,6 +46,18 @@
     }
   }
 
+  &__search {
+    > .search-bar > label > input {
+      background: $white;
+      background-image: url("images/search.svg");
+      background-position: calc(100% - 1rem);
+      background-repeat: no-repeat;
+      margin: 0;
+      padding-right: 2rem;
+      transition: box-shadow, background-color linear 0.5s;
+    }
+  }
+
   &__browse-link {
     @include flex;
     @include flex-align(left, middle);

@@ -1,9 +1,9 @@
 .copy {
-  margin: 2rem 0;
   padding: 0 auto;
 
   &__container {
-    padding: 1rem;
+    margin: 4rem 0;
+    padding: 0 1rem;
   }
 
   &__icon {
@@ -11,8 +11,15 @@
     position: relative;
   }
 
+  &__icon-shadow {
+    left: 20px;
+    position: absolute;
+    top: 20px;
+    z-index: -1;
+  }
+
   &__signs {
-    margin: 5rem 0 0;
+    margin: 0 0 5rem;
 
     h2 {
       margin-bottom: 2rem;

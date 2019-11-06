@@ -10,7 +10,7 @@
     </div>
 
     <div class="cell grid-x align-middle">
-      <div class="cell medium-8">
+      <div class="cell medium-8 banner__search">
         <%= render "application/header/search"%>
       </div>
       <div class="cell medium-4">
@@ -28,34 +28,44 @@
     </div>
   </div>
 </div>
-<div class="cell grid-x grid-margin-x copy">
+<div class="cell grid-x copy">
   <div class="copy__container cell small-3">
     <div class="copy__icon">
       <%= inline_svg "media/images/folder.svg", aria_hidden: true %>
+      <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
     </div>
     <h6>Save favourites</h6>
     <p>Create folders and save your favourite signs</p>
-    <%= link_to "Join NZSL Share", new_user_session_path %>
+    <%= link_to "Join NZSL Share", new_user_registration_path %>
   </div>
 
   <div class="copy__container cell small-3">
-    <%= inline_svg "media/images/camera-2.svg", aria_hidden: true, class: "copy__icon" %>
+    <div class="copy__icon">
+      <%= inline_svg "media/images/camera-2.svg", aria_hidden: true, class: "copy__icon" %>
+      <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
+    </div>
     <h6>Record private signs and share with others</h6>
     <p>Record your own private signs and share</p>
   </div>
 
   <div class="copy__container cell small-3">
-    <%= inline_svg "media/images/conversation-check.svg", aria_hidden: true, class: "copy__icon" %>
+    <div class="copy__icon">
+      <%= inline_svg "media/images/conversation-check.svg", aria_hidden: true, class: "copy__icon" %>
+      <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
+    </div>
     <h6>Discuss signs</h6>
     <p>Approved members comment on signs, agree or disagree</p>
     <a href="#">Learn more</a>
   </div>
 
   <div class="copy__container cell small-3">
-    <%= inline_svg "media/images/upload.svg", aria_hidden: true, class: "copy__icon" %>
+    <div class="copy__icon">
+      <%= inline_svg "media/images/upload.svg", aria_hidden: true, class: "copy__icon" %>
+      <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
+    </div>
     <h6>Post public signs</h6>
     <p>Approved member can add new signs for everyone to see</p>
-    <%= link_to "Join NZSL Share", new_user_session_path %>
+    <%= link_to "Join NZSL Share", new_user_registration_path %>
   </div>
 
   <div class="cell content-container copy__signs">
