@@ -56,6 +56,9 @@
       <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
     </fieldset>
     <br/>
+    <fieldset id="terms_and_conditions">
+    </fieldset>
+    <br/>
     <hr class="form__divider"/>
     <div class="grid-x form__buttons align-justify">
       <div class="pull-left">
@@ -73,6 +76,18 @@
     </div>
   <% end %>
 </div>
+
+
+<%= javascript_tag defer: "defer", nonce: true do %>
+  $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
+    console.log(event)
+    $("#terms_and_conditions").empty().append('<input name="agree_to_terms_and_conditions" type="checkbox" required=true oninvalid="this.setCustomValidity(`To ask for you sign to be made public you must agree to the terms and conditions`)" /><label for="agree_to_terms_and_conditions" >To ask for your sign to be made public you must agree to the terms and conditions of NZSL</label>')
+  });
+  $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
+    console.log(event)
+    $("#terms_and_conditions").empty()
+  });
+<% end %>
 
 <% unless @sign.fully_processed? %>
   <%= javascript_tag defer: "defer", nonce: true do %>
