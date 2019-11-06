@@ -89,16 +89,13 @@
 
 <%= javascript_tag defer: "defer", nonce: true do %>
   $(document).on("DOMContentLoaded", () => {
-    console.log('why not?')
     $("#terms_and_conditions").hide()
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
-    console.log('why no?')
     $("#terms_and_conditions").show()
     $("#sign_conditions_accepted").prop('required', true);
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
-    console.log('why nottttt?')
     $("#terms_and_conditions").hide()
     $("#sign_conditions_accepted").prop('required', false);
   });
