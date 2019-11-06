@@ -62,8 +62,8 @@
       <hr class="form__divider"/>
       <br/>
       <fieldset>
-        <%= check_box_tag(:agree_to_terms_and_conditions) %>
-        <%= label_tag(:agree_to_terms_and_conditions, "I agree to follow the terms and conditions (rules)") %>
+        <%= f.check_box :conditions_accepted %>
+        <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
       </fieldset>
     </div>
     <br/>
@@ -88,13 +88,15 @@
 
 <%= javascript_tag defer: "defer", nonce: true do %>
   $(document).on("DOMContentLoaded", () => {
-    $("#terms_and_conditions").empty()
+    $("#terms_and_conditions").hide()
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
-    $("#terms_and_conditions").empty().append('<h2 class="">Terms and Conditions</h2><hr class="form__divider"/><br/><fieldset><input id="agree_to_terms_and_conditions" type="checkbox" required=true oninvalid="this.setCustomValidity(`To ask for you sign to be made public you must  agree to follow the terms and conditions (rules)`)" /><label for="agree_to_terms_and_conditions" > I agree to follow the terms and conditions (rules)</label></fieldset>')
+    $("#terms_and_conditions").show()
+    $("#conditions_accepted").prop('required',true);
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
-    $("#terms_and_conditions").empty()
+    $("#terms_and_conditions").hide()
+    $("#conditions_accepted").prop('required',false);
   });
 <% end %>
 
