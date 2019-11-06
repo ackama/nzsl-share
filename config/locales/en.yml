@@ -38,6 +38,7 @@ en:
       success: "Successfully removed '%{sign}' from '%{folder}'"
       failure: "Failed to remove '%{sign}' from '%{folder}'. Please try again."
   signs:
+    agree_to_conditions: "- for your sign to be made public you must agree to follow the terms and conditions (rules)"
     default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
