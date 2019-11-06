@@ -1,5 +1,10 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
+<%= content_for :head do %>
+  <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
+<% end %>
+
+
 <div class="grid-x grid-margin-x content-container ">
   <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell small-12 large-8 form", method: :patch do |f| %>
     <fieldset class="form-section">
@@ -52,6 +57,38 @@
             <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
 
             <!-- 'Usage' and 'Illustration' go here -->
+
+            <em>'Usage' and 'Illustration' behaviours are not yet functional!</em>
+
+            <%= f.label :usage_examples, "Usage" %>
+            <p class="help-text">Upload up to 2 videos showing in usage</p>
+            <div class="file-upload" data-file-upload-controller>
+              <%= f.label :usage_examples, "Browse files", class: "button primary large" %>
+              <%= f.file_field :usage_examples, direct_upload: true, class: "show-for-sr" %>
+              <%= f.submit "Start Upload", class: "button secondary large" %>
+            </div>
+
+            <ul class="no-bullet list list--compact">
+                <li class="list__item--compact">
+                  <span>mov-214.mp4</span>
+                  <aside class="list__item__details margin-right-1">84 MB&nbsp;</aside>
+                  <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
+                  <%= button_to "/",
+                                method: :delete,
+                                class: "button icon-only clear medium small",
+                                title: "Remove File" do %>
+                                <%= inline_svg "media/images/close.svg", class: "icon icon--small icon--medium" %>
+                  <% end %>
+                </li>
+            </ul>
+
+            <%= f.label :illustrations, "Illustration", class: "margin-top-1" %>
+            <p class="help-text">Upload up to 3 images of this sign being used</p>
+            <div class="file-upload" data-file-upload-controller>
+              <%= f.label :illustrations, "Browse files", class: "button primary large" %>
+              <%= f.file_field :illustrations, direct_upload: true, class: "show-for-sr" %>
+              <%= f.submit "Start Upload", class: "button secondary large" %>
+            </div>
           </div>
         </fieldset>
 
