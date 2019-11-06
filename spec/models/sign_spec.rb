@@ -12,6 +12,14 @@ RSpec.describe Sign, type: :model do
     end
   end
 
+  describe ".usage_examples" do
+    it { expect(sign.usage_examples.build).to be_a ActiveStorage::Attachment }
+  end
+
+  describe ".illustrations" do
+    it { expect(sign.usage_examples.build).to be_a ActiveStorage::Attachment }
+  end
+
   describe ".video" do
     context "blank" do
       before { sign.video = nil }
