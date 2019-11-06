@@ -91,11 +91,9 @@
     $("#terms_and_conditions").empty()
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
-    console.log(event)
     $("#terms_and_conditions").empty().append('<h2 class="">Terms and Conditions</h2><hr class="form__divider"/><br/><fieldset><input id="agree_to_terms_and_conditions" type="checkbox" required=true oninvalid="this.setCustomValidity(`To ask for you sign to be made public you must  agree to follow the terms and conditions (rules)`)" /><label for="agree_to_terms_and_conditions" > I agree to follow the terms and conditions (rules)</label></fieldset>')
   });
   $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
-    console.log(event)
     $("#terms_and_conditions").empty()
   });
 <% end %>
