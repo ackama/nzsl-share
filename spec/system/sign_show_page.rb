@@ -39,11 +39,10 @@ RSpec.describe "Sign show page", system: true do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
-      it { within("#sign_overview") { expect(sign_page).to have_link "ask to make public" } }
       it {
         within("#sign_overview") do
           title = find("#sign_status")["title"]
-          assert_equal(title, "'private' means that you have not asked for the sign to be made public.")
+          assert_equal(title, "'private' means that you have not asked for the sign to be made public. To ask for this sign to be public click Edit") # rubocop:disable Metrics/LineLength
         end
       }
 
