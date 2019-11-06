@@ -45,7 +45,92 @@ RSpec.describe Sign, type: :model do
       end
 
       it { is_expected.not_to be_valid }
-      it { expect(subject.errors.full_messages).to include "Video isn't a valid video file" }
+
+      it "adds the expected error" do
+        subject.valid?;
+        expect(subject.errors.full_messages).to include "Video file is not of an accepted type"
+      end
+    end
+  end
+
+  describe ".usage_examples" do
+    let(:content_type) { "video/mp4" }
+    let(:byte_size) { 10.megabytes }
+    let(:blob) { double(ActiveStorage::Blob, byte_size: byte_size, content_type: content_type) }
+    let(:attached) { double(ActiveStorage::Attached, attached?: true, blob: blob) }
+    before { allow(subject).to receive(:usage_examples_attachments).and_return([attached]) }
+
+    context "with a valid file" do
+      it { is_expected.to be_valid }
+    end
+
+    context "blank" do
+      before { sign.usage_examples = [] }
+      it { is_expected.to be_valid }
+    end
+
+    context "too large" do
+      let(:byte_size) { 500.megabytes }
+      it { is_expected.not_to be_valid }
+      it { subject.valid?; expect(subject.errors.full_messages).to include "Usage examples file is too large (500 MB)" }
+    end
+
+    context "wrong type" do
+      let(:content_type) { "application/pdf" }
+      it { is_expected.not_to be_valid }
+
+      it "adds the expected error" do
+        subject.valid?;
+        expect(subject.errors.full_messages).to include "Usage examples file is not of an accepted type"
+      end
+    end
+
+    context "more than 2 examples" do
+      before { allow(subject).to receive(:usage_examples_attachments).and_return([attached, attached, attached]) }
+      it { is_expected.not_to be_valid }
+      it { subject.valid?; expect(subject.errors.full_messages).to include "Usage examples are limited to 2 files" }
+    end
+  end
+
+  describe ".illustrations" do
+    let(:content_type) { "image/jpeg" }
+    let(:byte_size) { 10.megabytes }
+    let(:blob) { double(ActiveStorage::Blob, byte_size: byte_size, content_type: content_type) }
+    let(:attached) { double(ActiveStorage::Attached, attached?: true, blob: blob) }
+    before { allow(subject).to receive(:illustrations_attachments).and_return([attached]) }
+
+    context "with a valid file" do
+      it { is_expected.to be_valid }
+    end
+
+    context "blank" do
+      before { sign.illustrations = [] }
+      it { is_expected.to be_valid }
+    end
+
+    context "too large" do
+      let(:byte_size) { 500.megabytes }
+      it { is_expected.not_to be_valid }
+      it { subject.valid?; expect(subject.errors.full_messages).to include "Illustrations file is too large (500 MB)" }
+    end
+
+    context "wrong type" do
+      let(:content_type) { "application/pdf" }
+      it { is_expected.not_to be_valid }
+      it "adds the expected error" do
+        subject.valid?;
+        expect(subject.errors.full_messages).to include "Illustrations file is not of an accepted type"
+      end
+    end
+
+    context "more than 3 examples" do
+      before do
+        attachments = [attached, attached, attached, attached]
+        allow(subject).to receive(:illustrations_attachments).and_return(attachments)
+      end
+
+      it { is_expected.not_to be_valid }
+      it { subject.valid?; expect(subject.errors.full_messages).to include "Illustrations are limited to 3 files" }
     end
   end
 
