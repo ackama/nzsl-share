@@ -19,7 +19,8 @@ RSpec.describe "Editing a sign", type: :system do
     fill_in "sign_maori", with: "Kuri"
     select topic.name, from: "Topic"
     fill_in "sign_secondary", with: "Canine"
-    choose  "should_submit_for_publishing_true"
+    choose "should_submit_for_publishing_true"
+    check "sign_conditions_accepted"
     click_on "Update Sign"
     sign.reload
     expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
@@ -28,6 +29,11 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject).to have_content topic.name
     expect(sign.submitted?).to eq true
   end
+
+  #  - can submit if private true and not conditions
+  #  - cannot submit if private true and not conditions
+  #  - can submit without JS
+  #  - can recieve error without JS
 
   it "displays validation errors" do
     fill_in "sign_word", with: ""
