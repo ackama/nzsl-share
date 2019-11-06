@@ -67,6 +67,7 @@ en:
       alpha_asc: Alphabetical (A-Z)
       alpha_desc: Alphabetical (Z-A)
       recent: Most Recent
+      relevant: Most Relevant
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   folders:
