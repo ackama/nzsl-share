@@ -1,4 +1,4 @@
-<div class="grid-y">
+<div class="grid-x">
 <div class="banner cell grid-x">
   <div class="banner__play-icon banner__container cell medium-4">
   </div>
@@ -28,7 +28,51 @@
     </div>
   </div>
 </div>
-<div class="cell medium-6">
-  Hello world
+<div class="cell grid-x grid-margin-x copy">
+  <div class="copy__container cell small-3">
+    <div class="copy__icon">
+      <%= inline_svg "media/images/folder.svg", aria_hidden: true %>
+    </div>
+    <h6>Save favourites</h6>
+    <p>Create folders and save your favourite signs</p>
+    <%= link_to "Join NZSL Share", new_user_session_path %>
+  </div>
+
+  <div class="copy__container cell small-3">
+    <%= inline_svg "media/images/camera-2.svg", aria_hidden: true, class: "copy__icon" %>
+    <h6>Record private signs and share with others</h6>
+    <p>Record your own private signs and share</p>
+  </div>
+
+  <div class="copy__container cell small-3">
+    <%= inline_svg "media/images/conversation-check.svg", aria_hidden: true, class: "copy__icon" %>
+    <h6>Discuss signs</h6>
+    <p>Approved members comment on signs, agree or disagree</p>
+    <a href="#">Learn more</a>
+  </div>
+
+  <div class="copy__container cell small-3">
+    <%= inline_svg "media/images/upload.svg", aria_hidden: true, class: "copy__icon" %>
+    <h6>Post public signs</h6>
+    <p>Approved member can add new signs for everyone to see</p>
+    <%= link_to "Join NZSL Share", new_user_session_path %>
+  </div>
+
+  <div class="cell content-container">
+    <h2>Recently Added</h2>
+    <div class="sign-grid">
+      <% @signs.each do |sign| %>
+       <%= render "signs/card", sign: sign %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="cell content-container">
+    <h2>Most viewed</h2>
+    <div class="sign-grid">
+      <% @signs.each do |sign| %>
+       <%= render "signs/card", sign: sign %>
+      <% end %>
+    </div>
   </div>
 </div>
