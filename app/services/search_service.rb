@@ -23,19 +23,23 @@ class SearchService < ApplicationService
   end
 
   def build_results
-    term = search.term.parameterize(separator: "")
-    sql_arr = [SQL::Search.search(search_args), "^#{term}", ".#{term}", "^#{term}", ".#{term}"]
+    term = parameterize_term
+    sql_arr = [SQL::Search.search(search_args), term, term, term, term]
     results = parse_results(exec_query(sql_arr).first)
     search.total = results[0]
     fetch_results(results[1])
   end
 
+  def parameterize_term
+    search.term.split(" ").map { |s| s.parameterize(separator: "") }.join(" ")
+  end
+
   def fetch_results(ids)
-    Sign.for_cards.where(id: ids).order(search_args[:order])
+    Sign.for_cards.where(id: ids).sort_by { |sign| ids.index(sign.id) }
   end
 
   def parse_results(results)
-    return [0, []] if results.blank?
+    return [0, []] if results.blank? || results["ids"].blank?
 
     ids = results["ids"].tr("{}", "").split(",").map(&:to_i)
     total = results["total"].to_i

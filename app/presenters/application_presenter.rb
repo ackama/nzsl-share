@@ -1,4 +1,6 @@
 class ApplicationPresenter
+  attr_reader :object
+
   def initialize(object, template)
     @object = object
     @template = template

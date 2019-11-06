@@ -62,6 +62,47 @@ RSpec.describe SearchService, type: :service do
       end
     end
 
+    context "whitespace" do
+      before(:each) do
+        Refined::Search::Signs.with_chocolate.each do |sign_attrs|
+          FactoryBot.create(:sign, sign_attrs)
+        end
+      end
+
+      it "matches exact term" do
+        t1 = "chocolate ice cream"
+        rs1 = SearchService.call(search: Search.new(term: t1))
+        expect(rs1.data.count && rs1.support[:total]).to eq 1
+        expect(rs1.data.pluck(:word).include?(t1)).to be true
+
+        t2 = "chocolate fondant"
+        rs2 = SearchService.call(search: Search.new(term: t2))
+        expect(rs2.data.count && rs2.support[:total]).to eq 1
+        expect(rs2.data.pluck(:word).include?(t2)).to be true
+
+        t3 = "chocolate souffle"
+        rs3 = SearchService.call(search: Search.new(term: t3))
+        expect(rs3.data.count && rs3.support[:total]).to eq 1
+        expect(rs3.data.pluck(:word).include?(t3)).to be true
+      end
+
+      it "matches partial term" do
+        t1 = "chocolate f"
+        rs1 = SearchService.call(search: Search.new(term: t1))
+        expect(rs1.data.count && rs1.support[:total]).to eq 5
+        expect(rs1.data.pluck(:word)).to eq(
+          ["chocolate fingers", "chocolate fish", "chocolate fondant", "chocolate frosting", "chocolate fruit"]
+        )
+
+        t2 = "chocolate so"
+        rs2 = SearchService.call(search: Search.new(term: t2))
+        expect(rs2.data.count && rs2.support[:total]).to eq 3
+        expect(rs2.data.pluck(:word)).to eq(
+          ["chocolate sorbet", "chocolate souffle", "chocolate soup"]
+        )
+      end
+    end
+
     context "macrons" do
       before(:each) do
         Refined::Search::Signs.with_macrons.each do |sign_attrs|
@@ -173,6 +214,15 @@ RSpec.describe SearchService, type: :service do
                                        .data.map { |hsh| hsh["published_at"] }
 
           expect(publish_dates.sort.reverse).to eq publish_dates
+        end
+      end
+
+      context "by relevance" do
+        example "be in the expected order" do
+          words = SearchService.call(search: Search.new(term: "ap", sort: "relevant"))
+                               .data.map { |hsh| hsh["word"] }
+
+          expect(words.sort).to eq words
         end
       end
 

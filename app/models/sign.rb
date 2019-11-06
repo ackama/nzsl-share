@@ -33,11 +33,12 @@ class Sign < ApplicationRecord
   def disagree_count; 0; end
   def tags; []; end
 
-  aasm whiny_transitions: false do
+  aasm column: "status", whiny_transitions: false do
     state :personal, initial: true
     state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
+    state :unpublish_requested, before_enter: -> { self.unpublish_requested_at = Time.zone.now }
 
     event :set_sign_to_personal do
       transitions from: %i[submitted declined], to: :personal

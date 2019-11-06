@@ -9,7 +9,8 @@ class Search
   KNOWN_SORTS = {
     "alpha_asc" => "word ASC",
     "alpha_desc" => "word DESC",
-    "recent" => "published_at DESC"
+    "recent" => "published_at DESC",
+    "relevant" => "rank_precedence ASC, rank_order ASC"
   }.freeze
 
   attr_reader :term, :total
