@@ -1,8 +1,7 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
 <div class="grid-x grid-margin-x content-container ">
-  <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell small-8 form", method: :patch do |f| %>
-    <%= render "errors" %>
+  <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell small-12 large-8 form", method: :patch do |f| %>
     <fieldset class="form-section">
       <legend class="form-section__header"><h1 class="black">Edit sign</h1></legend>
       <div class="form-section__content">
@@ -10,8 +9,20 @@
           <legend class="form-section__header"><h2 class="primary">Sign details</h2></legend>
 
           <div class="form-section__content">
-            <div class="js-sign-video-container">
-              <%= render "signs/card/video", sign: @sign %>
+            <div class="file-preview js-video-container">
+              <div class="file-preview__media">
+                <%= render "signs/card/video", sign: @sign, overlay: false %>
+              </div>
+              <div class="file-preview__metadata">
+                <span class="file-preview__metadata__key">
+                  <%= @sign.video.filename %>
+                </span>
+                <%= inline_svg "media/images/tick.svg" %>
+                <br />
+                <span class="file-preview__metadata__value">
+                  <%= number_to_human_size @sign.video.byte_size %>
+                </span>
+              </div>
             </div>
 
             <%= f.label :word, "Sign / word:", class: "required" %>
