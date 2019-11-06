@@ -15,6 +15,14 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_selector "h2", text: sign.word
   end
 
+  it "displays the sign māori gloss" do
+    expect(subject).to have_content sign.maori
+  end
+
+  it "displays the sign secondary gloss" do
+    expect(subject).to have_content sign.secondary
+  end
+
   it "has the expected page title" do
     expect(page).to have_title "#{sign.word} – NZSL Share"
   end
