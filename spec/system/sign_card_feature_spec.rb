@@ -31,7 +31,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the sign status" do
-    expect(sign_page).to have_content "private"
+    expect(sign_card).to have_content "private"
   end
 
   it "shows the embedded media" do
