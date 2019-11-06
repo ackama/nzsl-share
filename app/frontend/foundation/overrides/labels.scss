@@ -1,7 +1,15 @@
 label {
+  margin-bottom: 0.5rem;
+
   &.inline {
     @extend .middle;
     line-height: 2; // Match form input
+    margin-bottom: 0;
     padding-right: 1rem;
+  }
+
+  // Form spacing for repeated labels
+  & + input + label {
+    margin-top: 1rem;
   }
 }
