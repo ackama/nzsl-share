@@ -66,10 +66,9 @@
 
     & > a,
     & > li > a {
+      color: get-color(medium) !important; //sass-lint:disable no-important
       //sass-lint:disable-next-line no-important
-      color: get-color(medium) !important; // Override default menu styles
-      //sass-lint:disable-next-line no-important
-      font-weight: normal !important; //Override default menu styles
+      font-weight: normal !important;
       //sass-lint:disable-next-line no-important
       padding: 0 1.5rem 0 0 !important;
       text-decoration: none;
