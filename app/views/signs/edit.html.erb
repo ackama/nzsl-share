@@ -7,6 +7,7 @@
 
 <div class="grid-x grid-margin-x content-container ">
   <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell small-12 large-8 form", method: :patch do |f| %>
+    <%= render "errors" %>
     <fieldset class="form-section">
       <legend class="form-section__header"><h1 class="black">Edit sign</h1></legend>
       <div class="form-section__content">
@@ -118,7 +119,7 @@
 
             <div class="radio">
               <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?,
-                    data: { toggle_truthy: "#terms_and_conditions" }) %>
+                    data: { toggle_truthy: "#terms-and-conditions" }) %>
                 <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
             </div>
 
