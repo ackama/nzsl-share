@@ -16,7 +16,7 @@
         <p><%= sign.friendly_date %></p>
       </div>
       <% if policy(sign).update? %>
-        <h6 id="sign_status" title="<%= t("signs.#{sign.status}.description") %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%=t("signs.#{sign.status}.display_name") %> </h6>
+        <h6 id="sign_status" title="<%= t("signs.#{sign.status}.card_description") %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%=t("signs.#{sign.status}.display_name") %> </h6>
       <% end %>
     </div>
     <div class="sign-card__bottom grid-x align-middle">
