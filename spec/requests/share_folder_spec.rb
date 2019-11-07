@@ -76,6 +76,25 @@ RSpec.describe "share_folder", type: :request do
       end
     end
 
+    context "unauthenticated user" do
+      before(:each) do
+        sign_in user
+
+        allowed_folder.user = user
+        allowed_folder.save
+        create.call(allowed_folder.id)
+        allowed_folder.reload.share_token
+
+        sign_out user
+      end
+
+      it "shows" do
+        show.call(allowed_folder.id, allowed_folder.share_token)
+        expect(allowed_folder.share_token).to be_truthy
+        expect(response).to be_successful
+      end
+    end
+
     context "invalid id and share token" do
       before(:each) do
         sign_in user
