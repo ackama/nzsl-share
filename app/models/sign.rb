@@ -14,7 +14,7 @@ class Sign < ApplicationRecord
 
   validates :word, presence: true
   validates :conditions_accepted,
-            presence: { message: I18n.t("signs.update.conditions_accepted") },
+            presence: true,
             unless: -> { personal? }
 
   # See app/validators/README.md for details on these
