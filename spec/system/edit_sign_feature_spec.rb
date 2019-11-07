@@ -96,4 +96,58 @@ RSpec.describe "Editing a sign", type: :system do
       it { expect(subject).to have_selector("source[src*='/signs/#{sign.id}/videos']", count: 3, visible: false) }
     end
   end
+
+  shared_examples_for "sign attachment behaviour" do |attribute|
+    let(:field_name) { "sign_#{attribute}" }
+    let(:container_name) { ".#{field_name.tr("_", "-")}" }
+
+    context "without JS" do
+      it "sees existing attachment data" do
+        single_record = sign.public_send(attribute).first
+        within(container_name) do
+          expect(page).to have_content single_record.filename
+          expect(page).to have_content "1 MB" # Known file size
+          expect(page).to have_button "Remove File"
+        end
+      end
+
+      it "can remove a file" do
+        within(container_name) do
+          expect(page).to have_selector "li", count: 1
+          click_on "Remove File"
+          expect(page).not_to have_selector "li"
+        end
+      end
+
+      it "can upload a new file" do
+        page.attach_file field_name, valid_file
+        click_on "Update Sign"
+        click_on "Edit"
+        expect(page).to have_selector "#{container_name} li", count: 1
+      end
+
+      it "rejects an invalid file with an error" do
+        page.attach_file field_name, Rails.root.join("spec", "fixtures", "dummy.exe")
+        click_on "Update Sign"
+        expect(page).to have_selector "input##{field_name}.invalid + div", text: "file is not of an accepted type"
+      end
+    end
+
+    context "with JS", uses_javascript: true do
+      it "can remove a file"
+      it "can upload a new file"
+    end
+  end
+
+  describe "usage examples" do
+    let(:sign) { FactoryBot.create(:sign, :with_usage_examples) }
+    let(:valid_file) { Rails.root.join("spec", "fixtures", "dummy.mp4") }
+    include_examples "sign attachment behaviour", :usage_examples
+  end
+
+  describe "illustrations" do
+    let(:sign) { FactoryBot.create(:sign, :with_illustrations) }
+    let(:valid_file) { Rails.root.join("spec", "fixtures", "image.jpeg") }
+    include_examples "sign attachment behaviour", :illustrations
+  end
 end

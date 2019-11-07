@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :signs, except: %i[index] do
     resources :videos, param: :preset, only: :show, controller: :sign_video
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
+    resources :usage_examples, only: :destroy, controller: :sign_attachments
+    resources :illustrations, only: :destroy, controller: :sign_attachments
   end
   resources :topics, only: %i[index show]
 

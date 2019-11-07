@@ -10,7 +10,7 @@
     <fieldset class="form-section">
       <legend class="form-section__header"><h1 class="black">Edit sign</h1></legend>
       <div class="form-section__content">
- <fieldset class="form-section">
+        <fieldset class="form-section">
           <legend class="form-section__header"><h2 class="primary">Sign details</h2></legend>
 
           <div class="form-section__content">
@@ -56,28 +56,25 @@
             <p class="help-text">Provide a short description of the sign and other notes eg. where have you seen this sign used?</p>
             <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
 
-            <!-- 'Usage' and 'Illustration' go here -->
-
-            <em>'Usage' and 'Illustration' behaviours are not yet functional!</em>
-
             <%= f.label :usage_examples, "Usage" %>
             <p class="help-text">Upload up to 2 videos showing in usage</p>
-            <div class="file-upload" data-file-upload-controller>
+            <div class="file-upload">
               <%= f.label :usage_examples, "Browse files", class: "button primary large" %>
-              <%= f.file_field :usage_examples, direct_upload: true %>
+              <%= f.file_field :usage_examples, direct_upload: true, class: (@sign.errors[:usage_examples].any? && "invalid") %>
+              <%= content_tag(:div, f.object.sign.errors.full_messages_for(:usage_examples).join(", ")) %>
             </div>
 
-            <ul class="no-bullet list list--compact">
-              <% f.object.usage_examples.each do |attach| %>
+            <ul class="no-bullet list list--compact sign-usage-examples">
+              <% f.object.usage_examples.select(&:persisted?).each do |attach| %>
                 <li class="list__item--compact">
                   <span><%= attach.filename %></span>
                   <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
                   <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
-                  <%= link_to "/",
-                                method: :delete,
-                                class: "button icon-only clear medium small",
-                                title: "Remove File" do %>
-                                <%= inline_svg "media/images/close.svg", class: "icon icon--small icon--medium" %>
+                  <%= button_tag formmethod: :post,
+                                 form: "delete_attachment_form",
+                                 formaction: sign_usage_example_path(f.object, attach),
+                                 class: "button icon-only clear medium small" do %>
+                    <%= inline_svg "media/images/close.svg", aria: true, title: "Remove File", class: "icon icon--small icon--medium" %>
                   <% end %>
                 </li>
               <% end %>
@@ -85,22 +82,23 @@
 
             <%= f.label :illustrations, "Illustration", class: "margin-top-1" %>
             <p class="help-text">Upload up to 3 images of this sign being used</p>
-            <div class="file-upload" data-file-upload-controller>
+            <div class="file-upload">
               <%= f.label :illustrations, "Browse files", class: "button primary large" %>
-              <%= f.file_field :illustrations, direct_upload: true %>
+              <%= f.file_field :illustrations, direct_upload: true, class: (@sign.errors[:illustrations].any? && "invalid") %>
+              <%= content_tag(:div, f.object.sign.errors.full_messages_for(:illustrations).join(", ")) %>
             </div>
 
-            <ul class="no-bullet list list--compact">
-              <% f.object.illustrations.each do |attach| %>
+            <ul class="no-bullet list list--compact sign-illustrations">
+              <% f.object.illustrations.select(&:persisted?).each do |attach| %>
                 <li class="list__item--compact">
                   <span><%= attach.filename %></span>
                   <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
                   <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
-                  <%= link_to "/",
-                                method: :delete,
-                                class: "button icon-only clear medium small",
-                                title: "Remove File" do %>
-                                <%= inline_svg "media/images/close.svg", class: "icon icon--small icon--medium" %>
+                  <%= button_tag formmethod: :post,
+                                 form: "delete_attachment_form",
+                                 formaction: sign_illustration_path(f.object, attach),
+                                 class: "button icon-only clear medium small" do %>
+                    <%= inline_svg "media/images/close.svg", aria: true, title: "Remove File", class: "icon icon--small icon--medium" %>
                   <% end %>
                 </li>
               <% end %>
@@ -193,3 +191,9 @@
     });
   <% end %>
 <% end %>
+
+<form id="delete_attachment_form">
+  <%= hidden_field_tag :_method, :delete, id: nil %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token, id: nil %>
+</form>
+

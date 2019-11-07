@@ -36,25 +36,47 @@ FactoryBot.define do
     trait :personal do
       status { "personal" }
     end
+
     trait :submitted do
       status { "submitted" }
       submitted_at { Time.zone.now - 5 }
       conditions_accepted { true }
     end
+
     trait :published do
       status { "published" }
       conditions_accepted { true }
       published_at { Time.zone.now - 5 }
     end
+
     trait :declined do
       status { "declined" }
       declined_at { Time.zone.now - 5 }
       conditions_accepted { true }
     end
+
     trait :unpublish_requested do
       status { "unpublish_requested" }
       unpublish_requsted_at { Time.zone.now - 5 }
       conditions_accepted { true }
+    end
+
+    trait :with_usage_examples do
+      after(:build) do |sign|
+        video_file = File.open(Rails.root.join("spec", "fixtures", "dummy.mp4"))
+        video_file_io = { io: video_file, filename: File.basename(video_file) }
+
+        sign.usage_examples.attach(video_file_io)
+      end
+    end
+
+    trait :with_illustrations do
+      after(:build) do |sign|
+        video_file = File.open(Rails.root.join("spec", "fixtures", "image.jpeg"))
+        video_file_io = { io: video_file, filename: File.basename(video_file) }
+
+        sign.illustrations.attach(video_file_io)
+      end
     end
   end
 end
