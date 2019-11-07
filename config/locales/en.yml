@@ -109,4 +109,5 @@ en:
         sign:
           attributes:
             conditions_accepted:
+              format: '%{message}'
               blank: "For your sign to be made public you must agree to follow the terms and conditions (rules)"

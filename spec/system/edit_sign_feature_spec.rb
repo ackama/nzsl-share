@@ -47,7 +47,7 @@ RSpec.describe "Editing a sign", type: :system do
     choose "should_submit_for_publishing_true"
     click_on "Update Sign"
     sign.reload
-    expect(subject).to have_content I18n.t!("activerecord.errors.models.sign.attributes.conditions_accepted.blank")
+    expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
     expect(sign.submitted?).to eq false
   end
 

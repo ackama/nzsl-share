@@ -6,9 +6,8 @@
       <% end %>
 
       <ul>
-        <%= content_tag(:li, @sign.errors[:conditions_accepted]) if @sign.errors[:conditions_accepted] %>
-        <% @sign.errors.except(:conditions_accepted).full_messages.map do |err| %>
-          <%= content_tag(:li, err) %>
+        <% @sign.errors.full_messages.each do |err| %>
+         <%= content_tag(:li, err) %>
         <% end %>
       </ul>
 
