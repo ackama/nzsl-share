@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sign card features", type: :system do
-  let!(:sign) { FactoryBot.create(:sign) }
+  let!(:sign) { FactoryBot.create(:sign, contributor: authenticator.user) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
   let(:authenticator) { AuthenticateFeature.new }
 
