@@ -23,7 +23,8 @@ RSpec.describe "Editing a sign", type: :system do
     fill_in "sign_maori", with: "Kuri"
     select topic.name, from: "Topic"
     fill_in "sign_secondary", with: "Canine"
-    choose  "should_submit_for_publishing_true"
+    choose "should_submit_for_publishing_true"
+    check "sign_conditions_accepted"
     click_on "Update Sign"
     sign.reload
     expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
@@ -31,6 +32,23 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject).to have_content "Dog"
     expect(subject).to have_content topic.name
     expect(sign.submitted?).to eq true
+  end
+
+  it "can update a private sign without accepting the conditions" do
+    choose "should_submit_for_publishing_false"
+    click_on "Update Sign"
+    sign.reload
+    expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+    expect(subject).to have_content I18n.t!("signs.update.success")
+    expect(sign.submitted?).to eq false
+  end
+
+  it "cannot request a sign be made public without accepting the conditions" do
+    choose "should_submit_for_publishing_true"
+    click_on "Update Sign"
+    sign.reload
+    expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
+    expect(sign.submitted?).to eq false
   end
 
   it "displays validation errors" do

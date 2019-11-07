@@ -79,7 +79,7 @@ class SignsController < ApplicationController
   def edit_sign_params
     params
       .require(:sign)
-      .permit(:video, :maori, :secondary, :notes, :word, :topic_id)
+      .permit(:video, :maori, :secondary, :notes, :word, :topic_id, :conditions_accepted)
       .merge(contributor: current_user)
   end
 
@@ -91,7 +91,7 @@ class SignsController < ApplicationController
     return unless params["should_submit_for_publishing"]
 
     submit = params[:should_submit_for_publishing] == "true"
-    submit ? @sign.submit_for_publishing! : @sign.set_sign_to_personal!
+    submit ? @sign.submit_for_publishing : @sign.set_sign_to_personal
   end
 
   def redirect_after_update(sign)
