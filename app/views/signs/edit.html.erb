@@ -59,7 +59,7 @@
 
             <%= f.label :usage_examples, "Usage" %>
             <p class="help-text">Upload up to 2 videos showing in usage</p>
-            <div class="file-upload">
+            <div class="file-upload" data-file-upload-controller="usage_examples">
               <%= f.label :usage_examples, "Browse files", class: "button primary large" %>
               <%= f.file_field :usage_examples, direct_upload: true, class: (@sign.errors[:usage_examples].any? && "invalid") %>
               <%= content_tag(:div, f.object.sign.errors.full_messages_for(:usage_examples).join(", ")) %>
