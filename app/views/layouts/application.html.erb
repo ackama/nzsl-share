@@ -29,14 +29,14 @@
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
 
     <!-- Facebook -->
-    <meta property="og:title" content="<%= yield(:social_media_title) %>"/>
-    <meta property="og:description" content="<%= yield(:social_media_description) %>"/>
-    <meta property="og:image" content="<%= yield(:social_media_image) %>"/>
+    <%= facebook_title("title") %>
+    <%= facebook_description("description") %>
+    <%= facebook_image("image") %>
 
     <!--Twitter -->
-    <meta name="twitter:title" content="<%= yield(:social_media_title) %>"/>
-    <meta name="twitter:description" content="<%= yield(:social_media_description) %>"/>
-    <meta name="twitter:image" content="<%= yield(:social_media_image) %>"/>
+    <%= twitter_title("title") %>
+    <%= twitter_description("description") %>
+    <%= twitter_image("image") %>
   </head>
   <body class="no-js">
     <%# Prevent FOUS on page load %>
