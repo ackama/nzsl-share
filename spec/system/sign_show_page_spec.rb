@@ -46,7 +46,7 @@ RSpec.describe "Sign show page", system: true do
       it {
         within("#sign_overview") do
           title = find("#sign_status")["title"]
-          assert_equal(title, "'private' means that you have not asked for the sign to be made public. To ask for this sign to be public click Edit") # rubocop:disable Metrics/LineLength
+          assert_equal(title, I18n.t!("signs.personal.description"))
         end
       }
 

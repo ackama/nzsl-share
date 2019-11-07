@@ -33,7 +33,7 @@ RSpec.describe "Sign card features", type: :system do
   it "shows the sign status" do
     expect(sign_card).to have_content "private"
     title = find("#sign_status")["title"]
-    assert_equal(title, "'private' means that you have not asked for the sign to be made public. To ask for this sign to be public go to the edit sign page") # rubocop:disable Metrics/LineLength
+    assert_equal(title, I18n.t!("signs.personal.card_description"))
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
