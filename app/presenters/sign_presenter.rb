@@ -17,6 +17,18 @@ class SignPresenter < ApplicationPresenter
     sign.processed_thumbnails? && sign.processed_videos?
   end
 
+  def status_name
+    I18n.t("signs.#{sign.status}.display_name")
+  end
+
+  def status_description
+    I18n.t("signs.#{sign.status}.description")
+  end
+
+  def edit_status_instructions
+    I18n.t("signs.#{sign.status}.edit_status_instructions")
+  end
+
   def submitted_to_publish?
     sign.submitted? || sign.published? || sign.declined?
   end

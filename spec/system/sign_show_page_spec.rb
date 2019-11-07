@@ -46,7 +46,9 @@ RSpec.describe "Sign show page", system: true do
       it {
         within("#sign_overview") do
           title = find("#sign_status")["title"]
-          assert_equal(title, I18n.t!("signs.personal.description"))
+          assert_equal(
+            title, I18n.t!("signs.personal.description") + " " + I18n.t!("signs.personal.edit_status_instructions")
+          )
         end
       }
 

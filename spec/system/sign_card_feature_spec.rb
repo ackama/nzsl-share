@@ -33,7 +33,7 @@ RSpec.describe "Sign card features", type: :system do
   it "shows the sign status" do
     expect(sign_card).to have_content "private"
     title = find("#sign_status")["title"]
-    assert_equal(title, I18n.t!("signs.personal.card_description"))
+    assert_equal(title, I18n.t!("signs.personal.description"))
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
