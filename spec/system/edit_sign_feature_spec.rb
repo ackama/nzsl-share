@@ -35,7 +35,7 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   it "can update a private sign without accepting the conditions" do
-    choose "should_submit_for_publishing_false"
+    choose "No, keep my sign private"
     click_on "Update Sign"
     sign.reload
     expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
@@ -44,11 +44,17 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   it "cannot request a sign be made public without accepting the conditions" do
-    choose "should_submit_for_publishing_true"
+    choose "Yes, request my sign be public"
     click_on "Update Sign"
     sign.reload
     expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
     expect(sign.submitted?).to eq false
+  end
+
+  it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
+    expect(page).to have_selector "#terms-and-conditions", visible: false
+    choose "Yes, request my sign be public"
+    expect(page).to have_selector "#terms-and-conditions", visible: true
   end
 
   it "displays information about the video belonging to the sign" do
@@ -98,15 +104,17 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   shared_examples_for "sign attachment behaviour" do |attribute|
+    include ActionView::Helpers::NumberHelper
     let(:field_name) { "sign_#{attribute}" }
     let(:container_name) { ".#{field_name.tr("_", "-")}" }
 
     context "without JS" do
       it "sees existing attachment data" do
         single_record = sign.public_send(attribute).first
+        expected_file_size = number_to_human_size(single_record.byte_size)
         within(container_name) do
           expect(page).to have_content single_record.filename
-          expect(page).to have_content "1 MB" # Known file size
+          expect(page).to have_content expected_file_size
           expect(page).to have_button "Remove File"
         end
       end
@@ -129,7 +137,8 @@ RSpec.describe "Editing a sign", type: :system do
       it "rejects an invalid file with an error" do
         page.attach_file field_name, Rails.root.join("spec", "fixtures", "dummy.exe")
         click_on "Update Sign"
-        expect(page).to have_selector "input##{field_name}.invalid + div", text: "file is not of an accepted type"
+        expect(page).to have_selector "input##{field_name}.invalid"
+        expect(page).to have_content "file is not of an accepted type"
       end
     end
 
