@@ -49,7 +49,7 @@
     <% end %>
     <br/>
     <fieldset>
-      <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?) %>
+      <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?, data: { toggle_truthy: "#terms_and_conditions" }) %>
         <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
     </fieldset>
     <br/>
@@ -87,21 +87,6 @@
   <% end %>
 </div>
 
-
-<%= javascript_tag defer: "defer", nonce: true do %>
-  $(document).on("DOMContentLoaded", () => {
-    $("#terms_and_conditions").hide()
-  });
-  $(document).on("change", "input[type=radio][id='should_submit_for_publishing_true']", event => {
-    $("#terms_and_conditions").show()
-    $("#sign_conditions_accepted").prop('required', true);
-  });
-  $(document).on("change", "input[type=radio][id='should_submit_for_publishing_false']", event => {
-    $("#terms_and_conditions").hide()
-    $("#sign_conditions_accepted").prop('required', false);
-  });
-<% end %>
-
 <% unless @sign.fully_processed? %>
   <%= javascript_tag defer: "defer", nonce: true do %>
     var selector = ".js-sign-video-container";
@@ -122,7 +107,7 @@
         if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
 
         // Only refresh the HTML of the element if the classes of the video have changed
-        if ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value) {
+        if ($newVideo.get(0) && ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value)) {
           $currentContainer.html($newVideoContainer.html());
         }
       });
