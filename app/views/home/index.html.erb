@@ -1,34 +1,4 @@
-<div class="grid-x">
-<div class="banner cell grid-x">
-  <div class="banner__play-icon banner__container cell medium-4">
-  </div>
-
-  <div class="cell medium-8 grid-x banner__container">
-    <h1 class="banner__text cell">Search this community space for NZSL signs posted by the New Zealand Deaf Community</h1>
-    <div class="cell">
-      <hr class="banner__divider" />
-    </div>
-
-    <div class="cell grid-x align-middle">
-      <div class="cell medium-8 banner__search">
-        <%= render "application/header/search"%>
-      </div>
-      <div class="cell medium-4">
-        <ul class="dropdown menu" data-dropdown-menu data-v-offset="8" data-h-offset="8">
-          <li class="banner__browse-link">
-            <%= link_to "Browse Topics", topics_path, class: "banner__browse-link--button" %>
-            <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
-              <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
-              <hr class="menu-divider" />
-              <li><%= link_to "All Topics", topics_path %></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="cell grid-x copy">
+<div class="grid-x copy">
   <div class="copy__container cell small-3">
     <div class="copy__icon">
       <%= inline_svg "media/images/folder.svg", aria_hidden: true %>
@@ -41,7 +11,7 @@
 
   <div class="copy__container cell small-3">
     <div class="copy__icon">
-      <%= inline_svg "media/images/camera-2.svg", aria_hidden: true, class: "copy__icon" %>
+      <%= inline_svg "media/images/camera-2.svg", aria_hidden: true %>
       <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
     </div>
     <h6>Record private signs and share with others</h6>
@@ -50,7 +20,7 @@
 
   <div class="copy__container cell small-3">
     <div class="copy__icon">
-      <%= inline_svg "media/images/conversation-check.svg", aria_hidden: true, class: "copy__icon" %>
+      <%= inline_svg "media/images/conversation-check.svg", aria_hidden: true %>
       <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
     </div>
     <h6>Discuss signs</h6>
@@ -60,19 +30,18 @@
 
   <div class="copy__container cell small-3">
     <div class="copy__icon">
-      <%= inline_svg "media/images/upload.svg", aria_hidden: true, class: "copy__icon" %>
+      <%= inline_svg "media/images/upload.svg", aria_hidden: true %>
       <%= inline_svg "media/images/rectangle.svg", aria_hidden: true, class: "copy__icon-shadow" %>
     </div>
     <h6>Post public signs</h6>
     <p>Approved member can add new signs for everyone to see</p>
-    <%= link_to "Join NZSL Share", new_user_registration_path %>
   </div>
 
   <div class="cell content-container copy__signs">
     <h2>Recently Added</h2>
     <div class="sign-grid">
-      <% @signs.each do |sign| %>
-       <%= render "signs/card", sign: sign %>
+      <% @recent_signs.each do |sign| %>
+      <%= render "signs/card", sign: sign %>
       <% end %>
     </div>
   </div>
@@ -80,8 +49,8 @@
   <div class="cell content-container copy__signs">
     <h2>Most viewed</h2>
     <div class="sign-grid">
-      <% @signs.each do |sign| %>
-       <%= render "signs/card", sign: sign %>
+      <% @viewed_signs.each do |sign| %>
+      <%= render "signs/card", sign: sign %>
       <% end %>
     </div>
   </div>
