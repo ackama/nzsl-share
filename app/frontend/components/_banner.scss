@@ -1,17 +1,7 @@
 .banner {
   min-height: 360px;
+  padding: 0 2rem;
   z-index: auto;
-
-  @include breakpoint(small) {
-    padding: 0 2rem;
-  }
-
-  @include breakpoint(medium) {
-    background-color: get-color(primary-light);
-    border-radius: 0 0 58px;
-    margin-right: 2rem;
-    padding: 0 rem-calc(132);
-  }
 
   @include breakpoint(large) {
     background-color: get-color(primary-light);
@@ -20,8 +10,29 @@
     padding: 0 rem-calc(132);
   }
 
-  &__play-icon {
-    background: get-color(light);
+  &__video {
+    width: 100%;
+
+    @include breakpoint(large) {
+      max-height: 360px;
+      position: absolute;
+      width: auto;
+      z-index: 0;
+    }
+  }
+
+  &__video-container {
+    position: relative;
+  }
+
+  &__play-button {
+    border-radius: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
   }
 
   &__text {
@@ -39,10 +50,10 @@
   }
 
   &__container {
-    padding: 0 0 2rem 2rem;
+    z-index: 1;
 
-    @include breakpoint(medium) {
-      padding: 4rem 0 2rem 2rem;
+    @include breakpoint(large) {
+      padding: 4rem 0 2rem;
     }
   }
 
@@ -60,9 +71,11 @@
 
   &__browse-link {
     @include flex;
-    @include flex-align(left, middle);
+    @include flex-align(justify, middle);
     @include breakpoint(medium) {
       border-radius: $global-radius;
+    }
+    @include breakpoint(large) {
       margin: 0 0 0 1rem;
     }
 
