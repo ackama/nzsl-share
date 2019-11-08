@@ -1,6 +1,6 @@
-// import Rails from "@rails/ujs";
-
-$(document).ready(() => $("[data-file-upload-controller]").each(init));
+import { DirectUploadController } from "@rails/activestorage/src/direct_upload_controller";
+import Rails from "@rails/ujs";
+const uploadUrl = "/rails/active_storage/direct_uploads";
 
 // Always prevent the default browser behaviour of attempting to open a dropped file
 $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event => {
@@ -8,82 +8,69 @@ $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event
   event.stopPropagation();
 });
 
+const FileUpload = (_index, container) => {
+  const $container = $(container).empty();
+  const fieldNamespace = $container.data("fileUploadController");
+  const $content = $("<div class='file-upload__content'></div>").prependTo($container);
+  const $input = $(`<input
+                    class="show-for-sr"
+                    type="file"
+                    name="sign[${fieldNamespace}]"
+                    id="sign_${fieldNamespace}"
+                  />`).appendTo($container);
 
-$(document).on("direct-upload:initialize", event => {
-  const { target, detail: { id } } = event;
 
-  target.parentElement.children[0].remove();
-  target.parentElement.children[0].remove();
+  $content.html(initialHTML(fieldNamespace));
 
-  target.insertAdjacentHTML("beforebegin", `
-    <div id="direct-upload-${id}" />
-  `);
-});
+  $container
+    .on("direct-upload:start", $input, () => $content.html(pendingHTML()))
+    .on("direct-upload:error", $input, event => $container.trigger("upload-error", event.detail.error) && false)
+    .on("dragover dragenter", () => $container.addClass("file-upload--dragged-over"))
+    .on("dragleave dragend drop", () => $container.removeClass("file-upload--dragged-over"))
+    .on("upload-error", (_event, error) => $content.html(errorHTML(error)))
+    .on("change", $input, event => {
+      const input = $input.get(0);
+      const fileSize = input.files[0].size / 1024 / 1024; // in MB
 
-$(document).on("direct-upload:start", event => {
-  const { id } = event.detail;
-  $(`#direct-upload-${id}`).html(pendingHTML());
-});
+      if (fileSize > 250) { // same file size as app/models/signs.rb MAXIMUM_VIDEO_FILE_SIZE
+        return $container.trigger("upload-error", new Error(`Upload failed - file is too large (${Math.round(fileSize)} MB)`));
+      }
 
-$(document).on("direct-upload:progress", event => {
-  const { id, progress, file: { name: filename } } = event.detail;
-  $(`#direct-upload-${id}`).html(progressHTML(Math.round(progress || 0), filename));
-});
+      input.setAttribute("data-direct-upload-url", uploadUrl);
+      input.disabled = true;
 
-$(document).on("direct-upload:error", event => {
-  const { id, error } = event.detail;
-  $(`#direct-upload-${id}`).html(errorHTML(error));
-});
-
-// const start = (event) => {
-//   Rails.fire(event.target.form, "submit");
-// };
-
-const init = (_index, controller) => {
-  const $controller = $(controller);
-  const fieldNamespace = $controller.data("fileUploadController");
-
-  $controller.html(initialHTML(fieldNamespace));
-
-  $controller
-    .on("dragover dragenter", () => {
-      $controller.addClass("file-upload--dragged-over");
-    })
-    .on("dragleave dragend drop", () => {
-      $controller.removeClass("file-upload--dragged-over");
-    })
-    .on("drop", event => {
-      let fileInput = $controller.querySelector(`#sign_${fieldNamespace}`);
-      fileInput.files = event.originalEvent.dataTransfer.files;
-      $(fileInput).trigger("change");
+      new DirectUploadController(event.target, event.target.files[0])
+        .start((error) => {
+          input.disabled = false;
+          input.removeAttribute("data-direct-upload-url");
+          if (error) { $container.trigger("upload-error", error); }
+          $container.trigger("upload-success");
+        });
     })
     .on("click", ".file-upload__reset", event => {
       event.preventDefault();
-      $controller.html(initialHTML(fieldNamespace));
+      $content.html(initialHTML(fieldNamespace));
     })
-    .on("change", "input[type=file][data-direct-upload-url]", event => {
-      const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
-
-      if (fileSize > 250) { // same file size as app/models/signs.rb MAXIMUM_VIDEO_FILE_SIZE
-        return $(".file-upload__errors").html(errorHTML(`Upload failed - file is too large (${Math.round(fileSize)} MB)`));
-      }
-
-      console.log("Ready to succeed: ", event);
-  });
+    .on("direct-upload:progress", $input, event => {
+      const { progress, file: { name: filename } } = event.detail;
+      $content.html(progressHTML(Math.round(progress || 0), filename));
+    })
+    .on("drop", event => {
+      $input
+        .prop("files", event.originalEvent.dataTransfer.files)
+        .trigger("change");
+    });
 };
 
+$(document).ready(() => $("[data-file-upload-controller]").each(FileUpload));
+$(document).on("upload-success", "#new_sign .file-upload", () => Rails.fire($("#new_sign").get(0), "submit"));
+
+// Templates
 const initialHTML = (field) => (
   `<h4 class="medium">Drag and drop your video file here</h4>
     <label class="button primary large" for="sign_${field}">
       Browse files
     </label>
-    <input
-      class="show-for-sr"
-      data-direct-upload-url="/rails/active_storage/direct_uploads"
-      type="file"
-      name="sign[${field}]"
-      id="sign_${field}"
-    />
 
     <div class="file-upload__errors"></div>
   `
