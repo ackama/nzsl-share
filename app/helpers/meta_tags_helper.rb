@@ -37,6 +37,14 @@ module MetaTagsHelper
     content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
   end
 
+  def twitter_image_width(name=:image_width)
+    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
+  end
+
+  def twitter_image_height(name=:image_height)
+    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
+  end
+
   private
 
   OPENGRAPH = :og
