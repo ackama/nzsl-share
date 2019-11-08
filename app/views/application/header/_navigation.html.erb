@@ -7,12 +7,13 @@
       </a></li>
     </ul>
     <ul class="row align-center navigation__list navigation__list--left navigation__list--expand">
-      <li class="navigation__item columns medium-12 large-10">
+      <li class="navigation__item columns medium-12 large-10" id="header-nav">
         <%= render "application/header/search" %>
 
         <ul class="dropdown menu" data-dropdown-menu data-v-offset="8" data-h-offset="8">
           <li class="navigation__item">
             <%= link_to "Browse Topics", topics_path %>
+            <%= inline_svg "media/images/dropdown.svg", aria_hidden: true, class: "icon--white" %>
             <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
               <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
               <hr class="menu-divider" />
