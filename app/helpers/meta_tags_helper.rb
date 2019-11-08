@@ -61,7 +61,7 @@ module MetaTagsHelper
   end
 
   def social_media_tag(name, protocol, attribute, content=nil)
-    social_media = content.presence || content_for(sym_name(name))
+    social_media = content || content_for(sym_name(name))
     content_tag(:meta, nil, "#{attribute}": "#{protocol}:#{name}", content: social_media)
   end
 end
