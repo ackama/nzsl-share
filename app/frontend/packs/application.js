@@ -20,3 +20,5 @@ import "../components/header";
 import "../components/character-count";
 import "../components/folder-membership";
 import "../components/sign-video";
+import "../components/banner_video";
+import "../components/banner-search";
