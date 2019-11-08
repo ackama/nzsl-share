@@ -149,13 +149,9 @@ $grid-margin-gutters: (
   large: rem-calc(42)
 );
 $grid-container-padding:  (
-  // small: rem-calc(12) * 2,
-  // medium: rem-calc(34) * 2,
-  // large: rem-calc(38) * 2,
-  small: 0,
-  medium: 0,
-  large: 0,
-
+  small: rem-calc(12) * 2,
+  medium: rem-calc(34) * 2,
+  large: rem-calc(38) * 2
 );
 $grid-column-align-edge: true;
 $grid-column-alias: "columns";
@@ -427,7 +423,7 @@ $dropdown-sizes: (
 // 18. Dropdown Menu
 // -----------------
 
-$dropdownmenu-arrows: true;
+$dropdownmenu-arrows: false;
 $dropdownmenu-arrow-color: $white;
 $dropdownmenu-arrow-size: 6px;
 $dropdownmenu-arrow-padding: 1.5rem;
