@@ -57,11 +57,11 @@
             <p class="help-text">Provide a short description of the sign and other notes eg. where have you seen this sign used?</p>
             <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
 
-            <%= f.label :usage_examples, "Usage" %>
+            <%= f.label :new_usage_example, "Usage" %>
             <p class="help-text">Upload up to 2 videos showing in usage</p>
-            <div class="file-upload" data-file-upload-controller="usage_examples">
-              <%= f.label :usage_examples, "Browse files", class: "button primary large" %>
-              <%= f.file_field :usage_examples, direct_upload: true, class: (@sign.errors[:usage_examples].any? && "invalid") %>
+            <div class="file-upload usage-examples-file-upload" data-sign-id="<%= @sign.to_param %>" data-file-upload-controller="new_usage_example">
+              <%= label_tag :new_usage_example, "Browse files", class: "button primary large" %>
+              <%= file_field_tag :new_usage_example %>
               <%= content_tag(:div, f.object.sign.errors.full_messages_for(:usage_examples).join(", ")) %>
             </div>
 

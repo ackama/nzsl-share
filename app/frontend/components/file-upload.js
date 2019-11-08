@@ -10,17 +10,17 @@ $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event
 
 const FileUpload = (_index, container) => {
   const $container = $(container).empty();
-  const fieldNamespace = $container.data("fileUploadController");
+  const fieldName = $container.data("fileUploadController");
   const $content = $("<div class='file-upload__content'></div>").prependTo($container);
   const $input = $(`<input
                     class="show-for-sr"
                     type="file"
-                    name="sign[${fieldNamespace}]"
-                    id="sign_${fieldNamespace}"
+                    name="${fieldName}"
+                    id="${fieldName}"
                   />`).appendTo($container);
 
 
-  $content.html(initialHTML(fieldNamespace));
+  $content.html(initialHTML(fieldName));
 
   $container
     .on("direct-upload:start", $input, () => $content.html(pendingHTML()))
@@ -64,7 +64,7 @@ $(document).on("upload-success", "#new_sign .file-upload", () => Rails.fire($("#
 // Templates
 const initialHTML = (field) => (
   `<h4 class="medium">Drag and drop your video file here</h4>
-    <label class="button primary large" for="sign_${field}">
+    <label class="button primary large" for="${field}">
       Browse files
     </label>
 
