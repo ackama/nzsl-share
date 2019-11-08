@@ -6,7 +6,7 @@
 
 <div class="grid-x grid-margin-x content-container">
   <%= render "errors" %>
-  <%= form_with model: @sign, class: "cell" do |f| %>
+  <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
     <div class="file-upload" data-file-upload-controller="video">
       <%= f.label :video, "Browse files", class: "button primary large" %>
       <%= f.file_field :video, direct_upload: true, class: "show-for-sr" %>
