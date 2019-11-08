@@ -1,0 +1,8 @@
+<%= content_for(:content) do %>
+    <%= render "application/banner" %>
+    <div class="grid-container">
+      <%= yield %>
+    </div>
+<% end %>
+
+<%= render template: "layouts/application" %>
