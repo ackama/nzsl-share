@@ -9,7 +9,11 @@ class ContributeSignFeature
     click_on "Add a sign"
   end
 
-  def drop_file_in_file_upload
+  def drop_file_in_file_upload(path=default_attachment_path)
+    # If we're using JS, we can drop onto the file upload component
+    # Otherwise, we need to specifically select the file
+    return choose_file(path) unless supports_javascript?
+
     page.driver.execute_script(
       <<-JS
         dt = new DataTransfer();
@@ -27,10 +31,9 @@ class ContributeSignFeature
             {type: "video/mp4"}
           )
         )
-        $(document).trigger(evt)
+        $(".file-upload").trigger(evt)
       JS
     )
-    wait_for_path
   end
 
   def choose_file(path=default_attachment_path)
@@ -44,9 +47,7 @@ class ContributeSignFeature
   end
 
   def has_error?(message)
-    within "#sign-upload-errors" do
-      page.has_selector?("li", text: message)
-    end
+    page.has_content?(message)
   end
 
   def sign_in(user)
