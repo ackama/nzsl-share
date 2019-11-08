@@ -1,53 +1,59 @@
 # frozen_string_literal: true
 
 module MetaTagsHelper
-  def facebook_title(name)
-    content?(name) ? facebook_tag(name) : nil
+  def open_graph_title(name=:title)
+    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
   end
 
-  def facebook_description(name)
-    content?(name) ? facebook_tag(name) : nil
+  def open_graph_description(name=:description)
+    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
   end
 
-  def facebook_image(name)
-    content?(name) ? facebook_tag(name) : nil
+  def open_graph_image(name=:image)
+    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
   end
 
-  def og_image_width(name)
-    content?(name) ? facebook_tag(name) : nil
+  def open_graph_image_width(name=:image_width)
+    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
   end
 
-  def og_image_height(name)
-    content?(name) ? facebook_tag(name) : nil
+  def open_graph_image_height(name=:image_height)
+    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
   end
 
-  def twitter_title(name)
-    content?(name) ? twitter_tag(name) : nil
+  def twitter_card(name=:card)
+    social_media_tag(name, TWITTER, NAME, "summary")
   end
 
-  def twitter_description(name)
-    content?(name) ? twitter_tag(name) : nil
+  def twitter_title(name=:title)
+    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
   end
 
-  def twitter_image(name)
-    content?(name) ? twitter_tag(name) : nil
+  def twitter_description(name=:description)
+    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
+  end
+
+  def twitter_image(name=:image)
+    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
   end
 
   private
 
+  OPENGRAPH = :og
+  TWITTER = :twitter
+  PROPERTY = :property
+  NAME = :name
+
   def content?(name)
-    content_for?(content(name))
+    content_for?(sym_name(name))
   end
 
-  def content(name)
-    ("social_media_" + name).to_sym
+  def sym_name(name)
+    ("social_media_" + name.to_s).to_sym
   end
 
-  def facebook_tag(name)
-    content_tag(:meta, nil, property: "og:#{name}", content: content_for(content(name)))
-  end
-
-  def twitter_tag(name)
-    content_tag(:meta, nil, name: "twitter:#{name}", content: content_for(content(name)))
+  def social_media_tag(name, protocol, attribute, content=nil)
+    social_media = content.presence || content_for(sym_name(name))
+    content_tag(:meta, nil, "#{attribute}": "#{protocol}:#{name}", content: social_media)
   end
 end

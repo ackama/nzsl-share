@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en-NZ">
   <head>
@@ -27,17 +24,19 @@
 
     <%# Specifies the default name of home screen bookmark in iOS %>
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
-    <!-- Facebook -->
-    <%= facebook_title("title") %>
-    <%= facebook_description("description") %>
-    <%= facebook_image("image") %>
-    <%= og_image_width("image:width") %>
-    <%= og_image_height("image:height") %>
 
-    <!--Twitter -->
-    <%= twitter_title("title") %>
-    <%= twitter_description("description") %>
-    <%= twitter_image("image") %>
+    <!-- For crawlers that use opengrah protocol (i.e facebook) -->
+    <%= open_graph_title %>
+    <%= open_graph_description %>
+    <%= open_graph_image %>
+    <%= open_graph_image_width %>
+    <%= open_graph_image_height %>
+
+    <!-- For twitter -->
+    <%= twitter_card %>
+    <%= twitter_title %>
+    <%= twitter_description %>
+    <%= twitter_image %>
   </head>
   <body class="no-js">
     <%# Prevent FOUS on page load %>
