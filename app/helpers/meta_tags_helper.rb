@@ -13,6 +13,14 @@ module MetaTagsHelper
     content?(name) ? facebook_tag(name) : nil
   end
 
+  def og_image_width(name)
+    content?(name) ? facebook_tag(name) : nil
+  end
+
+  def og_image_height(name)
+    content?(name) ? facebook_tag(name) : nil
+  end
+
   def twitter_title(name)
     content?(name) ? twitter_tag(name) : nil
   end
