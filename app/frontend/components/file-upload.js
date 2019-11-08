@@ -47,10 +47,6 @@ const FileUpload = (_index, container) => {
           $container.trigger("upload-success");
         });
     })
-    .on("click", ".file-upload__reset", event => {
-      event.preventDefault();
-      $content.html(initialHTML(fieldNamespace));
-    })
     .on("direct-upload:progress", $input, event => {
       const { progress, file: { name: filename } } = event.detail;
       $content.html(progressHTML(Math.round(progress || 0), filename));
