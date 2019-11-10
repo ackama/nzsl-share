@@ -56,6 +56,44 @@ RSpec.describe "share_sign", type: :request do
       end
     end
 
+    context "unauthenticated user" do
+      before(:each) do
+        sign_in user
+
+        allowed_sign.contributor = user
+        allowed_sign.save
+        create.call(allowed_sign.id)
+        allowed_sign.reload.share_token
+
+        sign_out user
+      end
+
+      it "shows" do
+        show.call(allowed_sign.id, allowed_sign.share_token)
+        expect(allowed_sign.share_token).to be_truthy
+        expect(response).to be_successful
+      end
+    end
+
+    context "unauthenticated user" do
+      before(:each) do
+        sign_in user
+
+        allowed_sign.contributor = user
+        allowed_sign.save
+        create.call(allowed_sign.id)
+        allowed_sign.reload.share_token
+
+        sign_out user
+      end
+
+      it "shows" do
+        show.call(allowed_sign.id, allowed_sign.share_token)
+        expect(allowed_sign.share_token).to be_truthy
+        expect(response).to be_successful
+      end
+    end
+
     context "invalid id and share token" do
       before(:each) do
         sign_in user

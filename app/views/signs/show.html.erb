@@ -1,4 +1,9 @@
 <% provide(:title, @sign.word) %>
+<% provide(:social_media_title, @sign.word) %>
+<% provide(:social_media_description, @sign.description) %>
+<% provide(:social_media_image, @sign.poster_url) %>
+<% provide(:social_media_image_width, "1080") %>
+<% provide(:social_media_image_height, "720") %>
 
 <div class="grid-x grid-margin-x">
   <nav class="cell shrink" aria-label="You are here:" role="navigation">
@@ -58,7 +63,7 @@
         <%= link_to "#", class: "button clear medium" do %>
           <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--medium" %>
           Add to Folder
-        <% end %>
+        <% end if policy(@sign).manage_folders? %>
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share

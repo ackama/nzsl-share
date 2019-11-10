@@ -86,6 +86,7 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   folder_share:
     create:
+      confirmation: "If someone clicks on the link, they will see all signs in the folder (including private signs). Proceed?"
       success: "To share, copy this link: %{share_url}"
     destroy:
       success: "Folder is no longer shared."
