@@ -1,15 +1,20 @@
 <div id="sign-upload-errors" class="cell">
   <% if @sign.errors.any? %>
     <div class="callout alert">
-      <h6>There were some problems with your sign video upload:</h6>
+      <% if @sign.errors.include?(:video) %>
+        <h6>There were some problems with your sign video upload:</h6>
+      <% end %>
+
       <ul>
-        <% @sign.errors.full_messages.map do |err| %>
-          <%= content_tag(:li, err) %>
+        <% @sign.errors.full_messages.each do |err| %>
+         <%= content_tag(:li, err) %>
         <% end %>
       </ul>
 
-      Please check that your video complies with all the requirements laid out in
-      our <a href="#sign-upload-tips">tips</a>.
+      <% if @sign.errors.include?(:video) %>
+        Please check that your video complies with all the requirements laid out in
+        our <a href="#sign-upload-tips">tips</a>.
+      <% end %>
     </div>
   <% end %>
 </div>

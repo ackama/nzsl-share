@@ -89,10 +89,26 @@
   }
 
   &__title {
-    color: get-color(royal);
+    font-size: 1rem;
     font-weight: bold;
-    margin: 8px 0;
-    text-decoration: underline;
+    margin: 0.5rem 0;
+  }
+
+  &__supplementary-titles {
+    margin: 0.5rem 0;
+
+    &__maori,
+    &__secondary {
+      font-size: 1rem;
+
+      &.small {
+        font-size: 0.8rem;
+      }
+    }
+
+    &__secondary {
+      color: get-color(medium);
+    }
   }
 
   &__media {

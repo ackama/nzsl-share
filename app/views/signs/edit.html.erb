@@ -1,6 +1,7 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
 <div class="grid-x grid-margin-x content-container">
+  <%= render "errors" %>
   <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell form", method: :patch do |f| %>
     <h1 class="">Edit sign details</h1>
     <hr class="form__divider"/>
@@ -48,14 +49,25 @@
     <% end %>
     <br/>
     <fieldset>
-    <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?) %>
-      <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
+      <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?, data: { toggle_truthy: "#terms_and_conditions" }) %>
+        <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
     </fieldset>
     <br/>
     <fieldset>
-    <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
-      <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
+      <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
+        <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
     </fieldset>
+    <br/>
+    <br/>
+    <div id="terms_and_conditions">
+      <h2 class="">Terms and Conditions</h2>
+      <hr class="form__divider"/>
+      <br/>
+      <fieldset>
+        <%= f.check_box :conditions_accepted, class: (@sign.errors[:secondary].any? && "invalid")%>
+        <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
+      </fieldset>
+    </div>
     <br/>
     <hr class="form__divider"/>
     <div class="grid-x form__buttons align-justify">
@@ -95,7 +107,7 @@
         if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
 
         // Only refresh the HTML of the element if the classes of the video have changed
-        if ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value) {
+        if ($newVideo.get(0) && ($newVideo.get(0).classList.value !== $currentVideo.get(0).classList.value)) {
           $currentContainer.html($newVideoContainer.html());
         }
       });

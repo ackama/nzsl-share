@@ -26,6 +26,11 @@ h6 {
   @each $name, $color in $foundation-palette {
     &.#{$name} { color: $color; }
   }
+
+  small {
+    font-size: 1rem;
+    font-weight: normal;
+  }
 }
 
 a {

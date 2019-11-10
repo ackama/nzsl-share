@@ -39,18 +39,22 @@ FactoryBot.define do
     trait :submitted do
       status { "submitted" }
       submitted_at { Time.zone.now - 5 }
+      conditions_accepted { true }
     end
     trait :published do
       status { "published" }
+      conditions_accepted { true }
       published_at { Time.zone.now - 5 }
     end
     trait :declined do
       status { "declined" }
       declined_at { Time.zone.now - 5 }
+      conditions_accepted { true }
     end
     trait :unpublish_requested do
       status { "unpublish_requested" }
       unpublish_requsted_at { Time.zone.now - 5 }
+      conditions_accepted { true }
     end
   end
 end

@@ -1,8 +1,8 @@
 class SignPresenter < ApplicationPresenter
   presents :sign
-  delegate :id, :word, :contributor, :agree_count,
+  delegate :id, :word, :maori, :secondary, :contributor, :agree_count,
            :disagree_count, :topic, :video, :description,
-           :errors, :to_model, :contributor_id,
+           :errors, :to_model, :contributor_id, :conditions_accepted,
            :status, :to_param, to: :sign
 
   def dom_id(suffix=nil)
@@ -10,7 +10,7 @@ class SignPresenter < ApplicationPresenter
   end
 
   def friendly_date
-    h.localize(sign.published_at || sign.created_at, format: "%-d %B %Y")
+    h.localize(sign.published_at || sign.created_at, format: "%-d %b %Y")
   end
 
   def fully_processed?
@@ -33,6 +33,10 @@ class SignPresenter < ApplicationPresenter
 
   def submitted_to_publish?
     sign.submitted? || sign.published? || sign.declined?
+  end
+
+  def truncated_secondary
+    h.truncate(sign.secondary)
   end
 
   def available_folders(&block)

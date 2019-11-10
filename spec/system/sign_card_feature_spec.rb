@@ -44,6 +44,14 @@ RSpec.describe "Sign card features", type: :system do
     expect(sign_card).to have_selector ".sign-card__media > .sign-video-wrapper > video.sign-video"
   end
 
+  it "shows the Māori gloss" do
+    expect(sign_card).to have_selector ".sign-card__supplementary-titles__maori", text: sign.maori
+  end
+
+  it "shows the secondary gloss" do
+    expect(sign_card).to have_selector ".sign-card__supplementary-titles__secondary", text: sign.secondary
+  end
+
   describe "Adding & removing from folders with JS", uses_javascript: true do
     let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }

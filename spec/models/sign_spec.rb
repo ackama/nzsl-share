@@ -41,6 +41,18 @@ RSpec.describe Sign, type: :model do
     end
   end
 
+  describe ".conditions_accepted" do
+    context "this time, it's personal"
+
+    it "adds an error if conditions are not accepted and sign is not 'personal'" do
+      sign.status = :submitted
+      sign.conditions_accepted = false
+      expected_message = sign.errors.generate_message(:conditions_accepted, :blank)
+      expect(sign).not_to be_valid
+      expect(sign.errors.full_messages_for(:conditions_accepted)).to include expected_message
+    end
+  end
+
   describe ".preview" do
     before { FactoryBot.create_list(:sign, 5) } # The limit is 4
     subject { Sign.preview }
