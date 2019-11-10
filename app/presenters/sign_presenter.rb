@@ -26,7 +26,7 @@ class SignPresenter < ApplicationPresenter
   end
 
   def edit_status_instructions
-    return nil if sign.status != "personal"
+    return unless sign.status == "personal"
 
     I18n.t("signs.#{sign.status}.edit_status_instructions")
   end
