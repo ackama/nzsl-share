@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :illustrations, only: %i[destroy], controller: :sign_attachments
     resources :sign_attachments, only: %i[create],
                                  path: "/:attachment_type",
+                                 as: :attachments,
                                  constraints: { attachment_type: /usage_examples|illustrations/ }
   end
   resources :topics, only: %i[index show]
