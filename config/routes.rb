@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :signs
+
+    root to: "signs#index"
+  end
   devise_for :users
   resource :styleguide, only: :show
 
