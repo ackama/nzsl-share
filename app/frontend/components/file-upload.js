@@ -69,7 +69,7 @@ $(document).ready(() => $("[data-file-upload-controller]").each(FileUpload));
 
 // Templates
 const initialHTML = (field) => (
-  `<h4 class="medium">Drag and drop your video file here</h4>
+  `<h4 class="medium">Drag and drop your file here</h4>
     <label class="button primary large" for="${field}">
       Browse files
     </label>
