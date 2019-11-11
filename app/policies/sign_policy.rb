@@ -34,6 +34,10 @@ class SignPolicy < ApplicationPolicy
     false
   end
 
+  def share?
+    owns_record?
+  end
+
   private
 
   def owns_record?
