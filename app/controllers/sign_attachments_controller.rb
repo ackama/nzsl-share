@@ -15,7 +15,7 @@ class SignAttachmentsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_back(fallback_location: edit_sign_path(sign)) }
-      format.js { render }
+      format.js { head(:ok) }
     end
   end
 
