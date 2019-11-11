@@ -130,3 +130,5 @@ const progressIndicator = (progress) => (
 </svg>
   `
 );
+
+export { initialHTML, errorHTML, progressHTML, pendingHTML };
