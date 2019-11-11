@@ -53,7 +53,8 @@ en:
       success: Sign successfully updated.
     personal:
       display_name: "private"
-      description: "'private' means that you have not asked for the sign to be made public. To ask for this sign to be public click Edit"
+      description: "'private' means only you and the people you have shared with can see this sign."
+      edit_status_instructions: "To ask for this sign to be public click Edit"
     submitted:
       display_name: "in progress"
       description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
@@ -93,6 +94,7 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   folder_share:
     create:
+      confirmation: "If someone clicks on the link, they will see all signs in the folder (including private signs). Proceed?"
       success: "To share, copy this link: %{share_url}"
     destroy:
       success: "Folder is no longer shared."

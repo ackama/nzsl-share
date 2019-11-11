@@ -4,7 +4,7 @@
       <h3> Hey <%= current_user.username %>, you are the creator of this sign</h3>
       <div class="grid-x margin-bottom-0">
         <h6 class="cell shrink subheader margin-top-0">It is</h6>
-        <h6 id="sign_status" title="<%= t("signs.#{@sign.status}.description") %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%=t("signs.#{@sign.status}.display_name") %> </h6>
+        <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.edit_status_instructions %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= @sign.status_name %> </h6>
       </div>
     </div>
     <div class="cell small-2">

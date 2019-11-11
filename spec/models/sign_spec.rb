@@ -142,7 +142,7 @@ RSpec.describe Sign, type: :model do
       sign.conditions_accepted = false
       expected_message = sign.errors.generate_message(:conditions_accepted, :blank)
       expect(sign).not_to be_valid
-      expect(sign.errors.full_messages_for(:conditions_accepted)).to include expected_message
+      expect(sign.errors.full_messages_for(:conditions_accepted).first).to include expected_message
     end
   end
 

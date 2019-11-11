@@ -26,7 +26,9 @@
         <div class="bullet">•</div>
         <p><%= sign.friendly_date %></p>
       </div>
-      <h6 id="sign_status" title="<%= t("signs.#{sign.status}.description") %>" class="royal cell"> <%=t("signs.#{sign.status}.display_name") %> </h6>
+      <% if policy(sign).update? %>
+        <h6 id="sign_status" title="<%= sign.status_description %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= sign.status_name %> </h6>
+      <% end %>
     </div>
     <div class="sign-card__bottom grid-x align-middle">
       <%= render "signs/card/votes", sign: sign %>
