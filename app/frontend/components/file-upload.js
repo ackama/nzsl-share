@@ -1,6 +1,12 @@
 import { DirectUploadController } from "@rails/activestorage/src/direct_upload_controller";
 
 const uploadUrl = "/rails/active_storage/direct_uploads";
+const wrapBlobCreateError = (error) => {
+  const prefix = "Error creating Blob for";
+  const message = error.message ? error.message : error;
+  if (!message.startsWith(prefix)) { return error; }
+  return "The file you selected does not comply with our upload guidelines.";
+};
 
 // Always prevent the default browser behaviour of attempting to open a dropped file
 $(document).on("drag dragstart dragend dragover dragenter dragleave drop", event => {
@@ -43,7 +49,7 @@ const FileUpload = (_index, container) => {
         .start((error) => {
           input.disabled = false;
           input.removeAttribute("data-direct-upload-url");
-          if (error) { $container.trigger("upload-error", error); }
+          if (error) { return $container.trigger("upload-error", wrapBlobCreateError(error)); }
           $container.trigger("upload-success");
         });
     })
