@@ -57,53 +57,8 @@
             <p class="help-text">Provide a short description of the sign and other notes eg. where have you seen this sign used?</p>
             <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
 
-            <%= f.label :new_usage_example, "Usage" %>
-            <p class="help-text">Upload up to 2 videos showing in usage</p>
-            <div class="file-upload usage-examples-file-upload" data-sign-id="<%= @sign.to_param %>" data-file-upload-controller="new_usage_example">
-              <%= label_tag :new_usage_example, "Browse files", class: "button primary large" %>
-              <%= file_field_tag :new_usage_example %>
-              <%= content_tag(:div, f.object.sign.errors.full_messages_for(:usage_examples).join(", ")) %>
-            </div>
-
-            <ul class="no-bullet list list--compact sign-usage-examples">
-              <% f.object.usage_examples.select(&:persisted?).each do |attach| %>
-                <li class="list__item--compact">
-                  <span><%= attach.filename %></span>
-                  <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
-                  <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
-                  <%= button_tag formmethod: :post,
-                                 form: "delete_attachment_form",
-                                 formaction: sign_usage_example_path(f.object, attach),
-                                 class: "button icon-only clear medium small" do %>
-                    <%= inline_svg "media/images/close.svg", aria: true, title: "Remove File", class: "icon icon--small icon--medium" %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-
-            <%= f.label :illustrations, "Illustration", class: "margin-top-1" %>
-            <p class="help-text">Upload up to 3 images of this sign being used</p>
-            <div class="file-upload">
-              <%= f.label :illustrations, "Browse files", class: "button primary large" %>
-              <%= f.file_field :illustrations, direct_upload: true, class: (@sign.errors[:illustrations].any? && "invalid") %>
-              <%= content_tag(:div, f.object.sign.errors.full_messages_for(:illustrations).join(", ")) %>
-            </div>
-
-            <ul class="no-bullet list list--compact sign-illustrations">
-              <% f.object.illustrations.select(&:persisted?).each do |attach| %>
-                <li class="list__item--compact">
-                  <span><%= attach.filename %></span>
-                  <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
-                  <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
-                  <%= button_tag formmethod: :post,
-                                 form: "delete_attachment_form",
-                                 formaction: sign_illustration_path(f.object, attach),
-                                 class: "button icon-only clear medium small" do %>
-                    <%= inline_svg "media/images/close.svg", aria: true, title: "Remove File", class: "icon icon--small icon--medium" %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
+            <%= render "signs/edit/attachment", field: :usage_example, form: f %><br />
+            <%= render "signs/edit/attachment", field: :illustration, form: f %>
           </div>
         </fieldset>
 
@@ -193,8 +148,12 @@
   <% end %>
 <% end %>
 
-<form id="delete_attachment_form">
-  <%= hidden_field_tag :_method, :delete, id: nil %>
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token, id: nil %>
+<form id="delete_usage_example_form" data-remote>
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 </form>
 
+<form id="delete_illustration_form" data-remote>
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form>
