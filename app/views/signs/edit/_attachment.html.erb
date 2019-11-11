@@ -1,6 +1,8 @@
 <% collective_class ||= field.to_s.dasherize.pluralize %>
 <% attribute ||= field.to_s.underscore.pluralize %>
 
+<div class="<%= collective_class %>">
+
 <%= label_tag :"new_#{field}", t(".#{field}.label") %>
 <%= content_tag(:p, t(".#{field}.hint"), class: "help-text") %>
 <%= content_tag(:div,
@@ -32,3 +34,5 @@
     </li>
   <% end %>
 </ul>
+
+</div>
