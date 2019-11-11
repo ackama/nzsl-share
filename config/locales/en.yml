@@ -57,11 +57,11 @@ en:
       display_name: "changes requested"
       description: "'changes requested' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
     unpublish_requested:
-      display_name: "requested to unpublish"
-      description: "'requested to unpublish' means that the sign is publc and you have asked for the sign to be made private. An admin will do this soon."
+      display_name: "asked to unpublish"
+      description: "asked to unpublish' means that the sign is public and you have asked for it to be private. An admin will do this soon."
     request_unpublish:
-      confirm: "Are you sure you want request your contribution be unpublished? This will submit a request for an admin to do this."
-      success: "Your request to have your contribution unpublished has been submitted. An admin will do this soon."
+      confirm: "Are you sure you want your sign to be private? Only you yourself will be able to see the sign."
+      success: "Thank you. An admin will make your sign private soon."
     cancel_publish_request:
       confirm: "Are you sure you want cancel your request for you contribution to be public?"
       success: "Your request to have your contribution to be published has been cancelled."
