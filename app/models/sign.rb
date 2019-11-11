@@ -41,10 +41,10 @@ class Sign < ApplicationRecord
     state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
-    state :unpublish_requested, before_enter: -> { self.unpublish_requested_at = Time.zone.now }
+    state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
 
     event :set_sign_to_personal do
-      transitions from: %i[submitted declined], to: :personal
+      transitions from: %i[published submitted declined], to: :personal
     end
 
     event :submit_for_publishing do
@@ -53,6 +53,10 @@ class Sign < ApplicationRecord
 
     event :publish do
       transitions from: %i[submitted], to: :published
+    end
+
+    event :request_unpublish do
+      transitions from: %i[published], to: :unpublish_requested
     end
 
     event :decline do

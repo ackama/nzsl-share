@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    owns_record?
+    owns_record? && !record.sign.published?
   end
 
   def edit?
@@ -24,6 +24,10 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
+    owns_record?
+  end
+
+  def request_unpublish?
     owns_record?
   end
 

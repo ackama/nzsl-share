@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root "home#index"
   resources :search, only: [:index]
   resources :signs, except: %i[index] do
+    post :request_unpublish
     resources :videos, param: :preset, only: :show, controller: :sign_video
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
   end
