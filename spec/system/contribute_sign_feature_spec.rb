@@ -33,7 +33,7 @@ RSpec.describe "Contributing a new sign", type: :system do
       # from rails-ujs. This means that the test (temporarily) needs to expect to see an
       # technical rather than useful error message when running in JS mode.
       if example.metadata[:uses_javascript]
-        expect(subject).to have_error "Error creating Blob for \"dummy.exe\". Status: 422"
+        expect(subject).to have_error "The file you selected does not comply with our upload guidelines."
       else
         subject.click_on("Start Upload")
         expect(subject).to have_error "Video file is not of an accepted type"

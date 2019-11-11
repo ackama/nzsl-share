@@ -122,7 +122,7 @@ RSpec.describe "Editing a sign", type: :system do
       it "can remove a file" do
         within(container_name) do
           expect(page).to have_selector "li", count: 1
-          click_on "Remove File"
+          click_button "Remove File"
           expect(page).not_to have_selector "li"
         end
       end
