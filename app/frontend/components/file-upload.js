@@ -1,5 +1,5 @@
 import { DirectUploadController } from "@rails/activestorage/src/direct_upload_controller";
-import Rails from "@rails/ujs";
+
 const uploadUrl = "/rails/active_storage/direct_uploads";
 
 // Always prevent the default browser behaviour of attempting to open a dropped file
@@ -59,7 +59,7 @@ const FileUpload = (_index, container) => {
 };
 
 $(document).ready(() => $("[data-file-upload-controller]").each(FileUpload));
-$(document).on("upload-success", "#new_sign .file-upload", () => Rails.fire($("#new_sign").get(0), "submit"));
+
 
 // Templates
 const initialHTML = (field) => (
