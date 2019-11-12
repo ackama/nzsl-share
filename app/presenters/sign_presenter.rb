@@ -4,7 +4,7 @@ class SignPresenter < ApplicationPresenter
            :description, :disagree_count, :errors, :id,
            :maori, :published?, :requested_unpublish_at,
            :secondary, :status, :to_model, :to_param,
-           :topic, :video, :word, to: :sign
+           :topic, :unpublish_requested?, :video, :word, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)

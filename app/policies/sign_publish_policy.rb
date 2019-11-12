@@ -1,7 +1,7 @@
 class SignPublishPolicy < ApplicationPolicy
-  # def create?
-  #   owns_record?
-  # end
+  def create?
+    owns_record?
+  end
 
   def destroy?
     owns_record?

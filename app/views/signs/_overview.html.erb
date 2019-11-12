@@ -42,12 +42,21 @@
               </li>
             <% end %>
             <% unless policy(@sign).edit? %>
-              <li class="list__item-menu__menu-item">
-                <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
-                  <%= inline_svg "media/images/private.svg", class: "icon--medium-gray" %>
-                  <span>Request to be private</span>
-                <% end %>
-              </li>
+              <% if @sign.status == 'published'%>
+                <li class="list__item-menu__menu-item">
+                  <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
+                    <%= inline_svg "media/images/private.svg", class: "icon--medium-gray" %>
+                    <span>Request to be private</span>
+                  <% end %>
+                </li>
+              <% else %>
+                <li class="list__item-menu__menu-item">
+                    <%= link_to  sign_publish_index_path(sign), method: :post, data: { confirm: t("sign_publish.create.confirm") } do %>
+                      <%= inline_svg "media/images/eye.svg", class: "icon--medium-gray" %>
+                      <span>Keep sign public</span>
+                    <% end %>
+                  </li>
+              <% end %>
             <% end %>
           </ul>
         </div>
