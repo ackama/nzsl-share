@@ -1,5 +1,7 @@
 .pagination {
-  margin-top: $base-spacing;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   padding-left: $base-spacing;
   padding-right: $base-spacing;
   text-align: center;
@@ -14,5 +16,9 @@
 
   .current {
     font-weight: $bold-font-weight;
+  }
+
+  span > a {
+    text-decoration: none;
   }
 }
