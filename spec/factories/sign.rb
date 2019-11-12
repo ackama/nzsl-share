@@ -12,10 +12,6 @@ FactoryBot.define do
     association :topic
     association :contributor, factory: :user
 
-    trait :published do
-      published_at { DateTime.now - (rand * 1000) }
-    end
-
     trait :unprocessed do
       processed_videos { false }
       processed_thumbnails { false }
