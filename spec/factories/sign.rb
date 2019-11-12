@@ -42,7 +42,7 @@ FactoryBot.define do
       submitted_at { Time.zone.now - 5 }
       conditions_accepted { true }
     end
-    trait :published do
+    trait :published_status do
       status { "published" }
       conditions_accepted { true }
       published_at { Time.zone.now - 5 }

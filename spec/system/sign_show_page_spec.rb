@@ -84,31 +84,30 @@ RSpec.describe "Sign show page", system: true do
         end
       end
 
-      # context "sign has been published" do
-      #   let(:sign) { FactoryBot.create(:sign, :published) }
-      #   subject(:sign_page) { SignPage.new }
+      context "sign has been published" do
+        let(:sign) { FactoryBot.create(:sign, :published_status) }
+        subject(:sign_page) { SignPage.new }
 
-      #   it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
-      #   it { expect(sign_page).to have_content "published" }
-      #   it "shows the published description on hover" do
-      #     within("#sign_overview") do
-      #       title = find("#sign_status")["title"]
-      #       binding.pry
-      #       assert_equal(title.strip!, I18n.t!("signs.published.description"))
-      #     end
-      #   end
-      #   it "user can request unpublish", uses_javascript: true do
-      #     click_on "Sign Options"
-      #     click_on "Ask to be private"
-      #     alert = page.driver.browser.switch_to.alert
-      #     expect(alert.text).to eq I18n.t!("sign_request_publish.destroy.confirm")
-      #     alert.accept
-      #     expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-      #     expect(subject).to have_content I18n.t!("sign_request_publish.destroy.success")
-      #     sign.reload
-      #     expect(sign.unpublish_requested?).to eq true
-      #   end
-      # end
+        it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
+        it { expect(sign_page).to have_content "public" }
+        it "shows the published description on hover" do
+          within("#sign_overview") do
+            title = find("#sign_status")["title"]
+            assert_equal(title.strip!, I18n.t!("signs.published.description"))
+          end
+        end
+        it "user can request unpublish", uses_javascript: true do
+          click_on "Sign Options"
+          click_on "Ask to be private"
+          alert = page.driver.browser.switch_to.alert
+          expect(alert.text).to eq I18n.t!("sign_request_publish.destroy.confirm")
+          alert.accept
+          expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+          expect(subject).to have_content I18n.t!("sign_request_publish.destroy.success")
+          sign.reload
+          expect(sign.unpublish_requested?).to eq true
+        end
+      end
 
       context "user has asked for sign to be unpublished" do
         let(:sign) { FactoryBot.create(:sign, :unpublish_requested) }
