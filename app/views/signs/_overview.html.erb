@@ -7,7 +7,7 @@
         <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-left-1">   <%= @sign.status_name %>
         </h6>
         <h6 class="cell shrink subheader margin-top-0 margin-left-1">
-          <%= "(asked on #{@sign.requested_unpublish_at.strftime("%d %b %Y")} )" if @sign.status == 'unpublish_requested'%>
+          <%= "(asked on #{@sign.requested_unpublish_at.strftime("%d %b %Y")})" if @sign.status == 'unpublish_requested'%>
         </h6>
       </div>
     </div>
@@ -37,7 +37,7 @@
               <li class="list__item-menu__menu-item">
                 <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("sign_publish.destroy.confirm") } do %>
                   <%= inline_svg "media/images/disagree.svg", class: "icon--medium-gray" %>
-                  <span>Cancel publication request</span>
+                  <span>Cancel (don’t show to public)</span>
                 <% end %>
               </li>
             <% end %>
@@ -46,7 +46,7 @@
                 <li class="list__item-menu__menu-item">
                   <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
                     <%= inline_svg "media/images/private.svg", class: "icon--medium-gray" %>
-                    <span>Request to be private</span>
+                    <span>Ask to be private</span>
                   <% end %>
                 </li>
               <% else %>

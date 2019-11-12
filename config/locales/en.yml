@@ -74,7 +74,7 @@ en:
   sign_publish:
     create:
       confirm: "Are you sure? Your sign will stay public"
-      success: "Request cancelled. Your sign will stay public"
+      success: "Cancelled. Your sign will stay public"
     destroy:
         confirm: "Are you sure? Your sign will stay private"
         success: "Cancelled. Your sign will stay private"
