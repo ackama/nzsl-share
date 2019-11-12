@@ -35,7 +35,7 @@
             <% end %>
             <% if policy(@sign).edit?%>
               <li class="list__item-menu__menu-item">
-                <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("signs.cancel_publication.confirm") } do %>
+                <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("sign_publish.destroy.confirm") } do %>
                   <%= inline_svg "media/images/disagree.svg", class: "icon--medium-gray" %>
                   <span>Cancel publication request</span>
                 <% end %>

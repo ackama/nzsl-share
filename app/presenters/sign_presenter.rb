@@ -2,9 +2,9 @@ class SignPresenter < ApplicationPresenter
   presents :sign
   delegate :agree_count, :contributor, :contributor_id,
            :description, :disagree_count, :errors, :id,
-           :maori, :requested_unpublish_at, :secondary,
-           :status, :to_model, :to_param, :topic,
-           :video, :word, to: :sign
+           :maori, :published?, :requested_unpublish_at,
+           :secondary, :status, :to_model, :to_param,
+           :topic, :video, :word, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)
