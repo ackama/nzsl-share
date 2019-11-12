@@ -1,9 +1,10 @@
 class SignPresenter < ApplicationPresenter
   presents :sign
-  delegate :id, :word, :maori, :secondary, :contributor, :agree_count,
-           :disagree_count, :topic, :video, :description,
-           :errors, :to_model, :contributor_id, :conditions_accepted,
-           :status, :to_param, to: :sign
+  delegate :agree_count, :contributor, :contributor_id,
+           :description, :disagree_count, :errors, :id,
+           :maori, :requested_unpublish_at, :secondary,
+           :status, :to_model, :to_param, :topic,
+           :video, :word, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)
@@ -25,10 +26,10 @@ class SignPresenter < ApplicationPresenter
     I18n.t("signs.#{sign.status}.description")
   end
 
-  def edit_status_instructions
+  def status_notes
     return unless sign.status == "personal"
 
-    I18n.t("signs.#{sign.status}.edit_status_instructions")
+    I18n.t("signs.#{sign.status}.status_notes")
   end
 
   def submitted_to_publish?
