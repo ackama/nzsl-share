@@ -7,7 +7,7 @@ RSpec.describe "Registering for an account", type: :system do
   it "can sign up with valid attributes" do
     complete_form
     submit_form
-    expect(page).to have_content "You have signed up successfully."
+    expect(page).to have_content "A message with a confirmation link has been sent to your email address."
   end
 
   it "is presented with errors for invalid fields" do
