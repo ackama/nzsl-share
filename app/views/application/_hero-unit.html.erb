@@ -1,21 +1,21 @@
-<div class="banner grid-x">
-  <div class="cell large-4 banner__video-container">
-    <video class="banner__video">
+<div class="hero-unit grid-x">
+  <div class="cell large-4 hero-unit__video-container">
+    <video class="hero-unit__video">
       <source src="<%= asset_pack_path 'media/images/sample.mp4' %>" type="video/mp4">
     </video>
-    <button class="button primary icon-only banner__play-button"><%= inline_svg("media/images/video-play.svg", aria: true) %></button>
+    <button class="button primary icon-only hero-unit__play-button"><%= inline_svg("media/images/video-play.svg", aria: true) %></button>
   </div>
 
-  <div class="cell large-8 grid-x banner__container">
-    <h1 class="banner__text cell underlined grid-x align-middle">Search this community space for NZSL signs posted by the New Zealand Deaf Community</h1>
+  <div class="cell large-8 grid-x hero-unit__container">
+    <h1 class="hero-unit__text cell underlined grid-x align-middle">Search this community space for NZSL signs posted by the New Zealand Deaf Community</h1>
     <div class="cell grid-x align-middle">
-      <div class="cell large-8 banner__search" id="banner-nav">
+      <div class="cell large-8 hero-unit__search" id="hero-unit-nav">
         <%= render "application/header/search"%>
       </div>
       <div class="cell large-4">
         <ul class="dropdown menu" data-dropdown-menu data-position="bottom" data-alignment="right" data-v-offset="8" data-h-offset="8">
-          <li class="banner__browse-link">
-            <%= link_to "Browse Topics", topics_path, class: "banner__browse-link--button"%>
+          <li class="hero-unit__browse-link">
+            <%= link_to "Browse Topics", topics_path, class: "hero-unit__browse-link--button"%>
             <%= inline_svg "media/images/dropdown.svg", aria_hidden: true %>
             <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
               <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>

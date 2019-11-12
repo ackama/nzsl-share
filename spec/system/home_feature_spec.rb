@@ -18,10 +18,10 @@ RSpec.describe "Homepage", type: :system do
 
   it "header search shows and hides on scroll", uses_javascript: true do
     signs = page.find(".copy__signs", match: :first)
-    banner = page.find(".banner")
+    hero_unit = page.find(".hero-unit")
     execute_script("arguments[0].scrollIntoView();", signs)
     expect(page).to have_css("#header-nav", visible: true)
-    execute_script("arguments[0].scrollIntoView();", banner)
+    execute_script("arguments[0].scrollIntoView();", hero_unit)
     expect(page).to have_css("#header-nav", visible: false)
   end
 

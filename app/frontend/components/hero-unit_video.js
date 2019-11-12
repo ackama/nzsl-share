@@ -1,12 +1,12 @@
 $(document).ready(function() {
-  $(".banner__video").click(function(e) {
-    if ($(".banner__play-button").length) {
+  $(".hero-unit__video").click(function(e) {
+    if ($(".hero-unit__play-button").length) {
       e.preventDefault();
       videoResponse(this);
     }
   });
 
-  $(".banner__play-button").click(function(e) {
+  $(".hero-unit__play-button").click(function(e) {
     e.preventDefault();
     videoResponse(this.previousElementSibling);
   });
@@ -17,8 +17,8 @@ $(document).ready(function() {
 
   function playVideo(video) {
     $(video)
-        .closest(".banner__video-container")
-        .children(".banner__play-button")
+        .closest(".hero-unit__video-container")
+        .children(".hero-unit__play-button")
         .css("opacity", "0");
     $(video)[0]
         .play();
@@ -26,8 +26,8 @@ $(document).ready(function() {
 
   function pauseVideo(video) {
     $(video)
-        .closest(".banner__video-container")
-        .children(".banner__play-button")
+        .closest(".hero-unit__video-container")
+        .children(".hero-unit__play-button")
         .css("opacity", "0");
     $(video)[0]
         .pause();
