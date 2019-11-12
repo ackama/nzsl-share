@@ -12,10 +12,6 @@ FactoryBot.define do
     association :topic
     association :contributor, factory: :user
 
-    trait :published do
-      published_at { DateTime.now - (rand * 1000) }
-    end
-
     trait :unprocessed do
       processed_videos { false }
       processed_thumbnails { false }
@@ -37,21 +33,25 @@ FactoryBot.define do
     trait :personal do
       status { "personal" }
     end
+
     trait :submitted do
       status { "submitted" }
       submitted_at { Time.zone.now - 5 }
       conditions_accepted { true }
     end
+
     trait :published do
       status { "published" }
       conditions_accepted { true }
       published_at { Time.zone.now - 5 }
     end
+
     trait :declined do
       status { "declined" }
       declined_at { Time.zone.now - 5 }
       conditions_accepted { true }
     end
+
     trait :unpublish_requested do
       status { "unpublish_requested" }
       unpublish_requsted_at { Time.zone.now - 5 }
