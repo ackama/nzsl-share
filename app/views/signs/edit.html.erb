@@ -148,13 +148,13 @@
   <% end %>
 <% end %>
 
-<% @sign.usage_examples.each do |attach| %>
+<% @sign.usage_examples.select(&:persisted?).each do |attach| %>
   <%= form_tag sign_attachment_path(@sign, attach, attachment_type: :usage_examples),
                id: dom_id(attach, :update_form),
                method: :patch do %><% end %>
 <% end %>
 
-<% @sign.illustrations.each do |attach| %>
+<% @sign.illustrations.select(&:persisted?).each do |attach| %>
   <%= form_tag sign_attachment_path(@sign, attach, attachment_type: :illustrations),
                id: dom_id(attach, :update_form),
                method: :patch do %><% end %>
