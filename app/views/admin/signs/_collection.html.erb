@@ -53,7 +53,7 @@ to display a collection of resources in an HTML table.
   </thead>
 
   <tbody>
-    <% resources.each do |resource| %>
+    <% present_collection(resources).each do |resource| %>
       <tr class="js-table-row"
           tabindex="0"
           <% if valid_action? :show, collection_presenter.resource_name %>
