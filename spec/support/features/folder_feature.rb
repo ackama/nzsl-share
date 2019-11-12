@@ -35,16 +35,21 @@ class FolderFeature
     click_on "Update Folder"
   end
 
-  def edit_folder(dropdown: false)
+  def within_list_item_menu(dropdown: false)
     within(find(".list__item", match: :first)) do
       click_on "Folder Options" if dropdown
+      yield
+    end
+  end
+
+  def edit_folder(dropdown: false)
+    within_list_item_menu(dropdown: dropdown) do
       click_on "Edit"
     end
   end
 
   def remove_folder(dropdown: false)
-    within(find(".list__item", match: :first)) do
-      click_on "Folder Options" if dropdown
+    within_list_item_menu(dropdown: dropdown) do
       click_on "Delete"
     end
   end
