@@ -27,6 +27,10 @@ class FolderPolicy < ApplicationPolicy
     owns_record? && record.user.folders_count > 1
   end
 
+  def share?
+    owns_record?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(user: user).in_order

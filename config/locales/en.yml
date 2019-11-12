@@ -72,6 +72,7 @@ en:
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   folders:
+    default_title: 'My Folder'
     edit:
       title: Edit '%{title}'
     new:
