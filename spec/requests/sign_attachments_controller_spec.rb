@@ -44,9 +44,38 @@ RSpec.describe SignAttachmentsController, type: :request do
     end
   end
 
+  describe "PATCH update" do
+    let(:attachment) { sign.usage_examples.first }
+    let(:params) { { attachment_type: :usage_examples, description: description } }
+    let(:update_request) { patch(sign_attachment_path(sign, attachment, params)) }
+
+    context "valid description" do
+      let(:description) { Faker::Lorem.sentence }
+
+      it "updates the description on the attachment blob" do
+        expect do
+          update_request
+          attachment.reload
+        end.to change { attachment.blob.metadata["description"] }.to eq description
+      end
+    end
+
+    context "empty description" do
+      let(:description) { "" }
+      before { attachment.blob.update(metadata: { description: Faker::Lorem.sentence }) }
+
+      it "clears the description on the attachment blob" do
+        expect do
+          update_request
+          attachment.reload
+        end.to change { attachment.blob.metadata["description"] }.to be_empty
+      end
+    end
+  end
+
   describe "DELETE destroy" do
     let(:attachment) { sign.usage_examples.first }
-    let(:destroy_request) { delete(sign_usage_example_path(sign, id: attachment_id)) }
+    let(:destroy_request) { delete(sign_attachment_path(sign, id: attachment_id, attachment_type: :usage_examples)) }
 
     context "attachment exists" do
       let(:attachment_id) { sign.usage_examples.first.id }
