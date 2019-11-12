@@ -46,7 +46,7 @@ en:
     personal:
       display_name: "private"
       description: "'private' means only you and the people you have shared with can see this sign."
-      edit_status_instructions: "To ask for this sign to be public click Edit"
+      status_notes: "To ask for this sign to be public click Edit"
     submitted:
       display_name: "in progress"
       description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
@@ -58,7 +58,7 @@ en:
       description: "'changes requested' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
     unpublish_requested:
       display_name: "asked to unpublish"
-      description: "asked to unpublish' means that the sign is public and you have asked for it to be private. An admin will do this soon."
+      description: "'asked to unpublish' means that the sign is public and you have asked for it to be private. An admin will do this soon."
     cancel_publication:
       confirm: "Are you sure? Your sign will stay private"
       success: "Cancelled. Your sign will stay private"

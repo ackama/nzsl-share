@@ -4,7 +4,11 @@
       <h3> Hey <%= current_user.username %>, you are the creator of this sign</h3>
       <div class="grid-x margin-bottom-0">
         <h6 class="cell shrink subheader margin-top-0">It is</h6>
-        <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.edit_status_instructions %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= @sign.status_name %> </h6>
+        <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-left-1">   <%= @sign.status_name %>
+        </h6>
+        <h6 class="cell shrink subheader margin-top-0 margin-left-1">
+          <%= "(asked on #{@sign.requested_unpublish_at.strftime("%d %b %Y")} )" if @sign.status == 'unpublish_requested'%>
+        </h6>
       </div>
     </div>
     <% if policy(@sign).edit? && @sign.status == 'personal' %>
@@ -15,7 +19,7 @@
         <% end %>
       </div>
     <% elsif policy(@sign).destroy? %>
-      <div class="cell small-6">
+      <div class="cell small-1">
         <a href="#" class="list__item__icon--options" data-toggle="sign_options" title="Sign Options">
           <%= inline_svg "media/images/options.svg", class: "icon icon--royal icon--mid list__item__icon" %>
         </a>
