@@ -2,8 +2,7 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(policy_scope(Sign.includes(:contributor, :topic))
-            .find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topic).find(params[:id]))
     authorize @sign
     return unless stale?(@sign)
 
@@ -34,7 +33,7 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = my_signs.find(id)
+    @sign = signs.find(id)
     authorize @sign
 
     render
@@ -61,8 +60,12 @@ class SignsController < ApplicationController
 
   private
 
+  def signs
+    @signs ||= policy_scope(Sign).order(word: :asc)
+  end
+
   def my_signs
-    @signs = policy_scope(Sign.where(contributor: current_user)).order(word: :asc)
+    @signs.where(contributor: current_user)
   end
 
   def build_sign(builder: SignBuilder.new)
