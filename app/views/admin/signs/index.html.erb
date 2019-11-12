@@ -29,7 +29,7 @@ It renders the `_table` partial to display details about the resources.
 
   <div class="list__title cell grid-x align-middle" role="banner">
     <h1 id="page-title">
-      <%= content_for(:title) %>
+      Moderate <%= content_for(:title) %>
     </h1>
 
     <% if show_search_bar %>
@@ -52,7 +52,6 @@ It renders the `_table` partial to display details about the resources.
       resources: resources,
       table_title: "page-title"
     ) %>
-
     <%= paginate resources %>
   </section>
 </div>
