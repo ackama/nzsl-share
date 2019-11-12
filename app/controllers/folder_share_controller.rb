@@ -5,7 +5,7 @@ class FolderShareController < ApplicationController
 
   def create
     @folder = fetch_folder
-    authorize @folder
+    authorize @folder, :share?
     @folder.update(share_token: SecureRandom.uuid) if @folder.share_token.blank?
 
     redirect_back fallback_location: @folder, notice: t(".success", share_url: share_url)
@@ -13,7 +13,7 @@ class FolderShareController < ApplicationController
 
   def destroy
     @folder = fetch_folder_by_token
-    authorize @folder
+    authorize @folder, :share?
     @folder.update(share_token: nil)
 
     redirect_back fallback_location: @folder, notice: t(".success")

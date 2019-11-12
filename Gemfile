@@ -23,6 +23,7 @@ gem "inline_svg"
 gem "sidekiq-batch"
 gem "image_processing"
 gem "aasm"
+gem "administrate"
 
 gem "rack-canonical-host"
 

@@ -1,0 +1,22 @@
+.form-section {
+  .form-section__header {
+    border-bottom: solid 1px $extra-light-gray;
+    margin: 0 2rem;
+    padding-top: 1rem;
+    width: calc(100% - 4rem);
+  }
+
+  .form-section__content {
+    padding: 2rem;
+  }
+}
+
+.form > .form-section {
+  margin: -1rem; // Reset spacing
+
+  & > .form-section__header {
+    margin: 0;
+    padding: 2rem 2rem 0;
+    width: 100%;
+  }
+}

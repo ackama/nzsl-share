@@ -5,7 +5,7 @@ class SignShareController < ApplicationController
 
   def create
     @sign = fetch_sign
-    authorize @sign
+    authorize @sign, :share?
     @sign.update(share_token: SecureRandom.uuid) if @sign.share_token.blank?
 
     redirect_back(fallback_location: @sign, notice: t(".success", share_url: share_url))
@@ -13,7 +13,7 @@ class SignShareController < ApplicationController
 
   def destroy
     @sign = fetch_sign_by_token
-    authorize @sign
+    authorize @sign, :share?
     @sign.update(share_token: nil)
 
     redirect_back(fallback_location: @sign, notice: t(".success"))

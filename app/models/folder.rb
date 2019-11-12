@@ -1,5 +1,5 @@
 class Folder < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many :folder_memberships, dependent: :destroy
   has_many :signs, through: :folder_memberships
   scope :in_order, -> { order(title: :asc) }

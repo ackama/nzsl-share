@@ -5,7 +5,12 @@
   padding: $global-padding;
 
   &__buttons {
-    margin-top: $global-margin;
+    // Pull buttons to the edges to make border full-width, then
+    // reapply paddding to space container properly.
+
+    border-top: solid 1px $extra-light-gray;
+    margin: -$global-padding;
+    padding: $global-padding;
 
     &--cancel {
       margin-right: $global-margin;

@@ -48,11 +48,12 @@
                     <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
                   <% end %>
                 </li>
-                <li class="list__item-menu__menu-item">
+
+                <%= content_tag :li, class: "list__item-menu__menu-item" do %>
                   <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
                     <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
                   <% end %>
-                </li>
+                <% end if policy(folder).destroy? %>
               </ul>
             </div>
           </div>

@@ -72,14 +72,6 @@ ActiveRecord::Schema.define(version: 2019_11_12_200222) do
     t.index ["word"], name: "idx_freelex_signs_word"
   end
 
-  create_table "sign_attachments", force: :cascade do |t|
-    t.bigint "sign_id", null: false
-    t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["sign_id"], name: "index_sign_attachments_on_sign_id"
-  end
-
   create_table "signs", id: :serial, force: :cascade do |t|
     t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
@@ -90,9 +82,9 @@ ActiveRecord::Schema.define(version: 2019_11_12_200222) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
+    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
-    t.text "notes"
     t.string "share_token"
     t.string "status", null: false
     t.datetime "submitted_at"
@@ -139,7 +131,6 @@ ActiveRecord::Schema.define(version: 2019_11_12_200222) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
-  add_foreign_key "sign_attachments", "signs"
   add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end
