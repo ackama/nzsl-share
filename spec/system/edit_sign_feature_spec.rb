@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Editing a sign", type: :system do
   include FileUploads
+  include WaitForAjax
 
   let!(:topic) { FactoryBot.create(:topic) }
   let(:sign) { FactoryBot.create(:sign, :unprocessed) }
@@ -131,6 +132,20 @@ RSpec.describe "Editing a sign", type: :system do
         end
       end
 
+      it "can update the description of an attachment" do
+        desc = Faker::Lorem.sentence
+        single_record = sign.public_send(attribute).first
+        expect do
+          within(list_selector + " li") do
+            fill_in "Description", with: desc
+            page.find("input[type=submit]", visible: false).click
+            single_record.reload
+          end
+        end.to change { single_record.blob.metadata["description"] }.to eq desc
+
+        within(list_selector) { expect(page).to have_field("Description", with: desc) }
+      end
+
       it "can upload a new file" do
         within container_selector { page.attach_file field_name, valid_file }
         click_on "Update Sign"
@@ -151,7 +166,14 @@ RSpec.describe "Editing a sign", type: :system do
     end
 
     context "with JS", uses_javascript: true do
-      it "can remove a file"
+      it "can remove a file" do
+        within container_selector do
+          click_on "Remove File"
+        end
+
+        expect(page.find(list_selector)).not_to have_selector "li"
+      end
+
       it "can upload a new file" do
         original_count = sign.public_send(attribute).size
         page.scroll_to(find(container_selector))
@@ -175,6 +197,21 @@ RSpec.describe "Editing a sign", type: :system do
 
         expect(page.find(list_selector)).to have_selector "li", count: original_count + 1
         expect(sign.public_send(attribute).count).to eq original_count + 1
+      end
+
+      it "can update the description of an attachment" do
+        desc = Faker::Lorem.sentence
+        single_record = sign.public_send(attribute).first
+        expect do
+          within(list_selector + " li") do
+            field = find_field("Description")
+            field.send_keys desc, :return
+            wait_for_ajax
+            single_record.reload
+          end
+        end.to change { single_record.blob.metadata["description"] }.to eq desc
+
+        within(list_selector) { expect(page).to have_field("Description", with: desc) }
       end
 
       it "rejects an invalid file with an error" do
