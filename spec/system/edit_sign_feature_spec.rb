@@ -137,13 +137,13 @@ RSpec.describe "Editing a sign", type: :system do
         single_record = sign.public_send(attribute).first
         expect do
           within(list_selector + " li") do
-            fill_in "Description", with: desc
+            fill_in :description, with: desc
             page.find("input[type=submit]", visible: false).click
             single_record.reload
           end
         end.to change { single_record.blob.metadata["description"] }.to eq desc
 
-        within(list_selector) { expect(page).to have_field("Description", with: desc) }
+        within(list_selector) { expect(page).to have_field(:description, with: desc) }
       end
 
       it "can upload a new file" do
@@ -204,14 +204,14 @@ RSpec.describe "Editing a sign", type: :system do
         single_record = sign.public_send(attribute).first
         expect do
           within(list_selector + " li") do
-            field = find_field("Description")
+            field = find_field(:description)
             field.send_keys desc, :return
             wait_for_ajax
             single_record.reload
           end
         end.to change { single_record.blob.metadata["description"] }.to eq desc
 
-        within(list_selector) { expect(page).to have_field("Description", with: desc) }
+        within(list_selector) { expect(page).to have_field(:description, with: desc) }
       end
 
       it "rejects an invalid file with an error" do
