@@ -26,6 +26,8 @@ RSpec.describe "Homepage", type: :system do
   end
 
   it "displays recently added and most viewed signs" do
-    expect(page).to have_css(".sign-card", count: 8)
+    page.all(".sign-grid").each do |element|
+      expect(element).to have_css(".sign-card", count: 4)
+    end
   end
 end
