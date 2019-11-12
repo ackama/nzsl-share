@@ -17,6 +17,24 @@ RSpec.describe "Registering for an account", type: :system do
     expect(page).to have_content "Email can't be blank"
   end
 
+  it "doesn't create any folders unless the user successfully registered" do
+    expect do
+      complete_form
+      fill_in "Email", with: ""
+      submit_form
+    end.not_to change(Folder, :count)
+  end
+
+  it "has a default folder created after signing up" do
+    expect do
+      complete_form
+      submit_form
+    end.to change(Folder, :count).by(1)
+
+    click_on "My folders"
+    expect(page).to have_content I18n.t("folders.default_title")
+  end
+
   private
 
   def complete_form
