@@ -39,16 +39,6 @@
     margin-bottom: 0;
   }
 
-  &__divider {
-    background-color: get-color(accent);
-    border: 0;
-    clear: both;
-    display: block;
-    height: 8px;
-    margin: 2rem 0;
-    width: 80px;
-  }
-
   &__container {
     z-index: 1;
 
