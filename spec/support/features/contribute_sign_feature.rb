@@ -1,40 +1,15 @@
+require_relative "./file_uploads"
+
 class ContributeSignFeature
   include Capybara::DSL
   include WaitForPath
+  include FileUploads
   attr_reader :user
 
   def start(user=FactoryBot.create(:user))
     @user = user
     sign_in user
     click_on "Add a sign"
-  end
-
-  def drop_file_in_file_upload
-    page.driver.execute_script(
-      <<-JS
-        dt = new DataTransfer();
-        evt = jQuery.Event('drop', {
-          preventDefault: function () {},
-          stopPropagation: function () {},
-          originalEvent: {
-            dataTransfer: dt,
-          }
-        })
-        dt.items.add(
-          new File(
-            ['foo'],
-            'filenamme',
-            {type: "video/mp4"}
-          )
-        )
-        $(document).trigger(evt)
-      JS
-    )
-    wait_for_path
-  end
-
-  def choose_file(path=default_attachment_path)
-    page.attach_file("Browse files", path)
   end
 
   def submit
@@ -44,9 +19,7 @@ class ContributeSignFeature
   end
 
   def has_error?(message)
-    within "#sign-upload-errors" do
-      page.has_selector?("li", text: message)
-    end
+    page.has_content?(message)
   end
 
   def sign_in(user)
@@ -61,10 +34,6 @@ class ContributeSignFeature
   end
 
   private
-
-  def default_attachment_path
-    Rails.root.join("spec", "fixtures", "dummy.mp4")
-  end
 
   def supports_javascript?
     Capybara.current_driver != :rack_test

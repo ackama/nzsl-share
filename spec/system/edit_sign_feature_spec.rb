@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Editing a sign", type: :system do
+  include FileUploads
+
   let!(:topic) { FactoryBot.create(:topic) }
   let(:sign) { FactoryBot.create(:sign, :unprocessed) }
   subject { page }
@@ -35,7 +37,7 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   it "can update a private sign without accepting the conditions" do
-    choose "should_submit_for_publishing_false"
+    choose "No, keep my sign private"
     click_on "Update Sign"
     sign.reload
     expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
@@ -44,18 +46,31 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   it "cannot request a sign be made public without accepting the conditions" do
-    choose "should_submit_for_publishing_true"
+    choose "Yes, request my sign be public"
     click_on "Update Sign"
     sign.reload
     expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
     expect(sign.submitted?).to eq false
   end
 
+  it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
+    expect(page).to have_selector "#terms-and-conditions", visible: false
+    choose "Yes, request my sign be public"
+    expect(page).to have_selector "#terms-and-conditions", visible: true
+  end
+
+  it "displays information about the video belonging to the sign" do
+    within ".file-preview" do
+      expect(subject).to have_content "dummy.mp4"
+      expect(subject).to have_content "1 MB"
+    end
+  end
+
   it "displays validation errors" do
     fill_in "sign_word", with: ""
     click_on "Update Sign"
 
-    expect(subject).to have_content "Edit sign details"
+    expect(subject).to have_content "Edit sign"
     expect(subject).to have_css ".invalid"
   end
 
@@ -88,5 +103,103 @@ RSpec.describe "Editing a sign", type: :system do
       before { sign.update!(processed_thumbnails: true, processed_videos: true); }
       it { expect(subject).to have_selector("source[src*='/signs/#{sign.id}/videos']", count: 3, visible: false) }
     end
+  end
+
+  shared_examples_for "sign attachment behaviour" do |attribute|
+    include ActionView::Helpers::NumberHelper
+    let(:field_name) { "sign_#{attribute}" }
+    let(:list_selector) { ".#{field_name.tr("_", "-")}" }
+    let(:container_selector) { ".#{attribute.to_s.tr("_", "-")}" }
+    let(:invalid_file) { Rails.root.join("spec", "fixtures", "dummy.exe") }
+
+    context "without JS" do
+      it "sees existing attachment data" do
+        single_record = sign.public_send(attribute).first
+        expected_file_size = number_to_human_size(single_record.byte_size)
+        within(list_selector) do
+          expect(page).to have_content single_record.filename
+          expect(page).to have_content expected_file_size
+          expect(page).to have_button "Remove File"
+        end
+      end
+
+      it "can remove a file" do
+        within(list_selector) do
+          expect(page).to have_selector "li", count: 1
+          click_button "Remove File"
+          expect(page).not_to have_selector "li"
+        end
+      end
+
+      it "can upload a new file" do
+        within container_selector { page.attach_file field_name, valid_file }
+        click_on "Update Sign"
+        click_on "Edit"
+        expect(page).to have_selector "#{list_selector} li", count: 1
+      end
+
+      it "rejects an invalid file with an error" do
+        within container_selector do
+          choose_file invalid_file
+        end
+
+        click_on "Update Sign"
+
+        expect(page).to have_selector "input##{field_name}.invalid"
+        expect(page).to have_content "file is not of an accepted type"
+      end
+    end
+
+    context "with JS", uses_javascript: true do
+      it "can remove a file"
+      it "can upload a new file" do
+        original_count = sign.public_send(attribute).size
+        page.scroll_to(find(container_selector))
+        within container_selector do
+          choose_file(valid_file)
+        end
+
+        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1
+        expect(sign.public_send(attribute).count).to eq original_count + 1
+      end
+
+      it "can upload a new file using drag and drop" do
+        original_count = sign.public_send(attribute).size
+
+        page.scroll_to(find(container_selector))
+        within container_selector do
+          drop_file_in_file_upload(valid_file,
+                                   content_type: content_type,
+                                   selector: "#{container_selector}-file-upload")
+        end
+
+        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1
+        expect(sign.public_send(attribute).count).to eq original_count + 1
+      end
+
+      it "rejects an invalid file with an error" do
+        expected_err = "The file you selected does not comply with our upload guidelines."
+
+        within container_selector do
+          choose_file invalid_file
+          expect(page).to have_content expected_err
+          expect(page).to have_link "Try again."
+        end
+      end
+    end
+  end
+
+  describe "usage examples" do
+    let!(:sign) { FactoryBot.create(:sign, :with_usage_examples) }
+    let(:valid_file) { Rails.root.join("spec", "fixtures", "dummy.mp4") }
+    let(:content_type) { "video/mp4" }
+    include_examples "sign attachment behaviour", :usage_examples
+  end
+
+  describe "illustrations" do
+    let!(:sign) { FactoryBot.create(:sign, :with_illustrations) }
+    let(:valid_file) { Rails.root.join("spec", "fixtures", "image.jpeg") }
+    let(:content_type) { "image/jpeg" }
+    include_examples "sign attachment behaviour", :illustrations
   end
 end
