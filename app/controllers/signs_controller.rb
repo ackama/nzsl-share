@@ -1,24 +1,6 @@
 class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
-  def unpublish
-    @sign = my_signs.find(id)
-    @sign.set_sign_to_personal
-    authorize @sign
-
-    flash[:notice] = t(".success")
-  end
-
-  def request_unpublish
-    @sign = my_signs.find(params["sign_id"])
-    @sign.request_unpublish
-    authorize @sign
-    @sign.save
-
-    flash[:notice] = t(".success")
-    redirect_after_update(@sign)
-  end
-
   def show
     @sign = present(policy_scope(Sign.includes(:contributor, :topic))
             .find(params[:id]))

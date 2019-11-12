@@ -31,7 +31,7 @@
             <% end %>
             <% if policy(@sign).edit?%>
               <li class="list__item-menu__menu-item">
-                <%= link_to sign_path(sign), method: :delete, data: { confirm: t("signs.cancel_publish_request") } do %>
+                <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("signs.cancel_publication.confirm") } do %>
                   <%= inline_svg "media/images/disagree.svg", class: "icon--medium-gray" %>
                   <span>Cancel publication request</span>
                 <% end %>
@@ -39,7 +39,7 @@
             <% end %>
             <% unless policy(@sign).edit? %>
               <li class="list__item-menu__menu-item">
-                <%= link_to sign_request_unpublish_path(sign), method: :post, data: { confirm: t("signs.request_unpublish.confirm") } do %>
+                <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
                   <%= inline_svg "media/images/private.svg", class: "icon--medium-gray" %>
                   <span>Request to be private</span>
                 <% end %>
