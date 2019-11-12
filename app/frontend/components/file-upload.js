@@ -34,6 +34,10 @@ const FileUpload = (_index, container) => {
     .on("dragover dragenter", () => $container.addClass("file-upload--dragged-over"))
     .on("dragleave dragend drop", () => $container.removeClass("file-upload--dragged-over"))
     .on("upload-error", (_event, error) => $content.html(errorHTML(error)))
+    .on("click", ".file-upload__reset", (event) => {
+      event.preventDefault();
+      $content.html(initialHTML(fieldName));
+    })
     .on("change", $input, event => {
       const input = $input.get(0);
       const fileSize = input.files[0].size / 1024 / 1024; // in MB
