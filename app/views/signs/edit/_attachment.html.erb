@@ -23,7 +23,9 @@
           <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success" %>
         </span>
 
-        <%= label_tag :description %>
+        <br>
+
+        <%= label_tag :description, "Describe the content of this video for accessibility" %>
         <%= text_field_tag :description,
                           attach.blob.metadata["description"],
                           class: "js-attachment-description",
