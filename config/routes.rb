@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
     root to: "signs#index"
   end
-  devise_for :users
+
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }
