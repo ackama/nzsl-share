@@ -31,8 +31,10 @@ RSpec.describe "Registering for an account", type: :system do
       submit_form
     end.to change(Folder, :count).by(1)
 
-    click_on "My folders"
-    expect(page).to have_content I18n.t("folders.default_title")
+    user = User.order(created_at: :desc).first
+    expect(user.folders.map(&:title)).to eq [
+      I18n.t("folders.default_title")
+    ]
   end
 
   private
