@@ -1,6 +1,7 @@
 class SignPresenter < ApplicationPresenter
   presents :sign
   delegate_missing_to :sign
+  delegate :to_param, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)

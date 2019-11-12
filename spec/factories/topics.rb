@@ -7,7 +7,7 @@ FactoryBot.define do
 
     trait :with_associated_signs do
       after :build do |topic|
-        topic.signs = build_list(:sign, 5)
+        topic.signs = build_list(:sign, 5, :published)
       end
     end
   end

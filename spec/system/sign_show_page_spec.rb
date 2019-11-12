@@ -100,10 +100,6 @@ RSpec.describe "Sign show page", system: true do
       end
     end
 
-    context "not logged in" do
-      it { expect(sign_page).not_to have_css "#sign_overview" }
-    end
-
     context "not owned by the current user" do
       let(:user) { FactoryBot.create(:user) }
       it { expect(sign_page).not_to have_css "#sign_overview" }

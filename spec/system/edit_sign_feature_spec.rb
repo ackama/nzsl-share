@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Editing a sign", type: :system do
   let!(:topic) { FactoryBot.create(:topic) }
-  let(:user) { sign.user }
+  let(:user) { sign.contributor }
   let(:sign) { FactoryBot.create(:sign, :unprocessed) }
   subject { page }
 

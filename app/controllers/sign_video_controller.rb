@@ -12,6 +12,8 @@ class SignVideoController < ApplicationController
     end
 
     redirect_to representation.processed
+  rescue Pundit::NotAuthorizedError
+    head(:forbidden)
   end
 
   private
