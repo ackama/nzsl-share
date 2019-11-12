@@ -8,9 +8,11 @@ class SignDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    video: Field::String,
     word: Field::String,
     status: Field::String,
-    notes: Field::Text
+    submitted_at: Field::DateTime,
+    description: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -19,17 +21,19 @@ class SignDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    video
     word
     status
-    notes
+    submitted_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    video
     word
     status
-    notes
+    description
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -38,7 +42,7 @@ class SignDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     word
     status
-    notes
+    description
   ].freeze
 
   # COLLECTION_FILTERS
