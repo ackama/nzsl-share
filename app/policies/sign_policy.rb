@@ -38,6 +38,10 @@ class SignPolicy < ApplicationPolicy
     owns_record?
   end
 
+  def admin?
+    user.administrator
+  end
+
   private
 
   def owns_record?
