@@ -29,7 +29,7 @@ class SignPublishController < ApplicationController
 
   def redirect_after_update(sign)
     respond_to do |format|
-      format.html { redirect_to sign }
+      format.html { redirect_back(fallback_location: sign) }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" }
     end
   end
