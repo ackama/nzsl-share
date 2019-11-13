@@ -124,13 +124,13 @@
 
     function refresh() {
       var $currentContainer = jQuery(selector);
-      var $currentVideo = $currentContainer.find("video.sign-video");
+      var $currentVideo = $currentContainer.find(".video");
       jQuery.ajax( {
         url: window.location,
         dataType: "html"
       }).done(function(responseText) {
         var $newVideoContainer = jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector);
-        var $newVideo = $newVideoContainer.find("video.sign-video");
+        var $newVideo = $newVideoContainer.find(".video");
 
         // Stop polling once the video has been processed
         if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
