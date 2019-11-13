@@ -11,7 +11,7 @@
     box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.02);
   }
 
-  & .avatar {
+  & > .avatar {
     position: absolute;
     right: 16px;
     top: 132px;
@@ -120,7 +120,7 @@
     // See responsive-embed - we need to target the
     // sign video wrapper seperately from video, embed, iframe
     // etc.
-    .sign-video-wrapper {
+    .video-wrapper {
       height: 100%;
       left: 0;
       position: absolute;
@@ -136,14 +136,16 @@
   }
 
   &__subtitle {
-    color: get-color(medium);
+    color: $black;
     display: flex;
     flex-direction: row;
     font-size: rem-calc(13);
-    font-weight: 500;
+    font-weight: 600;
+    line-height: 2rem;
   }
 
-  &__bottom {
+  &__bottom,
+  &__controls {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
