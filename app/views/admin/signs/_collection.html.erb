@@ -45,6 +45,7 @@ to display a collection of resources in an HTML table.
           <% end %>
         </th>
       <% end %>
+      <th></th>
     </tr>
   </thead>
 
@@ -66,6 +67,11 @@ to display a collection of resources in an HTML table.
             <% end -%>
           </td>
         <% end %>
+        <td>
+          <a href="#" title="Sign Options">
+            <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
+          </a>
+        </td>
       </tr>
     <% end %>
   </tbody>
