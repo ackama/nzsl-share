@@ -20,11 +20,12 @@ $small-spacing: $base-spacing / 2 !default;
 $white: #fff !default;
 $black: #000 !default;
 
-$blue: #1976d2 !default;
+$blue: #354ae7 !default;
 $red: #d32f2f !default;
 $light-yellow: #f0cd66 !default;
 $light-green: #4ab471 !default;
 
+$lighter-gray: #d6dadb;
 $grey-0: #f6f7f7 !default;
 $grey-1: #dfe0e1 !default;
 $grey-2: #cfd8dc !default;
@@ -55,7 +56,7 @@ $flash-colors: (
 );
 
 // Border
-$base-border-color: $grey-1 !default;
+$base-border-color: $lighter-gray !default;
 $base-border: 1px solid $base-border-color !default;
 
 // Transitions

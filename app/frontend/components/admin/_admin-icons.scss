@@ -3,5 +3,11 @@
 
   .button {
     padding: 0.5em;
+
+    &:hover {
+      svg {
+        @include icon-fill(get-color(royal));
+      }
+    }
   }
 }
