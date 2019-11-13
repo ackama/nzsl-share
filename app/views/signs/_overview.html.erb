@@ -18,49 +18,8 @@
           Edit
         <% end %>
       </div>
-    <% elsif policy(@sign).destroy? %>
-      <div class="cell small-1">
-        <a href="#" class="list__item__icon--options" data-toggle="sign_options" title="Sign Options">
-          <%= inline_svg "media/images/options.svg", class: "icon icon--royal icon--mid list__item__icon" %>
-        </a>
-        <div class="list__item-menu__dropdown-pane" id="sign_options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
-          <ul class="list__item-menu vertical icons">
-            <% if policy(@sign).edit?%>
-              <li class="list__item-menu__menu-item">
-                <%= link_to edit_sign_path(@sign) do %>
-                  <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon--medium-gray" %>
-                  <span>Edit</span>
-                <% end %>
-              </li>
-            <% end %>
-            <% if policy(@sign).edit?%>
-              <li class="list__item-menu__menu-item">
-                <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("sign_publish.destroy.confirm") } do %>
-                  <%= inline_svg "media/images/disagree.svg", class: "icon--medium-gray" %>
-                  <span>Cancel (don’t show to public)</span>
-                <% end %>
-              </li>
-            <% end %>
-            <% unless policy(@sign).edit? %>
-              <% if @sign.status == 'published'%>
-                <li class="list__item-menu__menu-item">
-                  <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
-                    <%= inline_svg "media/images/private.svg", class: "icon--medium-gray" %>
-                    <span>Ask to be private</span>
-                  <% end %>
-                </li>
-              <% else %>
-                <li class="list__item-menu__menu-item">
-                    <%= link_to  sign_publish_path(sign), method: :post, data: { confirm: t("sign_publish.create.confirm") } do %>
-                      <%= inline_svg "media/images/eye.svg", class: "icon--medium-gray" %>
-                      <span>Keep sign public</span>
-                    <% end %>
-                  </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+    <% else %>
+      <%= render "signs/overview_dropdown", sign: @sign %>
     <% end %>
   </div>
 </div>
