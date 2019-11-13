@@ -3,7 +3,8 @@ module VideosHelper
     content_tag(:source, nil, src: video_path(id: video.signed_id, preset: preset))
   end
 
-  def video_sourceset(video, presets=%w[1080p 720p 360p])
+  def video_sourceset(video, presets=nil)
+    presets ||= %w[1080p 720p 360p]
     safe_join(presets.map { |preset| video_source_tag(video, preset) })
   end
 
