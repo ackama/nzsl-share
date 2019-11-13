@@ -1,7 +1,7 @@
 <div class="grid-x grid-margin-x margin-bottom-1">
   <div id="sign_overview" class="callout cell small-12 large-10 grid-x">
     <div class="cell auto">
-      <h3><%= overview_intro_text(@sign, current_user) %></h3>
+      <h3><%= sign.overview_intro_text(current_user) %></h3>
       <div class="grid-x margin-bottom-0">
         <h6 class="cell shrink subheader margin-top-0">It is</h6>
         <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-left-1">   <%= @sign.status_name %>
