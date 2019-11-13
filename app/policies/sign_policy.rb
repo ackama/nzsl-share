@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !record.published? && !record.unpublish_requested?) || moderator?
+    (owns_record? && !public?) || moderator?
   end
 
   def edit?
@@ -31,12 +31,16 @@ class SignPolicy < ApplicationPolicy
     owns_record?
   end
 
-  def unpublish?
-    manage?
+  def publish?
+    (owns_record? && public?) || moderator?
   end
 
-  def request_unpublish
-    manage?
+  def unpublish?
+    (owns_record? && !public?) || moderator?
+  end
+
+  def request_unpublish?
+    owns_record? && public?
   end
 
   def manage_folders?
@@ -58,5 +62,9 @@ class SignPolicy < ApplicationPolicy
 
   def contributor?
     user.present?
+  end
+
+  def public?
+    record.published? || record.unpublish_requested?
   end
 end

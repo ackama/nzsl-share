@@ -4,7 +4,7 @@ class SignPublishController < ApplicationController
   def create
     @sign = my_signs.find(params["sign_id"])
     @sign.publish
-    authorize @sign, policy_class: SignPublishPolicy
+    authorize @sign, :publish?
     @sign.save
 
     flash[:notice] = t(".success")
@@ -14,7 +14,7 @@ class SignPublishController < ApplicationController
   def destroy
     @sign = my_signs.find(params["sign_id"])
     @sign.set_sign_to_personal
-    authorize @sign, policy_class: SignPublishPolicy
+    authorize @sign, :unpublish?
     @sign.save
 
     flash[:notice] = t(".success")
@@ -23,8 +23,12 @@ class SignPublishController < ApplicationController
 
   private
 
+  def signs
+    policy_scope(Sign).order(word: :asc)
+  end
+
   def my_signs
-    @signs.where(contributor: current_user)
+    signs.where(contributor: current_user)
   end
 
   def redirect_after_update(sign)

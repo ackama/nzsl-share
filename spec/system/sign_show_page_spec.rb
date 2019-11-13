@@ -112,7 +112,7 @@ RSpec.describe "Sign show page", system: true do
       end
 
       context "sign has been published" do
-        let(:sign) { FactoryBot.create(:sign, :published_status) }
+        let(:sign) { FactoryBot.create(:sign, :published) }
         subject(:sign_page) { SignPage.new }
 
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
