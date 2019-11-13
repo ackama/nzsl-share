@@ -9,6 +9,7 @@ $_search-icon-size: 1rem;
 
 .search__input {
   border-radius: 4px;
+  margin: 0;
   padding-left: $_search-icon-size * 2.5;
   padding-right: $_search-icon-size * 2.5;
 }
