@@ -1,4 +1,4 @@
-class SignVideoController < ApplicationController
+class VideosController < ApplicationController
   PRESET_MAP = {
     "1080p" => VideoEncodingPreset.default.muted.scale_1080,
     "720p" => VideoEncodingPreset.default.muted.scale_720,
@@ -12,16 +12,10 @@ class SignVideoController < ApplicationController
     end
 
     redirect_to representation.processed
-  rescue Pundit::NotAuthorizedError
-    head(:forbidden)
   end
 
-  private
-
-  def sign
-    @sign ||= policy_scope(Sign).find(params[:sign_id]).tap do |sign|
-      authorize sign
-    end
+  def blob
+    ActiveStorage::Blob.find_signed(params[:id])
   end
 
   def preset
@@ -33,6 +27,6 @@ class SignVideoController < ApplicationController
   end
 
   def representation
-    @representation ||= CachedVideoTranscoder.new(sign.video.blob, preset.to_a)
+    @representation ||= CachedVideoTranscoder.new(blob, preset.to_a)
   end
 end

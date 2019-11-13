@@ -116,7 +116,7 @@ RSpec.describe "Editing a sign", type: :system do
 
     context "when the sign video has been encoded" do
       before { sign.update!(processed_thumbnails: true, processed_videos: true); }
-      it { expect(subject).to have_selector("source[src*='/signs/#{sign.id}/videos']", count: 3, visible: false) }
+      it { expect(subject).to have_selector("source[src*='/videos']", count: 3, visible: false) }
     end
   end
 

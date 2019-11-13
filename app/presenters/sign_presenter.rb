@@ -59,7 +59,7 @@ class SignPresenter < ApplicationPresenter
   end
 
   def sign_video_source(preset)
-    h.content_tag(:source, nil, src: h.sign_video_path(sign_id: sign.id, preset: preset))
+    h.content_tag(:source, nil, src: h.video_path(id: sign.video.signed_id, preset: preset))
   end
 
   def sign_video_sourceset(presets=%w[1080p 720p 360p])
