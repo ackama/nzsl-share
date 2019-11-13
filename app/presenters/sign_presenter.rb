@@ -86,7 +86,7 @@ class SignPresenter < ApplicationPresenter
   def overview_intro_text(current_user)
     action_text = sign.contributor == current_user ? "you are the creator of this sign" : "you are moderating this sign"
 
-    "Hey #{current_user.username}, #{action_text}you are moderating this sign"
+    "Hey #{current_user.username}, #{action_text}"
   end
 
   def self.policy_class
