@@ -7,9 +7,16 @@ RSpec.describe SignVideoController, type: :controller do
   let(:fake_representation) { double(exist?: true, process_later: true, processed: fake_representation_url) }
 
   describe "GET #show" do
-    let!(:sign_id) { FactoryBot.create(:sign).id }
+    let(:sign) { FactoryBot.create(:sign) }
+    let(:user) { sign.contributor }
+    let!(:sign_id) { sign.id }
     let(:preset) { "1080p" }
-    before { allow(CachedVideoTranscoder).to receive(:new).and_return(fake_representation) }
+
+    before do
+      allow(CachedVideoTranscoder).to receive(:new).and_return(fake_representation)
+      sign_in user if user
+    end
+
     subject { get :show, params: { sign_id: sign_id, preset: preset } }
 
     context "valid params" do
@@ -38,6 +45,23 @@ RSpec.describe SignVideoController, type: :controller do
     context "invalid sign" do
       let!(:sign_id) { 0 }
       it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context "different user signed in" do
+      let(:user) { FactoryBot.create(:user) }
+      it { expect(subject.status).to eq 403 }
+    end
+
+    context "user not signed in" do
+      let(:user) { nil }
+      context "sign is published" do
+        let(:sign) { FactoryBot.create(:sign, :published) }
+        it { is_expected.to redirect_to fake_representation_url }
+      end
+
+      context "sign is not published" do
+        it { expect(subject.status).to eq 403 }
+      end
     end
   end
 end

@@ -118,6 +118,11 @@ ActiveRecord::Schema.define(version: 2019_11_12_204830) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "folders_count", default: 0, null: false
+    t.boolean "administrator", default: false, null: false
+    t.boolean "moderator", default: false, null: false
+    t.boolean "approved", default: false, null: false
+    t.boolean "validator", default: false, null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

@@ -1,12 +1,17 @@
 .file-upload {
-  align-items: center;
   background: $extra-light-gray;
   border: dashed 2px $light-gray;
   border-radius: $global-radius * 2;
-  display: flex;
-  flex-direction: column;
   margin-top: 1rem;
   padding: 4rem 2rem;
+
+  &,
+  &__content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .file-upload--dragged-over {

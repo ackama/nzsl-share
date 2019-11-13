@@ -3,9 +3,18 @@ class DirectUploadValidator
     include ActiveModel::Model
     attr_accessor :attachment
 
+    ## It must be one of these
+    def self.permitted_type
+      Regexp.union(Sign::PERMITTED_IMAGE_CONTENT_TYPE_REGEXP, Sign::PERMITTED_VIDEO_CONTENT_TYPE_REGEXP)
+    end
+
+    def self.permitted_file_size
+      Sign::MAXIMUM_FILE_SIZE
+    end
+
     validates :attachment,
-              content_type: { with: Sign::PERMITTED_CONTENT_TYPE_REGEXP },
-              size: { less_than_or_equal_to: Sign::MAXIMUM_VIDEO_FILE_SIZE }
+              content_type: { with: permitted_type },
+              size: { less_than_or_equal_to: permitted_file_size }
   end
 
   def validate!(args)
