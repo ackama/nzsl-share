@@ -18,7 +18,7 @@
   </nav>
 </div>
 
-<%= render "signs/overview", sign: @sign if policy(@sign).destroy?%>
+<%= render "signs/overview", sign: @sign if policy(@sign).manage?%>
 
 <div class="grid-x grid-margin-x">
   <div class="cell sign-card small-12 large-10 sign-card--borderless">

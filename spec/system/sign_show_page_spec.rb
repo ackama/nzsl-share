@@ -92,12 +92,14 @@ RSpec.describe "Sign show page", system: true do
 
         it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
         it { expect(sign_page).to have_content "in progress" }
+
         it "shows the submitted description on hover" do
           within("#sign_overview") do
             title = find("#sign_status")["title"]
             assert_equal(title.strip!, I18n.t!("signs.submitted.description"))
           end
         end
+
         it "user can cancel publication", uses_javascript: true do
           click_on "Sign Options"
           click_on "Cancel (don’t show to public)"
@@ -117,12 +119,14 @@ RSpec.describe "Sign show page", system: true do
 
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
         it { expect(sign_page).to have_content "public" }
+
         it "shows the published description on hover" do
           within("#sign_overview") do
             title = find("#sign_status")["title"]
             assert_equal(title.strip!, I18n.t!("signs.published.description"))
           end
         end
+
         it "user can request unpublish", uses_javascript: true do
           click_on "Sign Options"
           click_on "Ask to be private"
@@ -142,12 +146,14 @@ RSpec.describe "Sign show page", system: true do
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
         it { expect(sign_page).to have_content "(asked on #{sign.requested_unpublish_at.strftime("%d %b %Y")})" }
         it { expect(sign_page).to have_content "asked to unpublish" }
+
         it "shows the requested unpublish description on hover" do
           within("#sign_overview") do
             title = find("#sign_status")["title"]
             assert_equal(title.strip!, I18n.t!("signs.unpublish_requested.description"))
           end
         end
+
         it "user can cancel request to make sign private", uses_javascript: true do
           click_on "Sign Options"
           click_on "Keep sign public"

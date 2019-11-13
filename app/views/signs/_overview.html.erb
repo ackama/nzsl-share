@@ -51,7 +51,7 @@
                 </li>
               <% else %>
                 <li class="list__item-menu__menu-item">
-                    <%= link_to  sign_publish_index_path(sign), method: :post, data: { confirm: t("sign_publish.create.confirm") } do %>
+                    <%= link_to  sign_publish_path(sign), method: :post, data: { confirm: t("sign_publish.create.confirm") } do %>
                       <%= inline_svg "media/images/eye.svg", class: "icon--medium-gray" %>
                       <span>Keep sign public</span>
                     <% end %>
