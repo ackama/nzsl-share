@@ -67,10 +67,13 @@ to display a collection of resources in an HTML table.
             <% end -%>
           </td>
         <% end %>
-        <td>
-          <a href="#" title="Sign Options">
+        <td class="admin-icons">
+          <button href="#" title="New admin comment" class="button clear">
+            <%= inline_svg "media/images/comment.svg", class: "icon--medium list__item__icon" %>
+          </button>
+          <button href="#" title="Sign Options" class="button clear">
             <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
-          </a>
+          </button>
         </td>
       </tr>
     <% end %>
