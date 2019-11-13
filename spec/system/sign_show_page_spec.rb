@@ -74,10 +74,24 @@ RSpec.describe "Sign show page", system: true do
   end
 
   describe "sign controls" do
+    context "moderator is signed in" do
+      let(:user) { FactoryBot.create(:user, :moderator) }
+
+      it "allows the moderator to manage the sign" do
+        within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+      end
+
+      it "displays the moderator message " do
+        within("#sign_overview") { expect(sign_page).to have_content "you are the moderating this sign" }
+      end
+    end
+
     context "owned by the current user" do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
+      it { within("#sign_overview") { expect(sign_page).to have_content "you are the creator of this sign" } }
+
       it "shows the personal description and edit instructions on hover" do
         within("#sign_overview") do
           title = find("#sign_status")["title"]

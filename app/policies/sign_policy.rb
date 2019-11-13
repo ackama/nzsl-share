@@ -28,7 +28,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage?
-    owns_record?
+    owns_record? || moderator?
   end
 
   def publish?

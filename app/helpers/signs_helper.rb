@@ -26,4 +26,10 @@ module SignsHelper
   def add_folder_icon
     inline_svg("media/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
   end
+
+  def overview_intro_text(sign, current_user)
+    return "Hey #{current_user.username}, you are the creator of this sign" if sign.contributor == current_user
+
+    "Hey #{current_user.username}, you are the moderating this sign"
+  end
 end
