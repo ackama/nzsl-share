@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :share, only: %i[show create destroy], controller: :folder_share, param: :token
   end
 
-  resources :videos, param: :preset, only: :show, controller: :videos
+  get "/videos/:id/:preset" => "videos#show", as: :video
 
   resources :folder_memberships, only: %i[create destroy]
   scope "/user" do
