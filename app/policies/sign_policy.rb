@@ -1,6 +1,6 @@
 class SignPolicy < ApplicationPolicy
   def index?
-    true
+    record.published? || owns_record? || moderator?
   end
 
   def show?
