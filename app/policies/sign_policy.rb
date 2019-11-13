@@ -39,6 +39,8 @@ class SignPolicy < ApplicationPolicy
   end
 
   def admin?
+    return false if user.blank?
+
     user.administrator
   end
 
