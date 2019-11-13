@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published? || owns_record? || moderator? || admin?
+    record.published? || owns_record? || moderator? || administrator?
   end
 
   def create?
@@ -36,12 +36,6 @@ class SignPolicy < ApplicationPolicy
 
   def share?
     owns_record?
-  end
-
-  def admin?
-    return false if user.blank?
-
-    user.administrator
   end
 
   class Scope < Scope
