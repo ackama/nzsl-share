@@ -39,15 +39,23 @@ class VideoEncodingPreset
   end
 
   def scale_1080
-    add! ["-vf", "scale=1080:-2"]
+    scale(1080, 720)
   end
 
   def scale_720
-    add! ["-vf", "scale=720:-2"]
+    scale(720, 560)
   end
 
   def scale_360
-    add! ["-vf", "scale=360:-2"]
+    scale(360, 240)
+  end
+
+  def scale(width, height)
+    filters = [
+      "scale=#{width}:#{height}:force_original_aspect_ratio=decrease",
+      "pad=#{width}:#{height}:(ow-iw)/2:(oh-ih)/2"
+    ]
+    add! ["-vf", filters.join(",")]
   end
 
   def muted
