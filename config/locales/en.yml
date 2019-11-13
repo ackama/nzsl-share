@@ -45,10 +45,10 @@ en:
       attachment:
         illustration:
           label: Illustrations
-          hint: Upload up to 3 images of how this sign can be used
+          hint: Upload up to 3 images (e.g. a drawing of the sign or other illustrations).
         usage_example:
           label: Usage
-          hint: Upload up to 2 videos of examples of this sign being used
+          hint: Upload up to 2 videos - e.g. show how your sign is used in an example sentence; explain what your sign means in NZSL; explain why you think this is a good sign
     update:
       success: Sign successfully updated.
     personal:
