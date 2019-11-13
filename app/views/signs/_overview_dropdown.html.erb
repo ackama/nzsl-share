@@ -7,13 +7,13 @@
       <% if policy(@sign).edit?%>
         <li class="list__item-menu__menu-item">
           <%= link_to edit_sign_path(@sign) do %>
-            <%= inline_svg "media/images/edit.svg", title: "Edit", aria_hidden: true, class: "icon--primary" %>
+            <%= inline_svg "media/images/edit.svg", title: "Edit", aria_hidden: true, class: "icon--medium" %>
             <span>Edit</span>
           <% end %>
         </li>
         <li class="list__item-menu__menu-item">
           <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("sign_publish.destroy.confirm") } do %>
-            <%= inline_svg "media/images/disagree.svg", title: "Cancel", class: "icon--primary" %>
+            <%= inline_svg "media/images/disagree.svg", title: "Cancel", class: "icon--medium" %>
             <span>Cancel (don’t show to public)</span>
           <% end %>
         </li>
@@ -21,14 +21,14 @@
         <% if @sign.status == 'published'%>
           <li class="list__item-menu__menu-item">
             <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
-              <%= inline_svg "media/images/private.svg", title: "Private", class: "icon--primary" %>
+              <%= inline_svg "media/images/private.svg", title: "Private", class: "icon--medium" %>
               <span>Ask to be private</span>
             <% end %>
           </li>
         <% else %>
           <li class="list__item-menu__menu-item">
             <%= link_to  sign_publish_path(sign), method: :post, data: { confirm: t("sign_publish.create.confirm") } do %>
-              <%= inline_svg "media/images/eye.svg", title: "Public", class: "icon--primary" %>
+              <%= inline_svg "media/images/eye.svg", title: "Public", class: "icon--medium" %>
               <span>Keep sign public</span>
             <% end %>
           </li>
