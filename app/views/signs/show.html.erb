@@ -28,7 +28,7 @@
     <div class="sign-card__section">
       <h2>
         <%= @sign.word %>
-        <% if @sign.maori %><small>•&nbsp;<%= @sign.maori %></small><% end %>
+        <% if @sign.maori.present? %><small>•&nbsp;<%= @sign.maori %></small><% end %>
       </h2>
 
       <p class="sign-card__supplementary-titles__secondary"><%= @sign.secondary %></p>
@@ -79,32 +79,30 @@
       <%= content_tag(:p, simple_format(@sign.description)) %>
     </div>
 
-    <div class="grid-x sign-card__section sign-card__section--horizontal">
-      <% if @sign.usage_examples.any? %>
-        <div class="small-12 medium-4">
-          <h6 class="medium">Usage</h6>
-          <div class="grid-x grid-margin-x small-up-1 medium-up-2">
-            <% @sign.usage_examples.each do |usage_example| %>
-              <div class="cell">
-                <%= render "signs/card/attachment", attachment: usage_example %>
-              </div>
-            <% end %>
-          </div>
+    <% if @sign.usage_examples.any? %>
+      <div class="grid-x sign-card__section sign-card__section--horizontal usage-examples">
+        <strong>Usage</strong>
+        <div class="grid-x grid-margin-x small-up-1 medium-up-2">
+          <% @sign.usage_examples.each do |usage_example| %>
+            <div class="cell">
+              <%= render "signs/card/attachment", attachment: usage_example %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+    <% end %>
 
-      <% if @sign.illustrations.any? %>
-        <div class="small-12 medium-8">
-          <h6 class="medium">Illustrations</h6>
-          <div class="grid-x grid-margin-x small-up-1 medium-up-3">
-            <% @sign.illustrations.each do |illustration| %>
-              <div class="shadowed thumbnail cell">
-                <%= image_tag illustration.representation(ThumbnailPreset.default.scale_720.to_h)   %>
-              </div>
-            <% end %>
-          </div>
+    <% if @sign.illustrations.any? %>
+      <div class="grid-x sign-card__section sign-card__section--horizontal illustrations">
+        <strong>Illustrations</strong>
+        <div class="grid-x grid-margin-x small-up-1 medium-up-3">
+          <% @sign.illustrations.each do |illustration| %>
+            <div class="shadowed thumbnail cell">
+              <%= image_tag illustration.representation(ThumbnailPreset.default.scale_720.to_h)   %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
