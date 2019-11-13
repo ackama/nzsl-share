@@ -58,29 +58,18 @@ class SignPresenter < ApplicationPresenter
     video.preview(preset).processed.service_url
   end
 
-  def sign_video_source(preset)
-    h.content_tag(:source, nil, src: h.video_path(id: sign.video.signed_id, preset: preset))
-  end
-
-  def sign_video_sourceset(presets=%w[1080p 720p 360p])
+  def sign_video_sourceset
     return unless sign.processed_videos?
 
-    h.safe_join(presets.map { |preset| sign_video_source(preset) })
+    h.video_sourceset(sign.video)
   end
 
   def sign_video_attributes
-    class_list = ["sign-video"]
+    class_list = []
     class_list << " has-thumbnails" if sign.processed_thumbnails?
     class_list << " has-video" if sign.processed_videos?
 
-    {
-      class: class_list.join(" "),
-      controls: true,
-      controlslist: "nodownload",
-      preload: false,
-      muted: true,
-      poster: poster_url
-    }
+    h.video_attributes(class: class_list, poster: poster_url)
   end
 
   def self.policy_class
