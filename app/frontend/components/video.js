@@ -1,5 +1,4 @@
 const togglePlayPause = (el) => {
-  console.log(el);
   el.classList.toggle("video--playing");
   el.paused ? el.play() : el.pause();
 
