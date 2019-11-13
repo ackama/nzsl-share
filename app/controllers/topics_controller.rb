@@ -6,6 +6,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = policy_scope(Topic).find(params[:id])
+    @signs = policy_scope(@topic.signs)
     authorize @topic
   end
 end

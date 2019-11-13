@@ -5,16 +5,31 @@ RSpec.describe "Editing a sign", type: :system do
   include WaitForAjax
 
   let!(:topic) { FactoryBot.create(:topic) }
+  let(:user) { sign.contributor }
   let(:sign) { FactoryBot.create(:sign, :unprocessed) }
   subject { page }
 
   before do
-    AuthenticateFeature.new(sign.contributor).sign_in
+    AuthenticateFeature.new(user).sign_in
     visit edit_sign_path(sign)
   end
 
   it "renders the edit page" do
-    expect(subject.current_path).to eq edit_sign_path(Sign.order(created_at: :desc).first)
+    expect(subject.current_path).to eq edit_sign_path(sign)
+  end
+
+  context "non-owner signed in" do
+    let(:user) { FactoryBot.create(:user) }
+    it { expect(current_path).to eq root_path }
+    it { expect(page).to have_content I18n.t("application.unauthorized") }
+  end
+
+  context "moderator signed in" do
+    let(:user) { FactoryBot.create(:user, :moderator) }
+
+    it "renders the edit page" do
+      expect(subject.current_path).to eq edit_sign_path(sign)
+    end
   end
 
   it "shows the expected page title" do

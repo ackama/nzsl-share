@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+  namespace :admin do
+    resources :signs
+
+    root to: "signs#index"
+  end
+
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
+  }
   resource :styleguide, only: :show
 
   require "sidekiq/web"
