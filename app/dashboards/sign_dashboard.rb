@@ -11,8 +11,7 @@ class SignDashboard < Administrate::BaseDashboard
     video: Field::String,
     word: Field::String,
     status: Field::String,
-    submitted_at: Field::DateTime,
-    description: Field::String
+    submitted_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,7 +32,6 @@ class SignDashboard < Administrate::BaseDashboard
     video
     word
     status
-    description
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -42,7 +40,6 @@ class SignDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     word
     status
-    description
   ].freeze
 
   # COLLECTION_FILTERS
