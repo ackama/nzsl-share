@@ -68,14 +68,37 @@ to display a collection of resources in an HTML table.
           </td>
         <% end %>
         <td class="admin-icons">
-          <button href="#" title="New admin comment" class="button clear">
+          <button title="New admin comment" class="button clear">
             <%= inline_svg "media/images/comment.svg", class: "icon--medium list__item__icon" %>
           </button>
-          <button href="#" title="Sign Options" class="button clear">
+
+          <button title="Sign Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
             <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
           </button>
         </td>
+
       </tr>
+      <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin" id="<%= dom_id(resource, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+            <ul class="list__item-menu vertical icons">
+              <li class="list__item-menu__menu-item">
+                <%= link_to edit_sign_path(resource) do %>
+                  <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+                <% end %>
+              </li>
+              <li class="list__item-menu__menu-item">
+                <a href="#">
+                  <%= inline_svg "media/images/tick.svg", class: "icon--medium" %><span>Progress to NZSL</span>
+                </a>
+              </li>
+              <li class="list__item-menu__menu-item">
+                <a href="#">
+                  <%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Archive</span>
+                </a>
+              </li>
+            </ul>
+          </div>
     <% end %>
   </tbody>
 </table>
+
+
