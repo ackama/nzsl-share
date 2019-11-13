@@ -5,14 +5,18 @@
     }
 
     svg {
-      fill: $action-color;
       transform: rotate(180deg);
+
+      &,
+      & path {
+        fill: $action-color;
+      }
     }
   }
 
   a {
-    color: inherit;
     display: inline-block;
+    font-weight: bold;
     transition: color $base-duration $base-timing;
     width: 100%;
   }

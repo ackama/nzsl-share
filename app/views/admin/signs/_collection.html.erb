@@ -31,18 +31,20 @@ to display a collection of resources in an HTML table.
         <%= link_to(sanitized_order_params(page, collection_field_name).merge(
           collection_presenter.order_params_for(attr_name, key: collection_field_name)
         )) do %>
-        <%= t(
-          "helpers.label.#{collection_presenter.resource_name}.#{attr_name}",
-          default: attr_name.to_s,
-        ).titleize %>
-            <% if collection_presenter.ordered_by?(attr_name) %>
-              <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
-                <svg aria-hidden="true">
-                  <use xlink:href="#icon-up-caret" />
-                </svg>
-              </span>
-            <% end %>
+          <% if attr_name == :word %>
+            Sign Name
+          <% else %>
+            <%= t(
+              "helpers.label.#{collection_presenter.resource_name}.#{attr_name}",
+              default: attr_name.to_s,
+            ).titleize %>
           <% end %>
+          <% if attr_name != :notes && collection_presenter.ordered_by?(attr_name) %>
+            <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
+              <%= inline_svg "media/images/dropdown.svg", class: "icon--small" %>
+            </span>
+          <% end %>
+        <% end %>
         </th>
       <% end %>
       <th></th>
@@ -57,11 +59,9 @@ to display a collection of resources in an HTML table.
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
             <% if attribute.attribute == :word -%>
-              <a href="<%= polymorphic_path([namespace, resource]) -%>"
-                 class="action-show"
-                 >
+              <%= link_to sign_path(resource), class: "action-show" do %>
                 <%= render_field attribute %>
-              </a>
+              <% end %>
             <% else %>
                 <%= render_field attribute %>
             <% end -%>
@@ -87,7 +87,7 @@ to display a collection of resources in an HTML table.
               </li>
               <li class="list__item-menu__menu-item">
                 <a href="#">
-                  <%= inline_svg "media/images/tick.svg", class: "icon--medium" %><span>Progress to NZSL</span>
+                  <%= inline_svg "media/images/tick.svg", class: "icon--medium" %><span>Progress to NZSL Official</span>
                 </a>
               </li>
               <li class="list__item-menu__menu-item">
