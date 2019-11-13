@@ -46,4 +46,10 @@ RSpec.describe Folder, type: :model do
       it { is_expected.not_to be_valid }
     end
   end
+
+  describe ".make_default" do
+    subject { Folder.make_default }
+    it { expect(subject.title).to eq "My Folder" }
+    it { is_expected.not_to be_persisted }
+  end
 end

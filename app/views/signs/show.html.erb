@@ -67,7 +67,7 @@
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
-        <% end %>
+        <% end if policy(@sign).share? %>
       </div>
     </div>
   </div>

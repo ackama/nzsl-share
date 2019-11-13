@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sign show page", system: true do
-  let(:user) { nil }
+  let(:user) { sign.contributor }
   let(:sign) { FactoryBot.create(:sign) }
   let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
@@ -25,6 +25,33 @@ RSpec.describe "Sign show page", system: true do
 
   it "has the expected page title" do
     expect(page).to have_title "#{sign.word} – NZSL Share"
+  end
+
+  context "user not signed in" do
+    before do
+      auth.sign_out
+      sign_page.start(sign)
+    end
+
+    context "sign is published" do
+      let(:sign) { FactoryBot.create(:sign, :published) }
+
+      it "displays the sign word" do
+        expect(subject).to have_selector "h2", text: sign.word
+      end
+    end
+
+    it "doesn't display the sign" do
+      expect(page).not_to have_content sign.word
+    end
+  end
+
+  context "moderator is signed in" do
+    let(:user) { FactoryBot.create(:user, :moderator) }
+
+    it "displays the sign word" do
+      expect(subject).to have_selector "h2", text: sign.word
+    end
   end
 
   describe "sign video" do
@@ -133,10 +160,6 @@ RSpec.describe "Sign show page", system: true do
           expect(sign.published?).to eq true
         end
       end
-    end
-
-    context "not logged in" do
-      it { expect(sign_page).not_to have_css "#sign_overview" }
     end
 
     context "not owned by the current user" do

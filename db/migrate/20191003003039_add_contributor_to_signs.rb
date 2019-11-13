@@ -1,4 +1,6 @@
 class AddContributorToSigns < ActiveRecord::Migration[6.0]
+  class User < ApplicationRecord; end
+
   def up
     add_reference :signs,
                   :contributor, null: true,

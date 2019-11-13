@@ -2,8 +2,7 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(policy_scope(Sign.includes(:contributor, :topic))
-            .find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topic).find(params[:id]))
     authorize @sign
     return unless stale?(@sign)
 
@@ -11,6 +10,7 @@ class SignsController < ApplicationController
   end
 
   def index
+    @signs = my_signs
     authorize my_signs
   end
 
@@ -34,14 +34,14 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = my_signs.find(id)
+    @sign = signs.find(id)
     authorize @sign
 
     render
   end
 
   def update
-    @sign = my_signs.find(id)
+    @sign = signs.find(id)
     @sign.assign_attributes(edit_sign_params)
     set_signs_submitted_state
     authorize @sign
@@ -61,8 +61,12 @@ class SignsController < ApplicationController
 
   private
 
+  def signs
+    policy_scope(Sign).order(word: :asc)
+  end
+
   def my_signs
-    @signs = policy_scope(Sign.where(contributor: current_user)).order(word: :asc)
+    signs.where(contributor: current_user)
   end
 
   def build_sign(builder: SignBuilder.new)
@@ -79,8 +83,10 @@ class SignsController < ApplicationController
   def edit_sign_params
     params
       .require(:sign)
-      .permit(:video, :maori, :secondary, :notes, :word, :topic_id, :conditions_accepted)
-      .merge(contributor: current_user)
+      .permit(
+        :video, :maori, :secondary, :notes, :word, :topic_id, :usage_examples,
+        :illustrations, :conditions_accepted
+      )
   end
 
   def id

@@ -41,6 +41,14 @@ en:
     default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
+    edit:
+      attachment:
+        illustration:
+          label: Illustrations
+          hint: Upload up to 3 images of how this sign can be used
+        usage_example:
+          label: Usage
+          hint: Upload up to 2 videos of examples of this sign being used
     update:
       success: Sign successfully updated.
     personal:
@@ -83,6 +91,7 @@ en:
       confirm: "Are you sure you want your sign to be private? Only you yourself will be able to see the sign."
       success: "Thank you. An admin will make your sign private soon."
   folders:
+    default_title: 'My Folder'
     edit:
       title: Edit '%{title}'
     new:
@@ -112,7 +121,7 @@ en:
   activemodel:
     errors: &activemodel_errors
       messages:
-        content_type_invalid: isn't a valid video file
+        content_type_invalid: file is not of an accepted type
         file_size_out_of_range: file is too large (%{file_size})
 
   activerecord:
@@ -124,3 +133,7 @@ en:
             conditions_accepted:
               format: '%{message}'
               blank: "For your sign to be made public you must agree to follow the terms and conditions (rules)"
+            illustrations:
+              too_long: are limited to %{count} files
+            usage_examples:
+              too_long: are limited to %{count} files

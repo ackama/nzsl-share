@@ -72,6 +72,15 @@ RSpec.describe "Folders", type: :system do
       expect(process).to have_selector(".list__item", count: folders.size - 1)
     end
 
+    it "does not show delete link of the folder if it's the last one" do
+      # Delete all but the first folder
+      folders[1..-1].each(&:destroy)
+      process.start
+      process.within_list_item_menu do
+        expect(page).not_to have_link "Delete"
+      end
+    end
+
     it "posts a success message" do
       process.remove_folder
       expect(process).to have_content "Folder successfully deleted."
