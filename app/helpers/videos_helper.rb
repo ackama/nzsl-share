@@ -11,7 +11,7 @@ module VideosHelper
     class_list = ["video"]
 
     {
-      class: (class_list + (extras.delete(:class) || [])).join(" "),
+      class: (class_list + (Array(extras.delete(:class)) || [])).join(" "),
       controls: true,
       controlslist: "nodownload",
       preload: false,

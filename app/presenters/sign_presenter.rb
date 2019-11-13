@@ -58,10 +58,10 @@ class SignPresenter < ApplicationPresenter
     video.preview(preset).processed.service_url
   end
 
-  def sign_video_sourceset
+  def sign_video_sourceset(presets=nil)
     return unless sign.processed_videos?
 
-    h.video_sourceset(sign.video)
+    h.video_sourceset(sign.video, presets)
   end
 
   def sign_video_attributes

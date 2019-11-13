@@ -130,11 +130,6 @@ RSpec.describe SignPresenter, type: :presenter do
     end
   end
 
-  describe "#sign_video_source" do
-    subject { presenter.sign_video_source("720p") }
-    it { is_expected.to eq "<source src=\"/signs/#{sign.id}/videos/720p\"></source>" }
-  end
-
   describe "#sign_video_sourceset" do
     subject { presenter.sign_video_sourceset }
 
