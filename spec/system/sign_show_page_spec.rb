@@ -82,7 +82,7 @@ RSpec.describe "Sign show page", system: true do
       end
 
       it "displays the moderator message " do
-        within("#sign_overview") { expect(sign_page).to have_content "you are the moderating this sign" }
+        within("#sign_overview") { expect(sign_page).to have_content "you are moderating this sign" }
       end
     end
 
