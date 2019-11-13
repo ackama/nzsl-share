@@ -107,6 +107,8 @@ en:
   published_sign_video:
     name: "NZSL Share: Contributed sign for '%{word}'"
     description: "Video contributed to NZSL Share. More information: %{url}"
+  users:
+    contribution_limit_reached: You have reached the maximum number of contributions we can accept. To have your limit increased, please contact us.
   activemodel:
     errors: &activemodel_errors
       messages:

@@ -15,6 +15,11 @@ class SignsController < ApplicationController
   end
 
   def new
+    if current_user.contribution_limit_reached?
+      return redirect_to root_path,
+                         alert: t("users.contribution_limit_reached")
+    end
+
     @sign = Sign.new
     authorize @sign
   end
