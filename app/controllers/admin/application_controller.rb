@@ -5,12 +5,15 @@ module Admin
     include Administrate::Punditize
     helper PresentersHelper
 
-    before_action :authenticate_user!, :redirect_non_admins
+    before_action :authenticate_user!
+    before_action { authorize :admin, :index? }
+
+    rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
     private
 
-    def redirect_non_admins
-      redirect_to root_path unless current_user.try(:administrator)
+    def not_authorized
+      redirect_to root_path
     end
   end
 end
