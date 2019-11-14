@@ -25,6 +25,9 @@ class SearchService < ApplicationService
   def build_results
     term = parameterize_term
     sql_arr = [SQL::Search.search(search_args), term: term]
+    count, ids = parse_results(exec_query(sql_arr))
+    search.total = count
+    fetch_results(ids)
   end
 
   def parameterize_term
