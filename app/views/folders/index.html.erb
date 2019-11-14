@@ -36,7 +36,7 @@
             <a href="#" class="list__item__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
               <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
             </a>
-            <div class="list__item-menu__dropdown-pane" id="<%= dom_id(folder, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+            <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--folders" id="<%= dom_id(folder, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
               <ul class="list__item-menu vertical icons">
                 <li class="list__item-menu__menu-item">
                   <%= link_to folder_share_index_path(folder), method: :post, data: { confirm: t("folder_share.create.confirmation") } do %>

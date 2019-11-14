@@ -54,7 +54,7 @@
           <legend class="form-section__header"><h2 class="primary">Other details</h2></legend>
           <div class="form-section__content">
             <%= f.label :notes, "Notes" %>
-            <p class="help-text">Provide a short description of the sign and other notes eg. where have you seen this sign used?</p>
+            <p class="help-text">(e.g. where have you seen this sign used?)</p>
             <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
 
             <%= render "signs/edit/attachment", field: :usage_example, form: f %><br />
