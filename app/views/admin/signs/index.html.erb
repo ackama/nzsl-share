@@ -23,8 +23,6 @@ It renders the `_table` partial to display details about the resources.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
-<% return unless policy(Sign).administrator? %>
-
 <% content_for(:title) do %>
   <%= display_resource_name(page.resource_name) %>
 <% end %>
