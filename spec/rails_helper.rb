@@ -42,6 +42,7 @@ Capybara.register_driver :chrome do |app|
 
   options.add_argument("--window-size=1920,1080")
   options.add_argument("--remote-debugging-port=9222")
+  options.add_argument("--headless") unless ENV["FOREGROUND"]
 
   Capybara::Selenium::Driver.new app, browser: :chrome, options: options
 end

@@ -105,29 +105,33 @@
     &__dropdown-pane {
       @include dropdown-container;
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
-      max-width: rem-calc(161);
       padding: 0;
+      z-index: 101;
 
       &--admin {
         max-width: rem-calc(224);
       }
+
+      &--folders {
+        max-width: rem-calc(161);
+      }
     }
-  }
 
-  &__divider {
-    background-color: get-color(primary-x-light);
-    border: 0;
-    clear: both;
-    display: block;
-    height: 1px;
-    margin: 0;
-    width: 100%;
+    &__divider {
+      background-color: get-color(primary-x-light);
+      border: 0;
+      clear: both;
+      display: block;
+      height: 1px;
+      margin: 0;
+      width: 100%;
 
-    &--vertical {
-      background-color: get-color(medium);
-      height: 24px;
-      margin: 0 $global-margin / 2;
-      width: 1px;
+      &--vertical {
+        background-color: get-color(medium);
+        height: 24px;
+        margin: 0 $global-margin / 2;
+        width: 1px;
+      }
     }
   }
 }

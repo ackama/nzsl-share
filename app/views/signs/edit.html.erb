@@ -1,75 +1,104 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
-<div class="grid-x grid-margin-x content-container">
-  <%= render "errors" %>
-  <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell form", method: :patch do |f| %>
-    <h1 class="">Edit sign details</h1>
-    <hr class="form__divider"/>
+<%= content_for :head do %>
+  <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
+<% end %>
 
-    <div class="row align-middle small-12 js-sign-video-container">
-      <div class="small-12 medium-6"><%= render "signs/card/video", sign: @sign %></div>
-      <b class="small-12 medium-6"><%=@sign.word %></b>
-    </div>
 
-    <fieldset class="content-container">
-      <%= f.label :word, "Sign / word:", class: "required" %>
-      <%= f.text_field :word, class: (@sign.errors[:word].any? && "invalid") %>
-      <% if @sign.errors[:word].any? %>
-        <% @sign.errors[:word].each do |message| %>
-          <div class="form-error show"><%= message %></div>
-        <% end %>
-      <% end %>
-    </fieldset>
-    <fieldset>
-      <%= f.label :secondary, "Other words for this sign:" %>
-      <%= f.text_field :secondary, class: (@sign.errors[:secondary].any? && "invalid") %>
-    </fieldset>
-    <fieldset>
-      <%= f.label :maori, "Māori translation:" %>
-      <%= f.text_field :maori, class: (@sign.errors[:maori].any? && "invalid") %>
-    </fieldset>
-    <fieldset>
-      <%= f.label :topic_id, "Topic:" %>
-      <%= f.collection_select :topic_id, Topic.all, :id, :name %>
-    </fieldset>
-    <fieldset>
-      <%= f.label :notes, "Notes (e.g. where have you seen the sign used?):" %>
-      <%= f.text_area :notes, rows: 5, class: (@sign.errors[:notes].any? && "invalid") %>
+<div class="grid-x grid-margin-x content-container ">
+  <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "cell small-12 large-8 form", method: :patch do |f| %>
+    <%= render "errors" %>
+    <fieldset class="form-section">
+      <legend class="form-section__header"><h1 class="black">Edit sign</h1></legend>
+      <div class="form-section__content">
+        <fieldset class="form-section">
+          <legend class="form-section__header"><h2 class="primary">Sign details</h2></legend>
+
+          <div class="form-section__content">
+            <div class="file-preview js-sign-video-container">
+              <div class="file-preview__media">
+                <%= render "signs/card/video", sign: @sign, overlay: false %>
+              </div>
+              <div class="file-preview__metadata">
+                <span class="file-preview__metadata__key">
+                  <%= @sign.video.filename %>
+                </span>
+                <%= inline_svg "media/images/tick.svg" %>
+                <br />
+                <span class="file-preview__metadata__value">
+                  <%= number_to_human_size @sign.video.byte_size %>
+                </span>
+              </div>
+            </div>
+
+            <%= f.label :word, "Sign / Word", class: "required" %>
+            <%= f.text_field :word, class: (@sign.errors[:word].any? && "invalid") %>
+            <% if @sign.errors[:word].any? %>
+              <% @sign.errors[:word].each do |message| %>
+                <div class="form-error show"><%= message %></div>
+              <% end %>
+            <% end %>
+
+            <%= f.label :secondary, "Other words for this sign" %>
+            <%= f.text_field :secondary, class: (@sign.errors[:secondary].any? && "invalid") %>
+
+            <%= f.label :maori, "Māori translation" %>
+            <%= f.text_field :maori, class: (@sign.errors[:maori].any? && "invalid") %>
+
+            <%= f.label :topic_id, "Topic" %>
+            <%= f.collection_select :topic_id, Topic.all, :id, :name, prompt: "-- Please select --" %>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend class="form-section__header"><h2 class="primary">Other details</h2></legend>
+          <div class="form-section__content">
+            <%= f.label :notes, "Notes" %>
+            <p class="help-text">(e.g. where have you seen this sign used?)</p>
+            <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
+
+            <%= render "signs/edit/attachment", field: :usage_example, form: f %><br />
+            <%= render "signs/edit/attachment", field: :illustration, form: f %>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend class="form-section__header"><h2 class="primary">Public</h2></legend>
+          <div class="form-section__content">
+            <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
+              <span>
+                <h3>Do you want your sign to be public?</h3>
+                <p> Your sign will go through a validation process with our NZSL Share moderators before it is published. </p>
+              </span>
+            <% end %>
+
+            <div class="radio">
+              <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?,
+                    data: { toggle_truthy: "#terms-and-conditions" }) %>
+                <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
+            </div>
+
+            <div class="radio">
+              <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
+                <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section" id="terms-and-conditions">
+          <legend class="form-section__header">
+            <h2 class="primary">Terms and Conditions</h2>
+          </legend>
+          <div class="form-section__content">
+            <div class="checkbox">
+              <%= f.check_box :conditions_accepted, class: (@sign.errors[:conditions_accepted].any? && "invalid")%>
+              <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </fieldset>
 
-    <br/>
-    <h2 class="">Public</h2>
-    <hr class="form__divider"/>
-    <br/>
-    <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
-      <span>
-        <h3>Do you want your sign to be public?</h3>
-        <p> Your sign will go through a validation process with our NZSL Share moderators before it is published. </p>
-      </span>
-    <% end %>
-    <br/>
-    <fieldset>
-      <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?, data: { toggle_truthy: "#terms_and_conditions" }) %>
-        <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
-    </fieldset>
-    <br/>
-    <fieldset>
-      <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
-        <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
-    </fieldset>
-    <br/>
-    <br/>
-    <div id="terms_and_conditions">
-      <h2 class="">Terms and Conditions</h2>
-      <hr class="form__divider"/>
-      <br/>
-      <fieldset>
-        <%= f.check_box :conditions_accepted, class: (@sign.errors[:secondary].any? && "invalid")%>
-        <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
-      </fieldset>
-    </div>
-    <br/>
-    <hr class="form__divider"/>
     <div class="grid-x form__buttons align-justify">
       <div class="pull-left">
         <%= link_to t("signs.destroy.link"),
@@ -95,13 +124,13 @@
 
     function refresh() {
       var $currentContainer = jQuery(selector);
-      var $currentVideo = $currentContainer.find("video.sign-video");
+      var $currentVideo = $currentContainer.find(".video");
       jQuery.ajax( {
         url: window.location,
         dataType: "html"
       }).done(function(responseText) {
         var $newVideoContainer = jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector);
-        var $newVideo = $newVideoContainer.find("video.sign-video");
+        var $newVideo = $newVideoContainer.find(".video");
 
         // Stop polling once the video has been processed
         if ($newVideo.hasClass("has-video")) clearInterval(intervalId);
@@ -118,3 +147,13 @@
     });
   <% end %>
 <% end %>
+
+<form id="delete_usage_example_form" data-remote>
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form>
+
+<form id="delete_illustration_form" data-remote>
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form>

@@ -1,9 +1,9 @@
-.sign-video-wrapper {
+.video-wrapper {
   display: flex;
   position: relative;
 }
 
-.sign-video {
+.video {
   max-width: 100%;
 
   // Hide the controls on Chrome
@@ -16,13 +16,13 @@
   }
 
   &.has-video {
-    & + .sign-video__overlay {
+    & + .video__overlay {
       display: block;
     }
   }
 
   &--playing {
-    & + .sign-video__overlay {
+    & + .video__overlay {
       // Make sure the overlay is always hidden when it should be
       display: none !important; // sass-lint:disable-line no-important
     }

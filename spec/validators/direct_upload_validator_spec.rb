@@ -24,7 +24,7 @@ RSpec.describe DirectUploadValidator, type: :validator do
 
       it "raises an ActiveRecord::RecordInvalid with the expected error" do
         expect { subject }.to raise_error ActiveRecord::RecordInvalid do |invalid|
-          expect(invalid.record.errors[:attachment]).to eq ["isn't a valid video file"]
+          expect(invalid.record.errors[:attachment]).to eq ["file is not of an accepted type"]
         end
       end
     end

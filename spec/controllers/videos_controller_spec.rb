@@ -1,16 +1,19 @@
 require "rails_helper"
 
-RSpec.describe SignVideoController, type: :controller do
-  include Devise::Test::ControllerHelpers
-
+RSpec.describe VideosController, type: :controller do
   let(:fake_representation_url) { "https://example.com/fake-representation" }
   let(:fake_representation) { double(exist?: true, process_later: true, processed: fake_representation_url) }
 
   describe "GET #show" do
-    let!(:sign_id) { FactoryBot.create(:sign).id }
+    let(:blob) { FactoryBot.create(:sign).video.blob }
+    let!(:id) { blob.signed_id }
     let(:preset) { "1080p" }
-    before { allow(CachedVideoTranscoder).to receive(:new).and_return(fake_representation) }
-    subject { get :show, params: { sign_id: sign_id, preset: preset } }
+
+    before do
+      allow(CachedVideoTranscoder).to receive(:new).and_return(fake_representation)
+    end
+
+    subject { get :show, params: { id: id, preset: preset } }
 
     context "valid params" do
       context "preset representation does not exist" do
@@ -35,9 +38,14 @@ RSpec.describe SignVideoController, type: :controller do
       it { expect { subject }.to raise_error ActionController::RoutingError, "Unknown preset 'unknown'" }
     end
 
-    context "invalid sign" do
-      let!(:sign_id) { 0 }
-      it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+    context "unsigned blob ID" do
+      let!(:id) { blob.id }
+      it { expect { subject }.to raise_error ActiveSupport::MessageVerifier::InvalidSignature }
+    end
+
+    context "unknown blob ID" do
+      let!(:id) { 0 }
+      it { expect { subject }.to raise_error ActiveSupport::MessageVerifier::InvalidSignature }
     end
   end
 end

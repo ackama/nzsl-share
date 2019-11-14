@@ -41,12 +41,20 @@ en:
     default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
+    edit:
+      attachment:
+        illustration:
+          label: Illustrations
+          hint: Upload up to 3 images (e.g. a drawing of the sign or other illustrations).
+        usage_example:
+          label: Usage
+          hint: Upload up to 2 videos - e.g. show how your sign is used in an example sentence; explain what your sign means in NZSL; explain why you think this is a good sign
     update:
       success: Sign successfully updated.
     personal:
       display_name: "private"
       description: "'private' means only you and the people you have shared with can see this sign."
-      edit_status_instructions: "To ask for this sign to be public click Edit"
+      status_notes: "To ask for this sign to be public click Edit"
     submitted:
       display_name: "in progress"
       description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
@@ -56,9 +64,9 @@ en:
     declined:
       display_name: "changes requested"
       description: "'changes requested' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
-    unpublish-requested:
-      display_name: "unpublish requested"
-      description: "'unpublish requested' means that you have asked for the sign to be made unpublished. An admin will do this soon."
+    unpublish_requested:
+      display_name: "asked to unpublish"
+      description: "'asked to unpublish' means that the sign is public and you have asked for it to be private. An admin will do this soon."
     destroy:
       link: "Remove from NZSL Share"
       confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."
@@ -71,7 +79,19 @@ en:
       relevant: Most Relevant
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
+  sign_publish:
+    create:
+      confirm: "Are you sure? Your sign will stay public"
+      success: "Cancelled. Your sign will stay public"
+    destroy:
+        confirm: "Are you sure? Your sign will stay private"
+        success: "Cancelled. Your sign will stay private"
+  sign_request_publish:
+    destroy:
+      confirm: "Are you sure you want your sign to be private? Only you yourself will be able to see the sign."
+      success: "Thank you. An admin will make your sign private soon."
   folders:
+    default_title: 'My Folder'
     edit:
       title: Edit '%{title}'
     new:
@@ -101,7 +121,7 @@ en:
   activemodel:
     errors: &activemodel_errors
       messages:
-        content_type_invalid: isn't a valid video file
+        content_type_invalid: file is not of an accepted type
         file_size_out_of_range: file is too large (%{file_size})
 
   activerecord:
@@ -113,3 +133,7 @@ en:
             conditions_accepted:
               format: '%{message}'
               blank: "For your sign to be made public you must agree to follow the terms and conditions (rules)"
+            illustrations:
+              too_long: are limited to %{count} files
+            usage_examples:
+              too_long: are limited to %{count} files

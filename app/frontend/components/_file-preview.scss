@@ -1,0 +1,27 @@
+.file-preview {
+  @include media-object-container;
+
+  .file-preview__media,
+  .file-preview__metadata {
+    @include media-object-section;
+  }
+
+  .file-preview__media {
+    // Take up a quarter of the width, but no less than a minimum for visibility
+    border-radius: $global-radius;
+    min-width: 10rem;
+    overflow: hidden;
+    width: 25%;
+  }
+
+  .file-preview__metadata {
+    align-self: center;
+
+    &__key {
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: rem-calc(16); // For icon alignment
+      vertical-align: text-top;
+    }
+  }
+}

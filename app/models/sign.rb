@@ -3,14 +3,17 @@
 class Sign < ApplicationRecord
   include AASM
 
-  PERMITTED_CONTENT_TYPE_REGEXP = %r{\Avideo/.+\Z}.freeze
-  MAXIMUM_VIDEO_FILE_SIZE = 250.megabytes
+  PERMITTED_VIDEO_CONTENT_TYPE_REGEXP = %r{\Avideo/.+\Z}.freeze
+  PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}.freeze
+  MAXIMUM_FILE_SIZE = 250.megabytes
 
   belongs_to :contributor, class_name: :User
   belongs_to :topic, optional: true
   has_many :folder_memberships, dependent: :destroy
   has_many :folders, through: :folder_memberships
   has_one_attached :video
+  has_many_attached :usage_examples
+  has_many_attached :illustrations
 
   validates :word, presence: true
   validates :conditions_accepted,
@@ -20,8 +23,16 @@ class Sign < ApplicationRecord
   # See app/validators/README.md for details on these
   # validations
   validates :video, attached: true,
-                    content_type: { with: PERMITTED_CONTENT_TYPE_REGEXP },
-                    size: { less_than: MAXIMUM_VIDEO_FILE_SIZE }
+                    content_type: { with: PERMITTED_VIDEO_CONTENT_TYPE_REGEXP },
+                    size: { less_than: MAXIMUM_FILE_SIZE }
+
+  validates :usage_examples, content_type: { with: PERMITTED_VIDEO_CONTENT_TYPE_REGEXP },
+                             size: { less_than: MAXIMUM_FILE_SIZE },
+                             length: { maximum: 2 }
+
+  validates :illustrations, content_type: { with: PERMITTED_IMAGE_CONTENT_TYPE_REGEXP },
+                            size: { less_than: MAXIMUM_FILE_SIZE },
+                            length: { maximum: 3 }
 
   # For now, this just returns the first 4 signs
   # It is defined here so the concept of a sign preview
@@ -30,7 +41,7 @@ class Sign < ApplicationRecord
   # or some other measure of popularity
   scope :preview, -> { limit(4) }
 
-  scope :for_cards, -> { includes(:contributor) }
+  scope :for_cards, -> { with_attached_video.includes(:contributor) }
 
   def agree_count; 0; end
   def disagree_count; 0; end
@@ -41,7 +52,7 @@ class Sign < ApplicationRecord
     state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
-    state :unpublish_requested, before_enter: -> { self.unpublish_requested_at = Time.zone.now }
+    state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
 
     event :set_sign_to_personal do
       transitions from: %i[submitted declined], to: :personal
@@ -52,7 +63,11 @@ class Sign < ApplicationRecord
     end
 
     event :publish do
-      transitions from: %i[submitted], to: :published
+      transitions from: %i[unpublish_requested submitted], to: :published
+    end
+
+    event :request_unpublish do
+      transitions from: %i[published], to: :unpublish_requested
     end
 
     event :decline do

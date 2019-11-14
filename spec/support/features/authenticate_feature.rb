@@ -18,6 +18,6 @@ class AuthenticateFeature
   end
 
   def sign_out
-    click_on "Log out"
+    click_on "Sign out", match: :first
   end
 end

@@ -24,6 +24,10 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def destroy?
+    owns_record? && record.user.folders_count > 1
+  end
+
+  def share?
     owns_record?
   end
 
