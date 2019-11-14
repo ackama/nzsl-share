@@ -10,4 +10,8 @@ module PresentersHelper
     yield presenter if block_given?
     presenter
   end
+
+  def present_collection(collection, klass=nil)
+    collection.map { |item| present(item, klass) }
+  end
 end

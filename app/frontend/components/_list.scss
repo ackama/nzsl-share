@@ -97,8 +97,12 @@
     &__dropdown-pane {
       @include dropdown-container;
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
-      max-width: rem-calc(161);
       padding: 0;
+      z-index: 101;
+
+      &--folders {
+        max-width: rem-calc(161);
+      }
     }
   }
 

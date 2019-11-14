@@ -23,10 +23,10 @@ class SignPresenter < ApplicationPresenter
     I18n.t("signs.#{sign.status}.description")
   end
 
-  def edit_status_instructions
+  def status_notes
     return unless sign.status == "personal"
 
-    I18n.t("signs.#{sign.status}.edit_status_instructions")
+    I18n.t("signs.#{sign.status}.status_notes")
   end
 
   def submitted_to_publish?
@@ -70,6 +70,12 @@ class SignPresenter < ApplicationPresenter
     class_list << " has-video" if sign.processed_videos?
 
     h.video_attributes(class: class_list, poster: poster_url)
+  end
+
+  def overview_intro_text(current_user)
+    action_text = sign.contributor == current_user ? "you are the creator of this sign" : "you are moderating this sign"
+
+    "Hey #{current_user.username}, #{action_text}"
   end
 
   def self.policy_class
