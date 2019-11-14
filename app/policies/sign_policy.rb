@@ -58,6 +58,16 @@ class SignPolicy < ApplicationPolicy
     def resolve_admin
       scope.where.not(submitted_at: nil).order(submitted_at: :desc)
     end
+
+    def search # rubocop:disable Metrics/AbcSize
+      if user && (user.administrator || user.moderator)
+        scope.all.ids
+      elsif user
+        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id).ids
+      else
+        scope.where("status = 'published' or status = 'unpublish_requested'").ids
+      end
+    end
   end
 
   private

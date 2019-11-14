@@ -7,6 +7,7 @@ class SearchService < ApplicationService
 
   def initialize(params)
     @search = params[:search]
+    @scope = params[:scope]
     @results = new_results
   end
 
@@ -53,7 +54,8 @@ class SearchService < ApplicationService
   def search_args
     {
       order: search.order_clause,
-      limit: search.page[:limit]
+      limit: search.page[:limit],
+      where: @scope
     }
   end
 end
