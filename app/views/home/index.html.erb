@@ -40,7 +40,7 @@
 
   <div class="cell content-container copy__signs">
     <h2>Recently Added</h2>
-    <div class="sign-grid">
+    <div class="sign-grid sign-grid--not-bottom">
       <% @recent_signs.each do |sign| %>
         <%= render "signs/card", sign: sign %>
       <% end %>
