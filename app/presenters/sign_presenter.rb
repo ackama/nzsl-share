@@ -1,23 +1,40 @@
 class SignPresenter < ApplicationPresenter
   presents :sign
-  delegate :id, :word, :contributor, :agree_count,
-           :disagree_count, :topic, :video, :description,
-           :errors, :to_model, :contributor_id, :to_param, to: :sign
+  delegate_missing_to :sign
+  delegate :to_param, to: :sign
 
   def dom_id(suffix=nil)
     h.dom_id(sign, suffix)
   end
 
   def friendly_date
-    h.localize(sign.published_at || sign.created_at, format: "%-d %B %Y")
+    h.localize(sign.published_at || sign.created_at, format: "%-d %b %Y")
   end
 
   def fully_processed?
     sign.processed_thumbnails? && sign.processed_videos?
   end
 
+  def status_name
+    I18n.t("signs.#{sign.status}.display_name")
+  end
+
+  def status_description
+    I18n.t("signs.#{sign.status}.description")
+  end
+
+  def edit_status_instructions
+    return unless sign.status == "personal"
+
+    I18n.t("signs.#{sign.status}.edit_status_instructions")
+  end
+
   def submitted_to_publish?
     sign.submitted? || sign.published? || sign.declined?
+  end
+
+  def truncated_secondary
+    h.truncate(sign.secondary)
   end
 
   def available_folders(&block)
@@ -41,29 +58,18 @@ class SignPresenter < ApplicationPresenter
     video.preview(preset).processed.service_url
   end
 
-  def sign_video_source(preset)
-    h.content_tag(:source, nil, src: h.sign_video_path(sign_id: sign.id, preset: preset))
-  end
-
-  def sign_video_sourceset(presets=%w[1080p 720p 360p])
+  def sign_video_sourceset(presets=nil)
     return unless sign.processed_videos?
 
-    h.safe_join(presets.map { |preset| sign_video_source(preset) })
+    h.video_sourceset(sign.video, presets)
   end
 
   def sign_video_attributes
-    class_list = ["sign-video"]
+    class_list = []
     class_list << " has-thumbnails" if sign.processed_thumbnails?
     class_list << " has-video" if sign.processed_videos?
 
-    {
-      class: class_list.join(" "),
-      controls: true,
-      controlslist: "nodownload",
-      preload: false,
-      muted: true,
-      poster: poster_url
-    }
+    h.video_attributes(class: class_list, poster: poster_url)
   end
 
   def self.policy_class

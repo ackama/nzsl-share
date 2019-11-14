@@ -1,4 +1,5 @@
-<div class="sign-video-wrapper">
+<% overlay ||= true %>
+<div class="video-wrapper" <%= "data-overlay" if overlay %>>
   <%= content_tag :video, **sign.sign_video_attributes do %>
     <%= sign.sign_video_sourceset %>
   <% end %>

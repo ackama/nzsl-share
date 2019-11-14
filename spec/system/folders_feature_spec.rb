@@ -72,6 +72,15 @@ RSpec.describe "Folders", type: :system do
       expect(process).to have_selector(".list__item", count: folders.size - 1)
     end
 
+    it "does not show delete link of the folder if it's the last one" do
+      # Delete all but the first folder
+      folders[1..-1].each(&:destroy)
+      process.start
+      process.within_list_item_menu do
+        expect(page).not_to have_link "Delete"
+      end
+    end
+
     it "posts a success message" do
       process.remove_folder
       expect(process).to have_content "Folder successfully deleted."
@@ -87,9 +96,30 @@ RSpec.describe "Folders", type: :system do
   describe "The folders index page" do
     let!(:folder) { FactoryBot.create(:folder, user: process.user) }
     before { process.start }
+
+    it "has the expected page title" do
+      expect(page).to have_title "My Folders – NZSL Share"
+    end
+
     it "links folder titles to their corresponding show page" do
       click_on folder.title
       expect(page).to have_current_path(folder_path(folder))
+    end
+  end
+
+  describe "The folder show page" do
+    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    before do
+      process.start
+      click_on folder.title
+    end
+
+    it "has the expected page title" do
+      expect(page).to have_title "#{folder.title} – NZSL Share"
+    end
+
+    it "renders the folder title" do
+      expect(page).to have_content folder.title
     end
   end
 end

@@ -11,7 +11,7 @@
     box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.02);
   }
 
-  & .avatar {
+  & > .avatar {
     position: absolute;
     right: 16px;
     top: 132px;
@@ -21,16 +21,31 @@
 
   &__folders {
     &__button {
+      align-items: center;
       background: $white;
       border-radius: 50%;
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+      display: flex;
       height: 40px;
+      justify-content: center;
       position: relative;
       width: 40px;
+
 
       svg {
         @include icon-fill(royal);
         @include icon-size(mid);
+      }
+
+
+      &--in-folder {
+        &:not(:hover) {
+          background: get-color(success-x-light);
+
+          svg {
+            @include icon-fill(success);
+          }
+        }
       }
 
       &:hover {
@@ -57,6 +72,7 @@
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
       max-height: 300px;
       overflow-y: auto;
+      z-index: 500;
     }
   }
 
@@ -70,13 +86,33 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    &--horizontal {
+      flex-direction: row;
+    }
   }
 
   &__title {
-    color: get-color(royal);
+    font-size: 1rem;
     font-weight: bold;
-    margin: 8px 0;
-    text-decoration: underline;
+    margin: 0.5rem 0;
+  }
+
+  &__supplementary-titles {
+    margin: 0.5rem 0;
+
+    &__maori,
+    &__secondary {
+      font-size: 1rem;
+
+      &.small {
+        font-size: 0.8rem;
+      }
+    }
+
+    &__secondary {
+      color: get-color(medium);
+    }
   }
 
   &__media {
@@ -88,7 +124,7 @@
     // See responsive-embed - we need to target the
     // sign video wrapper seperately from video, embed, iframe
     // etc.
-    .sign-video-wrapper {
+    .video-wrapper {
       height: 100%;
       left: 0;
       position: absolute;
@@ -104,17 +140,12 @@
   }
 
   &__subtitle {
-    color: get-color(medium);
+    color: $black;
     display: flex;
     flex-direction: row;
     font-size: rem-calc(13);
-    font-weight: 500;
-  }
-
-  &__bottom {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    font-weight: 600;
+    line-height: 2rem;
   }
 
   &__votes {

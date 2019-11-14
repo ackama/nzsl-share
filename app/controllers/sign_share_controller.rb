@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 class SignShareController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def create
     @sign = fetch_sign
-    authorize @sign
-    @sign.update(share_token: SecureRandom.uuid)
+    authorize @sign, :share?
+    @sign.update(share_token: SecureRandom.uuid) if @sign.share_token.blank?
 
     redirect_back(fallback_location: @sign, notice: t(".success", share_url: share_url))
   end
 
   def destroy
     @sign = fetch_sign_by_token
-    authorize @sign
+    authorize @sign, :share?
     @sign.update(share_token: nil)
 
     redirect_back(fallback_location: @sign, notice: t(".success"))
@@ -21,12 +21,16 @@ class SignShareController < ApplicationController
 
   def show
     @sign = present(fetch_sign_by_token)
-    authorize @sign
+    authorize share_data, policy_class: SharePolicy
 
     render "signs/show"
   end
 
   private
+
+  def share_data
+    { shared: @sign.object, token: share_token } # pull the sign from the presenter
+  end
 
   def share_url
     sign_share_url(@sign, @sign.share_token)

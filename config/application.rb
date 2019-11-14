@@ -23,5 +23,9 @@ module NzslShare
     hostname = ENV.fetch("HOSTNAME", "http://localhost:3000")
     routes.default_url_options[:host] = hostname
     (config.action_mailer.default_url_options ||= {})[:host] = hostname
+
+    # We want to have full control over error messages - sometimes we want to customize
+    # the full error message, not just the part after the attribute
+    config.active_model.i18n_customize_full_message = true
   end
 end

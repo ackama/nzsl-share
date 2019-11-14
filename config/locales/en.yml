@@ -41,8 +41,32 @@ en:
     default_placeholder_word: My New Sign
     create:
       success: Sign was uploaded successfully. Please provide more information below.
+    edit:
+      attachment:
+        illustration:
+          label: Illustrations
+          hint: Upload up to 3 images of how this sign can be used
+        usage_example:
+          label: Usage
+          hint: Upload up to 2 videos of examples of this sign being used
     update:
       success: Sign successfully updated.
+    personal:
+      display_name: "private"
+      description: "'private' means only you and the people you have shared with can see this sign."
+      edit_status_instructions: "To ask for this sign to be public click Edit"
+    submitted:
+      display_name: "in progress"
+      description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+    published:
+      display_name: "public"
+      description: "'public' means that the sign to visible to everybody."
+    declined:
+      display_name: "changes requested"
+      description: "'changes requested' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
+    unpublish-requested:
+      display_name: "unpublish requested"
+      description: "'unpublish requested' means that you have asked for the sign to be made unpublished. An admin will do this soon."
     destroy:
       link: "Remove from NZSL Share"
       confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."
@@ -52,9 +76,11 @@ en:
       alpha_asc: Alphabetical (A-Z)
       alpha_desc: Alphabetical (Z-A)
       recent: Most Recent
+      relevant: Most Relevant
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   folders:
+    default_title: 'My Folder'
     edit:
       title: Edit '%{title}'
     new:
@@ -69,6 +95,7 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   folder_share:
     create:
+      confirmation: "If someone clicks on the link, they will see all signs in the folder (including private signs). Proceed?"
       success: "To share, copy this link: %{share_url}"
     destroy:
       success: "Folder is no longer shared."
@@ -83,9 +110,19 @@ en:
   activemodel:
     errors: &activemodel_errors
       messages:
-        content_type_invalid: isn't a valid video file
+        content_type_invalid: file is not of an accepted type
         file_size_out_of_range: file is too large (%{file_size})
 
   activerecord:
     errors:
       <<: *activemodel_errors
+      models:
+        sign:
+          attributes:
+            conditions_accepted:
+              format: '%{message}'
+              blank: "For your sign to be made public you must agree to follow the terms and conditions (rules)"
+            illustrations:
+              too_long: are limited to %{count} files
+            usage_examples:
+              too_long: are limited to %{count} files

@@ -1,13 +1,7 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en-NZ">
   <head>
-    <title>
-      <%= strip_tags(yield(:title)) + " – " if content_for?(:title) %>
-      NZSL Share
-    </title>
+    <title><%= strip_tags(yield(:title)) + " – " if content_for?(:title) -%>NZSL Share</title>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -30,6 +24,21 @@
 
     <%# Specifies the default name of home screen bookmark in iOS %>
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
+
+    <!-- For crawlers that use opengraph protocol (i.e facebook) -->
+    <%= open_graph_title %>
+    <%= open_graph_description %>
+    <%= open_graph_image %>
+    <%= open_graph_image_width %>
+    <%= open_graph_image_height %>
+
+    <!-- For twitter -->
+    <%= twitter_card %>
+    <%= twitter_title %>
+    <%= twitter_description %>
+    <%= twitter_image %>
+    <%= twitter_image_width %>
+    <%= twitter_image_height %>
   </head>
   <body class="no-js">
     <%# Prevent FOUS on page load %>

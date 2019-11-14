@@ -1,5 +1,5 @@
 class Folder < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many :folder_memberships, dependent: :destroy
   has_many :signs, through: :folder_memberships
   scope :in_order, -> { order(title: :asc) }
@@ -10,5 +10,9 @@ class Folder < ApplicationRecord
 
   def title=(new_title)
     super(new_title&.strip)
+  end
+
+  def self.make_default(title=nil)
+    new(title: title.presence || I18n.t("folders.default_title"))
   end
 end

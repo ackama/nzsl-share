@@ -70,13 +70,32 @@ RSpec.describe SignPresenter, type: :presenter do
   describe "#friendly_date" do
     subject { presenter.friendly_date }
     context "sign is published" do
-      before { sign.published_at = Time.zone.parse("01 Jan 2010 13:00") }
-      it { is_expected.to eq "1 January 2010" }
+      before { sign.published_at = Time.zone.parse("1 January 2010 13:00") }
+      it { is_expected.to eq "1 Jan 2010" }
     end
 
     context "sign is not published" do
-      before { sign.created_at = Time.zone.parse("01 Jan 2011 13:00") }
-      it { is_expected.to eq "1 January 2011" }
+      before { sign.created_at = Time.zone.parse("1 January 2011 13:00") }
+      it { is_expected.to eq "1 Jan 2011" }
+    end
+  end
+
+  describe "#truncated_secondary" do
+    it "truncates something that is too long" do
+      sign.secondary = <<~LOREM
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      LOREM
+
+      expect(presenter.truncated_secondary.length).not_to eq sign.secondary.length
+      expect(presenter.truncated_secondary).to end_with "..."
+    end
+
+    it "does not truncate something that is not too long" do
+      sign.secondary = "normal secondary length"
+
+      expect(presenter.truncated_secondary.length).to eq sign.secondary.length
+      expect(presenter.truncated_secondary).not_to end_with "..."
     end
   end
 
@@ -109,11 +128,6 @@ RSpec.describe SignPresenter, type: :presenter do
         presenter.poster_url(size: 720)
       end
     end
-  end
-
-  describe "#sign_video_source" do
-    subject { presenter.sign_video_source("720p") }
-    it { is_expected.to eq "<source src=\"/signs/#{sign.id}/videos/720p\"></source>" }
   end
 
   describe "#sign_video_sourceset" do

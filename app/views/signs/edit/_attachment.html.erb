@@ -1,0 +1,38 @@
+<% collective_class ||= field.to_s.dasherize.pluralize %>
+<% attribute ||= field.to_s.underscore.pluralize %>
+
+<div class="<%= collective_class %>">
+
+<%= label_tag :"new_#{field}", t(".#{field}.label") %>
+<%= content_tag(:p, t(".#{field}.hint"), class: "help-text") %>
+<%= content_tag(:div,
+  class: "file-upload #{collective_class}-file-upload",
+  data: { sign_id: form.object.to_param, file_upload_controller: "new_#{field}" }) do %>
+  <%= form.label :"#{attribute}", "Browse files", class: "button primary large" %>
+  <%= form.file_field :"#{attribute}", class: (form.object.errors[attribute].any? ? "invalid" : nil) %>
+  <%= content_tag(:div, form.object.sign.errors.full_messages_for(attribute).join(", ")) %>
+<% end %>
+
+<ul class="no-bullet list list--compact sign-<%= collective_class %>">
+  <% form.object.public_send(attribute).select(&:persisted?).each do |attach| %>
+    <li class="list__item--compact">
+      <span><%= attach.filename %></span>
+      <aside class="list__item__details margin-right-1"><%= number_to_human_size(attach.byte_size) %>&nbsp;</aside>
+      <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success margin-right-1" %>
+      <%= link_to public_send(:"sign_#{attribute.singularize}_path", form.object, attach),
+                  data: { method: :delete, remote: true },
+                  class: "button icon-only clear medium small hide-if-no-js" do %>
+        <%= inline_svg "media/images/close.svg", aria: true, title: "Remove File", class: "icon icon--small icon--medium" %>
+      <% end %>
+
+      <%= button_tag formmethod: :post,
+                     form: "delete_#{attribute.singularize}_form",
+                     formaction: public_send(:"sign_#{attribute.singularize}_path", form.object, attach),
+                     class: "button icon-only clear medium small show-if-no-js" do %>
+        <%= inline_svg "media/images/close.svg", aria: true, title: "Remove File", class: "icon icon--small icon--medium" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+</div>

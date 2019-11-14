@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sign card features", type: :system do
-  let!(:sign) { FactoryBot.create(:sign) }
+  let!(:sign) { FactoryBot.create(:sign, contributor: authenticator.user) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
   let(:authenticator) { AuthenticateFeature.new }
 
@@ -30,8 +30,26 @@ RSpec.describe "Sign card features", type: :system do
     expect(sign_card).to have_content presenter.friendly_date
   end
 
+  it "shows the sign status" do
+    expect(sign_card).to have_content "private"
+    title = find("#sign_status")["title"]
+    assert_equal(title, I18n.t!("signs.personal.description"))
+  end
+
+  it "does not show the sign status if they are logged out", signed_out: true do
+    expect(sign_card).not_to have_content "private"
+  end
+
   it "shows the embedded media" do
-    expect(sign_card).to have_selector ".sign-card__media > .sign-video-wrapper > video.sign-video"
+    expect(sign_card).to have_selector ".sign-card__media > .video-wrapper > video.video"
+  end
+
+  it "shows the Māori gloss" do
+    expect(sign_card).to have_selector ".sign-card__supplementary-titles__maori", text: sign.maori
+  end
+
+  it "shows the secondary gloss" do
+    expect(sign_card).to have_selector ".sign-card__supplementary-titles__secondary", text: sign.secondary
   end
 
   describe "Adding & removing from folders with JS", uses_javascript: true do
@@ -50,6 +68,7 @@ RSpec.describe "Sign card features", type: :system do
         inactive_checkbox = page.find_field("membership_folder_#{other_folder.id}_sign_#{sign.id}")
         expect(active_checkbox).to be_checked
         expect(inactive_checkbox).not_to be_checked
+        expect(page).to have_selector ".sign-card__folders__button--in-folder"
       end
     end
 
@@ -120,6 +139,7 @@ RSpec.describe "Sign card features", type: :system do
 
     it "shows existing folder state" do
       inside_card do
+        expect(page).to have_selector ".sign-card__folders__button--in-folder"
         within ".sign-card__folders__menu" do
           expect(page).to have_content folder.title
         end
@@ -154,7 +174,7 @@ RSpec.describe "Sign card features", type: :system do
     it "links the user to sign in page if they are logged out", signed_out: true do
       original_path = current_path
       within ".sign-card__folders" do
-        find("a[href='/users/sign_in']").click
+        click_on("Folders")
       end
       expect(page).to have_current_path(new_user_session_path)
       within "form#new_user" do

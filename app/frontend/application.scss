@@ -3,10 +3,12 @@
 @import "components/avatar";
 @import "components/hero-unit";
 @import "components/copy";
+@import "components/file-preview";
 @import "components/file-upload";
 @import "components/folder";
 @import "components/footer";
 @import "components/form";
+@import "components/form-section";
 @import "components/header";
 @import "components/icons";
 @import "components/list";
@@ -18,6 +20,9 @@
 @import "components/search-bar";
 @import "components/sidebar";
 @import "components/sign-card";
-@import "components/sign-video";
 @import "components/sign-grid";
 @import "components/social-media";
+
+// Extension is required, otherwise webpacker tries to bundle video.js.
+// sass-lint:disable-next-line clean-import-paths
+@import "components/video.scss";

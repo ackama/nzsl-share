@@ -1,3 +1,5 @@
+<% provide(:title, @topic.name) %>
+
 <div class="grid-x grid-margin-x">
   <nav class="cell shrink" aria-label="You are here:" role="navigation">
     <ul class="breadcrumbs">
@@ -12,7 +14,7 @@
   <div class="grid-x cell">
     <h1><%= @topic.name %></h1>
     <div class="sign-grid cell">
-      <% @topic.signs.for_cards.each do |sign| %>
+      <% @signs.for_cards.each do |sign| %>
         <%= render "signs/card", sign: sign %>
       <% end %>
     </div>

@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    record.published? || owns_record? || moderator?
   end
 
   def create?
@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    owns_record?
+    owns_record? || moderator?
   end
 
   def edit?
@@ -24,6 +24,17 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
+    owns_record?
+  end
+
+  def manage_folders?
+    return true if record.contributor == user
+    return true unless record.status == "personal"
+
+    false
+  end
+
+  def share?
     owns_record?
   end
 
