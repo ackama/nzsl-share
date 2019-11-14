@@ -61,8 +61,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if record.contributor == user
-    return true unless record.status == "personal"
+    return true if owns_record? || public?
 
     false
   end
