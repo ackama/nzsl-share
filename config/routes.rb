@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   resources :signs, except: %i[index] do
     resource :request_publish, only: %i[create destroy], controller: :sign_request_publish
     resource :publish, only: %i[create destroy], controller: :sign_publish
-    resources :videos, param: :preset, only: :show, controller: :sign_video
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :usage_examples, only: %i[destroy], controller: :sign_attachments
     resources :illustrations, only: %i[destroy], controller: :sign_attachments
@@ -32,6 +31,8 @@ Rails.application.routes.draw do
   resources :folders do
     resources :share, only: %i[show create destroy], controller: :folder_share, param: :token
   end
+
+  get "/videos/:id/:preset" => "videos#show", as: :video
 
   resources :folder_memberships, only: %i[create destroy]
   scope "/user" do

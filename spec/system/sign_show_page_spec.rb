@@ -69,7 +69,7 @@ RSpec.describe "Sign show page", system: true do
     context "sign has videos" do
       let(:sign) { FactoryBot.create(:sign, :processed_videos) }
       # 1080p, 720p, 360p
-      it { expect(subject).to have_selector("source[src^='/signs/#{sign.id}/videos']", count: 3) }
+      it { expect(subject).to have_selector("source[src^='/videos']", count: 3) }
     end
   end
 
@@ -185,6 +185,24 @@ RSpec.describe "Sign show page", system: true do
     context "not owned by the current user" do
       let(:user) { FactoryBot.create(:user) }
       it { expect(sign_page).not_to have_css "#sign_overview" }
+    end
+  end
+
+  context "sign usage examples" do
+    let(:sign) { FactoryBot.create(:sign, :with_usage_examples) }
+
+    it "displays the usage example videos" do
+      expect(sign_page).to have_content "Usage"
+      expect(sign_page).to have_selector ".usage-examples .video", count: sign.usage_examples.size
+    end
+  end
+
+  context "sign illustrations" do
+    let(:sign) { FactoryBot.create(:sign, :with_illustrations) }
+
+    it "displays the illustrations" do
+      expect(sign_page).to have_content "Illustration"
+      expect(sign_page).to have_selector ".illustrations img", count: sign.illustrations.size
     end
   end
 
