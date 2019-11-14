@@ -58,7 +58,8 @@
 
     & > a,
     & > li > a {
-      color: get-color(medium) !important; //sass-lint:disable no-important
+      //sass-lint:disable-block no-important
+      color: get-color(medium) !important;
       font-weight: normal !important;
       padding: 0 1.5rem 0 0 !important;
       text-decoration: none;
