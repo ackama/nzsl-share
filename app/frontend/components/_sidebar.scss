@@ -60,7 +60,6 @@
   // This is going to get fixed in a future release.
   &.position-left {
     &.reveal-for-medium ~ .off-canvas-content {
-      padding-left: 22px;
 
       @include breakpoint(large) {
         margin-left: map-get($offcanvas-sizes, large);

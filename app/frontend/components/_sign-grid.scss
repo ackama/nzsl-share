@@ -7,6 +7,10 @@ $sign-card-width: rem-calc(258);
   gap: 1rem; // sass-lint:disable-line no-misspelled-properties
   grid-template-columns: repeat(auto-fill, $sign-card-width);
   padding-bottom: 300px; // Matches sign-card folder menu max height to prevent container overflows
+
+  &--not-bottom {
+    padding-bottom: 0;
+  }
 }
 
 .sign-grid__header {
