@@ -5,8 +5,9 @@ require "./lib/sql/search"
 class SearchService < ApplicationService
   attr_reader :search, :results
 
-  def initialize(params)
+  def initialize(params, relation=Sign)
     @search = params[:search]
+    @relation = relation
     @results = new_results
   end
 
@@ -35,7 +36,10 @@ class SearchService < ApplicationService
   end
 
   def fetch_results(ids)
-    Sign.for_cards.where(id: ids).sort_by { |sign| ids.index(sign.id) }
+    @relation
+      .where(id: ids)
+      .limit(search.page[:limit])
+      .order(Arel.sql("array_position(array[#{ids.join(",")}]::integer[], id)"))
   end
 
   def parse_results(results)
