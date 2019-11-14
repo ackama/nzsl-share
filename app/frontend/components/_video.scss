@@ -57,7 +57,13 @@
 
     &--hero {
       background-color: transparent;
-      background-size: 48px;
+      background-image: url("images/hero-play.svg");
+      background-size: rem-calc(48);
+      cursor: pointer;
+
+      @include breakpoint(medium) {
+        background-size: rem-calc(142);
+      }
     }
   }
 }
