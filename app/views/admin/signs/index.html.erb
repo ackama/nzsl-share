@@ -41,13 +41,13 @@ It renders the `_table` partial to display details about the resources.
   <% end %>
 
   <form>
-    <label class="sr-only" for="search">Status</label>
-    <select name="search" onchange="this.form.submit()">
+    <label class="sr-only" for="status">Status</label>
+    <select name="search" id="status" onchange="this.form.submit()">
       <option>--Select Status--</option>
       <% Sign.aasm.states_for_select.each do |human_name, key| %>
         <%= content_tag(:option,
           human_name,
-          selected: params[:search].include?("#{key}:"),
+          selected: params[:search] && params[:search].include?("#{key}:"),
           value: "#{key}:") %>
       <% end %>
     </select>
