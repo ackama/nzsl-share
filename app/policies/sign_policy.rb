@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published? || owns_record? || moderator?
+    record.published? || owns_record? || moderator? || administrator?
   end
 
   def create?
@@ -52,6 +52,12 @@ class SignPolicy < ApplicationPolicy
 
   def share?
     owns_record?
+  end
+
+  class Scope < Scope
+    def resolve_admin
+      scope.where.not(submitted_at: nil).order(submitted_at: :desc)
+    end
   end
 
   private
