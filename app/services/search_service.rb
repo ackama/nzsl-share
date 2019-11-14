@@ -47,9 +47,6 @@ class SearchService < ApplicationService
   end
 
   def search_args
-    {
-      order: search.order_clause,
-      limit: search.page[:limit]
-    }
+    { order: search.order_clause }
   end
 end
