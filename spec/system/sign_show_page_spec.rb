@@ -42,7 +42,7 @@ RSpec.describe "Sign show page", system: true do
     end
 
     it "doesn't display the sign" do
-      expect(page).not_to have_content sign.word
+      expect(page).to have_content I18n.t("application.unauthorized")
     end
   end
 
