@@ -39,11 +39,7 @@ class SearchService < ApplicationService
   end
 
   def parse_results(results)
-    return [0, []] if results.blank? || results["ids"].blank?
-
-    ids = results["ids"].tr("{}", "").split(",").map(&:to_i)
-    total = results["total"].to_i
-    [total, ids]
+    [results.count, results.field_values("id")]
   end
 
   def exec_query(sql_arr)
