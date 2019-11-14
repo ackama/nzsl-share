@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public?) || moderator?
+    (owns_record? || moderator?) && !public?
   end
 
   def edit?
