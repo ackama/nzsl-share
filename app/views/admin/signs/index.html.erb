@@ -39,6 +39,19 @@ It renders the `_table` partial to display details about the resources.
       resource_name: display_resource_name(page.resource_name)
     ) %>
   <% end %>
+
+  <form>
+    <label class="sr-only" for="search">Status</label>
+    <select name="search" onchange="this.form.submit()">
+      <option>--Select Status--</option>
+      <% %w[submitted published declined private unpublish_requested unpublished].each do |status| %>
+        <%= content_tag(:option,
+          status.titleize,
+          selected: params[:search].include?("#{status}:"),
+          value: "#{status}:") %>
+      <% end %>
+    </select>
+  </form>
 </header>
 
 <section class="main-content__body main-content__body--flush">
