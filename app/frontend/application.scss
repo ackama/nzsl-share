@@ -1,6 +1,8 @@
 @import "foundation/foundation_and_overrides";
 @import "components/account-controls";
 @import "components/avatar";
+@import "components/hero-unit";
+@import "components/home-main";
 @import "components/file-preview";
 @import "components/file-upload";
 @import "components/folder";
@@ -18,6 +20,8 @@
 @import "components/search-bar";
 @import "components/sidebar";
 @import "components/sign-card";
-@import "components/sign-video";
 @import "components/sign-grid";
 @import "components/social-media";
+
+// Extension is required, otherwise webpacker tries to bundle video.js.
+@import "components/video.scss"; // sass-lint:disable-line clean-import-paths

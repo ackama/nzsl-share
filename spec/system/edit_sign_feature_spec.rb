@@ -104,20 +104,20 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   describe "video processing", uses_javascript: true do
-    subject { page.find(".sign-video") }
+    subject { page.find(".video") }
 
     context "when the video is unprocessed" do
-      it { expect(page).to have_selector ".sign-video[poster*=processing]" }
+      it { expect(page).to have_selector ".video[poster*=processing]" }
     end
 
     context "when the sign video has had thumbnails generated" do
       before { sign.update!(processed_thumbnails: true); }
-      it { expect(page).to have_selector ".sign-video[poster*='/rails/active_storage/']" }
+      it { expect(page).to have_selector ".video[poster*='/rails/active_storage/']" }
     end
 
     context "when the sign video has been encoded" do
       before { sign.update!(processed_thumbnails: true, processed_videos: true); }
-      it { expect(subject).to have_selector("source[src*='/signs/#{sign.id}/videos']", count: 3, visible: false) }
+      it { expect(subject).to have_selector("source[src*='/videos']", count: 3, visible: false) }
     end
   end
 

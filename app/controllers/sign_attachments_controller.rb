@@ -1,5 +1,6 @@
 class SignAttachmentsController < ApplicationController
   before_action :authenticate_user!
+  after_action :post_process, only: :create
 
   def create
     authorize sign, :edit?
@@ -34,6 +35,12 @@ class SignAttachmentsController < ApplicationController
 
   def attachment
     attachments.find(params[:id])
+  end
+
+  def post_process
+    return unless @attachment.persisted?
+
+    SignAttachmentPostProcessor.new(@attachment.blob).process
   end
 
   def attachments

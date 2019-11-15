@@ -54,7 +54,7 @@
           <legend class="form-section__header"><h2 class="primary">Other details</h2></legend>
           <div class="form-section__content">
             <%= f.label :notes, "Notes" %>
-            <p class="help-text">Provide a short description of the sign and other notes eg. where have you seen this sign used?</p>
+            <p class="help-text">(e.g. where have you seen this sign used?)</p>
             <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
 
             <%= render "signs/edit/attachment", field: :usage_example, form: f %><br />
@@ -124,13 +124,13 @@
 
     function refresh() {
       var $currentContainer = jQuery(selector);
-      var $currentVideo = $currentContainer.find("video.sign-video");
+      var $currentVideo = $currentContainer.find(".video");
       jQuery.ajax( {
         url: window.location,
         dataType: "html"
       }).done(function(responseText) {
         var $newVideoContainer = jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector);
-        var $newVideo = $newVideoContainer.find("video.sign-video");
+        var $newVideo = $newVideoContainer.find(".video");
 
         // Stop polling once the video has been processed
         if ($newVideo.hasClass("has-video")) clearInterval(intervalId);

@@ -42,7 +42,7 @@ RSpec.describe "Sign show page", system: true do
     end
 
     it "doesn't display the sign" do
-      expect(page).not_to have_content sign.word
+      expect(page).to have_content I18n.t("application.unauthorized")
     end
   end
 
@@ -69,33 +69,115 @@ RSpec.describe "Sign show page", system: true do
     context "sign has videos" do
       let(:sign) { FactoryBot.create(:sign, :processed_videos) }
       # 1080p, 720p, 360p
-      it { expect(subject).to have_selector("source[src^='/signs/#{sign.id}/videos']", count: 3) }
+      it { expect(subject).to have_selector("source[src^='/videos']", count: 3) }
     end
   end
 
   describe "sign controls" do
+    context "moderator is signed in" do
+      let(:user) { FactoryBot.create(:user, :moderator) }
+
+      it "allows the moderator to manage the sign" do
+        within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+      end
+
+      it "displays the moderator message " do
+        within("#sign_overview") { expect(sign_page).to have_content "you are moderating this sign" }
+      end
+    end
+
     context "owned by the current user" do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
+      it { within("#sign_overview") { expect(sign_page).to have_content "you are the creator of this sign" } }
+
       it "shows the personal description and edit instructions on hover" do
         within("#sign_overview") do
           title = find("#sign_status")["title"]
           assert_equal(
-            title, I18n.t!("signs.personal.description") + " " + I18n.t!("signs.personal.edit_status_instructions")
+            title, I18n.t!("signs.personal.description") + " " + I18n.t!("signs.personal.status_notes")
           )
         end
       end
 
       context "sign has been submitted for publishing" do
         let(:sign) { FactoryBot.create(:sign, :submitted) }
+
         it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
         it { expect(sign_page).to have_content "in progress" }
+
         it "shows the submitted description on hover" do
           within("#sign_overview") do
             title = find("#sign_status")["title"]
             assert_equal(title.strip!, I18n.t!("signs.submitted.description"))
           end
+        end
+
+        it "user can cancel publication", uses_javascript: true do
+          click_on "Sign Options"
+          click_on "Cancel (don’t show to public)"
+          alert = page.driver.browser.switch_to.alert
+          expect(alert.text).to eq I18n.t!("sign_publish.destroy.confirm")
+          alert.accept
+          expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+          expect(subject).to have_content I18n.t!("sign_publish.destroy.success")
+          sign.reload
+          expect(sign.personal?).to eq true
+        end
+      end
+
+      context "sign has been published" do
+        let(:sign) { FactoryBot.create(:sign, :published) }
+        subject(:sign_page) { SignPage.new }
+
+        it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
+        it { expect(sign_page).to have_content "public" }
+
+        it "shows the published description on hover" do
+          within("#sign_overview") do
+            title = find("#sign_status")["title"]
+            assert_equal(title.strip!, I18n.t!("signs.published.description"))
+          end
+        end
+
+        it "user can request unpublish", uses_javascript: true do
+          click_on "Sign Options"
+          click_on "Ask to be private"
+          alert = page.driver.browser.switch_to.alert
+          expect(alert.text).to eq I18n.t!("sign_request_publish.destroy.confirm")
+          alert.accept
+          expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+          expect(subject).to have_content I18n.t!("sign_request_publish.destroy.success")
+          sign.reload
+          expect(sign.unpublish_requested?).to eq true
+        end
+      end
+
+      context "user has asked for sign to be unpublished" do
+        let(:sign) { FactoryBot.create(:sign, :unpublish_requested) }
+
+        it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
+        it { expect(sign_page).to have_content "(asked on #{sign.requested_unpublish_at.strftime("%d %b %Y")})" }
+        it { expect(sign_page).to have_content "asked to unpublish" }
+
+        it "shows the requested unpublish description on hover" do
+          within("#sign_overview") do
+            title = find("#sign_status")["title"]
+            assert_equal(title.strip!, I18n.t!("signs.unpublish_requested.description"))
+          end
+        end
+
+        it "user can cancel request to make sign private", uses_javascript: true do
+          click_on "Sign Options"
+          click_on "Keep sign public"
+          alert = page.driver.browser.switch_to.alert
+          expect(alert.text).to eq I18n.t!("sign_publish.create.confirm")
+          alert.accept
+          expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+          expect(subject).to have_content I18n.t!("sign_publish.create.success")
+          sign.reload
+          expect(sign.published?).to eq true
         end
       end
     end
@@ -103,6 +185,24 @@ RSpec.describe "Sign show page", system: true do
     context "not owned by the current user" do
       let(:user) { FactoryBot.create(:user) }
       it { expect(sign_page).not_to have_css "#sign_overview" }
+    end
+  end
+
+  context "sign usage examples" do
+    let(:sign) { FactoryBot.create(:sign, :with_usage_examples) }
+
+    it "displays the usage example videos" do
+      expect(sign_page).to have_content "Usage"
+      expect(sign_page).to have_selector ".usage-examples .video", count: sign.usage_examples.size
+    end
+  end
+
+  context "sign illustrations" do
+    let(:sign) { FactoryBot.create(:sign, :with_illustrations) }
+
+    it "displays the illustrations" do
+      expect(sign_page).to have_content "Illustration"
+      expect(sign_page).to have_selector ".illustrations img", count: sign.illustrations.size
     end
   end
 

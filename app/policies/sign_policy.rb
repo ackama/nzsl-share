@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published? || owns_record? || moderator?
+    record.published? || owns_record? || moderator? || administrator?
   end
 
   def create?
@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    owns_record? || moderator?
+    (owns_record? || moderator?) && !public?
   end
 
   def edit?
@@ -25,6 +25,22 @@ class SignPolicy < ApplicationPolicy
 
   def destroy?
     owns_record?
+  end
+
+  def manage?
+    owns_record? || moderator?
+  end
+
+  def publish?
+    (owns_record? && public?) || moderator?
+  end
+
+  def unpublish?
+    (owns_record? && !public?) || moderator?
+  end
+
+  def request_unpublish?
+    owns_record? && public?
   end
 
   def manage_folders?
@@ -38,6 +54,12 @@ class SignPolicy < ApplicationPolicy
     owns_record?
   end
 
+  class Scope < Scope
+    def resolve_admin
+      scope.where.not(submitted_at: nil).order(submitted_at: :desc)
+    end
+  end
+
   private
 
   def owns_record?
@@ -46,5 +68,9 @@ class SignPolicy < ApplicationPolicy
 
   def contributor?
     user.present?
+  end
+
+  def public?
+    record.published? || record.unpublish_requested?
   end
 end

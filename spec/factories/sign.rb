@@ -54,7 +54,7 @@ FactoryBot.define do
 
     trait :unpublish_requested do
       status { "unpublish_requested" }
-      unpublish_requsted_at { Time.zone.now - 5 }
+      requested_unpublish_at { Time.zone.now - 5 }
       conditions_accepted { true }
     end
 

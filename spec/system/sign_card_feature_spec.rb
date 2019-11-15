@@ -41,7 +41,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the embedded media" do
-    expect(sign_card).to have_selector ".sign-card__media > .sign-video-wrapper > video.sign-video"
+    expect(sign_card).to have_selector ".sign-card__media > .video-wrapper > video.video"
   end
 
   it "shows the Māori gloss" do
