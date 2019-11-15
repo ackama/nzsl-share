@@ -1,0 +1,12 @@
+.status {
+  &__pending {
+    background: #c38c46;
+    border-radius: $global-radius;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    line-height: 2rem;
+    padding: 0.5rem;
+  }
+}

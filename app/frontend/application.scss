@@ -21,6 +21,7 @@
 @import "components/sign-card";
 @import "components/sign-grid";
 @import "components/social-media";
+@import "components/admin/status";
 
 // Extension is required, otherwise webpacker tries to bundle video.js.
 // sass-lint:disable-next-line clean-import-paths
