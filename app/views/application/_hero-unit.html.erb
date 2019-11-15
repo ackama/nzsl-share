@@ -1,6 +1,9 @@
 <div class="hero-unit grid-x">
   <div class="cell large-4 video-wrapper--hero" data-overlay >
-    <video class="video video--hero has-video" src="<%= asset_pack_path 'media/images/dummy.mp4' %>" type="video/mp4"></video>
+    <video class="video video--hero has-video">
+      <source src="<%= asset_pack_path 'media/images/6.webm' %>" type="video/webm">
+      <source src="<%= asset_pack_path 'media/images/5.mp4' %>" type="video/mp4">
+    </video>
   </div>
 
   <div class="cell large-8 grid-x hero-unit__container">
