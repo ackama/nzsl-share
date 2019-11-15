@@ -1,0 +1,5 @@
+<div class="<%= resource.status == "submitted" && "status__pending" %>">
+  <%= inline_svg "media/images/admin/pending.svg", class: "icon--small" %>
+  <%= resource.status  %>
+</div>
+
