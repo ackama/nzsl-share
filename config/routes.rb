@@ -19,9 +19,7 @@ Rails.application.routes.draw do
     resource :request_publish, only: %i[create destroy], controller: :sign_request_publish
     resource :publish, only: %i[create destroy], controller: :sign_publish
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
-    resources :usage_examples, only: %i[destroy], controller: :sign_attachments
-    resources :illustrations, only: %i[destroy], controller: :sign_attachments
-    resources :sign_attachments, only: %i[create],
+    resources :sign_attachments, only: %i[create update destroy],
                                  path: "/:attachment_type",
                                  as: :attachments,
                                  constraints: { attachment_type: /usage_examples|illustrations/ }

@@ -148,6 +148,19 @@
   <% end %>
 <% end %>
 
+<% @sign.usage_examples.select(&:persisted?).each do |attach| %>
+  <%= form_tag sign_attachment_path(@sign, attach, attachment_type: :usage_examples),
+               id: dom_id(attach, :update_form),
+               method: :patch do %><% end %>
+<% end %>
+
+<% @sign.illustrations.select(&:persisted?).each do |attach| %>
+  <%= form_tag sign_attachment_path(@sign, attach, attachment_type: :illustrations),
+               id: dom_id(attach, :update_form),
+               method: :patch do %><% end %>
+<% end %>
+
+
 <form id="delete_usage_example_form" data-remote>
   <input type="hidden" name="_method" value="DELETE" />
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
