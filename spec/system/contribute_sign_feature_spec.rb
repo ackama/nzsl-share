@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Contributing a new sign", type: :system do
+  let(:user) { FactoryBot.create(:user) }
   subject { ContributeSignFeature.new }
-  before { subject.start }
+  before { subject.start(user) }
 
   shared_examples_for "sign contribution feature" do
     it "can contribute a valid video file" do
@@ -45,11 +46,24 @@ RSpec.describe "Contributing a new sign", type: :system do
     expect(subject).to have_title "New Sign – NZSL Share"
   end
 
-  describe "with Javascript disabled" do
+  context "with Javascript disabled" do
     include_examples "sign contribution feature"
   end
 
-  describe "with Javascript enabled", uses_javascript: true do
+  context "with Javascript enabled", uses_javascript: true do
     include_examples "sign contribution feature"
+  end
+
+  context "exceeding contribution limit" do
+    let(:user) do
+      FactoryBot.create(:user, contribution_limit: 1).tap do |user|
+        user.contribution_limit.times do
+          user.signs << FactoryBot.create(:sign)
+        end
+      end
+    end
+
+    it { expect(subject).to have_current_path root_path }
+    it { expect(subject).to have_content "Sorry, you have reached your video upload limit." }
   end
 end

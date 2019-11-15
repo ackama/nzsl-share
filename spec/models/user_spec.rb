@@ -60,4 +60,26 @@ RSpec.describe User, type: :model do
       it { is_expected.to eq model }
     end
   end
+
+  describe "#contribution_limit_reached?" do
+    let(:contribution_limit) { 10 }
+    let(:signs_count) { 0 }
+    let(:user) { FactoryBot.build(:user, contribution_limit: contribution_limit) }
+    before { allow(user.signs).to receive(:count).and_return(signs_count) }
+    subject { user.contribution_limit_reached? }
+
+    context "under limit" do
+      it { is_expected.to eq false }
+    end
+
+    context "on limit" do
+      let(:signs_count) { contribution_limit }
+      it { is_expected.to eq true }
+    end
+
+    context "over limit" do
+      let(:signs_count) { contribution_limit + 1 }
+      it { is_expected.to eq true }
+    end
+  end
 end
