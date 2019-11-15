@@ -27,5 +27,7 @@ module NzslShare
     # We want to have full control over error messages - sometimes we want to customize
     # the full error message, not just the part after the attribute
     config.active_model.i18n_customize_full_message = true
+
+    config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV["MAIL_FROM"])
   end
 end

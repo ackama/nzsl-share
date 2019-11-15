@@ -108,7 +108,7 @@ en:
     name: "NZSL Share: Contributed sign for '%{word}'"
     description: "Video contributed to NZSL Share. More information: %{url}"
   users:
-    contribution_limit_reached: You have reached the maximum number of contributions we can accept. To have your limit increased, please contact us.
+    contribution_limit_reached_html: Sorry, you have reached your video upload limit. Contact <a href="mailto:%{email}">%{email}</a> to increase your limit.
   activemodel:
     errors: &activemodel_errors
       messages:
@@ -128,3 +128,4 @@ en:
               too_long: are limited to %{count} files
             usage_examples:
               too_long: are limited to %{count} files
+

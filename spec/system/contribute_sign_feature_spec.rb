@@ -64,6 +64,6 @@ RSpec.describe "Contributing a new sign", type: :system do
     end
 
     it { expect(subject).to have_current_path root_path }
-    it { expect(subject).to have_content I18n.t("users.contribution_limit_reached") }
+    it { expect(subject).to have_content "Sorry, you have reached your video upload limit." }
   end
 end
