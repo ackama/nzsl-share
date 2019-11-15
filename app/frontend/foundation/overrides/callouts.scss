@@ -4,6 +4,7 @@
   // }
 
   font-weight: bold;
+  padding: 0.5rem;
 
   &.accent {
     color: $callout-font-color-alt;
@@ -31,5 +32,10 @@
     text-align: left;
 
     &.expanded { @include button-expand; }
+  }
+
+  &__close {
+    color: $white;
+    font-size: 2rem;
   }
 }
