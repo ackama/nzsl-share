@@ -5,8 +5,9 @@ require "./lib/sql/search"
 class SearchService < ApplicationService
   attr_reader :search, :results
 
-  def initialize(params)
+  def initialize(params, relation=Sign)
     @search = params[:search]
+    @relation = relation
     @results = new_results
   end
 
@@ -24,10 +25,10 @@ class SearchService < ApplicationService
 
   def build_results
     term = parameterize_term
-    sql_arr = [SQL::Search.search(search_args), term, term, term, term]
-    results = parse_results(exec_query(sql_arr).first)
-    search.total = results[0]
-    fetch_results(results[1])
+    sql_arr = [SQL::Search.search(search_args), term: term]
+    count, ids = parse_results(exec_query(sql_arr))
+    search.total = count
+    fetch_results(ids)
   end
 
   def parameterize_term
@@ -35,15 +36,14 @@ class SearchService < ApplicationService
   end
 
   def fetch_results(ids)
-    Sign.for_cards.where(id: ids).sort_by { |sign| ids.index(sign.id) }
+    @relation
+      .where(id: ids)
+      .limit(search.page[:limit])
+      .order(Arel.sql("array_position(array[#{ids.join(",")}]::integer[], id)"))
   end
 
   def parse_results(results)
-    return [0, []] if results.blank? || results["ids"].blank?
-
-    ids = results["ids"].tr("{}", "").split(",").map(&:to_i)
-    total = results["total"].to_i
-    [total, ids]
+    [results.count, results.field_values("id")]
   end
 
   def exec_query(sql_arr)
@@ -51,9 +51,6 @@ class SearchService < ApplicationService
   end
 
   def search_args
-    {
-      order: search.order_clause,
-      limit: search.page[:limit]
-    }
+    { order: search.order_clause }
   end
 end
