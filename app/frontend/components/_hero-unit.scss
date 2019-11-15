@@ -25,12 +25,16 @@
   }
 
   &__search {
+    > .search-bar > label {
+      margin: 0;
+    }
+
     > .search-bar > label > input {
       background: $white;
       background-image: url("images/search.svg");
       background-position: calc(100% - 1rem);
       background-repeat: no-repeat;
-      margin: 0;
+      margin: 0 !important; // sass-lint:disable-line no-important
       padding-right: 2rem;
       transition: box-shadow, background-color linear 0.5s;
     }

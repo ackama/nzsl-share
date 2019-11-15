@@ -17,7 +17,9 @@
     top: 132px;
   }
 
-
+  &__bottom {
+    justify-content: space-between;
+  }
 
   &__folders {
     &__button {
