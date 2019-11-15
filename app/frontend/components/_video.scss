@@ -26,6 +26,7 @@
     width: 100%;
 
     @include breakpoint(large) {
+      left: -200px;
       max-height: 360px;
       max-width: none;
       position: absolute;
