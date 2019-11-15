@@ -3,17 +3,37 @@
     <div class="cell auto">
       <%# Notice %>
       <% if flash[:notice].present? %>
-        <div class="callout success" data-closable>
-          <button class="close-button" aria-label="Close alert" type="button" data-close>
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <%= sanitize(flash[:notice]) %>
+        <div class="callout success grid-x grid-margin-x">
+          <div class="cell shrink align-self-middle">
+            <%= inline_svg "media/images/remove.svg", class: "icon icon--white icon--mid" %>
+          </div>
+          <div class="cell auto align-self-middle">
+            <%= sanitize flash[:notice] %>
+          </div>
+          <div class="cell shrink">
+          <button class="callout__close" aria-label="Close alert" type="button" data-close>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         </div>
       <% end %>
 
+
       <%# Alert %>
       <% if flash[:alert].present? %>
-        <div class="callout alert"><%= flash[:alert] %></div>
+        <div class="callout alert grid-x grid-margin-x">
+          <div class="cell shrink align-self-middle">
+            <%= inline_svg "media/images/remove.svg", class: "icon icon--white icon--mid" %>
+          </div>
+          <div class="cell auto align-self-middle">
+            <%= flash[:alert] %>
+          </div>
+          <div class="cell shrink">
+          <button class="callout__close" aria-label="Close alert" type="button" data-close>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
