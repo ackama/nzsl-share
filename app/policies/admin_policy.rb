@@ -2,6 +2,6 @@
 
 AdminPolicy = Struct.new(:user, :admin) do
   def index?
-    user.administrator
+    user.administrator?
   end
 end
