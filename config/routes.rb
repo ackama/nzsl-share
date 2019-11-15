@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq" # monitoring console
 
   root "home#index"
+  resource :about, only: [:index]
+  resource :contact, only: [:index]
   resources :search, only: [:index]
   resources :signs, except: %i[index] do
     resource :request_publish, only: %i[create destroy], controller: :sign_request_publish
