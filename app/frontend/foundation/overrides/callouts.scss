@@ -3,18 +3,10 @@
   //   border-radius: $prototype-border-radius;
   // }
 
+  font-weight: bold;
+
   &.accent {
     color: $callout-font-color-alt;
-  }
-
-  &.success {
-    background: get-color(success-x-light);
-    color: get-color(success);
-  }
-
-  &.alert {
-    background: get-color(alert-x-light);
-    color: get-color(alert);
   }
 
   &.large {
