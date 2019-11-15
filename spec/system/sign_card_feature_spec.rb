@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sign card features", type: :system do
-  let!(:sign) { FactoryBot.create(:sign, contributor: authenticator.user) }
+  let!(:sign) { FactoryBot.create(:sign, :published, contributor: authenticator.user) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
   let(:authenticator) { AuthenticateFeature.new }
 
@@ -31,9 +31,9 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the sign status" do
-    expect(sign_card).to have_content "private"
+    expect(sign_card).to have_content "public"
     title = find("#sign_status")["title"]
-    assert_equal(title, I18n.t!("signs.personal.description"))
+    assert_equal(title, I18n.t!("signs.published.description"))
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
@@ -83,7 +83,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "updates the signs count on another sign card automatically" do
-      FactoryBot.create(:sign, topic: sign.topic)
+      FactoryBot.create(:sign, :published, topic: sign.topic)
 
       # We have added records so need to reload
       visit topic_path(sign.topic)
