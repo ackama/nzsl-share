@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? || moderator?) && !public?
+    (owns_record? && !public?) || moderator? || administrator?
   end
 
   def edit?
@@ -24,7 +24,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owns_record?
+    (owns_record? && !public?) || moderator? || administrator?
   end
 
   def manage?
@@ -56,7 +56,7 @@ class SignPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve_admin
-      scope.where.not(submitted_at: nil).order(submitted_at: :desc)
+      scope
     end
   end
 
