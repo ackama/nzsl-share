@@ -1,5 +1,6 @@
 class SignAttachmentsController < ApplicationController
   before_action :authenticate_user!
+  after_action :post_process, only: :create
 
   def create
     authorize sign, :edit?
@@ -20,6 +21,12 @@ class SignAttachmentsController < ApplicationController
   end
 
   private
+
+  def post_process
+    return unless @attachment.persisted?
+
+    SignAttachmentPostProcessor.new(@attachment.blob).process
+  end
 
   def attachments
     sign.public_send(attachment_type)

@@ -14,10 +14,16 @@ RSpec.describe SignAttachmentsController, type: :request do
     let(:create_request) { post(sign_attachments_path(params)) }
 
     context "valid blob" do
-      let(:blob_id) { generate_blob.signed_id }
-
       it { expect { create_request }.to change(sign.usage_examples, :count).by(1) }
       it { create_request; expect(response.status).to eq 201 }
+
+      it "post processes the attachment" do
+        processor = double
+        expect(SignAttachmentPostProcessor).to receive(:new).with(blob).and_return(processor)
+        expect(processor).to receive(:process)
+
+        create_request
+      end
     end
 
     context "blob does not exist" do
@@ -35,6 +41,11 @@ RSpec.describe SignAttachmentsController, type: :request do
       it { expect { create_request }.not_to change(sign.usage_examples, :count) }
       it { create_request; expect(response.status).to eq 422 }
       it { create_request; expect(response.body).to eq "[\"test error\"]" }
+
+      it "does not post process the attachment" do
+        expect(SignAttachmentPostProcessor).not_to receive(:new).with(blob)
+        create_request
+      end
     end
 
     context "attachment doesn't save" do

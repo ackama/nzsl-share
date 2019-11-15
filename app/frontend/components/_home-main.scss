@@ -1,0 +1,29 @@
+.home-main {
+  padding: 0 auto;
+
+  &__container {
+    margin: 4rem 0;
+    padding: 0 1rem;
+  }
+
+  &__icon {
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  &__icon-shadow {
+    left: 20px;
+    position: absolute;
+    top: 20px;
+    z-index: -1;
+  }
+
+  &__signs {
+    margin: 0 0 5rem;
+
+    h2 {
+      margin-bottom: 2rem;
+    }
+  }
+
+}

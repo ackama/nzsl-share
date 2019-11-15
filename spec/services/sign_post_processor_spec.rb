@@ -21,8 +21,8 @@ RSpec.describe SignPostProcessor, type: :service do
 
     it "identifies the batches" do
       thumbnail_batch, video_batch = subject
-      expect(thumbnail_batch.description).to eq "Post processing: Generate thumbnails for Sign ##{sign.id}"
-      expect(video_batch.description).to eq "Post processing: Transcode videos for Sign ##{sign.id}"
+      expect(thumbnail_batch.description).to eq "Post processing: Generate thumbnails for Blob ##{sign.video.blob.id}"
+      expect(video_batch.description).to eq "Post processing: Transcode videos for Blob ##{sign.video.blob.id}"
     end
 
     it "establishes the expected callbacks" do

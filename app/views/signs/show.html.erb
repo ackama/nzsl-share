@@ -28,25 +28,13 @@
     <div class="sign-card__section">
       <h2>
         <%= @sign.word %>
-        <% if @sign.maori %><small>•&nbsp;<%= @sign.maori %></small><% end %>
+        <% if @sign.maori.present? %><small>•&nbsp;<%= @sign.maori %></small><% end %>
       </h2>
 
       <p class="sign-card__supplementary-titles__secondary"><%= @sign.secondary %></p>
-
-      <p class="sign-card__subtitle">
-        <%= @sign.contributor.username %>
-        &nbsp;•&nbsp;
-        <%= @sign.friendly_date %>
-        <% if @sign.topic %>
-          &nbsp;•&nbsp;
-          <%= @sign.topic.name %>
-        <% end %>
-      </p>
-
-      <%= content_tag(:p, simple_format(@sign.description)) %>
     </div>
-    <hr class="sign-card__divider">
-    <div class="grid-x sign-card__bottom grid-padding-x">
+
+    <div class="grid-x sign-card__section sign-card__section--horizontal">
       <div class="cell shrink">
         <%= link_to "#", class: "button clear success" do %>
           <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--success" %>
@@ -60,15 +48,61 @@
       </div>
       <div class="cell auto"></div>
       <div class="cell shrink">
-        <%= link_to "#", class: "button clear medium" do %>
-          <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--medium" %>
-          Add to Folder
-        <% end if policy(@sign).manage_folders? %>
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>
           <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
         <% end if policy(@sign).share? %>
+
+        <%= link_to "#", class: "button clear medium" do %>
+          <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--medium" %>
+          Add to Folder
+        <% end if policy(@sign).manage_folders? %>
       </div>
     </div>
+    <hr class="sign-card__divider">
+    <div class="grid-x sign-card__section">
+      <p class="sign-card__subtitle">
+        <img
+          class="avatar avatar--small avatar--left"
+          src="https://picsum.photos/id/550/32/32"
+          alt="Profile Image"
+        />
+        <%= @sign.contributor.username %>
+        &nbsp;•&nbsp;uploaded&nbsp;
+        <%= @sign.friendly_date %>
+        <% if @sign.topic %>
+          &nbsp;•&nbsp;
+          <%= @sign.topic.name %>
+        <% end %>
+    </p>
+
+      <%= content_tag(:p, simple_format(@sign.description)) %>
+    </div>
+
+    <% if @sign.usage_examples.any? %>
+      <div class="grid-x sign-card__section sign-card__section--horizontal usage-examples">
+        <strong>Usage</strong>
+        <div class="grid-x grid-margin-x small-up-1 medium-up-2">
+          <% @sign.usage_examples.each do |usage_example| %>
+            <div class="cell">
+              <%= render "signs/card/attachment", attachment: usage_example %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @sign.illustrations.any? %>
+      <div class="grid-x sign-card__section sign-card__section--horizontal illustrations">
+        <strong>Illustrations</strong>
+        <div class="grid-x grid-margin-x small-up-1 medium-up-3">
+          <% @sign.illustrations.each do |illustration| %>
+            <div class="shadowed thumbnail cell">
+              <%= image_tag illustration.representation(ThumbnailPreset.default.scale_720.to_h)   %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
