@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq" # monitoring console
 
   root "home#index"
-  resource :about, only: [:index]
-  resource :contact, only: [:index]
   resources :search, only: [:index]
   resources :signs, except: %i[index] do
     resource :request_publish, only: %i[create destroy], controller: :sign_request_publish
@@ -41,4 +39,6 @@ Rails.application.routes.draw do
     resources :signs, only: [:index], as: :user_signs
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
+
+  get "/:page" => "static#show"
 end

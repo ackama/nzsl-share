@@ -11,12 +11,16 @@
 
   img {
     border-radius: 4px;
-    margin-right: 1rem;
+    margin: 0 1rem 1rem 0;
     width: 72px;
   }
 
   li {
     margin: 1rem 0;
+
+    &.active {
+      text-decoration: underline;
+    }
 
     a {
       align-items: center;
@@ -25,19 +29,19 @@
 
       svg {
         margin: 0.5rem;
+        min-width: 24px;
       }
 
-      :hover {
+      &:hover {
         text-decoration: underline;
       }
-    }.active {
-    text-decoration: underline;
     }
   }
 
   &__list {
     @extend .no-bullet;
     background-color: $black;
+    margin-bottom: 1rem;
   }
 
   &__license {
