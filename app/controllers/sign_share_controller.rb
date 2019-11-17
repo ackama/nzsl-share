@@ -6,16 +6,16 @@ class SignShareController < ApplicationController
   def create
     @sign = fetch_sign
     authorize @sign, :share?
-    @sign.update(share_token: SecureRandom.uuid) if @sign.share_token.blank?
-
+    @sign.share_token = SecureRandom.uuid if @sign.share_token.blank?
+    @sign.save(validate: false) # cannot directly update due to sign validations
     redirect_back(fallback_location: @sign, notice: t(".success", share_url: share_url))
   end
 
   def destroy
-    @sign = fetch_sign_by_token
+    @sign = fetch_sign
     authorize @sign, :share?
-    @sign.update(share_token: nil)
-
+    @sign.share_token = nil if @sign.share_token.present?
+    @sign.save(validate: false) # cannot directly update due to sign validations
     redirect_back(fallback_location: @sign, notice: t(".success"))
   end
 
@@ -41,7 +41,7 @@ class SignShareController < ApplicationController
   end
 
   def fetch_sign_by_token
-    policy_scope(Sign).find_by!(id: sign_id, share_token: share_token)
+    policy_scope(Sign, policy_scope_class: SharePolicy::Scope).find_by!(id: sign_id, share_token: share_token)
   end
 
   def sign_id
