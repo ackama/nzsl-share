@@ -39,6 +39,7 @@ $icon-palette: map-merge(
 
 @mixin icon-size($size: default) {
   height: map-get($icon-sizes, $size);
+  vertical-align: text-bottom;
   width: map-get($icon-sizes, $size);
 }
 

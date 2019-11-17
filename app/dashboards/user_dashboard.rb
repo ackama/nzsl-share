@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class SignDashboard < Administrate::BaseDashboard
+class UserDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,24 +8,14 @@ class SignDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    video: Field::String.with_options(searchable: false),
-    word: Field::String,
-    status: Field::String,
-    submitted_at: Field::DateTime,
-    contributor_email: Field::BelongsTo.with_options(
-      class_name: "User",
-      foreign_key: :contributor_id,
-      source: :contributor,
-      searchable: true,
-      searchable_field: :email
-    ),
-    contributor_username: Field::BelongsTo.with_options(
-      class_name: "User",
-      foreign_key: :contributor_id,
-      source: :contributor,
-      searchable: true,
-      searchable_field: :username
-    )
+    email: Field::String,
+    username: Field::String,
+    administrator: Field::Boolean.with_options(searchable: false),
+    moderator: Field::Boolean.with_options(searchable: false),
+    approved: Field::Boolean.with_options(searchable: false),
+    validator: Field::Boolean.with_options(searchable: false),
+    contribution_limit: Field::Number.with_options(searchable: false),
+    signs_count: Field::Number.with_options(searchable: false)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -34,26 +24,39 @@ class SignDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    video
-    word
-    status
-    submitted_at
+    username
+    email
+    signs_count
+    administrator
+    moderator
+    approved
+    validator
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    video
-    word
-    status
+    username
+    email
+    signs_count
+    contribution_limit
+    administrator
+    moderator
+    approved
+    validator
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    word
-    status
+    email
+    username
+    administrator
+    moderator
+    approved
+    validator
+    contribution_limit
   ].freeze
 
   # COLLECTION_FILTERS
@@ -67,17 +70,16 @@ class SignDashboard < Administrate::BaseDashboard
   #     open: ->(resources) { where(open: true) }
   #   }.freeze
   COLLECTION_FILTERS = {
-    personal: ->(resources) { resources.personal },
-    submitted: ->(resources) { resources.submitted },
-    published: ->(resources) { resources.published },
-    declined: ->(resources) { resources.declined },
-    unpublish_requested: ->(resources) { resources.unpublish_requested }
+    administrator: ->(resources) { resources.where(administrator: true) },
+    moderator: ->(resources) { resources.where(moderator: true) },
+    validator: ->(resources) { resources.where(validator: true) },
+    approved: ->(resources) { resources.where(approved: true) }
   }.freeze
 
-  # Overwrite this method to customize how signs are displayed
+  # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(sign)
-  #   "Sign ##{sign.id}"
-  # end
+  def display_resource(user)
+    "'#{user.username}'"
+  end
 end

@@ -10,12 +10,8 @@
     <div class="modal-form__fields">
       <fieldset>
         <%= f.label :title, "Folder name", class: "required" %>
-        <%= f.text_field :title, placeholder: "Enter a title", class: (folder.errors[:title].any? && "invalid") %>
-        <% if folder.errors[:title].any? %>
-          <% folder.errors[:title].each do |message| %>
-            <div class="form-error show"><%= message %></div>
-          <% end %>
-        <% end %>
+        <%= f.text_field :title, placeholder: "Enter a title" %>
+        <%= f.error :title %>
       </fieldset>
 
       <fieldset>

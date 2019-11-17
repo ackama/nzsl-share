@@ -10,6 +10,17 @@ class SignAttachmentsController < ApplicationController
     render json: sign.errors.full_messages, status: :unprocessable_entity
   end
 
+  def update
+    authorize sign, :edit?
+    @metadata = metadata_service(attachment)
+    @metadata.set!(:description, params[:description])
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: edit_sign_path(sign)) }
+      format.js { head(:ok) }
+    end
+  end
+
   def destroy
     authorize sign, :edit?
     attachment.destroy
@@ -21,6 +32,10 @@ class SignAttachmentsController < ApplicationController
   end
 
   private
+
+  def attachment
+    attachments.find(params[:id])
+  end
 
   def post_process
     return unless @attachment.persisted?
@@ -49,7 +64,7 @@ class SignAttachmentsController < ApplicationController
               .find(params[:sign_id])
   end
 
-  def attachment
-    ActiveStorage::Attachment.where(record: sign).find(params[:id])
+  def metadata_service(attach)
+    ActiveStorageAttachmentMetadata.new(attach)
   end
 end

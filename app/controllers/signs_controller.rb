@@ -15,6 +15,8 @@ class SignsController < ApplicationController
   end
 
   def new
+    return unless check_contribution_limit!
+
     @sign = Sign.new
     authorize @sign
   end
@@ -60,6 +62,16 @@ class SignsController < ApplicationController
   end
 
   private
+
+  def check_contribution_limit!
+    return true unless current_user.contribution_limit_reached?
+
+    message = t("users.contribution_limit_reached_html",
+                email: Rails.application.config.contact_email)
+    redirect_to(root_path, alert: message)
+
+    false
+  end
 
   def signs
     policy_scope(Sign).order(word: :asc)

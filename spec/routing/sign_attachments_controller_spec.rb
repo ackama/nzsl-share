@@ -31,7 +31,7 @@ RSpec.describe SignAttachmentsController, type: :routing do
 
   describe "#destroy" do
     let(:params) { { controller: "sign_attachments", action: "destroy", sign_id: "1", id: "1" } }
-    it { expect(delete: "/signs/1/usage_examples/1").to route_to(params) }
-    it { expect(delete: "/signs/1/illustrations/1").to route_to(params) }
+    it { expect(delete: "/signs/1/usage_examples/1").to route_to(params.merge(attachment_type: "usage_examples")) }
+    it { expect(delete: "/signs/1/illustrations/1").to route_to(params.merge(attachment_type: "illustrations")) }
   end
 end
