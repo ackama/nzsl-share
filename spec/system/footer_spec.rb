@@ -17,11 +17,18 @@ RSpec.describe "Footer", type: :system do
     expect(page).to have_link("Terms & Conditions")
   end
 
-  xit "has an active class for the current page" do
-    expect(page).to have_link(root_path)
-    expect(page).to have_link(topics_path)
-    expect(page).to have_link("/about")
-    expect(page).to have_link("/contact")
+  it "displays the sitemap with links" do
+    expect(page).to have_link("Home", href: root_path)
+    expect(page).to have_link("Topics", href: topics_path)
+    expect(page).to have_link("About", href: "/about")
+    expect(page).to have_link("Contact", href: "/contact")
+  end
+
+  it "has an active class for the current page" do
+    within ".footer" do
+      current_page = page.find(:css, "li.active")
+      expect(current_page).to have_css("a[href='#{root_path}']")
+    end
   end
 
   it "has the learn nzsl logo" do
