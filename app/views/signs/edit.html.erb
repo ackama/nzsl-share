@@ -32,18 +32,16 @@
             </div>
 
             <%= f.label :word, "Sign / Word", class: "required" %>
-            <%= f.text_field :word, class: (@sign.errors[:word].any? && "invalid") %>
-            <% if @sign.errors[:word].any? %>
-              <% @sign.errors[:word].each do |message| %>
-                <div class="form-error show"><%= message %></div>
-              <% end %>
-            <% end %>
+            <%= f.text_field :word %>
+            <%= f.error :word %>
 
             <%= f.label :secondary, "Other words for this sign" %>
-            <%= f.text_field :secondary, class: (@sign.errors[:secondary].any? && "invalid") %>
+            <%= f.text_field :secondary %>
+            <%= f.error :secondary %>
 
             <%= f.label :maori, "Māori translation" %>
-            <%= f.text_field :maori, class: (@sign.errors[:maori].any? && "invalid") %>
+            <%= f.text_field :maori %>
+            <%= f.error :maori %>
 
             <%= f.label :topic_id, "Topic" %>
             <%= f.collection_select :topic_id, Topic.all, :id, :name, prompt: "-- Please select --" %>

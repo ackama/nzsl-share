@@ -91,6 +91,7 @@ RSpec.configure do |config|
   # Make a 'view' object available to presenter specs
   config.include ActionView::TestCase::Behavior, type: :presenter
   config.include Devise::Test::ControllerHelpers, type: :presenter
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.include WaitForAjax, type: :system
 
