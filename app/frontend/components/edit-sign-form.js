@@ -34,3 +34,11 @@ $(document).on("upload-success", ".illustrations-file-upload", (event) =>
 
 $(document).on("ajax:success", ".sign-usage-examples a[data-method='delete']", () => handleAttachmentRemoval("usage-examples"));
 $(document).on("ajax:success", ".sign-illustrations a[data-method='delete']", () => handleAttachmentRemoval("illustrations"));
+
+$(document).on("blur keydown", ".js-attachment-description", (event) => {
+  if (event.keyCode && event.keyCode !== 13) { return; }
+
+  event.preventDefault();
+  const input = event.target;
+  return $.ajax({ url: input.formAction, method: "PATCH", data: { format: "js", description: input.value } });
+});

@@ -8,7 +8,10 @@ class SignPolicy < ApplicationPolicy
   end
 
   def create?
-    contributor?
+    return false unless contributor?
+    return false if user.contribution_limit_reached?
+
+    true
   end
 
   def new?
@@ -16,7 +19,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? || moderator?) && !public?
+    (owns_record? && !public?) || moderator? || administrator?
   end
 
   def edit?
@@ -24,7 +27,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owns_record?
+    (owns_record? && !public?) || moderator? || administrator?
   end
 
   def manage?
@@ -44,8 +47,8 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if record.contributor == user
-    return true unless record.status == "personal"
+    return true if owns_record? || moderator? || administrator?
+    return true unless record.personal? || record.submitted?
 
     false
   end
@@ -56,7 +59,7 @@ class SignPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve_admin
-      scope.where.not(submitted_at: nil).order(submitted_at: :desc)
+      scope
     end
 
     def search # rubocop:disable Metrics/AbcSize

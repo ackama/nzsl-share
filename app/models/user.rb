@@ -23,6 +23,10 @@ class User < ApplicationRecord
     @login || username || email
   end
 
+  def contribution_limit_reached?
+    signs.count >= contribution_limit
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     unless (login = conditions.delete(:login))
