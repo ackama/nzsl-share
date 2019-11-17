@@ -1,7 +1,7 @@
 
 <footer class="footer">
   <div class="grid-x grid-container margin-bottom-3 margin-top-1  ">
-    <div class="cell auto"><%= inline_svg "media/images/logo.svg" %></div>
+    <div class="cell auto"><%= inline_svg "media/images/logo.svg", aria: true, title: "NZSL Logo" %></div>
     <div class="cell small-3 medium-2"><p>Privacy policy</p></div>
     <div class="cell small-3"><p>Terms & Conditions</p></div>
   </div>
@@ -27,13 +27,13 @@
       <ul class="footer__list">
         <li>
           <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
-          <%= inline_svg "media/images/facebook.svg" %>
+          <%= inline_svg "media/images/facebook.svg", aria: true, title: "Twitter Logo" %>
           Twitter
           <%end%>
         </li>
         <li>
           <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
-          <%= inline_svg "media/images/twitter.svg" %>
+          <%= inline_svg "media/images/twitter.svg", aria: true, title: "Facebook Logo" %>
           Twitter
           <%end%>
         </li>
@@ -43,7 +43,7 @@
       <h3>Open source</h3>
       <ul class="footer__list">
         <li><%= link_to "https://github.com/ackama/nzsl-share", target: "_blank" do %>
-        <%= inline_svg "media/images/github.svg" %>
+        <%= inline_svg "media/images/github.svg", aria: true, title: "Github Logo" %>
         This is an Open Source project.
         <%end%></li>
       </ul>
