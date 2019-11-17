@@ -64,6 +64,13 @@ RSpec.describe "Contributing a new sign", type: :system do
     end
 
     it { expect(subject).to have_current_path root_path }
-    it { expect(subject).to have_content "Sorry, you have reached your video upload limit." }
+
+    it "renders a message informing the user to contact NZSL" do
+      expected_email = Rails.application.config.contact_email
+      expect(subject).to have_content "
+        Sorry, you have reached your video upload limit. Contact #{expected_email} to increase your limit.
+      ".strip
+      expect(subject).to have_link expected_email, href: "mailto:#{expected_email}"
+    end
   end
 end

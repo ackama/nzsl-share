@@ -7,13 +7,13 @@
           <button class="close-button" aria-label="Close alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
           </button>
-          <%= sanitize(flash[:notice]) %>
+          <%= sanitize(flash[:notice], tags: %w[a]) %>
         </div>
       <% end %>
 
       <%# Alert %>
       <% if flash[:alert].present? %>
-        <div class="callout alert"><%= flash[:alert] %></div>
+        <div class="callout alert"><%= sanitize(flash[:alert], tags: %w[a]) %></div>
       <% end %>
     </div>
   </div>
