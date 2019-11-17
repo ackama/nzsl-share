@@ -12,7 +12,12 @@ RSpec.describe SignsHelper, type: :helper do
     # Wrap HTML we get back to use Capybara matchers
     subject { Capybara.string(helper.folder_button(sign)) }
 
-    context "signed in" do
+    context "signed in without permission to access folder" do
+      let(:user) { FactoryBot.create(:user) }
+      it { expect(helper.folder_button(sign)).to eq nil }
+    end
+
+    context "signed in with permission to access folder" do
       let(:user) { sign.contributor }
 
       context "sign is in user folders" do
