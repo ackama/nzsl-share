@@ -6,7 +6,7 @@ RSpec.describe "Footer", type: :system do
   end
 
   it "has the NZSL logo" do
-    expect(page).to have_content("NZSL Share Logo")
+    have_css("img[alt=NZSL Share Logo]")
   end
 
   xit "has the NZSL privacy policy link" do
