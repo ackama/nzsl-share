@@ -47,8 +47,8 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if record.contributor == user
-    return true unless record.status == "personal"
+    return true if owns_record? || moderator? || administrator?
+    return true unless record.personal? || record.submitted?
 
     false
   end
@@ -60,6 +60,16 @@ class SignPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve_admin
       scope
+    end
+
+    def search # rubocop:disable Metrics/AbcSize
+      if user && (user.administrator || user.moderator)
+        scope.all.ids
+      elsif user
+        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id).ids
+      else
+        scope.where("status = 'published' or status = 'unpublish_requested'").ids
+      end
     end
   end
 

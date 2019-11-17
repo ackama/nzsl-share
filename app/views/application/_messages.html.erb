@@ -8,7 +8,7 @@
             <%= inline_svg "media/images/remove.svg", class: "icon icon--white icon--mid" %>
           </div>
           <div class="cell auto align-self-middle">
-            <%= sanitize flash[:notice] %>
+            <%= sanitize(flash[:notice], tags: %w[a])  %>
           </div>
           <div class="cell shrink">
           <button class="callout__close" aria-label="Close alert" type="button" data-close>
@@ -26,7 +26,7 @@
             <%= inline_svg "media/images/remove.svg", class: "icon icon--white icon--mid" %>
           </div>
           <div class="cell auto align-self-middle">
-            <%= flash[:alert] %>
+            <%= sanitize(flash[:alert], tags: %w[a])  %>
           </div>
           <div class="cell shrink">
           <button class="callout__close" aria-label="Close alert" type="button" data-close>

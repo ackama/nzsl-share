@@ -22,9 +22,9 @@
       </div>
 
       <div class="sign-card__subtitle">
-        <p><%= sign.contributor.username %></p>
+        <div><%= sign.contributor.username %></div>
         <div class="bullet">•</div>
-        <p><%= sign.friendly_date %></p>
+        <div><%= sign.friendly_date %></div>
       </div>
       <% if policy(sign).destroy? %>
         <h6 id="sign_status" title="<%= sign.status_description %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= sign.status_name %> </h6>
@@ -32,7 +32,7 @@
     </div>
     <div class="sign-card__bottom grid-x align-middle">
       <%= render "signs/card/votes", sign: sign %>
-      <%= render "signs/card/folders", sign: sign %>
+      <%= render "signs/card/folders", sign: sign  if policy(sign).manage_folders? %>
     </div>
   </div>
 </div>
