@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :signs
-
+    resources :users
     root to: "signs#index"
   end
 
