@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def edit?
-    user && user.administrator?
+    administrator?
   end
 
   def update?
