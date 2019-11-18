@@ -41,6 +41,8 @@ class Sign < ApplicationRecord
   # or some other measure of popularity
   scope :preview, -> { limit(4) }
 
+  scope :recent, -> { published.order(published_at: :desc) }
+
   scope :for_cards, -> { with_attached_video.includes(:contributor) }
 
   def agree_count; 0; end
