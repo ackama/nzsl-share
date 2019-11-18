@@ -12,7 +12,7 @@ class FolderShareController < ApplicationController
   end
 
   def destroy
-    @folder = fetch_folder_by_token
+    @folder = fetch_folder
     authorize @folder, :share?
     @folder.update(share_token: nil)
 
@@ -20,7 +20,7 @@ class FolderShareController < ApplicationController
   end
 
   def show
-    @folder = Folder.find_by!(id: folder_id, share_token: share_token)
+    @folder = fetch_folder_by_token
     authorize share_data, policy_class: SharePolicy
 
     render "folders/show"
@@ -41,7 +41,7 @@ class FolderShareController < ApplicationController
   end
 
   def fetch_folder_by_token
-    policy_scope(Folder).find_by!(id: folder_id, share_token: share_token)
+    policy_scope(Folder, policy_scope_class: SharePolicy::Scope).find_by!(id: folder_id, share_token: share_token)
   end
 
   def folder_id
