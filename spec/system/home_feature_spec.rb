@@ -1,10 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Homepage", type: :system do
-  before do
-    FactoryBot.create_list(:sign, 10)
-    visit root_path
-  end
+  let!(:signs) { [] }
+  before { visit root_path }
 
   it "rendered page contains both base and application layouts" do
     assert_selector("html>head+body")
@@ -25,9 +23,11 @@ RSpec.describe "Homepage", type: :system do
     expect(page).to have_css("#header-nav", visible: false)
   end
 
-  it "displays recently added and most viewed signs" do
-    page.all(".sign-grid").each do |element|
-      expect(element).to have_css(".sign-card", count: 4)
+  context "recently added signs" do
+    let!(:signs) { FactoryBot.create_list(:sign, 5, :published) }
+
+    it "shows the 4 most recently published signs" do
+      expect(page).to have_selector "h2:contains('Recently Added') + .sign-grid .sign-card", count: 4
     end
   end
 end
