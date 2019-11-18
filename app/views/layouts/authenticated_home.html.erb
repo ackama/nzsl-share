@@ -13,7 +13,8 @@
   </div>
 
   <div class="off-canvas-content" data-off-canvas-content>
-    <%= render "application/messages" %>
+    <%= render("application/messages",
+               classes: request.path == root_path ? "messages--float" : "") %>
     <%= render "application/hero-unit" %>
     <div class="grid-container">
       <%= yield %>
