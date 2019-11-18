@@ -6,7 +6,7 @@ class FolderShareController < ApplicationController
   def create
     @folder = fetch_folder
     authorize @folder, :share?
-    @folder.update(share_token: SecureRandom.uuid) if @folder.share_token.blank?
+    @folder.update(share_token: @folder.share_token || SecureRandom.uuid)
 
     redirect_back fallback_location: @folder, notice: t(".success", share_url: share_url)
   end
