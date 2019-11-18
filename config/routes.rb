@@ -37,4 +37,6 @@ Rails.application.routes.draw do
     resources :signs, only: [:index], as: :user_signs
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
+
+  get "/:page" => "static#show"
 end

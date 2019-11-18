@@ -1,8 +1,67 @@
 
 <footer class="footer">
-  <div class="row">
-    <div class="block">
-      <%= render "application/social_media" %>
+  <div class="grid-x grid-container margin-bottom-3 margin-top-1  ">
+    <div class="cell auto"><%= inline_svg "media/images/logo.svg", aria: true, title: "NZSL Share Logo" %></div>
+    <div class="cell small-3 medium-2"><p>Privacy policy</p></div>
+    <div class="cell small-3"><p>Terms & Conditions</p></div>
+  </div>
+  <div class="grid-x grid-container">
+    <div class="cell small-6 medium-auto">
+      <h3> Sitemap </h3>
+      <ul class="footer__list">
+       <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
+       <li class="<%= 'active' if current_page?(topics_path) %>"><%= link_to "Topics", topics_path %></li>
+       <li class="<%= 'active' if current_page?('/about') %>"><%= link_to "About", "/about" %></li>
+       <li class="<%= 'active' if current_page?('/contact') %>"><%= link_to "Contact", "/contact" %></li>
+      </ul>
+    </div>
+
+    <div class="cell small-6 medium-auto">
+      <h3> Recommended Sites </h3>
+      <%= image_pack_tag "media/images/learn-NZSL-sq.png", alt: "Learn NZSL" %>
+      <%= image_pack_tag "media/images/nzsl_logo.jpg", alt: "NZSL dictionary" %>
+    </div>
+
+    <div class="cell small-6 medium-auto">
+      <h3>Follow us</h3>
+      <ul class="footer__list">
+        <li>
+          <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
+          <%= inline_svg "media/images/facebook.svg", aria: true, title: "Twitter Logo" %>
+          Twitter
+          <%end%>
+        </li>
+        <li>
+          <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
+          <%= inline_svg "media/images/twitter.svg", aria: true, title: "Facebook Logo" %>
+          Twitter
+          <%end%>
+        </li>
+      </ul>
+    </div>
+    <div class="cell small-6 medium-auto">
+      <h3>Open source</h3>
+      <ul class="footer__list">
+        <li><%= link_to "https://github.com/ackama/nzsl-share", target: "_blank" do %>
+        <%= inline_svg "media/images/github.svg", aria: true, title: "Github Logo" %>
+        This is an Open Source project.
+        <%end%></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__license">
+    <div class="footer__license__content grid-x grid-container">
+      <%= image_pack_tag "media/images/by-nc-sa.png", alt: "Creative Commons", class: "cell small-2"%>
+      <div class="cell small-12 medium-auto">
+        <p>
+        NZSL dictionary by
+        <%= link_to "Deaf Studies Research Unit", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>,
+        <%= link_to "Victoria University of Wellington", "https://www.victoria.ac.nz",  target: "_blank" %>,
+        is licensed under a
+        <%= link_to "Creative Commons Attribution-NonCommericial-ShareAlike 3.0 Unported License.", "https://creativecommons.org/licenses/by-nc-sa/3.0/", target: "_blank" %>
+        <%= link_to "View in NZSL.", "https://www.nzsl.nz/", target: "_blank" %>
+        </p>
+      </div>
     </div>
   </div>
 </footer>
