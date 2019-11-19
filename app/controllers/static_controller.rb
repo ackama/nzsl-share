@@ -1,6 +1,8 @@
 class StaticController < ApplicationController
   def show
-    fail ActionController::RoutingError unless "about contact privacy-policy".include? params[:page]
+    unless "about contact terms-and-conditions privacy-policy".include? params[:page]
+      fail ActionController::RoutingError
+    end
 
     render params[:page]
   end
