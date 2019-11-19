@@ -19,7 +19,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public?) || moderator? || administrator?
+    (owns_record? && !public?) || moderator?
   end
 
   def edit?
@@ -29,7 +29,7 @@ class SignPolicy < ApplicationPolicy
   def destroy?
     return false if record.published?
 
-    (owns_record? && !public?) || moderator? || administrator?
+    (owns_record? && !public?) || moderator?
   end
 
   def manage?
