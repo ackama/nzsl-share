@@ -54,8 +54,4 @@ RSpec.describe "Footer", type: :system do
   it "has a link to the NZSL department at vic uni" do
     expect(page).to have_link("© Deaf Studies Research Unit, Victoria University of Wellington")
   end
-
-  it "has a link to view in NZSL" do
-    expect(page).to have_link("View in NZSL.")
-  end
 end
