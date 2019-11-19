@@ -16,13 +16,14 @@ Rails.application.routes.draw do
   root "home#index"
   resources :search, only: [:index]
   resources :signs, except: %i[index] do
-    resource :request_publish, only: %i[create destroy], controller: :sign_request_publish
-    resource :publish, only: %i[create destroy], controller: :sign_publish
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :sign_attachments, only: %i[create update destroy],
                                  path: "/:attachment_type",
                                  as: :attachments,
                                  constraints: { attachment_type: /usage_examples|illustrations/ }
+    resources :workflow, param: :action,
+                         controller: :sign_workflow,
+                         only: :update
   end
   resources :topics, only: %i[index show]
 
