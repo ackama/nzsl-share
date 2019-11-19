@@ -84,17 +84,25 @@ en:
       relevant: Most Relevant
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
-  sign_publish:
-    create:
-      confirm: "Are you sure? Your sign will stay public"
-      success: "Cancelled. Your sign will stay public"
-    destroy:
-        confirm: "Are you sure? Your sign will stay private"
-        success: "Cancelled. Your sign will stay private"
-  sign_request_publish:
-    destroy:
-      confirm: "Are you sure you want your sign to be private? Only you yourself will be able to see the sign."
-      success: "Thank you. An admin will make your sign private soon."
+  sign_workflow:
+    cancel_submit:
+      link_to: Cancel (don't show to public)
+      confirm: Are you sure? Your sign will stay private
+      success: 'Cancelled. Your sign will stay private'
+    publish:
+      link_to: Publish
+      confirm: Publish this sign?
+      success: 'Published. This sign is public.'
+    unpublish:
+      success: Sign was made private # Pending message
+    request_unpublish:
+      link_to: Ask to be private
+      confirm: Are you sure you want your sign to be private? Only you yourself will be able to see the sign.
+      success: Thank you. An admin will make your sign private soon.
+    cancel_request_unpublish:
+      link_to: Keep sign public
+      confirm: Are you sure? Your sign will stay public
+      success: Cancelled. Your sign will stay public
   folders:
     default_title: 'My Folder'
     edit:
