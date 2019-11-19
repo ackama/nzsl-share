@@ -134,6 +134,44 @@ RSpec.describe Sign, type: :model do
     end
   end
 
+  describe "#unpublish" do
+    let(:model) { FactoryBot.create(:sign, :published) }
+    before { allow(ArchiveSign).to receive(:call) }
+    subject { model.unpublish! }
+
+    context "invalid record" do
+      before { allow(model).to receive(:save).and_return(false) }
+      it "does not change the sign" do
+        expect { subject }.to not_change(Sign, :count)
+          .and not_change(FolderMembership, :count)
+          .and not_change(model, :status).from("published")
+      end
+    end
+
+    context "invalid transition" do
+      let(:model) { FactoryBot.create(:sign, :submitted) }
+      it "does not change the sign" do
+        expect { subject }.to not_change(Sign, :count)
+          .and not_change(FolderMembership, :count)
+          .and not_change(model, :status).from("submitted")
+      end
+    end
+
+    it "archives the sign during the transition" do
+      expect(ArchiveSign).to receive(:call)
+      subject
+    end
+
+    it "removes folder memberships for the published sign" do
+      folder_memberships = FactoryBot.create_list(:folder_membership, 5, sign: model)
+      expect { subject }.to change(FolderMembership, :count).by(-folder_memberships.size)
+    end
+
+    it "transitions to 'personal'" do
+      expect { subject }.to change(model, :status).to("personal")
+    end
+  end
+
   describe ".conditions_accepted" do
     context "this time, it's personal"
 
