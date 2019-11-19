@@ -16,7 +16,8 @@ class SignPresenter < ApplicationPresenter
   end
 
   def status_name
-    key = current_user&.moderator? ? "moderator_display_name" : "display_name"
+    user = h.current_user
+    key = user&.moderator? && contributor != user ? "moderator_display_name" : "display_name"
     I18n.t("signs.#{sign.status}.#{key}")
   end
 
