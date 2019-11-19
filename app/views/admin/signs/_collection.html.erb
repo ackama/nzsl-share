@@ -88,7 +88,7 @@ to display a collection of resources in an HTML table.
         <td><% if policy(resource).unpublish? %>
          <%= link_to(
             t("admin.sign_workflow.unpublish.link_to"),
-            sign_workflow_path(resource, :unpublish),
+            unpublish_sign_path(resource),
             class: "text-color-red",
             method: :patch,
             data: { confirm: t("admin.sign_workflow.unpublish.confirm") }) %></td>

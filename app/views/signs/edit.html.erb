@@ -105,7 +105,7 @@
                     data: { confirm: t("signs.destroy.confirm") },
                     class: "button alert" if policy(@sign).destroy? %>
         <%= link_to t("admin.sign_workflow.unpublish.link_to"),
-                    sign_workflow_path(@sign, :unpublish),
+                    unpublish_sign_path(@sign),
                     method: :patch,
                     data: { confirm: t("admin.sign_workflow.unpublish.confirm") },
                     class: "button alert" if policy(@sign).unpublish? %>

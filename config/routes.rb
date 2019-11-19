@@ -21,9 +21,9 @@ Rails.application.routes.draw do
                                  path: "/:attachment_type",
                                  as: :attachments,
                                  constraints: { attachment_type: /usage_examples|illustrations/ }
-    resources :workflow, param: :action,
-                         controller: :sign_workflow,
-                         only: :update
+    Sign.aasm.events.map(&:name).each do |event_name|
+      patch event_name, on: :member, controller: :sign_workflow
+    end
   end
   resources :topics, only: %i[index show]
 
