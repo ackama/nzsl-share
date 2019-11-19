@@ -7,6 +7,15 @@
   a {
     color: $white;
     font-weight: normal;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+
+      &.image-link {
+        text-decoration: none;
+      }
+    }
   }
 
   img {
@@ -25,15 +34,10 @@
     a {
       align-items: center;
       display: flex;
-      text-decoration: none;
 
       svg {
         margin: 0.5rem;
         min-width: 24px;
-      }
-
-      &:hover {
-        text-decoration: underline;
       }
     }
   }
