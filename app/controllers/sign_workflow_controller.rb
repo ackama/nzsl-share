@@ -43,7 +43,12 @@ class SignWorkflowController < ApplicationController
   private
 
   def succeeded
-    redirect_back(fallback_location: @sign, notice: t(".success"))
+    redirect_back(fallback_location: sign, notice: success_messsage)
+  end
+
+  def success_messsage
+    admin_referer = _routes.recognize_path(request.referer).fetch(:controller, "").starts_with?("admin/")
+    admin_referer ? t("admin.sign_workflow.#{params[:action]}.success") : t(".success")
   end
 
   def sign
