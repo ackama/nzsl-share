@@ -85,8 +85,17 @@ to display a collection of resources in an HTML table.
           ) if show_action? :edit, resource%></td>
         <% end %>
 
+        <td><% if policy(resource).unpublish? %>
+         <%= link_to(
+            t("admin.sign_workflow.unpublish.link_to"),
+            sign_workflow_path(resource, :unpublish),
+            class: "text-color-red",
+            method: :patch,
+            data: { confirm: t("admin.sign_workflow.unpublish.confirm") }) %></td>
+        <% end %>
+
         <% if valid_action? :destroy, collection_presenter.resource_name %>
-          <td><%= link_to(
+          <%= link_to(
             t("administrate.actions.destroy"),
             [namespace, resource],
             class: "text-color-red",
