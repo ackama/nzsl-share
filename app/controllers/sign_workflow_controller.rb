@@ -53,7 +53,7 @@ class SignWorkflowController < ApplicationController
 
   def sign
     @sign ||= policy_scope(Sign)
-              .find(params[:sign_id])
+              .find(params[:id])
               .tap(&method(:authorize))
   end
 end
