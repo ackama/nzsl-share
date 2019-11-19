@@ -70,6 +70,10 @@ class Sign < ApplicationRecord
       transitions from: %i[unpublish_requested submitted], to: :published
     end
 
+    event :unpublish do
+      transitions from: %i[published unpublish_requested], to: :personal
+    end
+
     event :request_unpublish do
       transitions from: %i[published], to: :unpublish_requested
     end
