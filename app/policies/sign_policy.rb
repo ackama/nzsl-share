@@ -32,7 +32,7 @@ class SignPolicy < ApplicationPolicy
     (owns_record? && !public?) || moderator?
   end
 
-  def manage?
+  def overview?
     owns_record? || moderator?
   end
 
