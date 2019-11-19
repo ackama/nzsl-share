@@ -32,6 +32,8 @@ default: &default
     - .ttf
     - .woff
     - .woff2
+    - .mp4
+    - .webm
 
   extensions:
     - .mjs
@@ -47,6 +49,8 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
+    - .mp4
+    - .webm
 
 development:
   <<: *default

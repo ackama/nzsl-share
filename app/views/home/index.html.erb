@@ -1,4 +1,58 @@
 <% provide(:title, "Home") %>
-<div class="grid-x grid-margin-x grid-padding-y">
-  <p>Find me in app/views/home/index.html.erb</p>
+<div class="grid-x home-main">
+  <div class="home-main__container cell small-6 medium-3">
+    <div class="home-main__icon">
+      <%= inline_svg "media/images/home/folder.svg", aria_hidden: true %>
+      <%= inline_svg "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
+    </div>
+    <h6>Save favourites</h6>
+    <p>Create folders and save your favourite signs</p>
+    <%= link_to "Join NZSL Share", new_user_registration_path %>
+  </div>
+
+  <div class="home-main__container cell small-6 medium-3">
+    <div class="home-main__icon">
+      <%= inline_svg "media/images/home/camera-2.svg", aria_hidden: true %>
+      <%= inline_svg "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
+    </div>
+    <h6>Record private signs and share with others</h6>
+    <p>Record your own private signs and share</p>
+  </div>
+
+  <div class="home-main__container cell small-6 medium-3">
+    <div class="home-main__icon">
+      <%= inline_svg "media/images/home/conversation-check.svg", aria_hidden: true %>
+      <%= inline_svg "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
+    </div>
+    <h6>Discuss signs</h6>
+    <p>Approved members comment on signs, agree or disagree</p>
+    <a href="#">Learn more</a>
+  </div>
+
+  <div class="home-main__container cell small-6 medium-3">
+    <div class="home-main__icon">
+      <%= inline_svg "media/images/home/upload.svg", aria_hidden: true %>
+      <%= inline_svg "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
+    </div>
+    <h6>Post public signs</h6>
+    <p>Approved member can add new signs for everyone to see</p>
+  </div>
+
+  <div class="cell content-container home-main__signs">
+    <h2>Recently Added</h2>
+    <div class="sign-grid sign-grid--not-bottom">
+      <% @recent_signs.each do |sign| %>
+        <%= render "signs/card", sign: sign %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="cell content-container home-main__signs">
+    <h2>Most viewed</h2>
+    <div class="sign-grid">
+      <% @viewed_signs.each do |sign| %>
+        <%= render "signs/card", sign: sign %>
+      <% end %>
+    </div>
+  </div>
 </div>

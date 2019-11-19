@@ -32,18 +32,16 @@
             </div>
 
             <%= f.label :word, "Sign / Word", class: "required" %>
-            <%= f.text_field :word, class: (@sign.errors[:word].any? && "invalid") %>
-            <% if @sign.errors[:word].any? %>
-              <% @sign.errors[:word].each do |message| %>
-                <div class="form-error show"><%= message %></div>
-              <% end %>
-            <% end %>
+            <%= f.text_field :word %>
+            <%= f.error :word %>
 
             <%= f.label :secondary, "Other words for this sign" %>
-            <%= f.text_field :secondary, class: (@sign.errors[:secondary].any? && "invalid") %>
+            <%= f.text_field :secondary %>
+            <%= f.error :secondary %>
 
             <%= f.label :maori, "Māori translation" %>
-            <%= f.text_field :maori, class: (@sign.errors[:maori].any? && "invalid") %>
+            <%= f.text_field :maori %>
+            <%= f.error :maori %>
 
             <%= f.label :topic_id, "Topic" %>
             <%= f.collection_select :topic_id, Topic.all, :id, :name, prompt: "-- Please select --" %>
@@ -147,6 +145,19 @@
     });
   <% end %>
 <% end %>
+
+<% @sign.usage_examples.select(&:persisted?).each do |attach| %>
+  <%= form_tag sign_attachment_path(@sign, attach, attachment_type: :usage_examples),
+               id: dom_id(attach, :update_form),
+               method: :patch do %><% end %>
+<% end %>
+
+<% @sign.illustrations.select(&:persisted?).each do |attach| %>
+  <%= form_tag sign_attachment_path(@sign, attach, attachment_type: :illustrations),
+               id: dom_id(attach, :update_form),
+               method: :patch do %><% end %>
+<% end %>
+
 
 <form id="delete_usage_example_form" data-remote>
   <input type="hidden" name="_method" value="DELETE" />

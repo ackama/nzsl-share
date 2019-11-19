@@ -12,6 +12,10 @@
   &--compact {
     margin: 0;
     padding: 0;
+
+    .list__item {
+      padding: 0.5rem 0;
+    }
   }
 
   &__title {
@@ -42,19 +46,21 @@
 
   &__item {
     border-radius: 11px;
-    padding: rem-calc(20) 0;
+    padding: $global-padding 0;
     position: relative;
 
-    &:hover {
-      background: get-color(royal-x-light);
+    &--interactive {
+      &:hover {
+        background: get-color(royal-x-light);
 
-      .list__item__icon {
-        @include icon-fill(get-color(royal));
-      }
+        .list__item__icon {
+          @include icon-fill(get-color(royal));
+        }
 
-      .list__item__title {
-        color: get-color(royal);
-        text-decoration: underline;
+        .list__item__title {
+          color: get-color(royal);
+          text-decoration: underline;
+        }
       }
     }
 

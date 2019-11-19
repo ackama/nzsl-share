@@ -1,4 +1,5 @@
-.video-wrapper {
+.video-wrapper,
+.video-wrapper--hero {
   display: flex;
   position: relative;
 }
@@ -18,6 +19,19 @@
   &.has-video {
     & + .video__overlay {
       display: block;
+    }
+  }
+
+  &--hero {
+    width: 100%;
+
+    @include breakpoint(large) {
+      left: -200px;
+      max-height: 360px;
+      max-width: none;
+      position: absolute;
+      width: auto;
+      z-index: 0;
     }
   }
 
@@ -41,5 +55,16 @@
     top: 0;
     width: 100%;
     z-index: 100;
+
+    &--hero {
+      background-color: transparent;
+      background-image: url("images/hero-play.svg");
+      background-size: rem-calc(48);
+      cursor: pointer;
+
+      @include breakpoint(medium) {
+        background-size: rem-calc(142);
+      }
+    }
   }
 }

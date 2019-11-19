@@ -41,6 +41,19 @@ It renders the `_table` partial to display details about the resources.
         resource_name: display_resource_name(page.resource_name)
       ) %>
     <% end %>
+
+    <form>
+    <label class="sr-only" for="status">Status</label>
+      <select name="search" id="status" onchange="this.form.submit()">
+        <option>--Select Status--</option>
+        <% Sign.aasm.states_for_select.each do |human_name, key| %>
+          <%= content_tag(:option,
+            human_name,
+            selected: params[:search] && params[:search].include?("#{key}:"),
+            value: "#{key}:") %>
+        <% end %>
+      </select>
+    </form>
   </div>
 
   <hr class="list__divider"/>

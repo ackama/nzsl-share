@@ -46,7 +46,8 @@
 
     <%= render "application/header" %>
     <% # Authenticated layout renders these %>
-    <%= render("application/messages") unless user_signed_in?  %>
+    <%= render("application/messages",
+               classes: request.path == root_path ? "messages--float" : "") unless user_signed_in?  %>
     <%= content_for?(:content) ? yield(:content) : content_tag(:main, yield, class: "grid-container") %>
     <%= render "application/footer" %>
   </body>

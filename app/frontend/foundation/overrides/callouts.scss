@@ -3,18 +3,11 @@
   //   border-radius: $prototype-border-radius;
   // }
 
+  font-weight: bold;
+  padding: 0.5rem;
+
   &.accent {
     color: $callout-font-color-alt;
-  }
-
-  &.success {
-    background: get-color(success-x-light);
-    color: get-color(success);
-  }
-
-  &.alert {
-    background: get-color(alert-x-light);
-    color: get-color(alert);
   }
 
   &.large {
@@ -25,6 +18,10 @@
     border-color: $callout-font-color-alt;
     margin-left: -25%;
     width: 150%;
+  }
+
+  a {
+    color: $white;
   }
 
   &__action { // Intended to be applied to a button
@@ -39,5 +36,10 @@
     text-align: left;
 
     &.expanded { @include button-expand; }
+  }
+
+  &__close {
+    color: $white;
+    font-size: 2rem;
   }
 }

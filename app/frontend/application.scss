@@ -8,8 +8,11 @@
 @import "components/form";
 @import "components/form-section";
 @import "components/header";
+@import "components/hero-unit";
+@import "components/home-main";
 @import "components/icons";
 @import "components/list";
+@import "components/messages";
 @import "components/modal-form";
 @import "components/navigation";
 @import "components/no-js";
@@ -24,5 +27,4 @@
 @import "components/admin/status";
 
 // Extension is required, otherwise webpacker tries to bundle video.js.
-// sass-lint:disable-next-line clean-import-paths
-@import "components/video.scss";
+@import "components/video.scss"; // sass-lint:disable-line clean-import-paths

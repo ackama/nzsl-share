@@ -8,10 +8,24 @@ class SignDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    video: Field::String,
+    video: Field::String.with_options(searchable: false),
     word: Field::String,
     status: Field::String,
-    submitted_at: Field::DateTime
+    submitted_at: Field::DateTime,
+    contributor_email: Field::BelongsTo.with_options(
+      class_name: "User",
+      foreign_key: :contributor_id,
+      source: :contributor,
+      searchable: true,
+      searchable_field: :email
+    ),
+    contributor_username: Field::BelongsTo.with_options(
+      class_name: "User",
+      foreign_key: :contributor_id,
+      source: :contributor,
+      searchable: true,
+      searchable_field: :username
+    )
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -52,7 +66,13 @@ class SignDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  COLLECTION_FILTERS = {
+    personal: ->(resources) { resources.personal },
+    submitted: ->(resources) { resources.submitted },
+    published: ->(resources) { resources.published },
+    declined: ->(resources) { resources.declined },
+    unpublish_requested: ->(resources) { resources.unpublish_requested }
+  }.freeze
 
   # Overwrite this method to customize how signs are displayed
   # across all pages of the admin dashboard.

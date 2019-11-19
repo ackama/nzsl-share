@@ -10,7 +10,7 @@
   </div>
 
   <div class="cell auto">
-    <%= render "sort_by", page: @page if @signs.any? %>
+    <%= render "sort_by", page: @page unless @page[:total].zero? %>
   </div>
 </div>
 

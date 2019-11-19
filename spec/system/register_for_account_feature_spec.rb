@@ -14,7 +14,7 @@ RSpec.describe "Registering for an account", type: :system do
     complete_form
     fill_in "Email", with: ""
     submit_form
-    expect(page).to have_content "Email can't be blank"
+    expect(page).to have_content "Email\ncan't be blank"
   end
 
   it "doesn't create any folders unless the user successfully registered" do
