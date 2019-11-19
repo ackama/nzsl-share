@@ -37,7 +37,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-Capybara.default_wait_time = 5.seconds # Default is 2 seconds
+Capybara.default_max_wait_time = 5.seconds # Default is 2 seconds
 Capybara.register_driver :chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
