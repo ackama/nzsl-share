@@ -1,12 +1,27 @@
 .status {
-  &__pending {
-    background: #c38c46;
-    border-radius: $global-radius;
-    color: #fff;
-    display: flex;
-    flex-direction: row;
-    font-weight: bold;
-    line-height: 2rem;
-    padding: 0.5rem;
+  align-items: center;
+  border-radius: $global-radius;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  justify-content: center;
+  max-width: 100px;
+  padding: 4px;
+
+  svg {
+    margin: 0 4px 0 0;
+  }
+
+  &--declined {
+    background: get-color(alert);
+  }
+
+  &--submitted {
+    background: get-color(pending);
+  }
+
+  &--published {
+    background: get-color(success);
   }
 }
