@@ -3,7 +3,7 @@
   <div class="grid-x grid-container margin-bottom-3 margin-top-1  ">
     <div class="cell auto"><%= inline_svg "media/images/logo.svg", aria: true, title: "NZSL Share Logo" %></div>
     <div class="cell small-3 medium-2"><p>Privacy policy</p></div>
-    <div class="cell small-3"><p>Terms & Conditions</p></div>
+    <div class="cell small-3"><%= link_to "Terms & Conditions", "/terms-and-conditions" %></div>
   </div>
   <div class="grid-x grid-container">
     <div class="cell small-6 medium-auto">
@@ -18,22 +18,26 @@
 
     <div class="cell small-6 medium-auto">
       <h3> Recommended Sites </h3>
-      <%= image_pack_tag "media/images/learn-NZSL-sq.png", alt: "Learn NZSL" %>
-      <%= image_pack_tag "media/images/nzsl_logo.jpg", alt: "NZSL dictionary" %>
+      <%= link_to "http://www.learnnzsl.nz/", target: "_blank", class: 'image-link' do %>
+        <%= image_pack_tag "media/images/learn-NZSL-sq.png", alt: "Learn NZSL" %>
+      <%end%>
+      <%= link_to "https://nzsl.nz/", target: "_blank", class: 'image-link' do %>
+        <%= image_pack_tag "media/images/nzsl_logo.jpg", alt: "NZSL dictionary" %>
+      <%end%>
     </div>
 
     <div class="cell small-6 medium-auto">
       <h3>Follow us</h3>
       <ul class="footer__list">
         <li>
-          <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
-          <%= inline_svg "media/images/facebook.svg", aria: true, title: "Twitter Logo" %>
-          Twitter
+          <%= link_to "https://www.facebook.com/NZSL-Share-104408607647069", target: "_blank" do %>
+          <%= inline_svg "media/images/facebook.svg", aria: true, title: "Facebook Logo" %>
+          Facebook
           <%end%>
         </li>
         <li>
           <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
-          <%= inline_svg "media/images/twitter.svg", aria: true, title: "Facebook Logo" %>
+          <%= inline_svg "media/images/twitter.svg", aria: true, title: "Twitter Logo" %>
           Twitter
           <%end%>
         </li>
@@ -51,15 +55,10 @@
   </div>
   <div class="footer__license">
     <div class="footer__license__content grid-x grid-container">
-      <%= image_pack_tag "media/images/by-nc-sa.png", alt: "Creative Commons", class: "cell small-2"%>
       <div class="cell small-12 medium-auto">
         <p>
-        NZSL dictionary by
-        <%= link_to "Deaf Studies Research Unit", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>,
-        <%= link_to "Victoria University of Wellington", "https://www.victoria.ac.nz",  target: "_blank" %>,
-        is licensed under a
-        <%= link_to "Creative Commons Attribution-NonCommericial-ShareAlike 3.0 Unported License.", "https://creativecommons.org/licenses/by-nc-sa/3.0/", target: "_blank" %>
-        <%= link_to "View in NZSL.", "https://www.nzsl.nz/", target: "_blank" %>
+          <%= link_to "© Deaf Studies Research Unit, Victoria University of Wellington", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>,
+          <%= link_to "View in NZSL.", "https://www.nzsl.nz/", target: "_blank" %>
         </p>
       </div>
     </div>
