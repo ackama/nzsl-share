@@ -1,29 +1,34 @@
 class SignWorkflowController < ApplicationController
   before_action :authenticate_user!
-  after_action :succeeded
 
   def publish
-    @sign.publish!
+    sign.publish!
+    succeeded
   end
 
   def unpublish
-    @sign.unpublish!
+    sign.unpublish!
+    succeeded
   end
 
   def cancel_submit
-    @sign.cancel_submit!
+    sign.cancel_submit!
+    succeeded
   end
 
   def request_unpublish
-    @sign.request_unpublish!
+    sign.request_unpublish!
+    succeeded
   end
 
   def cancel_request_unpublish
-    @sign.cancel_request_unpublish!
+    sign.cancel_request_unpublish!
+    succeeded
   end
 
   def decline
-    @sign.decline!
+    sign.decline!
+    succeeded
   end
 
   # Unused - this transition is invoked from the
@@ -31,7 +36,8 @@ class SignWorkflowController < ApplicationController
   # It is recorded here since it is the only transition
   # _not_ in this controller
   # def submit
-  #   @sign.submit!
+  #   sign.submit!
+  #   succeeded
   # end
 
   private
