@@ -47,19 +47,23 @@ class Sign < ApplicationRecord
   def disagree_count; 0; end
   def tags; []; end
 
-  aasm column: "status", whiny_transitions: false do
+  aasm column: "status", whiny_transitions: false do # rubocop:disable Metrics/BlockLength
     state :personal, initial: true
     state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
     state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
 
-    event :set_sign_to_personal do
+    event :make_private do
       transitions from: %i[submitted declined], to: :personal
     end
 
-    event :submit_for_publishing do
+    event :submit do
       transitions from: %i[personal declined], to: :submitted
+    end
+
+    event :cancel_submit do
+      transitions from: %i[personal submitted], to: :personal
     end
 
     event :publish do
@@ -74,6 +78,10 @@ class Sign < ApplicationRecord
 
     event :request_unpublish do
       transitions from: %i[published], to: :unpublish_requested
+    end
+
+    event :cancel_request_unpublish do
+      transitions from: :unpublish_requested, to: :published
     end
 
     event :decline do

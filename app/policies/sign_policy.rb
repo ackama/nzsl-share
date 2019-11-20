@@ -19,7 +19,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public?) || moderator? || administrator?
+    (owns_record? && !public?) || moderator?
   end
 
   def edit?
@@ -27,23 +27,37 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
-    (owns_record? && !public?) || moderator? || administrator?
-  end
+    return false if record.published?
 
-  def manage?
-    owns_record? || moderator?
-  end
-
-  def publish?
-    (owns_record? && public?) || moderator?
-  end
-
-  def unpublish?
     (owns_record? && !public?) || moderator?
   end
 
+  def overview?
+    owns_record? || moderator?
+  end
+
+  def cancel_submit?
+    record.may_cancel_submit? && owns_record?
+  end
+
+  def publish?
+    record.may_publish? && moderator?
+  end
+
+  def unpublish?
+    record.may_unpublish? && moderator?
+  end
+
   def request_unpublish?
-    owns_record? && public?
+    record.may_request_unpublish? && owns_record?
+  end
+
+  def cancel_request_unpublish?
+    record.may_cancel_request_unpublish? && owns_record?
+  end
+
+  def decline?
+    record.may_decline? && moderator?
   end
 
   def manage_folders?

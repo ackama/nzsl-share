@@ -11,28 +11,51 @@
             <span>Edit</span>
           <% end %>
         </li>
+      <% end %>
+
+      <% if policy(@sign).cancel_submit? %>
         <li class="list__item-menu__menu-item">
-          <%= link_to sign_publish_path(sign), method: :delete, data: { confirm: t("sign_publish.destroy.confirm") } do %>
+          <%= link_to cancel_submit_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.cancel_submit.confirm") } do %>
             <%= inline_svg "media/images/disagree.svg", title: "Cancel", class: "icon--medium" %>
-            <span>Cancel (don’t show to public)</span>
+            <span><%= t("sign_workflow.cancel_submit.link_to") %></span>
           <% end %>
         </li>
-      <% else %>
-        <% if @sign.status == 'published'%>
-          <li class="list__item-menu__menu-item">
-            <%= link_to sign_request_publish_path(sign), method: :delete, data: { confirm: t("sign_request_publish.destroy.confirm") } do %>
-              <%= inline_svg "media/images/private.svg", title: "Private", class: "icon--medium" %>
-              <span>Ask to be private</span>
-            <% end %>
-          </li>
-        <% else %>
-          <li class="list__item-menu__menu-item">
-            <%= link_to  sign_publish_path(sign), method: :post, data: { confirm: t("sign_publish.create.confirm") } do %>
-              <%= inline_svg "media/images/eye.svg", title: "Public", class: "icon--medium" %>
-              <span>Keep sign public</span>
-            <% end %>
-          </li>
-        <% end %>
+      <% end %>
+
+      <% if policy(@sign).unpublish? %>
+        <li class="list__item-menu__menu-item">
+          <%= link_to unpublish_sign_path(@sign), method: :patch, data: { confirm: t("admin.sign_workflow.unpublish.confirm") } do %>
+            <%= inline_svg "media/images/disagree.svg", title: "Cancel", class: "icon--medium" %>
+            <span><%= t("admin.sign_workflow.unpublish.link_to") %></span>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if policy(@sign).publish? %>
+        <li class="list__item-menu__menu-item">
+          <%= link_to publish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.publish.confirm") } do %>
+            <%= inline_svg "media/images/eye.svg", title: "Public", class: "icon--medium" %>
+            <span><%= t("sign_workflow.publish.link_to") %></span>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if policy(@sign).request_unpublish? %>
+        <li class="list__item-menu__menu-item">
+          <%= link_to request_unpublish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.request_unpublish.confirm") } do %>
+            <%= inline_svg "media/images/private.svg", title: "Private", class: "icon--medium" %>
+            <span><%= t("sign_workflow.request_unpublish.link_to") %></span>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if policy(@sign).cancel_request_unpublish? %>
+        <li class="list__item-menu__menu-item">
+          <%= link_to cancel_request_unpublish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.cancel_request_unpublish.confirm") } do %>
+            <%= inline_svg "media/images/eye.svg", title: "Public", class: "icon--medium" %>
+            <span><%= t("sign_workflow.cancel_request_unpublish.link_to") %></span>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </div>

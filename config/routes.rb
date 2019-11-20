@@ -16,13 +16,14 @@ Rails.application.routes.draw do
   root "home#index"
   resources :search, only: [:index]
   resources :signs, except: %i[index] do
-    resource :request_publish, only: %i[create destroy], controller: :sign_request_publish
-    resource :publish, only: %i[create destroy], controller: :sign_publish
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :sign_attachments, only: %i[create update destroy],
                                  path: "/:attachment_type",
                                  as: :attachments,
                                  constraints: { attachment_type: /usage_examples|illustrations/ }
+    Sign.aasm.events.map(&:name).each do |event_name|
+      patch event_name, on: :member, controller: :sign_workflow
+    end
   end
   resources :topics, only: %i[index show]
 
