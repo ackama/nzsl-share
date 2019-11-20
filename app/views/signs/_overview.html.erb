@@ -11,15 +11,6 @@
         </h6>
       </div>
     </div>
-    <% if policy(@sign).edit? && !@sign.submitted_to_publish? %>
-      <div class="cell small-2">
-        <%= link_to edit_sign_path(@sign), class: "button clear" do %>
-          <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--royal" %>
-          Edit
-        <% end %>
-      </div>
-    <% else %>
-      <%= render "signs/overview_dropdown", sign: @sign %>
-    <% end %>
+    <%= render "signs/overview/#{current_user.moderator ? 'moderation_options': 'owner_options'}", sign: @sign%>
   </div>
 </div>

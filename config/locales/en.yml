@@ -94,6 +94,7 @@ en:
       confirm: Publish this sign?
       success: 'Published. This sign is public.'
     unpublish:
+      confirm: Make sign private? # Pending message
       success: Sign was made private # Pending message
     request_unpublish:
       link_to: Ask to be private
@@ -101,8 +102,8 @@ en:
       success: Thank you. An admin will make your sign private soon.
     cancel_request_unpublish:
       link_to: Keep sign public
-      confirm: Are you sure? Your sign will stay public
-      success: Cancelled. Your sign will stay public
+      confirm: Are you sure? This sign will stay public
+      success: Cancelled. This sign will stay public
   folders:
     default_title: 'My Folder'
     edit:

@@ -80,6 +80,10 @@ class SignPresenter < ApplicationPresenter
     "Hey #{current_user.username}, #{action_text}"
   end
 
+  def pending?
+    sign.submitted? || sign.unpublish_requested?
+  end
+
   def self.policy_class
     SignPolicy
   end

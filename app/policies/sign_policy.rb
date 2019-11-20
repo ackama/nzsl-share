@@ -33,7 +33,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def overview?
-    owns_record? || moderator?
+    owns_record? || (!record.personal? && moderator?)
   end
 
   def cancel_submit?
