@@ -49,22 +49,19 @@ to display a collection of resources in an HTML table.
 
   <tbody>
     <% present_collection(resources).each do |resource| %>
-      <tr class="js-table-row"
+      <tr class="<%= "js-table-row table-row--#{resource.status}" %>"
           tabindex="0"
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
             <% if show_action? :show, resource -%>
-              <a href="<%= polymorphic_path([namespace, resource]) -%>"
-                 class="action-show"
-                 >
-
+              <%= link_to sign_path(resource) do %>
                 <% begin %>
                   <%= render "admin/signs/cell/#{attribute.name}", resource: resource %>
                 <% rescue ActionView::MissingTemplate%>
                   <%= render_field attribute %>
                 <% end %>
-              </a>
+              <% end %>
             <% end -%>
           </td>
         <% end %>
