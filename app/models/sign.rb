@@ -70,8 +70,10 @@ class Sign < ApplicationRecord
       transitions from: %i[unpublish_requested submitted], to: :published
     end
 
-    event :unpublish do
-      transitions from: %i[published unpublish_requested], to: :personal
+    event :unpublish, before: -> { ArchiveSign.call(self) },
+                      after: -> { FolderMembership.where.not(id: FolderMembership.owner_of(self)).destroy_all } do
+      transitions from: %i[unpublish_requested published],
+                  to: :personal
     end
 
     event :request_unpublish do
