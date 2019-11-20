@@ -63,7 +63,7 @@
       cursor: pointer;
 
       @include breakpoint(medium) {
-        background-size: rem-calc(142);
+        background-size: rem-calc(64);
       }
     }
   }

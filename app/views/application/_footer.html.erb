@@ -2,7 +2,7 @@
 <footer class="footer">
   <div class="grid-x grid-container margin-bottom-3 margin-top-1  ">
     <div class="cell auto"><%= inline_svg "media/images/logo.svg", aria: true, title: "NZSL Share Logo" %></div>
-    <div class="cell small-3 medium-2"><p>Privacy policy</p></div>
+    <div class="cell small-3 medium-2"><%= link_to "Privacy policy", "/privacy-policy" %></div>
     <div class="cell small-3"><%= link_to "Terms & Conditions", "/terms-and-conditions" %></div>
   </div>
   <div class="grid-x grid-container">
@@ -57,8 +57,7 @@
     <div class="footer__license__content grid-x grid-container">
       <div class="cell small-12 medium-auto">
         <p>
-          <%= link_to "© Deaf Studies Research Unit, Victoria University of Wellington", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>,
-          <%= link_to "View in NZSL.", "https://www.nzsl.nz/", target: "_blank" %>
+          <%= link_to "© Deaf Studies Research Unit, Victoria University of Wellington", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>
         </p>
       </div>
     </div>

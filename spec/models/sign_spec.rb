@@ -134,6 +134,44 @@ RSpec.describe Sign, type: :model do
     end
   end
 
+  describe "#unpublish" do
+    let(:model) { FactoryBot.create(:sign, :published) }
+    before { allow(ArchiveSign).to receive(:call) }
+    subject { model.unpublish! }
+
+    context "invalid record" do
+      before { allow(model).to receive(:save).and_return(false) }
+      it "does not change the sign" do
+        expect { subject }.to not_change(Sign, :count)
+          .and not_change(FolderMembership, :count)
+          .and not_change(model, :status).from("published")
+      end
+    end
+
+    context "invalid transition" do
+      let(:model) { FactoryBot.create(:sign, :submitted) }
+      it "does not change the sign" do
+        expect { subject }.to not_change(Sign, :count)
+          .and not_change(FolderMembership, :count)
+          .and not_change(model, :status).from("submitted")
+      end
+    end
+
+    it "archives the sign during the transition" do
+      expect(ArchiveSign).to receive(:call)
+      subject
+    end
+
+    it "removes folder memberships for the published sign" do
+      folder_memberships = FactoryBot.create_list(:folder_membership, 5, sign: model)
+      expect { subject }.to change(FolderMembership, :count).by(-folder_memberships.size)
+    end
+
+    it "transitions to 'personal'" do
+      expect { subject }.to change(model, :status).to("personal")
+    end
+  end
+
   describe ".conditions_accepted" do
     context "this time, it's personal"
 
@@ -152,6 +190,19 @@ RSpec.describe Sign, type: :model do
 
     it "should have exactly 4 items, even though 5 exist in the table" do
       expect(subject.count).to eq 4
+    end
+  end
+
+  describe ".recent" do
+    it "returns the expected items in scope" do
+      oldest = FactoryBot.create(:sign, :published, published_at: 1.hour.ago)
+      newest = FactoryBot.create(:sign, :published, published_at: 1.minute.ago)
+      middle = FactoryBot.create(:sign, :published, published_at: 10.minutes.ago)
+      not_published = FactoryBot.create(:sign, :submitted, published_at: 10.minutes.ago)
+
+      result = Sign.recent
+      expect(result).to match_array([newest, middle, oldest])
+      expect(result).not_to include not_published
     end
   end
 end

@@ -116,12 +116,13 @@ RSpec.describe "Sign show page", system: true do
 
         it "user can cancel publication", uses_javascript: true do
           click_on "Sign Options"
-          click_on "Cancel (don’t show to public)"
+
+          click_on "Cancel"
           alert = page.driver.browser.switch_to.alert
-          expect(alert.text).to eq I18n.t!("sign_publish.destroy.confirm")
+          expect(alert.text).to eq I18n.t!("sign_workflow.cancel_submit.confirm")
           alert.accept
           expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-          expect(subject).to have_content I18n.t!("sign_publish.destroy.success")
+          expect(subject).to have_content I18n.t!("sign_workflow.cancel_submit.success")
           sign.reload
           expect(sign.personal?).to eq true
         end
@@ -145,10 +146,10 @@ RSpec.describe "Sign show page", system: true do
           click_on "Sign Options"
           click_on "Ask to be private"
           alert = page.driver.browser.switch_to.alert
-          expect(alert.text).to eq I18n.t!("sign_request_publish.destroy.confirm")
+          expect(alert.text).to eq I18n.t!("sign_workflow.request_unpublish.confirm")
           alert.accept
           expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-          expect(subject).to have_content I18n.t!("sign_request_publish.destroy.success")
+          expect(subject).to have_content I18n.t!("sign_workflow.request_unpublish.success")
           sign.reload
           expect(sign.unpublish_requested?).to eq true
         end
@@ -172,10 +173,10 @@ RSpec.describe "Sign show page", system: true do
           click_on "Sign Options"
           click_on "Keep sign public"
           alert = page.driver.browser.switch_to.alert
-          expect(alert.text).to eq I18n.t!("sign_publish.create.confirm")
+          expect(alert.text).to eq I18n.t!("sign_workflow.cancel_request_unpublish.confirm")
           alert.accept
           expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-          expect(subject).to have_content I18n.t!("sign_publish.create.success")
+          expect(subject).to have_content I18n.t!("sign_workflow.cancel_request_unpublish.success")
           sign.reload
           expect(sign.published?).to eq true
         end

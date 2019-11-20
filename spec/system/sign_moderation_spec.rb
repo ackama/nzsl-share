@@ -2,9 +2,15 @@ require "rails_helper"
 
 RSpec.describe "Sign moderation", type: :system do
   include AdministratePageHelpers
-
+  let!(:moderator) { FactoryBot.create(:user, :moderator) }
+  let(:auth) { AuthenticateFeature.new(moderator) }
   let!(:signs) { FactoryBot.create_list(:sign, 3) }
-  before { visit_admin(:signs) }
+
+  before do
+    auth.sign_in
+    click_on "Moderate signs"
+  end
+
   it_behaves_like "an Administrate dashboard", :signs, except: %i[edit destroy new]
 
   context "filtering" do

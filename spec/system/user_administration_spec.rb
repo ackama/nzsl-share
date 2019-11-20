@@ -1,9 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "User administration", type: :system do
-  include AdministratePageHelpers
-
+  let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:users) { FactoryBot.create_list(:user, 3) }
-  before { visit_admin(:users) }
+  let(:auth) { AuthenticateFeature.new(admin) }
+
+  before do
+    auth.sign_in
+    click_on "User admin"
+  end
+
   it_behaves_like "an Administrate dashboard", :users, except: %i[destroy new]
 end
