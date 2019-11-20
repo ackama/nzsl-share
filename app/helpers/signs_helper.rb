@@ -34,7 +34,7 @@ module SignsHelper
       method: :patch,
       data: { confirm: reject_confirm(sign) },
       class: "button alert icon-only",
-      title: "Reject"
+      title: reject_title(sign)
     )
   end
 
@@ -50,6 +50,10 @@ module SignsHelper
     I18n.t("sign_workflow.#{sign.submitted? ? "decline" : "cancel_request_unpublish"}.confirm")
   end
 
+  def reject_title(sign)
+    sign.submitted? ? "Decline" : "Cancel Request"
+  end
+
   def overview_approve_link(sign)
     link_to(
       approve_icon,
@@ -57,7 +61,7 @@ module SignsHelper
       method: :patch,
       data: { confirm: approve_confirm(sign) },
       class: "button success icon-only",
-      title: "Approve"
+      title: approve_title(sign)
     )
   end
 
@@ -71,5 +75,9 @@ module SignsHelper
 
   def approve_confirm(sign)
     I18n.t("sign_workflow.#{sign.submitted? ? "publish" : "unpublish"}.confirm")
+  end
+
+  def approve_title(sign)
+    sign.submitted? ? "Publish" : "Make Private"
   end
 end
