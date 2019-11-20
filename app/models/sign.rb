@@ -11,6 +11,8 @@ class Sign < ApplicationRecord
   belongs_to :topic, optional: true
   has_many :folder_memberships, dependent: :destroy
   has_many :folders, through: :folder_memberships
+  has_many :activities, class_name: "SignActivity", dependent: :destroy
+
   has_one_attached :video
   has_many_attached :usage_examples
   has_many_attached :illustrations
@@ -43,8 +45,14 @@ class Sign < ApplicationRecord
 
   scope :for_cards, -> { with_attached_video.includes(:contributor) }
 
-  def agree_count; 0; end
-  def disagree_count; 0; end
+  def agree_count
+    activities.where(key: SignActivity::ACTIVITY_AGREE, sign: self).count
+  end
+
+  def disagree_count
+    activities.where(key: SignActivity::ACTIVITY_DISAGREE, sign: self).count
+  end
+
   def tags; []; end
 
   aasm column: "status", whiny_transitions: false do
