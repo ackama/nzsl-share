@@ -18,7 +18,7 @@ class Sign < ApplicationRecord
   validates :word, presence: true
   validates :conditions_accepted,
             presence: true,
-            unless: -> { personal? }
+            unless: -> { personal? || archived? }
 
   # See app/validators/README.md for details on these
   # validations
@@ -55,6 +55,7 @@ class Sign < ApplicationRecord
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
     state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
+    state :archived
 
     event :make_private do
       transitions from: %i[submitted declined], to: :personal

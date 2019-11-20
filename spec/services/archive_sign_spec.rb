@@ -19,6 +19,10 @@ RSpec.describe ArchiveSign, type: :service do
       expect(clone.contributor).to eq user
     end
 
+    it "changes the status of the sign copy to 'archived'" do
+      expect(subject).to be_archived
+    end
+
     it "creates a new attachment for the sign video" do
       clone = nil
       expect { clone = subject }.to change(ActiveStorage::Attachment, :count).by(1)
