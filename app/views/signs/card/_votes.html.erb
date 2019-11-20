@@ -1,10 +1,11 @@
-<div class="sign-card__votes">
-  <div class="sign-card__votes--agree grid-x align-middle">
-    <%= image_pack_tag "agree.svg", alt: "Agree", class: "sign-card__votes--icon" %>
-    <div><%= sign.agree_count %></div>
-  </div>
-  <div class="sign-card__votes--disagree grid-x align-middle">
-    <%= image_pack_tag "disagree.svg", alt: "Disagree", class: "sign-card__votes--icon" %>
-    <div><%= sign.disagree_count %></div>
-  </div>
+<div class="sign-card__votes" id="<%= dom_id(sign, :votes) %>">
+  <%= agree_button(sign) do %>
+    <%= inline_svg "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__votes--icon" %>
+    <%= sign.agree_count %>
+  <% end %>
+
+  <%= disagree_button(sign) do %>
+    <%= inline_svg "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__votes--icon" %>
+    <%= sign.disagree_count %>
+  <% end %>
 </div>

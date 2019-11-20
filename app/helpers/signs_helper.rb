@@ -19,6 +19,33 @@ module SignsHelper
       data: { toggle: dom_id(sign, :folder_menu) })
   end
 
+  def agree_button(sign, extra_classes="grid-x align-middle", &block)
+    classes = "sign-card__votes--agree #{extra_classes}"
+    return content_tag(:div, class: classes, &block) unless policy(sign).agree?
+
+    if SignActivity.agree?(sign_id: sign.id, user: current_user)
+      classes << " sign-card__votes--agreed"
+      return link_to(sign_agreement_path(sign), method: :delete,
+                                                title: "Undo agreee", class: classes, &block)
+    end
+
+    link_to(sign_agreement_path(sign), method: :post, title: "Agree", class: classes, &block)
+  end
+
+  def disagree_button(sign, extra_classes="grid-x align-middle", &block)
+    classes = "sign-card__votes--disagree #{extra_classes}"
+    return content_tag(:div, class: classes, &block) unless policy(sign).disagree?
+
+    if SignActivity.disagree?(sign_id: sign.id, user: current_user)
+      classes << " sign-card__votes--disagreed"
+      return link_to(sign_disagreement_path(sign), title: "Undo disagree",
+                                                   method: :delete, class: classes, &block)
+    end
+
+    link_to(sign_disagreement_path(sign), method: :post, title: "Disagree",
+                                          class: classes, &block)
+  end
+
   def in_folder_icon
     inline_svg("media/images/folder-success.svg", title: "Folders", aria: true, class: "icon")
   end
