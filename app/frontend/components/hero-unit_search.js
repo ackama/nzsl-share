@@ -8,6 +8,7 @@ $(document).ready(function() {
   }
   // Show it again if we scroll past the hero-unit
   $(document).on("scroll", function() {
+    if ($(".hero-unit").length) {
     if ($(this).scrollTop() >= $("#hero-unit-nav").position().top){
       $("#header-nav").fadeIn();
       $(".header__bar .search-bar").fadeIn();
@@ -16,5 +17,6 @@ $(document).ready(function() {
         $("#header-nav").fadeOut();
         $(".header__bar .search-bar").fadeOut();
       }
+    }
   });
 });
