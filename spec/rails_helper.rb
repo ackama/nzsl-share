@@ -37,6 +37,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+Capybara.default_max_wait_time = 5.seconds # Default is 2 seconds
 Capybara.register_driver :chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
@@ -99,4 +100,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Allow negated change helper:
+  # expect { subject }.to change(..).and not_change(...)
+  RSpec::Matchers.define_negated_matcher :not_change, :change
 end

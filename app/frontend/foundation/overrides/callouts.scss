@@ -20,6 +20,10 @@
     width: 150%;
   }
 
+  a {
+    color: $white;
+  }
+
   &__action { // Intended to be applied to a button
     @include button-hollow;
     @include button-style(transparent, transparent, $callout-font-color-alt);

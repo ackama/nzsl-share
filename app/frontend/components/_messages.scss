@@ -1,0 +1,8 @@
+.messages {
+  &--float {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-25%);
+    z-index: 100;
+  }
+}

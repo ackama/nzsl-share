@@ -33,6 +33,7 @@ default: &default
     - .woff
     - .woff2
     - .mp4
+    - .webm
 
   extensions:
     - .mjs
@@ -49,6 +50,7 @@ default: &default
     - .jpeg
     - .jpg
     - .mp4
+    - .webm
 
 development:
   <<: *default
