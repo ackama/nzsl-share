@@ -192,4 +192,17 @@ RSpec.describe Sign, type: :model do
       expect(subject.count).to eq 4
     end
   end
+
+  describe ".recent" do
+    it "returns the expected items in scope" do
+      oldest = FactoryBot.create(:sign, :published, published_at: 1.hour.ago)
+      newest = FactoryBot.create(:sign, :published, published_at: 1.minute.ago)
+      middle = FactoryBot.create(:sign, :published, published_at: 10.minutes.ago)
+      not_published = FactoryBot.create(:sign, :submitted, published_at: 10.minutes.ago)
+
+      result = Sign.recent
+      expect(result).to match_array([newest, middle, oldest])
+      expect(result).not_to include not_published
+    end
+  end
 end
