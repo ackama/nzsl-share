@@ -5,7 +5,7 @@ RSpec.describe "Sign moderation", type: :system do
 
   let!(:signs) { FactoryBot.create_list(:sign, 3) }
   before { visit_admin(:signs) }
-  it_behaves_like "an Administrate dashboard", :signs, except: %i[edit destroy new]
+  it_behaves_like "an Administrate dashboard", :signs, except: %i[edit destroy new show]
 
   context "filtering" do
     context "using dropdown" do
@@ -75,6 +75,13 @@ RSpec.describe "Sign moderation", type: :system do
         sign = FactoryBot.create(:sign)
         expect { submit_search(sign.word) }.to change { page.has_content?(sign.word) }.to eq true
       end
+    end
+  end
+
+  context "clicking links in table rows" do
+    it "links to the sign's show page" do
+      click_on_first_row
+      expect(page).to have_current_path(sign_path(signs.first))
     end
   end
 
