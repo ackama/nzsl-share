@@ -275,6 +275,7 @@ RSpec.describe "Sign show page", system: true do
     let(:user) { sign.contributor.tap { |c| c.update!(approved: true) } }
 
     context "not an approved user" do
+      let(:user) { FactoryBot.create(:user) }
       it { expect(page).not_to have_link "Agree" }
       it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
     end
