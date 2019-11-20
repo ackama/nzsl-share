@@ -1,3 +1,5 @@
+@import "../../components/icons";
+
 $clear-button-default-active: rgba($black, 0.1);
 
 $clear-button-palette: (
@@ -75,6 +77,38 @@ $clear-button-palette: (
     &:focus {
       background: get-color(alert) !important;
       color: $button-color;
+
+      &.icon-only > .icon {
+        @include icon-fill(get-color(alert-x-light));
+      }
+    }
+
+    &.icon-only > .icon {
+      @include icon-fill(get-color(alert));
+    }
+  }
+
+  &.success {
+    background: get-color(success-x-light) !important;
+    color: get-color(success);
+
+    &:active {
+      background: get-color(success) !important;
+      color: $button-color;
+    }
+
+    &:hover,
+    &:focus {
+      background: get-color(success) !important;
+      color: $button-color;
+
+      &.icon-only > .icon {
+        @include icon-fill(get-color($button-color));
+      }
+    }
+
+    &.icon-only > .icon {
+      @include icon-fill(get-color(success));
     }
   }
 
