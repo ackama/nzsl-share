@@ -3,7 +3,7 @@
     <div class="cell auto">
       <h3><%= sign.overview_intro_text(current_user) %></h3>
       <div class="grid-x margin-bottom-0">
-        <h6 class="cell small-12 medium-shrink subheader margin-right-1 margin-top-0"><%= sign.pending? && current_user.moderator ? "A user has made a request. This sign is currently:" : "It is:" %></h6>
+        <h6 class="cell small-12 medium-shrink subheader margin-right-1 margin-top-0"><%= sign.pending? && current_user.moderator && !sign.contributor == current_user ? "A user has made a request. This sign is currently:" : "It is:" %></h6>
         <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-right-1">   <%= @sign.status_name %>
         </h6>
         <h6 class="cell shrink subheader margin-top-0">
