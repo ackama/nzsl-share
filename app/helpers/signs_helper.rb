@@ -27,25 +27,26 @@ module SignsHelper
     inline_svg("media/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
   end
 
-  def overview_decline_link(sign)
+  def overview_reject_link(sign)
     link_to(
-      decline_icon,
-      decline_path(sign),
+      reject_icon,
+      reject_path(sign),
       method: :patch,
-      data: { confirm: decline_confirm(sign) },
-      class: "button alert icon-only"
+      data: { confirm: reject_confirm(sign) },
+      class: "button alert icon-only",
+      title: "Reject"
     )
   end
 
-  def decline_path(sign)
+  def reject_path(sign)
     sign.submitted? ? decline_sign_path(sign) : cancel_request_unpublish_sign_path(sign)
   end
 
-  def decline_icon
-    inline_svg("media/images/disagree.svg", aria_hidden: true, class: "icon", title: "Decline")
+  def reject_icon
+    inline_svg("media/images/disagree.svg", aria_hidden: true, class: "icon")
   end
 
-  def decline_confirm(sign)
+  def reject_confirm(sign)
     I18n.t("sign_workflow.#{sign.submitted? ? "decline" : "cancel_request_unpublish"}.confirm")
   end
 
@@ -55,7 +56,8 @@ module SignsHelper
       approve_path(sign),
       method: :patch,
       data: { confirm: approve_confirm(sign) },
-      class: "button success icon-only"
+      class: "button success icon-only",
+      title: "Approve"
     )
   end
 
@@ -64,7 +66,7 @@ module SignsHelper
   end
 
   def approve_icon
-    inline_svg("media/images/agree.svg", aria_hidden: true, class: "icon", title: "Approve")
+    inline_svg("media/images/agree.svg", aria_hidden: true, class: "icon")
   end
 
   def approve_confirm(sign)

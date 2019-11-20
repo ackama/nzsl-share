@@ -31,24 +31,6 @@
           </li>
         <% end %>
 
-        <% if policy(@sign).unpublish? %>
-          <li class="list__item-menu__menu-item">
-            <%= link_to unpublish_sign_path(@sign), method: :patch, data: { confirm: t("admin.sign_workflow.unpublish.confirm") } do %>
-              <%= inline_svg "media/images/disagree.svg", title: "Cancel", class: "icon--medium" %>
-              <span><%= t("admin.sign_workflow.unpublish.link_to") %></span>
-            <% end %>
-          </li>
-        <% end %>
-
-        <% if policy(@sign).publish? %>
-          <li class="list__item-menu__menu-item">
-            <%= link_to publish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.publish.confirm") } do %>
-              <%= inline_svg "media/images/eye.svg", title: "Public", class: "icon--medium" %>
-              <span><%= t("sign_workflow.publish.link_to") %></span>
-            <% end %>
-          </li>
-        <% end %>
-
         <% if policy(@sign).request_unpublish? %>
           <li class="list__item-menu__menu-item">
             <%= link_to request_unpublish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.request_unpublish.confirm") } do %>
