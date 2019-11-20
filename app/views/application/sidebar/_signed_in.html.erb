@@ -3,6 +3,7 @@
 </ul>
 
 <ul class="vertical menu icons">
+  <li class="menu-text">Manage Signs</li>
   <li class="<%= current_page?("/signs/new") && "is-active" %>">
     <%= link_to new_sign_path do %>
       <%= inline_svg "media/images/add.svg", aria_hidden: true %><span>Add a sign</span>
@@ -16,6 +17,15 @@
   <li class="<%= current_page?("/folders") && "is-active" %>"><a href="/folders"><%= inline_svg "media/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
 </ul>
 
+<% if current_user.moderator || current_user.administrator %>
+  <ul class="vertical menu icons">
+    <li class="menu-text">Admin Portal</li>
+    <li class="<%= current_page?("/admin/signs") && "is-active" %>"><a href="/admin/signs"><%= inline_svg "media/images/splice.svg", aria_hidden: true %><span>Moderate Signs</span></a></li>
+    <% if current_user.administrator %>
+      <li class="<%= current_page?("/admin/users") && "is-active" %>"><a href="/admin/users"><%= inline_svg "media/images/users.svg", class: 'icon--medium', aria_hidden: true %><span>User admin</span></a></li>
+    <% end %>
+  </ul>
+<% end %>
 <ul class="vertical menu icons hide-for-medium show-if-no-js">
   <li class="hide-if-no-js"> <!-- Don't need to duplicate the navbar here -->
     <a href="#">
