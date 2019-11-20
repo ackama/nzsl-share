@@ -1,5 +1,8 @@
-<div class="<%= "status status--#{resource.status}" %>">
-  <%= inline_svg "media/images/admin/#{resource.status}.svg", class: "icon--small" %>
+<% if resource.status == "personal" || resource.status == "unpublished" %>
   <%= resource.status  %>
-</div>
-
+<% else %>
+  <div class="<%= "status status--#{resource.status}" %>">
+    <%= inline_svg "media/images/admin/#{resource.status}.svg", class: "icon--small" %>
+    <%= resource.status  %>
+  </div>
+<% end %>
