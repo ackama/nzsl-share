@@ -20,7 +20,7 @@
 <% if current_user.moderator || current_user.administrator %>
   <ul class="vertical menu icons">
     <li class="menu-text">Admin Portal</li>
-    <li class="<%= current_page?("/admin/signs") && "is-active" %>"><a href="/admin/signs"><%= inline_svg "media/images/splice.svg", aria_hidden: true %><span>Moderate Signs</span></a></li>
+    <li class="<%= current_page?("/admin/signs") && "is-active" %>"><a href="/admin/signs"><%= inline_svg "media/images/splice.svg", aria_hidden: true %><span>Moderate signs</span></a></li>
     <% if current_user.administrator %>
       <li class="<%= current_page?("/admin/users") && "is-active" %>"><a href="/admin/users"><%= inline_svg "media/images/users.svg", class: 'icon--medium', aria_hidden: true %><span>User admin</span></a></li>
     <% end %>
