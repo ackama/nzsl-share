@@ -23,7 +23,10 @@ Rails.application.routes.draw do
                                  path: "/:attachment_type",
                                  as: :attachments,
                                  constraints: { attachment_type: /usage_examples|illustrations/ }
+    resource :agreement, only: %i[create destroy], controller: :sign_agreement
+    resource :disagreement, only: %i[create destroy], controller: :sign_disagreement
   end
+
   resources :topics, only: %i[index show]
 
   resources :folders do
