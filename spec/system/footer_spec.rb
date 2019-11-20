@@ -9,7 +9,7 @@ RSpec.describe "Footer", type: :system do
     have_css("img[alt=NZSL Share Logo]")
   end
 
-  xit "has the NZSL privacy policy link" do
+  it "has the NZSL privacy policy link" do
     expect(page).to have_link("Privacy policy")
   end
 
