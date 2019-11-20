@@ -1,10 +1,9 @@
 class SignDisagreementController < ApplicationController
   def create
+    authorize sign, :disagree?
     @activity = SignActivity.disagree!(sign: sign, user: current_user)
-    authorize @activity
-    @activity.save
 
-    head :created
+    respond_to_success
   end
 
   def destroy
@@ -12,10 +11,17 @@ class SignDisagreementController < ApplicationController
     authorize @activity
     @activity.destroy
 
-    head :ok
+    respond_to_success
   end
 
   private
+
+  def respond_to_success
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: sign) }
+      format.js { render "signs/card/votes", sign: sign }
+    end
+  end
 
   def sign
     @sign ||= policy_scope(Sign).find(params[:sign_id])
