@@ -26,10 +26,14 @@ module SignsHelper
     if SignActivity.agree?(sign_id: sign.id, user: current_user)
       classes << " sign-card__votes--agreed"
       return link_to(sign_agreement_path(sign), method: :delete,
+                                                data: { remote: true },
                                                 title: "Undo agree", class: classes, &block)
     end
 
-    link_to(sign_agreement_path(sign), method: :post, title: "Agree", class: classes, &block)
+    link_to(sign_agreement_path(sign), method: :post,
+                                       title: "Agree",
+                                       data: { remote: true },
+                                       class: classes, &block)
   end
 
   def disagree_button(sign, extra_classes="grid-x align-middle", &block)
@@ -39,10 +43,13 @@ module SignsHelper
     if SignActivity.disagree?(sign_id: sign.id, user: current_user)
       classes << " sign-card__votes--disagreed"
       return link_to(sign_disagreement_path(sign), title: "Undo disagree",
+                                                   data: { remote: true },
                                                    method: :delete, class: classes, &block)
     end
 
-    link_to(sign_disagreement_path(sign), method: :post, title: "Disagree",
+    link_to(sign_disagreement_path(sign), method: :post,
+                                          data: { remote: true },
+                                          title: "Disagree",
                                           class: classes, &block)
   end
 
