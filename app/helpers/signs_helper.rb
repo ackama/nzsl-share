@@ -26,7 +26,7 @@ module SignsHelper
     if SignActivity.agree?(sign_id: sign.id, user: current_user)
       classes << " sign-card__votes--agreed"
       return link_to(sign_agreement_path(sign), method: :delete,
-                                                title: "Undo agreee", class: classes, &block)
+                                                title: "Undo agree", class: classes, &block)
     end
 
     link_to(sign_agreement_path(sign), method: :post, title: "Agree", class: classes, &block)
