@@ -15,18 +15,20 @@ thead {
 }
 
 tr {
-  border-bottom: $base-border !important;
+  border-bottom: $base-border !important; //sass-lint:disable-line no-important
 }
 
-tbody tr {
-  &:hover {
-    background-color: $base-background-color;
-    cursor: pointer;
-  }
+tbody {
+  tr {
+    &:hover {
+      background-color: $base-background-color;
+      cursor: pointer;
+    }
 
-  &:focus {
-    outline: $focus-outline;
-    outline-offset: -($focus-outline-width);
+    &:focus {
+      outline: $focus-outline;
+      outline-offset: -($focus-outline-width);
+    }
   }
 }
 
@@ -38,18 +40,18 @@ th {
   font-variant-numeric: lining-nums, tabular-nums;
   padding: 0.75rem;
   vertical-align: middle;
+
+  &:first-child {
+    padding-left: 2rem;
+  }
+
+  &:last-child {
+    padding-right: 2rem;
+  }
 }
 
-td:first-child,
-th:first-child {
-  padding-left: 2rem;
-}
-
-td:last-child,
-th:last-child {
-  padding-right: 2rem;
-}
-
-td img {
-  max-height: 2rem;
+td {
+  img {
+    max-height: 2rem;
+  }
 }
