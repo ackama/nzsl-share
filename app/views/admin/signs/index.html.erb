@@ -30,21 +30,23 @@ It renders the `_table` partial to display details about the resources.
   <% end %>
 
   <div class="list__title list__title--admin cell grid-x align-middle">
-    <h1 id="page-title">
+    <h1 id="page-title" class="cell auto">
       Moderate <%= content_for(:title) %>
     </h1>
 
     <% if show_search_bar %>
+      <div class="cell auto">
       <%= render(
         "search",
         search_term: search_term,
         resource_name: display_resource_name(page.resource_name)
       ) %>
+      </div>
     <% end %>
 
-    <form>
-    <label class="sr-only" for="status">Status</label>
-      <select name="search" id="status" onchange="this.form.submit()">
+    <form class="cell auto">
+      <label class="sr-only" for="status">Status</label>
+      <select class="filters--status" name="search" id="status" onchange="this.form.submit()">
         <option>--Select Status--</option>
         <% Sign.aasm.states_for_select.each do |human_name, key| %>
           <%= content_tag(:option,
@@ -56,7 +58,7 @@ It renders the `_table` partial to display details about the resources.
     </form>
   </div>
 
-  <hr class="list__divider"/>
+  <hr class="list__divider cell"/>
 
   <section class="cell">
     <%= render(
