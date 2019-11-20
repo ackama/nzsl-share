@@ -232,6 +232,12 @@ RSpec.describe "Sign card features", type: :system do
   describe "Voting" do
     let(:user) { FactoryBot.create(:user, :approved) }
 
+    context "not an approved user" do
+      let(:user) { FactoryBot.create(:user) }
+      it { expect(page).not_to have_link "Agree" }
+      it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
+    end
+
     context "without JS" do
       include_examples "sign card voting"
     end
