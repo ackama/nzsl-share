@@ -26,6 +26,14 @@ class SignPolicy < ApplicationPolicy
     update?
   end
 
+  def disagree?
+    user&.approved?
+  end
+
+  def agree?
+    user&.approved?
+  end
+
   def destroy?
     (owns_record? && !public?) || moderator? || administrator?
   end
