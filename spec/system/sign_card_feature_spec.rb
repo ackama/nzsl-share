@@ -54,10 +54,9 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   describe "Adding & removing from folders with JS", uses_javascript: true do
-    let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
-    let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:other_folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-    let(:user) { authenticator.user }
 
     # We have added records so need to reload
     before { visit topic_path(sign.topic) }
