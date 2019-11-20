@@ -89,26 +89,33 @@ $clear-button-palette: (
   }
 
   &.success {
-    background: get-color(success-x-light) !important;
     color: get-color(success);
 
     &:active {
-      background: get-color(success) !important;
+      background: get-color(success-x-light) !important;
       color: $button-color;
     }
 
     &:hover,
     &:focus {
-      background: get-color(success) !important;
-      color: $button-color;
+      background: get-color(success-x-light) !important;
+      color: get-color($button-color);
 
-      &.icon-only > .icon {
-        @include icon-fill(get-color($button-color));
+      &.icon-only {
+        background: get-color(success) !important;
+
+        > .icon {
+          @include icon-fill(get-color($button-color));
+        }
       }
     }
 
-    &.icon-only > .icon {
-      @include icon-fill(get-color(success));
+    &.icon-only {
+      background: get-color(success-x-light) !important;
+
+      > .icon {
+        @include icon-fill(get-color(success));
+      }
     }
   }
 
