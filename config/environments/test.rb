@@ -52,4 +52,6 @@ Rails.application.configure do
 
   # Run queued tasks in an async queue
   Rails.application.config.active_job.queue_adapter = :async
+  require "sidekiq/testing"
+  Sidekiq::Testing.inline!
 end
