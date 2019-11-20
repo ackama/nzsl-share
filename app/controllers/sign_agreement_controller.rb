@@ -19,7 +19,7 @@ class SignAgreementController < ApplicationController
   def respond_to_success
     respond_to do |format|
       format.html { redirect_back(fallback_location: sign) }
-      format.js { render "signs/card/votes", sign: sign }
+      format.js { head :created }
     end
   end
 
