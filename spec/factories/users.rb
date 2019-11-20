@@ -9,5 +9,9 @@ FactoryBot.define do
     trait :moderator do
       moderator { true }
     end
+
+    trait :administrator do
+      administrator { true }
+    end
   end
 end
