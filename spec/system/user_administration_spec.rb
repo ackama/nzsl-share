@@ -5,5 +5,5 @@ RSpec.describe "User administration", type: :system do
 
   let!(:users) { FactoryBot.create_list(:user, 3) }
   before { visit_admin(:users) }
-  it_behaves_like "an Administrate dashboard", :users, except: %i[destroy new]
+  it_behaves_like "an Administrate dashboard", :users, except: %i[destroy new edit]
 end
