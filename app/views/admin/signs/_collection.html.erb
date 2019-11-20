@@ -75,6 +75,7 @@ to display a collection of resources in an HTML table.
           </button>
         </td>
 
+
       </tr>
       <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin" id="<%= dom_id(resource, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
             <ul class="list__item-menu vertical icons">
@@ -89,9 +90,25 @@ to display a collection of resources in an HTML table.
                 </a>
               </li>
               <li class="list__item-menu__menu-item">
-                <a href="#">
-                  <%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Archive</span>
-                </a>
+                <% if policy(resource).unpublish? %>
+                  <%= link_to(
+                    t("admin.sign_workflow.unpublish.link_to"),
+                    unpublish_sign_path(resource),
+                    class: "text-color-red",
+                    method: :patch,
+                    data: { confirm: t("admin.sign_workflow.unpublish.confirm") }) %>
+                <% end %>
+
+                <% if valid_action? :destroy, collection_presenter.resource_name %>
+                  <%= link_to(
+                    t("administrate.actions.destroy"),
+                    [namespace, resource],
+                    class: "text-color-red",
+                    method: :delete,
+                    data: { confirm: t("administrate.actions.confirm") }
+                  ) if show_action? :destroy, resource %>
+                <% end %>
+                  <!---<%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Archive</span>--->
               </li>
             </ul>
           </div>

@@ -26,7 +26,7 @@
         <div class="bullet">•</div>
         <div><%= sign.friendly_date %></div>
       </div>
-      <% if policy(sign).destroy? %>
+      <% if policy(sign).overview? %>
         <h6 id="sign_status" title="<%= sign.status_description %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= sign.status_name %> </h6>
       <% end %>
     </div>

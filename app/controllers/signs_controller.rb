@@ -54,7 +54,7 @@ class SignsController < ApplicationController
   end
 
   def destroy
-    @sign = my_signs.find(id)
+    @sign = signs.find(id)
     authorize @sign
     @sign.destroy
 
@@ -109,7 +109,7 @@ class SignsController < ApplicationController
     return unless params["should_submit_for_publishing"]
 
     submit = params[:should_submit_for_publishing] == "true"
-    submit ? @sign.submit_for_publishing : @sign.set_sign_to_personal
+    submit ? @sign.submit : @sign.cancel_submit
   end
 
   def redirect_after_update(sign)

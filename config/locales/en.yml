@@ -53,18 +53,23 @@ en:
       success: Sign successfully updated.
     personal:
       display_name: "private"
+      moderator_display_name: Private
       description: "'private' means only you and the people you have shared with can see this sign."
       status_notes: "To ask for this sign to be public click Edit"
     submitted:
       display_name: "in progress"
+      moderator_display_name: Pending
       description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
     published:
       display_name: "public"
+      moderator_display_name: Published
       description: "'public' means that the sign to visible to everybody."
     declined:
-      display_name: "changes requested"
-      description: "'changes requested' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
+      display_name: "Not Accepted"
+      moderator_display_name: Declined
+      description: "'not accepted' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
     unpublish_requested:
+      moderator_display_name: Pending
       display_name: "asked to unpublish"
       description: "'asked to unpublish' means that the sign is public and you have asked for it to be private. An admin will do this soon."
     destroy:
@@ -79,17 +84,25 @@ en:
       relevant: Most Relevant
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
-  sign_publish:
-    create:
-      confirm: "Are you sure? Your sign will stay public"
-      success: "Cancelled. Your sign will stay public"
-    destroy:
-        confirm: "Are you sure? Your sign will stay private"
-        success: "Cancelled. Your sign will stay private"
-  sign_request_publish:
-    destroy:
-      confirm: "Are you sure you want your sign to be private? Only you yourself will be able to see the sign."
-      success: "Thank you. An admin will make your sign private soon."
+  sign_workflow:
+    cancel_submit:
+      link_to: Cancel (don't show to public)
+      confirm: Are you sure? Your sign will stay private
+      success: 'Cancelled. Your sign will stay private'
+    publish:
+      link_to: Publish
+      confirm: Publish this sign?
+      success: 'Published. This sign is public.'
+    unpublish:
+      success: Sign was made private # Pending message
+    request_unpublish:
+      link_to: Ask to be private
+      confirm: Are you sure you want your sign to be private? Only you yourself will be able to see the sign.
+      success: Thank you. An admin will make your sign private soon.
+    cancel_request_unpublish:
+      link_to: Keep sign public
+      confirm: Are you sure? Your sign will stay public
+      success: Cancelled. Your sign will stay public
   folders:
     default_title: 'My Folder'
     edit:
@@ -120,12 +133,17 @@ en:
     description: "Video contributed to NZSL Share. More information: %{url}"
   users:
     contribution_limit_reached_html: Sorry, you have reached your video upload limit. Contact <a href="mailto:%{email}">%{email}</a> to increase your limit.
+  admin:
+    sign_workflow:
+      unpublish:
+        link_to: Unpublish
+        confirm: Make this sign private?
+        success: Sign was made private # Pending message
   activemodel:
     errors: &activemodel_errors
       messages:
         content_type_invalid: file is not of an accepted type
         file_size_out_of_range: file is too large (%{file_size})
-
   activerecord:
     errors:
       <<: *activemodel_errors
