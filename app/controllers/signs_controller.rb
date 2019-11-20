@@ -54,7 +54,7 @@ class SignsController < ApplicationController
   end
 
   def destroy
-    @sign = my_signs.find(id)
+    @sign = signs.find(id)
     authorize @sign
     @sign.destroy
 
