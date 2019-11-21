@@ -137,7 +137,7 @@ RSpec.describe "Sign show page", system: true do
     context "owned by the current user" do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
-      it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
+      it { within("#sign_overview") { expect(sign_page).to have_content "Private" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "you are the creator of this sign" } }
 
       it "shows the personal description and edit instructions on hover" do
