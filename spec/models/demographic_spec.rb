@@ -19,12 +19,12 @@ RSpec.describe Demographic, type: :model do
 
     context "without deaf flag set" do
       subject { FactoryBot.build(:demographic, deaf: nil) }
-      it { expect(subject.errors[:deaf,]).to include("is not included in the list") }
+      it { expect(subject.errors[:deaf,]).to include("an answer must be selected") }
     end
 
     context "without NZSL as first language flag set" do
       subject { FactoryBot.build(:demographic, nzsl_first_language: nil) }
-      it { expect(subject.errors[:nzsl_first_language,]).to include("is not included in the list") }
+      it { expect(subject.errors[:nzsl_first_language,]).to include("an answer must be selected") }
     end
   end
 
@@ -64,6 +64,13 @@ RSpec.describe Demographic, type: :model do
     context "language roles" do
       it "has options available" do
         expect(Demographic.language_roles).not_to be_empty
+      end
+
+      # Handle some misbehaving forms - esp. submissions with JS disabled
+      # when fields are not disabled.
+      it "removes empty array entries when assigning" do
+        subject.language_roles = ["test", "role", ""]
+        expect(subject.language_roles).to match_array(%w[test role])
       end
 
       it "allows a non-predefined value" do
