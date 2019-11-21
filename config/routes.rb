@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :folder_memberships, only: %i[create destroy]
   scope "/user" do
     resources :signs, only: [:index], as: :user_signs
+    resource :demographics, only: %i[new create], as: :user_demographic
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 
