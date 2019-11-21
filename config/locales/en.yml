@@ -148,6 +148,8 @@ en:
     errors:
       <<: *activemodel_errors
       models:
+        demographic:
+            inclusion: an answer must be selected
         sign:
           attributes:
             conditions_accepted:

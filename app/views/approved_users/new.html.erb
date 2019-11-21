@@ -22,6 +22,7 @@
         <%= f.error :last_name %>
 
         <%= f.label :deaf, "Are you:", class: "required" %>
+        <%= f.error :deaf %>
         <div class="radio">
           <%= f.radio_button :deaf, true %>
           <%= f.label :deaf_true, "Deaf" %>
@@ -34,6 +35,7 @@
         <br>
 
         <%= f.label :nzsl_first_language, "Is NZSL:", class: "required" %>
+        <%= f.error :deaf %>
         <div class="radio">
           <%= f.radio_button :nzsl_first_language, true %>
           <%= f.label :nzsl_first_language_true, "your first language (used from childhood)" %>
@@ -107,7 +109,7 @@
                           :other %>
           <%= f.label :language_roles_other do %>
             <%= content_tag :span, t("demographic.language_roles.other") %><br />
-            <%= f.text_field :"language_roles", multiple: true, class: "cell small-6 margin-left-1" %>
+            <%= f.text_field :"language_roles", multiple: true, value: nil, class: "cell small-6 margin-left-1" %>
           <% end %>
         </div>
 
