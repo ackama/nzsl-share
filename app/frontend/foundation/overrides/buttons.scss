@@ -29,6 +29,10 @@ $clear-button-palette: (
     margin-right: 0;
   }
 
+  &.overview {
+    margin: 0 0.25rem 0.25rem 0.5rem;
+  }
+
   &:active {
     box-shadow: none !important;
     outline: none;
@@ -85,6 +89,7 @@ $clear-button-palette: (
 
     &.icon-only > .icon {
       @include icon-fill(get-color(alert));
+
     }
   }
 

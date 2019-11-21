@@ -1,16 +1,16 @@
 <% if policy(@sign).edit? && !@sign.submitted_to_publish? %>
-  <div class="cell small-2">
-    <%= link_to edit_sign_path(@sign), class: "button clear" do %>
+  <div class="cell small-3 grid-x align-middle align-right">
+    <%= link_to edit_sign_path(@sign), class: "button clear overview" do %>
       <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--royal" %>
       Edit
     <% end %>
   </div>
 
 <% else %>
-  <div class="cell small-1">
-    <a href="#" class="list__item__icon--options" data-toggle="sign_options" title="Sign Options">
+  <div class="cell small-1 grid-x align-middle">
+    <button href="#" class="button clear icon-only overview" data-toggle="sign_options" title="Sign Options">
       <%= inline_svg "media/images/options.svg", class: "icon icon--royal icon--mid list__item__icon" %>
-    </a>
+    </button>
     <div class="list__item-menu__dropdown-pane" id="sign_options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
       <ul class="list__item-menu vertical icons">
         <% if policy(@sign).edit?%>

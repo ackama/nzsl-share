@@ -33,7 +33,7 @@ module SignsHelper
       reject_path(sign),
       method: :patch,
       data: { confirm: reject_confirm(sign) },
-      class: "button alert icon-only",
+      class: "button alert icon-only overview",
       title: reject_title(sign)
     )
   end
@@ -60,7 +60,7 @@ module SignsHelper
       approve_path(sign),
       method: :patch,
       data: { confirm: approve_confirm(sign) },
-      class: "button success icon-only",
+      class: "button success icon-only overview",
       title: approve_title(sign)
     )
   end
