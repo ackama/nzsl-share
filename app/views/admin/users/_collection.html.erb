@@ -52,9 +52,6 @@ to display a collection of resources in an HTML table.
     <% resources.each do |resource| %>
       <tr class="js-table-row"
           tabindex="0"
-          <% if valid_action? :show, collection_presenter.resource_name %>
-            <%= %(role=link data-url=#{polymorphic_path([namespace, resource])}) %>
-          <% end %>
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
@@ -71,7 +68,7 @@ to display a collection of resources in an HTML table.
           <%= find_roles(resource) %>
         </td>
         <td class="admin-icons">
-          <button title="Sign Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
+          <button title="Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
             <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
           </button>
         </td>
