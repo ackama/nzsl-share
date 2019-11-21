@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  approved_users:
+    create:
+      success: Thanks. An admin will review your application soon.
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
