@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_223050) do
+ActiveRecord::Schema.define(version: 2019_11_21_004006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,23 @@ ActiveRecord::Schema.define(version: 2019_11_13_223050) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "demographics", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "first_names", null: false
+    t.string "last_names", null: false
+    t.boolean "deaf", null: false
+    t.boolean "nzsl_first_language", null: false
+    t.string "age_bracket"
+    t.string "location"
+    t.string "gender"
+    t.string "ethnicity"
+    t.string "language_roles", default: [], array: true
+    t.string "subject_expertise"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_demographics_on_user_id"
   end
 
   create_table "folder_memberships", force: :cascade do |t|
@@ -70,6 +87,19 @@ ActiveRecord::Schema.define(version: 2019_11_13_223050) do
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"
     t.index ["word"], name: "idx_freelex_signs_word"
+  end
+
+  create_table "sign_activities", force: :cascade do |t|
+    t.string "key", null: false
+    t.bigint "user_id", null: false
+    t.bigint "sign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key"], name: "index_sign_activities_on_key"
+    t.index ["sign_id"], name: "index_sign_activities_on_sign_id"
+    t.index ["user_id", "sign_id"], name: "sign_agreements", unique: true, where: "((key)::text = 'agree'::text)"
+    t.index ["user_id", "sign_id"], name: "sign_disagreements", unique: true, where: "((key)::text = 'disagree'::text)"
+    t.index ["user_id"], name: "index_sign_activities_on_user_id"
   end
 
   create_table "signs", id: :serial, force: :cascade do |t|
@@ -133,8 +163,11 @@ ActiveRecord::Schema.define(version: 2019_11_13_223050) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "demographics", "users"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
+  add_foreign_key "sign_activities", "signs"
+  add_foreign_key "sign_activities", "users"
   add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end
