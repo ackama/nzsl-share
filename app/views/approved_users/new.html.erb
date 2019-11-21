@@ -77,21 +77,39 @@
 
         <%= f.label :ethnicity, "Are you:" %>
         <% Demographic.ethnicities.each do |val| %>
-          <div class="checkbox">
-            <%= f.radio_button :"ethnicity", value: val %>
+          <div class="radio">
+            <%= f.radio_button :ethnicity, val %>
             <%= f.label :"ethnicity_#{val}", t("demographic.ethnicities.#{val}") %>
           </div>
         <% end %>
+
+        <div class="radio">
+          <%= f.radio_button :ethnicity, :other, data: { toggle_other: "#demographic_ethnicity" } %>
+          <%= f.label :ethnicity_other do %>
+            <%= content_tag :span, t("demographic.ethnicities.other") %><br />
+            <%= f.text_field :ethnicity, class: "cell small-6 margin-left-1" %>
+          <% end %>
+        </div>
 
         <br>
 
         <%= f.label :language_roles, "Do you have a (working / family) role where you use NZSL regularly?" %>
         <% Demographic.language_roles.each do |val| %>
           <div class="checkbox">
-            <%= f.radio_button :"language_roles", value: val %>
+            <%= f.check_box :language_roles, { multiple: true }, val %>
             <%= f.label :"language_roles_#{val}", t("demographic.language_roles.#{val}") %>
           </div>
         <% end %>
+
+        <div class="checkbox">
+          <%= f.check_box :language_roles,
+                          { multiple: true, data: { toggle_other: "#demographic_language_roles" } },
+                          :other %>
+          <%= f.label :language_roles_other do %>
+            <%= content_tag :span, t("demographic.language_roles.other") %><br />
+            <%= f.text_field :"language_roles", multiple: true, class: "cell small-6 margin-left-1" %>
+          <% end %>
+        </div>
 
         <br>
 
