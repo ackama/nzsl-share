@@ -6,7 +6,7 @@ RSpec.describe "Sign moderation", type: :system do
   let(:auth) { AuthenticateFeature.new(moderator) }
   let!(:signs) { FactoryBot.create_list(:sign, 3) }
 
-  before { visit_admin(:signs) }
+  before { visit_admin(:signs, admin: moderator) }
 
   it_behaves_like "an Administrate dashboard", :signs, except: %i[destroy new show]
 
