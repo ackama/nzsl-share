@@ -77,11 +77,11 @@ class SignPolicy < ApplicationPolicy
 
     def search # rubocop:disable Metrics/AbcSize
       if user && (user.administrator || user.moderator)
-        scope.all.ids
+        scope.where("contributor_id = ? or status != ?", user.id, "personal")
       elsif user
-        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id).ids
+        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id)
       else
-        scope.where("status = 'published' or status = 'unpublish_requested'").ids
+        scope.where("status = 'published' or status = 'unpublish_requested'")
       end
     end
   end

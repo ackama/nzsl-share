@@ -5,9 +5,9 @@ require "./lib/sql/search"
 class SearchService < ApplicationService
   attr_reader :search, :results
 
-  def initialize(params, relation=Sign)
+  def initialize(params)
     @search = params[:search]
-    @relation = relation
+    @relation = params[:relation]
     @results = new_results
   end
 
