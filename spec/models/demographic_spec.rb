@@ -7,14 +7,14 @@ RSpec.describe Demographic, type: :model do
   describe "required fields" do
     before { subject.valid? }
 
-    context "without first_names" do
-      subject { FactoryBot.build(:demographic, first_names: "") }
-      it { expect(subject.errors[:first_names]).to include("can't be blank") }
+    context "without first_name" do
+      subject { FactoryBot.build(:demographic, first_name: "") }
+      it { expect(subject.errors[:first_name]).to include("can't be blank") }
     end
 
-    context "without last_names" do
-      subject { FactoryBot.build(:demographic, last_names: "") }
-      it { expect(subject.errors[:last_names,]).to include("can't be blank") }
+    context "without last_name" do
+      subject { FactoryBot.build(:demographic, last_name: "") }
+      it { expect(subject.errors[:last_name,]).to include("can't be blank") }
     end
 
     context "without deaf flag set" do

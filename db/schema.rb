@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
 
   create_table "demographics", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "first_names", null: false
-    t.string "last_names", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.boolean "deaf", null: false
     t.boolean "nzsl_first_language", null: false
     t.string "age_bracket"
@@ -112,9 +112,9 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
-    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
+    t.text "notes"
     t.string "share_token"
     t.string "status", null: false
     t.datetime "submitted_at"
