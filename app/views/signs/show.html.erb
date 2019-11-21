@@ -53,7 +53,7 @@
           Share
         <% end if policy(@sign).share? %>
 
-        <%= link_to "#", class: "button clear medium" do %>
+        <%= link_to user_signed_in? ? "#" : new_user_session_path, class: "button clear medium" do %>
           <%= inline_svg "media/images/folder-add.svg", aria_hidden: true, class: "icon icon--medium" %>
           Add to Folder
         <% end if policy(@sign).manage_folders? %>
