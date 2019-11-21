@@ -1,5 +1,5 @@
-<% if resource.status == "personal" || resource.status == "unpublished" %>
-  <%= resource.status  %>
+<% if resource.status == "personal" || resource.status == "unpublish_requested" %>
+  <%= resource.status.humanize(capitalize: false) %>
 <% else %>
   <div class="<%= "status status--#{resource.status}" %>">
     <%= inline_svg "media/images/admin/#{resource.status}.svg", class: "icon--small" %>
