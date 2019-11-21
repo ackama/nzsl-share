@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         post :decline
       end
     end
-
+    resources :topics
     root to: "signs#index"
   end
 
