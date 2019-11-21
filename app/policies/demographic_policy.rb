@@ -3,7 +3,7 @@ class DemographicPolicy < ApplicationPolicy
     user && !user.approved?
   end
 
-  def create
+  def create?
     new?
   end
 end
