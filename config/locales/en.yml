@@ -52,7 +52,7 @@ en:
     update:
       success: Sign successfully updated.
     personal:
-      display_name: "private"
+      display_name: "Private"
       moderator_display_name: Private
       description: "'private' means only you and the people you have shared with can see this sign."
       status_notes: "To ask for this sign to be public click Edit"
