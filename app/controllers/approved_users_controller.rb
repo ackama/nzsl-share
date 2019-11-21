@@ -1,4 +1,6 @@
 class ApprovedUsersController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @user = current_user
     @demographic = @user.build_demographic
