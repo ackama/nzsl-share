@@ -1,14 +1,14 @@
 <div class="grid-x grid-margin-x margin-bottom-1">
   <div id="sign_overview" class="callout overview cell small-12 large-10 grid-x">
     <div class="cell auto">
-      <h3><%= sign.overview_intro_text(current_user) %></h3>
+      <strong><%= sign.overview_intro_text(current_user) %></strong>
       <div class="grid-x margin-bottom-0">
-        <h6 class="cell small-12 medium-shrink subheader margin-right-1 margin-top-0"><%= sign.pending? && current_user.moderator && !(sign.contributor == current_user) ? "A user has made a request. This sign is currently:" : "It is:" %></h6>
-        <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-right-1">   <%= @sign.status_name %>
-        </h6>
-        <h6 class="cell shrink subheader margin-top-0">
+        <small class="cell small-12 medium-shrink subheader margin-right-1"><%= sign.pending? && current_user.moderator && !(sign.contributor == current_user) ? "A user has made a request. This sign is currently:" : "It is:" %></small>
+        <small id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-right-1">   <%= @sign.status_name %>
+        </small>
+        <small class="cell shrink subheader">
           <%= "(asked on #{@sign.requested_unpublish_at.strftime("%d %b %Y")})" if @sign.status == 'unpublish_requested'%>
-        </h6>
+        </small>
       </div>
     </div>
     <%= render "signs/overview/#{current_user.moderator ? 'moderation_options': 'owner_options'}", sign: @sign %>
