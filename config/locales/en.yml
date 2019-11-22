@@ -151,7 +151,7 @@ en:
     errors:
       <<: *activemodel_errors
       models:
-        demographic:
+        approved_user_application:
             inclusion: an answer must be selected
         sign:
           attributes:

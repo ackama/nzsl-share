@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "demographics", force: :cascade do |t|
+  create_table "approved_user_applications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
     t.string "subject_expertise"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_demographics_on_user_id"
+    t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
   create_table "folder_memberships", force: :cascade do |t|
@@ -89,19 +89,6 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
     t.index ["word"], name: "idx_freelex_signs_word"
   end
 
-  create_table "sign_activities", force: :cascade do |t|
-    t.string "key", null: false
-    t.bigint "user_id", null: false
-    t.bigint "sign_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["key"], name: "index_sign_activities_on_key"
-    t.index ["sign_id"], name: "index_sign_activities_on_sign_id"
-    t.index ["user_id", "sign_id"], name: "sign_agreements", unique: true, where: "((key)::text = 'agree'::text)"
-    t.index ["user_id", "sign_id"], name: "sign_disagreements", unique: true, where: "((key)::text = 'disagree'::text)"
-    t.index ["user_id"], name: "index_sign_activities_on_user_id"
-  end
-
   create_table "signs", id: :serial, force: :cascade do |t|
     t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
@@ -112,9 +99,9 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
+    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
-    t.text "notes"
     t.string "share_token"
     t.string "status", null: false
     t.datetime "submitted_at"
@@ -163,11 +150,9 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "demographics", "users"
+  add_foreign_key "approved_user_applications", "users"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
-  add_foreign_key "sign_activities", "signs"
-  add_foreign_key "sign_activities", "users"
   add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end

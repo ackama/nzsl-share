@@ -7,7 +7,7 @@ RSpec.describe "Approved user application", type: :system do
 
   it "completes the mandatory fields only" do
     subject.fill_in_mandatory_fields
-    expect { subject.submit; user.reload }.to change(user, :demographic).to be_present
+    expect { subject.submit; user.reload }.to change(user, :approved_user_application).to be_present
     expect(page).to have_current_path root_path
     expect(page).to have_content "Thanks. An admin will review your application soon."
   end
@@ -16,14 +16,14 @@ RSpec.describe "Approved user application", type: :system do
     subject.fill_in_mandatory_fields
     subject.fill_in "First name", with: ""
     subject.submit
-    expect(page).to have_selector "#demographic_first_name.invalid + .form-error",
+    expect(page).to have_selector "#approved_user_application_first_name.invalid + .form-error",
                                   text: "can't be blank"
   end
 
   it "picks some options for language roles" do
     subject.fill_in_mandatory_fields
     roles = Demographic.language_roles.sample(2)
-    roles.each { |role| check I18n.t("demographic.language_roles.#{role}") }
+    roles.each { |role| check I18n.t("approved_user_application.language_roles.#{role}") }
     subject.submit
     expect(page).to have_content I18n.t("approved_users.create.success")
     expect(Demographic.last.language_roles).to match_array roles
@@ -33,7 +33,7 @@ RSpec.describe "Approved user application", type: :system do
     subject.fill_in_mandatory_fields
     other_role = Faker::Lorem.sentence
     subject.check "Other:"
-    subject.fill_in "demographic_language_roles", with: other_role
+    subject.fill_in "approved_user_application_language_roles", with: other_role
     subject.submit
     expect(Demographic.last.language_roles).to match_array ["other", other_role]
   end
@@ -42,7 +42,7 @@ RSpec.describe "Approved user application", type: :system do
     subject.fill_in_mandatory_fields
     other_ethnicity = Faker::Lorem.sentence
     subject.choose "Other ethnic group:"
-    subject.fill_in "demographic_ethnicity", with: other_ethnicity
+    subject.fill_in "approved_user_application_ethnicity", with: other_ethnicity
     subject.submit
     expect(Demographic.last.ethnicity).to eq other_ethnicity
   end
