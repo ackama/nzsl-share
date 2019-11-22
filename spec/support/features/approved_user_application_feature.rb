@@ -1,7 +1,7 @@
 class ApprovedUserApplicationFeature
   include Capybara::DSL
 
-  def start(user, application=FactoryBot.build(:application))
+  def start(user, application=FactoryBot.build(:approved_user_application))
     @user = user
     @application = application
     sign_in user
