@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :signs
     resources :users
+    resources :approved_user_applications, only: %i[index show]
     root to: "signs#index"
   end
 
