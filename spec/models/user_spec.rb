@@ -82,4 +82,64 @@ RSpec.describe User, type: :model do
       it { is_expected.to eq true }
     end
   end
+
+  describe "#approval_status" do
+    let(:model) { FactoryBot.build_stubbed(:user, :with_demographics) }
+
+    it "is initially unapproved" do
+      expect(model.approval_status).to eq "unapproved"
+      expect(model.approved?).to be false
+    end
+
+    context "approving" do
+      let(:model) { FactoryBot.build_stubbed(:user, approval_status: :pending_approval) }
+      subject { model.approve_application }
+
+      it "changes the approved? status of the user" do
+        expect { subject }.to change(model, :approved?).to be true
+      end
+
+      it "enqueues a notification that the user's application has been approved" do
+        expect(ApprovedUserMailer).to receive_message_chain(:approved, :deliver_later)
+        subject
+      end
+    end
+
+    context "declining" do
+      let(:model) { FactoryBot.build_stubbed(:user, :with_demographics, approval_status: :pending_approval) }
+      subject { model.decline_application }
+
+      it "does not change the approved? status of the user" do
+        expect { subject }.not_to change(model, :approved?)
+      end
+
+      it "enqueues a notification that the user's application has been approved" do
+        expect(ApprovedUserMailer).to receive_message_chain(:declined, :deliver_later)
+        subject
+      end
+
+      it "can resubmit application for approval" do
+        subject
+        expect(model.may_submit_application?).to eq true
+      end
+    end
+
+    context "submitting" do
+      subject { model.submit_application }
+
+      it "does not change the approved? status of the user" do
+        expect { subject }.not_to change(model, :approved?)
+      end
+
+      it "enqueues a notification that the user's application has been approved" do
+        expect(ApprovedUserMailer).to receive_message_chain(:pending, :deliver_later)
+        subject
+      end
+
+      it "prevents submission without valid application data" do
+        model.demographic = nil
+        expect { subject }.to raise_error AASM::InvalidTransition
+      end
+    end
+  end
 end

@@ -17,5 +17,13 @@ FactoryBot.define do
     trait :approved do
       approved { true }
     end
+
+    trait :with_demographics do
+      callback(:after_build, :after_stub) do |user|
+        user.build_demographic(
+          FactoryBot.attributes_for(:demographic)
+        )
+      end
+    end
   end
 end
