@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe ApprovedUserMailer, type: :mailer do
-  describe ".pending" do
+  describe ".submitted" do
     let(:user) { FactoryBot.build(:user) }
-    let(:mail) { ApprovedUserMailer.pending(user) }
+    let(:mail) { ApprovedUserMailer.submitted(user) }
 
     it "renders the headers" do
       expect(mail.subject).to eq("We've received your application")

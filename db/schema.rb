@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_001716) do
     t.string "subject_expertise"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status", default: "submitted"
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
@@ -138,12 +139,12 @@ ActiveRecord::Schema.define(version: 2019_11_22_001716) do
     t.integer "folders_count", default: 0, null: false
     t.boolean "administrator", default: false, null: false
     t.boolean "moderator", default: false, null: false
+    t.boolean "approved", default: false, null: false
     t.boolean "validator", default: false, null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.integer "contribution_limit", default: 50
-    t.string "approval_status", default: "unapproved"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

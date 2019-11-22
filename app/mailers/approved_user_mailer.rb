@@ -1,10 +1,10 @@
 class ApprovedUserMailer < ApplicationMailer
-  def pending(user)
+  def submitted(user)
     @user = user
     mail to: user.email
   end
 
-  def approved(user)
+  def accepted(user)
   end
 
   def declined(user)
