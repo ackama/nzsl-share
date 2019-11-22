@@ -1,0 +1,9 @@
+.table-row {
+  &--published {
+    background-color: get-color(extra-light);
+  }
+
+  &--declined {
+    background-color: get-color(alert-x-light);
+  }
+}

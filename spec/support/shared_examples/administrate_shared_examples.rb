@@ -24,15 +24,21 @@ RSpec.shared_examples "an Administrate dashboard" do |url_base, only: %i[index s
   end
 
   if actions.include?(:edit)
-    it "can visit the edit page" do
-      within(first_row) { click_on "Edit" }
+    it "can visit the edit page", uses_javascript: true do
+      within(first_row) { click_on "Options" }
+      within(".list__item-menu__menu-item", match: :first) do
+        click_on "Edit"
+      end
       expect(header).to start_with "Edit"
     end
   end
 
   if actions.include?(:destroy)
-    it "can destroy a record" do
-      within(mid_row) { click_on "Destroy" }
+    it "can destroy a record", uses_javascript: true do
+      within(first_row) { click_on "Options" }
+      within(".list__item-menu__menu-item", match: :first) do
+        click_on "Destroy"
+      end
       expect(page).to have_content "was successfully destroyed."
     end
   end

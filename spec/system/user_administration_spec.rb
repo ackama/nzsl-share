@@ -5,10 +5,7 @@ RSpec.describe "User administration", type: :system do
   let!(:users) { FactoryBot.create_list(:user, 3) }
   let(:auth) { AuthenticateFeature.new(admin) }
 
-  before do
-    auth.sign_in
-    click_on "User admin"
-  end
+  before { visit_admin(:users) }
 
   it_behaves_like "an Administrate dashboard", :users, except: %i[destroy new]
 end
