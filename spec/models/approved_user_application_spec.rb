@@ -1,29 +1,29 @@
 require "rails_helper"
 
-RSpec.describe Demographic, type: :model do
-  subject { FactoryBot.build(:demographic) }
+RSpec.describe ApprovedUserApplication, type: :model do
+  subject { FactoryBot.build(:approved_user_application) }
   it { is_expected.to be_valid }
 
   describe "required fields" do
     before { subject.valid? }
 
     context "without first_name" do
-      subject { FactoryBot.build(:demographic, first_name: "") }
+      subject { FactoryBot.build(:approved_user_application, first_name: "") }
       it { expect(subject.errors[:first_name]).to include("can't be blank") }
     end
 
     context "without last_name" do
-      subject { FactoryBot.build(:demographic, last_name: "") }
+      subject { FactoryBot.build(:approved_user_application, last_name: "") }
       it { expect(subject.errors[:last_name,]).to include("can't be blank") }
     end
 
     context "without deaf flag set" do
-      subject { FactoryBot.build(:demographic, deaf: nil) }
+      subject { FactoryBot.build(:approved_user_application, deaf: nil) }
       it { expect(subject.errors[:deaf,]).to include("an answer must be selected") }
     end
 
     context "without NZSL as first language flag set" do
-      subject { FactoryBot.build(:demographic, nzsl_first_language: nil) }
+      subject { FactoryBot.build(:approved_user_application, nzsl_first_language: nil) }
       it { expect(subject.errors[:nzsl_first_language,]).to include("an answer must be selected") }
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe Demographic, type: :model do
   context "optional fields" do
     context "ethnicity" do
       it "has options available" do
-        expect(Demographic.ethnicities).not_to be_empty
+        expect(Demographics.ethnicities).not_to be_empty
       end
 
       it "allows a non-predefined value" do
@@ -42,7 +42,7 @@ RSpec.describe Demographic, type: :model do
 
     context "gender" do
       it "has options available" do
-        expect(Demographic.genders).not_to be_empty
+        expect(Demographics.genders).not_to be_empty
       end
 
       it "does not allow a non-predefined value" do
@@ -52,7 +52,7 @@ RSpec.describe Demographic, type: :model do
     end
     context "age_bracket" do
       it "has options available" do
-        expect(Demographic.age_brackets).not_to be_empty
+        expect(Demographics.age_brackets).not_to be_empty
       end
 
       it "does not allow a non-predefined value" do
@@ -63,7 +63,7 @@ RSpec.describe Demographic, type: :model do
 
     context "language roles" do
       it "has options available" do
-        expect(Demographic.language_roles).not_to be_empty
+        expect(Demographics.language_roles).not_to be_empty
       end
 
       # Handle some misbehaving forms - esp. submissions with JS disabled

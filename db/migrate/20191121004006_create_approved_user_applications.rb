@@ -1,6 +1,6 @@
-class CreateDemographics < ActiveRecord::Migration[6.0]
+class CreateApprovedUserApplications < ActiveRecord::Migration[6.0]
   def change
-    create_table :demographics do |t|
+    create_table :approved_user_applications do |t|
       t.belongs_to :user, null: false, foreign_key: true
       t.string :first_name, null: false
       t.string :last_name, null: false

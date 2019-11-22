@@ -1,4 +1,4 @@
-class DemographicPolicy < ApplicationPolicy
+class ApprovedUserApplicationPolicy < ApplicationPolicy
   def new?
     user && !user.approved?
   end

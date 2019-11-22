@@ -3,18 +3,18 @@ class ApprovedUsersController < ApplicationController
 
   def new
     @user = current_user
-    @demographic = @user.build_demographic
-    authorize @demographic
+    @application = @user.build_approved_user_application
+    authorize @application
 
     render
   end
 
   def create
     @user = current_user
-    @demographic = @user.build_demographic(demographic_params)
-    authorize @demographic
+    @application = @user.build_approved_user_application(application_params)
+    authorize @application
 
-    return render(:new) unless @demographic.save
+    return render(:new) unless @application.save
 
     @user.submit_application!
     redirect_to root_path, notice: t(".success")
@@ -22,8 +22,8 @@ class ApprovedUsersController < ApplicationController
 
   private
 
-  def demographic_params
-    params.require(:demographic).permit(
+  def application_params
+    params.require(:application).permit(
       :first_name, :last_name, :gender, :ethnicity,
       :deaf, :nzsl_first_language, :age_bracket, :location,
       :subject_expertise, language_roles: []

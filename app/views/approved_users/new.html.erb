@@ -2,7 +2,7 @@
 
 
 <div class="grid-x grid-margin-x content-container ">
-  <%= form_with model: @demographic, url: approved_users_path, local: true, class: "cell small-12 large-8 form", method: :post do |f| %>
+  <%= form_with model: @application, url: approved_users_path, local: true, class: "cell small-12 large-8 form", method: :post do |f| %>
     <fieldset class="form-section">
       <legend class="form-section__header"><h1 class="black">Approved User Request</h1></legend>
 
@@ -54,10 +54,10 @@
         <%= f.label :age_bracket, "How old are you?" %>
         <p class="help-text">NOTE: you must be over 13 years old to have an NZSL Share account</p>
 
-        <% Demographic.age_brackets.each do |val| %>
+        <% Demographics.age_brackets.each do |val| %>
           <div class="radio">
             <%= f.radio_button :age_bracket, val %>
-            <%= f.label :"age_bracket_#{val}", t("demographic.age_brackets.#{val}") %>
+            <%= f.label :"age_bracket_#{val}", t("demographics.age_brackets.#{val}") %>
           </div>
         <% end %>
 
@@ -68,27 +68,27 @@
         <%= f.error :location %>
 
         <%= f.label :gender, "Are you:" %>
-        <% Demographic.genders.each do |val| %>
+        <% Demographics.genders.each do |val| %>
           <div class="radio">
             <%= f.radio_button :gender, val %>
-            <%= f.label :"gender_#{val}", t("demographic.genders.#{val}") %>
+            <%= f.label :"gender_#{val}", t("demographics.genders.#{val}") %>
           </div>
         <% end %>
 
         <br>
 
         <%= f.label :ethnicity, "Are you:" %>
-        <% Demographic.ethnicities.each do |val| %>
+        <% Demographics.ethnicities.each do |val| %>
           <div class="radio">
             <%= f.radio_button :ethnicity, val %>
-            <%= f.label :"ethnicity_#{val}", t("demographic.ethnicities.#{val}") %>
+            <%= f.label :"ethnicity_#{val}", t("demographics.ethnicities.#{val}") %>
           </div>
         <% end %>
 
         <div class="radio">
-          <%= f.radio_button :ethnicity, :other, data: { toggle_other: "#demographic_ethnicity" } %>
+          <%= f.radio_button :ethnicity, :other, data: { toggle_other: "#approved_user_application_ethnicity" } %>
           <%= f.label :ethnicity_other do %>
-            <%= content_tag :span, t("demographic.ethnicities.other") %><br />
+            <%= content_tag :span, t("demographics.ethnicities.other") %><br />
             <%= f.text_field :ethnicity, class: "cell small-6 margin-left-1" %>
           <% end %>
         </div>
@@ -96,19 +96,20 @@
         <br>
 
         <%= f.label :language_roles, "Do you have a (working / family) role where you use NZSL regularly?" %>
-        <% Demographic.language_roles.each do |val| %>
+        <% Demographics.language_roles.each do |val| %>
           <div class="checkbox">
             <%= f.check_box :language_roles, { include_hidden: false,  multiple: true }, val %>
-            <%= f.label :"language_roles_#{val}", t("demographic.language_roles.#{val}") %>
+            <%= f.label :"language_roles_#{val}", t("demographics.language_roles.#{val}") %>
           </div>
         <% end %>
 
         <div class="checkbox">
           <%= f.check_box :language_roles,
-                          { include_hidden: false, multiple: true, data: { toggle_other: "#demographic_language_roles" } },
+                          { include_hidden: false, multiple: true,
+                          data: { toggle_other: "#approved_user_application_language_roles" } },
                           :other %>
           <%= f.label :language_roles_other do %>
-            <%= content_tag :span, t("demographic.language_roles.other") %><br />
+            <%= content_tag :span, t("demographics.language_roles.other") %><br />
             <%= f.text_field :"language_roles", multiple: true, value: nil, class: "cell small-6 margin-left-1" %>
           <% end %>
         </div>
