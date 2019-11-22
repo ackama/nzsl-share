@@ -48,6 +48,32 @@ RSpec.describe SignPresenter, type: :presenter do
     end
   end
 
+  describe "#status_name" do
+    let(:sign) { FactoryBot.build(:sign, :submitted) }
+    subject { presenter.status_name }
+
+    context "user is a moderator" do
+      let(:user) { FactoryBot.create(:user, :moderator) }
+      before { sign_in user }
+
+      it "returns the admin status name" do
+        expect(subject).to eq "Pending"
+      end
+
+      context "but also contributed the sign" do
+        before { sign.contributor = user }
+
+        it "returns the friendly status name" do
+          expect(subject).to eq "in progress"
+        end
+      end
+    end
+
+    it "returns a friendly status name" do
+      expect(subject).to eq "in progress"
+    end
+  end
+
   describe "#assignable_folder_options" do
     # We need the sign to actually exist so we can set up
     # folder associations

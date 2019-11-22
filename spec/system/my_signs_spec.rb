@@ -28,6 +28,16 @@ RSpec.describe "My Signs", type: :system do
       end
     end
 
+    it "includes expected sign status and description" do
+      sign_card = page.find("#sign_status", match: :prefer_exact)
+      expect(sign_card.text).to eq "private"
+      expect(sign_card["title"]).to eq(I18n.t!("signs.personal.description"))
+    end
+
+    it "includes 'Folders' button" do
+      expect(page).to have_button "Folders"
+    end
+
     it "doesn't include unexpected signs" do
       expect(page).not_to have_selector ".sign-card .sign-card__title", text: unowned_sign.word
     end

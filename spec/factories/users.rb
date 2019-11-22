@@ -13,5 +13,9 @@ FactoryBot.define do
     trait :approved do
       approved { true }
     end
+
+    trait :administrator do
+      administrator { true }
+    end
   end
 end

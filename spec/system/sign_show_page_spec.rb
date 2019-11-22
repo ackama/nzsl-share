@@ -23,8 +23,71 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_content sign.secondary
   end
 
+  it "displays the sign status" do
+    sign_card = page.find("#sign_status", match: :prefer_exact)
+    expect(sign_card).to be_present
+    expect(sign_card.text).to eq "private"
+  end
+
   it "has the expected page title" do
     expect(page).to have_title "#{sign.word} – NZSL Share"
+  end
+
+  it "has the expected share link" do
+    expect(page).to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+  end
+
+  it "has the expected tag 'Add to Folder'" do
+    expect(page.find("a", text: "Add to Folder")).to be_present
+  end
+
+  context "share public sign with anonymous user" do
+    let(:sign) { FactoryBot.create(:sign, :published) }
+
+    before do
+      sign.update(share_token: sign.share_token || SecureRandom.uuid)
+      auth.sign_out
+      visit sign_share_url(sign, sign.share_token)
+    end
+
+    it "does not have the sign share link" do
+      expect(page).not_to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+    end
+
+    it "does not have the sign status" do
+      expect(page).not_to have_selector("#sign_status")
+    end
+
+    it "has the expected link 'Add to Folder'" do
+      expect(page).to have_link "Add to Folder"
+    end
+
+    it "redirects to login when 'Add to Folder' link clicked" do
+      click_link("Add to Folder")
+      expect(page.current_path).to eq new_user_session_path
+    end
+  end
+
+  context "share private sign with anonymous user" do
+    let(:sign) { FactoryBot.create(:sign, :personal) }
+
+    before do
+      sign.update(share_token: sign.share_token || SecureRandom.uuid)
+      auth.sign_out
+      visit sign_share_url(sign, sign.share_token)
+    end
+
+    it "does not have the sign share link" do
+      expect(page).not_to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+    end
+
+    it "does not have the sign status" do
+      expect(page).not_to have_selector("#sign_status")
+    end
+
+    it "does not have the expected link 'Add to Folder'" do
+      expect(page).not_to have_link "Add to Folders"
+    end
   end
 
   context "user not signed in" do
@@ -116,12 +179,13 @@ RSpec.describe "Sign show page", system: true do
 
         it "user can cancel publication", uses_javascript: true do
           click_on "Sign Options"
-          click_on "Cancel (don’t show to public)"
+
+          click_on "Cancel"
           alert = page.driver.browser.switch_to.alert
-          expect(alert.text).to eq I18n.t!("sign_publish.destroy.confirm")
+          expect(alert.text).to eq I18n.t!("sign_workflow.cancel_submit.confirm")
           alert.accept
           expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-          expect(subject).to have_content I18n.t!("sign_publish.destroy.success")
+          expect(subject).to have_content I18n.t!("sign_workflow.cancel_submit.success")
           sign.reload
           expect(sign.personal?).to eq true
         end
@@ -145,10 +209,10 @@ RSpec.describe "Sign show page", system: true do
           click_on "Sign Options"
           click_on "Ask to be private"
           alert = page.driver.browser.switch_to.alert
-          expect(alert.text).to eq I18n.t!("sign_request_publish.destroy.confirm")
+          expect(alert.text).to eq I18n.t!("sign_workflow.request_unpublish.confirm")
           alert.accept
           expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-          expect(subject).to have_content I18n.t!("sign_request_publish.destroy.success")
+          expect(subject).to have_content I18n.t!("sign_workflow.request_unpublish.success")
           sign.reload
           expect(sign.unpublish_requested?).to eq true
         end
@@ -172,10 +236,10 @@ RSpec.describe "Sign show page", system: true do
           click_on "Sign Options"
           click_on "Keep sign public"
           alert = page.driver.browser.switch_to.alert
-          expect(alert.text).to eq I18n.t!("sign_publish.create.confirm")
+          expect(alert.text).to eq I18n.t!("sign_workflow.cancel_request_unpublish.confirm")
           alert.accept
           expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
-          expect(subject).to have_content I18n.t!("sign_publish.create.success")
+          expect(subject).to have_content I18n.t!("sign_workflow.cancel_request_unpublish.success")
           sign.reload
           expect(sign.published?).to eq true
         end

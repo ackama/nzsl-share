@@ -20,7 +20,7 @@ class Sign < ApplicationRecord
   validates :word, presence: true
   validates :conditions_accepted,
             presence: true,
-            unless: -> { personal? }
+            unless: -> { personal? || archived? }
 
   # See app/validators/README.md for details on these
   # validations
@@ -43,6 +43,8 @@ class Sign < ApplicationRecord
   # or some other measure of popularity
   scope :preview, -> { limit(4) }
 
+  scope :recent, -> { published.order(published_at: :desc) }
+
   scope :for_cards, -> { with_attached_video.includes(:contributor) }
 
   def agree_count
@@ -55,19 +57,24 @@ class Sign < ApplicationRecord
 
   def tags; []; end
 
-  aasm column: "status", whiny_transitions: false do
+  aasm column: "status", whiny_transitions: false do # rubocop:disable Metrics/BlockLength
     state :personal, initial: true
     state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
     state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
+    state :archived
 
-    event :set_sign_to_personal do
+    event :make_private do
       transitions from: %i[submitted declined], to: :personal
     end
 
-    event :submit_for_publishing do
+    event :submit do
       transitions from: %i[personal declined], to: :submitted
+    end
+
+    event :cancel_submit do
+      transitions from: %i[personal submitted], to: :personal
     end
 
     event :publish do
@@ -82,6 +89,10 @@ class Sign < ApplicationRecord
 
     event :request_unpublish do
       transitions from: %i[published], to: :unpublish_requested
+    end
+
+    event :cancel_request_unpublish do
+      transitions from: :unpublish_requested, to: :published
     end
 
     event :decline do

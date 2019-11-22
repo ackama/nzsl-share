@@ -103,7 +103,12 @@
                     sign_path(@sign),
                     method: :delete,
                     data: { confirm: t("signs.destroy.confirm") },
-                    class: "button alert" %>
+                    class: "button alert" if policy(@sign).destroy? %>
+        <%= link_to t("admin.sign_workflow.unpublish.link_to"),
+                    unpublish_sign_path(@sign),
+                    method: :patch,
+                    data: { confirm: t("admin.sign_workflow.unpublish.confirm") },
+                    class: "button alert" if policy(@sign).unpublish? %>
       </div>
 
       <div class="pull-right">

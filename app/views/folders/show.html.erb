@@ -15,7 +15,7 @@
       <div class="cell grid-x align-middle">
         <h1 class="cell auto"><%= @folder.title %></h1>
         <div class="cell shrink grid-x align-middle">
-          <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear" do %>
+          <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear", data: { confirm: t("folder_share.create.confirmation") } do %>
             <%= inline_svg "media/images/share.svg", class: "icon icon--royal" %>Share
           <% end if policy(@folder).share? %>
           <div class="list__divider--vertical"></div>
