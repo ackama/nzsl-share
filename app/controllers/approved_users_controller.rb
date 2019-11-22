@@ -16,6 +16,7 @@ class ApprovedUsersController < ApplicationController
 
     return render(:new) unless @demographic.save
 
+    @user.submit_application!
     redirect_to root_path, notice: t(".success")
   end
 
