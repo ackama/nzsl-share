@@ -52,7 +52,7 @@ en:
     update:
       success: Sign successfully updated.
     personal:
-      display_name: "private"
+      display_name: "Private"
       moderator_display_name: Private
       description: "'private' means only you and the people you have shared with can see this sign."
       status_notes: "To ask for this sign to be public click Edit"
@@ -85,6 +85,9 @@ en:
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   sign_workflow:
+    decline:
+      confirm: Decline this sign? # Pending message
+      success: Sign has been declined # Pending message
     cancel_submit:
       link_to: Cancel (don't show to public)
       confirm: Are you sure? Your sign will stay private
@@ -94,6 +97,7 @@ en:
       confirm: Publish this sign?
       success: 'Published. This sign is public.'
     unpublish:
+      confirm: Make sign private? # Pending message
       success: Sign was made private # Pending message
     request_unpublish:
       link_to: Ask to be private
@@ -101,8 +105,8 @@ en:
       success: Thank you. An admin will make your sign private soon.
     cancel_request_unpublish:
       link_to: Keep sign public
-      confirm: Are you sure? Your sign will stay public
-      success: Cancelled. Your sign will stay public
+      confirm: Are you sure? This sign will stay public
+      success: Cancelled. This sign will stay public
   folders:
     default_title: 'My Folder'
     edit:

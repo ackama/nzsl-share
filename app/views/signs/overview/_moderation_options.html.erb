@@ -1,0 +1,10 @@
+<div class="cell small-4 grid-x grid-padding-x align-middle align-right">
+  <% if @sign.pending? %>
+    <%= overview_approve_link(sign) %>
+    <%= overview_reject_link(sign) %>
+  <% end%>
+  <%= link_to edit_sign_path(@sign), class: "button clear overview" do %>
+    <%= inline_svg "media/images/edit.svg", title: "Edit", class: "icon icon--royal" %>
+    Edit
+  <% end if policy(@sign).edit? %>
+</div>
