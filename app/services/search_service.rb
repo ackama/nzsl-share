@@ -26,24 +26,24 @@ class SearchService < ApplicationService
   def build_results
     term = parameterize_term
     sql_arr = [SQL::Search.search(search_args), term: term]
-    count, ids = parse_results(exec_query(sql_arr))
-    search.total = count
-    fetch_results(ids)
+    result_ids = parse_results(exec_query(sql_arr))
+    result_relation = @relation.where(id: result_ids)
+    search.total = result_relation.count
+    fetch_results(result_relation, result_ids)
   end
 
   def parameterize_term
     search.term.split(" ").map { |s| s.parameterize(separator: "") }.join(" ")
   end
 
-  def fetch_results(ids)
-    @relation
-      .where(id: ids)
+  def fetch_results(result_relation, result_ids)
+    result_relation
       .limit(search.page[:limit])
-      .order(Arel.sql("array_position(array[#{ids.join(",")}]::integer[], id)"))
+      .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[], id)"))
   end
 
   def parse_results(results)
-    [results.count, results.field_values("id")]
+    results.field_values("id")
   end
 
   def exec_query(sql_arr)
