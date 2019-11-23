@@ -41,6 +41,19 @@ It renders the `_table` partial to display details about the resources.
         ) %>
       </div>
     <% end %>
+
+    <form class="cell auto">
+      <label class="sr-only" for="status">Status</label>
+      <select class="filters--status" name="search" id="status" onchange="this.form.submit()">
+        <option>--Select Status--</option>
+        <% RolesHelper::ROLES.each do |role| %>
+          <%= content_tag(:option,
+            role.titleize,
+            selected: params[:search] && params[:search].include?("#{role}:"),
+            value: "#{role}:") %>
+        <% end %>
+      </select>
+    </form>
   </div>
 
   <hr class="list__divider cell"/>

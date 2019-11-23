@@ -1,4 +1,11 @@
 module RolesHelper
+  ROLES = %w[
+    administrator
+    validator
+    moderator
+    approved
+  ].freeze
+
   def find_roles(user)
     roles = []
     user.administrator? && roles.push("Admin")
