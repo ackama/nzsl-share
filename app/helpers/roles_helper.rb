@@ -1,9 +1,10 @@
 module RolesHelper
   ROLES = %w[
     administrator
-    validator
-    moderator
     approved
+    basic
+    moderator
+    validator
   ].freeze
 
   def find_roles(user)
