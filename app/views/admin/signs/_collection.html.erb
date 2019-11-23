@@ -82,11 +82,6 @@ to display a collection of resources in an HTML table.
                   <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
                 <% end %>
               </li>
-              <li class="list__item-menu__menu-item">
-                <a href="#">
-                  <%= inline_svg "media/images/tick.svg", class: "icon--medium" %><span>Progress to NZSL Official</span>
-                </a>
-              </li>
               <% if policy(resource).unpublish? %>
                 <li class="list__item-menu__menu-item">
                   <%= link_to unpublish_sign_path(resource), method: :patch,
