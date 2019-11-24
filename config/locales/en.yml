@@ -143,7 +143,9 @@ en:
         confirm: Make this sign private?
         success: Sign was made private # Pending message
   approved_user_mailer:
-    pending:
+    admin_submitted:
+      subject: "New approved user application received"
+    submitted:
       subject: We've received your application
   activemodel:
     errors: &activemodel_errors
