@@ -9,6 +9,26 @@ module Admin
     #   send_foo_updated_email
     # end
 
+    def accept
+      @application = approved_user_applications.find(params[:id])
+      @application.accept!
+
+      redirect_to [:admin, @application], notice: t(".success")
+    end
+
+    def decline
+      @application = approved_user_applications.find(params[:id])
+      @application.decline!
+
+      redirect_to [:admin, @application], notice: t(".success")
+    end
+
+    private
+
+    def approved_user_applications
+      policy_scope(ApprovedUserApplication)
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

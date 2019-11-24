@@ -22,6 +22,12 @@
     <li class="menu-text">Admin Portal</li>
     <li class="<%= current_page?("/admin/signs") && "is-active" %>"><a href="/admin/signs"><%= inline_svg "media/images/splice.svg", aria_hidden: true %><span>Moderate signs</span></a></li>
     <% if current_user.administrator %>
+      <li class="<%= current_page?("/admin/approved_user_applications") && "is-active" %>">
+        <%= link_to admin_approved_user_applications_path do %>
+          <%= inline_svg "media/images/users.svg", class: 'icon--medium', aria_hidden: true %><span>User approvals</span>
+        <% end %>
+      </li>
+
       <li class="<%= current_page?("/admin/users") && "is-active" %>"><a href="/admin/users"><%= inline_svg "media/images/users.svg", class: 'icon--medium', aria_hidden: true %><span>User admin</span></a></li>
     <% end %>
   </ul>

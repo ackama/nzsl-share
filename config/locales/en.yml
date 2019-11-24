@@ -137,6 +137,11 @@ en:
   users:
     contribution_limit_reached_html: Sorry, you have reached your video upload limit. Contact <a href="mailto:%{email}">%{email}</a> to increase your limit.
   admin:
+    approved_user_applications:
+      accept:
+        success: User application was accepted. The user was approved.
+      decline:
+        success: User application was declined.
     sign_workflow:
       unpublish:
         link_to: Unpublish

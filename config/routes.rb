@@ -2,7 +2,13 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :signs
     resources :users
-    resources :approved_user_applications, only: %i[index show]
+    resources :approved_user_applications, only: %i[index show] do
+      member do
+        post :accept
+        post :decline
+      end
+    end
+
     root to: "signs#index"
   end
 
