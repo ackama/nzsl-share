@@ -8,6 +8,7 @@ class ArchiveSign < ApplicationService
     @sign
       .then(&:dup) # After this point we're acting on the copy
       .then(&method(:reassign_contributor))
+      .then(&method(:assign_state))
       .tap(&:save!)
       .then(&method(:copy_attachments))
   end
@@ -16,6 +17,11 @@ class ArchiveSign < ApplicationService
 
   def reassign_contributor(sign)
     sign.contributor = @user
+    sign
+  end
+
+  def assign_state(sign)
+    sign.status = :archived
     sign
   end
 

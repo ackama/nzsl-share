@@ -11,6 +11,8 @@ class Sign < ApplicationRecord
   belongs_to :topic, optional: true
   has_many :folder_memberships, dependent: :destroy
   has_many :folders, through: :folder_memberships
+  has_many :activities, class_name: "SignActivity", dependent: :destroy
+
   has_one_attached :video
   has_many_attached :usage_examples
   has_many_attached :illustrations
@@ -18,7 +20,7 @@ class Sign < ApplicationRecord
   validates :word, presence: true
   validates :conditions_accepted,
             presence: true,
-            unless: -> { personal? }
+            unless: -> { personal? || archived? }
 
   # See app/validators/README.md for details on these
   # validations
@@ -45,8 +47,14 @@ class Sign < ApplicationRecord
 
   scope :for_cards, -> { with_attached_video.includes(:contributor) }
 
-  def agree_count; 0; end
-  def disagree_count; 0; end
+  def agree_count
+    activities.where(key: SignActivity::ACTIVITY_AGREE, sign: self).count
+  end
+
+  def disagree_count
+    activities.where(key: SignActivity::ACTIVITY_DISAGREE, sign: self).count
+  end
+
   def tags; []; end
 
   aasm column: "status", whiny_transitions: false do # rubocop:disable Metrics/BlockLength
@@ -55,6 +63,7 @@ class Sign < ApplicationRecord
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
     state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
+    state :archived
 
     event :make_private do
       transitions from: %i[submitted declined], to: :personal

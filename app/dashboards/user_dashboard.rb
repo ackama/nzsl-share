@@ -26,11 +26,6 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     username
     email
-    signs_count
-    administrator
-    moderator
-    approved
-    validator
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

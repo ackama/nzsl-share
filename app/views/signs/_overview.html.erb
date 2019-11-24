@@ -1,25 +1,16 @@
 <div class="grid-x grid-margin-x margin-bottom-1">
-  <div id="sign_overview" class="callout cell small-12 large-10 grid-x">
+  <div id="sign_overview" class="callout overview cell small-12 large-10 grid-x">
     <div class="cell auto">
-      <h3><%= sign.overview_intro_text(current_user) %></h3>
+      <strong><%= sign.overview_intro_text(current_user) %></strong>
       <div class="grid-x margin-bottom-0">
-        <h6 class="cell shrink subheader margin-top-0">It is</h6>
-        <h6 id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-left-1">   <%= @sign.status_name %>
-        </h6>
-        <h6 class="cell shrink subheader margin-top-0 margin-left-1">
+        <small class="cell small-12 medium-shrink subheader margin-right-1"><%= sign.pending? && current_user.moderator && !(sign.contributor == current_user) ? "A user has made a request. This sign is currently:" : "It is:" %></small>
+        <small id="sign_status" title="<%= @sign.status_description %> <%= @sign.status_notes %>" class="royal cell shrink margin-bottom-0 margin-right-1">   <%= @sign.status_name %>
+        </small>
+        <small class="cell shrink subheader">
           <%= "(asked on #{@sign.requested_unpublish_at.strftime("%d %b %Y")})" if @sign.status == 'unpublish_requested'%>
-        </h6>
+        </small>
       </div>
     </div>
-    <% if policy(@sign).edit? && !@sign.submitted_to_publish? %>
-      <div class="cell small-2">
-        <%= link_to edit_sign_path(@sign), class: "button clear" do %>
-          <%= inline_svg "media/images/edit.svg", aria_hidden: true, class: "icon icon--royal" %>
-          Edit
-        <% end %>
-      </div>
-    <% else %>
-      <%= render "signs/overview_dropdown", sign: @sign %>
-    <% end %>
+    <%= render "signs/overview/#{current_user.moderator ? 'moderation_options': 'owner_options'}", sign: @sign %>
   </div>
 </div>
