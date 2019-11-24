@@ -42,18 +42,15 @@ as well as a link to its edit page.
   </div>
 </header>
 
-<section class="main-content__body">
-  <dl>
-    <% page.attributes.each do |attribute| %>
-      <dt class="attribute-label" id="<%= attribute.name %>">
-      <%= t(
-        "helpers.label.#{resource_name}.#{attribute.name}",
-        default: attribute.name.titleize,
-      ) %>
-      </dt>
+<section class="main-content__body form" style="clear:both;">
+  <% page.attributes.each do |attribute| %>
+    <label>
+    <%= t(
+      "helpers.label.#{resource_name}.#{attribute.name}",
+      default: attribute.name.titleize,
+    ) %></label>
 
-      <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-          ><%= render_field attribute, page: page %></dd>
-    <% end %>
-  </dl>
+    <p class="attribute-data--<%=attribute.html_class%>"
+        ><%= render_field attribute, page: page %></p>
+  <% end %>
 </section>
