@@ -10,6 +10,13 @@ RSpec.describe "Registering for an account", type: :system do
     expect(page).to have_content "A message with a confirmation link has been sent to your email address."
   end
 
+  it "can sign up with a bio" do
+    complete_form
+    fill_in "Bio", with: "This is a short biography of my life."
+    submit_form
+    expect(page).to have_content "A message with a confirmation link has been sent to your email address."
+  end
+
   it "is presented with errors for invalid fields" do
     complete_form
     fill_in "Email", with: ""
