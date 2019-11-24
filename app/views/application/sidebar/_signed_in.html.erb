@@ -24,7 +24,7 @@
     <% if current_user.administrator %>
       <li class="<%= current_page?("/admin/approved_user_applications") && "is-active" %>">
         <%= link_to admin_approved_user_applications_path do %>
-          <%= inline_svg "media/images/users.svg", class: 'icon--medium', aria_hidden: true %><span>User approvals</span>
+          <%= inline_svg "media/images/tick.svg", class: 'icon--medium', aria_hidden: true %><span>User approvals</span>
         <% end %>
       </li>
 
