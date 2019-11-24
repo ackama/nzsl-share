@@ -15,7 +15,8 @@ class UserDashboard < Administrate::BaseDashboard
     approved: Field::Boolean.with_options(searchable: false),
     validator: Field::Boolean.with_options(searchable: false),
     contribution_limit: Field::Number.with_options(searchable: false),
-    signs_count: Field::Number.with_options(searchable: false)
+    signs_count: Field::Number.with_options(searchable: false),
+    approved_user_application: Field::BelongsTo
   }.freeze
 
   # COLLECTION_ATTRIBUTES
