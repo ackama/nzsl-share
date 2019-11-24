@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published? || owns_record? || moderator? || administrator?
+    record.published? || owns_record? || (moderator? && !record.personal?)
   end
 
   def create?
@@ -19,7 +19,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public?) || moderator?
+    (owns_record? && !public?) || (moderator? && !record.personal?)
   end
 
   def edit?
@@ -27,9 +27,9 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return false if record.published?
+    return false if public?
 
-    (owns_record? && !public?) || moderator?
+    owns_record? || moderator?
   end
 
   def overview?
@@ -75,8 +75,8 @@ class SignPolicy < ApplicationPolicy
       scope
     end
 
-    def search # rubocop:disable Metrics/AbcSize
-      if user && (user.administrator || user.moderator)
+    def resolve
+      if user && user.moderator
         scope.where("contributor_id = ? or status != ?", user.id, "personal")
       elsif user
         scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id)
