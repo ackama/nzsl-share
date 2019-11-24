@@ -13,5 +13,9 @@ FactoryBot.define do
     trait :administrator do
       administrator { true }
     end
+
+    trait :with_bio do
+      bio { "I love NZSL!" }
+    end
   end
 end
