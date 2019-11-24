@@ -1,3 +1,5 @@
+[![Codeship Status for ackama/nzsl-share](https://app.codeship.com/projects/93cf1f10-a9e8-0137-6493-0accbd4a81ee/status?branch=master)](https://app.codeship.com/projects/361577)
+
 # nzsl_share
 
 This is a Rails 6 app.

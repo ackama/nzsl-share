@@ -9,11 +9,24 @@
     width: 100%;
   }
 
+  .menu-text {
+    color: get-color(primary);
+    font-size: 13px;
+
+    &--home {
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+
   .menu > li > a {
     flex-direction: row;
+    font-weight: normal;
 
     img + span,
     svg + span {
+      color: $black;
       flex: 1;
       margin-left: 1rem;
     }
@@ -45,7 +58,7 @@
     a {
       border-bottom-right-radius: rem-calc(24);
       border-top-right-radius: rem-calc(24);
-      font-weight: bold;
+      font-weight: bold !important; //sass-lint:disable-line no-important
     }
   }
 
