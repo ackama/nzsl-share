@@ -89,6 +89,19 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
     t.index ["word"], name: "idx_freelex_signs_word"
   end
 
+  create_table "sign_activities", force: :cascade do |t|
+    t.string "key", null: false
+    t.bigint "user_id", null: false
+    t.bigint "sign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key"], name: "index_sign_activities_on_key"
+    t.index ["sign_id"], name: "index_sign_activities_on_sign_id"
+    t.index ["user_id", "sign_id"], name: "sign_agreements", unique: true, where: "((key)::text = 'agree'::text)"
+    t.index ["user_id", "sign_id"], name: "sign_disagreements", unique: true, where: "((key)::text = 'disagree'::text)"
+    t.index ["user_id"], name: "index_sign_activities_on_user_id"
+  end
+
   create_table "signs", id: :serial, force: :cascade do |t|
     t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
@@ -153,6 +166,8 @@ ActiveRecord::Schema.define(version: 2019_11_21_004006) do
   add_foreign_key "approved_user_applications", "users"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
+  add_foreign_key "sign_activities", "signs"
+  add_foreign_key "sign_activities", "users"
   add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end

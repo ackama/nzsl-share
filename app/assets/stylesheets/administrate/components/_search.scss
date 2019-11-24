@@ -1,0 +1,55 @@
+
+$_search-icon-size: 1rem;
+
+.search {
+  margin-left: auto;
+  max-width: 20rem;
+  position: relative;
+  width: 100%;
+
+  &__label {
+    margin: 0;
+  }
+
+  &__input {
+    border-radius: 4px;
+    margin: 0;
+    padding-left: $_search-icon-size * 2.5;
+    padding-right: $_search-icon-size * 2.5;
+  }
+
+  &__eyeglass-icon {
+    fill: $grey-7;
+    height: $_search-icon-size;
+    left: $_search-icon-size;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $_search-icon-size;
+  }
+
+  &__clear-link {
+    height: $_search-icon-size;
+    position: absolute;
+    right: $_search-icon-size * 0.75;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $_search-icon-size;
+  }
+
+  &__clear-icon {
+    fill: $grey-5;
+    height: $_search-icon-size;
+    position: absolute;
+    transition: fill $base-duration $base-timing;
+    width: $_search-icon-size;
+
+    &:hover {
+      fill: $action-color;
+    }
+  }
+}
+
+
+
+

@@ -26,6 +26,14 @@ class SignPolicy < ApplicationPolicy
     update?
   end
 
+  def disagree?
+    user&.approved?
+  end
+
+  def agree?
+    user&.approved?
+  end
+
   def destroy?
     return false if record.published?
 
@@ -33,7 +41,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def overview?
-    owns_record? || moderator?
+    owns_record? || (!private_record? && moderator?)
   end
 
   def cancel_submit?
@@ -53,7 +61,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def cancel_request_unpublish?
-    record.may_cancel_request_unpublish? && owns_record?
+    record.may_cancel_request_unpublish? && (owns_record? || moderator?)
   end
 
   def decline?
@@ -61,8 +69,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if record.contributor == user
-    return true unless record.status == "personal"
+    return true if owns_record? || public?
 
     false
   end
@@ -88,6 +95,10 @@ class SignPolicy < ApplicationPolicy
   end
 
   private
+
+  def private_record?
+    record.personal? || record.declined?
+  end
 
   def owns_record?
     record.contributor == user

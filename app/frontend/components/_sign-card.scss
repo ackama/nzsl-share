@@ -151,19 +151,38 @@
   }
 
   &__votes {
-    color: get-color(medium);
     display: flex;
     flex-direction: row;
     font-size: rem-calc(13);
     font-weight: 600;
 
+    &--agree,
+    &--disagree {
+      color: get-color(medium) !important; // sass-lint:disable-line no-important
+      display: inline-flex;
+      text-decoration: none;
+    }
+
     &--agree {
-      display: flex;
       margin-right: 25px;
     }
 
-    &--disagree {
-      display: flex;
+    &--agreed {
+      color: get-color(success) !important; // sass-lint:disable-line no-important
+      & > svg { @include icon-fill(success); }
+
+      &:hover {
+        filter: brightness(75%);
+      }
+    }
+
+    &--disagreed {
+      color: get-color(alert) !important; // sass-lint:disable-line no-important
+      & > svg { @include icon-fill(alert); }
+
+      &:hover {
+        filter: brightness(75%);
+      }
     }
 
     &--icon {

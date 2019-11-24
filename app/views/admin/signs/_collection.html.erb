@@ -31,79 +31,75 @@ to display a collection of resources in an HTML table.
         <%= link_to(sanitized_order_params(page, collection_field_name).merge(
           collection_presenter.order_params_for(attr_name, key: collection_field_name)
         )) do %>
-        <%= t(
-          "helpers.label.#{collection_presenter.resource_name}.#{attr_name}",
-          default: attr_name.to_s,
-        ).titleize %>
-            <% if collection_presenter.ordered_by?(attr_name) %>
-              <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
-                <svg aria-hidden="true">
-                  <use xlink:href="#icon-up-caret" />
-                </svg>
-              </span>
-            <% end %>
+          <%= t(
+            "helpers.label.#{collection_presenter.resource_name}.#{attr_name}",
+            default: attr_name.to_s,
+          ).titleize %>
+          <% if collection_presenter.ordered_by?(attr_name) %>
+            <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
+              <%= inline_svg "media/images/dropdown.svg", class: "icon--small" %>
+            </span>
           <% end %>
+        <% end %>
         </th>
       <% end %>
-      <% [valid_action?(:edit, collection_presenter.resource_name),
-          valid_action?(:destroy, collection_presenter.resource_name)].count(true).times do %>
-        <th scope="col"></th>
-      <% end %>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% present_collection(resources).each do |resource| %>
-      <tr class="js-table-row"
+      <tr class="<%= "js-table-row table-row--#{resource.status}" %>"
           tabindex="0"
-          <% if valid_action? :show, collection_presenter.resource_name %>
-            <%= %(role=link data-url=#{polymorphic_path([namespace, resource])}) %>
-          <% end %>
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
             <% if show_action? :show, resource -%>
-              <a href="<%= polymorphic_path([namespace, resource]) -%>"
-                 class="action-show"
-                 >
-
+              <%= link_to sign_path(resource) do %>
                 <% begin %>
                   <%= render "admin/signs/cell/#{attribute.name}", resource: resource %>
                 <% rescue ActionView::MissingTemplate%>
                   <%= render_field attribute %>
                 <% end %>
-              </a>
+              <% end %>
             <% end -%>
           </td>
         <% end %>
+        <td class="admin-icons">
+          <button title="New admin comment" class="button clear">
+            <%= inline_svg "media/images/comment.svg", class: "icon--medium list__item__icon" %>
+          </button>
 
-        <% if valid_action? :edit, collection_presenter.resource_name %>
-          <td><%= link_to(
-            t("administrate.actions.edit"),
-            [:edit, namespace, resource],
-            class: "action-edit",
-          ) if show_action? :edit, resource%></td>
-        <% end %>
-
-        <td><% if policy(resource).unpublish? %>
-         <%= link_to(
-            t("admin.sign_workflow.unpublish.link_to"),
-            unpublish_sign_path(resource),
-            class: "text-color-red",
-            method: :patch,
-            data: { confirm: t("admin.sign_workflow.unpublish.confirm") }) %></td>
-        <% end %>
-
-        <% if valid_action? :destroy, collection_presenter.resource_name %>
-          <%= link_to(
-            t("administrate.actions.destroy"),
-            [namespace, resource],
-            class: "text-color-red",
-            method: :delete,
-            data: { confirm: t("administrate.actions.confirm") }
-          ) if show_action? :destroy, resource %></td>
-        <% end %>
+          <button title="Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
+            <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
+          </button>
+        </td>
       </tr>
+      <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin" id="<%= dom_id(resource, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+            <ul class="list__item-menu vertical icons">
+              <li class="list__item-menu__menu-item">
+                <%= link_to edit_sign_path(resource) do %>
+                  <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+                <% end %>
+              </li>
+              <% if policy(resource).unpublish? %>
+                <li class="list__item-menu__menu-item">
+                  <%= link_to unpublish_sign_path(resource), method: :patch,
+                      data: { confirm: t("admin.sign_workflow.unpublish.confirm") } do %>
+                      <%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Unpublish</span>
+                  <% end %>
+                </li>
+              <% elsif valid_action? :destroy, collection_presenter.resource_name %>
+                <li class="list__item-menu__menu-item">
+                  <%= link_to sign_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") } do %>
+                    <%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Destroy</span>
+                  <% end if show_action? :destroy, resource %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
     <% end %>
   </tbody>
 </table>
+
+

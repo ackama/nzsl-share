@@ -1,0 +1,24 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: $base-spacing;
+  padding-right: $base-spacing;
+  text-align: center;
+
+  .first,
+  .prev,
+  .page,
+  .next,
+  .last {
+    margin: $small-spacing;
+  }
+
+  .current {
+    font-weight: $bold-font-weight;
+  }
+
+  span > a {
+    text-decoration: none;
+  }
+}

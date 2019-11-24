@@ -16,6 +16,7 @@
 @import "components/modal-form";
 @import "components/navigation";
 @import "components/no-js";
+@import "components/admin/admin-icons";
 @import "components/progess-indicator";
 @import "components/required-label";
 @import "components/search-bar";
@@ -23,6 +24,9 @@
 @import "components/sign-card";
 @import "components/sign-grid";
 @import "components/social-media";
+@import "components/admin/status";
+@import "components/admin/filters";
+@import "components/admin/table-row";
 
 // Extension is required, otherwise webpacker tries to bundle video.js.
 @import "components/video.scss"; // sass-lint:disable-line clean-import-paths

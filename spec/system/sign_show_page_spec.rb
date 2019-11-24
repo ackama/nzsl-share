@@ -23,8 +23,71 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_content sign.secondary
   end
 
+  it "displays the sign status" do
+    sign_card = page.find("#sign_status", match: :prefer_exact)
+    expect(sign_card).to be_present
+    expect(sign_card.text).to eq "private"
+  end
+
   it "has the expected page title" do
     expect(page).to have_title "#{sign.word} – NZSL Share"
+  end
+
+  it "has the expected share link" do
+    expect(page).to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+  end
+
+  it "has the expected tag 'Add to Folder'" do
+    expect(page.find("a", text: "Add to Folder")).to be_present
+  end
+
+  context "share public sign with anonymous user" do
+    let(:sign) { FactoryBot.create(:sign, :published) }
+
+    before do
+      sign.update(share_token: sign.share_token || SecureRandom.uuid)
+      auth.sign_out
+      visit sign_share_url(sign, sign.share_token)
+    end
+
+    it "does not have the sign share link" do
+      expect(page).not_to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+    end
+
+    it "does not have the sign status" do
+      expect(page).not_to have_selector("#sign_status")
+    end
+
+    it "has the expected link 'Add to Folder'" do
+      expect(page).to have_link "Add to Folder"
+    end
+
+    it "redirects to login when 'Add to Folder' link clicked" do
+      click_link("Add to Folder")
+      expect(page.current_path).to eq new_user_session_path
+    end
+  end
+
+  context "share private sign with anonymous user" do
+    let(:sign) { FactoryBot.create(:sign, :personal) }
+
+    before do
+      sign.update(share_token: sign.share_token || SecureRandom.uuid)
+      auth.sign_out
+      visit sign_share_url(sign, sign.share_token)
+    end
+
+    it "does not have the sign share link" do
+      expect(page).not_to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+    end
+
+    it "does not have the sign status" do
+      expect(page).not_to have_selector("#sign_status")
+    end
+
+    it "does not have the expected link 'Add to Folder'" do
+      expect(page).not_to have_link "Add to Folders"
+    end
   end
 
   context "user not signed in" do
@@ -77,19 +140,67 @@ RSpec.describe "Sign show page", system: true do
     context "moderator is signed in" do
       let(:user) { FactoryBot.create(:user, :moderator) }
 
-      it "allows the moderator to manage the sign" do
-        within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+      context "sign has been submitted for publishing" do
+        let(:sign) { FactoryBot.create(:sign, :submitted) }
+
+        it "displays the moderator message" do
+          within("#sign_overview") do
+            expect(sign_page).to have_content I18n.t("sign_workflow.publish.confirm")
+            expect(sign_page).to have_content "A user has made a request. This sign is currently"
+          end
+        end
+
+        it "allows the moderator to manage the sign", uses_javascript: true do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+
+          my_link = find(:xpath, "//a[contains(@href,'signs/#{sign.id}/publish')]")
+
+          my_link.click
+          alert = page.driver.browser.switch_to.alert
+
+          expect(alert.text).to eq I18n.t!("sign_workflow.publish.confirm")
+          alert.accept
+          expect(subject).to have_content I18n.t!("sign_workflow.publish.success")
+          sign.reload
+          expect(sign.published?).to eq true
+        end
       end
 
-      it "displays the moderator message " do
-        within("#sign_overview") { expect(sign_page).to have_content "you are moderating this sign" }
+      context "sign has been published" do
+        let(:sign) { FactoryBot.create(:sign, :published) }
+
+        it "displays the moderator message" do
+          within("#sign_overview") do
+            expect(sign_page).to have_content "you are moderating this sign"
+            expect(sign_page).not_to have_content "A user has made a request. This sign is currently:"
+          end
+        end
+
+        it "allows the moderator to manage the sign" do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+        end
+      end
+
+      context "sign has been requested for unpublishing" do
+        let(:sign) { FactoryBot.create(:sign, :unpublish_requested) }
+
+        it "displays the moderator message" do
+          within("#sign_overview") do
+            expect(sign_page).to have_content I18n.t("sign_workflow.unpublish.confirm")
+            expect(sign_page).to have_content "A user has made a request. This sign is currently:"
+          end
+        end
+
+        it "allows the moderator to manage the sign" do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+        end
       end
     end
 
     context "owned by the current user" do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
-      it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
+      it { within("#sign_overview") { expect(sign_page).to have_content "Private" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "you are the creator of this sign" } }
 
       it "shows the personal description and edit instructions on hover" do
@@ -227,5 +338,66 @@ RSpec.describe "Sign show page", system: true do
     sign.update!(description: "Hello, world!")
     visit current_path # Reload
     expect(subject).to have_selector "p", text: "Hello, world!"
+  end
+
+  shared_examples "sign card voting" do
+    it "is able to register an agree" do
+      within ".sign-controls" do
+        click_on "Agree"
+        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+      end
+    end
+
+    it "is able to deregister an agree" do
+      within ".sign-controls" do
+        click_on "Agree"
+        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+        click_on "Undo agree"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+      end
+    end
+
+    it "is able to register a disagree" do
+      within ".sign-controls" do
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+      end
+    end
+
+    it "is able to deregister a disagree" do
+      within ".sign-controls" do
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        click_on "Undo disagree"
+        expect(page).to have_selector ".sign-card__votes--disagree", text: "0"
+      end
+    end
+
+    it "is able to switch from agree to disagree" do
+      within ".sign-controls" do
+        click_on "Agree"
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+      end
+    end
+  end
+
+  describe "Voting" do
+    let(:user) { sign.contributor.tap { |c| c.update!(approved: true) } }
+
+    context "not an approved user" do
+      let(:user) { FactoryBot.create(:user) }
+      it { expect(page).not_to have_link "Agree" }
+      it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
+    end
+
+    context "without JS" do
+      include_examples "sign card voting"
+    end
+
+    context "with JS", uses_javascript: true do
+      include_examples "sign card voting"
+    end
   end
 end

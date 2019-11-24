@@ -5,7 +5,7 @@ module AdministratePageHelpers
   end
 
   def header
-    find(".main-content__page-title").text
+    find("h1").text
   end
 
   def click_on_first_row
