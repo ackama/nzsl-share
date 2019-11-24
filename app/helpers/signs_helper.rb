@@ -9,14 +9,46 @@ module SignsHelper
   #     appearance to indicate the sign is already in the folder.
   def folder_button(sign)
     classes = %w[sign-card__folders__button]
-    return link_to(add_folder_icon, new_user_session_path, class: classes) unless user_signed_in?
+
+    return link_to_login(add_folder_icon, classes) unless user_signed_in?
 
     in_folder = sign.available_folders.reject { |_folder, membership| membership.nil? }.any?
     classes << "sign-card__folders__button--in-folder" if in_folder
     button_tag(
       in_folder ? in_folder_icon : add_folder_icon,
       class: classes,
-      data: { toggle: dom_id(sign, :folder_menu) })
+      data: data(sign))
+  end
+
+  def sign_show_folder_button(sign)
+    classes = %w[button clear medium]
+
+    return link_to_login(sign_show_folder_icon, classes) unless user_signed_in?
+
+    button_tag(
+      sign_show_folder_icon,
+      class: classes,
+      data: data(sign)
+    )
+  end
+
+  def fetch_folder_button(sign)
+    return sign_show_folder_button(sign) if sign_show_folder_button?(sign)
+
+    folder_button(sign)
+  end
+
+  def sign_show_folder_button?(sign)
+    show_path = "/signs/#{sign.id}"
+
+    return true if request.path == show_path
+    return true if request.referer.include?(show_path) && request.path.include?("/folder_memberships")
+
+    false
+  end
+
+  def data(sign)
+    { toggle: dom_id(sign, :folder_menu) }
   end
 
   def agree_button(sign, extra_classes="grid-x align-middle", &block)
@@ -113,5 +145,13 @@ module SignsHelper
 
   def approve_title(sign)
     sign.submitted? ? "Publish" : "Make Private"
+  end
+
+  def sign_show_folder_icon
+    inline_svg("media/images/folder-add.svg", aria: true, class: "icon icon--medium") + "Add to Folder"
+  end
+
+  def link_to_login(icon, classes)
+    link_to(icon, new_user_session_path, class: classes)
   end
 end
