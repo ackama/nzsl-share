@@ -16,6 +16,14 @@
   </div>
 
   <div class="field">
+    <%= f.label :bio %>
+    <%= f.text_field :bio %>
+    <p class="help-text">
+      Tell us a little about yourself! This will be visible to other users.
+    </p>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "new-password" %>
     <%= f.error :password %>
