@@ -43,6 +43,7 @@ class UserDashboard < Administrate::BaseDashboard
     administrator
     moderator
     approved
+    approved_user_application
     validator
   ].freeze
 
