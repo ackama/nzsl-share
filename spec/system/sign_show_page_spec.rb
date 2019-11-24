@@ -140,19 +140,67 @@ RSpec.describe "Sign show page", system: true do
     context "moderator is signed in" do
       let(:user) { FactoryBot.create(:user, :moderator) }
 
-      it "allows the moderator to manage the sign" do
-        within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+      context "sign has been submitted for publishing" do
+        let(:sign) { FactoryBot.create(:sign, :submitted) }
+
+        it "displays the moderator message" do
+          within("#sign_overview") do
+            expect(sign_page).to have_content I18n.t("sign_workflow.publish.confirm")
+            expect(sign_page).to have_content "A user has made a request. This sign is currently"
+          end
+        end
+
+        it "allows the moderator to manage the sign", uses_javascript: true do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+
+          my_link = find(:xpath, "//a[contains(@href,'signs/#{sign.id}/publish')]")
+
+          my_link.click
+          alert = page.driver.browser.switch_to.alert
+
+          expect(alert.text).to eq I18n.t!("sign_workflow.publish.confirm")
+          alert.accept
+          expect(subject).to have_content I18n.t!("sign_workflow.publish.success")
+          sign.reload
+          expect(sign.published?).to eq true
+        end
       end
 
-      it "displays the moderator message " do
-        within("#sign_overview") { expect(sign_page).to have_content "you are moderating this sign" }
+      context "sign has been published" do
+        let(:sign) { FactoryBot.create(:sign, :published) }
+
+        it "displays the moderator message" do
+          within("#sign_overview") do
+            expect(sign_page).to have_content "you are moderating this sign"
+            expect(sign_page).not_to have_content "A user has made a request. This sign is currently:"
+          end
+        end
+
+        it "allows the moderator to manage the sign" do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+        end
+      end
+
+      context "sign has been requested for unpublishing" do
+        let(:sign) { FactoryBot.create(:sign, :unpublish_requested) }
+
+        it "displays the moderator message" do
+          within("#sign_overview") do
+            expect(sign_page).to have_content I18n.t("sign_workflow.unpublish.confirm")
+            expect(sign_page).to have_content "A user has made a request. This sign is currently:"
+          end
+        end
+
+        it "allows the moderator to manage the sign" do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+        end
       end
     end
 
     context "owned by the current user" do
       let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
-      it { within("#sign_overview") { expect(sign_page).to have_content "private" } }
+      it { within("#sign_overview") { expect(sign_page).to have_content "Private" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "you are the creator of this sign" } }
 
       it "shows the personal description and edit instructions on hover" do

@@ -31,7 +31,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the sign status" do
-    expect(sign_card).to have_content "private"
+    expect(sign_card).to have_content "Private"
     title = sign_card.find("#sign_status")["title"]
     assert_equal(title, I18n.t!("signs.personal.description"))
   end

@@ -6,6 +6,10 @@
   font-weight: bold;
   padding: 0.5rem;
 
+  &.overview {
+    padding: 0.5rem 1rem;
+  }
+
   &.accent {
     color: $callout-font-color-alt;
   }
