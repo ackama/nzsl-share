@@ -339,4 +339,65 @@ RSpec.describe "Sign show page", system: true do
     visit current_path # Reload
     expect(subject).to have_selector "p", text: "Hello, world!"
   end
+
+  shared_examples "sign card voting" do
+    it "is able to register an agree" do
+      within ".sign-controls" do
+        click_on "Agree"
+        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+      end
+    end
+
+    it "is able to deregister an agree" do
+      within ".sign-controls" do
+        click_on "Agree"
+        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+        click_on "Undo agree"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+      end
+    end
+
+    it "is able to register a disagree" do
+      within ".sign-controls" do
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+      end
+    end
+
+    it "is able to deregister a disagree" do
+      within ".sign-controls" do
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        click_on "Undo disagree"
+        expect(page).to have_selector ".sign-card__votes--disagree", text: "0"
+      end
+    end
+
+    it "is able to switch from agree to disagree" do
+      within ".sign-controls" do
+        click_on "Agree"
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+      end
+    end
+  end
+
+  describe "Voting" do
+    let(:user) { sign.contributor.tap { |c| c.update!(approved: true) } }
+
+    context "not an approved user" do
+      let(:user) { FactoryBot.create(:user) }
+      it { expect(page).not_to have_link "Agree" }
+      it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
+    end
+
+    context "without JS" do
+      include_examples "sign card voting"
+    end
+
+    context "with JS", uses_javascript: true do
+      include_examples "sign card voting"
+    end
+  end
 end
