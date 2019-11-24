@@ -13,47 +13,47 @@ RSpec.describe "Approved user application", type: :system do
     expect(page).to have_content "Thanks. An admin will review your application soon."
   end
 
-  it "receives an email after submitting" do
+  it "sends an email to the user after submitting" do
     subject.fill_in_mandatory_fields
     perform_enqueued_jobs { subject.submit }
-    mail = ActionMailer::Base.deliveries.last
+    mail = ActionMailer::Base.deliveries[-2]
     expect(mail.to).to eq [user.email]
-    expect(mail.subject).to eq I18n.t("approved_user_mailer.pending.subject")
+    expect(mail.subject).to eq I18n.t("approved_user_mailer.submitted.subject")
   end
 
   it "leaves a required field blank" do
     subject.fill_in_mandatory_fields
     subject.fill_in "First name", with: ""
     subject.submit
-    expect(page).to have_selector "#approved_user_application_first_name.invalid + .form-error",
+    expect(page).to have_selector "#application_first_name.invalid + .form-error",
                                   text: "can't be blank"
   end
 
   it "picks some options for language roles" do
     subject.fill_in_mandatory_fields
-    roles = Demographic.language_roles.sample(2)
-    roles.each { |role| check I18n.t("approved_user_application.language_roles.#{role}") }
+    roles = Demographics.language_roles.sample(2)
+    roles.each { |role| check I18n.t("demographic.language_roles.#{role}") }
     subject.submit
     expect(page).to have_content I18n.t("approved_users.create.success")
-    expect(Demographic.last.language_roles).to match_array roles
+    expect(ApprovedUserApplication.last.language_roles).to match_array roles
   end
 
   it "picks the 'Other' option for language roles", uses_javascript: true do
     subject.fill_in_mandatory_fields
     other_role = Faker::Lorem.sentence
     subject.check "Other:"
-    subject.fill_in "approved_user_application_language_roles", with: other_role
+    subject.fill_in "application_language_roles", with: other_role
     subject.submit
-    expect(Demographic.last.language_roles).to match_array ["other", other_role]
+    expect(ApprovedUserApplication.last.language_roles).to match_array ["other", other_role]
   end
 
   it "picks the 'Other' option for ethnicity", uses_javscript: true do
     subject.fill_in_mandatory_fields
     other_ethnicity = Faker::Lorem.sentence
     subject.choose "Other ethnic group:"
-    subject.fill_in "approved_user_application_ethnicity", with: other_ethnicity
+    subject.fill_in "application_ethnicity", with: other_ethnicity
     subject.submit
-    expect(Demographic.last.ethnicity).to eq other_ethnicity
+    expect(ApprovedUserApplication.last.ethnicity).to eq other_ethnicity
   end
 
   context "already-approved user" do
