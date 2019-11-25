@@ -9,8 +9,8 @@ class ArchiveSign < ApplicationService
       .then(&:dup) # After this point we're acting on the copy
       .then(&method(:reassign_contributor))
       .then(&method(:assign_state))
-      .tap(&:save!)
       .then(&method(:copy_attachments))
+      .tap(&:save!)
   end
 
   private

@@ -19,8 +19,13 @@ class SignDisagreementController < ApplicationController
   def respond_to_success
     respond_to do |format|
       format.html { redirect_back(fallback_location: sign) }
-      format.js { head :created }
+      format.js { render votes_template }
     end
+  end
+
+  def votes_template
+    parts = _routes.recognize_path(request.referer).slice(:controller, :action)
+    parts == { controller: "signs", action: "show" } ? "signs/show/votes" : "signs/card/votes"
   end
 
   def sign
