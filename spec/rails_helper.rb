@@ -46,6 +46,7 @@ Capybara.register_driver :chrome do |app|
   options.add_argument("--no-proxy-server")
   options.add_argument("--proxy-server='direct://'")
   options.add_argument("--proxy-bypass-list=*")
+  options.add_argument("--headless") unless ENV["FOREGROUND"]
 
   Capybara::Selenium::Driver.new app, browser: :chrome, options: options
 end
