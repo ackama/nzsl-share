@@ -17,12 +17,18 @@ RSpec.describe "Topics", type: :system do
 
   describe "show" do
     let(:topic) { topics.first }
+    let!(:private_sign) { FactoryBot.create(:sign, topic: topic) }
+    let!(:submitted_sign) { FactoryBot.create(:sign, :submitted, topic: topic) }
+
     subject { page }
     before { visit topic_path(topic) }
 
     it { is_expected.to have_title "#{topic.name} – NZSL Share" }
     it { is_expected.to have_content topic.name }
-    it { is_expected.to have_selector(".sign-card", count: topic.signs.count) }
+    it "shows all published signs" do
+      expect(topic.signs.count - 2).to eq topic.signs.published.count
+      is_expected.to have_selector(".sign-card", count: topic.signs.published.count)
+    end
     it "can click through to the sign card show page" do
       sign = topic.signs.first
       click_on sign.word
