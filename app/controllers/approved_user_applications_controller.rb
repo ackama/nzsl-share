@@ -1,4 +1,4 @@
-class ApprovedUsersController < ApplicationController
+class ApprovedUserApplicationsController < ApplicationController
   before_action :authenticate_user!
 
   def new
