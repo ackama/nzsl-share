@@ -1,46 +1,50 @@
-<div class="cell small-12 medium-8 medium-offset-2 large-6 large-offset-3 margin-top-2">
+<div class="cell medium-8 medium-offset-2 margin-top-2">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form" }) do |f| %>
-  <legend><h2>Sign up</h2></legend>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form" }) do |f| %>
+    <h1 class="margin-bottom-1">Sign up</h1>
 
-  <div class="field">
-    <%= f.label :username %>
-    <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
-    <%= f.error :username %>
-  </div>
+    <hr class="form__divider">
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    <%= f.error :email %>
-  </div>
+    <div class="field margin-top-1">
+      <%= f.label :username, class: "required" %>
+      <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
+      <%= f.error :username %>
+    </div>
 
-  <div class="field">
-    <%= f.label :bio %>
-    <%= f.text_field :bio %>
-    <p class="help-text">
-      Tell us a little about yourself! This will be visible to other users.
-    </p>
-  </div>
+    <div class="field">
+      <%= f.label :email, class: "required" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.error :email %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <%= f.error :password %>
-    <% if @minimum_password_length %>
-    <span class="help-text pull-right">(<%= @minimum_password_length %> characters minimum)</span>
-    <% end %><br />
-  </div>
+    <div class="field">
+      <%= f.label :bio %>
+      <%= f.text_field :bio %>
+      <p class="help-text">
+        Tell us a little about yourself! This will be visible to other users.
+      </p>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    <%= f.error :password_confirmation %>
-  </div>
+    <div class="field">
+      <%= f.label :password, class: "required" %>
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      <%= f.error :password %>
+      <% if @minimum_password_length %>
+      <span class="help-text pull-right">(<%= @minimum_password_length %> characters minimum)</span>
+      <% end %><br />
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up", class: "button" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <%= f.error :password_confirmation %>
+    </div>
 
-<%= render "users/shared/links" %>
+    <hr class="form__divider margin-top-2">
+
+    <div class="actions margin-top-2 text-right">
+      <%= f.submit "Sign up", class: "button" %>
+    </div>
+  <% end %>
+  <%= render "users/shared/links" %>
+</div>
