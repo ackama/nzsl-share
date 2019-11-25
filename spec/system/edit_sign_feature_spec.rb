@@ -18,12 +18,22 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject.current_path).to eq edit_sign_path(sign)
   end
 
+  it "shows the destroy button to contributors for private signs" do
+    expect(subject).to have_content "Remove from NZSL Share"
+    expect(subject).not_to have_content "Unpublish"
+  end
+
   context "moderator signed in" do
     let(:user) { FactoryBot.create(:user, :moderator) }
     let(:sign) { FactoryBot.create(:sign, :published) }
 
     it "renders the edit page" do
       expect(subject.current_path).to eq edit_sign_path(sign)
+    end
+
+    it "shows the unpublish button" do
+      expect(subject).to have_content "Unpublish"
+      expect(subject).not_to have_content "Remove from NZSL Share"
     end
   end
 
@@ -62,6 +72,11 @@ RSpec.describe "Editing a sign", type: :system do
     sign.reload
     expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
     expect(sign.submitted?).to eq false
+  end
+
+  context "moderatering public signs" do
+    let(:user) { FactoryBot.create(:user, :moderator) }
+    let(:sign) { FactoryBot.create(:sign, :published) }
   end
 
   it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
