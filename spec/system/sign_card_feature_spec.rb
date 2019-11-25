@@ -38,7 +38,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
-    expect(sign_card).not_to have_content "Private"
+    expect(sign_card).to have_no_content "Private"
   end
 
   it "shows the embedded media" do
@@ -233,7 +233,7 @@ RSpec.describe "Sign card features", type: :system do
 
     context "not an approved user" do
       let(:user) { FactoryBot.create(:user) }
-      it { expect(page).not_to have_link "Agree" }
+      it { expect(page).to have_no_link "Agree" }
       it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
     end
 

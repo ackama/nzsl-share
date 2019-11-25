@@ -60,7 +60,7 @@ class SignAttachmentsController < ApplicationController
   end
 
   def sign
-    @sign ||= policy_scope(current_user.signs)
+    @sign ||= policy_scope(Sign)
               .find(params[:sign_id])
   end
 
