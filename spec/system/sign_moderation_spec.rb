@@ -27,11 +27,6 @@ RSpec.describe "Sign moderation", type: :system do
         expect(page).to have_field "search", with: "unpublish_requested:"
       end
 
-      it "filters by declined" do
-        select "Declined", from: "status"
-        expect(page).to have_field "search", with: "declined:"
-      end
-
       it "filters by personal" do
         select "Personal", from: "status"
         expect(page).to have_field "search", with: "personal:"
@@ -52,11 +47,6 @@ RSpec.describe "Sign moderation", type: :system do
       it "filters by unpublish requested" do
         sign = FactoryBot.create(:sign, :unpublish_requested)
         expect { submit_search("unpublish_requested:") }.to change { page.has_content?(sign.word) }.to eq true
-      end
-
-      it "filters by declined" do
-        sign = FactoryBot.create(:sign, :declined)
-        expect { submit_search("declined:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "searches user email" do
