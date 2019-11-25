@@ -42,8 +42,10 @@
     </div>
 
     <div class="field">
-      <%= f.label :current_password %>
+      <%= f.label :current_password, class: "required" %>
       <%= f.password_field :current_password, autocomplete: "current-password" %>
+      <%= f.error :current_password %>
+
       <p class="help-text ">(we need your current password to confirm your changes)</p>
     </div>
 
