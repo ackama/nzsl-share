@@ -38,7 +38,7 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
-    expect(sign_card).not_to have_content "private"
+    expect(sign_card).not_to have_content "Private"
   end
 
   it "shows the embedded media" do

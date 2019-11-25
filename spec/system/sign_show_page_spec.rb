@@ -26,7 +26,7 @@ RSpec.describe "Sign show page", system: true do
   it "displays the sign status" do
     sign_card = page.find("#sign_status", match: :prefer_exact)
     expect(sign_card).to be_present
-    expect(sign_card.text).to eq "private"
+    expect(sign_card.text).to eq "Private"
   end
 
   it "has the expected page title" do
