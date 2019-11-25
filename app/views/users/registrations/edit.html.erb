@@ -1,58 +1,63 @@
-<div class="cell small-12 medium-8 medium-offset-2 large-6 large-offset-3">
+<div class="cell margin-top-2 form medium-8 medium-offset-2">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <legend><h2>Your Account</h2></legend>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <h2>Edit profile</h2>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <hr class="form__divider">
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div class="field content-container">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :username %>
+      <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
+    </div>
+
+    <div class="field">
+      <%= f.label :bio %>
+      <%= f.text_field :bio %>
+      <p class="help-text">
+        Tell us a little about yourself! This will be visible to other users.
+      </p>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      <p class="help-text">
+        <%= "#{@minimum_password_length} characters minimum. " if @minimum_password_length %>
+        Leave blank if you don't want to change it.
+      </p>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password, autocomplete: "current-password" %>
+      <p class="help-text ">(we need your current password to confirm your changes)</p>
+    </div>
+
+    <hr class="form__divider">
+
+    <div class="actions margin-top-1 text-right">
+      <%= link_to "Back", :back, class: "button clear margin-bottom-0" %>
+      <%= f.submit "Update", class: "button margin-bottom-0" %>
+    </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :username %>
-    <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
-  </div>
-
-  <div class="field">
-    <%= f.label :bio %>
-    <%= f.text_field :bio %>
-    <p class="help-text">
-      Tell us a little about yourself! This will be visible to other users.
-    </p>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <p class="help-text">
-      <%= "#{@minimum_password_length} characters minimum. " if @minimum_password_length %>
-      Leave blank if you don't want to change it.
-    </p>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-    <p class="help-text ">(we need your current password to confirm your changes)</p>
-  </div>
-
-  <div class="actions">
-    <%= link_to "Back", :back, class: "button clear" %>
-    <%= f.submit "Update", class: "button" %>
-  </div>
-<% end %>
-
-<div class="callout secondary">
-  <h3>Unhappy?</h3>
-  <p><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "button hollow alert expanded" %></p>
 </div>
+
+  <div class="cell medium-8 medium-offset-2 callout secondary margin-bottom-2">
+    <h6>Unhappy?</h6>
+    <p><%= button_to "Cancel your account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "button alert margin-bottom-0 expanded" %></p>
+  </div>
 
