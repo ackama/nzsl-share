@@ -18,14 +18,9 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject.current_path).to eq edit_sign_path(sign)
   end
 
-  context "non-owner signed in" do
-    let(:user) { FactoryBot.create(:user) }
-    it { expect(current_path).to eq root_path }
-    it { expect(page).to have_content I18n.t("application.unauthorized") }
-  end
-
   context "moderator signed in" do
     let(:user) { FactoryBot.create(:user, :moderator) }
+    let(:sign) { FactoryBot.create(:sign, :published) }
 
     it "renders the edit page" do
       expect(subject.current_path).to eq edit_sign_path(sign)

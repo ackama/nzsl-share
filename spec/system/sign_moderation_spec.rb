@@ -4,7 +4,7 @@ RSpec.describe "Sign moderation", type: :system do
   include AdministratePageHelpers
   let!(:moderator) { FactoryBot.create(:user, :moderator) }
   let(:auth) { AuthenticateFeature.new(moderator) }
-  let!(:signs) { FactoryBot.create_list(:sign, 3) }
+  let!(:signs) { FactoryBot.create_list(:sign, 3, :published) }
 
   before { visit_admin(:signs, admin: moderator) }
 
@@ -59,23 +59,18 @@ RSpec.describe "Sign moderation", type: :system do
         expect { submit_search("declined:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
-      it "filters by personal" do
-        sign = FactoryBot.create(:sign, :personal)
-        expect { submit_search("personal:") }.to change { page.has_content?(sign.word) }.to eq true
-      end
-
       it "searches user email" do
-        sign = FactoryBot.create(:sign)
+        sign = FactoryBot.create(:sign, :published)
         expect { submit_search(sign.contributor.email) }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "searches user username" do
-        sign = FactoryBot.create(:sign)
+        sign = FactoryBot.create(:sign, :published)
         expect { submit_search(sign.contributor.username) }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "searches by word" do
-        sign = FactoryBot.create(:sign)
+        sign = FactoryBot.create(:sign, :published)
         expect { submit_search(sign.word) }.to change { page.has_content?(sign.word) }.to eq true
       end
     end
