@@ -64,6 +64,11 @@ RSpec.describe "Sign moderation", type: :system do
         expect { submit_search("personal:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
+      it "filters by archived" do
+        sign = FactoryBot.create(:sign, :archived)
+        expect { submit_search("archived:") }.to change { page.has_content?(sign.word) }.to eq true
+      end
+
       it "searches user email" do
         sign = FactoryBot.create(:sign)
         expect { submit_search(sign.contributor.email) }.to change { page.has_content?(sign.word) }.to eq true
