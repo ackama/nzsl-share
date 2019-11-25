@@ -17,7 +17,7 @@ module SignFolderButtonHelper
     button_tag(
       in_folder ? in_folder_icon : add_folder_icon,
       class: classes,
-      data: data(sign))
+      data: toggle_data(sign))
   end
 
   def sign_show_folder_button(sign)
@@ -28,7 +28,7 @@ module SignFolderButtonHelper
     button_tag(
       sign_show_folder_icon,
       class: classes,
-      data: data(sign)
+      data: toggle_data(sign)
     )
   end
 
@@ -40,18 +40,18 @@ module SignFolderButtonHelper
 
   def sign_show_folder_button?(sign)
     return true if request.path.include?(sign_path(sign)) # show for sign and share
-    return true if sign_referer?(sign)
+    return true if from_sign_show?(sign)
 
     false
   end
 
-  def sign_referer?(sign)
+  def from_sign_show?(sign)
     request.referer.present? &&
       request.referer.include?(sign_path(sign)) &&
       request.path.include?("/folder_memberships")
   end
 
-  def data(sign)
+  def toggle_data(sign)
     { toggle: dom_id(sign, :folder_menu) }
   end
 
