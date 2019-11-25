@@ -18,6 +18,40 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     end
   end
 
+  describe ".accepted" do
+    let(:application) { FactoryBot.build(:approved_user_application) }
+    let(:mail) { ApprovedUserMailer.accepted(application) }
+
+    it "renders the headers" do
+      expect(mail.subject).to eq("We've accepted your application")
+      expect(mail.to).to eq([application.user.email])
+      expect(mail.from).to eq([ApplicationMailer.default[:from]])
+    end
+
+    it "renders the body" do
+      body = mail.body.encoded
+      expect(body).to match("Hi #{application.user.username}")
+      expect(body).to include("We have accepted your application to become an")
+    end
+  end
+
+  describe ".declined" do
+    let(:application) { FactoryBot.build(:approved_user_application) }
+    let(:mail) { ApprovedUserMailer.declined(application) }
+
+    it "renders the headers" do
+      expect(mail.subject).to eq("Your application to become an approved user needs some changes")
+      expect(mail.to).to eq([application.user.email])
+      expect(mail.from).to eq([ApplicationMailer.default[:from]])
+    end
+
+    it "renders the body" do
+      body = mail.body.encoded
+      expect(body).to match("Hi #{application.user.username}")
+      expect(body).to include("We need you to make some changes to your application")
+    end
+  end
+
   describe ".admin_submitted" do
     let!(:admin) { FactoryBot.create(:user, :administrator) }
     let(:application) { FactoryBot.create(:approved_user_application) }

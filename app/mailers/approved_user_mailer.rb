@@ -11,7 +11,7 @@ class ApprovedUserMailer < ApplicationMailer
 
   def accepted(application)
     @user = application.user
-    mail to: user.email
+    mail to: @user.email
   end
 
   def declined(application)

@@ -9,4 +9,14 @@ class ApprovedUserPreview < ActionMailer::Preview
     application = FactoryBot.build_stubbed(:approved_user_application)
     ApprovedUserMailer.admin_submitted(application)
   end
+
+  def accepted
+    application = FactoryBot.build_stubbed(:approved_user_application, :accepted)
+    ApprovedUserMailer.accepted(application)
+  end
+
+  def declined
+    application = FactoryBot.build_stubbed(:approved_user_application, :declined)
+    ApprovedUserMailer.declined(application)
+  end
 end
