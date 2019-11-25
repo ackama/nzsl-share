@@ -26,7 +26,7 @@
     </div>
     <h6>Discuss signs</h6>
     <p>Approved members comment on signs, agree or disagree</p>
-    <%= link_to "Learn more", new_approved_user_application_path %>
+    <%= link_to "Learn more", new_approved_user_application_path if policy(ApprovedUserApplication).new? %>
   </div>
 
   <div class="home-main__container cell small-6 medium-3">
