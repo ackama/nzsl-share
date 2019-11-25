@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published? || owns_record? || (moderator? && !record.personal?)
+    public_record? || owns_record? || (moderator? && !private_record?)
   end
 
   def create?
@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public?) || (moderator? && !record.personal?)
+    (owns_record? && !public_record?) || (moderator? && !private_record?)
   end
 
   def edit?
@@ -32,7 +32,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return false if public?
+    return false if public_record?
 
     owns_record? || moderator?
   end
@@ -66,7 +66,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if owns_record? || public?
+    return true if owns_record? || public_record?
 
     false
   end
@@ -93,6 +93,10 @@ class SignPolicy < ApplicationPolicy
 
   private
 
+  def public_record?
+    record.published? || record.unpublish_requested?
+  end
+
   def private_record?
     record.personal? || record.declined?
   end
@@ -103,9 +107,5 @@ class SignPolicy < ApplicationPolicy
 
   def contributor?
     user.present?
-  end
-
-  def public?
-    record.published? || record.unpublish_requested?
   end
 end
