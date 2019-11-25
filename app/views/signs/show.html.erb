@@ -35,7 +35,7 @@
     </div>
 
     <div class="grid-x sign-controls sign-card__section sign-card__section--horizontal">
-      <%= render "sign/show/votes", sign: @sign %>
+      <%= render "signs/show/votes", sign: @sign %>
       <div class="cell auto"></div>
       <div class="cell shrink">
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>
