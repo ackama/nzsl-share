@@ -22,4 +22,3 @@ import "../components/folder-membership";
 import "../components/hero-unit_search";
 import "../components/video.js";
 import "../components/toggle-truthy";
-import "../components/votes";
