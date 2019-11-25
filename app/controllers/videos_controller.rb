@@ -1,4 +1,6 @@
 class VideosController < ApplicationController
+  skip_before_action :store_user_location!
+
   PRESET_MAP = {
     "1080p" => VideoEncodingPreset.default.muted.scale_1080,
     "720p" => VideoEncodingPreset.default.muted.scale_720,
@@ -13,6 +15,8 @@ class VideosController < ApplicationController
 
     redirect_to representation.processed
   end
+
+  private
 
   def blob
     ActiveStorage::Blob.find_signed(params[:id])
