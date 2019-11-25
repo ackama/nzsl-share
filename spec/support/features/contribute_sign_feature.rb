@@ -2,7 +2,7 @@ require_relative "./file_uploads"
 
 class ContributeSignFeature
   include Capybara::DSL
-  include WaitForPath
+  # include WaitForPath
   include FileUploads
   attr_reader :user
 
