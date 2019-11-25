@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :search, only: [:index]
-  resources :approved_users, only: %i[new create]
+  resources :approved_user_applications, only: %i[new create]
   resources :signs, except: %i[index] do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :sign_attachments, only: %i[create update destroy],
