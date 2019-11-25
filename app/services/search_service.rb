@@ -7,7 +7,7 @@ class SearchService < ApplicationService
 
   def initialize(params)
     @search = params[:search]
-    @relation = params[:relation] ||= Sign
+    @relation = params[:relation]
     @results = new_results
   end
 
