@@ -8,7 +8,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def create?
-    contributor? && user.contribution_limit_reached?
+    contributor? && !user.contribution_limit_reached?
   end
 
   def new?
