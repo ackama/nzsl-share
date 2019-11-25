@@ -7,6 +7,6 @@ module Admin
     helper PresentersHelper
 
     before_action :authenticate_user!
-    before_action { authorize :admin, :index? }
+    before_action { authorize :admin, :administrator_or_moderator? }
   end
 end
