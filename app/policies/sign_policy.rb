@@ -8,10 +8,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def create?
-    return false unless contributor?
-    return false if user.contribution_limit_reached?
-
-    true
+    contributor? && user.contribution_limit_reached?
   end
 
   def new?
