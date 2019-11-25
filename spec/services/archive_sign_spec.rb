@@ -8,10 +8,11 @@ RSpec.describe ArchiveSign, type: :service do
 
   describe "#process" do
     subject { svc.process }
-    it "creates a copy of the sign" do
+    it "creates an archived copy of the sign" do
       clone = nil
       expect { clone = subject }.to change(Sign, :count)
       expect(clone.word).to eq sign.word
+      expect(clone).to be_archived
     end
 
     it "updates the contributor on the new sign to the provided user" do
@@ -28,6 +29,16 @@ RSpec.describe ArchiveSign, type: :service do
       expect { clone = subject }.to change(ActiveStorage::Attachment, :count).by(1)
       expect(clone.video.blob).to eq sign.video.blob
       expect(blob_exists?(clone.video.blob)).to eq true
+    end
+
+    context "shared sign" do
+      let(:sign) { FactoryBot.create(:sign, share_token: "abc123") }
+
+      it "clears the share token on the duplicated sign" do
+        clone = subject
+        expect(clone.share_token).not_to eq sign.share_token
+        expect(clone.share_token).to eq nil
+      end
     end
 
     context "with usage examples" do

@@ -7,6 +7,7 @@ class ArchiveSign < ApplicationService
   def process
     @sign
       .then(&:dup) # After this point we're acting on the copy
+      .then(&method(:assign_attributes))
       .then(&method(:reassign_contributor))
       .then(&method(:assign_state))
       .then(&method(:copy_attachments))
@@ -14,6 +15,12 @@ class ArchiveSign < ApplicationService
   end
 
   private
+
+  def assign_attributes(sign)
+    sign.status = "archived"
+    sign.share_token = nil
+    sign
+  end
 
   def reassign_contributor(sign)
     sign.contributor = @user
