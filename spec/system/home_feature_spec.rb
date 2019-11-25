@@ -19,7 +19,6 @@ RSpec.describe "Homepage", type: :system do
     signs = page.find(".home-main__signs", match: :first)
     hero_unit = page.find(".hero-unit")
     page.scroll_to(signs)
-    page.save_screenshot("test.png")
     expect(page).to have_css("#header-nav", visible: true)
     page.scroll_to(hero_unit)
     expect(page).to have_css("#header-nav", visible: false)
