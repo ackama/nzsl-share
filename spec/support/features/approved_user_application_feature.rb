@@ -5,7 +5,7 @@ class ApprovedUserApplicationFeature
     @user = user
     @application = application
     sign_in user
-    visit "/approved_users/new"
+    visit "/approved_user_applications/new"
   end
 
   def fill_in_mandatory_fields

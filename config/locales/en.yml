@@ -30,7 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  approved_users:
+  approved_user_applications:
     create:
       success: Thanks. An admin will review your application soon.
   folder_memberships:
@@ -54,6 +54,9 @@ en:
           hint: Upload up to 2 videos - e.g. show how your sign is used in an example sentence; explain what your sign means in NZSL; explain why you think this is a good sign
     update:
       success: Sign successfully updated.
+    archived:
+      display_name: Archived
+      moderator_display_name: Archived
     personal:
       display_name: "Private"
       moderator_display_name: Private

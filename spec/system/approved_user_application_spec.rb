@@ -43,7 +43,7 @@ RSpec.describe "Approved user application", type: :system do
     roles = Demographics.language_roles.sample(2)
     roles.each { |role| check I18n.t("demographic.language_roles.#{role}") }
     subject.submit
-    expect(page).to have_content I18n.t("approved_users.create.success")
+    expect(page).to have_content I18n.t!("approved_user_applications.create.success")
     expect(ApprovedUserApplication.last.language_roles).to match_array roles
   end
 

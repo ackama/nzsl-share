@@ -26,7 +26,7 @@ RSpec.describe "Sign show page", system: true do
   it "displays the sign status" do
     sign_card = page.find("#sign_status", match: :prefer_exact)
     expect(sign_card).to be_present
-    expect(sign_card.text).to eq "private"
+    expect(sign_card.text).to eq "Private"
   end
 
   it "has the expected page title" do
@@ -172,7 +172,7 @@ RSpec.describe "Sign show page", system: true do
         it "displays the moderator message" do
           within("#sign_overview") do
             expect(sign_page).to have_content "you are moderating this sign"
-            expect(sign_page).not_to have_content "A user has made a request. This sign is currently:"
+            expect(sign_page).to have_no_content "A user has made a request. This sign is currently:"
           end
         end
 
