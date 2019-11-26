@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
   resource :styleguide, only: :show
-  resources :users, only: :show
+  resources :users, only: :show, param: :username
 
   require "sidekiq/web"
   mount Sidekiq::Web => "/sidekiq" # monitoring console
