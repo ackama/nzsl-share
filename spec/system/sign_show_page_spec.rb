@@ -44,8 +44,8 @@ RSpec.describe "Sign show page", system: true do
     expect(page).to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
   end
 
-  it "has the expected tag 'Add to Folder'" do
-    expect(page.find("a", text: "Add to Folder")).to be_present
+  it "has the expected 'Add to Folder' button" do
+    expect(page).to have_button "Add to Folder"
   end
 
   context "share public sign with anonymous user" do
@@ -93,7 +93,7 @@ RSpec.describe "Sign show page", system: true do
     end
 
     it "does not have the expected link 'Add to Folder'" do
-      expect(page).not_to have_link "Add to Folders"
+      expect(page).not_to have_link "Add to Folder"
     end
   end
 

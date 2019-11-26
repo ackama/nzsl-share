@@ -52,6 +52,9 @@
         @include icon-size(mid);
       }
 
+      &--text-color {
+        color: #646970 !important; // sass-lint:disable-line no-important
+      }
 
       &--in-folder {
         &:not(:hover) {
@@ -60,6 +63,16 @@
           svg {
             @include icon-fill(success);
           }
+        }
+      }
+
+      &--in-folder-for-show {
+        &:hover {
+          filter: brightness(75%);
+        }
+
+        svg {
+          @include icon-fill(success);
         }
       }
 
