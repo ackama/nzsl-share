@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :search, only: [:index]
+  resources :approved_user_applications, only: %i[new create]
   resources :signs, except: %i[index] do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :sign_attachments, only: %i[create update destroy],
@@ -42,5 +43,5 @@ Rails.application.routes.draw do
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 
-  get "/:page" => "static#show"
+  get "/:page" => "static#show", as: :page
 end

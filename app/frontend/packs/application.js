@@ -20,6 +20,6 @@ import "../components/header";
 import "../components/character-count";
 import "../components/folder-membership";
 import "../components/hero-unit_search";
+import "../components/option-other";
 import "../components/video.js";
 import "../components/toggle-truthy";
-import "../components/votes";

@@ -35,17 +35,7 @@
     </div>
 
     <div class="grid-x sign-controls sign-card__section sign-card__section--horizontal">
-      <div class="cell shrink js-sign-votes" id="<%= @sign.dom_id(:votes) %>">
-        <%= agree_button(@sign, "button clear") do %>
-          <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--medium" %>
-          <%= @sign.agree_count %> Agree
-        <% end %>
-        <%= disagree_button(@sign, "button clear") do %>
-          <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--medium" %>
-          <%= @sign.disagree_count %>
-          Disagree
-        <% end %>
-      </div>
+      <%= render "signs/show/votes", sign: @sign %>
       <div class="cell auto"></div>
       <div class="cell shrink">
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>

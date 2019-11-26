@@ -1,0 +1,28 @@
+default: &default
+  age_brackets:
+    - "13_18"
+    - "19_29"
+    - "30_49"
+    - "50_plus"
+  ethnicities:
+    - nz_european
+    - māori
+    - pacific_islander
+    - asian
+  genders:
+    - male
+    - female
+    - not_identified
+  language_roles:
+    - nzsl_teacher
+    - coda
+    - interpreter
+    - educator
+    - family_member
+    - parent
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default

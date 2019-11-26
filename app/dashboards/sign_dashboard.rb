@@ -71,7 +71,8 @@ class SignDashboard < Administrate::BaseDashboard
     submitted: ->(resources) { resources.submitted },
     published: ->(resources) { resources.published },
     declined: ->(resources) { resources.declined },
-    unpublish_requested: ->(resources) { resources.unpublish_requested }
+    unpublish_requested: ->(resources) { resources.unpublish_requested },
+    archived: ->(resources) { resources.archived }
   }.freeze
 
   # Overwrite this method to customize how signs are displayed
