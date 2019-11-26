@@ -32,7 +32,7 @@
 en:
   approved_user_applications:
     create:
-      success: Thanks. An admin will review your application soon.
+      success: Thank you! An NZSL Share Admin will look at your application soon.
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
@@ -160,9 +160,9 @@ en:
     submitted:
       subject: We've received your application
     accepted:
-      subject: We've accepted your application
+      subject: Your approved member application on NZSL Share
     declined:
-      subject: Your application to become an approved user needs some changes
+      subject: Your approved member application on NZSL Share
   activemodel:
     errors: &activemodel_errors
       messages:
@@ -200,10 +200,10 @@ en:
       asian: Asian
       other: 'Other ethnic group:'
     language_roles:
-      nzsl_teacher: NZSL Teacher
+      nzsl_teacher: NZSL teacher
       coda: CODA
       interpreter: NZSL interpreter
       educator: Teacher or teacher aide with deaf children
       family_member: Partner / family member of a deaf person
-      parent: Parent of a deaf child
+      parent: Parent of a deaf person
       other: 'Other:'

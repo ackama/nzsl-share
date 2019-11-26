@@ -13,8 +13,7 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
 
     it "renders the body" do
       body = mail.body.encoded
-      expect(body).to match("Hi #{application.user.username}")
-      expect(body).to include("We have received your application to become an")
+      expect(body).to include("We have received your application.")
     end
   end
 
@@ -23,15 +22,14 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.accepted(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("We've accepted your application")
+      expect(mail.subject).to eq("Your approved member application on NZSL Share")
       expect(mail.to).to eq([application.user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
 
     it "renders the body" do
       body = mail.body.encoded
-      expect(body).to match("Hi #{application.user.username}")
-      expect(body).to include("We have accepted your application to become an")
+      expect(body).to include("Congratulations, you are now an Approved Member of NZSL Share!")
     end
   end
 
@@ -40,15 +38,14 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.declined(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Your application to become an approved user needs some changes")
+      expect(mail.subject).to eq("Your approved member application on NZSL Share")
       expect(mail.to).to eq([application.user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
 
     it "renders the body" do
       body = mail.body.encoded
-      expect(body).to match("Hi #{application.user.username}")
-      expect(body).to include("We need you to make some changes to your application")
+      expect(body).to include("Unfortunately, we have not approved your application.")
     end
   end
 

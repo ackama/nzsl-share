@@ -11,7 +11,7 @@ RSpec.describe "Approved user application", type: :system do
     subject.fill_in_mandatory_fields
     expect { subject.submit; user.reload }.to change(user, :approved_user_application).to be_present
     expect(page).to have_current_path root_path
-    expect(page).to have_content "Thanks. An admin will review your application soon."
+    expect(page).to have_content "Thank you! An NZSL Share Admin will look at your application soon."
   end
 
   it "sends an email to the user after submitting" do

@@ -33,28 +33,35 @@
       <h2 class="primary">Approved Member</h2>
       <hr class="form__divider margin-bottom-2">
 
+      <p>We are looking for Deaf community members who use NZSL every day to help grow NZSL Share.</p>
+      <p>
+        To make NZSL Share a safe community space, only Approved Members can:
+        <ul>
+          <li>add new signs for everyone to see.</li>
+          <li>comment on signs, and say if they agree or disagree with them.</li>
+        </ul>
+      </p>
+
+      <p>You do not need to be an Approved member to set up an account, add private signs, or save your
+      favourite signs in folders.</p>
+
+
       <% if f.object.approved? %>
-        <p>
-          You are an approved member! Approved members can comment on signs, agree or disagree, and contribute
-          new signs.
-        </p>
+        <p>You are an approved member!</p>
       <% elsif f.object.approved_user_application&.submitted? %>
-        <p>
-          You have applied to become an approved member. An admin will review your application soon.
-        </p>
+        <p>You have applied to become an approved member. An admin will review your application soon.</p>
       <% elsif f.object.approved_user_application&.declined? %>
         <p>
-          Your application has been reviewed but was not accepted because of incorrect or incomplete information.
-          If you wish, you can re-apply with updated information:
+         Unfortunately, we have not approved your application.
+         You can still keep your account with NZSL Share, browse signs,
+         add your favourite signs to folders, upload your own private signs and
+         share them with others through a link.
         </p>
+
+        <p>If you wish, you can re-apply with updated information:</p>
 
         <p><%= link_to "Apply to become an approved member", new_approved_user_application_path, class: "button" %></p>
       <% else %>
-        <p>
-          You are not an approved member. Approved members can comment on signs, agree or disagree, and contribute
-          new signs.
-        </p>
-
         <p><%= link_to "Apply to become an approved member", new_approved_user_application_path, class: "button" %></p>
       <% end %>
     </div>
