@@ -110,13 +110,10 @@ RSpec.describe "Sign show page", system: true do
         expect(subject).to have_selector "h2", text: sign.word
       end
     end
-
-    it "doesn't display the sign" do
-      expect(page).to have_content I18n.t("application.unauthorized")
-    end
   end
 
   context "moderator is signed in" do
+    let(:sign) { FactoryBot.create(:sign, :published) }
     let(:user) { FactoryBot.create(:user, :moderator) }
 
     it "displays the sign word" do
@@ -223,7 +220,7 @@ RSpec.describe "Sign show page", system: true do
         let(:sign) { FactoryBot.create(:sign, :submitted) }
 
         it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
-        it { expect(sign_page).to have_content "in progress" }
+        it { expect(sign_page).to have_content "In Progress" }
 
         it "shows the submitted description on hover" do
           within("#sign_overview") do
@@ -251,7 +248,7 @@ RSpec.describe "Sign show page", system: true do
         subject(:sign_page) { SignPage.new }
 
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
-        it { expect(sign_page).to have_content "public" }
+        it { expect(sign_page).to have_content "Public" }
 
         it "shows the published description on hover" do
           within("#sign_overview") do
@@ -278,7 +275,7 @@ RSpec.describe "Sign show page", system: true do
 
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
         it { expect(sign_page).to have_content "(asked on #{sign.requested_unpublish_at.strftime("%d %b %Y")})" }
-        it { expect(sign_page).to have_content "asked to unpublish" }
+        it { expect(sign_page).to have_content "Asked to Unpublish" }
 
         it "shows the requested unpublish description on hover" do
           within("#sign_overview") do
@@ -302,6 +299,7 @@ RSpec.describe "Sign show page", system: true do
     end
 
     context "not owned by the current user" do
+      let(:sign) { FactoryBot.create(:sign, :published) }
       let(:user) { FactoryBot.create(:user) }
       it { expect(sign_page).not_to have_css "#sign_overview" }
     end
@@ -391,6 +389,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   describe "Voting" do
+    let(:sign) { FactoryBot.create(:sign, :published) }
     let(:user) { sign.contributor.tap { |c| c.update!(approved: true) } }
 
     context "not an approved user" do
