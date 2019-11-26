@@ -12,6 +12,7 @@
     text-decoration: none;
 
     &:hover {
+      color: get-color(royal);
       text-decoration: underline;
     }
   }
@@ -117,11 +118,11 @@
     color: get-color(royal);
     font-size: 1rem;
     font-weight: bold;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 rem-calc(4) 0;
   }
 
   &__supplementary-titles {
-    margin-bottom: 0.5rem;
+    margin-bottom: rem-calc(4);
 
     &__maori,
     &__secondary {
@@ -152,6 +153,7 @@
     font-size: 0.6rem;
     font-weight: bold;
     justify-content: center;
+    margin-bottom: rem-calc(2);
     padding: 0 8px;
     text-transform: uppercase;
     width: max-content;
