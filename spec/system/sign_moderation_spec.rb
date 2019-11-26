@@ -22,11 +22,6 @@ RSpec.describe "Sign moderation", type: :system do
         expect(page).to have_field "search", with: "published:"
       end
 
-      it "filters by unpublish requested" do
-        select "Unpublish requested", from: "status"
-        expect(page).to have_field "search", with: "unpublish_requested:"
-      end
-
       it "filters by archived" do
         select "Archived", from: "status"
         expect(page).to have_field "search", with: "archived:"
