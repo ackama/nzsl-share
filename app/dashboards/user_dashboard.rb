@@ -10,6 +10,7 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     email: Field::String,
     username: Field::String,
+    bio: Field::String,
     administrator: Field::Boolean.with_options(searchable: false),
     moderator: Field::Boolean.with_options(searchable: false),
     approved: Field::Boolean.with_options(searchable: false),
@@ -34,6 +35,7 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     username
     email
+    bio
     signs_count
     contribution_limit
     administrator
