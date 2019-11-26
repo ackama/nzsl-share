@@ -34,18 +34,8 @@
       <p class="sign-card__supplementary-titles__secondary"><%= @sign.secondary %></p>
     </div>
 
-    <div class="grid-x sign-card__section sign-card__section--horizontal">
-      <div class="cell shrink">
-        <%= link_to "#", class: "button clear success" do %>
-          <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--success" %>
-          <%= @sign.agree_count %> Agree
-        <% end %>
-        <%= link_to "#", class: "button clear medium" do %>
-          <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--medium" %>
-          <%= @sign.disagree_count %>
-          Disagree
-        <% end %>
-      </div>
+    <div class="grid-x sign-controls sign-card__section sign-card__section--horizontal">
+      <%= render "signs/show/votes", sign: @sign %>
       <div class="cell auto"></div>
       <div class="cell shrink">
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear medium" do %>

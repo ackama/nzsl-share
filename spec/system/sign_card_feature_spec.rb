@@ -1,9 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Sign card features", type: :system do
-  let!(:sign) { FactoryBot.create(:sign, contributor: authenticator.user) }
+  let(:user) { FactoryBot.create(:user) }
+  let!(:sign) { FactoryBot.create(:sign, contributor: user) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
-  let(:authenticator) { AuthenticateFeature.new }
+  let(:authenticator) { AuthenticateFeature.new(user) }
 
   before do |example|
     authenticator.sign_in unless example.metadata[:signed_out]
@@ -38,13 +39,13 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "shows the sign status" do
-    expect(sign_card).to have_content "private"
+    expect(sign_card).to have_content "Private"
     title = sign_card.find("#sign_status")["title"]
     assert_equal(title, I18n.t!("signs.personal.description"))
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
-    expect(sign_card).not_to have_content "private"
+    expect(sign_card).to have_no_content "Private"
   end
 
   it "shows the embedded media" do
@@ -60,10 +61,9 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   describe "Adding & removing from folders with JS", uses_javascript: true do
-    let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
-    let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:other_folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-    let(:user) { authenticator.user }
 
     # We have added records so need to reload
     before { visit topic_path(sign.topic) }
@@ -136,10 +136,9 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   describe "Adding & removing from folders without JS" do
-    let(:folder) { FactoryBot.create(:folder, user: authenticator.user) }
-    let!(:other_folder) { FactoryBot.create(:folder, user: authenticator.user) }
+    let(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:other_folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-    let(:user) { authenticator.user }
 
     # We have added records so need to reload
     before { visit current_path }
@@ -190,6 +189,67 @@ RSpec.describe "Sign card features", type: :system do
         click_on "Log in"
       end
       expect(page).to have_current_path(original_path)
+    end
+  end
+
+  shared_examples "sign card voting" do
+    it "is able to register an agree" do
+      within sign_card do
+        click_on "Agree"
+        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+      end
+    end
+
+    it "is able to deregister an agree" do
+      within sign_card do
+        click_on "Agree"
+        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+        click_on "Undo agree"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+      end
+    end
+
+    it "is able to register a disagree" do
+      within sign_card do
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+      end
+    end
+
+    it "is able to deregister a disagree" do
+      within sign_card do
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        click_on "Undo disagree"
+        expect(page).to have_selector ".sign-card__votes--disagree", text: "0"
+      end
+    end
+
+    it "is able to switch from agree to disagree" do
+      within sign_card do
+        click_on "Agree"
+        click_on "Disagree"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+      end
+    end
+  end
+
+  describe "Voting" do
+    let(:user) { FactoryBot.create(:user, :approved) }
+
+    context "not an approved user" do
+      let(:user) { FactoryBot.create(:user) }
+      it { expect(page).to have_no_link "Agree" }
+      it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
+    end
+
+    context "without JS" do
+      include_examples "sign card voting"
+    end
+
+    context "with JS", uses_javascript: true do
+      include_examples "sign card voting"
     end
   end
 end

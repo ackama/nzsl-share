@@ -1,4 +1,4 @@
-<% if resource.status == "personal" || resource.status == "unpublish_requested" %>
+<% if %w[personal archived unpublish_requested].include?(resource.status) %>
   <%= resource.status.humanize(capitalize: false) %>
 <% else %>
   <div class="<%= "status status--#{resource.status}" %>">

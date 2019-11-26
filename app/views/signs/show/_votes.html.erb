@@ -1,0 +1,11 @@
+<div class="cell shrink js-sign-votes" id="<%= sign.dom_id(:votes) %>">
+  <%= agree_button(sign, "button clear") do %>
+    <%= inline_svg "media/images/agree.svg", aria_hidden: true, class: "icon icon--medium" %>
+    <%= sign.agree_count %> Agree
+  <% end %>
+  <%= disagree_button(sign, "button clear") do %>
+    <%= inline_svg "media/images/disagree.svg", aria_hidden: true, class: "icon icon--medium" %>
+    <%= sign.disagree_count %>
+    Disagree
+  <% end %>
+</div>

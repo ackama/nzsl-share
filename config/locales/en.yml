@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  approved_user_applications:
+    create:
+      success: Thanks. An admin will review your application soon.
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
@@ -51,8 +54,11 @@ en:
           hint: Upload up to 2 videos - e.g. show how your sign is used in an example sentence; explain what your sign means in NZSL; explain why you think this is a good sign
     update:
       success: Sign successfully updated.
+    archived:
+      display_name: Archived
+      moderator_display_name: Archived
     personal:
-      display_name: "private"
+      display_name: "Private"
       moderator_display_name: Private
       description: "'private' means only you and the people you have shared with can see this sign."
       status_notes: "To ask for this sign to be public click Edit"
@@ -85,6 +91,9 @@ en:
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   sign_workflow:
+    decline:
+      confirm: Decline this sign? # Pending message
+      success: Sign has been declined # Pending message
     cancel_submit:
       link_to: Cancel (don't show to public)
       confirm: Are you sure? Your sign will stay private
@@ -94,6 +103,7 @@ en:
       confirm: Publish this sign?
       success: 'Published. This sign is public.'
     unpublish:
+      confirm: Make sign private? # Pending message
       success: Sign was made private # Pending message
     request_unpublish:
       link_to: Ask to be private
@@ -101,8 +111,8 @@ en:
       success: Thank you. An admin will make your sign private soon.
     cancel_request_unpublish:
       link_to: Keep sign public
-      confirm: Are you sure? Your sign will stay public
-      success: Cancelled. Your sign will stay public
+      confirm: Are you sure? This sign will stay public
+      success: Cancelled. This sign will stay public
   folders:
     default_title: 'My Folder'
     edit:
@@ -148,6 +158,8 @@ en:
     errors:
       <<: *activemodel_errors
       models:
+        approved_user_application:
+            inclusion: an answer must be selected
         sign:
           attributes:
             conditions_accepted:
@@ -157,4 +169,27 @@ en:
               too_long: are limited to %{count} files
             usage_examples:
               too_long: are limited to %{count} files
-
+  demographic:
+    age_brackets:
+      "13_18": "13 - 18"
+      "19_29": "19 - 29"
+      "30_49": "30 - 49"
+      "50_plus": "50 +"
+    genders:
+      male: Male
+      female: Female
+      neither: I don't identify as male or female
+    ethnicities:
+      nz_european: Pākehā / NZ European
+      māori: Māori
+      pacific_islander: Pacific Islander
+      asian: Asian
+      other: 'Other ethnic group:'
+    language_roles:
+      nzsl_teacher: NZSL Teacher
+      coda: CODA
+      interpreter: NZSL interpreter
+      educator: Teacher or teacher aide with deaf children
+      family_member: Partner / family member of a deaf person
+      parent: Parent of a deaf child
+      other: 'Other:'

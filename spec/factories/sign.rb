@@ -46,6 +46,11 @@ FactoryBot.define do
       published_at { Time.zone.now - 5 }
     end
 
+    trait :archived do
+      status { "archived" }
+      conditions_accepted { true }
+    end
+
     trait :declined do
       status { "declined" }
       declined_at { Time.zone.now - 5 }
