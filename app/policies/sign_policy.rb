@@ -4,14 +4,11 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published? || owns_record? || moderator? || administrator?
+    public_record? || owns_record? || (moderator? && !private_record?)
   end
 
   def create?
-    return false unless contributor?
-    return false if user.contribution_limit_reached?
-
-    true
+    contributor? && !user.contribution_limit_reached?
   end
 
   def new?
@@ -19,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public?) || moderator?
+    (owns_record? && !public_record?) || (moderator? && !private_record?)
   end
 
   def edit?
@@ -35,9 +32,9 @@ class SignPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return false if record.published?
+    return false if public_record?
 
-    (owns_record? && !public?) || moderator?
+    owns_record? || moderator?
   end
 
   def overview?
@@ -69,7 +66,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if owns_record? || public?
+    return true if owns_record? || public_record?
 
     false
   end
@@ -83,18 +80,22 @@ class SignPolicy < ApplicationPolicy
       scope
     end
 
-    def search # rubocop:disable Metrics/AbcSize
-      if user && (user.administrator || user.moderator)
-        scope.all.ids
+    def resolve
+      if user && user.moderator
+        scope.where("contributor_id = ? or status != ?", user.id, "personal")
       elsif user
-        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id).ids
+        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id)
       else
-        scope.where("status = 'published' or status = 'unpublish_requested'").ids
+        scope.where("status = 'published' or status = 'unpublish_requested'")
       end
     end
   end
 
   private
+
+  def public_record?
+    record.published? || record.unpublish_requested?
+  end
 
   def private_record?
     record.personal? || record.declined?
@@ -106,9 +107,5 @@ class SignPolicy < ApplicationPolicy
 
   def contributor?
     user.present?
-  end
-
-  def public?
-    record.published? || record.unpublish_requested?
   end
 end

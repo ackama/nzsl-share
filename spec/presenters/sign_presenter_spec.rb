@@ -64,13 +64,13 @@ RSpec.describe SignPresenter, type: :presenter do
         before { sign.contributor = user }
 
         it "returns the friendly status name" do
-          expect(subject).to eq "in progress"
+          expect(subject).to eq "In Progress"
         end
       end
     end
 
     it "returns a friendly status name" do
-      expect(subject).to eq "in progress"
+      expect(subject).to eq "In Progress"
     end
   end
 
