@@ -29,8 +29,6 @@ class TopicDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     name
     featured_at
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
