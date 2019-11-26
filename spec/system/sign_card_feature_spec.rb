@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Sign card features", type: :system do
   let(:user) { FactoryBot.create(:user) }
-  let!(:sign) { FactoryBot.create(:sign, contributor: user) }
+  let!(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
   let(:authenticator) { AuthenticateFeature.new(user) }
 
@@ -27,18 +27,25 @@ RSpec.describe "Sign card features", type: :system do
     expect(sign_card).to have_content sign.contributor.username
   end
 
+  it "contributor's username links to their profile" do
+    inside_card do
+      click_on sign.contributor.username
+      expect(page).to have_current_path(user_path(sign.contributor))
+    end
+  end
+
   it "shows a formatted date" do
     expect(sign_card).to have_content presenter.friendly_date
   end
 
   it "shows the sign status" do
-    expect(sign_card).to have_content "Private"
+    expect(sign_card).to have_content "Public"
     title = sign_card.find("#sign_status")["title"]
-    assert_equal(title, I18n.t!("signs.personal.description"))
+    assert_equal(title, I18n.t!("signs.published.description"))
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
-    expect(sign_card).to have_no_content "Private"
+    expect(sign_card).to have_no_content "Public"
   end
 
   it "shows the embedded media" do
@@ -83,7 +90,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "updates the signs count on another sign card automatically" do
-      FactoryBot.create(:sign, topic: sign.topic)
+      FactoryBot.create(:sign, :published, topic: sign.topic)
 
       # We have added records so need to reload
       visit topic_path(sign.topic)
