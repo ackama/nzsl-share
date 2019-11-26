@@ -43,14 +43,9 @@ as well as a link to its edit page.
 </header>
 
 <section class="main-content__body form" style="clear:both;">
-  <% page.attributes.each do |attribute| %>
-    <label>
-    <%= t(
-      "helpers.label.#{resource_name}.#{attribute.name}",
-      default: attribute.name.titleize,
-    ) %></label>
-
-    <p class="attribute-data--<%=attribute.html_class%>"
-        ><%= render_field attribute, page: page %></p>
+  <%= form_with model: page.resource, url: "#" do |f| %>
+    <fieldset disabled>
+      <%= render "approved_user_applications/fields", f: f %>
+    </fieldset>
   <% end %>
 </section>

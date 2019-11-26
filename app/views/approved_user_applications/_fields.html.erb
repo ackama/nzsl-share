@@ -1,0 +1,112 @@
+
+<%= f.label :first_name, class: "required" %>
+<%= f.text_field :first_name %>
+<%= f.error :first_name %>
+
+<%= f.label :last_name, class: "required" %>
+<%= f.text_field :last_name %>
+<%= f.error :last_name %>
+
+<%= f.label :deaf, "Are you:", class: "required" %>
+<%= f.error :deaf %>
+<div class="radio">
+  <%= f.radio_button :deaf, true %>
+  <%= f.label :deaf_true, "Deaf" %>
+</div>
+<div class="radio">
+  <%= f.radio_button :deaf, false %>
+  <%= f.label :deaf_false, "Hearing" %>
+</div>
+
+<br>
+
+<%= f.label :nzsl_first_language, "Is NZSL:", class: "required" %>
+<%= f.error :deaf %>
+<div class="radio">
+  <%= f.radio_button :nzsl_first_language, true %>
+  <%= f.label :nzsl_first_language_true, "your first language (used from childhood)" %>
+</div>
+
+<div class="radio">
+  <%= f.radio_button :nzsl_first_language, false %>
+  <%= f.label :nzsl_first_language_false, "a second language (used from teenager onward)" %>
+</div>
+
+<h6 class="medium margin-vertical-2">
+  The next questions are optional - you do not have to answer them.
+  If you fill these in, this will help us (the DSRU) with our research about new signs.
+</h6>
+
+<%= f.label :age_bracket, "How old are you?" %>
+<p class="help-text">NOTE: you must be over 13 years old to have an NZSL Share account</p>
+
+<% Demographics.age_brackets.each do |val| %>
+  <div class="radio">
+    <%= f.radio_button :age_bracket, val %>
+    <%= f.label :"age_bracket_#{val}", t("demographic.age_brackets.#{val}") %>
+  </div>
+<% end %>
+
+<br>
+
+<%= f.label :location, "Where do you live?" %>
+<%= f.text_field :location %>
+<%= f.error :location %>
+
+<%= f.label :gender, "Are you:" %>
+<% Demographics.genders.each do |val| %>
+  <div class="radio">
+    <%= f.radio_button :gender, val %>
+    <%= f.label :"gender_#{val}", t("demographic.genders.#{val}") %>
+  </div>
+<% end %>
+
+<br>
+
+<%= f.label :ethnicity, "Are you:" %>
+<% Demographics.ethnicities.each do |val| %>
+  <div class="radio">
+    <%= f.radio_button :ethnicity, val %>
+    <%= f.label :"ethnicity_#{val}", t("demographic.ethnicities.#{val}") %>
+  </div>
+<% end %>
+
+<div class="radio">
+  <%= f.radio_button :ethnicity, :other, data: { toggle_other: "#application_ethnicity" } %>
+  <%= f.label :ethnicity_other do %>
+    <%= content_tag :span, t("demographic.ethnicities.other") %><br />
+    <%= f.text_field :ethnicity,
+                     value: (f.object.ethnicity unless Demographics.ethnicities.include?(f.object.ethnicity)),
+                     class: "cell small-6 margin-left-1" %>
+  <% end %>
+</div>
+
+<br>
+
+<%= f.label :language_roles, "Do you have a (working / family) role where you use NZSL regularly?" %>
+<% Demographics.language_roles.each do |val| %>
+  <div class="checkbox">
+    <%= f.check_box :language_roles, { include_hidden: false,  multiple: true }, val %>
+    <%= f.label :"language_roles_#{val}", t("demographic.language_roles.#{val}") %>
+  </div>
+<% end %>
+
+<div class="checkbox">
+  <%= f.check_box :language_roles,
+                  { include_hidden: false, multiple: true,
+                  data: { toggle_other: "#application_language_roles" } },
+                  :other %>
+  <%= f.label :language_roles_other do %>
+    <%= content_tag :span, t("demographic.language_roles.other") %><br />
+    <%= f.text_field :"language_roles",
+                     multiple: true,
+                     value: (f.object.language_roles if f.object.language_roles.include?("other")),
+                     class: "cell small-6 margin-left-1" %>
+  <% end %>
+</div>
+
+<br>
+
+<%= f.label :subject_expertise, "Do you have any subject expertise? (e.g. work in IT, studying physics, work as a doctor)" %>
+<%= f.text_field :subject_expertise %>
+<%= f.error :subject_expertise %>
