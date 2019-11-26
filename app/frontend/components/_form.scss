@@ -1,8 +1,26 @@
 .form {
   background: $white;
   border-radius: rem-calc(8);
-  margin-bottom: 2rem;
-  padding: $global-padding;
+  margin-bottom: rem-calc(129);
+
+  &__header {
+    margin-bottom: 0;
+    padding: 1.6rem;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.6rem;
+  }
+
+  &__section {
+    margin: rem-calc(32) rem-calc(59);
+
+    &--last {
+      margin-bottom: rem-calc(74);
+    }
+  }
 
   &__buttons {
     // Pull buttons to the edges to make border full-width, then
@@ -14,6 +32,18 @@
 
     &--cancel {
       margin-right: $global-margin;
+    }
+
+    &--alert {
+      color: get-color(alert) !important; //sass-lint:disable-line no-important
+
+      span {
+        margin-left: 0.5rem;
+      }
+
+      &:hover {
+        background-color: get-color(alert-x-light) !important; //sass-lint:disable-line no-important
+      }
     }
   }
 
