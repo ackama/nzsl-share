@@ -19,7 +19,7 @@ module SignFolderButtonHelper
   end
 
   def sign_show_folder_button(sign)
-    classes = %w[button clear medium]
+    classes = %w[button clear sign-card__folders__button--text-color]
 
     return link_to_login(add_sign_show_folder_icon, classes) unless user_signed_in?
 
