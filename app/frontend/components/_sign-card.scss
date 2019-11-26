@@ -1,23 +1,29 @@
 .sign-card {
   @include card-container;
   margin-bottom: 0;
-  min-height: rem-calc(334);
+  min-height: rem-calc(372);
   overflow: visible;
   position: relative;
   width: rem-calc(258);
+
+  a {
+    color: inherit;
+    font-weight: normal;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   &--borderless {
     border-color: transparent;
     box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.02);
   }
 
-  & > .avatar {
-    position: absolute;
-    right: 16px;
-    top: 132px;
-  }
-
   &__bottom {
+    @extend .card-section;
+    border-top: solid 1px get-color(extra-light);
     justify-content: space-between;
   }
 
@@ -88,6 +94,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0.75rem 1rem;
 
     &--horizontal {
       flex-direction: row;
@@ -114,7 +121,27 @@
 
     &__secondary {
       color: get-color(medium);
+
+      &.small {
+        color: $black;
+        font-weight: normal;
+      }
     }
+  }
+
+  &__status {
+    align-items: center;
+    background-color: get-color(primary-light) ;
+    border-radius: $global-radius;
+    color: get-color(primary);
+    display: flex;
+    flex-direction: row;
+    font-size: 0.6rem;
+    font-weight: bold;
+    justify-content: center;
+    padding: 0 8px;
+    text-transform: uppercase;
+    width: max-content;
   }
 
   &__media {
@@ -142,12 +169,21 @@
   }
 
   &__subtitle {
+    align-items: center;
     color: $black;
     display: flex;
     flex-direction: row;
     font-size: rem-calc(13);
-    font-weight: 600;
     line-height: 2rem;
+
+    .bullet {
+      font-weight: normal;
+      margin-top: 0.1rem;
+    }
+
+    svg {
+      margin-right: 0.5rem;
+    }
   }
 
   &__votes {

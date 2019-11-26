@@ -12,9 +12,9 @@ RSpec.describe "Sign moderation", type: :system do
 
   context "filtering" do
     context "using dropdown" do
-      it "filters by submitted" do
-        select "Submitted", from: "status"
-        expect(page).to have_field "search", with: "submitted:"
+      it "filters by Pending" do
+        select "Pending", from: "status"
+        expect(page).to have_field "search", with: "pending:"
       end
 
       it "filters by published" do
@@ -22,49 +22,29 @@ RSpec.describe "Sign moderation", type: :system do
         expect(page).to have_field "search", with: "published:"
       end
 
-      it "filters by unpublish requested" do
-        select "Unpublish requested", from: "status"
-        expect(page).to have_field "search", with: "unpublish_requested:"
-      end
-
-      it "filters by declined" do
-        select "Declined", from: "status"
-        expect(page).to have_field "search", with: "declined:"
-      end
-
-      it "filters by personal" do
-        select "Personal", from: "status"
-        expect(page).to have_field "search", with: "personal:"
+      it "filters by archived" do
+        select "Archived", from: "status"
+        expect(page).to have_field "search", with: "archived:"
       end
     end
 
     context "using search field" do
-      it "filters by submitted" do
+      it "filters a submitted sign" do
         sign = FactoryBot.create(:sign, :submitted)
-        expect { submit_search("submitted:") }.to change { page.has_content?(sign.word) }.to eq true
+        expect { submit_search("pending:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
-      it "filters by published" do
+      it "filters a published sign" do
         sign = FactoryBot.create(:sign, :published)
         expect { submit_search("published:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
-      it "filters by unpublish requested" do
+      it "filters a unpublish requested sign" do
         sign = FactoryBot.create(:sign, :unpublish_requested)
-        expect { submit_search("unpublish_requested:") }.to change { page.has_content?(sign.word) }.to eq true
+        expect { submit_search("pending:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
-      it "filters by declined" do
-        sign = FactoryBot.create(:sign, :declined)
-        expect { submit_search("declined:") }.to change { page.has_content?(sign.word) }.to eq true
-      end
-
-      it "filters by personal" do
-        sign = FactoryBot.create(:sign, :personal)
-        expect { submit_search("personal:") }.to change { page.has_content?(sign.word) }.to eq true
-      end
-
-      it "filters by archived" do
+      it "filters a archived sign" do
         sign = FactoryBot.create(:sign, :archived)
         expect { submit_search("archived:") }.to change { page.has_content?(sign.word) }.to eq true
       end

@@ -47,9 +47,9 @@ It renders the `_table` partial to display details about the resources.
       <label class="sr-only" for="status">Status</label>
       <select class="filters--status" name="search" id="status" onchange="this.form.submit()">
         <option>--Select Status--</option>
-        <% Sign.aasm.states_for_select.each do |human_name, key| %>
+        <% SignDashboard::COLLECTION_FILTERS.each do |key, _scope| %>
           <%= content_tag(:option,
-            human_name,
+            key.to_s.humanize,
             selected: params[:search] && params[:search].include?("#{key}:"),
             value: "#{key}:") %>
         <% end %>
