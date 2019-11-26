@@ -4,7 +4,6 @@
   <div class="sign-card__media">
     <%= render "signs/card/video", sign: sign %>
   </div>
-  <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
   <div class="sign-card__section">
     <div>
       <%= link_to sign_path(sign) do %>
@@ -21,18 +20,20 @@
                               if sign.secondary %>
       </div>
 
+      <% if policy(sign).overview? %>
+        <small id="sign_status" title="<%= sign.status_description %>" class="sign-card__status"> <%= sign.status_name %> </small>
+      <% end %>
+
       <div class="sign-card__subtitle">
+        <%= inline_svg "media/images/user.svg", aria_hidden: true %>
         <div><%= sign.contributor.username %></div>
         <div class="bullet">•</div>
         <div><%= sign.friendly_date %></div>
       </div>
-      <% if policy(sign).overview? %>
-        <h6 id="sign_status" title="<%= sign.status_description %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= sign.status_name %> </h6>
-      <% end %>
     </div>
-    <div class="sign-card__bottom grid-x align-middle">
-      <%= render "signs/card/votes", sign: sign %>
-      <%= render "signs/card/folders", sign: sign %>
-    </div>
+  </div>
+  <div class="sign-card__bottom grid-x align-middle">
+    <%= render "signs/card/votes", sign: sign %>
+    <%= render "signs/card/folders", sign: sign %>
   </div>
 </div>
