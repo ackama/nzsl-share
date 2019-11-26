@@ -39,7 +39,7 @@
       </li>
       <li class="<%= current_page?("/admin/topics") && "is-active" %>">
         <%= link_to admin_topics_path do %>
-          <span>Manage Topics</span>
+          <%= inline_svg "media/images/tags.svg", aria_hidden: true %><span>Manage Topics</span>
         <% end %>
       </li>
     <% end %>
