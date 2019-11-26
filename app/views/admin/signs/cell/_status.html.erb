@@ -1,8 +1,4 @@
-<% if %w[personal archived unpublish_requested].include?(resource.status) %>
-  <%= resource.status.humanize(capitalize: false) %>
-<% else %>
-  <div class="<%= "status status--#{resource.status}" %>">
-    <%= inline_svg "media/images/admin/#{resource.status}.svg", class: "icon--small" %>
-    <%= resource.status  %>
-  </div>
-<% end %>
+<div class="<%= "status status--#{resource.status_name.downcase}" %>">
+  <%= inline_svg "media/images/admin/#{resource.status_name.downcase}.svg", class: "icon--small" if !%w[personal].include?(resource.status) %>
+  <%= resource.status_name %>
+</div>
