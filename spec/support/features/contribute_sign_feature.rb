@@ -6,10 +6,14 @@ class ContributeSignFeature
   include FileUploads
   attr_reader :user
 
+  def initialize(options={ navigate_to: true })
+    @options = options
+  end
+
   def start(user=FactoryBot.create(:user))
     @user = user
     sign_in user
-    click_on "Add a sign"
+    click_on "Add a sign" if @options[:navigate_to]
   end
 
   def submit
