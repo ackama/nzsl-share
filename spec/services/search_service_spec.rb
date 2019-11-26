@@ -17,6 +17,12 @@ RSpec.describe SearchService, type: :service do
         end
       end
 
+      it "returns 0 results if policy scope is none" do
+        expect(
+          SearchService.call(relation: Pundit.policy_scope(user, Sign.none), search: Search.new(term: "a")).data.count
+        ).to eq 0
+      end
+
       it "returns result(s) given a term fragment" do
         expect(SearchService.call(relation: scoped_relation, search: Search.new(term: "a")).data.count).to eq 7
         expect(SearchService.call(relation: scoped_relation, search: Search.new(term: "ap")).data.count).to eq 2
@@ -285,6 +291,6 @@ RSpec.describe SearchService, type: :service do
   private
 
   def scoped_relation
-    SignPolicy::Scope.new(user, Sign).resolve
+    Pundit.policy_scope(user, Sign)
   end
 end
