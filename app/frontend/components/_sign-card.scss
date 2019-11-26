@@ -22,7 +22,9 @@
   &__bottom {
     @extend .card-section;
     border-top: solid 1px get-color(extra-light);
+    height: 5rem;
     justify-content: space-between;
+    max-height: 5rem;
   }
 
   &__folders {
@@ -96,6 +98,10 @@
 
     &--horizontal {
       flex-direction: row;
+    }
+
+    &--vertical {
+      flex-direction: column;
     }
   }
 
@@ -171,6 +177,7 @@
     color: $black;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     font-size: rem-calc(13);
     line-height: 2rem;
 
