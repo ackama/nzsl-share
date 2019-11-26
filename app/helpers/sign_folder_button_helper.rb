@@ -12,24 +12,21 @@ module SignFolderButtonHelper
 
     return link_to_login(add_folder_icon, classes) unless user_signed_in?
 
-    in_folder = sign.available_folders.reject { |_folder, membership| membership.nil? }.any?
+    in_folder = in_folder?(sign)
     classes << "sign-card__folders__button--in-folder" if in_folder
-    button_tag(
-      in_folder ? in_folder_icon : add_folder_icon,
-      class: classes,
-      data: toggle_data(sign))
+    icon = in_folder ? in_folder_icon : add_folder_icon
+    folder_button_for_sign(sign, icon, classes)
   end
 
   def sign_show_folder_button(sign)
     classes = %w[button clear medium]
 
-    return link_to_login(sign_show_folder_icon, classes) unless user_signed_in?
+    return link_to_login(add_sign_show_folder_icon, classes) unless user_signed_in?
 
-    button_tag(
-      sign_show_folder_icon,
-      class: classes,
-      data: toggle_data(sign)
-    )
+    in_folder = in_folder?(sign)
+    classes << "sign-card__folders__button--in-folder-for-show" if in_folder
+    icon = in_folder ? in_sign_show_folder_icon : add_sign_show_folder_icon
+    folder_button_for_sign(sign, icon, classes)
   end
 
   def fetch_folder_button(sign)
@@ -45,14 +42,18 @@ module SignFolderButtonHelper
     false
   end
 
+  def folder_button_for_sign(sign, icon, classes)
+    button_tag(icon, class: classes, data: { toggle: dom_id(sign, :folder_menu) })
+  end
+
   def from_sign_show?(sign)
     request.referer.present? &&
       request.referer.include?(sign_path(sign)) &&
       request.path.include?("/folder_memberships")
   end
 
-  def toggle_data(sign)
-    { toggle: dom_id(sign, :folder_menu) }
+  def in_folder?(sign)
+    sign.available_folders.reject { |_folder, membership| membership.nil? }.any?
   end
 
   def in_folder_icon
@@ -63,7 +64,11 @@ module SignFolderButtonHelper
     inline_svg("media/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
   end
 
-  def sign_show_folder_icon
+  def in_sign_show_folder_icon
+    inline_svg("media/images/folder-success.svg", aria: true, class: "icon icon--medium") + "Add to Folder"
+  end
+
+  def add_sign_show_folder_icon
     inline_svg("media/images/folder-add.svg", aria: true, class: "icon icon--medium") + "Add to Folder"
   end
 
