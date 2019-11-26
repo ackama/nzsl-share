@@ -50,6 +50,14 @@
         }
       }
 
+      &--in-folder-for-show {
+        &:not(:hover) {
+          svg {
+            @include icon-fill(success);
+          }
+        }
+      }
+
       &:hover {
         background: rgba(4, 23, 35, 0.1);
         cursor: pointer;
