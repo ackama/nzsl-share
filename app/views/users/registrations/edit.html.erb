@@ -63,10 +63,6 @@
     <hr class="form__divider">
 
     <div class="form__footer">
-      <%= button_to registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "form__buttons--alert button clear margin-bottom-0" do %>
-        <%= inline_svg "media/images/trash.svg", class: "icon--small icon--alert" %>
-        <span>Cancel your account</span>
-      <% end %>
       <div>
       <%= link_to "Back", :back, class: "button clear margin-bottom-0" %>
       <%= f.submit "Update", class: "button margin-bottom-0" %>
