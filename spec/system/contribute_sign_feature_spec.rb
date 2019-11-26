@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Contributing a new sign", type: :system do
-  let(:user) { FactoryBot.create(:user, :approved) }
+  let(:user) { FactoryBot.create(:user) }
   subject { ContributeSignFeature.new }
   before { subject.start(user) }
 
@@ -56,7 +56,7 @@ RSpec.describe "Contributing a new sign", type: :system do
 
   context "exceeding contribution limit" do
     let(:user) do
-      FactoryBot.create(:user, :approved, contribution_limit: 1).tap do |user|
+      FactoryBot.create(:user, contribution_limit: 1).tap do |user|
         user.contribution_limit.times do
           user.signs << FactoryBot.create(:sign)
         end
@@ -71,19 +71,6 @@ RSpec.describe "Contributing a new sign", type: :system do
         Sorry, you have reached your video upload limit. Contact #{expected_email} to increase your limit.
       ".strip
       expect(subject).to have_link expected_email, href: "mailto:#{expected_email}"
-    end
-  end
-
-  context "not an approved user" do
-    let(:user) { FactoryBot.create(:user) }
-    subject { ContributeSignFeature.new(navigate_to: false) }
-
-    it { expect(subject).to have_current_path root_path }
-    it { expect(subject).to have_no_link "Add a sign" }
-
-    it "doesn't allow direct navigation" do
-      visit "/signs/new"
-      expect(page).to have_content I18n.t("application.unauthorized")
     end
   end
 end

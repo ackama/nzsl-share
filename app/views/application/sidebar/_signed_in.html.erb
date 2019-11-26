@@ -4,15 +4,11 @@
 
 <ul class="vertical menu icons">
   <li class="menu-text">Manage Signs</li>
-
-  <% if policy(Sign).new? %>
-    <li class="<%= current_page?("/signs/new") && "is-active" %>">
-      <%= link_to new_sign_path do %>
-        <%= inline_svg "media/images/add.svg", aria_hidden: true %><span>Add a sign</span>
-      <% end %>
-    </li>
-  <% end %>
-
+  <li class="<%= current_page?("/signs/new") && "is-active" %>">
+    <%= link_to new_sign_path do %>
+      <%= inline_svg "media/images/add.svg", aria_hidden: true %><span>Add a sign</span>
+    <% end %>
+  </li>
   <li class="<%= current_page?("/user/signs") && "is-active" %>">
     <%= link_to user_signs_path do %>
       <%= inline_svg "media/images/ok.svg", aria_hidden: true %><span>My signs</span>
