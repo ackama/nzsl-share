@@ -15,6 +15,11 @@
     top: 50%;
     width: rem-calc(16);
     z-index: 5; // Just above labels
+
+    &:disabled {
+      background: none;
+      opacity: 0.5;
+    }
   }
 
   label {
@@ -63,6 +68,10 @@
   input:checked + label::before {
     background: url("images/checkbox-checked.svg");
   }
+
+  input:disabled + label::before {
+    cursor: not-allowed;
+  }
 }
 
 .radio { //sass-lint:disable-block force-pseudo-nesting
@@ -82,5 +91,9 @@
 
   input:checked + label::before {
     background: url("images/radio-checked.svg");
+  }
+
+  input:disabled + label::before {
+    cursor: not-allowed;
   }
 }
