@@ -51,10 +51,8 @@
       }
 
       &--in-folder-for-show {
-        &:not(:hover) {
-          svg {
-            @include icon-fill(success);
-          }
+        svg {
+          @include icon-fill(success);
         }
       }
 
