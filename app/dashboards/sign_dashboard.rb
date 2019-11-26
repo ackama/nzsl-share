@@ -67,11 +67,8 @@ class SignDashboard < Administrate::BaseDashboard
   #     open: ->(resources) { where(open: true) }
   #   }.freeze
   COLLECTION_FILTERS = {
-    personal: ->(resources) { resources.personal },
-    submitted: ->(resources) { resources.submitted },
+    pending: ->(resources) { resources.unpublish_requested.or(resources.submitted) },
     published: ->(resources) { resources.published },
-    declined: ->(resources) { resources.declined },
-    unpublish_requested: ->(resources) { resources.unpublish_requested },
     archived: ->(resources) { resources.archived }
   }.freeze
 

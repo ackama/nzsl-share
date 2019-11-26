@@ -16,12 +16,17 @@
 
   .file-preview__metadata {
     align-self: center;
+    flex: 1;
 
+    // https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
     &__key {
       font-size: 1rem;
       font-weight: bold;
       line-height: rem-calc(16); // For icon alignment
+      overflow-wrap: break-word;
       vertical-align: text-top;
+      word-break: break-word;
+      word-wrap: break-word;
     }
   }
 }
