@@ -42,6 +42,7 @@ RSpec.describe "Registering for an account", type: :system do
   def complete_form
     fill_in "Username", with: user.username
     fill_in "Email", with: user.email
+    fill_in "Bio", with: "This is a short biography of my life."
     fill_in "Password", with: user.password
     fill_in "Password confirmation", with: user.password
   end

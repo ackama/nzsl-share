@@ -26,7 +26,9 @@
 
       <div class="sign-card__subtitle">
         <%= inline_svg "media/images/user.svg", aria_hidden: true %>
-        <div><%= sign.contributor.username %></div>
+        <%= link_to user_path(sign.contributor) do %>
+          <%= sign.contributor.username %>
+        <% end %>
         <div class="bullet">•</div>
         <div><%= sign.friendly_date %></div>
       </div>

@@ -7,6 +7,8 @@
   width: rem-calc(258);
 
   a {
+    color: inherit;
+    font-weight: normal;
     text-decoration: none;
 
     &:hover {

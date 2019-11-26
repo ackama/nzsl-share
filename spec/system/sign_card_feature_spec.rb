@@ -27,6 +27,13 @@ RSpec.describe "Sign card features", type: :system do
     expect(sign_card).to have_content sign.contributor.username
   end
 
+  it "contributor's username links to their profile" do
+    inside_card do
+      click_on sign.contributor.username
+      expect(page).to have_current_path(user_path(sign.contributor))
+    end
+  end
+
   it "shows a formatted date" do
     expect(sign_card).to have_content presenter.friendly_date
   end

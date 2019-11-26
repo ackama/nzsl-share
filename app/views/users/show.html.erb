@@ -1,0 +1,24 @@
+<div class="grid-x">
+  <div class="form grid-x cell medium-8 medium-offset-2 margin-top-2">
+    <div class="cell grid-x align-middle margin-bottom-1">
+      <img
+            class="avatar cell shrink"
+            src="https://picsum.photos/id/550/64/64"
+            alt="Profile Image"
+          />
+      <h1 class="cell auto margin-left-1"><%= @user.username %></h1>
+    </div>
+
+    <hr class="form__divider cell"/>
+    <div class="cell auto padding-1 margin-0">
+    <h6>Bio:</h6>
+    <p>
+      <% if @user.bio.blank? %>
+        <em>This user has not created a bio yet.</em>
+      <% else %>
+        <%= @user.bio %>
+      <% end %>
+    </p>
+    </div>
+  </div>
+</div>

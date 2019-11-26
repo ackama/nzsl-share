@@ -23,6 +23,13 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_content sign.secondary
   end
 
+  it "contributor username links to profile page" do
+    within ".sign-card__subtitle" do
+      click_on sign.contributor.username
+      expect(page).to have_current_path(user_path(sign.contributor))
+    end
+  end
+
   it "displays the sign status" do
     sign_card = page.find("#sign_status", match: :prefer_exact)
     expect(sign_card).to be_present
