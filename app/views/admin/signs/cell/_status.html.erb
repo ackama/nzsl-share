@@ -1,4 +1,4 @@
 <div class="<%= "status status--#{resource.status_name.downcase}" %>">
-  <%= inline_svg "media/images/admin/#{resource.status_name.downcase}.svg", class: "icon--small" if !%w[personal].include?(resource.status) %>
+  <%= inline_svg "media/images/#{ resource.status == 'personal' ? 'user': "admin/#{resource.status_name.downcase}"}.svg", class: "icon--small icon--white"%>
   <%= resource.status_name %>
 </div>
