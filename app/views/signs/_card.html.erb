@@ -4,35 +4,44 @@
   <div class="sign-card__media">
     <%= render "signs/card/video", sign: sign %>
   </div>
-  <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
   <div class="sign-card__section">
-    <div>
-      <%= link_to sign_path(sign) do %>
-        <h1 class="sign-card__title"><%= sign.word %></h1>
+    <%= link_to sign_path(sign) do %>
+      <h1 class="sign-card__title"><%= sign.word %></h1>
+    <% end %>
+
+
+    <div class="sign-card__supplementary-titles">
+      <%= content_tag(:h2, sign.maori,
+                            class: "sign-card__supplementary-titles__maori small") \
+                            if sign.maori %>
+      <%= content_tag(:h3, sign.truncated_secondary,
+                            class: "sign-card__supplementary-titles__secondary small") \
+                            if sign.secondary %>
+    </div>
+
+    <div class="sign-card__section--vertical">
+      <% if policy(sign).overview? %>
+        <small id="sign_status" title="<%= sign.status_description %>" class="sign-card__status"> <%= sign.status_name %> </small>
       <% end %>
-
-
-      <div class="sign-card__supplementary-titles">
-        <%= content_tag(:h2, sign.maori,
-                              class: "sign-card__supplementary-titles__maori small") \
-                              if sign.maori %>
-        <%= content_tag(:h3, sign.truncated_secondary,
-                              class: "sign-card__supplementary-titles__secondary small") \
-                              if sign.secondary %>
-      </div>
 
       <div class="sign-card__subtitle">
-        <div><%= sign.contributor.username %></div>
-        <div class="bullet">•</div>
+        <%= inline_svg "media/images/user.svg", aria_hidden: true %>
+        <%= link_to user_path(sign.contributor) do %>
+          <%= sign.contributor.username %>
+        <% end %>
+        <div class="bullet">
+          <% if sign.contributor.username.length < 16 %>
+          •
+          <% else%>
+          &nbsp;
+          <% end %>
+        </div>
         <div><%= sign.friendly_date %></div>
       </div>
-      <% if policy(sign).overview? %>
-        <h6 id="sign_status" title="<%= sign.status_description %>" class="royal cell shrink margin-bottom-0 margin-left-1"> <%= sign.status_name %> </h6>
-      <% end %>
     </div>
-    <div class="sign-card__bottom grid-x align-middle">
-      <%= render "signs/card/votes", sign: sign %>
-      <%= render "signs/card/folders", sign: sign %>
-    </div>
+  </div>
+  <div class="sign-card__bottom grid-x align-middle">
+    <%= render "signs/card/votes", sign: sign %>
+    <%= render "signs/card/folders", sign: sign %>
   </div>
 </div>

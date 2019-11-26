@@ -10,6 +10,11 @@ module Refined
             secondary: "smooth, rich and creamy"
           },
           {
+            word: "chocolate ice cream unpublished",
+            secondary: "smooth, rich and creamy",
+            status: "personal"
+          },
+          {
             word: "chocolate fondant",
             secondary: "sublime when made right"
           },
