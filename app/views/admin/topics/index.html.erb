@@ -22,45 +22,51 @@ It renders the `_table` partial to display details about the resources.
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
-
-<% content_for(:title) do %>
-  <%= display_resource_name(page.resource_name) %>
-<% end %>
-
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-
-  <% if show_search_bar %>
-    <%= render(
-      "search",
-      search_term: search_term,
-      resource_name: display_resource_name(page.resource_name)
-    ) %>
+<div class="grid-x list list--admin">
+  <% content_for(:title) do %>
+    <%= display_resource_name(page.resource_name) %>
   <% end %>
 
-  <div>
-    <%= link_to(
-      t(
-        "administrate.actions.new_resource",
-        name: page.resource_name.titleize.downcase
-      ),
-      [:new, namespace, page.resource_path],
-      class: "button",
-    ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+  <div class="list__title list__title--admin cell grid-x align-middle">
+    <h1 class="cell auto" id="page-title">
+      <%= content_for(:title) %>
+    </h1>
+
+    <% if show_search_bar %>
+      <div class="cell auto">
+        <%= render(
+          "search",
+          search_term: search_term,
+          resource_name: display_resource_name(page.resource_name)
+        ) %>
+      </div>
+    <% end %>
   </div>
-</header>
+  <div class="list__title--admin">
+    <div class="cell auto">
+      <%= link_to(
+        t(
+          "administrate.actions.new_resource",
+          name: page.resource_name.titleize.downcase
+        ),
+        [:new, namespace, page.resource_path],
+        class: "button",
+      ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+    </div>
+  </div>
 
-<section class="main-content__body main-content__body--flush">
-  <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
-  ) %>
+  <hr class="list__divider cell"/>
 
-  <%= paginate resources %>
-</section>
+  <section class="main-content__body main-content__body--flush">
+    <%= render(
+      "collection",
+      collection_presenter: page,
+      collection_field_name: resource_name,
+      page: page,
+      resources: resources,
+      table_title: "page-title"
+    ) %>
+
+    <%= paginate resources %>
+  </section>
+</div>
