@@ -2,7 +2,7 @@
 
 class SearchController < ApplicationController
   def index
-    service = SearchService.call(search: new_search, relation: SignPolicy::Scope.new(current_user, Sign).resolve)
+    service = SearchService.call(search: new_search, relation: policy_scope(Sign))
 
     @signs = service.data
     @page = service.support
