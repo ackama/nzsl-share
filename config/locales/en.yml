@@ -156,7 +156,7 @@ en:
         success: Sign was made private # Pending message
   approved_user_mailer:
     admin_submitted:
-      subject: "New approved user application received"
+      subject: "New approved member application received"
     submitted:
       subject: We've received your application
     accepted:

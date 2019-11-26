@@ -1,16 +1,23 @@
-<% provide(:title, "Approved User Request") %>
+<% provide(:title, "Approved Member Application") %>
 
 
 <div class="grid-x grid-margin-x content-container ">
   <%= form_with model: @application, url: approved_user_applications_path, local: true, scope: :application, class: "cell small-12 large-8 form", method: :post do |f| %>
     <fieldset class="form-section">
-      <legend class="form-section__header"><h1 class="black">Approved User Request</h1></legend>
+      <legend class="form-section__header"><h1 class="black">Approved Member Application</h1></legend>
 
       <div class="form-section__content">
+        <p>We are looking for Deaf community members who use NZSL every day to help grow NZSL Share.</p>
         <p>
-          Thank you for applying to be an NZSL Share Member. Please tell us a bit about yourself.
-          This information won’t be shown on your profile.
-          <%= link_to "Privacy statement", page_path(:privacy) %>
+          To make NZSL Share a safe community space, only Approved Members can:
+          <ul>
+            <li>add new signs for everyone to see.</li>
+            <li>comment on signs, and say if they agree or disagree with them.</li>
+          </ul>
+        </p>
+
+        <p>
+          To approve you, the NZSL Share Admin team need to know a bit about you.
         </p>
 
         <%= render "fields", f: f %>

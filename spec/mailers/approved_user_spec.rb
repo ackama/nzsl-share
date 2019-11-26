@@ -55,14 +55,14 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.admin_submitted(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("New approved user application received")
+      expect(mail.subject).to eq("New approved member application received")
       expect(mail.to).to eq([admin.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
 
     it "renders the body" do
       body = mail.body.encoded
-      expected = "A new approved user application has been received for #{application.user.username}."
+      expected = "A new approved member application has been received for #{application.user.username}."
       expect(body).to include(expected)
     end
   end

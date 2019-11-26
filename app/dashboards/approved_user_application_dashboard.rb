@@ -80,6 +80,6 @@ class ApprovedUserApplicationDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(application)
-    "Approved User Application for '#{application.user.username}'"
+    "Approved Member Application for '#{application.user.username}'"
   end
 end
