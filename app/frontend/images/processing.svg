@@ -1,16 +1,1 @@
-<svg width="1080" height="720" viewBox="0 0 1080 720" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="1080" height="720" fill="white"/>
-<g>
-  <path d="M540 354.667C554.728 354.667 566.667 342.728 566.667 328C566.667 313.272 554.728 301.333 540 301.333C525.272 301.333 513.333 313.272 513.333 328C513.333 342.728 525.272 354.667 540 354.667Z" stroke="#EFF4F8" stroke-width="8"/>
-  <path d="M540 354.667C554.728 354.667 566.667 342.728 566.667 328C566.667 313.272 554.728 301.333 540 301.333C525.272 301.333 513.333 313.272 513.333 328C513.333 342.728 525.272 354.667 540 354.667Z" stroke="#354AE7" stroke-width="8" stroke-dasharray="126 126"/>
-  <animateTransform attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          from="0 540 328"
-                          to="360 540 328"
-                          dur="1s"
-                          repeatCount="indefinite"/>
-</g>
-
-<text fill="#041723" xml:space="preserve" style="white-space: pre" font-family="Montserrat" font-size="24" letter-spacing="0em"><tspan x="394" y="422.104">Processing, please wait...</tspan></text>
-</svg>
+<svg width="1080" height="720" viewBox="0 0 1080 720" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M0 0h1080v720H0z"/><g><path d="M540 354.667c14.728 0 26.667-11.939 26.667-26.667 0-14.728-11.939-26.667-26.667-26.667-14.728 0-26.667 11.939-26.667 26.667 0 14.728 11.939 26.667 26.667 26.667z" stroke="#EFF4F8" stroke-width="8"/><path d="M540 354.667c14.728 0 26.667-11.939 26.667-26.667 0-14.728-11.939-26.667-26.667-26.667-14.728 0-26.667 11.939-26.667 26.667 0 14.728 11.939 26.667 26.667 26.667z" stroke="#354AE7" stroke-width="8" stroke-dasharray="126 126"/><animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 540 328" to="360 540 328" dur="1s" repeatCount="indefinite"/></g><text fill="#041723" style="white-space:pre" font-family="Montserrat" font-size="24" letter-spacing="0em"><tspan x="394" y="422.104">Processing, please wait...</tspan></text></svg>
