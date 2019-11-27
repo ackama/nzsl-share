@@ -1,9 +1,6 @@
 .messages {
   &--float {
-    @extend .small-12;
-    @extend .medium-11;
-    @extend .large-8;
-    @extend .large-offset-2;
+    @include xy-cell(12);
 
     display: flex;
     justify-content: center;
@@ -11,19 +8,30 @@
     position: absolute;
     z-index: 100;
 
-    @include breakpoint(medium) {
+    @include breakpoint(medium up) {
+      @include xy-cell(11);
+
       margin-top: 0;
+    };
+
+    @include breakpoint(large) {
+      @include xy-cell(9);
+      @include xy-cell-offset(2);
     };
 
     .home-page-messages {
       width: 75%;
 
-      @include breakpoint(xxlarge) {
-        width: 70%;
+      @include breakpoint(large) {
+        width: 85%;
+      };
+
+      @include breakpoint(xlarge) {
+        width: 75%;
       };
 
       @include breakpoint(xxlarge) {
-        width: 65%;
+        width: 70%;
       };
     }
   }
