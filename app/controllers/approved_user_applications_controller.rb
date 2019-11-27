@@ -16,6 +16,9 @@ class ApprovedUserApplicationsController < ApplicationController
 
     return render(:new) unless @application.save
 
+    ApprovedUserMailer.submitted(@application).deliver_later
+    ApprovedUserMailer.admin_submitted(@application).deliver_later
+
     redirect_to root_path, notice: t(".success")
   end
 

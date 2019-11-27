@@ -10,12 +10,14 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     email: Field::String,
     username: Field::String,
+    bio: Field::String,
     administrator: Field::Boolean.with_options(searchable: false),
     moderator: Field::Boolean.with_options(searchable: false),
     approved: Field::Boolean.with_options(searchable: false),
     validator: Field::Boolean.with_options(searchable: false),
     contribution_limit: Field::Number.with_options(searchable: false),
-    signs_count: Field::Number.with_options(searchable: false)
+    signs_count: Field::Number.with_options(searchable: false),
+    approved_user_application: Field::BelongsTo
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,11 +35,13 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     username
     email
+    bio
     signs_count
     contribution_limit
     administrator
     moderator
     approved
+    approved_user_application
     validator
   ].freeze
 

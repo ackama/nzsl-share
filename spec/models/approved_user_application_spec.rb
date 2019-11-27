@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ApprovedUserApplication, type: :model do
-  subject { FactoryBot.build(:approved_user_application) }
+  subject(:model) { FactoryBot.build(:approved_user_application, id: 1) }
   it { is_expected.to be_valid }
 
   describe "required fields" do
@@ -77,6 +77,42 @@ RSpec.describe ApprovedUserApplication, type: :model do
         subject.language_roles << "Something else"
         expect(subject).to be_valid
         expect(subject.language_roles).to include "Something else"
+      end
+    end
+  end
+
+  describe "#status" do
+    it "is initially submitted" do
+      expect(model.status).to eq "submitted"
+    end
+
+    context "accepting" do
+      subject { model.accept }
+
+      it "changes the accepted? status of the user" do
+        expect { subject }.to change(model, :accepted?).to be true
+      end
+
+      it "enqueues a notification that the application has been accepted" do
+        expect(ApprovedUserMailer).to receive_message_chain(:accepted, :deliver_later)
+        subject
+      end
+
+      it "marks the user as approved" do
+        expect { subject }.to change(model, :user).to be_approved
+      end
+    end
+
+    context "declining" do
+      subject { model.decline }
+
+      it "does not change the declined? status of the user" do
+        expect { subject }.to change(model, :declined?).to be true
+      end
+
+      it "enqueues a notification that the application has been approved" do
+        expect(ApprovedUserMailer).to receive_message_chain(:declined, :deliver_later)
+        subject
       end
     end
   end
