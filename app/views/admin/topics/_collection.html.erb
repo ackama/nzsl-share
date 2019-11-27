@@ -45,10 +45,6 @@ to display a collection of resources in an HTML table.
           <% end %>
         </th>
       <% end %>
-      <% [valid_action?(:edit, collection_presenter.resource_name),
-          valid_action?(:destroy, collection_presenter.resource_name)].count(true).times do %>
-        <th scope="col"></th>
-      <% end %>
     </tr>
   </thead>
 
@@ -72,24 +68,26 @@ to display a collection of resources in an HTML table.
           </td>
         <% end %>
 
-        <% if valid_action? :edit, collection_presenter.resource_name %>
-          <td><%= link_to(
-            t("administrate.actions.edit"),
-            [:edit, namespace, resource],
-            class: "action-edit",
-          ) if show_action? :edit, resource%></td>
-        <% end %>
-
-        <% if valid_action? :destroy, collection_presenter.resource_name %>
-          <td><%= link_to(
-            t("administrate.actions.destroy"),
-            [namespace, resource],
-            class: "text-color-red",
-            method: :delete,
-            data: { confirm: t("administrate.actions.confirm") }
-          ) if show_action? :destroy, resource %></td>
-        <% end %>
+        <td class="admin-icons">
+          <button title="Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
+            <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
+          </button>
+        </td>
       </tr>
+      <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin" id="<%= dom_id(resource, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
+        <ul class="list__item-menu vertical icons">
+          <li class="list__item-menu__menu-item">
+            <%= link_to([:edit, namespace, resource]) do %>
+              <%= inline_svg "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+            <% end %>
+          </li>
+          <li class="list__item-menu__menu-item">
+            <%= link_to(admin_topic_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") }) do %>
+              <%= inline_svg "media/images/remove.svg", class: "icon--medium" %><span>Destroy</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
     <% end %>
   </tbody>
 </table>
