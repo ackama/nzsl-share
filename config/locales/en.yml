@@ -32,7 +32,7 @@
 en:
   approved_user_applications:
     create:
-      success: Thanks. An admin will review your application soon.
+      success: Thank you! An NZSL Share Admin will look at your application soon.
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
@@ -144,11 +144,25 @@ en:
   users:
     contribution_limit_reached_html: Sorry, you have reached your video upload limit. Contact <a href="mailto:%{email}">%{email}</a> to increase your limit.
   admin:
+    approved_user_applications:
+      accept:
+        success: User application was accepted. The user was approved.
+      decline:
+        success: User application was declined.
     sign_workflow:
       unpublish:
         link_to: Unpublish
         confirm: Make this sign private?
         success: Sign was made private # Pending message
+  approved_user_mailer:
+    admin_submitted:
+      subject: "New approved member application received"
+    submitted:
+      subject: We've received your application
+    accepted:
+      subject: Your approved member application on NZSL Share
+    declined:
+      subject: Your approved member application on NZSL Share
   activemodel:
     errors: &activemodel_errors
       messages:
@@ -186,10 +200,10 @@ en:
       asian: Asian
       other: 'Other ethnic group:'
     language_roles:
-      nzsl_teacher: NZSL Teacher
+      nzsl_teacher: NZSL teacher
       coda: CODA
       interpreter: NZSL interpreter
       educator: Teacher or teacher aide with deaf children
       family_member: Partner / family member of a deaf person
-      parent: Parent of a deaf child
+      parent: Parent of a deaf person
       other: 'Other:'

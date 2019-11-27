@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_014316) do
     t.string "subject_expertise"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status", default: "submitted"
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 

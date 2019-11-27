@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include AASM
+
   USERNAME_REGEXP = /\A[a-zA-Z0-9_\.]*\Z/.freeze
 
   # Include default devise modules. Others available are:
