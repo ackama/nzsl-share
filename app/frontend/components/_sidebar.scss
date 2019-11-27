@@ -30,6 +30,14 @@
       flex: 1;
       margin-left: 1rem;
     }
+
+    &:hover {
+      @include icon-fill(get-color(royal));
+
+      border-bottom-right-radius: rem-calc(24);
+      border-top-right-radius: rem-calc(24);
+      font-weight: bold !important; //sass-lint:disable-line no-important
+    }
   }
 
   @include breakpoint(medium only) {
@@ -52,7 +60,7 @@
   }
 
 
-  .is-active  {
+  .is-active {
     @include icon-fill(get-color(royal));
 
     a {
