@@ -45,7 +45,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "has the expected 'Add to Folder' button" do
-    expect(page).to have_button "Add to Folder"
+    expect(page).to have_link "Add to Folder"
   end
 
   context "share public sign with anonymous user" do
