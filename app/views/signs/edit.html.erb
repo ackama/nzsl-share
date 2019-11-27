@@ -60,6 +60,7 @@
     <% if policy(f.object).submit? || policy(f.object).cancel_submit? %>
       <fieldset class="form__section">
         <legend><h2 class="primary">Public</h2></legend>
+        <hr class="form__divider">
         <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
           <span>
             <h3>Do you want your sign to be public?</h3>
@@ -89,67 +90,6 @@
         </div>
       </fieldset>
     <% end %>
-    <fieldset class="form__section">
-      <%= f.label :word, "Sign / Word", class: "required" %>
-      <%= f.text_field :word %>
-      <%= f.error :word %>
-
-      <%= f.label :secondary, "Other words for this sign" %>
-      <%= f.text_field :secondary %>
-      <%= f.error :secondary %>
-
-      <%= f.label :maori, "Māori translation" %>
-      <%= f.text_field :maori %>
-      <%= f.error :maori %>
-
-      <%= f.label :topic_id, "Topic" %>
-      <%= f.collection_select :topic_id, Topic.all, :id, :name, prompt: "-- Please select --" %>
-    </fieldset>
-
-    <fieldset class="form__section">
-      <legend><h2 class="primary">Other details</h2></legend>
-      <hr class="form__divider">
-      <%= f.label :notes, "Notes" %>
-      <p class="help-text">(e.g. where have you seen this sign used?)</p>
-      <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
-
-      <%= render "signs/edit/attachment", field: :usage_example, form: f %><br />
-      <%= render "signs/edit/attachment", field: :illustration, form: f %>
-    </fieldset>
-
-    <fieldset class="form__section">
-      <legend><h2 class="primary">Public</h2></legend>
-      <hr class="form__divider">
-      <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
-        <span>
-          <h3>Do you want your sign to be public?</h3>
-          <p> Your sign will go through a validation process with our NZSL Share moderators before it is published. </p>
-        </span>
-      <% end %>
-
-      <div class="radio">
-        <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?,
-              data: { toggle_truthy: "#terms-and-conditions" }) %>
-          <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
-      </div>
-
-      <div class="radio">
-        <%= radio_button_tag(:should_submit_for_publishing, "false", !@sign.submitted_to_publish?) %>
-          <%= label_tag(:should_submit_for_publishing_false, "No, keep my sign private") %>
-      </div>
-    </fieldset>
-
-    <fieldset class="form__section" id="terms-and-conditions">
-      <legend>
-        <h2 class="primary">Terms and Conditions</h2>
-      </legend>
-      <hr class="form__divider">
-
-      <div class="checkbox">
-        <%= f.check_box :conditions_accepted, class: (@sign.errors[:conditions_accepted].any? && "invalid")%>
-        <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
-      </div>
-    </fieldset>
 
     <hr class="form__divider">
 
