@@ -2,22 +2,24 @@
 
 <div class="cell medium-8 margin-top-2">
   <%= form_with model: @application, url: approved_user_applications_path, local: true, scope: :application, class: "form", method: :post do |f| %>
-    <div class="form__header">
-      <legend class="margin-top-0"><h1 class="black">Approved User Request</h1></legend>
-        <p>We are looking for Deaf community members who use NZSL every day to help grow NZSL Share.</p>
-        <p>
-          To make NZSL Share a safe community space, only Approved Members can:
-          <ul>
-            <li>add new signs for everyone to see.</li>
-            <li>comment on signs, and say if they agree or disagree with them.</li>
-          </ul>
-        </p>
 
-        <p>
-          To approve you, the NZSL Share Admin team need to know a bit about you.
-        </p>
+  <legend class="form__header margin-top-0"><h1 class="black">Approved User Request</h1></legend>
+  <hr class="form__divider">
+
+    <div class="form__section">
+      <p>We are looking for Deaf community members who use NZSL every day to help grow NZSL Share.</p>
+      <p>
+        To make NZSL Share a safe community space, only Approved Members can:
+        <ul>
+          <li>add new signs for everyone to see.</li>
+          <li>comment on signs, and say if they agree or disagree with them.</li>
+        </ul>
+      </p>
+
+      <p>
+        To approve you, the NZSL Share Admin team need to know a bit about you.
+      </p>
     </div>
-    <hr class="form__divider">
 
     <%= render "fields", f: f %>
 
