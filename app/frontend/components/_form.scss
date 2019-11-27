@@ -29,6 +29,10 @@
       margin-bottom: 0;
     }
 
+    @include breakpoint(large) {
+      text-align: right;
+    }
+
     &--buttons-justified {
       display: flex;
       flex-direction: column-reverse;
