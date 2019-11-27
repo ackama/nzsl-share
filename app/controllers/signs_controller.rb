@@ -106,10 +106,15 @@ class SignsController < ApplicationController
   end
 
   def set_signs_submitted_state
-    return unless params["should_submit_for_publishing"]
+    return unless params[:should_submit_for_publishing]
 
-    submit = params[:should_submit_for_publishing] == "true"
-    submit ? @sign.submit : @sign.cancel_submit
+    if params[:should_submit_for_publishing] == "true"
+      authorize(@sign, :submit?)
+      @sign.submit
+    else
+      authorize(@sign, :cancel_submit?)
+      @sign.cancel_submit
+    end
   end
 
   def redirect_after_update(sign)

@@ -11,5 +11,13 @@ FactoryBot.define do
     ethnicity { Demographics.ethnicities.sample }
     language_roles { Demographics.language_roles.sample(3) }
     subject_expertise { Faker::Job.key_skill }
+
+    trait :accepted do
+      status { :accepted }
+    end
+
+    trait :declined do
+      status { :declined }
+    end
   end
 end

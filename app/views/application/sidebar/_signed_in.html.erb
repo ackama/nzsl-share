@@ -20,17 +20,25 @@
 <% if current_user.moderator? || current_user.administrator? %>
   <ul class="vertical menu icons">
     <li class="menu-text">Admin Portal</li>
-    <li class="<%= current_page?("/admin/signs") && "is-active" || current_page?("/admin") && "is-active" %>">
+    <li class="<%= current_page?("/admin/signs") && "is-active" %>">
       <%= link_to admin_signs_path do %>
         <%= inline_svg "media/images/moderator.svg", aria_hidden: true %><span>Moderate signs</span>
       <% end %>
-      <% if current_user.administrator? %>
-        <li class="<%= current_page?("/admin/users") && "is-active" %>">
-          <%= link_to admin_users_path do %>
-            <%= inline_svg "media/images/users.svg", aria_hidden: true %><span>User admin</span>
-          <% end %>
-        </li>
-      <% end %>
+    </li>
+
+    <% if current_user.administrator %>
+      <li class="<%= current_page?("/admin/approved_user_applications") && "is-active" %>">
+        <%= link_to admin_approved_user_applications_path do %>
+          <%= inline_svg "media/images/tick.svg", class: 'icon--medium', aria_hidden: true %><span>User approvals</span>
+        <% end %>
+      </li>
+
+      <li class="<%= current_page?("/admin/users") && "is-active" %>">
+        <%= link_to admin_users_path do %>
+          <%= inline_svg "media/images/users.svg", aria_hidden: true %><span>User admin</span>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 <% end %>
 <ul class="vertical menu icons hide-for-medium show-if-no-js">

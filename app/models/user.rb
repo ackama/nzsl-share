@@ -1,13 +1,13 @@
 class User < ApplicationRecord
-  USERNAME_REGEXP = /\A[a-zA-Z0-9_\.]+\Z/.freeze
-  # Route constraints must be unanchored
-  USERNAME_ROUTE_REGEXP =
+  include AASM
 
-    # Include default devise modules. Others available are:
-    # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-    devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :validatable,
-           :confirmable, authentication_keys: [:login]
+  USERNAME_REGEXP = /\A[a-zA-Z0-9_\.]+\Z/.freeze
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :confirmable, authentication_keys: [:login]
 
   attr_writer :login
   has_many :folders, dependent: :destroy

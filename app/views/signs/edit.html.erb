@@ -60,6 +60,7 @@
           </div>
         </fieldset>
 
+        <% if policy(f.object).submit? || policy(f.object).cancel_submit? %>
         <fieldset class="form-section">
           <legend class="form-section__header"><h2 class="primary">Public</h2></legend>
           <div class="form-section__content">
@@ -94,6 +95,8 @@
             </div>
           </div>
         </fieldset>
+
+        <% end %>
       </div>
     </fieldset>
 

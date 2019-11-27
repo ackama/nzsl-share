@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Sign show page", system: true do
-  let(:user) { sign.contributor }
-  let(:sign) { FactoryBot.create(:sign) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:sign) { FactoryBot.create(:sign, contributor: user) }
   let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
@@ -44,8 +44,8 @@ RSpec.describe "Sign show page", system: true do
     expect(page).to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
   end
 
-  it "has the expected tag 'Add to Folder'" do
-    expect(page.find("a", text: "Add to Folder")).to be_present
+  it "has the expected 'Add to Folder' button" do
+    expect(page).to have_button "Add to Folder"
   end
 
   context "share public sign with anonymous user" do
@@ -76,7 +76,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   context "share private sign with anonymous user" do
-    let(:sign) { FactoryBot.create(:sign, :personal) }
+    let(:sign) { FactoryBot.create(:sign, :personal, contributor: user) }
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
@@ -93,7 +93,7 @@ RSpec.describe "Sign show page", system: true do
     end
 
     it "does not have the expected link 'Add to Folder'" do
-      expect(page).not_to have_link "Add to Folders"
+      expect(page).not_to have_link "Add to Folder"
     end
   end
 
@@ -124,17 +124,17 @@ RSpec.describe "Sign show page", system: true do
   describe "sign video" do
     subject { sign_page.video_player }
     context "sign is unprocessed" do
-      let(:sign) { FactoryBot.create(:sign, :unprocessed) }
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
       it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
     end
 
     context "sign has thumbnails processed, but not videos" do
-      let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails) }
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails, contributor: user) }
       it { expect(subject[:poster]).to match(%r{/rails/active_storage}) }
     end
 
     context "sign has videos" do
-      let(:sign) { FactoryBot.create(:sign, :processed_videos) }
+      let(:sign) { FactoryBot.create(:sign, :processed_videos, contributor: user) }
       # 1080p, 720p, 360p
       it { expect(subject).to have_selector("source[src^='/videos']", count: 3) }
     end
@@ -202,7 +202,6 @@ RSpec.describe "Sign show page", system: true do
     end
 
     context "owned by the current user" do
-      let(:user) { sign.contributor }
       it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "Private" } }
       it { within("#sign_overview") { expect(sign_page).to have_content "you are the creator of this sign" } }
@@ -217,7 +216,8 @@ RSpec.describe "Sign show page", system: true do
       end
 
       context "sign has been submitted for publishing" do
-        let(:sign) { FactoryBot.create(:sign, :submitted) }
+        let(:user) { FactoryBot.create(:user, :approved) } # User must be approved to submit/cancel submit
+        let(:sign) { FactoryBot.create(:sign, :submitted, contributor: user) }
 
         it { within("#sign_overview") { expect(sign_page).to have_link "Edit" } }
         it { expect(sign_page).to have_content "In Progress" }
@@ -244,7 +244,7 @@ RSpec.describe "Sign show page", system: true do
       end
 
       context "sign has been published" do
-        let(:sign) { FactoryBot.create(:sign, :published) }
+        let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
         subject(:sign_page) { SignPage.new }
 
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
@@ -271,7 +271,7 @@ RSpec.describe "Sign show page", system: true do
       end
 
       context "user has asked for sign to be unpublished" do
-        let(:sign) { FactoryBot.create(:sign, :unpublish_requested) }
+        let(:sign) { FactoryBot.create(:sign, :unpublish_requested, contributor: user) }
 
         it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
         it { expect(sign_page).to have_content "(asked on #{sign.requested_unpublish_at.strftime("%d %b %Y")})" }
@@ -306,7 +306,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   context "sign usage examples" do
-    let(:sign) { FactoryBot.create(:sign, :with_usage_examples) }
+    let(:sign) { FactoryBot.create(:sign, :with_usage_examples, contributor: user) }
 
     it "displays the usage example videos" do
       expect(sign_page).to have_content "Usage"
@@ -315,7 +315,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   context "sign illustrations" do
-    let(:sign) { FactoryBot.create(:sign, :with_illustrations) }
+    let(:sign) { FactoryBot.create(:sign, :with_illustrations, contributor: user) }
 
     it "displays the illustrations" do
       expect(sign_page).to have_content "Illustration"
@@ -389,8 +389,8 @@ RSpec.describe "Sign show page", system: true do
   end
 
   describe "Voting" do
-    let(:sign) { FactoryBot.create(:sign, :published) }
-    let(:user) { sign.contributor.tap { |c| c.update!(approved: true) } }
+    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+    let(:user) { FactoryBot.create(:user, :approved) }
 
     context "not an approved user" do
       let(:user) { FactoryBot.create(:user) }

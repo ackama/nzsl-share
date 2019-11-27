@@ -33,6 +33,7 @@ as well as a link to its edit page.
                 [:decline, :admin, page.resource],
                 method: :post,
                 class: "button" if policy(page.resource).decline? %>
+
     <%= link_to(
       t("administrate.actions.edit_resource", name: page.page_title),
       [:edit, namespace, page.resource],
@@ -41,18 +42,10 @@ as well as a link to its edit page.
   </div>
 </header>
 
-<section class="main-content__body">
-  <dl>
-    <% page.attributes.each do |attribute| %>
-      <dt class="attribute-label" id="<%= attribute.name %>">
-      <%= t(
-        "helpers.label.#{resource_name}.#{attribute.name}",
-        default: attribute.name.titleize,
-      ) %>
-      </dt>
-
-      <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-          ><%= render_field attribute, page: page %></dd>
-    <% end %>
-  </dl>
+<section class="main-content__body form" style="clear:both;">
+  <%= form_with model: page.resource, url: "#" do |f| %>
+    <fieldset disabled>
+      <%= render "approved_user_applications/fields", f: f %>
+    </fieldset>
+  <% end %>
 </section>
