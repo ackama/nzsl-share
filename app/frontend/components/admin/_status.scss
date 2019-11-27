@@ -13,11 +13,15 @@
     margin: 0 4px 0 0;
   }
 
-  &--declined {
+  &--archived {
     background: get-color(alert);
   }
 
-  &--submitted {
+  &--private {
+    background: get-color(royal);
+  }
+
+  &--pending {
     background: get-color(pending);
   }
 
