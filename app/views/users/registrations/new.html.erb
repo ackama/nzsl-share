@@ -29,7 +29,9 @@
       <%= f.password_field :password, autocomplete: "new-password" %>
       <%= f.error :password %>
       <% if @minimum_password_length %>
-      <span class="help-text pull-right">(<%= @minimum_password_length %> characters minimum)</span>
+        <div class="text-right">
+          <span class="help-text">(<%= @minimum_password_length %> characters minimum)</span>
+        </div>
       <% end %><br />
 
       <%= f.label :password_confirmation %>

@@ -29,10 +29,11 @@
 
       <%= f.label :password, "New password" %>
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "Only if you want to change it" %>
-      <p class="help-text">
-        <%= "#{@minimum_password_length} characters minimum. " if @minimum_password_length %>
-      </p>
-
+      <% if @minimum_password_length %>
+        <div class="text-right">
+          <span class="help-text">(<%= @minimum_password_length %> characters minimum)</span>
+        </div>
+      <% end %>
       <%= f.label :password_confirmation, "New password confirmation" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Retype new password" %>
     </fieldset>
