@@ -1,21 +1,20 @@
 <div class="cell medium-8 medium-offset-2 margin-top-2">
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "form", method: :post }) do |f| %>
-  <legend class="form__header margin-bottom-0"><h2 class="black">Resend confirmation instructions</h2></legend>
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "form margin-bottom-0", method: :post }) do |f| %>
+    <legend class="form__header margin-bottom-0"><h2 class="black">Resend confirmation instructions</h2></legend>
 
-  <hr class="form__divider">
+    <hr class="form__divider">
 
-  <fieldset class="form__section">
-    <%= f.label :email, class: "margin-top-0" %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)  %>
-    <%= f.error :email %>
-  </fieldset>
+    <fieldset class="form__section">
+      <%= f.label :email, class: "margin-top-0" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)  %>
+      <%= f.error :email %>
+    </fieldset>
 
-  <hr class="form__divider">
+    <hr class="form__divider">
 
-  <div class="form__footer">
-    <%= f.submit "Resend confirmation instructions", class: "button" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+    <div class="form__footer">
+      <%= f.submit "Resend confirmation instructions", class: "button" %>
+    </div>
+    <% end %>
+  <%= render "users/shared/links" %>
 </div>
