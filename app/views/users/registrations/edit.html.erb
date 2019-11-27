@@ -1,73 +1,76 @@
-<div class="cell margin-top-2 form">
+<% provide(:title, "Edit Profile") %>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <legend class="form__header"><h1 class="black margin-bottom-0">Edit profile</h1></legend>
+<div class="grid-x grid-margin-x content-container">
+  <%= form_for resource, as: resource_name, url: registration_path(resource_name),html: { class: "form cell small-12 large-10", method: :put } do |f| %>
+      <fieldset class="form-section">
+        <legend class="form__header"><h1 class="black margin-bottom-0">Edit profile</h1></legend>
+        <hr class="form__divider">
+        <fieldset class="form__section">
 
-    <hr class="form__divider">
-    <fieldset class="form__section">
+          <h2 class="primary">My details</h2>
+          <hr class="form__divider">
 
-      <h2 class="primary">My details</h2>
-      <hr class="form__divider">
+          <div>
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
 
-      <div>
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-      </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
+          <div class="field">
+            <%= f.label :username %>
+            <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
+          </div>
 
-      <div class="field">
-        <%= f.label :username %>
-        <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
-      </div>
+          <div class="field">
+            <%= f.label :bio %>
+            <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others." %>
+          </div>
+        </fieldset>
 
-      <div class="field">
-        <%= f.label :bio %>
-        <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others." %>
-      </div>
-    </fieldset>
+        <fieldset class="form__section">
 
-    <fieldset class="form__section">
+          <h2 class="primary">Change password</h2>
+          <hr class="form__divider">
 
-      <h2 class="primary">Change password</h2>
-      <hr class="form__divider">
+          <div class="field">
+            <%= f.label :password, "New password" %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "Only if you want to change it" %>
+            <p class="help-text">
+              <%= "#{@minimum_password_length} characters minimum. " if @minimum_password_length %>
+            </p>
+          </div>
 
-      <div class="field">
-        <%= f.label :password, "New password" %>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Only if you want to change it" %>
-        <p class="help-text">
-          <%= "#{@minimum_password_length} characters minimum. " if @minimum_password_length %>
-        </p>
-      </div>
+          <div class="field">
+            <%= f.label :password_confirmation, "New password confirmation" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Retype new password" %>
+          </div>
+        </fieldset>
 
-      <div class="field">
-        <%= f.label :password_confirmation, "New password confirmation" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Retype new password" %>
-      </div>
-    </fieldset>
+        <fieldset class="form__section form__section--last">
+          <h2 class="primary">Confirm changes</h2>
+          <hr class="form__divider">
 
-    <fieldset class="form__section form__section--last">
-      <h2 class="primary">Confirm changes</h2>
-      <hr class="form__divider">
+          <div class="field">
+            <%= f.label :current_password, class: "required" %>
+            <%= f.password_field :current_password, autocomplete: "current-password" %>
+            <%= f.error :current_password %>
 
-      <div class="field">
-        <%= f.label :current_password, class: "required" %>
-        <%= f.password_field :current_password, autocomplete: "current-password" %>
-        <%= f.error :current_password %>
+            <p class="help-text ">(we need your current password to confirm your changes)</p>
+          </div>
+        </fieldset>
+        <hr class="form__divider">
 
-        <p class="help-text ">(we need your current password to confirm your changes)</p>
-      </div>
-    </fieldset>
-    <hr class="form__divider">
-
-    <div class="form__footer">
-      <div>
-      <%= link_to "Back", :back, class: "button clear margin-bottom-0" %>
-      <%= f.submit "Update", class: "button margin-bottom-0" %>
-      </div>
-    </div>
-  <% end %>
+        <div class="form__footer">
+          <div>
+          <%= link_to "Back", :back, class: "button clear margin-bottom-0" %>
+          <%= f.submit "Update", class: "button margin-bottom-0" %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
 </div>
 
