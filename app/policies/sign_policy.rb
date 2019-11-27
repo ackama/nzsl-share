@@ -41,8 +41,12 @@ class SignPolicy < ApplicationPolicy
     owns_record? || (!private_record? && moderator?)
   end
 
+  def submit?
+    record.may_submit? && owns_record? && approved?
+  end
+
   def cancel_submit?
-    record.may_cancel_submit? && owns_record?
+    record.may_cancel_submit? && owns_record? && approved?
   end
 
   def publish?

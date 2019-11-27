@@ -5,8 +5,8 @@ RSpec.describe "Editing a sign", type: :system do
   include WaitForAjax
 
   let!(:topic) { FactoryBot.create(:topic) }
-  let(:user) { sign.contributor }
-  let(:sign) { FactoryBot.create(:sign, :unprocessed) }
+  let(:user) { FactoryBot.create(:user, :approved) }
+  let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
   subject { page }
 
   before do
@@ -57,6 +57,25 @@ RSpec.describe "Editing a sign", type: :system do
     expect(sign.submitted?).to eq true
   end
 
+  context "non-approved user" do
+    let(:user) { FactoryBot.create(:user) }
+
+    it "doesn't see the conditions" do
+      expect(page).to have_no_selector "#terms-and-conditions"
+    end
+
+    it "doesn't have an option to submit for publishing" do
+      expect(page).to have_no_field "Yes, request my sign be public"
+    end
+
+    it "can update a private sign" do
+      click_on "Update Sign"
+      sign.reload
+      expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+      expect(subject).to have_content I18n.t!("signs.update.success")
+    end
+  end
+
   it "can update a private sign without accepting the conditions" do
     choose "No, keep my sign private"
     click_on "Update Sign"
@@ -72,11 +91,6 @@ RSpec.describe "Editing a sign", type: :system do
     sign.reload
     expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
     expect(sign.submitted?).to eq false
-  end
-
-  context "moderatering public signs" do
-    let(:user) { FactoryBot.create(:user, :moderator) }
-    let(:sign) { FactoryBot.create(:sign, :published) }
   end
 
   it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
@@ -252,14 +266,14 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   describe "usage examples" do
-    let!(:sign) { FactoryBot.create(:sign, :with_usage_examples) }
+    let!(:sign) { FactoryBot.create(:sign, :with_usage_examples, contributor: user) }
     let(:valid_file) { Rails.root.join("spec", "fixtures", "dummy.mp4") }
     let(:content_type) { "video/mp4" }
     include_examples "sign attachment behaviour", :usage_examples
   end
 
   describe "illustrations" do
-    let!(:sign) { FactoryBot.create(:sign, :with_illustrations) }
+    let!(:sign) { FactoryBot.create(:sign, :with_illustrations, contributor: user) }
     let(:valid_file) { Rails.root.join("spec", "fixtures", "image.jpeg") }
     let(:content_type) { "image/jpeg" }
     include_examples "sign attachment behaviour", :illustrations
