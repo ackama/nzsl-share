@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
   resource :styleguide, only: :show
-  resources :users, only: :show, param: :username
+  resources :users, only: :show, param: :username,
+                    constraints: {
+                      # Route constraints must be unanchored
+                      username: Regexp.new(User::USERNAME_REGEXP.source.gsub(/\\A|\\Z/, ""))
+                    }
 
   require "sidekiq/web"
   mount Sidekiq::Web => "/sidekiq" # monitoring console

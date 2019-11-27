@@ -24,6 +24,12 @@ RSpec.describe "Profile page", type: :system do
         expect(page).to have_selector(".avatar")
       end
     end
+
+    context "username has '.'" do
+      let!(:user) { FactoryBot.create(:user, username: "test.example") }
+      it { expect(page).to have_content(user.username) }
+      it { expect(page).to have_current_path(user_path(username: user.username)) }
+    end
   end
 
   context "editing" do
