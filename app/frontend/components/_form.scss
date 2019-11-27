@@ -27,6 +27,7 @@
 
   &__footer {
     padding: 1.6rem;
+    text-align: center;
 
     .button {
       margin-bottom: 0;
@@ -34,14 +35,28 @@
 
     &--buttons-justified {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column-reverse;
+
+      div {
+        :first-child {
+          margin-top: 1rem;
+        }
+      }
+
+      @include breakpoint(large) {
+        flex-direction: row;
+        justify-content: space-between;
+
+        div {
+          :first-child {
+            margin-top: 0;
+          }
+        }
+      }
     }
   }
 
   &__buttons {
-    &--cancel {
-      margin-right: $global-margin;
-    }
 
     &--alert {
       color: get-color(alert) !important; //sass-lint:disable-line no-important
