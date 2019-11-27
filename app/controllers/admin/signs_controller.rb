@@ -3,7 +3,9 @@
 module Admin
   class SignsController < Admin::ApplicationController
     def scoped_resource
-      policy_scope(Sign)
+      @signs = policy_scope(Sign)
+
+      @signs.where.not(status: "personal")
     end
   end
 end
