@@ -1,8 +1,30 @@
 .messages {
   &--float {
-    left: 50%;
+    @extend .small-12;
+    @extend .medium-11;
+    @extend .large-8;
+    @extend .large-offset-2;
+
+    display: flex;
+    justify-content: center;
+    margin-top: -4.5rem;
     position: absolute;
-    transform: translateX(-25%);
     z-index: 100;
+
+    @include breakpoint(medium) {
+      margin-top: 0;
+    };
+
+    .home-page-messages {
+      width: 75%;
+
+      @include breakpoint(xxlarge) {
+        width: 70%;
+      };
+
+      @include breakpoint(xxlarge) {
+        width: 65%;
+      };
+    }
   }
 }
