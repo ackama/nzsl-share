@@ -5,46 +5,46 @@
 
     <hr class="form__divider">
 
-    <div class="margin-top-1">
+    <fieldset class="margin-top-1">
       <%= f.label :username, class: "required" %>
       <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
       <%= f.error :username %>
-    </div>
+    </fieldset>
 
-    <div>
+    <fieldset>
       <%= f.label :email, class: "required" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       <%= f.error :email %>
-    </div>
+    </fieldset>
 
-    <div>
+    <fieldset>
       <%= f.label :bio %>
       <%= f.text_area :bio, rows: 5 %>
       <p class="help-text">
         Tell us a little about yourself! This will be visible to other users.
       </p>
-    </div>
+    </fieldset>
 
-    <div>
+    <fieldset>
       <%= f.label :password, class: "required" %>
       <%= f.password_field :password, autocomplete: "new-password" %>
       <%= f.error :password %>
       <% if @minimum_password_length %>
       <span class="help-text pull-right">(<%= @minimum_password_length %> characters minimum)</span>
       <% end %><br />
-    </div>
+    </fieldset>
 
-    <div>
+    <fieldset>
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       <%= f.error :password_confirmation %>
-    </div>
+    </fieldset>
 
     <hr class="form__divider margin-top-2">
 
-    <div class="actions margin-top-2 text-right">
+    <fieldset class="actions margin-top-2 text-right">
       <%= f.submit "Sign up", class: "button" %>
-    </div>
+    </fieldset>
   <% end %>
   <%= render "users/shared/links" %>
 </div>
