@@ -11,7 +11,7 @@
 
       <div>
         <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autocomplete: "email" %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -29,7 +29,7 @@
       </div>
     </fieldset>
 
-    <div class="form__section">
+    <div class="form__section" id="approved-member-information">
       <h2 class="primary">Approved Member</h2>
       <hr class="form__divider margin-bottom-2">
 
