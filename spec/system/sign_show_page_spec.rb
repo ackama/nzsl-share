@@ -26,7 +26,7 @@ RSpec.describe "Sign show page", system: true do
   it "contributor username links to profile page" do
     within ".sign-card__subtitle" do
       click_on sign.contributor.username
-      expect(page).to have_current_path(user_path(sign.contributor))
+      expect(page).to have_current_path(user_path(sign.contributor.username))
     end
   end
 

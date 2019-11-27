@@ -5,7 +5,7 @@ RSpec.describe "Profile page", type: :system do
   let(:auth) { AuthenticateFeature.new(user) }
 
   context "viewing" do
-    before { visit user_path(user) }
+    before { visit user_path(username: user.username) }
 
     it "shows username" do
       within ".form" do
