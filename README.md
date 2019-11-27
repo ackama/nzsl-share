@@ -1,6 +1,6 @@
 [![Codeship Status for ackama/nzsl-share](https://app.codeship.com/projects/93cf1f10-a9e8-0137-6493-0accbd4a81ee/status?branch=master)](https://app.codeship.com/projects/361577)
 
-# nzsl_share
+# NZSL Share
 
 This is a Rails 6 app.
 
@@ -15,9 +15,10 @@ This README describes the purpose of this repository and how to set up a develop
 
 This project requires:
 
-* Ruby 2.6.3, preferably managed using [rbenv][]
-* Chromedriver for Capybara testing
+* Ruby 2.6.5, preferably managed using [rbenv][]
+* Google Chrome for headless Capybara testing
 * PostgreSQL must be installed and accepting connections
+* Redis must be installed and accepting connections
 
 On a Mac, you can obtain all of the above packages using [Homebrew][].
 
@@ -42,7 +43,8 @@ Run the `bin/setup` script. This script will:
 
 ## Deployment
 
-Ensure the following environment variables are set in the deployment environment:
+Ensure the following environment variables are set in the deployment environment to configure
+the environment. Other, application-specific configuration keys can be found in `example.env`.
 
 * `RACK_ENV`
 * `RAILS_ENV`
