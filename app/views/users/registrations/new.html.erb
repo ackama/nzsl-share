@@ -5,19 +5,19 @@
 
     <hr class="form__divider">
 
-    <div class="field margin-top-1">
+    <div class="margin-top-1">
       <%= f.label :username, class: "required" %>
       <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
       <%= f.error :username %>
     </div>
 
-    <div class="field">
+    <div>
       <%= f.label :email, class: "required" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       <%= f.error :email %>
     </div>
 
-    <div class="field">
+    <div>
       <%= f.label :bio %>
       <%= f.text_area :bio, rows: 5 %>
       <p class="help-text">
@@ -25,7 +25,7 @@
       </p>
     </div>
 
-    <div class="field">
+    <div>
       <%= f.label :password, class: "required" %>
       <%= f.password_field :password, autocomplete: "new-password" %>
       <%= f.error :password %>
@@ -34,7 +34,7 @@
       <% end %><br />
     </div>
 
-    <div class="field">
+    <div>
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       <%= f.error :password_confirmation %>
