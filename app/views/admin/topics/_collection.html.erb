@@ -83,7 +83,7 @@ to display a collection of resources in an HTML table.
           </li>
           <li class="list__item-menu__menu-item">
             <%= link_to(admin_topic_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") }) do %>
-              <%= inline_svg "media/images/remove.svg", class: "icon--medium" %><span>Destroy</span>
+              <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
             <% end %>
           </li>
         </ul>
