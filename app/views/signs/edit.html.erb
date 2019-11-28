@@ -1,7 +1,7 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
 <%= content_for :head do %>
-  <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
+  <%= javascript_pack_tag "contributions", async: true, defer: true %>
 <% end %>
 
 

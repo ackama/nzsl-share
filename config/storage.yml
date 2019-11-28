@@ -13,3 +13,7 @@ amazon:
   # access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
   # secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   # region: us-east-1
+  upload:
+    # Don't allow intermediataries to cache, and browser can cache
+    # for 1 hour.
+    cache_control: "private, max-age=3600"
