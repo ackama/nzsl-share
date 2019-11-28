@@ -1,5 +1,4 @@
-<div class="grid-x grid-margin-x margin-bottom-1">
-  <div id="sign_overview" class="callout overview cell small-12 large-10 grid-x">
+  <div id="sign_overview" class="overview cell medium-8 grid-x callout">
     <div class="cell auto">
       <strong><%= sign.overview_intro_text(current_user) %></strong>
       <div class="grid-x margin-bottom-0">
@@ -13,4 +12,3 @@
     </div>
     <%= render "signs/overview/#{current_user.moderator ? 'moderation_options': 'owner_options'}", sign: @sign %>
   </div>
-</div>
