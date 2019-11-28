@@ -29,5 +29,6 @@ module NzslShare
     config.active_model.i18n_customize_full_message = true
 
     config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV["MAIL_FROM"])
+    config.google_analytics_container_id = ENV["GOOGLE_ANALYTICS_CONTAINER_ID"]
   end
 end
