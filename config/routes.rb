@@ -55,5 +55,6 @@ Rails.application.routes.draw do
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 
+  get "/sitemap.xml" => "sitemaps#index", defaults: { format: "xml" }, as: :sitemap
   get "/:page" => "static#show", as: :page
 end
