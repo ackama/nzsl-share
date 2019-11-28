@@ -148,5 +148,9 @@
       margin: 0 $global-margin / 2;
       width: 1px;
     }
+
+    &--dark {
+      background-color: get-color(light);
+    }
   }
 }

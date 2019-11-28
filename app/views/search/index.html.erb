@@ -1,18 +1,19 @@
 <% provide(:title, "Results for '#{@page[:term]}'") %>
 
-<div class="grid-x margin-top-2 align-middle">
-  <div class="cell auto">
-    <h2 class="normal">
-      <%= pluralize(@page[:total], "result") %>
-      for
-      <strong>‘<%= @page[:term] %>’</strong>
-    </h2>
-  </div>
+  <div class="list__section grid-x margin-top-2">
+    <div class="cell auto">
+      <h2 class="normal">
+        <%= pluralize(@page[:total], "result") %>
+        for
+        <strong>‘<%= @page[:term] %>’</strong>
+      </h2>
+    </div>
 
-  <div class="cell shrink">
-    <%= render "sort_by", page: @page unless @page[:total].zero? %>
+    <div class="cell shrink">
+      <%= render "sort_by", page: @page unless @page[:total].zero? %>
+    </div>
   </div>
-</div>
+  <hr class="list__divider list__divider--dark">
 
 
 <div class="cell auto grid-x sign-grid">
