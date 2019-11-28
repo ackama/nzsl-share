@@ -1,7 +1,7 @@
 <% provide(:title, "New Sign") %>
 
 <%= content_for :head do %>
-  <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
+  <%= javascript_pack_tag "contributions", async: true, defer: true %>
 <% end %>
 
 <div class="grid-x grid-margin-x content-container margin-bottom-2">

@@ -1,10 +1,10 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
 <%= content_for :head do %>
-  <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
+  <%= javascript_pack_tag "contributions", async: true, defer: true %>
 <% end %>
 
-
+<div class="grid-x">
 <div class="cell medium-8 margin-top-2">
   <%= form_with model: @sign, url: sign_path(@sign), local: true, class: "form", method: :patch do |f| %>
     <%= render "errors" %>
@@ -13,6 +13,7 @@
 
     <fieldset class="form__section">
       <legend><h2 class="primary">Sign details</h2></legend>
+      <hr class="form__divider">
       <div class="file-preview js-sign-video-container">
         <div class="file-preview__media">
           <%= render "signs/card/video", sign: @sign, overlay: false %>
@@ -48,14 +49,13 @@
     <fieldset class="form__section">
       <legend><h2 class="primary">Other details</h2></legend>
       <hr class="form__divider">
-
       <%= f.label :notes, "Notes" %>
       <p class="help-text">(e.g. where have you seen this sign used?)</p>
       <%= f.text_area :notes, rows: 5, placeholder: "Enter your notes here", class: (@sign.errors[:notes].any? && "invalid") %>
-
-      <%= render "signs/edit/attachment", field: :usage_example, form: f %><br />
-      <%= render "signs/edit/attachment", field: :illustration, form: f %>
     </fieldset>
+
+    <%= render "signs/edit/attachment", field: :usage_example, form: f %>
+    <%= render "signs/edit/attachment", field: :illustration, form: f %>
 
     <% if policy(f.object).submit? || policy(f.object).cancel_submit? %>
       <fieldset class="form__section">
@@ -114,7 +114,7 @@
     </div>
   <% end %>
 </div>
-
+</div>
 <% unless @sign.fully_processed? %>
   <%= javascript_tag defer: "defer", nonce: true do %>
     var selector = ".js-sign-video-container";
