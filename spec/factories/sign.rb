@@ -64,7 +64,7 @@ FactoryBot.define do
     end
 
     trait :with_usage_examples do
-      after(:build) do |sign|
+      after(:create) do |sign|
         video_file = File.open(Rails.root.join("spec", "fixtures", "dummy.mp4"))
         video_file_io = { io: video_file, filename: File.basename(video_file) }
 
@@ -73,7 +73,7 @@ FactoryBot.define do
     end
 
     trait :with_illustrations do
-      after(:build) do |sign|
+      after(:create) do |sign|
         video_file = File.open(Rails.root.join("spec", "fixtures", "image.jpeg"))
         video_file_io = { io: video_file, filename: File.basename(video_file) }
 

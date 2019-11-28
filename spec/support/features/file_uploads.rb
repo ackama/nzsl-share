@@ -24,8 +24,6 @@ module FileUploads
         $("#{selector}.file-upload").trigger(evt)
       JS
     )
-
-    wait_for_ajax
   end
 
   def choose_file(path=default_attachment_path)

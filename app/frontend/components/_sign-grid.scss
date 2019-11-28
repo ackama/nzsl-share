@@ -7,13 +7,8 @@ $sign-card-width: rem-calc(258);
   gap: 1rem; // sass-lint:disable-line no-misspelled-properties
   grid-template-columns: repeat(auto-fill, $sign-card-width);
   margin: 1rem auto;
-}
 
-.sign-grid__header {
-  @include xy-cell;
-
-  border-bottom: solid 1px $lighter-gray;
-  margin-bottom: 2rem;
-  margin-top: 3rem;
-  padding-bottom: 1rem;
+  &__sort {
+    min-width: rem-calc(200);
+  }
 }

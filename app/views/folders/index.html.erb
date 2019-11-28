@@ -10,14 +10,13 @@
       </li>
     </ul>
   </nav>
-
   <div class="grid-x cell list">
-    <div class="list__title cell grid-x align-middle">
+    <div class="list__title list__section cell grid-x align-middle">
       <h1>My folders</h1>
       <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal primary", remote: true %>
     </div>
-    <hr class="list__divider"/>
-    <div class="list__items cell grid-x">
+    <hr class="list__divider">
+    <div class="list__items list__section cell grid-x">
       <% @folders.each do |folder| %>
         <div class="list__item list__item--interactive cell grid-x align-middle">
           <div class="cell small-6 grid-x align-middle">
