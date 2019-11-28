@@ -70,6 +70,10 @@
 
     &__title {
       font-weight: bold;
+
+      &--filename {
+        overflow-wrap: break-word;
+      }
     }
 
     &__icon {

@@ -30,7 +30,7 @@ RSpec.describe "Sign card features", type: :system do
   it "contributor's username links to their profile" do
     inside_card do
       click_on sign.contributor.username
-      expect(page).to have_current_path(user_path(sign.contributor))
+      expect(page).to have_current_path(user_path(sign.contributor.username))
     end
   end
 
@@ -229,8 +229,8 @@ RSpec.describe "Sign card features", type: :system do
       within sign_card do
         click_on "Agree"
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        expect(page).to have_selector ".sign-card__votes--agree", text: "0", wait: 10
+        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1", wait: 10
       end
     end
   end

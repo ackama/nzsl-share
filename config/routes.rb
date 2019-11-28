@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
   resource :styleguide, only: :show
-  resources :users, only: :show
+  resources :users, only: :show, param: :username,
+                    constraints: {
+                      # Route constraints must be unanchored
+                      username: Regexp.new(User::USERNAME_REGEXP.source.gsub(/\\A|\\Z/, ""))
+                    }
 
   require "sidekiq/web"
   mount Sidekiq::Web => "/sidekiq" # monitoring console
@@ -51,5 +55,6 @@ Rails.application.routes.draw do
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 
+  get "/sitemap.xml" => "sitemaps#index", defaults: { format: "xml" }, as: :sitemap
   get "/:page" => "static#show", as: :page
 end

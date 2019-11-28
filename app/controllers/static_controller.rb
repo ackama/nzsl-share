@@ -1,8 +1,7 @@
 class StaticController < ApplicationController
+  PAGES = %w[about contact terms-and-conditions privacy-policy].freeze
   def show
-    unless "about contact terms-and-conditions privacy-policy".include? params[:page]
-      fail ActionController::RoutingError
-    end
+    fail ActionController::RoutingError, "Unknown page: #{params[:page]}" unless PAGES.include? params[:page]
 
     render params[:page]
   end

@@ -169,7 +169,7 @@ $header-font-style: normal;
 $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 $header-color: inherit;
 $header-lineheight: 1.4;
-$header-margin-bottom: 0.5rem;
+$header-margin-bottom: 0;
 $header-styles: (
   small: (
     "h1": (
@@ -452,7 +452,7 @@ $flexbox-responsive-breakpoints: true;
 $fieldset-border: 1px solid $dark-gray;
 $fieldset-padding: rem-calc(20);
 $fieldset-margin: rem-calc(18 0);
-$legend-padding: rem-calc(0 3);
+$legend-padding: 0;
 $form-spacing: rem-calc(8);
 $helptext-color: $medium-gray;
 $helptext-font-size: rem-calc(13);
@@ -740,7 +740,7 @@ $reveal-max-width: $global-width;
 $reveal-padding: $global-padding;
 $reveal-border: 1px solid $dark-gray;
 $reveal-radius: $global-radius;
-$reveal-zindex: 1005;
+$reveal-zindex: 10005;
 $reveal-overlay-background: rgba($black, 0.71);
 
 // 48. Slider

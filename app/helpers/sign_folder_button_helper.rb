@@ -15,7 +15,7 @@ module SignFolderButtonHelper
     in_folder = in_folder?(sign)
     classes << "sign-card__folders__button--in-folder" if in_folder
     icon = in_folder ? in_folder_icon : add_folder_icon
-    folder_button_for_sign(sign, icon, classes)
+    button_tag(icon, class: classes, data: { toggle: dom_id(sign, :folder_menu) })
   end
 
   def sign_show_folder_button(sign)
@@ -26,7 +26,7 @@ module SignFolderButtonHelper
     in_folder = in_folder?(sign)
     classes << "sign-card__folders__button--in-folder-for-show" if in_folder
     icon = in_folder ? in_sign_show_folder_icon : add_sign_show_folder_icon
-    folder_button_for_sign(sign, icon, classes)
+    link_to(icon, "#", class: classes, data: { toggle: dom_id(sign, :folder_menu) })
   end
 
   def fetch_folder_button(sign)
@@ -40,10 +40,6 @@ module SignFolderButtonHelper
     return true if from_sign_show?(sign)
 
     false
-  end
-
-  def folder_button_for_sign(sign, icon, classes)
-    button_tag(icon, class: classes, data: { toggle: dom_id(sign, :folder_menu) })
   end
 
   def from_sign_show?(sign)

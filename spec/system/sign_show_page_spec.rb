@@ -26,7 +26,7 @@ RSpec.describe "Sign show page", system: true do
   it "contributor username links to profile page" do
     within ".sign-card__subtitle" do
       click_on sign.contributor.username
-      expect(page).to have_current_path(user_path(sign.contributor))
+      expect(page).to have_current_path(user_path(sign.contributor.username))
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "has the expected 'Add to Folder' button" do
-    expect(page).to have_button "Add to Folder"
+    expect(page).to have_link "Add to Folder"
   end
 
   context "share public sign with anonymous user" do

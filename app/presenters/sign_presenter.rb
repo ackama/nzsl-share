@@ -15,6 +15,10 @@ class SignPresenter < ApplicationPresenter
     sign.processed_thumbnails? && sign.processed_videos?
   end
 
+  def moderator_display_name
+    I18n.t("signs.#{sign.status}.moderator_display_name")
+  end
+
   def status_name
     user = h.current_user
     key = user&.moderator? && contributor != user ? "moderator_display_name" : "display_name"

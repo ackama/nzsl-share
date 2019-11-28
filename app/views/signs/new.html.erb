@@ -1,10 +1,10 @@
 <% provide(:title, "New Sign") %>
 
 <%= content_for :head do %>
-  <%= javascript_pack_tag "contributions", "data-turbolinks-track": "reload" %>
+  <%= javascript_pack_tag "contributions", async: true, defer: true %>
 <% end %>
 
-<div class="grid-x grid-margin-x content-container">
+<div class="grid-x grid-margin-x content-container margin-bottom-2">
   <%= render "errors" %>
   <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
     <div class="file-upload" data-file-upload-controller="sign[video]">
