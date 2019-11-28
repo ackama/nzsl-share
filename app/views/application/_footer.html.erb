@@ -30,13 +30,13 @@
       <h3>Follow us</h3>
       <ul class="footer__list">
         <li>
-          <%= link_to "https://www.facebook.com/NZSL-Share-104408607647069", target: "_blank" do %>
+          <%= link_to "https://www.facebook.com/NZSL-Share-104408607647069", rel: "noreferrer", target: "_blank" do %>
           <%= inline_svg "media/images/facebook.svg", aria: true, title: "Facebook Logo" %>
           Facebook
           <%end%>
         </li>
         <li>
-          <%= link_to "https://twitter.com/nzsldict", target: "_blank" do %>
+          <%= link_to "https://twitter.com/nzsldict", target: "_blank", rel: "noreferrer" do %>
           <%= inline_svg "media/images/twitter.svg", aria: true, title: "Twitter Logo" %>
           Twitter
           <%end%>
@@ -46,7 +46,7 @@
     <div class="cell small-6 medium-auto">
       <h3>Open source</h3>
       <ul class="footer__list">
-        <li><%= link_to "https://github.com/ackama/nzsl-share", target: "_blank" do %>
+        <li><%= link_to "https://github.com/ackama/nzsl-share", rel: "noreferrer", target: "_blank" do %>
         <%= inline_svg "media/images/github.svg", aria: true, title: "Github Logo" %>
         This is an Open Source project.
         <%end%></li>

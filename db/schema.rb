@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_014316) do
+ActiveRecord::Schema.define(version: 2019_11_27_225458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,13 @@ ActiveRecord::Schema.define(version: 2019_11_23_014316) do
     t.index ["status"], name: "index_signs_on_status"
     t.index ["topic_id"], name: "index_signs_on_topic_id"
     t.index ["word"], name: "idx_signs_word"
+  end
+
+  create_table "sitemaps", force: :cascade do |t|
+    t.text "xml", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_sitemaps_on_created_at"
   end
 
   create_table "topics", force: :cascade do |t|
