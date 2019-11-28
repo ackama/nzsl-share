@@ -50,6 +50,6 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
-  # Run queued tasks in an inline queue
-  Rails.application.config.active_job.queue_adapter = :inline
+  # Run queued tasks in an async queue
+  Rails.application.config.active_job.queue_adapter = :async
 end
