@@ -3,7 +3,10 @@
   border-radius: rem-calc(8);
   margin-bottom: $global-margin * 2;
   margin-top: $global-margin;
-  padding: 0 $global-padding;
+
+  &__section {
+    padding: 0 $global-padding;
+  }
 
   &--admin {
     padding: 0;
@@ -22,7 +25,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: $global-padding * 2 0;
+    margin: 1.6rem 0;
 
     &--admin {
       padding: $global-padding * 2;
@@ -126,22 +129,22 @@
         max-width: rem-calc(161);
       }
     }
+  }
 
-    &__divider {
-      background-color: get-color(primary-x-light);
-      border: 0;
-      clear: both;
-      display: block;
-      height: 1px;
-      margin: 0;
-      width: 100%;
+  &__divider {
+    background-color: get-color(primary-x-light);
+    border: 0;
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 0;
+    width: 100%;
 
-      &--vertical {
-        background-color: get-color(medium);
-        height: 24px;
-        margin: 0 $global-margin / 2;
-        width: 1px;
-      }
+    &--vertical {
+      background-color: get-color(medium);
+      height: 24px;
+      margin: 0 $global-margin / 2;
+      width: 1px;
     }
   }
 }
