@@ -1,7 +1,7 @@
 class StaticController < ApplicationController
   def show
-    unless "about contact terms-and-conditions privacy-policy".include? params[:page]
-      fail ActionController::RoutingError
+    unless %w[about contact terms-and-conditions privacy-policy].include? params[:page]
+      fail ActionController::RoutingError, "Unknown page: #{params[:page]}"
     end
 
     render params[:page]

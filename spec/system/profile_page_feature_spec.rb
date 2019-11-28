@@ -5,7 +5,7 @@ RSpec.describe "Profile page", type: :system do
   let(:auth) { AuthenticateFeature.new(user) }
 
   context "viewing" do
-    before { visit user_path(user) }
+    before { visit user_path(username: user.username) }
 
     it "shows username" do
       within ".form" do
@@ -23,6 +23,12 @@ RSpec.describe "Profile page", type: :system do
       within ".form" do
         expect(page).to have_selector(".avatar")
       end
+    end
+
+    context "username has '.'" do
+      let!(:user) { FactoryBot.create(:user, username: "test.example") }
+      it { expect(page).to have_content(user.username) }
+      it { expect(page).to have_current_path(user_path(username: user.username)) }
     end
   end
 
