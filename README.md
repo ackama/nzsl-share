@@ -27,20 +27,11 @@ If you need help setting up a Ruby development environment, check out this [Rail
 
 ## Getting started
 
-### bin/setup
+See our [contribution guide](CONTRIBUTING.md) for full instructions on getting set up
+and contributing to the project!
 
-Run the `bin/setup` script. This script will:
-
-* Check you have the required Ruby version
-* Install gems using Bundler
-* Create local copies of `.env` and `database.yml`
-* Create, migrate, and seed the database
-
-### Run it!
-
-1. Run `bin/rake spec` to make sure everything works.
-2. Run `bin/rake spec:system` to run system (capybara) tests.
-3. Run `bin/rails s` and `bin/sidekiq` to start the app and Sidekiq; alternatively, start both at once with `heroku local`.
+If you know what you're doing already, `bin/setup` should get you set up, and you can run
+`bin/ci-run` to make sure you've got locally passing tests.
 
 ## Deployment
 
