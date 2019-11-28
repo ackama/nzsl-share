@@ -141,7 +141,7 @@ RSpec.describe "Editing a sign", type: :system do
 
     context "when the sign video has been encoded" do
       before { sign.update!(processed_thumbnails: true, processed_videos: true); }
-      it { expect(subject).to have_selector("source[src*='/videos']", count: 3, visible: false) }
+      it { expect(subject).to have_selector("source[src*='/videos']", wait: 30, count: 3, visible: false) }
     end
   end
 
@@ -220,7 +220,7 @@ RSpec.describe "Editing a sign", type: :system do
           choose_file(valid_file)
         end
 
-        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1
+        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1, wait: 10
         expect(sign.public_send(attribute).count).to eq original_count + 1
       end
 
@@ -234,7 +234,7 @@ RSpec.describe "Editing a sign", type: :system do
                                    selector: "#{container_selector}-file-upload")
         end
 
-        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1
+        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1, wait: 10
         expect(sign.public_send(attribute).count).to eq original_count + 1
       end
 
