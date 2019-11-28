@@ -1,5 +1,6 @@
 .file-preview {
   @include media-object-container;
+  margin: 1rem 0;
 
   .file-preview__media,
   .file-preview__metadata {
