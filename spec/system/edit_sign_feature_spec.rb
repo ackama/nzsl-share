@@ -241,16 +241,14 @@ RSpec.describe "Editing a sign", type: :system do
       it "can update the description of an attachment" do
         desc = Faker::Lorem.sentence
         single_record = sign.public_send(attribute).first
-        expect do
-          within(list_selector + " li") do
-            field = find_field(:description)
-            field.send_keys desc, :return
-            wait_for_ajax
-            single_record.reload
-          end
-        end.to change { single_record.blob.metadata["description"] }.to eq desc
+        within(list_selector + " li") do
+          field = find_field(:description)
+          field.send_keys desc, :return
+          expect(page).to have_field(:description, with: desc)
+        end
 
-        within(list_selector) { expect(page).to have_field(:description, with: desc) }
+        single_record.reload
+        expect(single_record.blob.metadata["description"]).to eq desc
       end
 
       it "rejects an invalid file with an error" do
