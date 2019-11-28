@@ -1,8 +1,4 @@
 .callout {
-  // &.radius {
-  //   border-radius: $prototype-border-radius;
-  // }
-
   font-weight: bold;
   padding: 0.5rem;
 
@@ -45,5 +41,9 @@
   &__close {
     color: $white;
     font-size: 2rem;
+  }
+
+  &__list {
+    font-weight: normal;
   }
 }
