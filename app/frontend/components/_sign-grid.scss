@@ -12,7 +12,6 @@ $sign-card-width: rem-calc(258);
 .sign-grid__header {
   @include xy-cell;
 
-  border-bottom: solid 1px $lighter-gray;
   margin-bottom: 2rem;
   margin-top: 3rem;
   padding-bottom: 1rem;
