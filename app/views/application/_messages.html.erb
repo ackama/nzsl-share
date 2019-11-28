@@ -1,12 +1,12 @@
 <% classes ||= "" %>
-<div class="grid-container messages <%= classes %>" style="width:100%">
-  <div class="grid-x grid-margin-x">
-    <div class="cell auto">
+<div class="grid-container messages <%= classes %>">
+  <div class="grid-x grid-margin-x home-page-messages">
+    <div class="cell large-10">
       <%# Notice %>
       <% if flash[:notice].present? %>
         <div class="callout success grid-x grid-margin-x" data-closable>
           <div class="cell shrink align-self-middle">
-            <%= inline_svg "media/images/remove.svg", class: "icon icon--white icon--mid" %>
+            <%= inline_svg "media/images/tick.svg", class: "icon icon--white icon--mid" %>
           </div>
           <div class="cell auto align-self-middle">
             <%= sanitize(flash[:notice], tags: %w[a])  %>

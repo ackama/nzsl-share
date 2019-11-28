@@ -30,7 +30,7 @@ RSpec.describe "Sign card features", type: :system do
   it "contributor's username links to their profile" do
     inside_card do
       click_on sign.contributor.username
-      expect(page).to have_current_path(user_path(sign.contributor))
+      expect(page).to have_current_path(user_path(sign.contributor.username))
     end
   end
 
