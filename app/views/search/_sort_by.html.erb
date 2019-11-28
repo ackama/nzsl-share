@@ -8,7 +8,7 @@
       <%= label_tag :sort, "Sort by", class: "middle inline" %>
     </div>
 
-    <div class="cell auto">
+    <div class="cell auto sign-grid__sort">
       <select name="sort" onchange="this.form.submit()">
         <% Search.permitted_sort_keys.each do |key| %>
           <option <%= "selected" if params[:sort] == key %> value="<%= key %>">
