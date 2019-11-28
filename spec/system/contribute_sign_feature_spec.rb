@@ -17,6 +17,7 @@ RSpec.describe "Contributing a new sign", type: :system do
       expect do
         subject.drop_file_in_file_upload
         subject.submit
+        expect(subject).to have_content I18n.t!("signs.create.success")
       end.to change(subject.user.signs, :count).by(1)
     end
 
