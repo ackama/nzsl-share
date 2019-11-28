@@ -3,6 +3,8 @@
   <head>
     <title><%= strip_tags(yield(:title)) + " – " if content_for?(:title) -%>NZSL Share</title>
 
+    <%= render "application/analytics/google/head" %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -42,6 +44,7 @@
   <body class="no-js">
     <%# Prevent FOUS on page load %>
     <script>document.body.classList.remove("no-js");</script>
+    <%= render "application/analytics/google/body" %>
 
     <%= render "application/header" %>
     <% # Authenticated layout renders these %>
