@@ -128,8 +128,6 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   describe "video processing", uses_javascript: true do
-    subject { page.find(".video") }
-
     context "when the video is unprocessed" do
       it { expect(page).to have_selector ".video[poster*=processing]" }
     end
@@ -141,7 +139,7 @@ RSpec.describe "Editing a sign", type: :system do
 
     context "when the sign video has been encoded" do
       before { sign.update!(processed_thumbnails: true, processed_videos: true); }
-      it { expect(subject).to have_selector("source[src*='/videos']", count: 3, visible: false) }
+      it { expect(page).to have_selector("source[src*='/videos']", count: 3, visible: false) }
     end
   end
 
@@ -233,7 +231,6 @@ RSpec.describe "Editing a sign", type: :system do
                                    content_type: content_type,
                                    selector: "#{container_selector}-file-upload")
         end
-
         expect(page.find(list_selector)).to have_selector "li", count: original_count + 1
         expect(sign.public_send(attribute).count).to eq original_count + 1
       end
