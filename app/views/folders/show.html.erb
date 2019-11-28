@@ -11,7 +11,7 @@
     </ul>
   </nav>
   <div class="grid-x cell list">
-    <div class="list__title cell grid-x align-middle">
+    <div class="list__title list__section cell grid-x align-middle">
       <div class="cell grid-x align-middle">
         <h1 class="cell auto"><%= @folder.title %></h1>
         <div class="cell shrink grid-x align-middle">
@@ -29,7 +29,7 @@
       </div>
     </div>
     <hr class="list__divider"/>
-    <div class="list__items cell sign-grid">
+    <div class="list__section list__section--sign-cards cell margin-vertical-0 sign-grid">
       <% @folder.signs.each do |sign| %>
         <%= render "signs/card", sign: sign %>
       <% end %>
