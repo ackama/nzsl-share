@@ -5,7 +5,11 @@
   margin-top: $global-margin;
 
   &__section {
-    padding: 0 $global-padding;
+    padding: 1.6rem;
+
+    &--sign-cards {
+      justify-content: space-around;
+    }
   }
 
   &--admin {
@@ -25,7 +29,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 1.6rem 0;
 
     &--admin {
       padding: $global-padding * 2;
@@ -44,7 +47,6 @@
 
   &__items {
     justify-content: space-between;
-    padding: $global-padding 0;
   }
 
   &__item {
