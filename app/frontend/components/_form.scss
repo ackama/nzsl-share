@@ -4,35 +4,59 @@
   margin-bottom: rem-calc(129);
 
   &__header {
-    margin-bottom: 0;
     padding: 1.6rem;
   }
 
-  &__footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 1.6rem;
+  &__divider {
+    background-color: get-color(primary-x-light);
+    border: 0;
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 0;
+    width: 100%;
   }
 
   &__section {
     margin: rem-calc(32) rem-calc(59);
+  }
 
-    &--last {
-      margin-bottom: rem-calc(74);
+  &__footer {
+    padding: 1.6rem;
+    text-align: center;
+
+    .button {
+      margin-bottom: 0;
+    }
+
+    @include breakpoint(large) {
+      text-align: right;
+    }
+
+    &--buttons-justified {
+      display: flex;
+      flex-direction: column-reverse;
+
+      div {
+        :first-child {
+          margin-top: 1rem;
+        }
+      }
+
+      @include breakpoint(large) {
+        flex-direction: row;
+        justify-content: space-between;
+
+        div {
+          :first-child {
+            margin-top: 0;
+          }
+        }
+      }
     }
   }
 
   &__buttons {
-    // Pull buttons to the edges to make border full-width, then
-    // reapply paddding to space container properly.
-
-    border-top: solid 1px $extra-light-gray;
-    margin: -$global-padding;
-    padding: $global-padding;
-
-    &--cancel {
-      margin-right: $global-margin;
-    }
 
     &--alert {
       color: get-color(alert) !important; //sass-lint:disable-line no-important
@@ -45,15 +69,5 @@
         background-color: get-color(alert-x-light) !important; //sass-lint:disable-line no-important
       }
     }
-  }
-
-  &__divider {
-    background-color: get-color(primary-x-light);
-    border: 0;
-    clear: both;
-    display: block;
-    height: 1px;
-    margin: 0;
-    width: 100%;
   }
 }
