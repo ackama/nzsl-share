@@ -13,14 +13,12 @@
   </div>
 
   <div class="off-canvas-content grid-x" data-off-canvas-content>
-    <!--<%= render "application/messages" %>-->
-    <div class="reveal-for-medium cell shrink sidebar sidebar--medium-up">
+    <div class="cell shrink sidebar sidebar--inside-grid">
       <%= render "application/sidebar/signed_in" %>
     </div>
     <div class="grid-container cell auto">
-
+      <%= render "application/messages" %>
       <%= yield %>
-
     </div>
   </div>
 <% end %>
