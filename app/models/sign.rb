@@ -70,7 +70,7 @@ class Sign < ApplicationRecord
     end
 
     event :submit do
-      transitions from: %i[personal declined], to: :submitted
+      transitions from: %i[personal], to: :submitted
     end
 
     event :cancel_submit do
