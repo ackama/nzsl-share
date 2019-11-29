@@ -1,8 +1,14 @@
 .sidebar {
   background: $white;
   max-width: 240px;
+  z-index: 100;
 
   li { padding: 0; }
+
+  .menu  {
+    border-bottom: solid 1px $extra-light-gray;
+    padding: 1rem 0.5rem 1rem 0;
+  }
 
   .menu-text {
     color: get-color(primary);
@@ -27,14 +33,31 @@
     }
   }
 
+  .is-active  {
+    @include icon-fill(get-color(royal));
+
+    a {
+      border-bottom-right-radius: rem-calc(24);
+      border-top-right-radius: rem-calc(24);
+      font-weight: bold !important; //sass-lint:disable-line no-important
+    }
+  }
+
+  // For small screens
   &--off-canvas {
+    height: auto;
     margin-top: 120px;
     max-width: 100vw;
+    min-height: 100%;
+    overflow-y: scroll;
     padding-top: 2rem; // Make space for the close button
     width: 100%;
   }
 
-  &--medium-up {
+  // For medium screens and up
+  &--inside-grid {
+    min-height: 900px;
+
     @include breakpoint(small only) {
       display: none;
     }
@@ -52,32 +75,4 @@
       }
     }
   }
-
-  .is-active  {
-    @include icon-fill(get-color(royal));
-
-    a {
-      border-bottom-right-radius: rem-calc(24);
-      border-top-right-radius: rem-calc(24);
-      font-weight: bold !important; //sass-lint:disable-line no-important
-    }
-  }
-
-  .menu  {
-    border-bottom: solid 1px $extra-light-gray;
-    padding: 1rem 0.5rem 1rem 0;
-  }
-
-  // https://foundation.zurb.com/sites/docs/off-canvas.html#off-canvas-sizes:
-  // Please note the sizes maps do currently not work perfectly for the reveal classes.
-  // If sizes are defined for medium and large, .reveal-for-medium will only consider the medium value.
-  // This is going to get fixed in a future release.
-  // &.position-left {
-  //   &.reveal-for-medium ~ .off-canvas-content {
-
-  //     @include breakpoint(large) {
-  //       margin-left: map-get($offcanvas-sizes, large);
-  //     }
-  //   }
-  // }
 }
