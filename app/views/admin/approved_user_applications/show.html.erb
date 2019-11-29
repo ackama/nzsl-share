@@ -38,7 +38,7 @@ as well as a link to its edit page.
           <%= link_to "Decline",
                       [:decline, :admin, page.resource],
                       method: :post,
-                      class: "button alert" if policy(page.resource).decline? %>
+                      class: "button alert margin-right-1" if policy(page.resource).decline? %>
 
           <%= link_to "Accept",
                       [:accept, :admin, page.resource],
