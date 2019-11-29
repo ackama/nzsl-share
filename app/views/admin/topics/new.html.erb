@@ -22,16 +22,16 @@ to do the heavy lifting.
   ) %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title">
-    <%= content_for(:title) %>
-  </h1>
+<div class="grid-x margin-top-2">
+  <div class="cell medium-8 form">
+    <legend class="form__header">
+      <h1 class="black">
+        New topic
+      </h1>
+    </legend>
 
-  <div>
-    <%= link_to t("administrate.actions.back"), :back, class: "button" %>
+    <hr class="form__divider">
+
+    <%= render "form", page: page %>
   </div>
-</header>
-
-<section class="main-content__body">
-  <%= render "form", page: page %>
-</section>
+</div>
