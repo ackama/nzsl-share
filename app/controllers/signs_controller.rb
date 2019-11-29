@@ -108,12 +108,12 @@ class SignsController < ApplicationController
   def set_signs_submitted_state
     return unless params[:should_submit_for_publishing]
 
-    if params[:should_submit_for_publishing] == "true"
-      authorize(@sign, :submit?)
-      @sign.submit
-    else
+    if params[:should_submit_for_publishing] == "false"
       authorize(@sign, :cancel_submit?)
       @sign.cancel_submit
+    elsif params[:should_submit_for_publishing] == "true" && !@sign.submitted?
+      authorize(@sign, :submit?)
+      @sign.submit
     end
   end
 
