@@ -1,9 +1,10 @@
 .table-row {
+  // These class names need to match the sign states in order to work
   &--published {
     background-color: get-color(extra-light);
   }
 
-  &--declined {
+  &--archived {
     background-color: get-color(alert-x-light);
   }
 }

@@ -4,7 +4,7 @@
   <%= javascript_pack_tag "contributions", async: true, defer: true %>
 <% end %>
 
-<div class="grid-x grid-margin-x content-container margin-bottom-2">
+<div class="grid-x grid-margin-x margin-top-1 margin-bottom-2">
   <%= render "errors" %>
   <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
     <div class="file-upload" data-file-upload-controller="sign[video]">
