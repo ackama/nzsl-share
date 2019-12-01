@@ -93,6 +93,18 @@ RSpec.describe "Editing a sign", type: :system do
     expect(sign.submitted?).to eq false
   end
 
+  context "sign is submitted" do
+    let(:sign) { FactoryBot.create(:sign, :submitted, contributor: user) }
+
+    it "can update the sign" do
+      click_on "Update Sign"
+      sign.reload
+      expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
+      expect(subject).to have_content I18n.t!("signs.update.success")
+      expect(sign.submitted?).to eq true
+    end
+  end
+
   it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
     expect(page).to have_selector "#terms-and-conditions", visible: false
     choose "Yes, request my sign be public"
