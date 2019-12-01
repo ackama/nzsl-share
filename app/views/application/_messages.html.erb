@@ -1,4 +1,26 @@
-<% classes ||= "" %>
+<div class="cell grid-x align-center">
+  <div class="cell">
+    <%# Notice %>
+    <% if flash[:notice].present? %>
+      <div class="callout success grid-x grid-margin-x" data-closable>
+        <div class="cell shrink align-self-middle">
+          <%= inline_svg "media/images/tick.svg", class: "icon icon--white icon--mid" %>
+        </div>
+        <div class="cell auto align-self-middle">
+          <%= sanitize(flash[:notice], tags: %w[a])  %>
+        </div>
+        <div class="cell shrink">
+        <button class="callout__close" aria-label="Close alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<!---<% classes ||= "" %>
 <div class="messages <%= classes %>">
   <div class="grid-x grid-margin-x home-page-messages">
     <div class="cell large-10">
@@ -38,4 +60,4 @@
       <% end %>
     </div>
   </div>
-</div>
+</div>--->
