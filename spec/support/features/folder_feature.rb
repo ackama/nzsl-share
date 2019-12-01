@@ -12,7 +12,7 @@ class FolderFeature
   end
 
   def click_create_new
-    click_on "+ New folder"
+    click_on "New Folder"
   end
 
   def enter_title(title)
