@@ -9,7 +9,9 @@ RSpec.describe "Approved user applications administration", type: :system do
 
   before do
     auth.sign_in
-    click_on "User approvals"
+    within ".sidebar--inside-grid" do
+      click_on "User approvals"
+    end
   end
 
   it_behaves_like "an Administrate dashboard", :approved_user_applications, except: %i[destroy edit new]

@@ -23,7 +23,9 @@ Rails.application.routes.draw do
                     }
 
   require "sidekiq/web"
-  mount Sidekiq::Web => "/sidekiq" # monitoring console
+  authenticate :user, ->(u) { u.administrator? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
   root "home#index"
   resources :search, only: [:index]
