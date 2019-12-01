@@ -140,8 +140,6 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   describe "video processing", uses_javascript: true do
-    subject { page.find(".video") }
-
     context "when the video is unprocessed" do
       it { expect(page).to have_selector ".video[poster*=processing]" }
     end
