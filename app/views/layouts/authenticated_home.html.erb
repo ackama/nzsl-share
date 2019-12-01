@@ -16,11 +16,17 @@
     <div class="cell shrink sidebar sidebar--inside-grid">
       <%= render "application/sidebar/signed_in" %>
     </div>
-    <div class="grid-container cell auto">
+
+    <div class="grid-x cell auto">
+      <div class="cell">
       <%= render("application/messages",
-               classes: request.path == root_path ? "messages--float" : "") %>
+                classes: request.path == root_path ? "messages--float" : "") %>
+
       <%= render "application/hero-unit" %>
-      <%= yield %>
+      </div>
+      <div class="grid-container">
+        <%= yield %>
+      </div>
     </div>
   </div>
 <% end %>
