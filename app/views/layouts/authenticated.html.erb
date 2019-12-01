@@ -1,7 +1,7 @@
 <%# This layout is a sub-layout of the application layout for logged-in users. %>
 <%# It renders the normal grid alongside a sidebar. %>
 <%= content_for(:content) do %>
-  <div class="off-canvas position-left reveal-for-medium sidebar" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
+  <div class="off-canvas position-left sidebar sidebar--off-canvas" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
 
     <!-- Close button -->
     <button class="close-button" aria-label="Close menu" type="button" data-close>
@@ -12,9 +12,12 @@
     <%= render "application/sidebar/signed_in" %>
   </div>
 
-  <div class="off-canvas-content" data-off-canvas-content>
-    <%= render "application/messages" %>
-    <div class="grid-container">
+  <div class="off-canvas-content grid-x" data-off-canvas-content>
+    <div class="cell shrink sidebar sidebar--inside-grid">
+      <%= render "application/sidebar/signed_in" %>
+    </div>
+    <div class="grid-container cell auto">
+      <%= render "application/messages" %>
       <%= yield %>
     </div>
   </div>

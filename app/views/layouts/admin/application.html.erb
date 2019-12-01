@@ -14,51 +14,56 @@ By default, it renders:
 
 <!DOCTYPE html>
 <html lang="en-NZ">
-<head>
-  <title><%= strip_tags(yield(:title)) + " – " if content_for?(:title) -%>NZSL Share</title>
+  <head>
+    <title><%= strip_tags(yield(:title)) + " – " if content_for?(:title) -%>NZSL Share</title>
 
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%# CSS should go closest to the top of the document as possible. %>
-  <%= stylesheet_pack_tag("application",
-                          "data-turbolinks-track": "reload") %>
-  <%= render "stylesheet" %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%# CSS should go closest to the top of the document as possible. %>
+    <%= stylesheet_pack_tag("application",
+                            "data-turbolinks-track": "reload") %>
+    <%= render "stylesheet" %>
 
-  <%# JavaScript must be in head for Turbolinks to work. %>
-  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <%# JavaScript must be in head for Turbolinks to work. %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
-  <%= yield(:head) %>
+    <%= yield(:head) %>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="referrer" content="origin-when-crossorigin">
+    <meta name="referrer" content="origin-when-crossorigin">
 
-  <%# Specifies the default name of home screen bookmark in iOS %>
-  <meta name="apple-mobile-web-app-title" content="NZSL Share">
-</head>
-<body>
-  <%= render "icons" %>
+    <%# Specifies the default name of home screen bookmark in iOS %>
+    <meta name="apple-mobile-web-app-title" content="NZSL Share">
+  </head>
+  <body>
+    <%= render "icons" %>
 
-  <%= render "application/header" %>
+    <%= render "application/header" %>
 
-  <div class="off-canvas position-left reveal-for-medium sidebar" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
+    <div class="off-canvas position-left sidebar sidebar--off-canvas" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
 
-  <!-- Close button -->
-  <button class="close-button" aria-label="Close menu" type="button" data-close>
-    <span aria-hidden="true">&times;</span>
-  </button>
+    <!-- Close button -->
+    <button class="close-button" aria-label="Close menu" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
 
-  <!-- Menu -->
-  <%= render "application/sidebar/signed_in" %>
-  </div>
-  <div class="off-canvas-content" data-off-canvas-content>
-    <main class="grid-container" role="main">
-      <%= render "flashes" -%>
-      <%= yield %>
-    </main>
-  </div>
+    <!-- Menu -->
+    <%= render "application/sidebar/signed_in" %>
+    </div>
 
-  <%= render "javascript" %>
-</body>
+    <div class="off-canvas-content grid-x" data-off-canvas-content>
+      <div class="cell shrink sidebar sidebar--inside-grid">
+        <%= render "application/sidebar/signed_in" %>
+      </div>
+      <main class="grid-container cell auto" role="main">
+        <%= render "flashes" -%>
+        <%= yield %>
+      </main>
+    </div>
+    <%= render "application/footer" %>
+
+    <%= render "javascript" %>
+  </body>
 </html>
