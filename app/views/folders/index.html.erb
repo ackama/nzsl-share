@@ -14,14 +14,14 @@
     <div class="list__title list__section cell grid-x align-middle">
       <h1>My folders</h1>
       <%= link_to(new_folder_path, id: "new-folder", class: "button royal primary", remote: true) do %>
-        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>&nbsp New Folder</span>
+        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>New Folder</span>
       <% end %>
     </div>
     <hr class="list__divider">
     <div class="list__items list__section cell grid-x">
       <% @folders.each do |folder| %>
         <div class="list__item list__item--interactive cell grid-x align-middle">
-          <div class="cell small-5 grid-x align-middle">
+          <div class="cell small-6 grid-x align-middle">
             <%= inline_svg "media/images/folder-collection.svg", class: "list__item__icon list__item__icon--folder icon--medium" %>
             <div class="list__item__title">
             <%= link_to folder_path(folder) do %>
