@@ -14,7 +14,7 @@
     <div class="list__title list__section cell grid-x align-middle">
       <h1>My folders</h1>
       <%= link_to(new_folder_path, id: "new-folder", class: "button royal primary", remote: true) do %>
-        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>&nbsp New Folder</span>
+        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>New Folder</span>
       <% end %>
     </div>
     <hr class="list__divider">
@@ -29,13 +29,13 @@
             <% end %>
             </div>
           </div>
-          <div class="cell small-3 list__item__details">
+          <div class="cell auto list__item__details">
             created <%= folder.created_at.strftime("%d %b %Y") %>
           </div>
           <div class="cell auto list__item__details">
             <%= pluralize(folder.signs_count, "sign") %>
           </div>
-          <div class="cell auto list__item__details">
+          <div class="cell shrink list__item__details grid-x align-middle">
             <a href="#" class="list__item__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
               <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
             </a>
