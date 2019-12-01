@@ -13,7 +13,9 @@
   <div class="grid-x cell list">
     <div class="list__title list__section cell grid-x align-middle">
       <h1>My folders</h1>
-      <%= link_to "+ New folder", new_folder_path, id: "new-folder", class: "button royal primary", remote: true %>
+      <%= link_to(new_folder_path, id: "new-folder", class: "button royal primary", remote: true) do %>
+        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>&nbsp New Folder</span>
+      <% end %>
     </div>
     <hr class="list__divider">
     <div class="list__items list__section cell grid-x">
