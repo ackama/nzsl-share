@@ -14,7 +14,7 @@ class SearchController < ApplicationController
   end
 
   def search_results
-    @search_results ||= SearchService.call(search: search, relation: sign_relation)
+    @search_results ||= SearchService.call(search: search, relation: search_relation)
   end
 
   def freelex_search_results
