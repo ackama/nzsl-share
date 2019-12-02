@@ -38,15 +38,13 @@ namespace :freelex do
   private
 
   def fetch_freelex_values(att)
-    time = Time.zone.now
     {
       headword_id: att.xpath("headwordid").text.to_i,
       word: att.xpath("glossmain").text,
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
       tags: att.xpath("HEADWORDTAGS").text.empty? ? [] : att.xpath("HEADWORDTAGS").text.split(/,/),
-      created_at: time,
-      updated_at: time
+      published_at: Time.zone.now
     }
   end
 
