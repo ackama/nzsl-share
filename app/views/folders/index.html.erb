@@ -21,7 +21,7 @@
     <div class="list__items list__section cell grid-x">
       <% @folders.each do |folder| %>
         <div class="list__item list__item--interactive cell grid-x align-middle">
-          <div class="cell small-6 grid-x align-middle">
+          <div class="cell small-5 grid-x align-middle">
             <%= inline_svg "media/images/folder-collection.svg", class: "list__item__icon list__item__icon--folder icon--medium" %>
             <div class="list__item__title">
             <%= link_to folder_path(folder) do %>
@@ -29,13 +29,13 @@
             <% end %>
             </div>
           </div>
-          <div class="cell small-3 list__item__details">
+          <div class="cell auto list__item__details">
             created <%= folder.created_at.strftime("%d %b %Y") %>
           </div>
           <div class="cell auto list__item__details">
             <%= pluralize(folder.signs_count, "sign") %>
           </div>
-          <div class="cell auto list__item__details">
+          <div class="cell shrink list__item__details grid-x align-middle">
             <a href="#" class="list__item__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
               <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
             </a>
