@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_225458) do
+ActiveRecord::Schema.define(version: 2019_12_02_203533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_11_27_225458) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "approved_user_applications", force: :cascade do |t|
+  create_table "approved_user_applications", id: :bigint, default: -> { "nextval('demographics_id_seq'::regclass)" }, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -79,12 +79,14 @@ ActiveRecord::Schema.define(version: 2019_11_27_225458) do
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
-  create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
+  create_table "freelex_signs", primary_key: "headword_id", id: :integer, default: nil, force: :cascade do |t|
     t.string "word", limit: 512, null: false
     t.string "maori", limit: 512
     t.string "secondary", limit: 512
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
+    t.string "tags", default: [], array: true
+    t.index ["headword_id"], name: "index_freelex_signs_on_headword_id", unique: true
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"
     t.index ["word"], name: "idx_freelex_signs_word"
@@ -113,9 +115,9 @@ ActiveRecord::Schema.define(version: 2019_11_27_225458) do
     t.bigint "contributor_id", null: false
     t.bigint "topic_id"
     t.text "description"
-    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
+    t.text "notes"
     t.string "share_token"
     t.string "status", null: false
     t.datetime "submitted_at"
@@ -159,12 +161,12 @@ ActiveRecord::Schema.define(version: 2019_11_27_225458) do
     t.integer "folders_count", default: 0, null: false
     t.boolean "administrator", default: false, null: false
     t.boolean "moderator", default: false, null: false
-    t.boolean "approved", default: false, null: false
     t.boolean "validator", default: false, null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.integer "contribution_limit", default: 50
+    t.boolean "approved", default: false
     t.text "bio"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
