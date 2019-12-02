@@ -11,8 +11,11 @@ RSpec.shared_examples "an Administrate dashboard" do |url_base, only: %i[index s
   end
 
   if actions.include?(:new)
-    it "can visit the new page" do
-      expect(page).to click_on "New #{url_base.to_s.titleize}"
+    it "can create a new record" do
+      within ".list__title" do
+        find(:css, ".button.royal.primary").click
+      end
+      expect(header).to start_with "New"
     end
   end
 
@@ -26,7 +29,7 @@ RSpec.shared_examples "an Administrate dashboard" do |url_base, only: %i[index s
   if actions.include?(:edit)
     it "can visit the edit page", uses_javascript: true do
       within(first_row) { click_on "Options" }
-      within(".list__item-menu__menu-item", match: :first) do
+      within(".list__item-menu", match: :first) do
         click_on "Edit"
       end
       expect(header).to start_with "Edit"
@@ -36,8 +39,10 @@ RSpec.shared_examples "an Administrate dashboard" do |url_base, only: %i[index s
   if actions.include?(:destroy)
     it "can destroy a record", uses_javascript: true do
       within(first_row) { click_on "Options" }
-      within(".list__item-menu__menu-item", match: :first) do
-        click_on "Destroy"
+      within(".list__item-menu", match: :first) do
+        accept_confirm do
+          click_link("Delete")
+        end
       end
       expect(page).to have_content "was successfully destroyed."
     end
