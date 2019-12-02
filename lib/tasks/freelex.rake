@@ -33,7 +33,7 @@ namespace :freelex do
 
   def fetch_freelex_values(att)
     {
-      id: att.xpath("headwordid").text.to_i,
+      headword_id: att.xpath("headwordid").text.to_i,
       word: att.xpath("glossmain").text,
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
