@@ -14,10 +14,12 @@ namespace :freelex do
   end
 
   desc "Parse the xml and insert into freelex table"
-  task seed: :environment do
+  task load: :environment do
+    puts "Loading all"
     doc = Nokogiri::XML(File.read(FREELEX_CONFIG[:xml]))
-    data = doc.xpath("//entry").inject([]) do |arr, att|
-      arr << fetch_freelex_values(att)
+    data = doc.xpath("//entry").map(&method(:fetch_freelex_values))
+    ids = FreelexSign.upsert_all(data, unique_by: :headword_id, returning: %i[headword_id])
+    FreelexSign.where.not(headword_id: ids).destroy_all
     end
 
     truncate_freelex_table
@@ -32,27 +34,21 @@ namespace :freelex do
   private
 
   def fetch_freelex_values(att)
+    time = Time.zone.now
     {
       headword_id: att.xpath("headwordid").text.to_i,
       word: att.xpath("glossmain").text,
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
-      updated_at: fetch_date_time,
-      created_at: fetch_date_time
+      tags: att.xpath("HEADWORDTAGS").text.empty? ? [] : att.xpath("HEADWORDTAGS").text.split(/,/),
+      created_at: time,
+      updated_at: time
     }
   end
 
   def fetch_xml_and_save(path, file)
     doc = Nokogiri::XML(http_connection.get(FREELEX_CONFIG[path]).body)
     File.open(FREELEX_CONFIG[file], "w") { |f| doc.write_xml_to f }
-  end
-
-  def fetch_date_time
-    DateTime.now
-  end
-
-  def truncate_freelex_table
-    ActiveRecord::Base.connection.execute("TRUNCATE #{FreelexSign.table_name} RESTART IDENTITY")
   end
 
   def http_connection
