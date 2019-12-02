@@ -11,8 +11,11 @@ RSpec.shared_examples "an Administrate dashboard" do |url_base, only: %i[index s
   end
 
   if actions.include?(:new)
-    it "can visit the new page" do
-      expect(page).to click_on "New #{url_base.to_s.titleize}"
+    it "can create a new record" do
+      within ".list__title" do
+        find(:css, ".button.royal.primary").click
+      end
+      expect(header).to start_with "New"
     end
   end
 
