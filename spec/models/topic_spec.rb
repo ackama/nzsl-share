@@ -26,4 +26,15 @@ RSpec.describe Topic, type: :model do
       it { is_expected.not_to be_valid }
     end
   end
+
+  describe "delete" do
+    context "nullify sign" do
+      it "destroys the topic and preserves the sign" do
+        sign = FactoryBot.create(:sign)
+        expect(sign.topic).to be_present
+        expect { sign.topic.destroy }.to change { Topic.count }.by(-1)
+        expect(sign.reload.topic).to be_nil
+      end
+    end
+  end
 end
