@@ -1,14 +1,19 @@
 # frozen_string_literal: true
 
 namespace :freelex do
+  desc "Meta-task to download and load all signs from Freelex"
+  task seed: %w[freelex:download:all freelex:download:obscene freelex:load freelex:exclude_obscene]
+
   namespace :download do
     desc "Download an entire copy of freelex and save to /tmp as xml"
     task all: :environment do
+      puts "Fetching all"
       fetch_xml_and_save(:path, :xml)
     end
 
     desc "Download only the obscene copy of freelex and save to /tmp as xml"
     task obscene: :environment do
+      puts "Fetching obscene"
       fetch_xml_and_save(:obscene_path, :obscene_xml)
     end
   end
@@ -20,15 +25,14 @@ namespace :freelex do
     data = doc.xpath("//entry").map(&method(:fetch_freelex_values))
     ids = FreelexSign.upsert_all(data, unique_by: :headword_id, returning: %i[headword_id])
     FreelexSign.where.not(headword_id: ids).destroy_all
-    end
-
-    truncate_freelex_table
-    FreelexSign.insert_all(data)
   end
 
-  desc "Delete the data from freelex table"
-  task delete: :environment do
-    truncate_freelex_table
+  desc "Exclude obscene values based on headword ID"
+  task exclude_obscene: :environment do
+    puts "Excluding obscene"
+    doc = Nokogiri::XML(File.read(FREELEX_CONFIG[:obscene_xml]))
+    ids = doc.xpath("//entry/headwordid").map(&:text)
+    FreelexSign.where(headword_id: ids).destroy_all
   end
 
   private
