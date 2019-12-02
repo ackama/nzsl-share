@@ -27,7 +27,7 @@ It renders the `_table` partial to display details about the resources.
     <%= display_resource_name(page.resource_name) %>
   <% end %>
 
-  <div class="list__title cell grid-x grid-padding-x">
+  <div class="list__title list__title--admin cell grid-x grid-padding-x">
     <h1 class="cell auto" id="page-title">
       <%= content_for(:title) %>
     </h1>
@@ -42,7 +42,7 @@ It renders the `_table` partial to display details about the resources.
     <% end %>
     <div class="cell shrink">
       <%= link_to(new_admin_topic_path(new_resource), class: "button royal primary") do %>
-        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>&nbsp New Topic</span>
+        <%= inline_svg "media/images/add-2.svg", class: "icon icon--white" %><span>New Topic</span>
       <% end %>
     </div>
   </div>
