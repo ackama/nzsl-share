@@ -140,8 +140,6 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   describe "video processing", uses_javascript: true do
-    subject { page.find(".video") }
-
     context "when the video is unprocessed" do
       it { expect(page).to have_selector ".video[poster*=processing]" }
     end
@@ -152,8 +150,11 @@ RSpec.describe "Editing a sign", type: :system do
     end
 
     context "when the sign video has been encoded" do
-      before { sign.update!(processed_thumbnails: true, processed_videos: true); }
-      it { expect(subject).to have_selector("source[src*='/videos']", wait: 30, count: 3, visible: false) }
+      let(:sign) { FactoryBot.create(:sign, :processed_thumbnails, :processed_videos, contributor: user) }
+
+      it {
+        expect(subject).to have_selector("source[src*='/videos']", count: 3, visible: false)
+      }
     end
   end
 

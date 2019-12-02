@@ -9,7 +9,9 @@ class ContributeSignFeature
   def start(user=FactoryBot.create(:user))
     @user = user
     sign_in user
-    click_on "Add a sign"
+    within ".sidebar--inside-grid" do
+      click_on "Add a sign"
+    end
   end
 
   def submit

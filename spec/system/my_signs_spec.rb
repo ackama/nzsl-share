@@ -8,7 +8,9 @@ RSpec.describe "My Signs", type: :system do
 
   before do
     auth.sign_in
-    click_on "My signs"
+    within ".sidebar--inside-grid" do
+      click_on "My signs"
+    end
   end
 
   it "has the expected page title" do

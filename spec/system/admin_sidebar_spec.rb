@@ -8,12 +8,16 @@ RSpec.describe "The admin sidebar", type: :system do
   before { auth.sign_in }
 
   it "links to signs dashboard" do
-    click_on "Moderate signs"
-    expect(page).to have_current_path(admin_signs_path)
+    within ".sidebar--inside-grid" do
+      click_on "Moderate signs"
+      expect(page).to have_current_path(admin_signs_path)
+    end
   end
 
   it "links to users dashboard" do
-    click_on "User admin"
-    expect(page).to have_current_path(admin_users_path)
+    within ".sidebar--inside-grid" do
+      click_on "User admin"
+      expect(page).to have_current_path(admin_users_path)
+    end
   end
 end
