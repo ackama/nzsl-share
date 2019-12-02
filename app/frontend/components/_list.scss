@@ -10,6 +10,15 @@
     &--sign-cards {
       justify-content: space-around;
     }
+
+    &--topics {
+      display: flex;
+      flex-flow: column wrap;
+
+      @include breakpoint(medium up) {
+        max-height: rem-calc(500);
+      }
+    }
   }
 
   &--admin {
