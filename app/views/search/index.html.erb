@@ -1,28 +1,48 @@
 <% provide(:title, "Results for '#{@page[:term]}'") %>
 
-  <div class="list__section grid-x margin-top-2">
-    <div class="cell auto">
-      <h2 class="normal">
-        <%= pluralize(@page[:total], "result") %>
-        for
-        <strong>‘<%= @page[:term] %>’</strong>
-      </h2>
-    </div>
+<div class="grid-x margin-vertical-2">
+  <div class="cell auto">
+    <h2 class="normal">
+      <%= pluralize(@page[:total], "result") %>
+      for
+      <strong>‘<%= @page[:term] %>’</strong>
+    </h2>
+  </div>
 
-    <div class="cell shrink">
-      <%= render "sort_by", page: @page unless @page[:total].zero? %>
+  <div class="cell shrink">
+    <%= render "sort_by", page: @page unless @page[:total].zero? %>
+  </div>
+</div>
+<hr class="list__divider list__divider--dark">
+
+<div class="grid-x cell">
+  <div class="cell margin-top-3 margin-bottom-0 grid-x align-middle">
+    <div class="cell grid-x align-middle">
+      <h2 class="cell auto">Official signs</h2>
+      <div class="cell shrink grid-x align-middle">
+        <%= link_to "https://nzsl.nz", "https://nzsl.nz", class: "link--external" %>
+      </div>
     </div>
   </div>
-  <hr class="list__divider list__divider--dark">
-
-
-<div class="cell auto grid-x sign-grid">
-  <% @signs.each do |sign| %>
-    <%= render "signs/card", sign: sign %>
-  <% end %>
+  <div class="sign-grid cell">
+    <% @freelex_signs.each do |sign| %>
+      <%= render "freelex_signs/card", sign: sign %>
+    <% end %>
+  </div>
 </div>
 
- <% if @signs.any? && @page[:total] >= @page[:limit] %>
+<div class="grid-x cell">
+  <div class="cell margin-top-3 margin-bottom-0 grid-x align-middle">
+    <h2 class="cell auto">NZSL community signs</h2>
+  </div>
+  <div class="sign-grid cell">
+    <% @signs.each do |sign| %>
+      <%= render "signs/card", sign: sign %>
+    <% end %>
+  </div>
+</div>
+
+<% if @signs.any? && @page[:total] >= @page[:limit] %>
   <div class="cell auto text-center margin-2">
     <%= link_to "Show More", params.to_unsafe_h.merge(page: @page[:next_page], anchor: dom_id(@signs.last, :card)), class: "button primary" %>
   </div>
