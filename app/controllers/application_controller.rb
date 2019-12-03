@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     sign_in_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: sign_in_attrs + %i[remember_me bio]
-    devise_parameter_sanitizer.permit :account_update, keys: sign_in_attrs + [:bio]
+    devise_parameter_sanitizer.permit :account_update, keys: sign_in_attrs + %i[bio avatar]
   end
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
