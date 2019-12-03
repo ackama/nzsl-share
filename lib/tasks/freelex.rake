@@ -43,6 +43,7 @@ namespace :freelex do
       word: att.xpath("glossmain").text,
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
+      video_key: att.xpath("ASSET/glossmain").text,
       tags: att.xpath("HEADWORDTAGS").text.empty? ? [] : att.xpath("HEADWORDTAGS").text.split(/,/),
       published_at: Time.zone.now
     }
