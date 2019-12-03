@@ -11,7 +11,7 @@ class Search
     "alpha_desc" => "word DESC",
     "recent" => "published_at DESC",
     "relevant" => "rank_precedence ASC, rank_order ASC",
-    "popular" => "activity.count"
+    "popular" => "activity.count DESC NULLS LAST, signs.word ASC"
   }.freeze
 
   attr_reader :term, :total
