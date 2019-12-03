@@ -20,7 +20,8 @@
       <%= f.error :email %>
 
       <%= f.label :bio %>
-      <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others." %>
+      <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others.", maxlength: "250", data: {characters: ""} %>
+      <p class="help-text text-right"><span data-character-count="user_bio">0</span>/250 characters</p>
 
       <legend><h2 class="primary">Password</h2></legend>
       <hr class="form__divider">
