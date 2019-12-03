@@ -7,7 +7,7 @@ RSpec.describe "Topics", type: :system do
     before { visit topics_path }
 
     it "has a list of topic headings" do
-      topics.each { |t| expect(page).to have_selector("h4", text: t.name) }
+      topics.each { |t| expect(page).to have_selector("p", text: t.name) }
     end
 
     it "has the correct page title" do
