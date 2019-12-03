@@ -55,7 +55,7 @@ namespace :freelex do
   end
 
   def http_connection
-    Faraday.new(url: FREELEX_CONFIG[:url]) do |faraday|
+    Faraday.new(url: FREELEX_CONFIG[:host]) do |faraday|
       faraday.options.timeout = FREELEX_CONFIG[:timeout].to_i
       faraday.adapter Faraday.default_adapter
     end
