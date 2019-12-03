@@ -1,6 +1,6 @@
 <% provide(:title, "Topics") %>
 
-<div class="grid-x grid-margin-x">
+<div class="grid-x">
   <nav class="cell shrink" aria-label="You are here:" role="navigation">
     <ul class="breadcrumbs">
       <li><a href="/">Home</a></li>
@@ -10,12 +10,15 @@
     </ul>
   </nav>
 
-  <div class="grid-x cell">
-    <h1>Topics</h1>
-    <div class="grid-x grid-margin-x">
-    <% @topics.each do |topic| %>
-      <div class="cell medium-6 large-4 small-12 margin-top-1"><%= link_to content_tag(:h4, topic.name, class: "primary"), topic %></div>
-    <% end %>
+  <div class="grid-x cell list">
+    <div class="list__title list__section cell">
+      <h1>Topics</h1>
+    </div>
+    <hr class="list__divider">
+    <div class="list__section list__section--topics cell">
+      <% @topics.each do |topic| %>
+            <div class="margin-top-1"><%= link_to content_tag(:p, topic.name, class: "royal"), topic, class: "no-underline" %></div>
+      <% end %>
     </div>
   </div>
 </div>

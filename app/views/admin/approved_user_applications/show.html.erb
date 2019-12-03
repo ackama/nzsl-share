@@ -17,35 +17,35 @@ as well as a link to its edit page.
 %>
 
 <% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
+<div class="grid-x">
+  <div class="cell medium-8">
+      <%= form_with model: page.resource, url: "#", class: "form" do |f| %>
+        <legend class="form__header">
+          <h1 class="black">
+            <%= content_for(:title) %>
+          </h1>
+        </legend>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title">
-    <%= content_for(:title) %>
-  </h1>
+        <hr class="form__divider">
 
-  <div>
-    <%= link_to "Accept",
-                [:accept, :admin, page.resource],
-                method: :post,
-                class: "button" if policy(page.resource).accept? %>
+        <fieldset disabled>
+          <%= render "approved_user_applications/fields", f: f %>
+        </fieldset>
 
-    <%= link_to "Decline",
-                [:decline, :admin, page.resource],
-                method: :post,
-                class: "button" if policy(page.resource).decline? %>
+        <hr class="form__divider">
 
-    <%= link_to(
-      t("administrate.actions.edit_resource", name: page.page_title),
-      [:edit, namespace, page.resource],
-      class: "button",
-    ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
+        <div class="form__footer">
+          <%= link_to "Decline",
+                      [:decline, :admin, page.resource],
+                      method: :post,
+                      class: "button alert margin-right-1" if policy(page.resource).decline? %>
+
+          <%= link_to "Accept",
+                      [:accept, :admin, page.resource],
+                      method: :post,
+                      class: "button" if policy(page.resource).accept? %>
+        </div>
+    <% end %>
   </div>
-</header>
+</div>
 
-<section class="main-content__body form" style="clear:both;">
-  <%= form_with model: page.resource, url: "#" do |f| %>
-    <fieldset disabled>
-      <%= render "approved_user_applications/fields", f: f %>
-    </fieldset>
-  <% end %>
-</section>

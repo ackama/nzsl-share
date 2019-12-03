@@ -1,4 +1,5 @@
 $icon-sizes: (
+  tiny: rem-calc(10),
   default: rem-calc(16),
   mid: rem-calc(20),
   large: rem-calc(64)
@@ -55,6 +56,11 @@ $icon-palette: map-merge(
 
   @each $name, $size in $icon-sizes {
     &--#{$name} { @include icon-size($name); }
+  }
+
+  &--inline {
+    margin-left: 0.5rem;
+    vertical-align: middle;
   }
 
   &--hollow { @include icon-fill(transparent); }
