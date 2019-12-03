@@ -25,9 +25,9 @@ class SearchService < ApplicationService
 
   def build_results
     term = parameterize_term
-    sql_arr = [SQL::Search.search(search_args), term: term]
+    sql_arr = prepare_search(term)
     result_ids = parse_results(exec_query(sql_arr))
-    result_relation = @relation.where(id: result_ids)
+    result_relation = @relation.where(@relation.primary_key => result_ids)
     search.total = result_relation.count
     fetch_results(result_relation, result_ids)
   end
@@ -39,11 +39,11 @@ class SearchService < ApplicationService
   def fetch_results(result_relation, result_ids)
     result_relation
       .limit(search.page[:limit])
-      .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[], id)"))
+      .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[], #{@relation.primary_key})"))
   end
 
   def parse_results(results)
-    results.field_values("id")
+    results.field_values(@relation.primary_key)
   end
 
   def exec_query(sql_arr)
@@ -52,5 +52,9 @@ class SearchService < ApplicationService
 
   def search_args
     { order: search.order_clause }
+  end
+
+  def prepare_search(term)
+    [SQL::Search.search(search_args), term: term]
   end
 end

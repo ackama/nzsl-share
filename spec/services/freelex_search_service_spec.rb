@@ -4,27 +4,23 @@ require "./spec/support/refined_data/search/signs"
 require "./spec/support/refined_data/search/signs_with_chocolate"
 require "./spec/support/refined_data/search/signs_with_macrons"
 
-RSpec.describe SearchService, type: :service do
+RSpec.describe FreelexSearchService, type: :service do
   let(:user) { FactoryBot.create(:user) }
 
   describe "search" do
     context "primary word and secondary" do
       before(:each) do
         Refined::Search::Signs.default.each do |sign_attrs|
-          FactoryBot.create(:sign, :published, sign_attrs)
+          FactoryBot.create(:freelex_sign, sign_attrs)
         end
       end
 
       it "returns 0 results if policy scope is none" do
-        expect(
-          search(Pundit.policy_scope(user, Sign.none), term: "a").data.count
-        ).to eq 0
-      end
+        results = FreelexSearchService.call(
+          relation: Pundit.policy_scope(user, FreelexSign.none),
+          search: Search.new(term: "a"))
 
-      it "does not include non-published results" do
-        expect do
-          FactoryBot.create(:sign, :submitted, Refined::Search::Signs.default.first)
-        end.not_to change(search(scoped_relation, term: "a").data, :count)
+        expect(results.data.count).to be_zero
       end
 
       it "returns result(s) given a term fragment" do
@@ -79,7 +75,7 @@ RSpec.describe SearchService, type: :service do
     context "whitespace" do
       before(:each) do
         Refined::Search::Signs.with_chocolate.each do |sign_attrs|
-          FactoryBot.create(:sign, :published, sign_attrs)
+          FactoryBot.create(:freelex_sign, sign_attrs)
         end
       end
 
@@ -120,39 +116,26 @@ RSpec.describe SearchService, type: :service do
     context "macrons" do
       before(:each) do
         Refined::Search::Signs.with_macrons.each do |sign_attrs|
-          FactoryBot.create(:sign, :published, sign_attrs)
+          FactoryBot.create(:freelex_sign, sign_attrs)
         end
       end
 
       it "return result(s) regardless of macron" do
-        expect(search(scoped_relation, term: "āporo").data.first["maori"])
-          .to eq("āporo")
+        expect(search(scoped_relation, term: "āporo").data.first["maori"]).to eq("āporo")
 
-        expect(search(scoped_relation, term: "aporo").data.first["maori"])
-          .to eq("āporo")
+        expect(search(scoped_relation, term: "aporo").data.first["maori"]).to eq("āporo")
 
-        expect(search(scoped_relation, term: "rahopūru").data.first["maori"]
-              ).to eq("rahopūru")
+        expect(search(scoped_relation, term: "rahopūru").data.first["maori"]).to eq("rahopūru")
 
-        expect(
-          search(scoped_relation, term: "rahopuru").data.first["maori"]
-        ).to eq("rahopūru")
+        expect(search(scoped_relation, term: "rahopuru").data.first["maori"]).to eq("rahopūru")
 
-        expect(
-          search(scoped_relation, term: "pīti").data.first["maori"]
-        ).to eq("pīti")
+        expect(search(scoped_relation, term: "pīti").data.first["maori"]).to eq("pīti")
 
-        expect(
-          search(scoped_relation, term: "piti").data.first["maori"]
-        ).to eq("pīti")
+        expect(search(scoped_relation, term: "piti").data.first["maori"]).to eq("pīti")
 
-        expect(
-          search(scoped_relation, term: "parāoa").data.first["maori"]
-        ).to eq("kihu parāoa")
+        expect(search(scoped_relation, term: "parāoa").data.first["maori"]).to eq("kihu parāoa")
 
-        expect(
-          search(scoped_relation, term: "paraoa").data.first["maori"]
-        ).to eq("kihu parāoa")
+        expect(search(scoped_relation, term: "paraoa").data.first["maori"]).to eq("kihu parāoa")
       end
     end
 
@@ -160,7 +143,7 @@ RSpec.describe SearchService, type: :service do
       context "less than 10 results" do
         before(:each) do
           Refined::Search::Signs.default.each do |sign_attrs|
-            FactoryBot.create(:sign, sign_attrs)
+            FactoryBot.create(:freelex_sign, sign_attrs)
           end
         end
 
@@ -200,7 +183,7 @@ RSpec.describe SearchService, type: :service do
       context "more than 10 results" do
         before(:each) do
           Refined::Search::Signs.with_chocolate.each do |sign_attrs|
-            FactoryBot.create(:sign, :published, sign_attrs)
+            FactoryBot.create(:freelex_sign, sign_attrs)
           end
         end
 
@@ -235,7 +218,7 @@ RSpec.describe SearchService, type: :service do
     describe "sorting" do
       before(:each) do
         Refined::Search::Signs.default.each do |sign_attrs|
-          FactoryBot.create(:sign, :published, sign_attrs)
+          FactoryBot.create(:freelex_sign, sign_attrs)
         end
       end
 
@@ -280,10 +263,10 @@ RSpec.describe SearchService, type: :service do
   private
 
   def search(relation, params)
-    SearchService.call(relation: relation, search: Search.new(params))
+    FreelexSearchService.call(relation: relation, search: Search.new(params))
   end
 
   def scoped_relation
-    Pundit.policy_scope(user, Sign)
+    Pundit.policy_scope(user, FreelexSign)
   end
 end

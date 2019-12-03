@@ -13,13 +13,6 @@ module Refined
             published_at: dt
           },
           {
-            word: "apple_unpublished",
-            maori: "āporo",
-            secondary: "pie, america, cream",
-            published_at: dt,
-            status: "personal"
-          },
-          {
             word: "apricot",
             maori: "aperekoti",
             secondary: "pie, jam, england, cream",

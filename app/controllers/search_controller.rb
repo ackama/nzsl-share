@@ -2,16 +2,31 @@
 
 class SearchController < ApplicationController
   def index
-    service = SearchService.call(search: new_search, relation: policy_scope(Sign))
-
-    @signs = service.data
-    @page = service.support
+    @signs = search_results.data
+    @freelex_signs = freelex_search_results.data.preview
+    @page = search_results.support
   end
 
   private
 
-  def new_search
-    Search.new(search_params)
+  def search
+    @search ||= Search.new(search_params)
+  end
+
+  def search_results
+    @search_results ||= SearchService.call(search: search, relation: search_relation)
+  end
+
+  def freelex_search_results
+    @freelex_search_results ||= FreelexSearchService.call(search: search, relation: freelex_search_relation)
+  end
+
+  def search_relation
+    policy_scope(Sign)
+  end
+
+  def freelex_search_relation
+    policy_scope(FreelexSign)
   end
 
   def search_params

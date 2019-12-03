@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_225458) do
+ActiveRecord::Schema.define(version: 2019_12_02_212350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,12 +79,13 @@ ActiveRecord::Schema.define(version: 2019_11_27_225458) do
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
-  create_table "freelex_signs", id: :integer, default: nil, force: :cascade do |t|
+  create_table "freelex_signs", primary_key: "headword_id", id: :integer, default: nil, force: :cascade do |t|
     t.string "word", limit: 512, null: false
     t.string "maori", limit: 512
     t.string "secondary", limit: 512
-    t.datetime "updated_at", null: false
-    t.datetime "created_at", null: false
+    t.string "tags", default: [], array: true
+    t.datetime "published_at", null: false
+    t.index ["headword_id"], name: "index_freelex_signs_on_headword_id", unique: true
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"
     t.index ["word"], name: "idx_freelex_signs_word"
