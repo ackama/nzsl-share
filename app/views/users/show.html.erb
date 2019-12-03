@@ -1,16 +1,20 @@
 <div class="grid-x">
-  <div class="form grid-x cell medium-8 medium-offset-2 margin-top-2">
-    <div class="cell grid-x align-middle margin-bottom-1">
+  <div class="list grid-x cell medium-8 medium-offset-2 margin-top-2">
+    <div class="cell grid-x align-middle list__section">
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar.variant(resize_to_fill: [100, 100]), class: "avatar cell shrink" %>
+      <% else %>
       <img
             class="avatar cell shrink"
             src="https://picsum.photos/id/550/64/64"
             alt="Profile Image"
           />
+      <% end %>
       <h1 class="cell auto margin-left-1"><%= @user.username %></h1>
     </div>
 
-    <hr class="form__divider cell"/>
-    <div class="cell auto padding-1 margin-0">
+    <hr class="list__divider cell"/>
+    <div class="cell auto list__section">
     <h6>Bio:</h6>
     <p>
       <% if @user.bio.blank? %>
