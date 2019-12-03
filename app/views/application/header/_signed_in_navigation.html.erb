@@ -3,7 +3,7 @@
     <a href="#account-controls" data-toggle="account-controls">
       <span class="show-for-large"><%= current_user.username %></span>
       <% if current_user.avatar.attached? %>
-        <%= image_tag current_user.avatar.variant(resize_to_fill: [64, 64]), class: "avatar avatar--small" %>
+        <%= image_tag transform(current_user.avatar), class: "avatar avatar--small" %>
       <% else %>
         <img
           class="avatar avatar--small avatar--right"
@@ -26,7 +26,7 @@
     <div class="media-object-section">
       <%= link_to user_path(current_user.username) do %>
         <% if current_user.avatar.attached? %>
-          <%= image_tag current_user.avatar.variant(resize_to_fill: [64, 64]), class: "avatar" %>
+          <%= image_tag current_user.avatar.variant(resize_to_fill: [64, 64]).processed.service_url, class: "avatar" %>
         <% else %>
           <img
             class="avatar"
