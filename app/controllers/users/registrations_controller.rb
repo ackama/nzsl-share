@@ -2,6 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   after_action :create_default_folder, only: :create
+  helper AvatarHelper
 
   def create
     super
