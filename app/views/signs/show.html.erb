@@ -1,9 +1,7 @@
 <% provide(:title, @sign.word) %>
-<% provide(:social_media_title, @sign.word) %>
-<% provide(:social_media_description, @sign.description) %>
-<% provide(:social_media_image, @sign.poster_url) %>
-<% provide(:social_media_image_width, "1080") %>
-<% provide(:social_media_image_height, "720") %>
+<% provide(:og_title, @sign.word) %>
+<% provide(:og_description, @sign.secondary) %>
+<% provide(:og_image, @sign.poster_url) %>
 
 <nav class="grid-x" aria-label="You are here:" role="navigation">
   <ul class="breadcrumbs cell-shrink">

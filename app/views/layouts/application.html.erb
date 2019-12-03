@@ -27,19 +27,19 @@
     <meta name="apple-mobile-web-app-title" content="NZSL Share">
 
     <!-- For crawlers that use opengraph protocol (i.e facebook) -->
-    <%= open_graph_title %>
-    <%= open_graph_description %>
-    <%= open_graph_image %>
-    <%= open_graph_image_width %>
-    <%= open_graph_image_height %>
+    <meta property="og:site_name" content="NZSL Share" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="720" />
+    <meta property="og:image:alt" content="" />
+
+    <%= og_title %>
+    <%= og_description %>
+    <%= og_image %>
 
     <!-- For twitter -->
-    <%= twitter_card %>
-    <%= twitter_title %>
-    <%= twitter_description %>
-    <%= twitter_image %>
-    <%= twitter_image_width %>
-    <%= twitter_image_height %>
+    <meta name="twitter:card" content="summary">
+
   </head>
   <body class="no-js">
     <%# Prevent FOUS on page load %>
