@@ -27,10 +27,7 @@
 
       <legend><h2 class="primary">Add profile picture</h2></legend>
       <hr class="form__divider">
-      <% if resource.avatar.attached? %>
-        <img src="<%=(url_for(resource.avatar))%>"/>
-      <% end %>
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar, class: "margin-top-1" %>
     </fieldset>
 
     <div class="form__section" id="approved-member-information">
