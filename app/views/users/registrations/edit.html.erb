@@ -25,10 +25,11 @@
 
       <%= f.label :avatar, "Browse files", class: "button primary large" %>
 
-      <legend><h2 class="primary">Add profile picture</h2></legend>
-      <hr class="form__divider">
-      <%= f.file_field :avatar, class: "margin-top-1" %>
+      <%= f.label :avatar, "Change profile picture"%>
+      <%= f.file_field :avatar %>
     </fieldset>
+
+
 
     <div class="form__section" id="approved-member-information">
       <h2 class="primary">Approved Member</h2>
