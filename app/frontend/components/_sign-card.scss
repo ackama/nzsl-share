@@ -39,12 +39,16 @@
       flex: 0;
       justify-content: start;
       margin-bottom: auto;
-      padding: 0rem 1rem;
+      padding: 0 1rem;
     }
   }
 
   &__canonical {
     border-left: solid 2px get-color(accent);
+  }
+
+  &__canonical-link {
+    color: get-color(success) !important; // sass-lint:disable-line no-important
   }
 
   &__bottom {

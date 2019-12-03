@@ -23,7 +23,7 @@
                             class: "sign-card__supplementary-titles__secondary small") \
                             if sign.secondary %>
       <small><em>
-        <%= link_to sign.url, class: "success" do %>
+        <%= link_to sign.url, class: "sign-card__canonical-link" do %>
           <%= sign.url -%><%= inline_svg("media/images/external-link.svg", class: "icon icon--success icon--inline") %>
         <% end %>
       </em></small>
