@@ -1,67 +1,37 @@
 # frozen_string_literal: true
 
 module MetaTagsHelper
-  def open_graph_title(name=:title)
-    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
+  def og_title
+    property = "og:title"
+    content = content_for(:og_title) || "NZSL Share"
+
+    og_meta_tag(property, content)
   end
 
-  def open_graph_description(name=:description)
-    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
+  def og_description
+    property = "og:description"
+    content = content_for(:og_description) || "community space for NZSL signs posted by the New Zealand Deaf Community"
+
+    og_meta_tag(property, content)
   end
 
-  def open_graph_image(name=:image)
-    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
+  def og_url
+    property = "og:url"
+    content = content_for(:og_url) || root_path
+
+    og_meta_tag(property, content)
   end
 
-  def open_graph_image_width(name=:image_width)
-    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
-  end
+  def og_image
+    property = "og:image"
+    content = content_for(:og_image) || ""
 
-  def open_graph_image_height(name=:image_height)
-    content?(name) ? social_media_tag(name, OPENGRAPH, PROPERTY) : nil
-  end
-
-  def twitter_card(name=:card)
-    social_media_tag(name, TWITTER, NAME, "summary")
-  end
-
-  def twitter_title(name=:title)
-    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
-  end
-
-  def twitter_description(name=:description)
-    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
-  end
-
-  def twitter_image(name=:image)
-    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
-  end
-
-  def twitter_image_width(name=:image_width)
-    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
-  end
-
-  def twitter_image_height(name=:image_height)
-    content?(name) ? social_media_tag(name, TWITTER, NAME) : nil
+    og_meta_tag(property, content)
   end
 
   private
 
-  OPENGRAPH = :og
-  TWITTER = :twitter
-  PROPERTY = :property
-  NAME = :name
-
-  def content?(name)
-    content_for?(sym_name(name))
-  end
-
-  def sym_name(name)
-    ("social_media_" + name.to_s).to_sym
-  end
-
-  def social_media_tag(name, protocol, attribute, content=nil)
-    social_media = content || content_for(sym_name(name))
-    content_tag(:meta, nil, "#{attribute}": "#{protocol}:#{name}", content: social_media)
+  def og_meta_tag(property, content)
+    content_tag(:meta, nil, "property": property, content: content)
   end
 end
