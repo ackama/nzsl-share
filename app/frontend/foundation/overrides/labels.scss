@@ -1,16 +1,20 @@
-label {
-  margin-bottom: rem-calc(4);
-  margin-top: rem-calc(24);
+.label {
+  align-items: center;
+  display: flex;
+  height: 30px;
+  margin: 0.5rem 1rem;
+  padding: 0;
+  text-transform: uppercase;
 
-  &.inline {
-    @extend .middle;
-    line-height: 2; // Match form input
-    margin-bottom: 0;
-    padding-right: 1rem;
-  }
-
-  // Form spacing for repeated labels
-  & + input + label {
-    margin-top: 1rem;
+  &__icon-wrapper {
+    align-items: center;
+    background: get-color(primary);
+    border-bottom-left-radius: $global-radius;
+    border-top-left-radius: $global-radius;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    margin-right: 0.5rem;
+    width: 30px;
   }
 }

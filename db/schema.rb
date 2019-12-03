@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_212350) do
+ActiveRecord::Schema.define(version: 2019_12_02_231329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_212350) do
     t.string "secondary", limit: 512
     t.string "tags", default: [], array: true
     t.datetime "published_at", null: false
+    t.string "video_key"
     t.index ["headword_id"], name: "index_freelex_signs_on_headword_id", unique: true
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"

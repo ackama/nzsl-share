@@ -43,6 +43,7 @@ namespace :freelex do
       word: att.xpath("glossmain").text,
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
+      video_key: att.xpath("ASSET/glossmain").text,
       tags: att.xpath("HEADWORDTAGS").text.empty? ? [] : att.xpath("HEADWORDTAGS").text.split(/,/),
       published_at: Time.zone.now
     }
@@ -54,7 +55,7 @@ namespace :freelex do
   end
 
   def http_connection
-    Faraday.new(url: FREELEX_CONFIG[:url]) do |faraday|
+    Faraday.new(url: FREELEX_CONFIG[:host]) do |faraday|
       faraday.options.timeout = FREELEX_CONFIG[:timeout].to_i
       faraday.adapter Faraday.default_adapter
     end
