@@ -2,11 +2,15 @@
   <li class="navigation__item navigation__item--account">
     <a href="#account-controls" data-toggle="account-controls">
       <span class="show-for-large"><%= current_user.username %></span>
-      <img
-        class="avatar avatar--small avatar--right"
-        src="https://picsum.photos/id/550/32/32"
-        alt="Profile Image"
-      />
+      <% if current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar.variant(resize_to_fill: [64, 64]), class: "avatar avatar--small" %>
+      <% else %>
+        <img
+          class="avatar avatar--small avatar--right"
+          src="https://picsum.photos/id/550/32/32"
+          alt="Profile Image"
+        />
+      <% end %>
     </a>
   </li>
 </ul>
@@ -21,11 +25,15 @@
   <div class="media-object">
     <div class="media-object-section">
       <%= link_to user_path(current_user.username) do %>
-      <img
-        class="avatar"
-        src="https://picsum.photos/id/550/64/64"
-        alt="Profile Image"
-      />
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar.variant(resize_to_fill: [64, 64]), class: "avatar" %>
+        <% else %>
+          <img
+            class="avatar"
+            src="https://picsum.photos/id/550/64/64"
+            alt="Profile Image"
+          />
+        <% end %>
       <% end %>
     </div>
     <div class="media-object-section">
@@ -35,5 +43,7 @@
       </p>
     </div>
   </div>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button pull-right" %>
+  <div class="text-right">
+    <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button" %>
+  </div>
 </div>

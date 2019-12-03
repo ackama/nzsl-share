@@ -2,7 +2,7 @@
   <div class="list grid-x cell medium-8 medium-offset-2 margin-top-2">
     <div class="cell grid-x align-middle list__section">
       <% if @user.avatar.attached? %>
-        <%= image_tag @user.avatar.variant(resize_to_fill: [100, 100]), class: "avatar cell shrink" %>
+        <%= image_tag @user.avatar.variant(resize_to_fill: [64, 64]), class: "avatar cell shrink" %>
       <% else %>
       <img
             class="avatar cell shrink"
