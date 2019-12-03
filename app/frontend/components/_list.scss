@@ -14,9 +14,20 @@
     &--topics {
       display: flex;
       flex-flow: column wrap;
+      padding-bottom: 2.4rem;
 
-      @include breakpoint(medium up) {
-        max-height: rem-calc(500);
+      @include breakpoint(medium) {
+        max-height: rem-calc(760);
+      }
+
+      @include breakpoint(large) {
+        max-height: rem-calc(640);
+      }
+
+      div {
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
