@@ -274,6 +274,29 @@ RSpec.describe SearchService, type: :service do
           expect(words.sort.reverse).to eq words
         end
       end
+
+      context "most popular" do
+        example "be in the expected order" do
+          Sign.all.each do |sign|
+            rand(1..10).times { sign.activities << FactoryBot.build(:sign_activity) }
+            sign.save
+          end
+
+          signs = SearchService.call(relation: scoped_relation,
+                                     search: Search.new(term: "a", sort: "popular")).data
+
+          # returns a collection of agreed counts in order i.e [1, 2, 3, 3, 4, 6]
+          agrees = signs.inject([]) do |arr, sign|
+            arr << sign.activities.where(key: "agree").count
+          end - [0]
+
+          # compare the counts with what the search service returned, the order
+          # 'should' match
+          agrees.each_with_index do |agree, idx|
+            expect(signs[idx].activities.where(key: "agree").count).to eq(agree)
+          end
+        end
+      end
     end
   end
 

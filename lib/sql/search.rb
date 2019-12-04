@@ -73,6 +73,13 @@ module SQL
         SELECT signs.id
         FROM sign_search
         JOIN signs ON signs.id=sign_search.id
+        LEFT JOIN LATERAL (SELECT sign_activities.sign_id,
+                                  COUNT(sign_activities.sign_id) AS count
+                           FROM sign_activities
+                           WHERE sign_search.row_num = 1 AND
+                                 sign_activities.sign_id = sign_search.id AND
+                                 sign_activities.key = 'agree'
+                           GROUP BY sign_activities.sign_id) AS activity ON TRUE
         WHERE sign_search.row_num = 1
         ORDER BY #{order}
       SQL
