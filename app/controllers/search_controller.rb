@@ -18,7 +18,7 @@ class SearchController < ApplicationController
   end
 
   def freelex_search_results
-    @freelex_search_results ||= FreelexSearchService.call(search: search, relation: freelex_search_relation)
+    @freelex_search_results ||= FreelexSearchService.call(search: freelex_search, relation: freelex_search_relation)
   end
 
   def search_relation
@@ -31,5 +31,13 @@ class SearchController < ApplicationController
 
   def search_params
     { term: params.require(:term) }.merge(params.permit(:page, :sort))
+  end
+
+  def freelex_search
+    return search unless search.sort.to_s.downcase == "popular"
+
+    clone = search.clone
+    clone.sort = "alpha_asc"
+    clone
   end
 end
