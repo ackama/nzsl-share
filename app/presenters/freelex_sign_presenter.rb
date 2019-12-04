@@ -10,15 +10,14 @@ class FreelexSignPresenter < ApplicationPresenter
     h.truncate(sign.secondary)
   end
 
-  def video_url
-    "#{FREELEX_CONFIG[:asset_host]}#{video_key}"
+  def freelex_asset_video_url(key)
+    "#{FREELEX_CONFIG[:asset_host]}#{key}"
   end
 
   def sign_video_sourceset
-    # There are also mp4 versions of the videos available, but these are
-    # not returned by Freelex.
-    sources = [video_url, video_url.gsub(/\.webm/, ".mp4")]
-    h.safe_join(sources.map { |src| h.content_tag(:source, nil, src: src) })
+    # There are also mp4 versions of the videos available - these are
+    # also returned by Freelex.
+    h.safe_join(video_key.map { |src| h.content_tag(:source, nil, src: freelex_asset_video_url(src)) })
   end
 
   def sign_video_attributes
