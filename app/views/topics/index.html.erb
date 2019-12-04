@@ -17,7 +17,7 @@
     <hr class="list__divider">
     <div class="list__section list__section--topics cell">
       <% @topics.each do |topic| %>
-            <div class="margin-top-1"><%= link_to content_tag(:p, topic.name, class: "royal"), topic, class: "no-underline" %></div>
+        <%= link_to content_tag(:p, topic.name, class: "royal"), topic, class: "no-underline" %>
       <% end %>
     </div>
   </div>
