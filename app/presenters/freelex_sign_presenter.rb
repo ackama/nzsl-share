@@ -17,7 +17,12 @@ class FreelexSignPresenter < ApplicationPresenter
   def sign_video_sourceset
     # There are also mp4 versions of the videos available, but these are
     # not returned by Freelex.
-    sources = [video_url, video_url.gsub(/\.webm/, ".mp4")]
+    sources = if video_url.match?(/\.webm\Z/)
+                [video_url, video_url.gsub(/\.webm\Z/, ".mp4")]
+              else
+                [video_url, video_url.gsub(/\.mp4\Z/, ".webm")]
+              end
+
     h.safe_join(sources.map { |src| h.content_tag(:source, nil, src: src) })
   end
 
