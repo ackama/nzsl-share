@@ -14,11 +14,7 @@
 
     <div class="header__bar--right">
       <% if user_signed_in? %>
-        <% if current_user.avatar.attached? %>
-          <%= image_tag transform(current_user.avatar), class: "avatar avatar--small" %>
-        <% else %>
-        <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
-        <% end %>
+        <%= display_avatar(current_user, "avatar avatar--small")  %>
       <% else %>
         <ul class="navigation__list">
           <li class="navigation__item"><%= link_to "Sign in", new_user_session_path %></li>

@@ -1,15 +1,7 @@
 <div class="grid-x">
   <div class="list grid-x cell medium-8 medium-offset-2 margin-top-2">
     <div class="cell grid-x align-middle list__section">
-      <% if @user.avatar.attached? %>
-        <%= image_tag transform(@user.avatar), class: "avatar cell shrink" %>
-      <% else %>
-      <img
-            class="avatar cell shrink"
-            src="https://picsum.photos/id/550/64/64"
-            alt="Profile Image"
-          />
-      <% end %>
+      <%= display_avatar(@user, "avatar cell shrink") %>
       <h1 class="cell auto margin-left-1"><%= @user.username %></h1>
     </div>
 
