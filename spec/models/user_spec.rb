@@ -82,4 +82,37 @@ RSpec.describe User, type: :model do
       it { is_expected.to eq true }
     end
   end
+
+  describe ".avatar" do
+    subject { FactoryBot.create(:user, :with_avatar) }
+    it { expect(subject.avatar).to be_an_instance_of(ActiveStorage::Attached::One) }
+
+    context "with a valid file" do
+      it { is_expected.to be_valid }
+    end
+
+    context "blank" do
+      before { subject.avatar = nil }
+      it { is_expected.to be_valid }
+    end
+
+    context "too large" do
+      let(:invalid_blob_size) { 500.megabytes }
+      before do
+        allow(subject.avatar.blob).to receive(:byte_size) { invalid_blob_size }
+        subject.valid?
+      end
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context "wrong type" do
+      let(:invalid_content_type) { "application/pdf" }
+      before do
+        allow(subject.avatar.blob).to receive(:content_type) { invalid_content_type }
+        subject.valid?
+      end
+      it { is_expected.not_to be_valid }
+    end
+  end
 end
