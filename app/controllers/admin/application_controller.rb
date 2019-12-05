@@ -5,6 +5,7 @@ module Admin
     include Administrate::Punditize
     include ActiveStorage::SetCurrent
     helper PresentersHelper
+    helper AvatarHelper
 
     before_action :authenticate_user!
     before_action { authorize :admin, :administrator_or_moderator? }
