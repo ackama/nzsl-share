@@ -2,7 +2,7 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topic).find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topics).find(params[:id]))
     authorize @sign
     return unless stale?(@sign)
 
@@ -96,8 +96,8 @@ class SignsController < ApplicationController
     params
       .require(:sign)
       .permit(
-        :video, :maori, :secondary, :notes, :word, :topic_id, :usage_examples,
-        :illustrations, :conditions_accepted
+        :video, :maori, :secondary, :notes, :word, :usage_examples,
+        :illustrations, :conditions_accepted, topic_ids: []
       )
   end
 
