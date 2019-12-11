@@ -12,6 +12,8 @@ class Sign < ApplicationRecord
   has_many :folder_memberships, dependent: :destroy
   has_many :folders, through: :folder_memberships
   has_many :activities, class_name: "SignActivity", dependent: :destroy
+  has_many :sign_topics, dependent: :destroy
+  has_many :topics, through: :sign_topics
 
   has_one_attached :video
   has_many_attached :usage_examples
