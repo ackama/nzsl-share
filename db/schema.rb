@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_024958) do
+ActiveRecord::Schema.define(version: 2019_12_15_223636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,16 @@ ActiveRecord::Schema.define(version: 2019_12_04_024958) do
     t.index ["user_id"], name: "index_sign_activities_on_user_id"
   end
 
+  create_table "sign_topics", force: :cascade do |t|
+    t.bigint "topic_id", null: false
+    t.bigint "sign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sign_id"], name: "index_sign_topics_on_sign_id"
+    t.index ["topic_id", "sign_id"], name: "index_sign_topics_on_topic_id_and_sign_id", unique: true
+    t.index ["topic_id"], name: "index_sign_topics_on_topic_id"
+  end
+
   create_table "signs", id: :serial, force: :cascade do |t|
     t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
@@ -179,6 +189,8 @@ ActiveRecord::Schema.define(version: 2019_12_04_024958) do
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
   add_foreign_key "sign_activities", "users"
+  add_foreign_key "sign_topics", "signs"
+  add_foreign_key "sign_topics", "topics"
   add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end
