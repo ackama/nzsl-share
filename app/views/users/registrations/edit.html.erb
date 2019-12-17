@@ -1,4 +1,5 @@
 <% provide(:title, "Edit profile") %>
+<% user = present(resource) %>
 
 <div class="cell medium-8 margin-top-2 form">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -38,7 +39,7 @@
       <hr class="form__divider">
       <div class="grid-x align-middle">
         <div class="cell shrink margin-top-1 margin-right-1">
-          <%= display_avatar(resource, "avatar") %>
+          <%= image_pack_tag(user.avatar, class: "avatar") %>
         </div>
         <div class="cell auto">
           <%= f.label :avatar, "Change profile picture"%>

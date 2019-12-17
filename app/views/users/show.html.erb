@@ -1,18 +1,19 @@
+<% user = present(@user)%>
 <div class="grid-x">
   <div class="list grid-x cell medium-8 medium-offset-2 margin-top-2">
     <div class="cell grid-x align-middle list__section">
-      <%= display_avatar(@user, "avatar cell shrink") %>
-      <h1 class="cell auto margin-left-1"><%= @user.username %></h1>
+      <%= image_pack_tag(user.avatar, class: "avatar cell shrink") %>
+      <h1 class="cell auto margin-left-1"><%= user.username %></h1>
     </div>
 
     <hr class="list__divider cell"/>
     <div class="cell auto list__section">
     <h6>Bio:</h6>
     <p>
-      <% if @user.bio.blank? %>
+      <% if user.bio.blank? %>
         <em>This user has not created a bio yet.</em>
       <% else %>
-        <%= @user.bio %>
+        <%= user.bio %>
       <% end %>
     </p>
     </div>

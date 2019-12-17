@@ -1,9 +1,11 @@
+<% user = present(current_user) %>
+
 <ul class="navigation__list small-vertical medium-horizontal">
   <li class="navigation__item navigation__item--account">
     <a href="#account-controls" data-toggle="account-controls" class="">
       <div class="grid-x align-middle">
         <span class="show-for-large margin-right-1"><%= current_user.username %></span>
-        <%= display_avatar(current_user, "avatar avatar--small") %>
+        <%= image_pack_tag(user.avatar, class: "avatar avatar--small") %>
       </div>
     </a>
   </li>
@@ -19,7 +21,7 @@
   <div class="media-object">
     <div class="media-object-section">
       <%= link_to user_path(current_user.username) do %>
-        <%= display_avatar(current_user, "avatar") %>
+        <%= image_pack_tag(user.avatar, class: "avatar avatar--small") %>
       <% end %>
     </div>
     <div class="media-object-section">

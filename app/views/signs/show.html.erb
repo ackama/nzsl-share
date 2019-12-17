@@ -47,17 +47,18 @@
     <hr class="sign-card__divider">
     <div class="grid-x sign-card__section">
       <p class="sign-card__subtitle">
-        <%= link_to user_path(@sign.contributor.username) do %>
-        <%= display_avatar(current_user, "avatar avatar--small avatar--left") %>
-        <%= @sign.contributor.username %>
+        <%= link_to user_path(@sign.contributor.username), class: "grid-x align-middle" do %>
+          <% contributor = present(@sign.contributor) %>
+          <%= image_pack_tag(contributor.avatar, class: "avatar avatar--small avatar--left") %>
+          <%= @sign.contributor.username %>
         <% end %>
-        &nbsp;•&nbsp;uploaded&nbsp;
-        <%= @sign.friendly_date %>
+          &nbsp;•&nbsp;uploaded&nbsp;
+          <%= @sign.friendly_date %>
         <% if @sign.topic %>
           &nbsp;•&nbsp;
           <%= @sign.topic.name %>
         <% end %>
-    </p>
+      </p>
 
       <%= content_tag(:p, simple_format(@sign.description)) %>
     </div>
