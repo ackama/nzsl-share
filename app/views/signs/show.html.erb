@@ -49,7 +49,7 @@
       <p class="sign-card__subtitle">
         <%= link_to user_path(@sign.contributor.username), class: "grid-x align-middle" do %>
           <% contributor = present(@sign.contributor) %>
-          <%= image_pack_tag(contributor.avatar, class: "avatar avatar--small avatar--left") %>
+          <%= contributor.avatar("avatar avatar--small avatar--left") %>
           <%= @sign.contributor.username %>
         <% end %>
           &nbsp;•&nbsp;uploaded&nbsp;
