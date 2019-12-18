@@ -39,7 +39,7 @@
       <hr class="form__divider">
       <div class="grid-x align-middle">
         <div class="cell shrink margin-top-1 margin-right-1">
-          <%= image_pack_tag(user.avatar, class: "avatar") %>
+          <%= user.avatar("avatar") %>
         </div>
         <div class="cell auto">
           <%= f.label :avatar, "Change profile picture"%>

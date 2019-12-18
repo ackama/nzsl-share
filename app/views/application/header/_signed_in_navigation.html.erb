@@ -5,7 +5,7 @@
     <a href="#account-controls" data-toggle="account-controls" class="">
       <div class="grid-x align-middle">
         <span class="show-for-large margin-right-1"><%= current_user.username %></span>
-        <%= image_pack_tag(user.avatar, class: "avatar avatar--small") %>
+        <%= user.avatar("avatar avatar--small") %>
       </div>
     </a>
   </li>
@@ -21,7 +21,7 @@
   <div class="media-object">
     <div class="media-object-section">
       <%= link_to user_path(current_user.username) do %>
-        <%= image_pack_tag(user.avatar, class: "avatar avatar--small") %>
+        <%= user.avatar("avatar") %>
       <% end %>
     </div>
     <div class="media-object-section">
