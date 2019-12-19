@@ -27,14 +27,23 @@ RSpec.describe Topic, type: :model do
     end
   end
 
-  describe "delete" do
-    context "nullify sign" do
-      it "destroys the topic and preserves the sign" do
-        sign = FactoryBot.create(:sign)
-        expect(sign.topic).to be_present
-        expect { sign.topic.destroy }.to change { Topic.count }.by(-1)
-        expect(sign.reload.topic).to be_nil
-      end
+  describe "associated signs" do
+    it "destroy the topic not the sign" do
+      sign = FactoryBot.create(:sign)
+      expect(sign.topics).to be_present
+      expect(sign.topics.count).to eq SignTopic.count
+      expect { sign.topics.first.destroy }.to change { Topic.count }.by(-1)
+      expect(sign.topics.count).to eq 0
+      expect(sign.reload.topics).to eq []
+    end
+
+    it "destroy the sign not the topic" do
+      sign = FactoryBot.create(:sign)
+      expect(sign.topics).to be_present
+      expect(sign.topics.count).to eq SignTopic.count
+      expect { sign.destroy! }.to change { Topic.count }.by(0)
+      expect(SignTopic.count).to eq 0
+      expect { sign.reload }.to raise_exception ActiveRecord::RecordNotFound
     end
   end
 end
