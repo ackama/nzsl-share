@@ -8,7 +8,6 @@ class Sign < ApplicationRecord
   MAXIMUM_FILE_SIZE = 250.megabytes
 
   belongs_to :contributor, class_name: :User
-  belongs_to :topic, optional: true
   has_many :folder_memberships, dependent: :destroy
   has_many :folders, through: :folder_memberships
   has_many :activities, class_name: "SignActivity", dependent: :destroy
