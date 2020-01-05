@@ -8,19 +8,19 @@ RSpec.describe "Profile page", type: :system do
     before { visit user_path(username: user.username) }
 
     it "shows username" do
-      within ".form" do
+      within ".list" do
         expect(page).to have_content(user.username)
       end
     end
 
     it "shows bio" do
-      within ".form" do
+      within ".list" do
         expect(page).to have_content(user.bio)
       end
     end
 
     it "shows profile picture" do
-      within ".form" do
+      within ".list" do
         expect(page).to have_selector(".avatar")
       end
     end
