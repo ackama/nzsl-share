@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_15_223636) do
+ActiveRecord::Schema.define(version: 2020_01_06_004030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 2019_12_15_223636) do
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
-    t.bigint "topic_id"
     t.text "description"
     t.text "notes"
     t.boolean "processed_videos", default: false, null: false
@@ -140,7 +139,6 @@ ActiveRecord::Schema.define(version: 2019_12_15_223636) do
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["share_token"], name: "index_signs_on_share_token", unique: true
     t.index ["status"], name: "index_signs_on_status"
-    t.index ["topic_id"], name: "index_signs_on_topic_id"
     t.index ["word"], name: "idx_signs_word"
   end
 
@@ -191,6 +189,5 @@ ActiveRecord::Schema.define(version: 2019_12_15_223636) do
   add_foreign_key "sign_activities", "users"
   add_foreign_key "sign_topics", "signs"
   add_foreign_key "sign_topics", "topics"
-  add_foreign_key "signs", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end
