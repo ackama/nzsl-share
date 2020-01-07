@@ -1,12 +1,12 @@
+<% user = present(current_user) %>
+
 <ul class="navigation__list small-vertical medium-horizontal">
   <li class="navigation__item navigation__item--account">
-    <a href="#account-controls" data-toggle="account-controls">
-      <span class="show-for-large"><%= current_user.username %></span>
-      <img
-        class="avatar avatar--small avatar--right"
-        src="https://picsum.photos/id/550/32/32"
-        alt="Profile Image"
-      />
+    <a href="#account-controls" data-toggle="account-controls" class="">
+      <div class="grid-x align-middle">
+        <span class="show-for-large margin-right-1"><%= current_user.username %></span>
+        <%= user.avatar("avatar avatar--small") %>
+      </div>
     </a>
   </li>
 </ul>
@@ -21,11 +21,7 @@
   <div class="media-object">
     <div class="media-object-section">
       <%= link_to user_path(current_user.username) do %>
-      <img
-        class="avatar"
-        src="https://picsum.photos/id/550/64/64"
-        alt="Profile Image"
-      />
+        <%= user.avatar("avatar") %>
       <% end %>
     </div>
     <div class="media-object-section">
@@ -35,5 +31,7 @@
       </p>
     </div>
   </div>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button pull-right" %>
+  <div class="text-right">
+    <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button" %>
+  </div>
 </div>

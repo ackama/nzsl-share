@@ -1,3 +1,4 @@
+
 <header class="header">
   <div class="header__bar">
     <% if user_signed_in? %>
@@ -14,7 +15,8 @@
 
     <div class="header__bar--right">
       <% if user_signed_in? %>
-        <img class="avatar avatar--small" src="https://picsum.photos/id/550/32/32" alt="Profile Image" />
+        <% user = present(current_user) %>
+        <%= user.avatar("avatar avatar--small") %>
       <% else %>
         <ul class="navigation__list">
           <li class="navigation__item"><%= link_to "Sign in", new_user_session_path %></li>
