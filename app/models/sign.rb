@@ -5,6 +5,7 @@ class Sign < ApplicationRecord
 
   PERMITTED_VIDEO_CONTENT_TYPE_REGEXP = %r{\Avideo/.+\Z}.freeze
   PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}.freeze
+  REFERRED_TOPIC = %r{\A\/topics\/\d{1,3}\Z}.freeze
   MAXIMUM_FILE_SIZE = 250.megabytes
 
   belongs_to :contributor, class_name: :User
@@ -47,6 +48,20 @@ class Sign < ApplicationRecord
   scope :recent, -> { published.order(published_at: :desc) }
 
   scope :for_cards, -> { with_attached_video.includes(:contributor) }
+
+  attr_reader :topic # breadcrumb for show template
+
+  def topic=(path)
+    tpc_id = if path && path.match(REFERRED_TOPIC)
+               path.split("/")[2].to_i
+             else
+               SignTopic.where(sign_id: id)
+                        .order(created_at: :asc)
+                        .first.try(:topic_id)
+             end
+
+    @topic = tpc_id ? topics.find_by(id: tpc_id) : nil
+  end
 
   def agree_count
     activities.where(key: SignActivity::ACTIVITY_AGREE, sign: self).count
