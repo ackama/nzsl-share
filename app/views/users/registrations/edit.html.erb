@@ -21,17 +21,8 @@
       <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
 
       <%= f.label :bio %>
-<<<<<<< HEAD
       <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others.", maxlength: "250", data: {characters: ""} %>
       <p class="help-text text-right"><span data-character-count="user_bio">0</span>/250 characters</p>
-
-      <%= f.label :avatar, "Browse files", class: "button primary large" %>
-
-      <%= f.label :avatar, "Change profile picture"%>
-      <%= f.file_field :avatar %>
-=======
-      <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others." %>
->>>>>>> Add profile image to edit form
     </fieldset>
 
     <fieldset class="form__section">
