@@ -1,29 +1,32 @@
-$chosen-sprite: url("images/chosen-sprite.png") !default;
+// sass-lint:disable force-element-nesting
+
+$chosen-sprite: url("images/chosen-sprite-adjusted.png");
 $chosen-sprite-retina: url("images/chosen-sprite@2x.png") !default;
 $chosen-font-family: inherit;
-$chosen-font-size: 1rem;
-$chosen-font-weight: normal;
-$chosen-border: 2px solid #354ae7;
+$chosen-font-size: 13px;
+$chosen-font-weight: 600;
+$chosen-background-color: #354ae7;
+$chosen-border: 1px solid $chosen-background-color;
 
 // @group Base
 .chosen-container {
   display: inline-block;
   font-family: $chosen-font-family;
-  font-size: $chosen-font-family;
+  font-size: $chosen-font-size;
   font-weight: $chosen-font-weight;
   position: relative;
   user-select: none;
   vertical-align: middle;
 
   * {
+    border-radius: 4px;
     box-sizing: border-box;
   }
 
   .chosen-drop {
     background: #fff;
-    border: 1px solid #aaa;
+    border: 1px solid #b1b7bc;
     border-top: 0;
-    box-shadow: 0 4px 5px rgba(#000, 0.15);
     clip: rect(0, 0, 0, 0);
     clip-path: inset(100% 100%);
     position: absolute;
@@ -44,7 +47,7 @@ $chosen-border: 2px solid #354ae7;
   .search-choice,
   .chosen-single {
 
-    .group-namei {
+    .group-name {
       color: #999;
       font-weight: $chosen-font-weight;
       margin-right: 4px;
@@ -120,13 +123,12 @@ $chosen-border: 2px solid #354ae7;
 .chosen-container-multi {
   .chosen-choices {
     background-color: #fff;
-    background-image: linear-gradient(#eee 1%, #fff 15%);
-    border: 1px solid #aaa;
+    border: 1px solid #d6dadb;
     cursor: text;
     height: auto;
     margin: 0;
     overflow: hidden;
-    padding: 0 5px;
+    padding: 5px;
     position: relative;
     width: 100%;
   }
@@ -161,14 +163,11 @@ $chosen-border: 2px solid #354ae7;
 
     &.search-choice {
       background-clip: padding-box;
-      background-color: #eee;
-      background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
+      background-color: #027ac9;
       background-repeat: repeat-x;
       background-size: 100% 19px;
-      border: 1px solid #aaa;
       border-radius: 3px;
-      box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(#000, 0.05);
-      color: #333;
+      color: #fff;
       cursor: default;
       line-height: 13px;
       margin: 3px 5px 3px 0;
@@ -259,7 +258,7 @@ $chosen-border: 2px solid #354ae7;
     border: $chosen-border;
     box-shadow: 0 0 5px rgba(#000, 0.3);
 
-    li.search-field input {
+    .search-field input {
       &[type="text"] {
         color: #222;
       }
@@ -335,7 +334,7 @@ $chosen-border: 2px solid #354ae7;
     padding: 0 4px 0 0;
   }
 
-  .chosen-results li.group-option {
+  .chosen-results .group-option {
     padding-left: 0;
     padding-right: 15px;
   }
