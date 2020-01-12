@@ -16,7 +16,7 @@
 
 <div class="grid-x margin-bottom-2">
 
-    <%= render "signs/overview", sign: @sign if policy(@sign).overview?%>
+  <%= render "signs/overview", sign: @sign if policy(@sign).overview?%>
 
   <div class="cell sign-card medium-8 sign-card--borderless">
     <div class="sign-card__media">
@@ -92,4 +92,5 @@
       </div>
     <% end %>
   </div>
+  <%= render "sign_comments/comments", sign: @sign if @sign.comments.any? %>
 </div>
