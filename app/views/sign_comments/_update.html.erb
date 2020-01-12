@@ -1,0 +1,3 @@
+<%= form_with(model: sign_comment, url: sign_comment_path(sign), method: :patch, remote: true) do |form| %>
+  <%= form.text_field :comment %>
+<% end %>
