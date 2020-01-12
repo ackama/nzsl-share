@@ -27,6 +27,7 @@
 @import "components/admin/filters";
 @import "components/admin/table-row";
 @import "components/chosen.scss";
+@import "components/comments";
 
 // Extension is required, otherwise webpacker tries to bundle video.js.
 @import "components/video.scss"; // sass-lint:disable-line clean-import-paths
