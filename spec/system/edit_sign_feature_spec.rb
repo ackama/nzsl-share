@@ -44,16 +44,16 @@ RSpec.describe "Editing a sign", type: :system do
   it "can successfully enter metadata about a sign" do
     fill_in "sign_word", with: "Dog"
     fill_in "sign_maori", with: "Kuri"
-    select topic.name, from: "Topic"
+    select topic.name, from: "sign_topic_ids"
     fill_in "sign_secondary", with: "Canine"
     choose "should_submit_for_publishing_true"
     check "sign_conditions_accepted"
     click_on "Update Sign"
     sign.reload
+    expect(sign.topics.find_by(id: topic.id)).to eq topic
     expect(subject.current_path).to eq sign_path(Sign.order(created_at: :desc).first)
     expect(subject).to have_content I18n.t!("signs.update.success")
     expect(subject).to have_content "Dog"
-    expect(subject).to have_content topic.name
     expect(sign.submitted?).to eq true
   end
 

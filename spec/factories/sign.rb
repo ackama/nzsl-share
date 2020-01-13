@@ -9,8 +9,11 @@ FactoryBot.define do
       { io: video_file, filename: File.basename(video_file) }
     end
 
-    association :topic
     association :contributor, factory: :user
+
+    after :create do |sign|
+      sign.topics << FactoryBot.create(:topic)
+    end
 
     trait :unprocessed do
       processed_videos { false }

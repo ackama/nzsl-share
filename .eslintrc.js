@@ -56,5 +56,13 @@ module.exports = {
     "quotes": [ "error", "double" ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
-  }
+  },
+  overrides: [
+    {
+      "files": ["chosen-topics.js"],
+      "rules": {
+        "camelcase": "off"
+      }
+    }
+  ]
 };

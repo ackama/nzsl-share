@@ -17,8 +17,8 @@ RSpec.describe "Topics", type: :system do
 
   describe "show" do
     let(:topic) { topics.first }
-    let!(:private_sign) { FactoryBot.create(:sign, topic: topic) }
-    let!(:submitted_sign) { FactoryBot.create(:sign, :submitted, topic: topic) }
+    let!(:private_sign) { FactoryBot.create(:sign, topics: [topic]) }
+    let!(:submitted_sign) { FactoryBot.create(:sign, :submitted, topics: [topic]) }
 
     subject { page }
     before { visit topic_path(topic) }

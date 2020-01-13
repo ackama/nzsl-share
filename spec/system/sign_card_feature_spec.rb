@@ -8,7 +8,6 @@ RSpec.describe "Sign card features", type: :system do
 
   before do |example|
     authenticator.sign_in unless example.metadata[:signed_out]
-    visit topic_path(sign.topic)
   end
 
   def sign_card
@@ -45,6 +44,8 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
+    visit sign_path(sign)
+    expect(sign_path(sign)).to eq current_path
     expect(sign_card).to have_no_content "Public"
   end
 
@@ -66,7 +67,7 @@ RSpec.describe "Sign card features", type: :system do
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
 
     # We have added records so need to reload
-    before { visit topic_path(sign.topic) }
+    before { visit topic_path(sign.topics.first) }
 
     it "shows existing folder state" do
       inside_card do
@@ -90,10 +91,10 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "updates the signs count on another sign card automatically" do
-      FactoryBot.create(:sign, :published, topic: sign.topic)
+      FactoryBot.create(:sign, :published, topics: sign.topics)
 
       # We have added records so need to reload
-      visit topic_path(sign.topic)
+      visit topic_path(sign.topics.first)
 
       cards = all(".sign-card")
       this_card = cards.first
@@ -179,7 +180,8 @@ RSpec.describe "Sign card features", type: :system do
 
     it "links the user to sign in page if they are logged out", signed_out: true do
       original_path = current_path
-      within ".sign-card__folders" do
+      sign_card_folder = find(".sign-card__folders", match: :first)
+      within sign_card_folder do
         click_on("Folders")
       end
       expect(page).to have_current_path(new_user_session_path)

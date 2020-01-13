@@ -328,7 +328,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "displays the sign topic" do
-    expect(subject).to have_content sign.topic.name
+    expect(subject).to have_content sign.topics.first.name
   end
 
   it "shows a breadcrumb to the sign" do
@@ -336,7 +336,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "shows a breadcrumb to the topic" do
-    subject.breadcrumb { expect(subject).to have_link sign.topic.name }
+    subject.breadcrumb { expect(subject).to have_link sign.topics.first.name }
   end
 
   it "displays the sign description" do
