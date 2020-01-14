@@ -1,81 +1,72 @@
-<div id="sign-comments" class="cell medium-8">
-  <div class="grid-container full comment">
-    <div class="grid-x">
-      <div class="cell auto comment--title">
-        View comments
-      </div>
-      <div class="cell auto comment--count">
-        showing <%= sign.comments.count %> of <%= sign.comments.count %> comments
-      </div>
+<div id="sign-comments">
+  <div class="grid-x">
+    <div class="cell auto sign-comments--title">
+      View comments
     </div>
-    <hr>
-    <% sign.comments.each do |comment| %>
-      <div class="grid-x">
-        <div class="cell shrink comment--detail--avatar">
-          IMG
-        </div>
-        <div class="cell auto comment--detail">
-          <span class="cell auto comment--detail--username "><%= comment.user.username %></span>
-          <span class="cell auto comment--detail--comment"><%= comment.comment %></span>
-        </div>
-        <div class="cell shrink comment--detail--options">
-          <a href="#" data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
-            <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
-          </a>
-          <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin"
-               id="<%= dom_id(comment, :options) %>"
-               data-position="bottom"
-               data-alignment="right"
-               data-dropdown
-               data-hover="true"
-               data-hover-pane="true">
-            <ul class="list__item-menu vertical icons">
-              <li class="list__item-menu__menu-item">
-                <%= link_to sign_comment_path(sign), method: :patch, remote: true do %>
-                  <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
-                <% end %>
-              </li>
-              <li class="list__item-menu__menu-item">
-                <%= link_to nil do %>
-                  <%= inline_svg "media/images/reply.svg" %><span>Reply</span>
-                <% end %>
-              </li>
-              <li class="list__item-menu__menu-item">
-                <%= link_to sign_comment_path(sign, comment), method: :delete, remote: true do %>
-                  <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
-                <% end %>
-              </li>
-              <li class="list__item-menu__menu-item">
-                <%= link_to nil do %>
-                  <%= inline_svg "media/images/inappropriate.svg" %><span>Flag as inappropriate</span>
-                <% end %>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="grid-x">
-        <div class="cell auto comment--detail--reply">
-          <% if comment.created_at.today? %>
-            <%= "Today at #{comment.created_at.strftime("%I:%M %p")}" %>
-          <% else %>
-            <%= "#{comment.created_at.strftime("%a %b %Y")} at #{comment.created_at.strftime("%I:%M %p")}" %>
-          <% end %>
-        </div>
-      </div>
-      <% comment.replies.each do |reply| %>
-        <div class="grid-x">
-          <div class="cell">
-            <%= reply.comment %>
-          </div>
-        </div>
+    <div class="cell auto sign-comments--count">
+      showing <%= sign.comments.count %> of <%= sign.comments.count %> comments
+    </div>
+  </div>
+  <hr>
+  <div class="grid-x">
+  <% sign.comments.each do |comment| %>
+    <% comment = present(comment) %>
+    <div class="cell shrink sign-comment">
+      <%= link_to user_path(comment.user) do %>
+        <%= comment.user_avatar %>
       <% end %>
-    <% end %>
-    <hr>
-    <div class="grid-x">
-      <div class="cell">
-        <%= render "sign_comments/new", sign: sign %>
+    </div>
+    <div class="cell auto sign-comment sign-comment__box">
+      <span class="cell auto sign-comment--username">
+        <%= comment.username %>
+      </span>
+      <span class="cell auto sign-comment sign-comment--comment">
+        <%= comment.html_comment %>
+      </span>
+    </div>
+    <div class="cell shrink sign-comment sign-comment--options">
+      <%= render "sign_comments/options", comment: comment %>
+    </div>
+    <div class="cell sign-comment sign-comment__reply">
+      <span class="cell auto">
+        <%= link_to nil, class: "sign-comment__reply__link sign-comment__reply__link--text" do %>
+          <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+          Reply
+        <% end %>
+      &nbsp;•&nbsp;
+      </span>
+      <span class="cell auto">
+        <%= comment.friendly_date %>
+      </span>
+    </div>
+    <% comment.replies.each do |reply| %>
+      <% reply = present(reply) %>
+      <div class="cell shrink sign-comment sign-comment__reply">
+        <%= link_to user_path(reply.user) do %>
+          <%= reply.user_avatar %>
+        <% end %>
       </div>
+      <div class="cell auto sign-comment sign-comment__box">
+        <span class="cell auto sign-comment--username">
+          <%= reply.username %>
+        </span>
+        <span class="cell auto sign-comment sign-comment--comment">
+          <%= reply.html_comment %>
+        </span>
+      </div>
+      <div class="cell shrink sign-comment">
+        <%= render "sign_comments/options", comment: comment %>
+      </div>
+      <div class="cell sign-comment sign-comment__reply--created">
+        <%= reply.friendly_date %>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+  <hr>
+  <div class="grid-x">
+    <div class="cell">
+      <%= render "sign_comments/new", sign: sign %>
     </div>
   </div>
 </div>
