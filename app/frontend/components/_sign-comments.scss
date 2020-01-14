@@ -1,0 +1,62 @@
+$comment-background-color: get-color(extra-light);
+$comment-font-weight: bold;
+
+.sign-comments {
+  background-color: $white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.625 1.5rem 0 rgba(0, 0, 0, 0.02);
+  margin-top: 1.25rem;
+
+  &--title {
+    color: $black;
+    font-size: 1.125rem;
+    font-weight: $comment-font-weight;
+    margin: 1.25rem 0 0 1.125rem;
+  }
+
+  &--count {
+    color: $medium-gray;
+    font-size: 0.75rem;
+    font-weight: $comment-font-weight;
+    line-height: 1.77;
+    margin: 1.25rem 1rem 0 0;
+    text-align: right;
+  }
+}
+
+.sign-comment {
+  font-size: 0.875rem;
+  padding: 0.625rem;
+
+  &__box {
+    background-color: $comment-background-color;
+    border-radius: 0.75rem;
+  }
+
+  &__reply {
+    margin-left: 2.5rem;
+
+    &__link {
+      font-weight: normal;
+      margin-top: 1.5rem;
+      text-decoration: none;
+
+      &--text {
+        color: $medium-gray;
+      }
+    }
+
+    &--created {
+      margin-left: 5.25rem;
+    }
+  }
+
+  &--username {
+    color: get-color(royal);
+    font-weight: $comment-font-weight;
+  }
+
+  &--comment {
+    color: $black;
+  }
+}
