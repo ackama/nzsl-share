@@ -9,9 +9,8 @@
     <%= form_with(model: collaboration, url: folder_collaborations_path(@folder)) do |f| %>
       <div class="modal-form__fields">
         <fieldset>
-          <%= f.label :email, "Collaborator's email", class: "required" %>
-          <%= f.text_field :email, placeholder: "Enter an email" %>
-          <%= f.error :collaborator_id %>
+          <%= f.label :identifier, "Collaborator's email or username", class: "required" %>
+          <%= f.text_field :identifier, placeholder: "Type email or username" %>
         </fieldset>
 
         <%= f.hidden_field :folder_id, value: @folder.id %>
