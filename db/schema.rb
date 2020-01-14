@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_203605) do
+ActiveRecord::Schema.define(version: 2020_01_13_234837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 2020_01_13_203605) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "status", default: "submitted"
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
+  end
+
+  create_table "collaborations", force: :cascade do |t|
+    t.bigint "folder_id", null: false
+    t.bigint "collaborator_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collaborator_id"], name: "index_collaborations_on_collaborator_id"
+    t.index ["folder_id", "collaborator_id"], name: "index_collaborations_on_folder_id_and_collaborator_id", unique: true
+    t.index ["folder_id"], name: "index_collaborations_on_folder_id"
   end
 
   create_table "folder_memberships", force: :cascade do |t|
@@ -201,6 +211,8 @@ ActiveRecord::Schema.define(version: 2020_01_13_203605) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "approved_user_applications", "users"
+  add_foreign_key "collaborations", "folders"
+  add_foreign_key "collaborations", "users", column: "collaborator_id"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
