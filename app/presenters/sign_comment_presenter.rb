@@ -19,6 +19,11 @@ class SignCommentPresenter < ApplicationPresenter
   end
 
   def html_comment
-    h.simple_format(sign_comment.comment)
+    h.simple_format(sign_comment.comment, {}, wrapper_tag: "span")
+  end
+
+  def user_avatar
+    user = h.present(sign_comment.user)
+    user.avatar("avatar avatar--small")
   end
 end
