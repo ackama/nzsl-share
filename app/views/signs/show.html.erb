@@ -92,5 +92,8 @@
       </div>
     <% end %>
   </div>
-  <%= render "sign_comments/comments", sign: @sign if @sign.comments.any? %>
+</div>
+
+<div class="grid-x medium-8 margin-bottom-2 sign-comments">
+  <%= render "sign_comments/comments", sign: @sign if policy(SignComment).show? %>
 </div>
