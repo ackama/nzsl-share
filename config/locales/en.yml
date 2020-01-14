@@ -33,6 +33,10 @@ en:
   approved_user_applications:
     create:
       success: Thank you! An NZSL Share Admin will look at your application soon.
+  collaborations:
+    create:
+      success: "Successfully added collaborator to folder."
+      failure: "Failed to add collaborator to folder. Please try again."
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
