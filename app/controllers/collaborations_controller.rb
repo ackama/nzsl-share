@@ -29,6 +29,11 @@ class CollaborationsController < ApplicationController
   end
 
   def find_collaborator
-    User.find_by(email: params[:collaboration][:email])
+    identifier = params[:collaboration][:identifier]
+    if identifier.include? "@"
+      User.find_by(email: identifier)
+    else
+      User.find_by(username: identifier)
+    end
   end
 end
