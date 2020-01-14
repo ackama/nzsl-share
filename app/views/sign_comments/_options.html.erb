@@ -1,0 +1,33 @@
+<a href="#" data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
+  <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
+</a>
+<div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin"
+     id="<%= dom_id(comment, :options) %>"
+     data-position="bottom"
+     data-alignment="right"
+     data-dropdown
+     data-hover="true"
+     data-hover-pane="true">
+  <ul class="list__item-menu vertical icons">
+    <li class="list__item-menu__menu-item">
+      <%= link_to nil do %>
+        <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+      <% end %>
+    </li>
+    <li class="list__item-menu__menu-item">
+      <%= link_to nil do %>
+        <%= inline_svg "media/images/reply.svg" %><span>Reply</span>
+      <% end %>
+    </li>
+    <li class="list__item-menu__menu-item">
+      <%= link_to nil do %>
+        <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
+      <% end %>
+    </li>
+    <li class="list__item-menu__menu-item">
+      <%= link_to nil do %>
+        <%= inline_svg "media/images/flag.svg" %><span>Flag as inappropriate</span>
+      <% end %>
+    </li>
+  </ul>
+</div>
