@@ -1,0 +1,28 @@
+<div class="grid-x grid-padding-x">
+  <div class="cell grid-x align-middle modal-form__title">
+    <h2>Add Collaborators</h2>
+    <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
+      <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
+    </button>
+  </div>
+  <div class="cell">
+    <%= form_with(model: collaboration, url: folder_collaborations_path(@folder)) do |f| %>
+      <div class="modal-form__fields">
+        <fieldset>
+          <%= f.label :email, "Collaborator's email", class: "required" %>
+          <%= f.text_field :email, placeholder: "Enter an email" %>
+          <%= f.error :collaborator_id %>
+        </fieldset>
+
+        <%= f.hidden_field :folder_id, value: @folder.id %>
+      </div>
+
+      <div class="grid-x align-middle align-right modal-form__buttons">
+        <button class="button clear modal-form__buttons--cancel" data-close aria-label="Close reveal" type="button">
+          Cancel
+        </button>
+        <%= f.submit class: "button royal primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
