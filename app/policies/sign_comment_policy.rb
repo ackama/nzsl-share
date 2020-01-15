@@ -13,11 +13,15 @@ class SignCommentPolicy < ApplicationPolicy
     true
   end
 
-  def appropriate?
+  def show?
     true
   end
 
-  def show?
+  def reply?
+    true
+  end
+
+  def appropriate?
     true
   end
 end

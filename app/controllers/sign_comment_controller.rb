@@ -11,7 +11,7 @@ class SignCommentController < ApplicationController
   def update
     @sign = fetch_sign
     authorize @sign, policy_class: SignCommentPolicy
-    @sign.sign_comments.find_by(id: id).update(comment: comment_param[:comment])
+    @sign.sign_comments.find_by(id: id).update(comment_param)
     refresh_comments
   end
 
@@ -19,6 +19,13 @@ class SignCommentController < ApplicationController
     @sign = fetch_sign
     authorize @sign, policy_class: SignCommentPolicy
     @sign.sign_comments.find_by(id: id).destroy
+    refresh_comments
+  end
+
+  def reply
+    @sign = fetch_sign
+    authorize @sign, policy_class: SignCommentPolicy
+    @sign.sign_comments.new(build_comment.merge(parent_id: id)).save
     refresh_comments
   end
 
@@ -48,10 +55,10 @@ class SignCommentController < ApplicationController
   end
 
   def sign_id
-    params[:sign_id].to_i
+    params[:sign_id]
   end
 
   def id
-    params[:id].to_i
+    params[:id]
   end
 end

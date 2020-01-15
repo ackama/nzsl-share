@@ -39,6 +39,9 @@
         <%= comment.friendly_date %>
       </span>
     </div>
+    <div class="cell sign-comment">
+      <%= render "sign_comments/reply", comment: comment %>
+    </div>
     <% comment.replies.each do |reply| %>
       <% reply = present(reply) %>
       <div class="cell shrink sign-comment sign-comment__reply">
