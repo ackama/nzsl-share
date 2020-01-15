@@ -6,14 +6,16 @@
     </button>
   </div>
   <div class="cell">
-    <%= form_with(model: collaboration, url: folder_collaborations_path(@folder)) do |f| %>
+    <%= form_with(model: collaboration, url: folder_collaborations_path(folder)) do |f| %>
       <div class="modal-form__fields">
         <fieldset>
           <%= f.label :identifier, "Collaborator's email or username", class: "required" %>
           <%= f.text_field :identifier, placeholder: "Type email or username" %>
         </fieldset>
-
-        <%= f.hidden_field :folder_id, value: @folder.id %>
+        <% if collaboration.errors.any? %>
+          <p>Oh no! an error</p>
+        <% end %>
+        <%= f.hidden_field :folder_id, value: folder.id %>
       </div>
 
       <div class="grid-x align-middle align-right modal-form__buttons">
