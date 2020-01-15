@@ -65,7 +65,16 @@
   </div>
   <hr>
   <div class="grid-x">
-    <div class="cell">
+    <div class="cell shrink sign-comments__contributor">
+      <% contributor = present(sign.contributor) %>
+      <%= link_to user_path(contributor) do %>
+        <%= contributor.avatar("avatar avatar--small") %>
+      <% end %>
+    </div>
+    <div class="cell auto sign-comments__contributor sign-comments__contributor--title">
+      You are making a ... for ...
+    </div>
+    <div class="cell sign-comments__contributor">
       <%= render "sign_comments/new", sign: sign %>
     </div>
   </div>

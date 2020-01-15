@@ -1,4 +1,3 @@
-$comment-background-color: get-color(extra-light);
 $comment-font-weight: bold;
 
 .sign-comments {
@@ -22,6 +21,24 @@ $comment-font-weight: bold;
     margin: 1.25rem 1rem 0 0;
     text-align: right;
   }
+
+  &__contributor {
+    margin-left: 10px;
+
+    // TODO: this needs more work
+    &__box {
+      border-radius: 0.75rem;
+      margin-left: 2.5rem;
+      margin-top: 0.5rem;
+      width: 91%; // NOTE: looks odd on smaller devices
+    }
+
+    &--title {
+      color: $black;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
 }
 
 .sign-comment {
@@ -29,7 +46,7 @@ $comment-font-weight: bold;
   padding: 0.625rem;
 
   &__box {
-    background-color: $comment-background-color;
+    background-color: get-color(extra-light);
     border-radius: 0.75rem;
   }
 
