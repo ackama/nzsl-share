@@ -1,3 +1,5 @@
-<%= form_with(model: SignComment.new, url: reply_sign_comment_path(comment.sign.id, comment.id), method: :post, remote: true) do |form| %>
-  <%= form.text_field :comment, class: "sign-comments__contributor__box" %>
-<% end %>
+<div id="<%= dom_id(comment) %>" style="display:none" class="cell sign-comment">
+  <%= form_with(model: SignComment.new, url: reply_sign_comment_path(comment.sign.id, comment.id), method: :post) do |f| %>
+    <%= f.text_field :comment, class: "sign-comments__contributor__box" %>
+  <% end %>
+</div>
