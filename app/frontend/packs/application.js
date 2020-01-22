@@ -25,3 +25,4 @@ import "../components/video.js";
 import "../components/toggle-truthy";
 import "chosen-js/chosen.jquery";
 import "../components/chosen-topics";
+import "../components/sign-comment";
