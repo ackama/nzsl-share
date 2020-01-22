@@ -24,4 +24,8 @@ class SignCommentPolicy < ApplicationPolicy
   def appropriate?
     true
   end
+
+  def video?
+    true
+  end
 end
