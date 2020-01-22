@@ -1,21 +1,35 @@
 <div class="grid-x grid-padding-x">
   <div class="cell grid-x align-middle modal-form__title">
-    <h2>Add Collaborators</h2>
+    <h2>Add Collaborator</h2>
     <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
       <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
     </button>
   </div>
+  <hr class="form__divider">
   <div class="cell">
-    <%= form_with(model: collaboration, url: folder_collaborations_path(folder)) do |f| %>
+    <%= form_with(model: [ :folder, collaboration ]) do |f| %>
       <div class="modal-form__fields">
         <fieldset>
           <%= f.label :identifier, "Collaborator's email or username", class: "required" %>
           <%= f.text_field :identifier, placeholder: "Type email or username" %>
         </fieldset>
         <% if collaboration.errors.any? %>
-          <p>Oh no! an error</p>
+        <ul>
+          <% collaboration.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
         <% end %>
         <%= f.hidden_field :folder_id, value: folder.id %>
+      </div>
+
+      <div class="modal-form__fields">
+        <p><em>This folder currently has <%= pluralize(folder.collaborators.count, "collaborator") %>:</em></p>
+        <ul>
+          <% folder.collaborators.each do |collaborator| %>
+            <li><%= collaborator.email %></li>
+          <% end %>
+        </ul>
       </div>
 
       <div class="grid-x align-middle align-right modal-form__buttons">
