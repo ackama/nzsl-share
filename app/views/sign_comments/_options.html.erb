@@ -15,17 +15,17 @@
       <% end %>
     </li>
     <li class="list__item-menu__menu-item">
-      <%= link_to nil do %>
+      <%= content_tag "a", nil, data: { id: comment.id }, class: "js-sign-comment-reply-from-options" do %>
         <%= inline_svg "media/images/reply.svg" %><span>Reply</span>
       <% end %>
     </li>
     <li class="list__item-menu__menu-item">
-      <%= link_to nil do %>
+      <%= link_to sign_comment_path(comment.sign, comment.id), method: :delete, remote: true do %>
         <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
       <% end %>
     </li>
     <li class="list__item-menu__menu-item">
-      <%= link_to nil do %>
+      <%= link_to appropriate_sign_comment_path(comment.sign, comment.id), method: :patch, remote: true do %>
         <%= inline_svg "media/images/flag.svg" %><span>Flag as inappropriate</span>
       <% end %>
     </li>
