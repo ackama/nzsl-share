@@ -4,69 +4,69 @@
       View comments
     </div>
     <div class="cell auto sign-comments--count">
-      showing <%= sign.comments.count %> of <%= sign.comments.count %> comments
+      showing <%= sign_comment_count(sign) %> of <%= sign_comment_count(sign) %> comments
     </div>
   </div>
   <hr>
   <div class="grid-x">
-  <% sign.comments.each do |comment| %>
-    <% comment = present(comment) %>
-    <div class="cell shrink sign-comment">
-      <%= link_to user_path(comment.user) do %>
-        <%= comment.user_avatar %>
-      <% end %>
-    </div>
-    <div class="cell auto sign-comment sign-comment__box">
-      <span class="cell auto sign-comment--username">
-        <%= comment.username %>
-      </span>
-      <span class="cell auto sign-comment sign-comment--comment">
-        <%= comment.html_comment %>
-      </span>
-    </div>
-    <div class="cell shrink sign-comment sign-comment--options">
-      <%= render "sign_comments/options", comment: comment %>
-    </div>
-    <div class="cell sign-comment sign-comment__reply">
-      <span class="cell auto">
-        <%= link_to nil, class: "sign-comment__reply__link sign-comment__reply__link--text" do %>
-          <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
-          Reply
-        <% end %>
-      &nbsp;•&nbsp;
-      </span>
-      <span class="cell auto">
-        <%= comment.friendly_date %>
-      </span>
-    </div>
-    <div class="cell sign-comment">
-      <%= render "sign_comments/reply", comment: comment %>
-    </div>
-    <% comment.replies.each do |reply| %>
-      <% reply = present(reply) %>
-      <div class="cell shrink sign-comment sign-comment__reply">
-        <%= link_to user_path(reply.user) do %>
-          <%= reply.user_avatar %>
+    <% sign.sign_comments.each do |comment| %>
+      <% next unless comment.display %>
+      <% comment = present(comment) %>
+      <div class="cell shrink sign-comment">
+        <%= link_to user_path(comment.user) do %>
+          <%= comment.user_avatar %>
         <% end %>
       </div>
       <div class="cell auto sign-comment sign-comment__box">
+        <% if comment.video.attached? %>
+          <%= video_tag url_for(comment.video), size: "320x240", controls: true %>
+        <% end %>
         <span class="cell auto sign-comment--username">
-          <%= reply.username %>
+          <%= comment.username %>
         </span>
         <span class="cell auto sign-comment sign-comment--comment">
-          <%= reply.html_comment %>
+          <%= comment.html_comment %>
         </span>
       </div>
-      <div class="cell shrink sign-comment">
-        <%= render "sign_comments/options", comment: comment %>
+      <%= render "sign_comments/options", comment: comment %>
+      <div class="cell sign-comment sign-comment__reply">
+        <span class="cell auto">
+          <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comment__reply__link sign-comment__reply__link--text" do %>
+            <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+            Reply
+          <% end %>
+          &nbsp;•&nbsp;
+        </span>
+        <span class="cell auto">
+          <%= comment.friendly_date %>
+        </span>
       </div>
-      <div class="cell sign-comment sign-comment__reply--created">
-        <%= reply.friendly_date %>
-      </div>
+      <%= render "sign_comments/reply", comment: comment %>
+      <% comment.replies.each do |reply| %>
+        <% next unless reply.display %>
+        <% reply = present(reply) %>
+        <div class="cell shrink sign-comment sign-comment__reply">
+          <%= link_to user_path(reply.user) do %>
+            <%= reply.user_avatar %>
+          <% end if reply.user %>
+        </div>
+        <div class="cell auto sign-comment sign-comment__box">
+          <span class="cell auto sign-comment--username">
+            <%= reply.username %>
+          </span>
+          <span class="cell auto sign-comment sign-comment--comment">
+            <%= reply.html_comment %>
+          </span>
+        </div>
+        <div class="cell shrink sign-comment">
+          <%= render "sign_comments/options", comment: reply %>
+        </div>
+        <div class="cell sign-comment sign-comment__reply--created">
+          <%= reply.friendly_date %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
   </div>
-  <hr>
   <div class="grid-x">
     <div class="cell shrink sign-comments__contributor">
       <% contributor = present(sign.contributor) %>
@@ -74,11 +74,6 @@
         <%= contributor.avatar("avatar avatar--small") %>
       <% end %>
     </div>
-    <div class="cell auto sign-comments__contributor sign-comments__contributor--title">
-      You are making a ... for ...
-    </div>
-    <div class="cell sign-comments__contributor">
-      <%= render "sign_comments/new", sign: sign %>
-    </div>
+    <%= render "sign_comments/new", sign: sign %>
   </div>
 </div>
