@@ -4,7 +4,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def show?
-    owns_record?
+    owns_record? || collaborator?
   end
 
   def create?
@@ -16,7 +16,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def update?
-    owns_record?
+    owns_record? || collaborator?
   end
 
   def edit?
@@ -33,7 +33,10 @@ class FolderPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(user: user).in_order
+      folder_ids = Folder.where(user: user).pluck(:id)
+      collab_folder_ids = Folder.joins(:collaborations).where(collaborations: { collaborator_id: user.id }).pluck(:id)
+      all_folder_ids = folder_ids + collab_folder_ids
+      scope.where(id: all_folder_ids).distinct.in_order
     end
   end
 
@@ -41,5 +44,9 @@ class FolderPolicy < ApplicationPolicy
 
   def owns_record?
     record.user == user
+  end
+
+  def collaborator?
+    record.collaborators.map(&:id).include? user.id
   end
 end
