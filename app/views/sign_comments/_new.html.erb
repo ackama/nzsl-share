@@ -1,3 +1,35 @@
-<%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post, remote: true) do |form| %>
-  <%= form.text_field :comment, required: true, class: "sign-comments__contributor__box" %>
-<% end %>
+<% form = video_form(sign) %>
+<div class="cell auto sign-comments__contributor sign-comments__contributor--title">
+  You are making a
+  <%= select_tag :sign_comment_type, options_for_select(
+    [["Text Comment", "text"],["NZSL Comment", "video"]], http_patch?(form) ? "video" : "text"), { class: "js-sign-comment-type" }
+  %>
+</div>
+<div id="new-text-comment" <%= "style=display:none" if http_patch?(form) %> class="cell sign-comments__contributor">
+  <%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post) do |f| %>
+    <%= f.text_field :comment, required: true, class: "sign-comments__contributor__box" %>
+  <% end %>
+</div>
+<div id="new-video-comment" <%= "style=display:none" unless http_patch?(form) %> class="cell sign-comments__contributor">
+  <%= form_with model: form[:model], url: form[:url], method: form[:method] do |f| %>
+    <% if http_post?(form) %>
+      <div class="file-upload">
+        <%= f.label :video, "Browse files", class: "button primary large" %>
+        <%= f.file_field :video, video_file_field(sign) %>
+      </div>
+    <% else %>
+      <% video = fetch_sign_comment(sign).video %>
+      <div class="cell auto sign-comment sign-comment__box">
+        <%= video_tag url_for(video), size: "320x240", controls: true %>
+      </div>
+      <div class="cell"><%= video.filename %></div>
+      <div class="cell auto">
+        <%= number_to_human_size(video.byte_size) %>&nbsp;
+        <%= inline_svg "media/images/agree.svg", class: "icon icon--small icon--success" %>
+      </div>
+      <%= f.text_field :comment, size: 50 %>
+      <%= f.label :comment, "Text translation not required" %>
+      <%= f.submit "Post Comment", class: "button primary medium" %>
+    <% end %>
+  <% end %>
+</div>
