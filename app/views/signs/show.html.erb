@@ -93,3 +93,9 @@
     <% end %>
   </div>
 </div>
+
+<div class="grid-x">
+  <div class="cell medium-8 margin-bottom-2 sign-comments">
+    <%= render "sign_comments/comments", sign: @sign if policy(SignComment).show? %>
+  </div>
+</div>
