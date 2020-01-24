@@ -1,0 +1,24 @@
+<div class="grid-x align-middle grid-padding-x">
+  <div class="cell shrink">
+    <% user = present(sign.contributor) %>
+    <%= link_to user_path(user) do %>
+      <%= user.avatar("avatar avatar--small") %>
+    <% end %>
+  </div>
+  <div class="cel shrink sign-comment--heading">
+    You are making a
+  </div>
+  <div class="cell sign-comment__select">
+    <%= select_tag :sign_comment_type, options_for_select([["Text Comment", "text"]], "text"), { class: "sign-comment__select__items"} %>
+  </div>
+  <div class="cell auto"></div>
+</div>
+<div class="grid-x align-middle grid-padding-x margin-bottom-2">
+  <div class="cell shrink">
+  </div>
+  <div id="new-text-comment" class="cell auto sign-comment__text-area">
+    <%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post) do |f| %>
+      <%= f.text_field :comment, required: true, placeholder: "Write your text comment", class: "sign-comment__text-area--text" %>
+    <% end %>
+  </div>
+</div>
