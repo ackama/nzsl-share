@@ -6,17 +6,24 @@ class CollaborationsController < ApplicationController
   end
 
   def create
-    @collaboration = policy_scope(Collaboration).build(collaboration_params)
+    builder = CollaborationBuilder.new(policy_scope(Collaboration), collaboration_params)
+    @collaboration = builder.build
     authorize @collaboration
-    return render :new unless @collaboration.save
+    unless @collaboration.save
+      @folder = @collaboration.folder
+      authorize @folder, :edit?
+      render :new
+      return
+    end
 
+    CollaborationMailer.success(@collaboration).deliver_later
     redirect_after_save
   end
 
   private
 
   def collaboration_params
-    params.require(:collaboration).permit(:folder_id).merge(collaborator_id: find_collaborator.id)
+    params.require(:collaboration).permit(:folder_id, :identifier)
   end
 
   def redirect_after_save
@@ -25,15 +32,6 @@ class CollaborationsController < ApplicationController
     respond_to do |format|
       format.js { render inline: "location.reload();" }
       format.html { redirect_to folders_path }
-    end
-  end
-
-  def find_collaborator
-    identifier = params[:collaboration][:identifier]
-    if identifier.include? "@"
-      User.find_by(email: identifier)
-    else
-      User.find_by(username: identifier)
     end
   end
 end
