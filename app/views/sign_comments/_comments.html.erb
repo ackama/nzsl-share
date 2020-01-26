@@ -23,6 +23,7 @@
 
     <div class="grid-x align-middle grid-padding-x sign-comments__replies">
       <div class="cell auto sign-comments__replies--reply">
+        <% if policy(SignComment).create? %>
         <span class="cell auto">
           <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
             <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
@@ -30,15 +31,19 @@
           <% end %>
           &nbsp;•&nbsp;
         </span>
+        <% end %>
+
         <span class="cell auto">
           <%= comment.friendly_date %>
         </span>
       </div>
     </div>
 
-    <div id="<%= dom_id(comment) %>" class="sign-comments__replies" style="display:none">
-      <%= render "sign_comments/reply", comment: comment %>
-    </div>
+    <% if policy(SignComment).reply? %>
+      <div id="<%= dom_id(comment) %>" class="sign-comments__replies" style="display:none">
+        <%= render "sign_comments/reply", comment: comment %>
+      </div>
+    <% end %>
 
     <% comment.replies.each do |reply| %>
       <% next unless reply.display %>
@@ -56,7 +61,5 @@
     <% end %>
   <% end %>
 
-  <hr class="sign-comments__divider">
-
-  <%= render "sign_comments/new", sign: sign %>
+  <%= render "sign_comments/new", sign: sign if policy(SignComment).create? %>
 </div>
