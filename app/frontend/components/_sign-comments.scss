@@ -4,7 +4,7 @@
   box-shadow: 0 0.625 1.5rem 0 rgba(0, 0, 0, 0.02);
   margin-top: 1.25rem;
 
-  &__divider-top {
+  &__divider {
     border-bottom: solid 1px $background;
     margin-bottom: 1.75rem;
     margin-top: 1.75rem;
@@ -26,28 +26,37 @@
     text-align: right;
   }
 
-  &__username-with-comment {
+  &__comment {
     background-color: get-color(extra-light);
     border-radius: 0 0.75rem 0.75rem;
     font-size: 0.875rem;
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
-  }
 
-  &__username {
-    &--url {
-      color: get-color(royal);
-      font-weight: bold;
-      padding-right: 0.5rem;
-      text-decoration: none;
+    &__username {
+      &--link {
+        color: get-color(royal);
+        font-weight: bold;
+        padding-right: 0.5rem;
+        text-decoration: none;
+      }
     }
   }
 
-  &__reply-with-comment-date {
-    color: $medium-gray;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-    margin-left: 3.25rem;
+  &__replies {
+    margin-left: 3.5rem;
+
+    &--reply {
+      color: $medium-gray;
+      font-size: 0.875rem;
+      font-weight: normal;
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    &--link {
+      text-decoration: none;
+    }
   }
 }
 
@@ -58,6 +67,16 @@
   }
 
   &__text-area {
+    &--new-reply {
+      margin-bottom: 0.5rem;
+      margin-left: 0.5rem;
+      margin-right: 2.5rem;
+    }
+
+    &--new-comment {
+      margin-left: 0.5rem;
+    }
+
     &--text {
       border-radius: 0.75rem;
       font-size: 0.875rem;
