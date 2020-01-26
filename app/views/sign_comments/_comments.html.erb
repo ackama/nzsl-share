@@ -14,37 +14,20 @@
   <% end %>
 
   <% sign.sign_comments.each do |comment| %>
+    <% next unless comment.display %>
+    <% comment = present(comment) %>
+
     <div class="grid-x align-middle grid-padding-x">
-      <% next unless comment.display %>
-      <% comment = present(comment) %>
-
-      <hr class="sign-comments__divider">
-
-      <div class="cell shrink">
-        <%= link_to user_path(comment.user) do %>
-          <%= comment.user_avatar %>
-        <% end unless comment.anonymous %>
-      </div>
-
-      <div class="cell auto sign-comments__username-with-comment">
-        <span class="cell auto">
-          <%= link_to user_path(comment.user), class: "sign-comments__username--url" do %>
-            <%= comment.username %>
-          <% end unless comment.anonymous %>
-        </span>
-        <span class="cell auto">
-          <%= comment.user_comment %>
-        </span>
-      </div>
-
-      <div class="cell shrink">
-        <%= render "sign_comments/options", comment: comment %>
-      </div>
+      <%= render "sign_comments/comment", comment: comment %>
     </div>
 
-    <div class="grid-x align-middle grid-padding-x">
-      <div class="cell auto sign-comments__reply-with-comment-date">
+    <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+      <div class="cell auto sign-comments__replies--reply">
         <span class="cell auto">
+          <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
+            <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+            Reply
+          <% end %>
           &nbsp;•&nbsp;
         </span>
         <span class="cell auto">
@@ -52,6 +35,25 @@
         </span>
       </div>
     </div>
+
+    <div id="<%= dom_id(comment) %>" class="sign-comments__replies" style="display:none">
+      <%= render "sign_comments/reply", comment: comment %>
+    </div>
+
+    <% comment.replies.each do |reply| %>
+      <% next unless reply.display %>
+      <% reply = present(reply) %>
+
+      <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+        <%= render "sign_comments/comment", comment: reply %>
+      </div>
+
+      <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+        <div class="cell auto sign-comments__replies sign-comments__replies--reply">
+          <%= comment.friendly_date %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 
   <hr class="sign-comments__divider">
