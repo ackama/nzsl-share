@@ -1,13 +1,21 @@
 <div class="grid-x grid-padding-x">
   <div class="cell grid-x align-middle modal-form__title">
-    <h2>Add Collaborator</h2>
+    <h2>Manage Collaborators</h2>
     <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
       <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
     </button>
   </div>
-  <hr class="form__divider">
   <div class="cell">
     <%= form_with(model: [ :folder, collaboration ]) do |f| %>
+      <div class="modal-form__fields">
+        <p><em>This folder currently has <%= pluralize(folder.collaborators.count, "collaborator") %>:</em></p>
+        <ul>
+          <% folder.collaborators.each do |collaborator| %>
+            <li><%= collaborator.email %></li>
+          <% end %>
+        </ul>
+      </div>
+
       <div class="modal-form__fields">
         <fieldset>
           <%= f.label :identifier, "Collaborator's email or username", class: "required" %>
@@ -21,15 +29,6 @@
         </ul>
         <% end %>
         <%= f.hidden_field :folder_id, value: folder.id %>
-      </div>
-
-      <div class="modal-form__fields">
-        <p><em>This folder currently has <%= pluralize(folder.collaborators.count, "collaborator") %>:</em></p>
-        <ul>
-          <% folder.collaborators.each do |collaborator| %>
-            <li><%= collaborator.email %></li>
-          <% end %>
-        </ul>
       </div>
 
       <div class="grid-x align-middle align-right modal-form__buttons">
