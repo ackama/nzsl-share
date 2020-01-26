@@ -2,7 +2,7 @@
 
 class SignCommentPolicy < ApplicationPolicy
   def create?
-    true
+    approved_user?
   end
 
   def update?
@@ -18,6 +18,18 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def reply?
-    true
+    approved_user?
+  end
+
+  def options?
+    approved_user?
+  end
+
+  private
+
+  def approved_user?
+    return false unless user
+
+    user.approved?
   end
 end
