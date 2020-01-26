@@ -6,6 +6,7 @@ RSpec.describe "sign_comment", type: :request do
   let(:user) { FactoryBot.create(:user) }
   let(:sign) { FactoryBot.create(:sign, :published) }
   let(:create_params) { { comment: "my first comment" } }
+  let(:reply_params) { { comment: "a reply to your comment" } }
 
   let(:create) do
     ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params } }
@@ -13,6 +14,12 @@ RSpec.describe "sign_comment", type: :request do
 
   let(:destroy) do
     ->(sign, sign_comment) { delete "/signs/#{sign.id}/comment/#{sign_comment.id}" }
+  end
+
+  let(:reply) do
+    lambda { |sign, sign_comment|
+      post "/signs/#{sign.id}/comment/#{sign_comment.id}/reply", params: { sign_comment: reply_params }
+    }
   end
 
   describe "controller actions" do
@@ -36,6 +43,18 @@ RSpec.describe "sign_comment", type: :request do
         expect(sign.sign_comments.count).to eq 1
         destroy.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.count).to eq 0
+        expect(response).to redirect_to sign_path(sign)
+      end
+    end
+
+    context "reply" do
+      it "replies to a sign comment" do
+        expect(sign.sign_comments.count).to eq 0
+        create.call(sign)
+        expect(sign.sign_comments.count).to eq 1
+        expect(sign.sign_comments.first.replies.count).to eq 0
+        reply.call(sign, sign.sign_comments.first)
+        expect(sign.sign_comments.first.replies.count).to eq 1
         expect(response).to redirect_to sign_path(sign)
       end
     end
