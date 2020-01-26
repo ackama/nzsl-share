@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    public_record? || owns_record? || (moderator? && !private_record?)
+    public_record? || owns_record? || (moderator? && !private_record?) || collaborator?
   end
 
   def create?
@@ -84,13 +84,29 @@ class SignPolicy < ApplicationPolicy
       scope
     end
 
+    def resolve_moderator
+      scope.where("contributor_id = ? or status != ?", user.id, "personal")
+    end
+
+    def resolve_user
+      base = scope.left_outer_joins(folders: :collaborations)
+      public_or_owned = base.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?",
+                                   user.id)
+      collaborative = base.where(folders: { collaborations: { collaborator_id: user.id } })
+      public_or_owned.or(collaborative)
+    end
+
+    def resolve_public
+      scope.where("status = 'published' or status = 'unpublish_requested'")
+    end
+
     def resolve
       if user && user.moderator
-        scope.where("contributor_id = ? or status != ?", user.id, "personal")
+        resolve_moderator
       elsif user
-        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id)
+        resolve_user
       else
-        scope.where("status = 'published' or status = 'unpublish_requested'")
+        resolve_public
       end
     end
   end
@@ -112,4 +128,11 @@ class SignPolicy < ApplicationPolicy
   def contributor?
     user.present?
   end
+
+  # def collaborator?
+  # record.folders.
+  # record.left_outer_joins(folders: :collaborations).where(folders: { collaborations: { collaborator_id: user.id } })
+  # record.folders.joins(:collaborations).where(collaborations: { collaborator_id: user.id }).map(&:id).include?
+  # user.id
+  # end
 end
