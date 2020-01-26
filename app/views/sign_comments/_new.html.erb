@@ -21,6 +21,10 @@
   <div id="new-text-comment" class="cell auto sign-comment__text-area--new-comment">
     <%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post) do |f| %>
       <%= f.text_field :comment, required: true, placeholder: "Write your text comment", class: "sign-comment__text-area--text" %>
+      <%= f.label nil, class: "sign-comment__anonymous-label--text" do %>
+        comment anonymously?
+        <%= f.check_box :anonymous, class: "sign-comment__anonymous-label" %>
+      <% end %>
     <% end %>
   </div>
 </div>
