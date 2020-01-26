@@ -28,6 +28,15 @@ class SignCommentController < ApplicationController
     refresh_comments
   end
 
+  def reply
+    @sign = fetch_sign
+    @sign_comment = SignComment.new(build_text_comment.merge(parent_id: id))
+    authorize @sign_comment
+    @sign_comment.save
+    @sign.reload
+    refresh_comments
+  end
+
   private
 
   def refresh_comments

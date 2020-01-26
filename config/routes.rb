@@ -32,7 +32,9 @@ Rails.application.routes.draw do
   resources :approved_user_applications, only: %i[new create]
   resources :signs, except: %i[index] do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
-    resources :comment, only: %i[create update destroy], controller: :sign_comment
+    resources :comment, only: %i[create update destroy], controller: :sign_comment do
+      post :reply, on: :member
+    end
     resources :sign_attachments, only: %i[create update destroy],
                                  path: "/:attachment_type",
                                  as: :attachments,

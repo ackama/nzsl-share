@@ -16,4 +16,8 @@ class SignCommentPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def reply?
+    true
+  end
 end
