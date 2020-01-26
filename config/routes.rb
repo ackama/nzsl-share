@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :comment, only: %i[create update destroy], controller: :sign_comment do
       post :reply, on: :member
+      patch :appropriate, on: :member
     end
     resources :sign_attachments, only: %i[create update destroy],
                                  path: "/:attachment_type",

@@ -25,6 +25,10 @@ class SignCommentPolicy < ApplicationPolicy
     approved_user?
   end
 
+  def appropriate?
+    approved_user?
+  end
+
   private
 
   def approved_user?
