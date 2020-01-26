@@ -21,6 +21,7 @@ class FoldersController < ApplicationController
     authorize @folder
     return render :new unless @folder.save
 
+    @folder.collaborators << @folder.user
     redirect_after_save
   end
 
@@ -53,7 +54,7 @@ class FoldersController < ApplicationController
   end
 
   def folders_params
-    params.require(:folder).permit(:title, :description)
+    params.require(:folder).permit(:title, :description, :user_id)
   end
 
   def redirect_after_save
