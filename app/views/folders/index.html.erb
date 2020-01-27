@@ -54,11 +54,13 @@
                     <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
                   <% end %>
                 </li>
-                <li class="list__item-menu__menu-item">
-                  <%= link_to new_folder_collaboration_path(folder), remote: true do %>
-                    <%= inline_svg "media/images/edit.svg" %><span>Collaborators</span>
-                  <% end %>
-                </li>
+                <% if policy(folder).manage_collaborators? %>
+                  <li class="list__item-menu__menu-item">
+                    <%= link_to new_folder_collaboration_path(folder), remote: true do %>
+                      <%= inline_svg "media/images/edit.svg" %><span>Collaborators</span>
+                    <% end %>
+                  </li>
+                <% end %>
                 <%= content_tag :li, class: "list__item-menu__menu-item" do %>
                   <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
                     <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
