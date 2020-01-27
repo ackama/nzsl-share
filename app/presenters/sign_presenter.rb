@@ -83,9 +83,17 @@ class SignPresenter < ApplicationPresenter
       return I18n.t("sign_workflow.#{sign.submitted? ? "publish" : "unpublish"}.confirm")
     end
 
-    action_text = sign.contributor == current_user ? "you are the creator of this sign" : "you are moderating this sign"
+    "Hey #{current_user.username}, #{action_text(current_user)}"
+  end
 
-    "Hey #{current_user.username}, #{action_text}"
+  def action_text(current_user)
+    if sign.contributor == current_user
+      "you are the creator of this sign"
+    elsif current_user.moderator
+      "you are moderating this sign"
+    else
+      "you are a collaborator on this sign"
+    end
   end
 
   def pending?
