@@ -32,15 +32,13 @@
 
         <fieldset>
           <%= f.label :identifier, "Email or username", class: "required" %>
-          <%= f.text_field :identifier, placeholder: "Type email or username" %>
-        </fieldset>
-        <% if collaboration.errors.any? %>
-        <ul>
-          <% collaboration.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
+          <%= f.text_field :identifier, placeholder: "Type email or username", class: (collaboration.errors[:collaborator_id].any? && "invalid") %>
+          <%= f.error :identifier %>
+          <% unless collaboration.errors[:identifier].any? %>
+            <%= f.error :collaborator_id %>
           <% end %>
-        </ul>
-        <% end %>
+        </fieldset>
+
         <%= f.hidden_field :folder_id, value: folder.id %>
       </div>
 
