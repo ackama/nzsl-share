@@ -33,7 +33,12 @@ class SignCommentController < ApplicationController
   def refresh_comments
     respond_to do |format|
       format.html { redirect_back(fallback_location: @sign) }
-      format.js   { render partial: "sign_comments/refresh" }
+      format.js   do
+        @comments = policy_scope(@sign.sign_comments
+          .includes(user: :avatar_attachment))
+                    .where(folder_id: @sign_comment.folder_id)
+        render partial: "sign_comments/refresh"
+      end
     end
   end
 

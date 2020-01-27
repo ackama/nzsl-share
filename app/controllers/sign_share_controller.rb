@@ -21,6 +21,10 @@ class SignShareController < ApplicationController
     @sign = present(fetch_sign_by_token)
     authorize share_data, policy_class: SharePolicy
 
+    @comments = policy_scope(@sign.sign_comments
+      .includes(user: :avatar_attachment)).where(folder_id: comments_folder_id)
+    @sign.topic = fetch_referer
+
     render "signs/show"
   end
 
@@ -40,6 +44,20 @@ class SignShareController < ApplicationController
 
   def fetch_sign_by_token
     policy_scope(Sign, policy_scope_class: SharePolicy::Scope).find_by!(id: sign_id, share_token: share_token)
+  end
+
+  def comments_folder_id
+    fallback = if @sign.published? || @sign.unpublish_requested?
+                 nil
+               else
+                 policy_scope(@sign.folders).first
+               end
+
+    params[:comments_in_folder].presence || fallback
+  end
+
+  def fetch_referer
+    request.referer ? URI(request.referer).path : nil
   end
 
   def sign_id
