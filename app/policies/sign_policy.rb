@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public_record?) || (moderator? && !private_record?)
+    (owns_record? && !public_record?) || (moderator? && !private_record?) || (collaborator? && !public_record?)
   end
 
   def edit?
@@ -38,7 +38,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def overview?
-    owns_record? || (!private_record? && moderator?)
+    owns_record? || (!private_record? && moderator?) || collaborator?
   end
 
   def submit?
@@ -70,7 +70,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if owns_record? || public_record?
+    return true if owns_record? || public_record? || collaborator?
 
     false
   end
@@ -129,10 +129,11 @@ class SignPolicy < ApplicationPolicy
     user.present?
   end
 
-  # def collaborator?
-  # record.folders.
-  # record.left_outer_joins(folders: :collaborations).where(folders: { collaborations: { collaborator_id: user.id } })
-  # record.folders.joins(:collaborations).where(collaborations: { collaborator_id: user.id }).map(&:id).include?
-  # user.id
-  # end
+  def collaborator?
+    return unless user
+
+    record.folders.left_outer_joins(:collaborations)
+          .where(folders: { collaborations: { collaborator_id: user.id } })
+          .any?
+  end
 end
