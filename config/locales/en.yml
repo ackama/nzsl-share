@@ -36,6 +36,10 @@ en:
   collaborations:
     create:
       success: "Successfully added collaborator to folder."
+    destroy:
+      confirm: "Are you sure you want to remove this collaborator?"
+      success: "Successfully removed collaborator from folder."
+      failure: "Failed to remove collaborator from folder."
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
