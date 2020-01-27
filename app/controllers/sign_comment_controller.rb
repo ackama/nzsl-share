@@ -38,11 +38,17 @@ class SignCommentController < ApplicationController
   end
 
   def comment_param
-    params.require(:sign_comment).permit(:comment)
+    params.require(:sign_comment).permit(:comment, :folder_id)
   end
 
   def build_text_comment
-    { comment: comment_param[:comment], sign_status: @sign.status, sign: @sign, user: current_user }
+    {
+      comment: comment_param[:comment],
+      folder_id: comment_param[:folder_id],
+      sign_status: @sign.status,
+      sign: @sign,
+      user: current_user
+    }
   end
 
   def fetch_sign_comment
