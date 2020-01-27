@@ -17,7 +17,7 @@
     <div class="cell sign-comment__select">
       <%= f.select :folder_id,
                      options_for_select(
-                       [["Public", nil]] +\
+                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
                        policy_scope(@sign.folders).map { |f| [f.title, f.id] },
                        params[:comments_in_folder]
                      ), {}, { class: "sign-comment__select__items"}  %>

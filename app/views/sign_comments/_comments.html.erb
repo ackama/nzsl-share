@@ -7,7 +7,7 @@
       <%= form_with url: params.to_unsafe_h, method: :get, remote: false do |f| %>
         <%= f.select :comments_in_folder,
                      options_for_select(
-                       [["Public", nil]] +\
+                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
                        policy_scope(@sign.folders).map { |f| [f.title, f.id] },
                        params[:comments_in_folder]
                      ),
