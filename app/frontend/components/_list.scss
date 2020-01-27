@@ -48,9 +48,18 @@
   }
 
   &__description {
-    color: get-color(medium);
+    color: $black;
     font-size: 15px;
     margin-top: $global-margin / 2;
+
+    &--metadata {
+      color: get-color(medium);
+      font-size: rem-calc(13);
+    }
+
+    .bullet {
+      color: get-color(medium);
+    }
   }
 
   .button {
