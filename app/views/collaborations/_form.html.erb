@@ -5,20 +5,33 @@
       <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
     </button>
   </div>
+
+
   <div class="cell">
     <%= form_with(model: [ :folder, collaboration ]) do |f| %>
       <div class="modal-form__fields">
-        <p><em>This folder currently has <%= pluralize(folder.collaborators.count, "collaborator") %>:</em></p>
-        <ul>
+      <hr class="form__divider">
+        <ul class="list__item-menu list__item-menu--collab vertical grid-x">
           <% folder.collaborators.each do |collaborator| %>
-            <li><%= collaborator.email %></li>
+            <li class="list__item--interactive grid-x align-middle cell">
+              <div class="cell auto padding-1"><%= collaborator.email %><% if collaborator.id == current_user.id %> (that's you!)<% end %></div>
+              <div class="cell shrink">
+                <%= link_to folder_collaboration_path(folder, find_collaboration(collaborator.id, folder.id)),
+                            method: :delete,
+                            data: { confirm: t("collaborations.destroy.confirm") } do %>
+                    <%= inline_svg "media/images/trash.svg", aria: true, title: "Delete Collaborator", class: "icon icon--alert"%>
+                <% end %>
+              </div>
+            </li>
           <% end %>
         </ul>
       </div>
-
       <div class="modal-form__fields">
+       <legend><h6>New collaborator</h6></legend>
+        <hr class="form__divider">
+
         <fieldset>
-          <%= f.label :identifier, "Collaborator's email or username", class: "required" %>
+          <%= f.label :identifier, "Email or username", class: "required" %>
           <%= f.text_field :identifier, placeholder: "Type email or username" %>
         </fieldset>
         <% if collaboration.errors.any? %>

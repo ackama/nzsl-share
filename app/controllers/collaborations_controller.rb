@@ -20,6 +20,13 @@ class CollaborationsController < ApplicationController
     redirect_after_save
   end
 
+  def destroy
+    @collaboration = policy_scope(Collaboration).find(params[:id])
+    authorize @collaboration
+    redirect_back fallback_location: folders_path
+    @collaboration.destroy ? { notice: t(".success") } : { alert: t(".failure") }
+  end
+
   private
 
   def collaboration_params
