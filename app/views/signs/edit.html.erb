@@ -42,8 +42,8 @@
       <%= f.text_field :maori %>
       <%= f.error :maori %>
 
-      <%= f.label :topic_id, "Topic" %>
-      <%= f.collection_select :topic_id, Topic.all, :id, :name, prompt: "-- Please select --" %>
+      <%= f.label :topics, "Topics" %>
+      <%= f.collection_select :topic_ids, Topic.all, :id, :name, { selected: @sign.topics.map(&:id) }, { class: "js-chosen-topics", multiple: true } %>
     </fieldset>
 
     <fieldset class="form__section">

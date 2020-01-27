@@ -2,7 +2,8 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topic).find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topics).find(params[:id]))
+    @sign.topic = fetch_referer
     authorize @sign
     return unless stale?(@sign)
 
@@ -63,6 +64,10 @@ class SignsController < ApplicationController
 
   private
 
+  def fetch_referer
+    request.referer ? URI(request.referer).path : nil
+  end
+
   def check_contribution_limit!
     return true unless current_user.contribution_limit_reached?
 
@@ -86,19 +91,14 @@ class SignsController < ApplicationController
   end
 
   def create_sign_params
-    params
-      .require(:sign)
-      .permit(:video)
-      .merge(contributor: current_user)
+    params.require(:sign).permit(:video).merge(contributor: current_user)
   end
 
   def edit_sign_params
-    params
-      .require(:sign)
-      .permit(
-        :video, :maori, :secondary, :notes, :word, :topic_id, :usage_examples,
-        :illustrations, :conditions_accepted
-      )
+    params.require(:sign).permit(
+      :video, :maori, :secondary, :notes, :word, :usage_examples,
+      :illustrations, :conditions_accepted, topic_ids: []
+    )
   end
 
   def id

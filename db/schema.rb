@@ -115,18 +115,14 @@ ActiveRecord::Schema.define(version: 2020_01_13_234837) do
     t.index ["user_id"], name: "index_sign_activities_on_user_id"
   end
 
-  create_table "sign_comments", force: :cascade do |t|
-    t.bigint "parent_id"
+  create_table "sign_topics", force: :cascade do |t|
+    t.bigint "topic_id", null: false
     t.bigint "sign_id", null: false
-    t.bigint "user_id"
-    t.text "comment", null: false
-    t.string "status", null: false
-    t.boolean "appropriate", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["parent_id"], name: "index_sign_comments_on_parent_id"
-    t.index ["sign_id"], name: "index_sign_comments_on_sign_id"
-    t.index ["user_id"], name: "index_sign_comments_on_user_id"
+    t.index ["sign_id"], name: "index_sign_topics_on_sign_id"
+    t.index ["topic_id", "sign_id"], name: "index_sign_topics_on_topic_id_and_sign_id", unique: true
+    t.index ["topic_id"], name: "index_sign_topics_on_topic_id"
   end
 
   create_table "signs", id: :serial, force: :cascade do |t|
@@ -137,7 +133,6 @@ ActiveRecord::Schema.define(version: 2020_01_13_234837) do
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
-    t.bigint "topic_id"
     t.text "description"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
@@ -154,7 +149,6 @@ ActiveRecord::Schema.define(version: 2020_01_13_234837) do
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["share_token"], name: "index_signs_on_share_token", unique: true
     t.index ["status"], name: "index_signs_on_status"
-    t.index ["topic_id"], name: "index_signs_on_topic_id"
     t.index ["word"], name: "idx_signs_word"
   end
 
@@ -217,8 +211,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_234837) do
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
   add_foreign_key "sign_activities", "users"
-  add_foreign_key "sign_comments", "signs"
-  add_foreign_key "sign_comments", "users"
-  add_foreign_key "signs", "topics"
+  add_foreign_key "sign_topics", "signs"
+  add_foreign_key "sign_topics", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end
