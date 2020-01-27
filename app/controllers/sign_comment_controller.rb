@@ -46,7 +46,7 @@ class SignCommentController < ApplicationController
   end
 
   def fetch_sign_comment
-    policy_scope(SignComment).find_by!(id: id)
+    policy_scope(@sign.sign_comments).find_by!(id: id)
   end
 
   def fetch_sign
