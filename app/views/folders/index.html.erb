@@ -57,7 +57,7 @@
                 <% if policy(folder).manage_collaborators? %>
                   <li class="list__item-menu__menu-item">
                     <%= link_to new_folder_collaboration_path(folder), remote: true do %>
-                      <%= inline_svg "media/images/edit.svg" %><span>Collaborators</span>
+                      <%= inline_svg "media/images/users.svg" %><span>Collaborators</span>
                     <% end %>
                   </li>
                 <% end %>
