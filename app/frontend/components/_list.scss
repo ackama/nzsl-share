@@ -138,6 +138,12 @@
       }
     }
 
+    &--collab {
+      max-height: rem-calc(216);
+      overflow-y: scroll;
+      position: relative;
+    }
+
     &__menu-item {
       @include menu-item;
       @include menu-sub-item;
