@@ -13,4 +13,8 @@ class SignComment < ApplicationRecord
   validates :user, presence: true
   validates :sign_status, presence: true
   validates :comment, presence: true, length: { maximum: 1000 }
+
+  def self.comment_types
+    [["Text Comment", "text"]]
+  end
 end

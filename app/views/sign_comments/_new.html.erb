@@ -9,7 +9,7 @@
     You are making a
   </div>
   <div class="cell sign-comment__select">
-    <%= select_tag :sign_comment_type, options_for_select([["Text Comment", "text"]], "text"), { class: "sign-comment__select__items"} %>
+    <%= select_tag :sign_comment_type, options_for_select(SignComment.comment_types, "text"), { class: "sign-comment__select__items"} %>
   </div>
   <div class="cell auto"></div>
 </div>
