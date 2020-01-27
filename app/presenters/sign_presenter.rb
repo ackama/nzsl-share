@@ -46,9 +46,8 @@ class SignPresenter < ApplicationPresenter
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
-    @folders ||= h.policy_scope(Folder).order("title ASC")
+    @folders ||= h.policy_scope(Folder).where(collaborations: { collaborator_id: h.current_user.id })
     @memberships ||= sign.folder_memberships.includes(:folder).where(folder_id: @folders.map(&:id))
-
     map_folders_to_memberships(@folders, @memberships, &block)
   end
 
