@@ -5,5 +5,4 @@ class Collaboration < ApplicationRecord
 
   validates :folder_id, presence: true
   validates :collaborator_id, presence: { message: "This username does not exist" }
-  validates :identifier, presence: true
 end
