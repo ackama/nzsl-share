@@ -18,7 +18,7 @@
     <% comment = present(comment) %>
 
     <div class="grid-x align-middle grid-padding-x">
-      <%= render "sign_comments/comment", comment: comment %>
+      <%= render "sign_comments/shared/comment", comment: comment %>
     </div>
 
     <div class="grid-x align-middle grid-padding-x sign-comments__replies">
@@ -50,7 +50,7 @@
       <% reply = present(reply) %>
 
       <div class="grid-x align-middle grid-padding-x sign-comments__replies">
-        <%= render "sign_comments/comment", comment: reply %>
+        <%= render "sign_comments/shared/comment", comment: reply %>
       </div>
 
       <div class="grid-x align-middle grid-padding-x sign-comments__replies">
