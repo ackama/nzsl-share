@@ -30,47 +30,42 @@ RSpec.describe "Collaborative Folders", type: :system do
     end
   end
 
-  describe "Creating a new collaboration" do
+  describe "Creating a new collaboration", uses_javascript: true do
     let!(:folder) { FactoryBot.create(:folder, user: process.user) }
     let!(:collaborator) { FactoryBot.create(:user) }
 
     before { process.start }
 
-    shared_examples "by email" do
-      it "successfully adds new collaborator" do |example|
-        process.manage_collaborators(dropdown: example.metadata[:uses_javascript])
+    context "by email" do
+      it "successfully adds new collaborator" do
+        process.manage_collaborators(dropdown: true)
         process.enter_identifier(collaborator.email)
         process.submit_new_collaborator_form
         expect(process).to have_content "Successfully added collaborator to folder."
       end
 
-      it "sends an email invite if collaborator doesn't have an account" do |example|
-        process.manage_collaborators(dropdown: example.metadata[:uses_javascript])
+      it "sends an email invite if collaborator doesn't have an account" do
+        process.manage_collaborators(dropdown: true)
         process.enter_identifier("fake@email.com")
         process.submit_new_collaborator_form
         expect(process).to have_content "Successfully added collaborator to folder."
       end
     end
 
-    shared_examples "by username" do
-      it "successfully adds new collaborator" do |example|
-        process.manage_collaborators(dropdown: example.metadata[:uses_javascript])
+    context "by username" do
+      it "successfully adds new collaborator" do
+        process.manage_collaborators(dropdown: true)
         process.enter_identifier(collaborator.username)
         process.submit_new_collaborator_form
         expect(process).to have_content "Successfully added collaborator to folder."
       end
 
-      it "shows validation error if username doesn't exist" do |example|
-        process.manage_collaborators(dropdown: example.metadata[:uses_javascript])
+      it "shows validation error if username doesn't exist" do
+        process.manage_collaborators(dropdown: true)
         process.enter_identifier("idontexist")
         process.submit_new_collaborator_form
         expect(process).to have_content "This username does not exist"
       end
-    end
-
-    context "inside modal", uses_javascript: true do
-      it_behaves_like "by email"
-      it_behaves_like "by username"
     end
   end
 
@@ -103,6 +98,48 @@ RSpec.describe "Collaborative Folders", type: :system do
         confirmation = page.driver.browser.switch_to.alert
         expect(confirmation.text).to eq I18n.t!("collaborations.destroy.confirm")
       end
+    end
+  end
+
+  describe "Sign permissions in collaborative folders" do
+    let!(:collab_folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:collaborator) { FactoryBot.create(:user) }
+    let!(:private_sign) { FactoryBot.create(:sign, :personal, contributor: collaborator) }
+
+    before do
+      collab_folder.collaborators << collaborator
+      FolderMembership.create(folder: collab_folder, sign: private_sign)
+      process.start
+    end
+
+    it "can view other users' private signs in the folder" do
+      click_on collab_folder.title
+      expect(page).to have_content(private_sign.word)
+      click_on private_sign.word
+      expect(page).to have_current_path sign_path(private_sign.id)
+    end
+
+    it "can edit other users' private signs in the folder" do
+      visit sign_path(private_sign.id)
+      expect(page).to have_content "Hey #{process.user.username}, you are a collaborator on this sign"
+      within "#sign_overview" do
+        expect(page).to have_link "Edit"
+        click_link "Edit"
+      end
+      expect(page).to have_current_path edit_sign_path(private_sign.id)
+      fill_in "sign_secondary", with: "Antelope"
+      click_on "Update Sign"
+      expect(page).to have_content I18n.t!("signs.update.success")
+    end
+
+    it "cannot submit others' private signs for publishing" do
+      visit edit_sign_path(private_sign.id)
+      expect(page).to have_no_field "Yes, request my sign be public"
+    end
+
+    it "cannot delete others' private signs" do
+      visit edit_sign_path(private_sign.id)
+      expect(page).not_to have_link I18n.t!("signs.destroy.link")
     end
   end
 end
