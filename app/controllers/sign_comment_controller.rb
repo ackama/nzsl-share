@@ -56,11 +56,17 @@ class SignCommentController < ApplicationController
   end
 
   def comment_param
-    params.require(:sign_comment).permit(:comment)
+    params.require(:sign_comment).permit(:comment, :anonymous)
   end
 
   def build_text_comment
-    { comment: comment_param[:comment], sign_status: @sign.status, sign: @sign, user: current_user }
+    {
+      comment: comment_param[:comment],
+      anonymous: comment_param[:anonymous],
+      sign_status: @sign.status,
+      sign: @sign,
+      user: current_user
+    }
   end
 
   def fetch_sign_comment
