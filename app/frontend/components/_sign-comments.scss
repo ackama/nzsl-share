@@ -66,6 +66,16 @@
     font-weight: bold;
   }
 
+  &__label {
+    padding-right: 0.5rem;
+
+    &--text {
+      font-size: 0.875rem;
+      font-weight: normal;
+      margin-top: 0.5rem;
+    }
+  }
+
   &__text-area {
     &--new-reply {
       margin-bottom: 0.5rem;
