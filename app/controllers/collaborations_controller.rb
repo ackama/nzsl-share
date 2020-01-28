@@ -23,8 +23,7 @@ class CollaborationsController < ApplicationController
   def destroy
     @collaboration = policy_scope(Collaboration).find(params[:id])
     authorize @collaboration
-    redirect_back fallback_location: folders_path
-    @collaboration.destroy ? { notice: t(".success") } : { alert: t(".failure") }
+    redirect_after_destroy(@collaboration.destroy)
   end
 
   private
@@ -35,6 +34,15 @@ class CollaborationsController < ApplicationController
 
   def redirect_after_save
     flash[:notice] = t(".success")
+
+    respond_to do |format|
+      format.js { render inline: "location.reload();" }
+      format.html { redirect_to folders_path }
+    end
+  end
+
+  def redirect_after_destroy(destroyed)
+    destroyed ? flash[:notice] = t(".success") : flash[:alert] = t(".failure")
 
     respond_to do |format|
       format.js { render inline: "location.reload();" }
