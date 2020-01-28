@@ -61,6 +61,24 @@ RSpec.describe "Folders", type: :system do
     context "without JS" do
       it_behaves_like "editing a folder"
     end
+
+    context "as a collaborator" do
+      let!(:collab_folder) { FactoryBot.create(:folder) }
+      before do
+        collab_folder.collaborators << process.user
+        process.start
+      end
+
+      it "can edit the folder", uses_javascript: true do
+        process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
+          click_on "Edit"
+        end
+        process.enter_title(title + " CHANGED")
+        process.submit_edit_folder_form
+        expect(process).to have_content "Folder successfully updated."
+        expect(process).to have_content(title + " CHANGED")
+      end
+    end
   end
 
   describe "Removing a folder" do
@@ -90,6 +108,20 @@ RSpec.describe "Folders", type: :system do
       process.remove_folder(dropdown: true)
       confirmation = page.driver.browser.switch_to.alert
       expect(confirmation.text).to eq I18n.t!("folders.destroy.confirm")
+    end
+
+    context "as a collaborator" do
+      let!(:collab_folder) { FactoryBot.create(:folder) }
+      before do
+        collab_folder.collaborators << process.user
+        process.start
+      end
+
+      it "cannot delete the folder", uses_javascript: true do
+        process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
+          expect(page).not_to have_link "Delete"
+        end
+      end
     end
   end
 
