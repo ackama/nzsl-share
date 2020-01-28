@@ -4,8 +4,9 @@
   <div class="cell shrink">
   </div>
   <div class="cell auto sign-comment__text-area--new-reply">
-    <%= form_with(model: SignComment.new, url: reply_sign_comment_path(comment.sign.id, comment.id), method: :post) do |f| %>
+    <%= form_with(model: SignComment.new, url: sign_comment_index_path(comment.sign.id), method: :post) do |f| %>
       <%= f.text_field :comment, placeholder: "Write your text comment", class: "sign-comment__text-area--text" %>
+      <%= f.hidden_field :parent_id, value: comment.id %>
       <%= render "sign_comments/shared/anonymous", form: f %>
     <% end %>
   </div>
