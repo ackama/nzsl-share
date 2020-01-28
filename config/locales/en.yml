@@ -171,6 +171,9 @@ en:
       subject: Your approved member application on NZSL Share
     declined:
       subject: Your approved member application on NZSL Share
+  collaboration_mailer:
+    success:
+      subject: "You have been added as a collaborator"
   activemodel:
     errors: &activemodel_errors
       messages:
