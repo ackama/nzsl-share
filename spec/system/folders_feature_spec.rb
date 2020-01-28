@@ -95,7 +95,12 @@ RSpec.describe "Folders", type: :system do
 
   describe "The folders index page" do
     let!(:folder) { FactoryBot.create(:folder, user: process.user) }
-    before { process.start }
+    let!(:collab_folder) { FactoryBot.create(:folder) }
+
+    before do
+      collab_folder.collaborators << process.user
+      process.start
+    end
 
     it "has the expected page title" do
       expect(page).to have_title "My Folders – NZSL Share"
@@ -104,6 +109,11 @@ RSpec.describe "Folders", type: :system do
     it "links folder titles to their corresponding show page" do
       click_on folder.title
       expect(page).to have_current_path(folder_path(folder))
+    end
+
+    it "displays all the appropriate folders" do
+      expect(page).to have_content(folder.title)
+      expect(page).to have_content(collab_folder.title)
     end
   end
 
@@ -120,6 +130,10 @@ RSpec.describe "Folders", type: :system do
 
     it "renders the folder title" do
       expect(page).to have_content folder.title
+    end
+
+    it "renders the manage collaborators button" do
+      expect(page).to have_content "Manage"
     end
   end
 end
