@@ -9,11 +9,7 @@ class CollaborationPolicy < ApplicationPolicy
 
   private
 
-  def folder
-    Folder.find(record.folder_id)
-  end
-
   def collaborator?
-    folder.collaborators.map(&:id).include? user.id
+    record.folder.collaborators.map(&:id).include? user.id
   end
 end
