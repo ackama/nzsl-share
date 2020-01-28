@@ -1,0 +1,39 @@
+
+.comment-select {
+  label,
+  select {
+    display: inline-block;
+  }
+
+  label {
+    color: $black;
+    margin-right: $form-spacing;
+    margin-top: 0;
+  }
+
+  select {
+    background-color: get-color(royal-x-light);
+    background-origin: border-box;
+    background-position: calc(100% - 13px) 50%;
+    background-size: rem-calc(13);
+    border: 0;
+    color: get-color(royal);
+    display: inline-block;
+    font-size: rem-calc(13);
+    font-weight: bold;
+    height: auto;
+    padding: 0.25rem 0.5rem;
+    padding-right: 2rem;
+    width: auto;
+
+    &:active {
+      border: solid 1px get-color(royal);
+    }
+  }
+
+  option {
+    background: $white;
+    color: $black;
+    font-size: 1rem;
+  }
+}
