@@ -28,15 +28,6 @@ class SignCommentController < ApplicationController
     refresh_comments
   end
 
-  def reply
-    @sign = fetch_sign
-    @sign_comment = SignComment.new(build_text_comment.merge(parent_id: id))
-    authorize @sign_comment
-    @sign_comment.save
-    @sign.reload
-    refresh_comments
-  end
-
   def appropriate
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
@@ -55,14 +46,15 @@ class SignCommentController < ApplicationController
     end
   end
 
-  def comment_param
-    params.require(:sign_comment).permit(:comment, :anonymous)
+  def comment_params
+    params.require(:sign_comment).permit(:comment, :parent_id, :anonymous)
   end
 
   def build_text_comment
     {
-      comment: comment_param[:comment],
-      anonymous: comment_param[:anonymous],
+      comment: comment_params[:comment],
+      parent_id: comment_params[:parent_id],
+      anonymous: comment_params[:anonymous],
       sign_status: @sign.status,
       sign: @sign,
       user: current_user

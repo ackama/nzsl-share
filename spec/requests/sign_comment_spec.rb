@@ -26,7 +26,7 @@ RSpec.describe "sign_comment", type: :request do
 
   let(:reply) do
     lambda { |sign, sign_comment|
-      post "/signs/#{sign.id}/comment/#{sign_comment.id}/reply", params: { sign_comment: reply_params }
+      post "/signs/#{sign.id}/comment/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
     }
   end
 
