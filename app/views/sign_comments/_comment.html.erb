@@ -1,7 +1,14 @@
 <div class="cell shrink">
-  <%= link_to user_path(comment.user) do %>
-    <%= comment.user_avatar %>
-  <% end unless comment.anonymous %>
+  <% if comment.anonymous? %>
+    <%= link_to "#" do %>
+      <% inline_svg("media/images/avatar.svg", title: "Avatar", aria: true, class: "avatar avatar--small") %>
+    <% end %>
+  <% else %>
+    <%= link_to user_path(comment.user) do %>
+      <%= comment.user_avatar %>
+    <% end %>
+  <% end %>
+
 </div>
 
 <div class="cell auto sign-comments__comment">
