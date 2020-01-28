@@ -2,9 +2,9 @@
 
 <div id="sign-comments">
   <div class="grid-x">
-    <div class="cell small-3 sign-comments--heading">
-      Comments for
-      <%= form_with url: params.to_unsafe_h, method: :get, remote: false do |f| %>
+    <div class="cell auto sign-comments--heading">
+      <%= form_with url: params.to_unsafe_h, method: :get, remote: false, class: "comment-select" do |f| %>
+        <%= f.label :comments_in_folder, "Comments for " %>
         <%= f.select :comments_in_folder,
                      options_for_select(
                        (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
@@ -12,11 +12,11 @@
                        params[:comments_in_folder]
                      ),
                      {},
-                     class: "sign-comment__select__items",
+                     class: "comment-select",
                      onchange: "this.form.submit()" %>
       <% end %>
     </div>
-    <div class="cell auto sign-comments--total">
+    <div class="cell shrink sign-comments--total">
       <% comment_total = @comments.count %>
       showing <%= comment_total %> of <%= comment_total %> comments
     </div>
