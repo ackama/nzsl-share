@@ -1,7 +1,7 @@
 class CollaborationsController < ApplicationController
   def new
     @collaboration = Collaboration.new
-    @folder = Folder.find(params[:folder_id])
+    @folder = policy_scope(Folder).find(params[:folder_id])
     authorize @collaboration
   end
 
