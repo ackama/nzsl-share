@@ -46,9 +46,7 @@ class SignPresenter < ApplicationPresenter
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
-    @folders ||= h.policy_scope(Folder).where(collaborations: { collaborator_id: h.current_user.id })
-    @memberships ||= sign.folder_memberships.includes(:folder).where(folder_id: @folders.map(&:id))
-    map_folders_to_memberships(@folders, @memberships, &block)
+    map_folders_to_memberships(folders, memberships, &block)
   end
 
   def assignable_folder_options
@@ -112,5 +110,14 @@ class SignPresenter < ApplicationPresenter
 
       acc[folder] = membership
     end
+  end
+
+  def folders
+    @folders ||= Pundit.policy_scope(h.current_user, Folder)
+                       .where(collaborations: { collaborator_id: h.current_user.id })
+  end
+
+  def memberships
+    @memberships ||= sign.folder_memberships.includes(:folder).where(folder_id: @folders.map(&:id))
   end
 end
