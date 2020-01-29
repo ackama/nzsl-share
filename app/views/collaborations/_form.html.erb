@@ -1,16 +1,15 @@
 <div class="grid-x grid-padding-x">
-  <div class="cell grid-x align-middle modal-form__title">
+  <div class="cell grid-x align-middle modal-form__title modal-form__title--collaborators">
     <h2>Manage Collaborators</h2>
     <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
       <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
     </button>
+    <div class="cell modal-form__metadata"><%= pluralize(folder.collaborators.count, "collaborator")%></div>
   </div>
-
 
   <div class="cell">
     <%= form_with(model: [ :folder, collaboration ]) do |f| %>
-      <div class="modal-form__fields">
-      <hr class="form__divider">
+      <div class="modal-form__fields modal-form__fields--collaborators">
         <ul class="list__item-menu list__item-menu--collab vertical grid-x">
           <% folder.collaborators.each do |collaborator| %>
             <li class="list__item--interactive grid-x align-middle cell">
@@ -27,11 +26,11 @@
         </ul>
       </div>
       <div class="modal-form__fields">
-       <legend><h6>New collaborator</h6></legend>
+       <legend><h6 class="modal-form__subheading">New collaborator</h6></legend>
         <hr class="form__divider">
 
         <fieldset>
-          <%= f.label :identifier, "Email or username", class: "required" %>
+          <%= f.label :identifier, "Email or username", class: "required margin-top-1" %>
           <%= f.text_field :identifier, placeholder: "Type email or username", class: (collaboration.errors[:collaborator_id].any? && "invalid") %>
           <%= f.error :identifier %>
           <% unless collaboration.errors[:identifier].any? %>

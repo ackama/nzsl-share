@@ -17,10 +17,33 @@
       margin-bottom: 0;
       padding: 0.5rem 0;
     }
+
+    &--collaborators {
+      margin-bottom: 1.6rem;
+
+      h2 {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__metadata {
+    color: get-color(medium);
+    font-size: rem-calc(13);
+  }
+
+  &__subheading {
+    color: $black;
+    margin-top: 2rem;
   }
 
   &__fields {
     margin-bottom: $global-margin;
+
+    &--collaborators {
+      border: 1px solid get-color(primary-light);
+      border-radius: $global-radius;
+    }
   }
 
   &__buttons {
