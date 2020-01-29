@@ -5,4 +5,8 @@ class Collaboration < ApplicationRecord
 
   validates :folder_id, presence: true
   validates :collaborator_id, presence: { message: "This username does not exist" }
+
+  def self.for(collaborator, folder)
+    find_by(collaborator: collaborator, folder: folder)
+  end
 end
