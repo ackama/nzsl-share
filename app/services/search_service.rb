@@ -39,7 +39,8 @@ class SearchService < ApplicationService
   def fetch_results(result_relation, result_ids)
     result_relation
       .limit(search.page[:limit])
-      .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[], #{@relation.primary_key})"))
+      .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[],
+                       \"#{@relation.table_name}\".\"#{@relation.primary_key}\")"))
   end
 
   def parse_results(results)

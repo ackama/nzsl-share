@@ -93,7 +93,7 @@ class SignPolicy < ApplicationPolicy
       public_or_owned = base.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?",
                                    user.id)
       collaborative = base.where(folders: { collaborations: { collaborator_id: user.id } })
-      public_or_owned.or(collaborative).distinct
+      Sign.where(id: public_or_owned.or(collaborative).distinct.pluck(:id))
     end
 
     def resolve_public
