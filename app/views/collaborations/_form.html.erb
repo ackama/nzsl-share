@@ -16,7 +16,7 @@
             <li class="list__item--interactive grid-x align-middle cell">
               <div class="cell auto padding-1"><%= collaborator.email %><% if collaborator.id == current_user.id %> (that's you!)<% end %></div>
               <div class="cell shrink">
-                <%= link_to folder_collaboration_path(folder, find_collaboration(collaborator.id, folder.id)),
+                <%= link_to folder_collaboration_path(folder, Collaboration.for(collaborator, folder)),
                             method: :delete,
                             data: { confirm: t("collaborations.destroy.confirm") } do %>
                     <%= inline_svg "media/images/trash.svg", aria: true, title: "Delete Collaborator", class: "icon icon--alert"%>
