@@ -3,6 +3,8 @@
 class SignComment < ApplicationRecord
   belongs_to :user
   belongs_to :sign
+  belongs_to :folder, optional: true
+
   has_many :replies, -> { order(created_at: :asc) }, class_name: "SignComment",
                                                      foreign_key: "parent_id",
                                                      dependent: :destroy,
@@ -13,4 +15,8 @@ class SignComment < ApplicationRecord
   validates :user, presence: true
   validates :sign_status, presence: true
   validates :comment, presence: true, length: { maximum: 1000 }
+
+  def self.comment_types
+    [["Text Comment", "text"]]
+  end
 end
