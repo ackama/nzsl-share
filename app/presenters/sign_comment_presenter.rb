@@ -9,7 +9,7 @@ class SignCommentPresenter < ApplicationPresenter
 
     return h.localize(created, format: "%-d %b %Y") unless created.today?
 
-    "Today at #{h.localize(sign_comment.created_at, format: "%I:%M %p")}"
+    "Today at #{h.localize(created, format: "%I:%M %p")}"
   end
 
   def username

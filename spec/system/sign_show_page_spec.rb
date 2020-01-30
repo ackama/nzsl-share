@@ -412,4 +412,56 @@ RSpec.describe "Sign show page", system: true do
     expect(subject).to have_css "meta[property='og:title'][content=#{sign.word}]", visible: false
     expect(subject).to have_css "meta[property='og:description'][content=#{sign.secondary}]", visible: false
   end
+
+  describe "commenting" do
+    let(:user) { FactoryBot.create(:user, :approved) }
+
+    context "public sign comments" do
+      let(:sign) { FactoryBot.create(:sign, :published) }
+      let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign) }
+
+      it "shows public comments" do
+        expect(page).to have_select("comments_in_folder", with_options: ["Public"])
+      end
+
+      it "shows the expected number of comments" do
+        visit current_path
+        expect(page).to have_selector(".sign-comment", count: comments.size)
+      end
+
+      it "posts a new comment", uses_javascript: true do
+        comment_text = Faker::Lorem.sentence
+        fill_in "Write your text comment", with: "#{comment_text}\n"
+        expect(page).to have_selector ".sign-comment", text: comment_text
+      end
+    end
+
+    context "folder comments" do
+      let!(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder_membership) { FactoryBot.create(:folder_membership, sign: sign, folder: folder) }
+      let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign, folder: folder) }
+
+      before do
+        visit current_path
+        select folder.title, from: "comments_in_folder"
+      end
+
+      it "does not show public comments" do
+        expect(page).to have_select("comments_in_folder", options: [folder.title])
+      end
+
+      it "shows the expected number of comments", uses_javascript: true do
+        select folder.title, from: "comments_in_folder"
+        expect(page).to have_selector(".sign-comment", count: comments.size)
+      end
+
+      it "posts a new comment", uses_javascript: true do
+        comment_text = Faker::Lorem.sentence
+        select folder.title, from: "sign_comment_folder_id"
+        fill_in "Write your text comment", with: "#{comment_text}\n"
+        expect(page).to have_selector ".sign-comment", text: comment_text
+        expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+      end
+    end
+  end
 end
