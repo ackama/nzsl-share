@@ -1,24 +1,27 @@
-<div class="grid-x align-middle grid-padding-x">
-  <div class="cell shrink">
-    <% user = present(sign.contributor) %>
-    <%= link_to user_path(user) do %>
-      <%= user.avatar("avatar avatar--small") %>
-    <% end %>
-  </div>
-  <div class="cel shrink sign-comment--heading">
-    You are making a
-  </div>
-  <div class="cell sign-comment__select">
-    <%= select_tag :sign_comment_type, options_for_select(SignComment.comment_types, "text"), { class: "sign-comment__select__items"} %>
-  </div>
-  <div class="cell auto"></div>
-</div>
-<div class="grid-x align-middle grid-padding-x margin-bottom-2">
-  <div class="cell shrink">
-  </div>
-  <div id="new-text-comment" class="cell auto sign-comment__text-area">
-    <%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post) do |f| %>
+<%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post) do |f| %>
+
+  <div class="grid-x grid-padding-x margin-bottom-2">
+    <div class="cell shrink">
+      <% user = present(sign.contributor) %>
+      <%= link_to user_path(user) do %>
+        <%= user.avatar("avatar avatar--small") %>
+      <% end %><br>
+    </div>
+    <div class="sign-comment--heading comment-select">
+      <%= label_tag :sign_comment_type, "You are making a" %>
+      <%= select_tag :sign_comment_type, options_for_select(SignComment.comment_types, "text"), { class: "sign-comment__select__items"} %>
+      &nbsp;
+      <%= label_tag :folder_id, "in" %>
+      <%= f.select :folder_id,
+                     options_for_select(
+                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
+                       policy_scope(@sign.folders).map { |f| [f.title, f.id] },
+                       params[:comments_in_folder]
+                     ), {}, { class: "sign-comment__select__items"}  %><br>
+      <div id="new-text-comment" class="sign-comment__text-area">
       <%= f.text_field :comment, required: true, placeholder: "Write your text comment", class: "sign-comment__text-area--text" %>
-    <% end %>
+    </div>
+    </div>
+    <div class="cell auto"></div>
   </div>
-</div>
+<% end %>

@@ -27,16 +27,31 @@ RSpec.describe "sign_comment", type: :request do
       sign_in user
     end
 
-    context "create" do
+    describe "create" do
       it "creates a sign comment" do
         expect(sign.sign_comments.count).to eq 0
         create.call(sign)
         expect(sign.sign_comments.count).to eq 1
         expect(response).to redirect_to sign_path(sign)
       end
+
+      context "when associating with a folder" do
+        let(:folder) { FactoryBot.create(:folder) }
+        let(:create_params) { super().merge(folder_id: folder.id) }
+
+        it "creates the sign comment successfully" do
+          expect { create.call(sign) }.to change(sign.sign_comments, :count).by(1)
+        end
+
+        it "associates the comment with the folder" do
+          create.call(sign)
+          comment = sign.sign_comments.last
+          expect(comment.folder).to eq folder
+        end
+      end
     end
 
-    context "destroy" do
+    describe "destroy" do
       it "will delete a comment for an administrator" do
         user.update(administrator: true)
         expect(sign.sign_comments.count).to eq 0
@@ -58,7 +73,7 @@ RSpec.describe "sign_comment", type: :request do
       end
     end
 
-    context "update" do
+    describe "update" do
       it "will update a comment for an administrator" do
         user.update(administrator: true)
         expect(sign.sign_comments.count).to eq 0
