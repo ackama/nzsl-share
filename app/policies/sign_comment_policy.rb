@@ -10,30 +10,26 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?
+    sign_owner? || user&.administrator?
   end
 
   def options?
-    create?
+    sign_owner? || user&.approved? || user&.administrator?
   end
 
   def appropriate?
-    create?
+    sign_owner? || user&.approved? || user&.administrator?
   end
 
   def reply?
-    create?
+    sign_owner? || user&.approved? || user&.administrator?
   end
 
   private
 
-  def approved_user?
-    return false unless user
-
-    user.approved?
-  end
-
   def sign_owner?
+    return false if record.try(:sign).blank?
+
     record.sign.contributor == user
   end
 end
