@@ -35,7 +35,7 @@
     </div>
 
     <div class="grid-x align-middle grid-padding-x">
-      <%= render "sign_comments/comment", comment: comment %>
+      <%= render "sign_comments/shared/comment", comment: comment %>
     </div>
 
     <div class="grid-x align-middle grid-padding-x sign-comments__replies">
@@ -49,7 +49,7 @@
             &nbsp;•&nbsp;
           </span>
         <% end %>
-
+        
         <span class="cell auto">
           <%= comment.friendly_date %>
         </span>
@@ -67,7 +67,7 @@
       <% reply = present(reply) %>
 
       <div class="grid-x align-middle grid-padding-x sign-comments__replies">
-        <%= render "sign_comments/comment", comment: reply %>
+        <%= render "sign_comments/shared/comment", comment: reply %>
       </div>
 
       <div class="grid-x align-middle grid-padding-x sign-comments__replies">

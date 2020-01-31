@@ -14,6 +14,10 @@ RSpec.describe "sign_comment", type: :request do
     ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params } }
   end
 
+  let(:anonymous) do
+    ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params.merge(anonymous: true) } }
+  end
+
   let(:destroy) do
     ->(sign, sign_comment) { delete "/signs/#{sign.id}/comment/#{sign_comment.id}" }
   end
@@ -24,7 +28,7 @@ RSpec.describe "sign_comment", type: :request do
 
   let(:reply) do
     lambda { |sign, sign_comment|
-      post "/signs/#{sign.id}/comment/#{sign_comment.id}/reply", params: { sign_comment: reply_params }
+      post "/signs/#{sign.id}/comment/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
     }
   end
 
@@ -40,11 +44,12 @@ RSpec.describe "sign_comment", type: :request do
     end
 
     describe "create" do
-      it "creates a sign comment" do
+      it "will create an anonymous comment for an approved user" do
         user.update(approved: true)
         expect(sign.sign_comments.count).to eq 0
-        create.call(sign)
+        anonymous.call(sign)
         expect(sign.sign_comments.count).to eq 1
+        expect(sign.sign_comments.first.anonymous).to be true
         expect(response).to redirect_to sign_path(sign)
       end
 
