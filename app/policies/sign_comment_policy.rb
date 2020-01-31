@@ -6,11 +6,11 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    sign_owner? || user.administrator?
   end
 
   def destroy?
-    true
+    sign_owner? || user.administrator?
   end
 
   def show?
@@ -35,5 +35,9 @@ class SignCommentPolicy < ApplicationPolicy
     return false unless user
 
     user.approved?
+  end
+
+  def sign_owner?
+    record.sign.contributor == user
   end
 end
