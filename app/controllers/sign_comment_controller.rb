@@ -14,7 +14,7 @@ class SignCommentController < ApplicationController
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
-    @sign_comment.update(comment: comment_param[:comment], display: true)
+    @sign_comment.update(comment: comment_params[:comment], display: true)
     @sign.reload
     refresh_comments
   end
@@ -27,7 +27,7 @@ class SignCommentController < ApplicationController
     @sign.reload
     refresh_comments
   end
-  
+
   def appropriate
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
@@ -60,7 +60,7 @@ class SignCommentController < ApplicationController
       comment: comment_params[:comment],
       parent_id: comment_params[:parent_id],
       anonymous: comment_params[:anonymous],
-      folder_id: comment_param[:folder_id],
+      folder_id: comment_params[:folder_id],
       sign_status: @sign.status,
       sign: @sign,
       user: current_user

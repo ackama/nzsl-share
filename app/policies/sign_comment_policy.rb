@@ -13,10 +13,6 @@ class SignCommentPolicy < ApplicationPolicy
     sign_owner? || user&.administrator?
   end
 
-  def options?
-    sign_owner? || user&.approved? || user&.administrator?
-  end
-
   def appropriate?
     sign_owner? || user&.approved? || user&.administrator?
   end
@@ -26,10 +22,6 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def options?
-    sign_owner? || user&.approved? || user&.administrator?
-  end
-
-  def appropriate?
     sign_owner? || user&.approved? || user&.administrator?
   end
 
