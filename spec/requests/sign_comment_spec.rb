@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe "sign_comment", type: :request do
   let(:user) { FactoryBot.create(:user) }
   let(:sign) { FactoryBot.create(:sign, :published) }
+
   let(:create_params) { { comment: "my first comment" } }
   let(:reply_params) { { comment: "a reply to your comment" } }
   let(:update_params) { { comment: "updated comment" } }
@@ -57,10 +58,12 @@ RSpec.describe "sign_comment", type: :request do
         let(:create_params) { super().merge(folder_id: folder.id) }
 
         it "creates the sign comment successfully" do
+          user.update(approved: true)
           expect { create.call(sign) }.to change(sign.sign_comments, :count).by(1)
         end
 
         it "associates the comment with the folder" do
+          user.update(approved: true)
           create.call(sign)
           comment = sign.sign_comments.last
           expect(comment.folder).to eq folder
@@ -114,7 +117,7 @@ RSpec.describe "sign_comment", type: :request do
       end
     end
 
-    context "appropriate" do
+    describe "appropriate" do
       it "it flags a comment as inapprppriate" do
         user.update(approved: true)
         expect(sign.sign_comments.count).to eq 0
@@ -127,7 +130,7 @@ RSpec.describe "sign_comment", type: :request do
       end
     end
 
-    context "reply" do
+    describe "reply" do
       it "will create a reply for an approved user" do
         user.update(approved: true)
         expect(sign.sign_comments.count).to eq 0

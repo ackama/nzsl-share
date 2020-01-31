@@ -1,0 +1,20 @@
+<div class="cell shrink">
+  <%= link_to user_path(comment.user) do %>
+    <%= comment.user_avatar %>
+  <% end unless comment.anonymous %>
+</div>
+
+<div class="cell auto sign-comments__comment">
+  <span class="cell auto">
+    <%= link_to user_path(comment.user), class: "sign-comments__comment__username--link" do %>
+      <%= comment.username %>
+    <% end unless comment.anonymous %>
+  </span>
+  <span class="cell auto">
+    <%= comment.user_comment %>
+  </span>
+</div>
+
+<div class="cell shrink">
+  <%= render "sign_comments/options", comment: comment %>
+</div>
