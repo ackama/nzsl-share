@@ -17,10 +17,6 @@ class SignCommentPolicy < ApplicationPolicy
     sign_owner? || user.administrator? || approved_user?
   end
 
-  def reply?
-    true
-  end
-
   private
 
   def approved_user?
