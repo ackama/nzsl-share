@@ -13,15 +13,7 @@ class SignCommentPolicy < ApplicationPolicy
     sign_owner? || user.administrator?
   end
 
-  def show?
-    true
-  end
-
   def reply?
-    sign_owner? || user.administrator? || approved_user?
-  end
-
-  def options?
     sign_owner? || user.administrator? || approved_user?
   end
 

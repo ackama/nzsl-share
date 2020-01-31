@@ -1,4 +1,4 @@
-<% if policy(SignComment).options? %>
+<% if policy(comment.sign).show_comment_element? %>
 <a href="#" data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
   <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
 </a>
