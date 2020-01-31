@@ -1,0 +1,12 @@
+<div class="grid-x gird-padding-x">
+  <div class="cell auto"></div>
+  <div class="cell shrink sign-comment__label">
+    <%= form.label nil, class: "sign-comment__label sign-comment__label--text" do %>
+      <%= form.check_box :anonymous %>
+      comment anonymously
+    <% end %>
+  </div>
+  <div class="cell shrink">
+    <%= form.submit "Post comment", class: "button small royal primary" %>
+  </div>
+</div>
