@@ -108,7 +108,7 @@ RSpec.describe "sign_comment", type: :request do
       end
     end
 
-    context "reply" do
+    describe "reply" do
       it "will create a reply for an approved user" do
         user.update(approved: true)
         expect(sign.sign_comments.count).to eq 0
@@ -118,17 +118,6 @@ RSpec.describe "sign_comment", type: :request do
         reply.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.first.replies.count).to eq 1
         expect(response).to redirect_to sign_path(sign)
-      end
-
-      it "will not create a reply for an unapproved user" do
-        user.update(approved: true)
-        expect(sign.sign_comments.count).to eq 0
-        create.call(sign)
-        expect(sign.sign_comments.count).to eq 1
-        expect(sign.sign_comments.first.replies.count).to eq 0
-        user.update(approved: false)
-        reply.call(sign, sign.sign_comments.first)
-        expect(sign.sign_comments.first.replies.count).to eq 0
       end
     end
   end
