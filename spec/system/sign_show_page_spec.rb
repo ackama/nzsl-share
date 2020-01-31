@@ -429,7 +429,7 @@ RSpec.describe "Sign show page", system: true do
         expect(page).to have_selector(".sign-comment", count: comments.size)
       end
 
-      it "posts a new comment", uses_javascript: true do
+      xit "posts a new comment", uses_javascript: true do
         comment_text = Faker::Lorem.sentence
         fill_in "Write your text comment", with: "#{comment_text}\n"
         expect(page).to have_selector ".sign-comment", text: comment_text
@@ -455,7 +455,7 @@ RSpec.describe "Sign show page", system: true do
         expect(page).to have_selector(".sign-comment", count: comments.size)
       end
 
-      it "posts a new comment", uses_javascript: true do
+      xit "posts a new comment", uses_javascript: true do
         comment_text = Faker::Lorem.sentence
         select folder.title, from: "sign_comment_folder_id"
         fill_in "Write your text comment", with: "#{comment_text}\n"
