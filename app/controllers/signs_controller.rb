@@ -2,7 +2,9 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topics).find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(id))
+    @comments = policy_scope(@sign.sign_comments
+      .includes(user: :avatar_attachment)).where(folder_id: comments_folder_id)
     @sign.topic = fetch_referer
     authorize @sign
     return unless stale?(@sign)
@@ -11,8 +13,8 @@ class SignsController < ApplicationController
   end
 
   def index
-    @signs = my_signs
-    authorize my_signs
+    @signs = signs.where(contributor: current_user)
+    authorize @signs
   end
 
   def new
@@ -73,17 +75,11 @@ class SignsController < ApplicationController
 
     message = t("users.contribution_limit_reached_html",
                 email: Rails.application.config.contact_email)
-    redirect_to(root_path, alert: message)
-
-    false
+    redirect_to(root_path, alert: message) && false
   end
 
   def signs
     policy_scope(Sign).order(word: :asc)
-  end
-
-  def my_signs
-    signs.where(contributor: current_user)
   end
 
   def build_sign(builder: SignBuilder.new)
@@ -95,14 +91,22 @@ class SignsController < ApplicationController
   end
 
   def edit_sign_params
-    params.require(:sign).permit(
-      :video, :maori, :secondary, :notes, :word, :usage_examples,
-      :illustrations, :conditions_accepted, topic_ids: []
-    )
+    create_sign_params.permit(:maori, :secondary, :notes, :word, :usage_examples,
+                              :illustrations, :conditions_accepted, topic_ids: [])
   end
 
   def id
     params[:id]
+  end
+
+  def comments_folder_id
+    fallback = if @sign.published? || @sign.unpublish_requested?
+                 nil
+               else
+                 policy_scope(@sign.folders).first
+               end
+
+    params[:comments_in_folder].presence || fallback
   end
 
   def set_signs_submitted_state

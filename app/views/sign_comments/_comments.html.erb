@@ -1,0 +1,73 @@
+<% return unless policy(@sign).display_comments? %>
+
+<div id="sign-comments">
+  <div class="grid-x">
+    <div class="cell auto sign-comments--heading">
+      <%= form_with url: params.to_unsafe_h, method: :get, remote: false, class: "comment-select" do |f| %>
+        <%= f.label :comments_in_folder, "Comments for " %>
+        <%= f.select :comments_in_folder,
+                     options_for_select(
+                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
+                       policy_scope(@sign.folders).map { |f| [f.title, f.id] },
+                       params[:comments_in_folder]
+                     ),
+                     {},
+                     class: "comment-select",
+                     onchange: "this.form.submit()" %>
+      <% end %>
+    </div>
+    <div class="cell shrink sign-comments--total">
+      <% comment_total = @comments.count %>
+      showing <%= comment_total %> of <%= comment_total %> comments
+    </div>
+  </div>
+
+  <% unless @comments.blank? %>
+    <hr class="sign-comments__divider">
+  <% end %>
+
+  <% @comments.each do |comment| %>
+    <div class="grid-x align-middle grid-padding-x sign-comment">
+      <% next unless comment.display %>
+      <% comment = present(comment) %>
+
+      <hr class="sign-comments__divider">
+
+      <div class="cell shrink">
+        <%= link_to user_path(comment.user) do %>
+          <%= comment.user_avatar %>
+        <% end unless comment.anonymous %>
+      </div>
+
+      <div class="cell auto sign-comments__username-with-comment">
+        <span class="cell auto">
+          <%= link_to user_path(comment.user), class: "sign-comments__username--url" do %>
+            <%= comment.username %>
+          <% end unless comment.anonymous %>
+        </span>
+        <span class="cell auto">
+          <%= comment.user_comment %>
+        </span>
+      </div>
+
+      <div class="cell shrink">
+        <%= render "sign_comments/options", comment: comment %>
+      </div>
+    </div>
+
+    <div class="grid-x align-middle grid-padding-x">
+      <div class="cell auto sign-comments__reply-with-comment-date">
+        <span class="cell auto">
+          &nbsp;•&nbsp;
+        </span>
+        <span class="cell auto">
+          <%= comment.friendly_date %>
+        </span>
+      </div>
+    </div>
+  <% end %>
+
+  <hr class="sign-comments__divider">
+
+  <%= render "sign_comments/new", sign: sign %>
+</div>

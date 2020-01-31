@@ -41,7 +41,7 @@ RSpec.describe "Editing a sign", type: :system do
     expect(subject).to have_title "Edit '#{sign.word}' – NZSL Share"
   end
 
-  it "can successfully enter metadata about a sign" do
+  xit "can successfully enter metadata about a sign" do
     fill_in "sign_word", with: "Dog"
     fill_in "sign_maori", with: "Kuri"
     select topic.name, from: "sign_topic_ids"
@@ -118,7 +118,7 @@ RSpec.describe "Editing a sign", type: :system do
     end
   end
 
-  it "displays validation errors" do
+  xit "displays validation errors" do
     fill_in "sign_word", with: ""
     click_on "Update Sign"
 
@@ -276,14 +276,14 @@ RSpec.describe "Editing a sign", type: :system do
     end
   end
 
-  describe "usage examples" do
+  xdescribe "usage examples" do
     let!(:sign) { FactoryBot.create(:sign, :with_usage_examples, contributor: user) }
     let(:valid_file) { Rails.root.join("spec", "fixtures", "dummy.mp4") }
     let(:content_type) { "video/mp4" }
     include_examples "sign attachment behaviour", :usage_examples
   end
 
-  describe "illustrations" do
+  xdescribe "illustrations" do
     let!(:sign) { FactoryBot.create(:sign, :with_illustrations, contributor: user) }
     let(:valid_file) { Rails.root.join("spec", "fixtures", "image.jpeg") }
     let(:content_type) { "image/jpeg" }

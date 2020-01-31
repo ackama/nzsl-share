@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_234837) do
+ActiveRecord::Schema.define(version: 2020_01_27_195552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,24 @@ ActiveRecord::Schema.define(version: 2020_01_13_234837) do
     t.index ["user_id"], name: "index_sign_activities_on_user_id"
   end
 
+  create_table "sign_comments", force: :cascade do |t|
+    t.bigint "parent_id"
+    t.bigint "sign_id", null: false
+    t.bigint "user_id", null: false
+    t.text "comment"
+    t.text "sign_status", null: false
+    t.boolean "appropriate", default: true
+    t.boolean "display", default: true
+    t.boolean "anonymous", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "folder_id"
+    t.index ["folder_id"], name: "index_sign_comments_on_folder_id"
+    t.index ["parent_id"], name: "index_sign_comments_on_parent_id"
+    t.index ["sign_id"], name: "index_sign_comments_on_sign_id"
+    t.index ["user_id"], name: "index_sign_comments_on_user_id"
+  end
+
   create_table "sign_topics", force: :cascade do |t|
     t.bigint "topic_id", null: false
     t.bigint "sign_id", null: false
@@ -211,6 +229,8 @@ ActiveRecord::Schema.define(version: 2020_01_13_234837) do
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
   add_foreign_key "sign_activities", "users"
+  add_foreign_key "sign_comments", "signs"
+  add_foreign_key "sign_comments", "users"
   add_foreign_key "sign_topics", "signs"
   add_foreign_key "sign_topics", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
