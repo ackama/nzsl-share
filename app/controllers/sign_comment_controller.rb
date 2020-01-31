@@ -51,20 +51,31 @@ class SignCommentController < ApplicationController
   def refresh_comments
     respond_to do |format|
       format.html { redirect_back(fallback_location: @sign) }
-      format.js   { render partial: "sign_comments/refresh" }
+      format.js   do
+        @comments = policy_scope(@sign.sign_comments
+          .includes(user: :avatar_attachment))
+                    .where(folder_id: @sign_comment.folder_id)
+        render partial: "sign_comments/refresh"
+      end
     end
   end
 
   def comment_param
-    params.require(:sign_comment).permit(:comment)
+    params.require(:sign_comment).permit(:comment, :folder_id)
   end
 
   def build_text_comment
-    { comment: comment_param[:comment], sign_status: @sign.status, sign: @sign, user: current_user }
+    {
+      comment: comment_param[:comment],
+      folder_id: comment_param[:folder_id],
+      sign_status: @sign.status,
+      sign: @sign,
+      user: current_user
+    }
   end
 
   def fetch_sign_comment
-    policy_scope(SignComment).find_by!(id: id)
+    policy_scope(@sign.sign_comments).find_by!(id: id)
   end
 
   def fetch_sign
