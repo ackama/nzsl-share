@@ -1,5 +1,4 @@
 <%= form_with(model: SignComment.new, url: sign_comment_index_path(sign), method: :post) do |f| %>
-
   <div class="grid-x grid-padding-x margin-bottom-2">
     <div class="cell shrink">
       <% user = present(sign.contributor) %>

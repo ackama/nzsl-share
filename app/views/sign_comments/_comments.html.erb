@@ -32,6 +32,7 @@
       <% comment = present(comment) %>
 
       <hr class="sign-comments__divider">
+    </div>
 
     <div class="grid-x align-middle grid-padding-x">
       <%= render "sign_comments/comment", comment: comment %>
@@ -39,14 +40,14 @@
 
     <div class="grid-x align-middle grid-padding-x sign-comments__replies">
       <div class="cell auto sign-comments__replies--reply">
-        <% if policy(SignComment).create? %>
-        <span class="cell auto">
-          <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
-            <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
-            Reply
-          <% end %>
-          &nbsp;•&nbsp;
-        </span>
+        <% if policy(@sign).show_comment_element? %>
+          <span class="cell auto">
+            <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
+              <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+              Reply
+            <% end %>
+            &nbsp;•&nbsp;
+          </span>
         <% end %>
 
         <span class="cell auto">
@@ -55,7 +56,7 @@
       </div>
     </div>
 
-    <% if policy(SignComment).reply? %>
+    <% if policy(@sign).show_comment_element? %>
       <div id="<%= dom_id(comment) %>" class="sign-comments__replies" style="display:none">
         <%= render "sign_comments/reply", comment: comment %>
       </div>
@@ -77,5 +78,5 @@
     <% end %>
   <% end %>
 
-  <%= render "sign_comments/new", sign: sign if policy(SignComment).create? %>
+  <%= render "sign_comments/new", sign: sign if policy(@sign).show_comment_element? %>
 </div>

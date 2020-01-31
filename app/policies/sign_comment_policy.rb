@@ -27,6 +27,12 @@ class SignCommentPolicy < ApplicationPolicy
 
   private
 
+  def approved_user?
+    return false unless user
+
+    user.approved?
+  end
+
   def sign_owner?
     record.sign.contributor == user
   end
