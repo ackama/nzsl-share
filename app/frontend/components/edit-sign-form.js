@@ -31,9 +31,12 @@ $(document).on("upload-success", ".usage-examples-file-upload", (event) =>
   handleSignAttachmentUpload($(event.target), ".sign-usage-examples", "usage_examples"));
 $(document).on("upload-success", ".illustrations-file-upload", (event) =>
   handleSignAttachmentUpload($(event.target), ".sign-illustrations", "illustrations"));
+$(document).on("upload-success", ".video-comment-file-upload", (event) =>
+  handleSignAttachmentUpload($(event.target), ".video-comment", "video_comment"));
 
 $(document).on("ajax:success", ".sign-usage-examples a[data-method='delete']", () => handleAttachmentRemoval("usage-examples"));
 $(document).on("ajax:success", ".sign-illustrations a[data-method='delete']", () => handleAttachmentRemoval("illustrations"));
+$(document).on("ajax:success", ".video-comments a[data-method='delete']", () => handleAttachmentRemoval("video-comment"));
 
 $(document).on("blur keydown", ".js-attachment-description", (event) => {
   if (event.keyCode && event.keyCode !== 13) { return; }
