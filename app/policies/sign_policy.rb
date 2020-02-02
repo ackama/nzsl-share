@@ -37,8 +37,12 @@ class SignPolicy < ApplicationPolicy
     Pundit.policy_scope(user, record.folders).any?
   end
 
-  def show_comment_element?
+  def allow_new_comment?
     owns_record? || user&.approved? || user&.administrator?
+  end
+
+  def allow_comment_options?
+    allow_new_comment?
   end
 
   def destroy?
