@@ -8,7 +8,6 @@
       <%= comment.user_avatar %>
     <% end %>
   <% end %>
-
 </div>
 
 <div class="cell auto sign-comments__comment">
@@ -17,11 +16,17 @@
       <%= comment.username %>
     <% end unless comment.anonymous %>
   </span>
-  <span class="cell auto">
-    <%= comment.user_comment %>
-  </span>
+  <% if comment&.video.attached? %>
+    <span class="cell auto video-wrapper data-overlay">
+      <%= video_tag url_for(comment.video), size: "320x240", controls: true %>
+    </span>
+  <% else %>
+    <span class="cell auto">
+      <%= comment.user_comment %>
+    </span>
+  <% end %>
 </div>
 
 <div class="cell shrink">
-  <%= render "sign_comments/options", comment: comment %>
+  <%= render "sign_comments/shared/options", comment: comment %>
 </div>
