@@ -6,7 +6,7 @@
 <%= form_with(model: @sign_comment, url: sign_comment_video_path(@sign, @sign_comment.id || 0), method: :patch, remote: true) do |f| %>
   <div class="grid-x grid-padding-x">
     <div class="cell shrink">
-      <% user = present(@sign.contributor) %>
+      <% user = present(current_user) %>
       <%= link_to user_path(user) do %>
         <%= user.avatar("avatar avatar--small") %>
       <% end %><br>
