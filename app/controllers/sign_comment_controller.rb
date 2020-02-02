@@ -14,7 +14,7 @@ class SignCommentController < ApplicationController
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
-    @sign_comment.update(comment: comment_params[:comment], display: true)
+    @sign_comment.update(build_text_comment.merge(display: true))
     @sign.reload
     refresh_comments
   end
