@@ -37,6 +37,8 @@ class FolderPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
+      return scope.none unless user
+
       base = scope.left_outer_joins(:collaborations)
       collaborative = base.where(collaborations: { collaborator_id: user.id })
       owned = base.where(user_id: user.id)
