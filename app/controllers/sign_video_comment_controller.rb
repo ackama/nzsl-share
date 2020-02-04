@@ -47,11 +47,18 @@ class SignVideoCommentController < ApplicationController
   end
 
   def create_params
-    { user: current_user, sign: @sign, sign_status: @sign.status, comment: blob.filename, display: false }
+    {
+      user: current_user,
+      sign: @sign,
+      sign_status: @sign.status,
+      comment: blob.filename,
+      display: false
+    }
   end
 
   def update_params
     {
+      parent_id: params[:sign_comment][:parent_id],
       folder_id: params[:sign_comment][:folder_id],
       anonymous: params[:sign_comment][:anonymous],
       display: true
