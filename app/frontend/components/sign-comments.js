@@ -6,23 +6,42 @@ $(document).ready(function() {
     $(element).toggle();
   });
 
-  $("body").on("change", ".js-sign-comment-type", function(event) {
+  $("body").on("change", ".js-sign-comment-folder", function(event) {
     event.preventDefault();
+    var folderId = $(this).val();
+    var text = document.getElementById("sign_comment_folder_id");
+    var video = document.getElementById("sign_comment_video_folder_id");
+    $(video).val(folderId);
+    $(text).val(folderId);
+  });
 
-    var option = $(this).children("option:selected").val();
+  $("body").on("change", ".js-sign-comment-type-new", function(event) {
+    event.preventDefault();
+    var option = $(this).val();
     var text = document.getElementById("new-text-comment");
     var video = document.getElementById("new-video-comment");
 
     if (option === "video") {
       $(video).show();
       $(text).hide();
-      $("#sign_comment_video_type").val("video");
-      $("#sign_comment_text_type").val("video");
     } else {
       $(video).hide();
       $(text).show();
-      $("#sign_comment_video_type").val("text");
-      $("#sign_comment_text_type").val("text");
+    }
+  });
+
+  $("body").on("change", ".js-sign-comment-type-reply", function(event) {
+    event.preventDefault();
+    var option = $(this).val();
+    var text = $(this).parent().parent().siblings().closest("div#new-text-comment-reply");
+    var video = $(this).parent().parent().siblings().closest("div[id^=new-video-comment-reply]");
+
+    if (option === "video") {
+      $(video).show();
+      $(text).hide();
+    } else {
+      $(video).hide();
+      $(text).show();
     }
   });
 });
