@@ -4,31 +4,11 @@
 
 <% @sign_comment ||= SignComment.new %>
 <%= form_with(model: @sign_comment, url: sign_comment_video_path(@sign, @sign_comment.id || 0), method: :patch, remote: true) do |f| %>
-  <div class="grid-x grid-padding-x">
-    <div class="cell shrink">
-      <% user = present(current_user) %>
-      <%= link_to user_path(user) do %>
-        <%= user.avatar("avatar avatar--small") %>
-      <% end %><br>
-    </div>
-    <div class="sign-comment--heading comment-select">
-      <%= label_tag :sign_comment_type, "You are making a" %>
-      <%= select_tag :sign_comment_video_type, options_for_select(SignComment.comment_types, "video"), { class: "sign-comment__select__items js-sign-comment-type"} %>
-      &nbsp;
-      <%= label_tag :folder_id, "in" %>
-      <%= f.select :folder_id,
-                     options_for_select(
-                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
-                       policy_scope(@sign.folders).map { |f| [f.title, f.id] },
-                       params[:comments_in_folder]), {}, { class: "sign-comment__select__items"}  %><br>
-    </div>
-  </div>
-
   <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
     <% if @sign_comment&.video.blank? %>
       <div class="video-comment cell">
         <%= content_tag(:div, class: "file-upload video-comment-file-upload",
-          data: { sign_id: @sign.id, file_upload_controller: "video_comment" }) do %>
+          data: { sign_id: @sign.id, parent_id: comment&.id, file_upload_controller: "video_comment" }) do %>
           <%= label_tag :"video_comment", "Browse files", class: "button primary large" %>
         <% end %>
       </div>
@@ -59,6 +39,8 @@
       </div>
       <div class="sign-comment__text-area cell">
         <%= f.text_field :description, maxlength: "50", placeholder: "Write a text translation", data: {characters: ""}, class: "sign-comment__text-area--text" %>
+        <%= f.hidden_field :folder_id, value: "" %>
+        <%= f.hidden_field :parent_id, value: "" %>
         <p class="help-text text-right"><span data-character-count="sign_comment_description">0</span>/50 characters</p>
       </div>
       <div class="cell">
