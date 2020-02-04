@@ -16,7 +16,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def update?
-    owns_record? || collaborator?
+    collaborator?
   end
 
   def edit?
@@ -24,7 +24,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owns_record? && record.user.folders_count > 1
+    owns_record? && collaborator? && record.user.folders_count > 1
   end
 
   def share?
@@ -41,8 +41,7 @@ class FolderPolicy < ApplicationPolicy
 
       base = scope.left_outer_joins(:collaborations)
       collaborative = base.where(collaborations: { collaborator_id: user.id })
-      owned = base.where(user_id: user.id)
-      collaborative.or(owned).distinct.in_order
+      collaborative.distinct.in_order
     end
   end
 
