@@ -95,7 +95,7 @@ RSpec.describe "Folders", type: :system do
       folders[1..-1].each(&:destroy)
       process.start
       process.within_list_item_menu do
-        expect(page).not_to have_link "Delete"
+        expect(page).to have_no_link "Delete"
       end
     end
 
@@ -119,7 +119,7 @@ RSpec.describe "Folders", type: :system do
 
       it "cannot delete the folder", uses_javascript: true do
         process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
-          expect(page).not_to have_link "Delete"
+          expect(page).to have_no_link "Delete"
         end
       end
     end

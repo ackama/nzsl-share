@@ -16,16 +16,14 @@ RSpec.describe "Collaborative Folders", type: :system do
     context "user is a collaborator", uses_javascript: true do
       it "is allowed" do
         process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
-          expect(page).to have_link "Team Memberss"
+          expect(page).to have_link "Manage team"
         end
       end
     end
 
-    context "user is not a collaborator", uses_javascript: true do
-      it "is not allowed" do
-        process.within_specific_list_item_menu(folder.title, dropdown: true) do
-          expect(page).to have_no_link "Team Member"
-        end
+    context "user is not a collaborator" do
+      it "cannot see the folder" do
+        expect(process).to have_no_content folder.title
       end
     end
   end
@@ -139,7 +137,7 @@ RSpec.describe "Collaborative Folders", type: :system do
 
     it "cannot delete others' private signs" do
       visit edit_sign_path(private_sign.id)
-      expect(page).not_to have_link I18n.t!("signs.destroy.link")
+      expect(page).to have_no_link I18n.t!("signs.destroy.link")
     end
   end
 end

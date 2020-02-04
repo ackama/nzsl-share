@@ -26,8 +26,7 @@ RSpec.describe "share_folder", type: :request do
     context "token" do
       before(:each) do
         sign_in user
-        allowed_folder.user = user
-        allowed_folder.save
+        allowed_folder.collaborators << user
       end
 
       it "creates" do
@@ -61,8 +60,7 @@ RSpec.describe "share_folder", type: :request do
       before(:each) do
         sign_in user
 
-        allowed_folder.user = user
-        allowed_folder.save
+        allowed_folder.collaborators << user
         create.call(allowed_folder.id)
         allowed_folder.reload.share_token
 
@@ -80,8 +78,7 @@ RSpec.describe "share_folder", type: :request do
       before(:each) do
         sign_in user
 
-        allowed_folder.user = user
-        allowed_folder.save
+        allowed_folder.collaborators << user
         create.call(allowed_folder.id)
         allowed_folder.reload.share_token
 
@@ -98,8 +95,7 @@ RSpec.describe "share_folder", type: :request do
     context "invalid id and share token" do
       before(:each) do
         sign_in user
-        allowed_folder.user = user
-        allowed_folder.save
+        allowed_folder.collaborators << user
       end
 
       it "raises an exception" do

@@ -24,7 +24,7 @@ class FolderFeature
   end
 
   def submit_new_collaborator_form
-    click_on "Create Collaboration"
+    click_on "Add to folder"
   end
 
   def enter_identifier(identifier)
@@ -71,7 +71,7 @@ class FolderFeature
 
   def manage_collaborators(dropdown: false)
     within_list_item_menu(dropdown: dropdown) do
-      click_on "Team Members"
+      click_on "Manage team"
     end
   end
 end

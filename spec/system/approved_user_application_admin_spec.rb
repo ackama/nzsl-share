@@ -33,7 +33,7 @@ RSpec.describe "Approved user applications administration", type: :system do
     context "already accepted" do
       let!(:application) { FactoryBot.create(:approved_user_application).tap(&:accept!) }
       it "does not show accept link" do
-        expect(page).not_to have_link "Accept"
+        expect(page).to have_no_link "Accept"
       end
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe "Approved user applications administration", type: :system do
     context "already declined" do
       let!(:application) { FactoryBot.create(:approved_user_application).tap(&:decline!) }
       it "does not show decline link" do
-        expect(page).not_to have_link "Decline"
+        expect(page).to have_no_link "Decline"
       end
     end
   end
