@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Sign card features", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let!(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+  let!(:private_sign) { FactoryBot.create(:sign, :personal) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
   let(:authenticator) { AuthenticateFeature.new(user) }
 
@@ -64,27 +65,46 @@ RSpec.describe "Sign card features", type: :system do
   describe "Adding & removing from folders with JS", uses_javascript: true do
     let(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: user) }
+    let!(:collab_folder) { FactoryBot.create(:folder) }
+    let!(:empty_collab_folder) { FactoryBot.create(:folder) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-
+    let!(:collab_folder_membership) { FolderMembership.create(folder: collab_folder, sign: sign) }
     # We have added records so need to reload
-    before { visit topic_path(sign.topics.first) }
+    before do
+      collab_folder.collaborators << user
+      empty_collab_folder.collaborators << user
+
+      visit topic_path(sign.topics.first)
+    end
 
     it "shows existing folder state" do
       inside_card do
         click_on "Folders"
         active_checkbox = page.find_field("membership_folder_#{folder.id}_sign_#{sign.id}")
         inactive_checkbox = page.find_field("membership_folder_#{other_folder.id}_sign_#{sign.id}")
+        inactive_collab_checkbox = page.find_field("membership_folder_#{empty_collab_folder.id}_sign_#{sign.id}")
         expect(active_checkbox).to be_checked
         expect(inactive_checkbox).not_to be_checked
+        expect(inactive_collab_checkbox).not_to be_checked
         expect(page).to have_selector ".sign-card__folders__button--in-folder"
       end
     end
 
-    it "adds the sign to a folder" do
+    it "adds the sign to an owned folder" do
       inside_card do
         click_on "Folders"
         expect do
           page.find("label", text: other_folder.title).click
+          wait_for_ajax
+        end.to change(FolderMembership, :count).by(1)
+      end
+    end
+
+    it "adds the sign to a collaborative folder" do
+      inside_card do
+        click_on "Folders"
+        expect do
+          page.find("label", text: empty_collab_folder.title).click
           wait_for_ajax
         end.to change(FolderMembership, :count).by(1)
       end
@@ -113,11 +133,21 @@ RSpec.describe "Sign card features", type: :system do
       end
     end
 
-    it "removes the sign from a folder" do
+    it "removes a sign from an owned folder" do
       inside_card do
         click_on "Folders"
         expect do
           page.find("label", text: folder.title).click
+          wait_for_ajax
+        end.to change(FolderMembership, :count).by(-1)
+      end
+    end
+
+    it "removes a sign from a collab folder" do
+      inside_card do
+        click_on "Folders"
+        expect do
+          page.find("label", text: collab_folder.title).click
           wait_for_ajax
         end.to change(FolderMembership, :count).by(-1)
       end

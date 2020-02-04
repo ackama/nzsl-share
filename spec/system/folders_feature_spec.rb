@@ -61,6 +61,24 @@ RSpec.describe "Folders", type: :system do
     context "without JS" do
       it_behaves_like "editing a folder"
     end
+
+    context "as a collaborator" do
+      let!(:collab_folder) { FactoryBot.create(:folder) }
+      before do
+        collab_folder.collaborators << process.user
+        process.start
+      end
+
+      it "can edit the folder", uses_javascript: true do
+        process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
+          click_on "Edit"
+        end
+        process.enter_title(title + " CHANGED")
+        process.submit_edit_folder_form
+        expect(process).to have_content "Folder successfully updated."
+        expect(process).to have_content(title + " CHANGED")
+      end
+    end
   end
 
   describe "Removing a folder" do
@@ -77,7 +95,7 @@ RSpec.describe "Folders", type: :system do
       folders[1..-1].each(&:destroy)
       process.start
       process.within_list_item_menu do
-        expect(page).not_to have_link "Delete"
+        expect(page).to have_no_link "Delete"
       end
     end
 
@@ -91,11 +109,30 @@ RSpec.describe "Folders", type: :system do
       confirmation = page.driver.browser.switch_to.alert
       expect(confirmation.text).to eq I18n.t!("folders.destroy.confirm")
     end
+
+    context "as a collaborator" do
+      let!(:collab_folder) { FactoryBot.create(:folder) }
+      before do
+        collab_folder.collaborators << process.user
+        process.start
+      end
+
+      it "cannot delete the folder", uses_javascript: true do
+        process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
+          expect(page).to have_no_link "Delete"
+        end
+      end
+    end
   end
 
   describe "The folders index page" do
     let!(:folder) { FactoryBot.create(:folder, user: process.user) }
-    before { process.start }
+    let!(:collab_folder) { FactoryBot.create(:folder) }
+
+    before do
+      collab_folder.collaborators << process.user
+      process.start
+    end
 
     it "has the expected page title" do
       expect(page).to have_title "My Folders – NZSL Share"
@@ -104,6 +141,11 @@ RSpec.describe "Folders", type: :system do
     it "links folder titles to their corresponding show page" do
       click_on folder.title
       expect(page).to have_current_path(folder_path(folder))
+    end
+
+    it "displays all the appropriate folders" do
+      expect(page).to have_content(folder.title)
+      expect(page).to have_content(collab_folder.title)
     end
   end
 
@@ -120,6 +162,10 @@ RSpec.describe "Folders", type: :system do
 
     it "renders the folder title" do
       expect(page).to have_content folder.title
+    end
+
+    it "renders the manage collaborators button" do
+      expect(page).to have_content "Manage team"
     end
   end
 end

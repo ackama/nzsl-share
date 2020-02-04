@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
+  create_table "collaborations", force: :cascade do |t|
+    t.bigint "folder_id", null: false
+    t.bigint "collaborator_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collaborator_id"], name: "index_collaborations_on_collaborator_id"
+    t.index ["folder_id", "collaborator_id"], name: "index_collaborations_on_folder_id_and_collaborator_id", unique: true
+    t.index ["folder_id"], name: "index_collaborations_on_folder_id"
+  end
+
   create_table "folder_memberships", force: :cascade do |t|
     t.bigint "folder_id", null: false
     t.bigint "sign_id", null: false
@@ -142,9 +152,9 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
     t.text "description"
-    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
+    t.text "notes"
     t.string "share_token"
     t.string "status", null: false
     t.datetime "submitted_at"
@@ -194,13 +204,27 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
     t.datetime "confirmation_sent_at"
     t.integer "contribution_limit", default: 50
     t.text "bio"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "approved_user_applications", "users"
+  add_foreign_key "collaborations", "folders"
+  add_foreign_key "collaborations", "users", column: "collaborator_id"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"

@@ -50,11 +50,13 @@ Rails.application.routes.draw do
 
   resources :folders do
     resources :share, only: %i[show create destroy], controller: :folder_share, param: :token
+    resources :collaborations, controller: :collaborations
   end
 
   get "/videos/:id/:preset" => "videos#show", as: :video
 
   resources :folder_memberships, only: %i[create destroy]
+
   scope "/user" do
     resources :signs, only: [:index], as: :user_signs
   end

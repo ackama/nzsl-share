@@ -20,7 +20,7 @@ RSpec.describe "Editing a sign", type: :system do
 
   it "shows the destroy button to contributors for private signs" do
     expect(subject).to have_content "Remove from NZSL Share"
-    expect(subject).not_to have_content "Unpublish"
+    expect(subject).to have_no_content "Unpublish"
   end
 
   context "moderator signed in" do
@@ -33,7 +33,7 @@ RSpec.describe "Editing a sign", type: :system do
 
     it "shows the unpublish button" do
       expect(subject).to have_content "Unpublish"
-      expect(subject).not_to have_content "Remove from NZSL Share"
+      expect(subject).to have_no_content "Remove from NZSL Share"
     end
   end
 
@@ -180,7 +180,7 @@ RSpec.describe "Editing a sign", type: :system do
         within(list_selector) do
           expect(page).to have_selector "li", count: 1
           click_button "Remove File"
-          expect(page).not_to have_selector "li"
+          expect(page).to have_no_selector "li"
         end
       end
 
@@ -223,7 +223,7 @@ RSpec.describe "Editing a sign", type: :system do
           click_on "Remove File"
         end
 
-        expect(page.find(list_selector)).not_to have_selector "li"
+        expect(page.find(list_selector)).to have_no_selector "li"
       end
 
       it "can upload a new file" do

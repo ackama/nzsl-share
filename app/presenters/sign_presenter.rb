@@ -46,10 +46,7 @@ class SignPresenter < ApplicationPresenter
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
-    @folders ||= h.current_user.folders.in_order
-    @memberships ||= sign.folder_memberships.includes(:folder).where(folder_id: @folders.map(&:id))
-
-    map_folders_to_memberships(@folders, @memberships, &block)
+    map_folders_to_memberships(folders, memberships, &block)
   end
 
   def assignable_folder_options
@@ -83,9 +80,17 @@ class SignPresenter < ApplicationPresenter
       return I18n.t("sign_workflow.#{sign.submitted? ? "publish" : "unpublish"}.confirm")
     end
 
-    action_text = sign.contributor == current_user ? "you are the creator of this sign" : "you are moderating this sign"
+    "Hey #{current_user.username}, #{action_text(current_user)}"
+  end
 
-    "Hey #{current_user.username}, #{action_text}"
+  def action_text(current_user)
+    if sign.contributor == current_user
+      "you are the creator of this sign"
+    elsif current_user.moderator
+      "you are moderating this sign"
+    else
+      "you are a collaborator on this sign"
+    end
   end
 
   def pending?
@@ -105,5 +110,14 @@ class SignPresenter < ApplicationPresenter
 
       acc[folder] = membership
     end
+  end
+
+  def folders
+    @folders ||= Pundit.policy_scope(h.current_user, Folder)
+                       .where(collaborations: { collaborator_id: h.current_user.id })
+  end
+
+  def memberships
+    @memberships ||= sign.folder_memberships.includes(:folder).where(folder_id: @folders.map(&:id))
   end
 end

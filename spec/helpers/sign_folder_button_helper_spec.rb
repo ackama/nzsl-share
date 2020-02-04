@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SignsHelper, type: :helper do
+RSpec.describe SignFolderButtonHelper, type: :helper do
   describe "#folder_button" do
     before do
       allow(helper).to receive(:current_user).and_return(user)

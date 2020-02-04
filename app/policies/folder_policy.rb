@@ -4,7 +4,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def show?
-    owns_record?
+    collaborator?
   end
 
   def create?
@@ -16,7 +16,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def update?
-    owns_record?
+    collaborator?
   end
 
   def edit?
@@ -24,16 +24,24 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owns_record? && record.user.folders_count > 1
+    owns_record? && collaborator? && record.user.folders_count > 1
   end
 
   def share?
-    owns_record?
+    owns_record? || collaborator?
+  end
+
+  def manage_collaborators?
+    collaborator?
   end
 
   class Scope < Scope
     def resolve
-      scope.where(user: user).in_order
+      return scope.none unless user
+
+      base = scope.left_outer_joins(:collaborations)
+      collaborative = base.where(collaborations: { collaborator_id: user.id })
+      collaborative.distinct.in_order
     end
   end
 
@@ -41,5 +49,11 @@ class FolderPolicy < ApplicationPolicy
 
   def owns_record?
     record.user == user
+  end
+
+  def collaborator?
+    return unless user
+
+    record.collaborators.map(&:id).include? user.id
   end
 end

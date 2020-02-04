@@ -48,9 +48,18 @@
   }
 
   &__description {
-    color: get-color(medium);
+    color: $black;
     font-size: 15px;
     margin-top: $global-margin / 2;
+
+    &--metadata {
+      color: get-color(medium);
+      font-size: rem-calc(13);
+    }
+
+    .bullet {
+      color: get-color(medium);
+    }
   }
 
   .button {
@@ -83,6 +92,11 @@
 
     &__details {
       color: get-color(medium);
+
+      a {
+        color: get-color(medium);
+        font-weight: normal;
+      }
     }
 
     &__title {
@@ -122,6 +136,12 @@
       span {
         margin-left: 8px;
       }
+    }
+
+    &--collab {
+      max-height: rem-calc(243);
+      overflow-y: scroll;
+      position: relative;
     }
 
     &__menu-item {

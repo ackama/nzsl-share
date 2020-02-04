@@ -4,7 +4,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show?
-    public_record? || owns_record? || (moderator? && !private_record?)
+    public_record? || owns_record? || (moderator? && !private_record?) || collaborator?
   end
 
   def create?
@@ -16,7 +16,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def update?
-    (owns_record? && !public_record?) || (moderator? && !private_record?)
+    (owns_record? && !public_record?) || (moderator? && !private_record?) || (collaborator? && !public_record?)
   end
 
   def edit?
@@ -48,7 +48,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def overview?
-    owns_record? || (!private_record? && moderator?)
+    owns_record? || (!private_record? && moderator?) || collaborator?
   end
 
   def submit?
@@ -80,7 +80,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def manage_folders?
-    return true if owns_record? || public_record?
+    return true if owns_record? || public_record? || collaborator?
 
     false
   end
@@ -94,13 +94,29 @@ class SignPolicy < ApplicationPolicy
       scope
     end
 
+    def resolve_moderator
+      scope.where("contributor_id = ? or status != ?", user.id, "personal")
+    end
+
+    def resolve_user
+      base = scope.left_outer_joins(folders: :collaborations)
+      public_or_owned = base.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?",
+                                   user.id)
+      collaborative = base.where(folders: { collaborations: { collaborator_id: user.id } })
+      Sign.where(id: public_or_owned.or(collaborative).distinct.pluck(:id))
+    end
+
+    def resolve_public
+      scope.where("status = 'published' or status = 'unpublish_requested'")
+    end
+
     def resolve
       if user && user.moderator
-        scope.where("contributor_id = ? or status != ?", user.id, "personal")
+        resolve_moderator
       elsif user
-        scope.where("status = 'published' or status = 'unpublish_requested' or contributor_id = ?", user.id)
+        resolve_user
       else
-        scope.where("status = 'published' or status = 'unpublish_requested'")
+        resolve_public
       end
     end
   end
@@ -121,5 +137,13 @@ class SignPolicy < ApplicationPolicy
 
   def contributor?
     user.present?
+  end
+
+  def collaborator?
+    return unless user
+
+    record.folders.left_outer_joins(:collaborations)
+          .where(folders: { collaborations: { collaborator_id: user.id } })
+          .any?
   end
 end

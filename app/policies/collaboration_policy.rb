@@ -1,6 +1,6 @@
-class FolderMembershipPolicy < ApplicationPolicy
+class CollaborationPolicy < ApplicationPolicy
   def create?
-    collaborator?
+    true
   end
 
   def destroy?

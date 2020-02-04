@@ -1,6 +1,6 @@
 class FolderFeature
   include Capybara::DSL
-  attr_reader :user
+  attr_reader :user, :folder
 
   def initialize(user=FactoryBot.create(:user))
     @user = user
@@ -23,6 +23,14 @@ class FolderFeature
     fill_in "folder_description", with: description
   end
 
+  def submit_new_collaborator_form
+    click_on "Add to folder"
+  end
+
+  def enter_identifier(identifier)
+    fill_in "collaboration_identifier", with: identifier
+  end
+
   def submit_new_folder_form
     click_on "Create Folder"
   end
@@ -42,6 +50,13 @@ class FolderFeature
     end
   end
 
+  def within_specific_list_item_menu(title, dropdown: false)
+    within(find(".small-5", text: title, visible: true).first(:xpath, ".//..")) do
+      click_on "Folder Options" if dropdown
+      yield
+    end
+  end
+
   def edit_folder(dropdown: false)
     within_list_item_menu(dropdown: dropdown) do
       click_on "Edit"
@@ -51,6 +66,12 @@ class FolderFeature
   def remove_folder(dropdown: false)
     within_list_item_menu(dropdown: dropdown) do
       click_on "Delete"
+    end
+  end
+
+  def manage_collaborators(dropdown: false)
+    within_list_item_menu(dropdown: dropdown) do
+      click_on "Manage team"
     end
   end
 end

@@ -33,6 +33,13 @@ en:
   approved_user_applications:
     create:
       success: Thank you! An NZSL Share Admin will look at your application soon.
+  collaborations:
+    create:
+      success: "Successfully added team member to this folder."
+    destroy:
+      confirm: "Are you sure you want to remove this person from the folder?"
+      success: "Successfully removed from folder."
+      failure: "Failed to remove from folder."
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
@@ -164,6 +171,9 @@ en:
       subject: Your approved member application on NZSL Share
     declined:
       subject: Your approved member application on NZSL Share
+  collaboration_mailer:
+    success:
+      subject: "You have been added as a collaborator"
   activemodel:
     errors: &activemodel_errors
       messages:
