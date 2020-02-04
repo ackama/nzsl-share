@@ -16,7 +16,7 @@
         <h1 class="cell auto"><%= @folder.title %></h1>
         <div class="cell shrink grid-x align-middle">
           <%= link_to new_folder_collaboration_path(@folder), remote: true, class: "button clear" do %>
-            <%= inline_svg "media/images/users.svg", class: "icon icon--royal" %>Manage
+            <%= inline_svg "media/images/users.svg", class: "icon icon--royal" %>Manage team
           <% end %>
           <div class="list__divider--vertical"></div>
           <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear", data: { confirm: t("folder_share.create.confirmation") } do %>
@@ -40,7 +40,7 @@
             on <%= @folder.created_at.strftime("%d %b %Y") %>
         </div>
         <div class="bullet">•</div>
-        <div class="list__description--metadata"><%= pluralize(@folder.collaborators.count, "collaborator") %></div>
+        <div class="list__description--metadata"><%= pluralize(@folder.collaborators.count, "team member") %></div>
       </div>
     </div>
     <hr class="list__divider"/>

@@ -71,7 +71,7 @@ class FolderFeature
 
   def manage_collaborators(dropdown: false)
     within_list_item_menu(dropdown: dropdown) do
-      click_on "Collaborators"
+      click_on "Team Members"
     end
   end
 end

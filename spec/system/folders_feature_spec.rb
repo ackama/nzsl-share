@@ -165,7 +165,7 @@ RSpec.describe "Folders", type: :system do
     end
 
     it "renders the manage collaborators button" do
-      expect(page).to have_content "Manage"
+      expect(page).to have_content "Manage team"
     end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe "Collaborative Folders", type: :system do
     context "user is a collaborator", uses_javascript: true do
       it "is allowed" do
         process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
-          expect(page).to have_link "Collaborators"
+          expect(page).to have_link "Team Members"
         end
       end
     end
