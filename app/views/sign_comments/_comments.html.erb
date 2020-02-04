@@ -6,11 +6,7 @@
       <%= form_with url: params.to_unsafe_h, method: :get, remote: false, class: "comment-select" do |f| %>
         <%= f.label :comments_in_folder, "Comments for " %>
         <%= f.select :comments_in_folder,
-                     options_for_select(
-                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
-                       policy_scope(@sign.folders).map { |f| [f.title, f.id] },
-                       params[:comments_in_folder]
-                     ),
+                     options_for_select(folder_selection(@sign), params[:comments_in_folder]),
                      {},
                      class: "comment-select",
                      onchange: "this.form.submit()" %>
@@ -75,5 +71,9 @@
     <% end %>
   <% end %>
 
+  <hr class="sign-comments__divider">
+
   <%= render "sign_comments/new", sign: @sign if policy(@sign).allow_new_comment? %>
+
+  <div class="margin-bottom-1"></div>
 </div>
