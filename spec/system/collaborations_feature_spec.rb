@@ -16,7 +16,7 @@ RSpec.describe "Collaborative Folders", type: :system do
     context "user is a collaborator", uses_javascript: true do
       it "is allowed" do
         process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
-          expect(page).to have_link "Team Members"
+          expect(page).to have_link "Team Memberss"
         end
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe "Collaborative Folders", type: :system do
     context "user is not a collaborator", uses_javascript: true do
       it "is not allowed" do
         process.within_specific_list_item_menu(folder.title, dropdown: true) do
-          expect(page).not_to have_link "Collaborators"
+          expect(page).to have_no_link "Team Member"
         end
       end
     end
@@ -41,14 +41,14 @@ RSpec.describe "Collaborative Folders", type: :system do
         process.manage_collaborators(dropdown: true)
         process.enter_identifier(collaborator.email)
         process.submit_new_collaborator_form
-        expect(process).to have_content "Successfully added collaborator to folder."
+        expect(process).to have_content "Successfully added team member to this folder."
       end
 
       it "sends an email invite if collaborator doesn't have an account" do
         process.manage_collaborators(dropdown: true)
         process.enter_identifier("fake@email.com")
         process.submit_new_collaborator_form
-        expect(process).to have_content "Successfully added collaborator to folder."
+        expect(process).to have_content "Successfully added team member to this folder."
       end
     end
 
@@ -57,7 +57,7 @@ RSpec.describe "Collaborative Folders", type: :system do
         process.manage_collaborators(dropdown: true)
         process.enter_identifier(collaborator.username)
         process.submit_new_collaborator_form
-        expect(process).to have_content "Successfully added collaborator to folder."
+        expect(process).to have_content "Successfully added team member to this folder."
       end
 
       it "shows validation error if username doesn't exist" do
@@ -82,7 +82,7 @@ RSpec.describe "Collaborative Folders", type: :system do
       it "successfully" do
         process.manage_collaborators(dropdown: true)
         within ".modal-form__fields", match: :first do
-          process.find("div", text: collaborator.email, visible: true).sibling("div").click
+          process.find("div", text: collaborator.username, visible: true).sibling("div").click
         end
         confirmation = page.driver.browser.switch_to.alert
         expect(confirmation.text).to eq I18n.t!("collaborations.destroy.confirm")
@@ -93,7 +93,7 @@ RSpec.describe "Collaborative Folders", type: :system do
       it "successfully" do
         process.manage_collaborators(dropdown: true)
         within ".modal-form__fields", match: :first do
-          process.find("div", text: process.user.email, visible: true).sibling("div").click
+          process.find("div", text: process.user.username, visible: true).sibling("div").click
         end
         confirmation = page.driver.browser.switch_to.alert
         expect(confirmation.text).to eq I18n.t!("collaborations.destroy.confirm")
