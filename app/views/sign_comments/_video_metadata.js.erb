@@ -1,1 +1,2 @@
-$("#new-video-comment").html("<%= j render(partial: "sign_comments/video",  locals: { sign: @sign, sign_comment: @sign_comment }) %>");
+$("#new-video-comment").html("<%= j render(partial: "sign_comments/shared/video",  locals: { sign: @sign, sign_comment: @sign_comment }) %>");
+$("#new-video-comment-reply").html("<%= j render(partial: "sign_comments/shared/video",  locals: { sign: @sign, sign_comment: @sign_comment }) %>");
