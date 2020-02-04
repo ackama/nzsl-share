@@ -1,8 +1,7 @@
-<hr class="sign-comments__divider">
-
+<%= render "sign_comments/shared/selects", js_sign_comment: "js-sign-comment-type-new" %>
 <div id="new-text-comment">
-  <%= render "sign_comments/text", sign: @sign %>
+  <%= render "sign_comments/shared/text", comment: nil %>
 </div>
 <div id="new-video-comment" style="display:none;">
-  <%= render "sign_comments/video", sign: @sign %>
+  <%= render "sign_comments/shared/video", comment: nil %>
 </div>

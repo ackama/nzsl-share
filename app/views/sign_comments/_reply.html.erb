@@ -1,34 +1,7 @@
-<%= form_with(model: SignComment.new, url: sign_comment_index_path(@sign.id), method: :post) do |f| %>
-  <div class="grid-x grid-padding-x">
-    <div class="cell shrink">
-      <% user = present(current_user) %>
-      <%= link_to user_path(user) do %>
-        <%= user.avatar("avatar avatar--small") %>
-      <% end %><br>
-    </div>
-
-    <div class="sign-comment--heading comment-select">
-      <%= label_tag :sign_comment_type, "You are making a" %>
-      <%= select_tag :sign_comment_type, options_for_select(SignComment.comment_types, "text"), { class: "sign-comment__select__items"} %>
-      &nbsp;
-      <%= label_tag :folder_id, "in" %>
-      <%= f.select :folder_id,
-                     options_for_select(
-                       (@sign.published? || @sign.unpublish_requested? ? [["Public", nil]] : []) +\
-                       policy_scope(@sign.folders).map { |f| [f.title, f.id] },
-                       params[:comments_in_folder]
-                     ), {}, { class: "sign-comment__select__items"}  %><br>
-    </div>
-  </div>
-
-  <div class="grid-x grid-padding-x">
-    <div class="cell shrink"></div>
-    <div class="cell auto sign-comment__text-area">
-      <%= f.text_field :comment, placeholder: "Write your text comment", class: "sign-comment__text-area--text" %>
-      <%= f.hidden_field :parent_id, value: comment.id %>
-    </div>
-    <div class="cell">
-      <%= render "sign_comments/shared/anonymous", form: f %>
-    </div>
-  </div>
-<% end %>
+<%= render "sign_comments/shared/selects", js_sign_comment: "js-sign-comment-type-reply" %>
+<div id="new-text-comment-reply">
+  <%= render "sign_comments/shared/text", comment: comment %>
+</div>
+<div id="new-video-comment-reply" style="display:none;">
+  <%= render "sign_comments/shared/video", comment: comment %>
+</div>
