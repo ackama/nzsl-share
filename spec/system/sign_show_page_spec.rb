@@ -429,10 +429,48 @@ RSpec.describe "Sign show page", system: true do
         expect(page).to have_selector(".sign-comment", count: comments.size)
       end
 
-      xit "posts a new comment", uses_javascript: true do
+      it "posts a new comment", uses_javascript: true do
         comment_text = Faker::Lorem.sentence
         fill_in "Write your text comment", with: "#{comment_text}\n"
-        expect(page).to have_selector ".sign-comment", text: comment_text
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+      end
+    end
+
+    context "pagination" do
+      let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+      let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign: sign, user: user) }
+
+      it "shows older comments without JS" do
+        expected_comments = comments.sort_by(&:created_at)[10...20].map(&:comment)
+        visit current_path
+        click_on "Show older comments"
+        actual_comments = page.all(".sign-comments__comment .cell.auto:last").map(&:text)
+        expect(actual_comments).to match_array expected_comments
+      end
+
+      it "shows newer comments without JS" do
+        expected_comments = comments.sort_by(&:created_at)[20...30].map(&:comment)
+        visit current_path
+        click_on "Show older comments"
+        click_on "Show newer comments"
+        actual_comments = page.all(".sign-comments__comment .cell.auto:last").map(&:text)
+        expect(actual_comments).to match_array expected_comments
+      end
+
+      it "shows older comments with JS", uses_javascript: true do
+        visit current_path
+        sorted_comments = comments.sort_by(&:created_at)
+        first_set = sorted_comments[20...30].map(&:comment)
+        second_set = sorted_comments[10...20].map(&:comment)
+
+        actual_comments = page.all(".sign-comments__comment .cell.auto:last-child").map(&:text)
+        expect(actual_comments).to match_array(first_set)
+
+        click_on "Show older comments"
+
+        expect(page).to have_selector(".sign-comment", count: 20)
+        actual_comments = page.all(".sign-comments__comment .cell.auto:last-child").map(&:text)
+        expect(actual_comments).to match_array(second_set + first_set)
       end
     end
 
@@ -455,11 +493,11 @@ RSpec.describe "Sign show page", system: true do
         expect(page).to have_selector(".sign-comment", count: comments.size)
       end
 
-      xit "posts a new comment", uses_javascript: true do
+      it "posts a new comment", uses_javascript: true do
         comment_text = Faker::Lorem.sentence
         select folder.title, from: "sign_comment_folder_id"
         fill_in "Write your text comment", with: "#{comment_text}\n"
-        expect(page).to have_selector ".sign-comment", text: comment_text
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
         expect(SignComment.order(created_at: :desc).first.folder).to eq folder
       end
     end

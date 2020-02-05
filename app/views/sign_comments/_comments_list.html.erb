@@ -1,5 +1,5 @@
   <div class="sign-comments__list">
-  <% @comments.each do |comment| %>
+  <% @comments.reverse.each do |comment| %>
     <div class="grid-x align-middle grid-padding-x sign-comment">
       <% next unless comment.display %>
       <% comment = present(comment) %>

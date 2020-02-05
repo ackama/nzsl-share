@@ -70,8 +70,8 @@ class SignsController < ApplicationController
   end
 
   def sign_comments
-    @comments = policy_scope(@sign.sign_comments
-                .includes(user: :avatar_attachment)).where(folder_id: comments_folder_id)
+    @comments = policy_scope(@sign.sign_comments)
+                .includes(user: :avatar_attachment).where(folder_id: comments_folder_id)
                 .page(params[:comments_page]).per(10)
   end
 
