@@ -3,10 +3,10 @@ class SignsController < ApplicationController
 
   def show
     @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(id))
-    @comments = policy_scope(@sign.sign_comments
-      .includes(user: :avatar_attachment)).where(folder_id: comments_folder_id)
-    @sign.topic = fetch_referer
     authorize @sign
+
+    @sign.topic = fetch_referer
+    sign_comments
     return unless stale?(@sign)
 
     render
@@ -52,7 +52,6 @@ class SignsController < ApplicationController
     authorize @sign
     return render(:edit) unless @sign.save
 
-    flash[:notice] = t(".success")
     redirect_after_update(@sign)
   end
 
@@ -68,6 +67,12 @@ class SignsController < ApplicationController
 
   def fetch_referer
     request.referer ? URI(request.referer).path : nil
+  end
+
+  def sign_comments
+    @comments = policy_scope(@sign.sign_comments)
+                .includes(user: :avatar_attachment).where(folder_id: comments_folder_id)
+                .page(params[:comments_page]).per(10)
   end
 
   def check_contribution_limit!
@@ -100,12 +105,7 @@ class SignsController < ApplicationController
   end
 
   def comments_folder_id
-    fallback = if @sign.published? || @sign.unpublish_requested?
-                 nil
-               else
-                 policy_scope(@sign.folders).first
-               end
-
+    fallback = @sign.published? || @sign.unpublish_requested? ? nil : policy_scope(@sign.folders).first
     params[:comments_in_folder].presence || fallback
   end
 
@@ -123,7 +123,7 @@ class SignsController < ApplicationController
 
   def redirect_after_update(sign)
     respond_to do |format|
-      format.html { redirect_to sign }
+      format.html { redirect_to sign, notice: t(".success") }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" }
     end
   end

@@ -407,6 +407,7 @@ DEPENDENCIES
   faraday_middleware
   image_processing
   inline_svg
+  kaminari
   letter_opener
   lighthouse-matchers
   listen
@@ -438,4 +439,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

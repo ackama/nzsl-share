@@ -26,6 +26,7 @@ gem "image_processing"
 gem "aasm"
 gem "administrate"
 gem "raygun4ruby"
+gem "kaminari"
 
 gem "rack-canonical-host"
 

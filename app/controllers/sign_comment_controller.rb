@@ -46,6 +46,7 @@ class SignCommentController < ApplicationController
         @comments = policy_scope(@sign.sign_comments
           .includes(user: :avatar_attachment))
                     .where(folder_id: @sign_comment.folder_id)
+                    .page(params[:comments_page]).per(10)
         render partial: "sign_comments/refresh"
       end
     end
