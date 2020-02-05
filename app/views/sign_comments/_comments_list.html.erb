@@ -1,0 +1,53 @@
+  <div class="sign-comments__list">
+  <% @comments.each do |comment| %>
+    <div class="grid-x align-middle grid-padding-x sign-comment">
+      <% next unless comment.display %>
+      <% comment = present(comment) %>
+
+      <hr class="sign-comments__divider">
+    </div>
+
+    <div class="grid-x align-middle grid-padding-x">
+      <%= render "sign_comments/shared/comment", comment: comment %>
+    </div>
+
+    <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+      <div class="cell auto sign-comments__replies--reply">
+        <% if policy(@sign).show_comment_element? %>
+          <span class="cell auto">
+            <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
+              <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+              Reply
+            <% end %>
+            &nbsp;•&nbsp;
+          </span>
+        <% end %>
+
+        <span class="cell auto">
+          <%= comment.friendly_date %>
+        </span>
+      </div>
+    </div>
+
+    <% if policy(@sign).show_comment_element? %>
+      <div id="<%= dom_id(comment) %>" class="sign-comments__replies" style="display:none">
+        <%= render "sign_comments/reply", comment: comment %>
+      </div>
+    <% end %>
+
+    <% comment.replies.each do |reply| %>
+      <% next unless reply.display %>
+      <% reply = present(reply) %>
+
+      <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+        <%= render "sign_comments/shared/comment", comment: reply %>
+      </div>
+
+      <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+        <div class="cell auto sign-comments__replies sign-comments__replies--reply">
+          <%= comment.friendly_date %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  </div>

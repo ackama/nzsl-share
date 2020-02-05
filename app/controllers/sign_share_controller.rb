@@ -21,14 +21,19 @@ class SignShareController < ApplicationController
     @sign = present(fetch_sign_by_token)
     authorize share_data, policy_class: SharePolicy
 
-    @comments = policy_scope(@sign.sign_comments
-      .includes(user: :avatar_attachment)).where(folder_id: comments_folder_id)
     @sign.topic = fetch_referer
+    sign_comments
 
     render "signs/show"
   end
 
   private
+
+  def sign_comments
+    @comments = policy_scope(@sign.sign_comments
+                .includes(user: :avatar_attachment)).where(folder_id: comments_folder_id)
+                .page(params[:comments_page]).per(10)
+  end
 
   def share_data
     { shared: @sign.object, token: share_token } # pull the sign from the presenter
