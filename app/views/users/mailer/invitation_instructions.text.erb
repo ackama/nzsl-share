@@ -1,11 +1,11 @@
-<%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %>
+Hello <%= @resource.email %>,
 
-<%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %>
+Someone has invited you to join a team on NZSL Share.
+To join the team and set up an NZSL Share account, you
+can visit <%= accept_invitation_url(@resource, invitation_token: @token) %>.
 
-<%= accept_invitation_url(@resource, invitation_token: @token) %>
+Don't want to join NZSL Share? That's ok you don't have to do anything else.
 
-<% if @resource.invitation_due_at %>
-  <%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>
-<% end %>
+Thank you,
 
-<%= t("devise.mailer.invitation_instructions.ignore") %>
+NZSL Share admin (dsru@vuw.ac.nz)
