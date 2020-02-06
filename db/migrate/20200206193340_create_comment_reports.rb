@@ -7,5 +7,7 @@ class CreateCommentReports < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index :comment_reports, %i[user_id comment_id], unique: true
   end
 end

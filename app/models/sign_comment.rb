@@ -9,6 +9,13 @@ class SignComment < ApplicationRecord
                                                      foreign_key: "parent_id",
                                                      dependent: :destroy,
                                                      inverse_of: false # for rubocop
+
+  has_many :reports,
+           class_name: "CommentReport",
+           inverse_of: :comment,
+           dependent: :destroy,
+           foreign_key: :comment_id
+
   has_one_attached :video
 
   validates :sign, presence: true

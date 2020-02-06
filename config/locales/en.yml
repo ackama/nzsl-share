@@ -40,6 +40,9 @@ en:
       confirm: "Are you sure you want to remove this person from the folder?"
       success: "Successfully removed from folder."
       failure: "Failed to remove from folder."
+  comment_reports:
+    create:
+      success: This comment has been flagged for review
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"

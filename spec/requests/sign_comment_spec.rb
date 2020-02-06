@@ -22,10 +22,6 @@ RSpec.describe "sign_comment", type: :request do
     ->(sign, sign_comment) { delete "/signs/#{sign.id}/comment/#{sign_comment.id}" }
   end
 
-  let(:appropriate) do
-    ->(sign, sign_comment) { patch "/signs/#{sign.id}/comment/#{sign_comment.id}/appropriate" }
-  end
-
   let(:reply) do
     lambda { |sign, sign_comment|
       post "/signs/#{sign.id}/comment/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
@@ -113,19 +109,6 @@ RSpec.describe "sign_comment", type: :request do
         update.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.count).to eq 1
         expect(sign.sign_comments.first.comment).to eq "updated comment"
-        expect(response).to redirect_to sign_path(sign)
-      end
-    end
-
-    describe "appropriate" do
-      it "it flags a comment as inapprppriate" do
-        user.update(approved: true)
-        expect(sign.sign_comments.count).to eq 0
-        create.call(sign)
-        expect(sign.sign_comments.count).to eq 1
-        expect(sign.sign_comments.first.appropriate).to be true
-        appropriate.call(sign, sign.sign_comments.first)
-        expect(sign.sign_comments.first.appropriate).to be false
         expect(response).to redirect_to sign_path(sign)
       end
     end
