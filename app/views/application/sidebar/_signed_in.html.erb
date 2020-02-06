@@ -25,6 +25,11 @@
         <%= inline_svg "media/images/moderator.svg", aria_hidden: true %><span>Moderate signs</span>
       <% end %>
     </li>
+    <li class="<%= current_page?("/admin/comment_reports") && "is-active" %>">
+      <%= link_to admin_comment_reports_path do %>
+        <%= inline_svg "media/images/comment.svg", aria_hidden: true %><span>Moderate comments</span>
+      <% end %>
+    </li>
     <% if current_user.administrator %>
       <li class="<%= current_page?("/admin/approved_user_applications") && "is-active" %>">
         <%= link_to admin_approved_user_applications_path do %>
