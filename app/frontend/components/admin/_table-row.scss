@@ -7,4 +7,9 @@
   &--archived {
     background-color: get-color(alert-x-light);
   }
+
+  &__link {
+    color: get-color(royal);
+    text-decoration: underline;
+  }
 }
