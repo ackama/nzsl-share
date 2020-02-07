@@ -30,6 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  helpers:
+    label:
+      comment_report:
+        user: Reporter
+        created_at: Reported at
   approved_user_applications:
     create:
       success: Thank you! An NZSL Share Admin will look at your application soon.
