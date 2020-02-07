@@ -24,23 +24,19 @@ class CommentReportDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    user
     comment
+    user
+    created_at
     resolved_by
-    id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    user
     comment
-    resolved_by
-    id
-    comment_id
-    resolved_by_id
+    user
     created_at
-    updated_at
+    resolved_by
   ].freeze
 
   # FORM_ATTRIBUTES
