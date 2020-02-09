@@ -1,5 +1,9 @@
 <% return unless policy(@sign).display_comments? %>
 
+<%= content_for :head do %>
+  <%= javascript_pack_tag "videocomment", async: true, defer: true %>
+<% end %>
+
 <div id="sign-comments">
   <div class="grid-x">
     <div class="cell auto sign-comments--heading">
