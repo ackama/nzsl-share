@@ -16,7 +16,7 @@ class CollaborationsController < ApplicationController
       return
     end
 
-    CollaborationMailer.success(@collaboration.collaborator).deliver_later
+    CollaborationMailer.success(@collaboration).deliver_later
     redirect_after_save
   end
 

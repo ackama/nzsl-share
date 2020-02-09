@@ -4,8 +4,9 @@ RSpec.describe CollaborationMailer, type: :mailer do
   include ActiveJob::TestHelper
 
   describe ".success" do
-    let(:user) { FactoryBot.create(:user) }
-    let(:mail) { CollaborationMailer.success(user) }
+    let(:collaboration) { FactoryBot.create(:collaboration) }
+    let(:user) { collaboration.collaborator }
+    let(:mail) { CollaborationMailer.success(collaboration) }
 
     it "job is created" do
       ActiveJob::Base.queue_adapter = :test
@@ -15,14 +16,14 @@ RSpec.describe CollaborationMailer, type: :mailer do
     it "success email is sent" do
       expect do
         perform_enqueued_jobs do
-          CollaborationMailer.success(user).deliver_later
+          CollaborationMailer.success(collaboration).deliver_later
         end
       end.to change { ActionMailer::Base.deliveries.size }.by(1)
     end
 
     it "success email is sent to the right user" do
       perform_enqueued_jobs do
-        CollaborationMailer.success(user).deliver_later
+        CollaborationMailer.success(collaboration).deliver_later
       end
 
       mail = ActionMailer::Base.deliveries.last
@@ -30,14 +31,15 @@ RSpec.describe CollaborationMailer, type: :mailer do
     end
 
     it "renders the headers" do
-      expect(mail.subject).to eq("You have been added as a collaborator")
+      expect(mail.subject).to eq("NZSL Share: invitation to join a team")
       expect(mail.to).to eq([user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
 
     it "renders the body" do
       body = mail.body.encoded
-      expect(body).to include("You have been added as a collaborator on an NZSL Share folder.")
+      expect(body).to include("Someone has invited you to join a team on NZSL Share.")
+      expect(body).to include folder_url(collaboration.folder)
     end
   end
 end

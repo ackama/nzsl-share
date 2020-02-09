@@ -173,7 +173,7 @@ en:
       subject: Your approved member application on NZSL Share
   collaboration_mailer:
     success:
-      subject: "You have been added as a collaborator"
+      subject: "NZSL Share: invitation to join a team"
   activemodel:
     errors: &activemodel_errors
       messages:
