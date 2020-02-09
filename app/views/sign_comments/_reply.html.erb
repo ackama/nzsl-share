@@ -2,6 +2,13 @@
 <div id="new-text-comment-reply">
   <%= render "sign_comments/shared/text", comment: comment %>
 </div>
-<div id="new-video-comment-reply" style="display:none;">
-  <%= render "sign_comments/shared/video", comment: comment %>
+<div id="new-video-comment-reply-<%= comment.id %>" style="display: none;">
+  <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
+    <div class="video-comment-reply cell">
+      <%= content_tag(:div, class: "file-upload video-comment-file-upload-reply",
+                      data: { sign_id: @sign.id, parent_id: comment.id, file_upload_controller: "video_comment_reply_#{comment.id}" }) do %>
+        <%= label_tag :"video_comment_reply", "Browse files", class: "button primary large" %>
+      <% end %>
+    </div>
+  </div>
 </div>
