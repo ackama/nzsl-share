@@ -14,9 +14,4 @@ RSpec.describe CommentReport, type: :model do
     subject.comment = nil
     expect(subject).not_to be_valid
   end
-
-  it "is valid without a resolving user" do
-    subject.resolved_by = nil
-    expect(subject).to be_valid
-  end
 end

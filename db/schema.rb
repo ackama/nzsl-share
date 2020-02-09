@@ -68,11 +68,9 @@ ActiveRecord::Schema.define(version: 2020_02_06_202433) do
   create_table "comment_reports", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "comment_id", null: false
-    t.bigint "resolved_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["comment_id"], name: "index_comment_reports_on_comment_id"
-    t.index ["resolved_by_id"], name: "index_comment_reports_on_resolved_by_id"
     t.index ["user_id", "comment_id"], name: "index_comment_reports_on_user_id_and_comment_id", unique: true
     t.index ["user_id"], name: "index_comment_reports_on_user_id"
   end
@@ -238,7 +236,6 @@ ActiveRecord::Schema.define(version: 2020_02_06_202433) do
   add_foreign_key "collaborations", "users", column: "collaborator_id"
   add_foreign_key "comment_reports", "sign_comments", column: "comment_id"
   add_foreign_key "comment_reports", "users"
-  add_foreign_key "comment_reports", "users", column: "resolved_by_id"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
