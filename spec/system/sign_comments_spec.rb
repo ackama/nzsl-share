@@ -95,6 +95,18 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
       expect(SignComment.order(created_at: :desc).first.folder).to eq folder
     end
+
+    context "non-approved user", uses_javascript: true do
+      let(:user) { FactoryBot.create(:user, :approved) }
+
+      it "posts a new comment", uses_javascript: true do
+        comment_text = Faker::Lorem.sentence
+        select folder.title, from: "sign_comment_folder_id"
+        fill_in "Write your text comment", with: "#{comment_text}\n"
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+        expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+      end
+    end
   end
 
   context "reporting" do

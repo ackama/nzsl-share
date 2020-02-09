@@ -38,7 +38,9 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show_comment_element?
-    owns_record? || user&.approved? || user&.administrator?
+    new_sign_comment = record.sign_comments.build(user: user)
+    policy = SignCommentPolicy.new(user, new_sign_comment)
+    policy.create?
   end
 
   def destroy?
@@ -144,6 +146,6 @@ class SignPolicy < ApplicationPolicy
 
     record.folders.left_outer_joins(:collaborations)
           .where(folders: { collaborations: { collaborator_id: user.id } })
-          .any?
+          .exists?
   end
 end
