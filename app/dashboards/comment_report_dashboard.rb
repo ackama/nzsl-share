@@ -10,10 +10,8 @@ class CommentReportDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
     comment: Field::BelongsTo.with_options(class_name: "SignComment"),
-    resolved_by: Field::BelongsTo.with_options(class_name: "User"),
     id: Field::Number,
     comment_id: Field::Number,
-    resolved_by_id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -27,7 +25,6 @@ class CommentReportDashboard < Administrate::BaseDashboard
     comment
     user
     created_at
-    resolved_by
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,7 +33,6 @@ class CommentReportDashboard < Administrate::BaseDashboard
     comment
     user
     created_at
-    resolved_by
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -45,9 +41,7 @@ class CommentReportDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     user
     comment
-    resolved_by
     comment_id
-    resolved_by_id
   ].freeze
 
   # COLLECTION_FILTERS
