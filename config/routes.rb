@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
     end
     resources :topics
+    resources :comment_reports
     root to: "signs#index"
   end
 

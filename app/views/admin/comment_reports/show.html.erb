@@ -1,0 +1,64 @@
+<%#
+# Show
+
+This view is the template for the show page.
+It renders the attributes of a resource,
+as well as a link to its edit page.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Show][1].
+  Contains methods for accessing the resource to be displayed on the page,
+  as well as helpers for describing how each attribute of the resource
+  should be displayed.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
+%>
+<% sign = present(page.resource.comment.sign)%>
+
+<% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
+
+<div class="grid-x">
+  <div class="cell medium-8 list">
+    <h1 class="black list__title list__title--admin">
+      <%= content_for(:title) %>
+    </h1>
+    <hr class="list__divider">
+
+    <section class="list__section">
+      <dl>
+        <dt>Sign</dt>
+        <%= link_to sign_path(sign) do %>
+          <%= sign.word %>
+        <% end %>
+        <% page.attributes.each do |attribute| %>
+          <dt class="attribute-label" id="<%= attribute.name %>">
+          <%= t(
+            "helpers.label.#{resource_name}.#{attribute.name}",
+            default: attribute.name.titleize,
+          ) %>
+          </dt>
+          <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+            <% begin %>
+              <%= render "admin/comment_reports/cell/#{attribute.name}", resource: page.resource, namespace: namespace %>
+            <% rescue ActionView::MissingTemplate%>
+              <%= render_field attribute, page: page %>
+            <% end %>
+          </dd>
+        <% end %>
+      </dl>
+    </section>
+
+    <hr class="list__divider">
+    <div class="form__footer form__footer--buttons-justified">
+      <div>
+        <%= link_to t("administrate.actions.back"), :back, class: "button clear" %>
+      </div>
+      <div>
+        <%= link_to "Remove comment", :back, class: "button alert margin-right-1" %>
+        <%= link_to "Ignore report", :back, class: "button" %>
+      </div>
+    </div>
+  </div>
+</div>

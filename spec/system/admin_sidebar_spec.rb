@@ -20,4 +20,11 @@ RSpec.describe "The admin sidebar", type: :system do
       expect(page).to have_current_path(admin_users_path)
     end
   end
+
+  it "links to users dashboard" do
+    within ".sidebar--inside-grid" do
+      click_on "Comment Reports"
+      expect(page).to have_current_path(admin_comment_reports_path)
+    end
+  end
 end
