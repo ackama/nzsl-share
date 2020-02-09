@@ -1,4 +1,5 @@
 class SignVideoCommentController < ApplicationController
+  protect_from_forgery except: :create
   before_action :authenticate_user!
   after_action :post_process, only: :create
 
@@ -39,7 +40,7 @@ class SignVideoCommentController < ApplicationController
   private
 
   def fetch_sign_comment
-    policy_scope(@sign.sign_comments).find_by!(id: comment_id)
+    policy_scope(SignComment).find_by(id: comment_id, sign_id: sign_id)
   end
 
   def fetch_sign
@@ -52,13 +53,13 @@ class SignVideoCommentController < ApplicationController
       sign: @sign,
       sign_status: @sign.status,
       comment: blob.filename,
-      display: false
+      display: false,
+      parent_id: parent_id
     }
   end
 
   def update_params
     {
-      parent_id: params[:sign_comment][:parent_id],
       folder_id: params[:sign_comment][:folder_id],
       anonymous: params[:sign_comment][:anonymous],
       display: true
@@ -87,11 +88,15 @@ class SignVideoCommentController < ApplicationController
     params.require(:signed_blob_id)
   end
 
+  def sign_id
+    params[:sign_id]
+  end
+
   def comment_id
     params[:comment_id]
   end
 
-  def sign_id
-    params[:sign_id]
+  def parent_id
+    params[:parent_id]
   end
 end
