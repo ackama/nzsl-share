@@ -15,11 +15,11 @@
         <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
       <% end %>
     </li>
-    <% if policy(SignComment).appropriate? %>
+    <% if policy(CommentReport).create? %>
     <li class="list__item-menu__menu-item">
-      <%= link_to appropriate_sign_comment_path(comment.sign, comment.id), method: :patch, remote: true do %>
+      <%= link_to sign_comment_reports_path(comment.sign, comment.id), method: :post do %>
         <%= inline_svg "media/images/flag.svg" %><span>Flag as inappropriate</span>
-      <% end %>
+      <% end unless comment.reports.where(user: current_user).exists?%>
     </li>
     <% end %>
   </ul>

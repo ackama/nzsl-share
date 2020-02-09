@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_195552) do
+ActiveRecord::Schema.define(version: 2020_02_06_202433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
     t.index ["collaborator_id"], name: "index_collaborations_on_collaborator_id"
     t.index ["folder_id", "collaborator_id"], name: "index_collaborations_on_folder_id_and_collaborator_id", unique: true
     t.index ["folder_id"], name: "index_collaborations_on_folder_id"
+  end
+
+  create_table "comment_reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_comment_reports_on_comment_id"
+    t.index ["user_id", "comment_id"], name: "index_comment_reports_on_user_id_and_comment_id", unique: true
+    t.index ["user_id"], name: "index_comment_reports_on_user_id"
   end
 
   create_table "folder_memberships", force: :cascade do |t|
@@ -121,7 +131,6 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
     t.bigint "user_id", null: false
     t.text "comment"
     t.text "sign_status", null: false
-    t.boolean "appropriate", default: true
     t.boolean "display", default: true
     t.boolean "anonymous", default: false
     t.datetime "created_at", precision: 6, null: false
@@ -152,9 +161,9 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
     t.text "description"
+    t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false
-    t.text "notes"
     t.string "share_token"
     t.string "status", null: false
     t.datetime "submitted_at"
@@ -225,6 +234,8 @@ ActiveRecord::Schema.define(version: 2020_01_27_195552) do
   add_foreign_key "approved_user_applications", "users"
   add_foreign_key "collaborations", "folders"
   add_foreign_key "collaborations", "users", column: "collaborator_id"
+  add_foreign_key "comment_reports", "sign_comments", column: "comment_id"
+  add_foreign_key "comment_reports", "users"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"

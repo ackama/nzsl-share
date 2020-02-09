@@ -28,15 +28,6 @@ class SignCommentController < ApplicationController
     refresh_comments
   end
 
-  def appropriate
-    @sign = fetch_sign
-    @sign_comment = fetch_sign_comment
-    authorize @sign_comment
-    @sign_comment.update(appropriate: false)
-    @sign.reload
-    refresh_comments
-  end
-
   private
 
   def refresh_comments
