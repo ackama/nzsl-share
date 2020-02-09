@@ -48,6 +48,10 @@ en:
   comment_reports:
     create:
       success: This comment has been flagged for review
+    destroy:
+      confirm: Are you sure you want to ignore this report? It will be removed permanently.
+      success: Comment report has been ignored and removed.
+      failure: Failed to resolve comment report. Please try again.
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
