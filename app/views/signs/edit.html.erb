@@ -64,14 +64,14 @@
         <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
           <span>
             <h3>Do you want your sign to be public?</h3>
-            <p> Your sign will go through a validation process with our NZSL Share moderators before it is published. </p>
+            <p> An NZSL Share moderator will check your sign before it is made public.</p>
           </span>
         <% end %>
 
         <div class="radio">
           <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?,
                 data: { toggle_truthy: "#terms-and-conditions" }) %>
-            <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
+            <%= label_tag(:should_submit_for_publishing_true, "Yes, I want my sign to be public") %>
         </div>
 
         <div class="radio">
