@@ -29,6 +29,14 @@ RSpec.describe "Sign commenting" do
       fill_in "Write your text comment", with: "#{comment_text}\n"
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
     end
+
+    context "non-approved user", uses_javascript: true do
+      let(:user) { FactoryBot.create(:user) }
+
+      it "cannot post a comment" do
+        expect(page).to have_no_field "Write your text comment"
+      end
+    end
   end
 
   context "pagination" do
@@ -97,7 +105,9 @@ RSpec.describe "Sign commenting" do
     end
 
     context "non-approved user", uses_javascript: true do
-      let(:user) { FactoryBot.create(:user, :approved) }
+      let(:user) { FactoryBot.create(:user) }
+      let(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
 
       it "posts a new comment", uses_javascript: true do
         comment_text = Faker::Lorem.sentence
