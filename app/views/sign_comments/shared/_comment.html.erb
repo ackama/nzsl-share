@@ -27,5 +27,7 @@
 </div>
 
 <div class="cell shrink">
-  <%= render "sign_comments/options", comment: comment %>
+  <% unless comment.removed? %>
+      <%= render "sign_comments/options", comment: comment %>
+  <% end %>
 </div>
