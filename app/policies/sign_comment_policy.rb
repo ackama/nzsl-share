@@ -18,11 +18,7 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def reply?
-    if private_sign?
-      collaborator?
-    else
-      collaborator? || user&.approved? || user&.administrator?
-    end
+    create?
   end
 
   private
