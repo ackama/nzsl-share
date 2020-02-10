@@ -2,30 +2,48 @@
 
 class SignCommentPolicy < ApplicationPolicy
   def create?
-    sign_owner? || user&.approved? || user&.administrator?
+    if private_sign?
+      collaborator?
+    else
+      collaborator? || user&.approved? || user&.administrator?
+    end
   end
 
   def update?
-    sign_owner? || user&.administrator?
+    comment_author? || user&.administrator?
   end
 
   def remove?
-    sign_owner? || user&.administrator?
+    comment_author? || user&.administrator?
   end
 
   def reply?
-    sign_owner? || user&.approved? || user&.administrator?
-  end
-
-  def options?
-    sign_owner? || user&.approved? || user&.administrator?
+    if private_sign?
+      collaborator?
+    else
+      collaborator? || user&.approved? || user&.administrator?
+    end
   end
 
   private
 
-  def sign_owner?
+  def comment_author?
+    return unless user
+
+    record.user == user
+  end
+
+  def private_sign?
     return false if record.try(:sign).blank?
 
-    record.sign.contributor == user
+    record.sign.personal?
+  end
+
+  def collaborator?
+    return false if record.try(:sign).blank? || !user
+
+    record.sign.folders.left_outer_joins(:collaborations)
+          .where(folders: { collaborations: { collaborator_id: user.id } })
+          .any?
   end
 end
