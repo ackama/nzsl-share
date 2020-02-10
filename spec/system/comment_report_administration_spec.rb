@@ -62,4 +62,22 @@ RSpec.describe "Comment report administration", type: :system do
       expect(page).to have_content "This comment has been removed"
     end
   end
+
+  describe "removing", uses_javascript: true do
+    context "without a comment report" do
+      let!(:unreported_comment) { FactoryBot.create(:sign_comment, sign: sign) }
+
+      it "admin can delete a comment" do
+        visit sign_path(sign)
+
+        within(find(".sign-comments__comment", text: unreported_comment.comment).first(:xpath, ".//..")) do
+          click_on "Comment Options"
+          accept_confirm do
+            click_on "Delete"
+          end
+        end
+        expect(page).to have_content "This comment has been removed"
+      end
+    end
+  end
 end
