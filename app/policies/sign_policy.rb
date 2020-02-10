@@ -38,7 +38,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def show_comment_element?
-    owns_record? || user&.approved? || user&.administrator?
+    collaborator? || user&.approved? || user&.administrator?
   end
 
   def destroy?
