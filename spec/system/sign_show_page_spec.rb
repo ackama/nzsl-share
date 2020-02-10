@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sign show page", system: true do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, contributor: user) }
   let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
