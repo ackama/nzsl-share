@@ -44,6 +44,12 @@ module SignsHelper
     )
   end
 
+  def folder_selection(sign)
+    folders = policy_scope(sign.folders).map { |f| [f.title, f.id] }
+    folders << (sign.published? || sign.unpublish_requested? ? ["Public", nil] : [])
+    folders.reverse
+  end
+
   def reject_path(sign)
     sign.submitted? ? decline_sign_path(sign) : cancel_request_unpublish_sign_path(sign)
   end

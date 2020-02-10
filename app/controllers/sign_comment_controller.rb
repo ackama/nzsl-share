@@ -14,7 +14,7 @@ class SignCommentController < ApplicationController
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
-    @sign_comment.update(comment: comment_params[:comment], display: true)
+    @sign_comment.update(build_text_comment.merge(display: true))
     @sign.reload
     refresh_comments
   end
@@ -38,7 +38,7 @@ class SignCommentController < ApplicationController
           .includes(user: :avatar_attachment))
                     .where(folder_id: @sign_comment.folder_id)
                     .page(params[:comments_page]).per(10)
-        render partial: "sign_comments/refresh"
+        render inline: "location.reload();"
       end
     end
   end
@@ -60,7 +60,7 @@ class SignCommentController < ApplicationController
   end
 
   def fetch_sign_comment
-    policy_scope(@sign.sign_comments).find_by!(id: id)
+    policy_scope(SignComment).find_by(id: id, sign_id: sign_id)
   end
 
   def fetch_sign
