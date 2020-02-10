@@ -24,6 +24,6 @@ class SignComment < ApplicationRecord
   validates :comment, presence: true, length: { maximum: 1000 }
 
   def self.comment_types
-    [["Text Comment", "text"]]
+    [["Text comment", "text"], ["NZSL comment", "video"]]
   end
 end
