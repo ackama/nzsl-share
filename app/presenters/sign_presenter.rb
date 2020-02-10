@@ -31,6 +31,7 @@ class SignPresenter < ApplicationPresenter
 
   def status_notes
     return unless sign.status == "personal"
+    return if sign.contributor != h.current_user && !h.current_user.moderator?
 
     I18n.t("signs.#{sign.status}.status_notes")
   end
