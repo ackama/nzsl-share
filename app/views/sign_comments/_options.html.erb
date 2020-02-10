@@ -10,7 +10,7 @@
      data-hover="true"
      data-hover-pane="true">
   <ul class="list__item-menu vertical icons">
-    <% if policy(SignComment).remove? && !comment.removed %>
+    <% if policy(comment).remove? && !comment.removed %>
       <li class="list__item-menu__menu-item">
         <%= link_to remove_sign_comment_path(comment.sign, comment.id), method: :patch, data: { confirm: t("sign_comments.remove.confirm") }, remote: true do %>
           <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
