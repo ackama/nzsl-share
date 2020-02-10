@@ -9,7 +9,7 @@ class SignCommentPolicy < ApplicationPolicy
     sign_owner? || user&.administrator?
   end
 
-  def destroy?
+  def remove?
     sign_owner? || user&.administrator?
   end
 

@@ -19,16 +19,27 @@ class SignCommentController < ApplicationController
     refresh_comments
   end
 
-  def destroy
+  def remove
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
-    @sign_comment.destroy
-    @sign.reload
-    refresh_comments
+    remove_comment_and_reports
+    if request.referer.include?("admin/comment_reports")
+      respond_to do |format|
+        format.js { render js: "window.location.href = '#{admin_comment_reports_path}'" }
+      end
+    else
+      @sign.reload
+      refresh_comments
+    end
   end
 
   private
+
+  def remove_comment_and_reports
+    @sign_comment.update(removed: true)
+    @sign_comment.reports.destroy_all
+  end
 
   def refresh_comments
     respond_to do |format|
@@ -60,7 +71,7 @@ class SignCommentController < ApplicationController
   end
 
   def fetch_sign_comment
-    policy_scope(@sign.sign_comments).find_by!(id: id)
+    policy_scope(SignComment.where(sign: @sign)).find_by!(id: id)
   end
 
   def fetch_sign

@@ -15,10 +15,14 @@
   <span class="cell auto">
     <%= link_to user_path(comment.user), class: "sign-comments__comment__username--link" do %>
       <%= comment.username %>
-    <% end unless comment.anonymous %>
+    <% end unless comment.anonymous || comment.removed %>
   </span>
   <span class="cell auto">
-    <%= comment.user_comment %>
+    <% if comment.removed? %>
+      <em>This comment has been removed</em>
+    <% else %>
+      <%= comment.user_comment %>
+    <% end %>
   </span>
 </div>
 
