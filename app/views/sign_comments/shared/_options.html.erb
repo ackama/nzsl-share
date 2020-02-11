@@ -10,6 +10,12 @@
      data-hover="true"
      data-hover-pane="true">
   <ul class="list__item-menu vertical icons">
+    <%= content_tag :li, class: "list__item-menu__menu-item" do %>
+      <%= link_to edit_sign_comment_path(comment.sign, comment.id) do %>
+        <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+      <% end %>
+    <% end if policy(comment).edit? %>
+
     <li class="list__item-menu__menu-item">
       <%= link_to sign_comment_path(comment.sign, comment.id), method: :delete, remote: true do %>
         <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
