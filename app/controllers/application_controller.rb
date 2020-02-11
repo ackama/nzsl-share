@@ -38,8 +38,10 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    redirect_back fallback_location: root_path,
-                  alert: t("application.unauthorized")
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, alert: t("application.unauthorized") }
+      format.js { render inline: "alert(\"#{t("application.unauthorized")}\");" }
+    end
   end
 
   def http_basic_auth
