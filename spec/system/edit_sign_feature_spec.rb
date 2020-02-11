@@ -86,7 +86,7 @@ RSpec.describe "Editing a sign", type: :system do
   end
 
   it "cannot request a sign be made public without accepting the conditions" do
-    choose "Yes, request my sign be public"
+    choose "Yes, I want my sign to be public"
     click_on "Update Sign"
     sign.reload
     expect(subject).to have_content sign.errors.generate_message(:conditions_accepted, :blank)
@@ -107,7 +107,7 @@ RSpec.describe "Editing a sign", type: :system do
 
   it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
     expect(page).to have_selector "#terms-and-conditions", visible: false
-    choose "Yes, request my sign be public"
+    choose "Yes, I want my sign to be public"
     expect(page).to have_selector "#terms-and-conditions", visible: true
   end
 
