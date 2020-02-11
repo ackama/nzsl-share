@@ -113,8 +113,9 @@ RSpec.describe "Sign commenting" do
 
       it "posts a new comment", uses_javascript: true do
         comment_text = Faker::Lorem.sentence
-        select folder.title, from: "sign_comment_folder_id"
+        select folder.title, from: "comments_in_folder"
         fill_in "Write your text comment", with: "#{comment_text}\n"
+        click_button("Post comment")
         expect(page).to have_selector ".sign-comments__comment", text: comment_text
         expect(SignComment.order(created_at: :desc).first.folder).to eq folder
       end
