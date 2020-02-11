@@ -11,11 +11,11 @@ RSpec.describe "Sign commenting" do
     sign_page.start(sign)
   end
 
-  context "public sign comments" do
+  context "on a public sign" do
     let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
     let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign, user: user) }
 
-    it "shows public comments" do
+    it "public context is selected" do
       expect(page).to have_select("comments_in_folder", with_options: ["Public"])
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
-    it "posts a new comment", uses_javascript: true do
+    it "can create a new comment", uses_javascript: true do
       comment_text = Faker::Lorem.sentence
       fill_in "Write your text comment", with: "#{comment_text}\n"
       click_button("Post comment")
@@ -88,12 +88,11 @@ RSpec.describe "Sign commenting" do
       select folder.title, from: "comments_in_folder"
     end
 
-    it "does not show public comments" do
+    it "folder context is selected" do
       expect(page).to have_select("comments_in_folder", selected: [folder.title])
     end
 
     it "shows the expected number of comments", uses_javascript: true do
-      select folder.title, from: "comments_in_folder"
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
