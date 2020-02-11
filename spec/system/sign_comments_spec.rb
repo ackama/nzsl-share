@@ -13,7 +13,7 @@ RSpec.describe "Sign commenting" do
 
   context "public sign comments" do
     let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign, user: user) }
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user) }
 
     it "shows public comments" do
       expect(page).to have_select("comments_in_folder", with_options: ["Public"])
@@ -73,7 +73,7 @@ RSpec.describe "Sign commenting" do
   context "folder comments" do
     let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FactoryBot.create(:folder_membership, sign: sign, folder: folder) }
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign, user: user, folder: folder) }
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user, folder: folder) }
 
     before do
       visit current_path
@@ -89,7 +89,7 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
-    xit "posts a new comment", uses_javascript: true do
+    it "posts a new comment", uses_javascript: true do
       comment_text = Faker::Lorem.sentence
       select folder.title, from: "sign_comment_folder"
       fill_in "Write your text comment", with: "#{comment_text}\n"
