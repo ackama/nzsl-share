@@ -3,6 +3,7 @@ class SignsController < ApplicationController
 
   def show
     @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(id))
+    @sign.comments_in_folder = params[:comments_in_folder]
     authorize @sign
 
     @sign.topic = fetch_referer
