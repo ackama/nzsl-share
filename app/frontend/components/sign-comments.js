@@ -10,8 +10,10 @@ $(document).ready(function() {
     event.preventDefault();
     var folderId = $(this).val();
     var element = document.getElementById("new-text-comment");
-    $(element).children().find("input[id='sign_comment_folder_id']").val(folderId);
+    $(element).children().find("input#sign_comment_folder_id").val(folderId);
   });
+
+  $(".js-sign-comment-folder").trigger("change");
 
   $("body").on("change", ".js-sign-comment-type-new", function(event) {
     event.preventDefault();
