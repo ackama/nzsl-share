@@ -8,7 +8,8 @@
 
   <div class="sign-comment--heading comment-select">
     <%= label_tag :sign_comment_type, "You are making a" %>
-    <%= select_tag :sign_comment_type, options_for_select(SignComment.comment_types, "text"), { class: "sign-comment__select__items #{js_sign_comment}" } %>
+    <%= select_tag :sign_comment_type,
+                   options_for_select(SignComment.comment_types, @sign_comment&.video ? "video" : "text"), { class: "sign-comment__select__items #{js_sign_comment}" } %>
     &nbsp;
     <%= label_tag :folder_id, "in" %>
     <%= select_tag :sign_comment_folder, options_for_select(folder_selection(@sign), params[:comments_in_folder]), { class: "sign-comment__select__items js-sign-comment-folder" } %> <br>
