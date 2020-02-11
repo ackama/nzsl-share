@@ -116,7 +116,8 @@ RSpec.describe "Sign commenting" do
         fill_in "Write your text comment", with: "#{comment_text}\n"
         click_button("Post comment")
         visit current_path
-        expect(sign.sign_comments.count).to eq 11
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+        expect(SignComment.order(created_at: :desc).first.folder).to eq folder
       end
     end
   end
