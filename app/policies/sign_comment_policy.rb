@@ -2,7 +2,11 @@
 
 class SignCommentPolicy < ApplicationPolicy
   def create?
-    user&.approved? || (record.sign && !sign_published? && sign_collaborator?) || user&.administrator?
+    if private_sign?
+      sign_collaborator?
+    else
+      (sign_collaborator? && folder_context?) || user&.approved? || user&.administrator?
+    end
   end
 
   def update?
@@ -14,7 +18,7 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def reply?
-    user&.approved? || user&.administrator?
+    create?
   end
 
   def options?
@@ -23,19 +27,19 @@ class SignCommentPolicy < ApplicationPolicy
 
   private
 
-  def sign_published?
-    record.sign.published? || record.sign.unpublish_requested?
+  def folder_context?
+    return true unless record.sign.comments_in_folder == ""
+  end
+
+  def private_sign?
+    return false if record.try(:sign).blank?
+
+    record.sign.personal?
   end
 
   def sign_collaborator?
     return unless user
 
     record.sign.folders.joins(:collaborations).where(collaborations: { collaborator_id: user.id }).exists?
-  end
-
-  def sign_owner?
-    return false if record.try(:sign).blank?
-
-    record.sign.contributor == user
   end
 end
