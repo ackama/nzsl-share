@@ -20,12 +20,12 @@ class SignVideoCommentController < ApplicationController
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment, :update?
-    @sign_comment.update(update_params)
+    @sign_comment.update!(update_params)
 
     @metadata = metadata_service(@sign_comment.video.attachment)
     @metadata.set!(:description, params[:sign_comment][:description])
 
-    render inline: "location.reload();"
+    refresh_comments
   end
 
   def destroy
@@ -33,11 +33,19 @@ class SignVideoCommentController < ApplicationController
     @sign_comment = fetch_sign_comment
     authorize @sign_comment, :destroy?
     @sign_comment.destroy
-
-    render inline: "location.reload();"
+    refresh_comments
   end
 
   private
+
+  def refresh_comments
+    respond_to do |format|
+      format.html { redirect_to @sign }
+      format.js do
+        render inline: "window.location='#{polymorphic_path(@sign)}'"
+      end
+    end
+  end
 
   def fetch_sign_comment
     policy_scope(SignComment).find_by(id: comment_id, sign_id: sign_id)

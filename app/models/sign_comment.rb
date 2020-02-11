@@ -5,10 +5,15 @@ class SignComment < ApplicationRecord
   belongs_to :sign
   belongs_to :folder, optional: true
 
+  belongs_to :in_reply_to, class_name: "SignComment",
+                           foreign_key: :parent_id,
+                           inverse_of: :replies,
+                           optional: true
+
   has_many :replies, -> { order(created_at: :asc) }, class_name: "SignComment",
                                                      foreign_key: "parent_id",
                                                      dependent: :destroy,
-                                                     inverse_of: false # for rubocop
+                                                     inverse_of: :in_reply_to # for rubocop
 
   has_many :reports,
            class_name: "CommentReport",
@@ -25,5 +30,11 @@ class SignComment < ApplicationRecord
 
   def self.comment_types
     [["Text comment", "text"], ["NZSL comment", "video"]]
+  end
+
+  def video_description
+    return unless video && video.attached?
+
+    video.blob.metadata[:description]
   end
 end
