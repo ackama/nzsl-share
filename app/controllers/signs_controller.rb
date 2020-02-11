@@ -5,7 +5,6 @@ class SignsController < ApplicationController
     @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(id))
     @sign.comments_in_folder = params[:comments_in_folder]
     authorize @sign
-
     @sign.topic = fetch_referer
     sign_comments
     return unless stale?(@sign)
@@ -32,7 +31,6 @@ class SignsController < ApplicationController
     return render(:new) unless builder.save
 
     flash[:notice] = t(".success")
-
     respond_to do |format|
       format.html { redirect_to [:edit, @sign] }
       format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
@@ -42,7 +40,6 @@ class SignsController < ApplicationController
   def edit
     @sign = signs.find(id)
     authorize @sign
-
     render
   end
 
@@ -60,7 +57,6 @@ class SignsController < ApplicationController
     @sign = signs.find(id)
     authorize @sign
     @sign.destroy
-
     redirect_to user_signs_path, notice: t(".success", sign_name: @sign.word)
   end
 
@@ -97,8 +93,8 @@ class SignsController < ApplicationController
   end
 
   def edit_sign_params
-    create_sign_params.permit(:maori, :secondary, :notes, :word, :usage_examples,
-                              :illustrations, :conditions_accepted, topic_ids: [])
+    params.require(:sign).permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
+                                 :conditions_accepted, topic_ids: []).merge(create_sign_params)
   end
 
   def id

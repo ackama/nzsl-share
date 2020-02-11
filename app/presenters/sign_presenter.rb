@@ -30,8 +30,7 @@ class SignPresenter < ApplicationPresenter
   end
 
   def status_notes
-    return unless sign.status == "personal"
-    return if sign.contributor != h.current_user && !h.current_user.moderator?
+    return unless Pundit.policy(h.current_user, sign).submit?
 
     I18n.t("signs.#{sign.status}.status_notes")
   end
