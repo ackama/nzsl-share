@@ -16,10 +16,10 @@
     <% end if policy(comment).edit? %>
 
     <%= content_tag :li, class: "list__item-menu__menu-item" do %>
-      <%= link_to remove_sign_comment_path(comment.sign, comment.id), method: :patch, data: { confirm: t("sign_comments.remove.confirm") }, remote: true do %>
+      <%= link_to sign_comment_path(comment.sign, comment.id), method: :patch, data: { confirm: t("sign_comments.remove.confirm") }, remote: true do %>
         <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
       <% end %>
-    <% end if policy(comment).remove? %>
+    <% end if policy(comment).destroy? %>
 
     <% if policy(CommentReport).create? && !comment.reports.where(user: current_user).exists? %>
       <li class="list__item-menu__menu-item">
