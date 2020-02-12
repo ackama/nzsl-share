@@ -19,7 +19,7 @@ class SignCommentPolicy < ApplicationPolicy
     comment_author? || user&.administrator?
   end
 
-  def remove?
+  def destroy?
     update?
   end
 
@@ -51,7 +51,7 @@ class SignCommentPolicy < ApplicationPolicy
     record.sign.personal?
   end
 
-  def collaborator?
+  def sign_collaborator?
     return false if record.try(:sign).blank? || !user
 
     record.sign.folders.left_outer_joins(:collaborations)
