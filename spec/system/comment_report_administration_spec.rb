@@ -46,7 +46,7 @@ RSpec.describe "Comment report administration", type: :system do
     it "shows a confirmation alert before removing comment" do
       click_link "Remove comment"
       confirmation = page.driver.browser.switch_to.alert
-      expect(confirmation.text).to eq I18n.t!("sign_comments.remove.confirm")
+      expect(confirmation.text).to eq I18n.t!("sign_comments.destroy.confirm")
     end
 
     it "can remove an inappropriate comment" do
