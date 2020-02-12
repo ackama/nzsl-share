@@ -28,7 +28,7 @@ class SignCommentsController < ApplicationController
     refresh_comments(location: @sign)
   end
 
-  def remove
+  def destroy
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
