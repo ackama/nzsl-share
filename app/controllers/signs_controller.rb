@@ -2,7 +2,7 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(id))
+    @sign = present(signs.includes(:contributor, :topics, :folders, sign_comments: :replies).find(id))
     @current_folder_id = params[:comments_in_folder]
     @new_comment = SignComment.new(sign: @sign.sign)
     authorize @sign
@@ -68,7 +68,7 @@ class SignsController < ApplicationController
 
   def sign_comments
     @comments = policy_scope(@sign.sign_comments)
-                .includes(user: :avatar_attachment).where(folder_id: comments_folder_id)
+                .includes(:replies, user: :avatar_attachment).where(folder_id: comments_folder_id)
                 .page(params[:comments_page]).per(10)
   end
 

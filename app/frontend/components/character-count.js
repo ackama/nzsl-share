@@ -1,5 +1,6 @@
 $(document).ready(() => {
-  $("body").on("keyup", ":input", ({ target }) =>
-    $(`[data-character-count='${target.id}'`).text(target.value.length)
-  );
+  const updateCount = ({ target }) =>  target.value && $(`[data-character-count='${target.id}'`).text(target.value.length);
+
+  $("body").on("keyup", ":input", updateCount);
+  $(":input").each((_idx, el) => updateCount({ target: el }));
 });

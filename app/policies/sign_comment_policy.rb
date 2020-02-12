@@ -19,8 +19,12 @@ class SignCommentPolicy < ApplicationPolicy
     record.user == user || user&.administrator?
   end
 
+  def edit?
+    update?
+  end
+
   def destroy?
-    user&.administrator?
+    record.user == user || user&.administrator?
   end
 
   def reply?

@@ -30,6 +30,8 @@ $(document).ready(function() {
     }
   });
 
+  $(".js-sign-comment-type-new").trigger("change");
+
   $("body").on("change", ".js-sign-comment-type-reply", function(event) {
     event.preventDefault();
     var option = $(this).val();

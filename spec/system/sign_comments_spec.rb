@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Sign commenting" do
   let(:user) { FactoryBot.create(:user, :approved) }
-  let(:sign) { FactoryBot.create(:sign, contributor: user) }
+  let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
   let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
@@ -12,7 +12,6 @@ RSpec.describe "Sign commenting" do
   end
 
   context "on a public sign" do
-    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
     let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user) }
 
     it "public context is selected" do
@@ -40,8 +39,100 @@ RSpec.describe "Sign commenting" do
     end
   end
 
+  context "editing comments" do
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+
+    it "can edit the comment text" do
+      visit current_path
+      within ".sign-comment__options" do
+        click_on "Comment Options"
+        click_on "Edit"
+      end
+
+      comment_text = "Updated comment text"
+      fill_in "Write your text comment", with: comment_text
+      click_on "Update comment"
+      expect(page).to have_selector ".sign-comments__comment", text: comment_text
+    end
+
+    it "can make the comment anonymous" do
+      visit current_path
+      within ".sign-comment__options" do
+        click_on "Comment Options"
+        click_on "Edit"
+      end
+
+      check "comment anonymously"
+      click_on "Update comment"
+
+      expect(page).to have_no_css ".sign-comments__comment__username--link"
+    end
+
+    context "a reply" do
+      let!(:reply) { FactoryBot.create(:sign_comment, sign: sign, user: user, in_reply_to: comment) }
+
+      it "can edit the comment text" do
+        visit current_path
+        within "#options_sign_comment_#{reply.id}" do
+          click_on "Edit"
+        end
+
+        comment_text = "Updated comment text"
+        fill_in "Write your text comment", with: comment_text
+        click_on "Update comment"
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+      end
+
+      it "can make the comment anonymous" do
+        visit current_path
+        expect(page).to have_css ".sign-comments__comment__username--link",
+                                 text: reply.user.username,
+                                 count: 2 # 2 comments by this user
+
+        within "#options_sign_comment_#{reply.id}" do
+          click_on "Edit"
+        end
+
+        check "comment anonymously"
+        click_on "Update comment"
+
+        expect(page).to have_css ".sign-comments__comment__username--link",
+                                 text: reply.user.username,
+                                 count: 1
+      end
+
+      it "retains the parent association" do
+        visit current_path
+        expect(page).to have_selector ".sign-comments__comment", text: reply.comment
+
+        within("#options_sign_comment_#{reply.id}") { click_on "Edit" }
+        click_on "Update comment"
+        expect(page).to have_selector ".sign-comments__comment", text: reply.comment
+
+        reply.reload
+        expect(reply.in_reply_to).to eq comment
+      end
+    end
+
+    context "a video comment" do
+      let!(:comment) { FactoryBot.create(:sign_comment, :video, sign: sign, user: user) }
+
+      it "can edit the video caption" do
+        visit current_path
+        within "#options_sign_comment_#{comment.id}" do
+          click_on "Edit"
+        end
+
+        caption_text = "Updated caption text"
+        expect(page).to have_selector ".sign-comment--heading", text: "dummy.mp4"
+        fill_in "Write a text translation", with: caption_text
+        click_on "Update comment"
+        expect(page).to have_selector ".sign-comments__comment", text: caption_text
+      end
+    end
+  end
+
   context "pagination" do
-    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
     let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign: sign, user: user) }
 
     it "shows older comments without JS" do
@@ -79,6 +170,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "folder comments" do
+    let(:sign) { FactoryBot.create(:sign, contributor: user) }
     let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FactoryBot.create(:folder_membership, sign: sign, folder: folder) }
     let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user, folder: folder) }
@@ -129,7 +221,6 @@ RSpec.describe "Sign commenting" do
   end
 
   context "reporting" do
-    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
     let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
 
     it "reports a comment" do
