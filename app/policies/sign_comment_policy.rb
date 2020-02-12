@@ -6,11 +6,15 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def update?
-    sign_owner? || user&.administrator?
+    record.user == user || user&.administrator?
+  end
+
+  def edit?
+    update?
   end
 
   def destroy?
-    sign_owner? || user&.administrator?
+    record.user == user || user&.administrator?
   end
 
   def reply?

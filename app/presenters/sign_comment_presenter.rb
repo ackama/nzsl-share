@@ -21,7 +21,7 @@ class SignCommentPresenter < ApplicationPresenter
   end
 
   def video_description
-    comment_with_href(sign_comment.video.blob.metadata[:description])
+    comment_with_href(sign_comment.video_description)
   end
 
   def user_avatar

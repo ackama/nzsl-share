@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SignCommentController < ApplicationController
+class SignCommentsController < ApplicationController
   def create
     @sign = fetch_sign
     @sign_comment = SignComment.new(build_text_comment)
@@ -10,13 +10,21 @@ class SignCommentController < ApplicationController
     refresh_comments
   end
 
+  def edit
+    @sign = fetch_sign
+    @sign_comment = fetch_sign_comment
+    authorize @sign_comment
+
+    render
+  end
+
   def update
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
     @sign_comment.update(build_text_comment.merge(display: true))
-    @sign.reload
-    refresh_comments
+
+    refresh_comments(location: @sign)
   end
 
   def destroy
@@ -25,20 +33,21 @@ class SignCommentController < ApplicationController
     authorize @sign_comment
     @sign_comment.destroy
     @sign.reload
+
     refresh_comments
   end
 
   private
 
-  def refresh_comments
+  def refresh_comments(location: nil)
     respond_to do |format|
-      format.html { redirect_back(fallback_location: @sign) }
-      format.js   do
-        @comments = policy_scope(@sign.sign_comments
-          .includes(user: :avatar_attachment))
-                    .where(folder_id: @sign_comment.folder_id)
-                    .page(params[:comments_page]).per(10)
-        render inline: "location.reload();"
+      format.html { location ? redirect_to(location) : redirect_back(fallback_location: @sign) }
+      format.js do
+        render inline: if location
+                         "window.location='#{polymorphic_path(location)}'"
+                       else
+                         "window.location.reload()"
+                       end
       end
     end
   end
