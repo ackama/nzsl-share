@@ -4,30 +4,35 @@
       <% inline_svg("media/images/avatar.svg", title: "Avatar", aria: true, class: "avatar avatar--small") %>
     <% end %>
   <% else %>
-    <%= link_to user_path(comment.user) do %>
+    <%= link_to user_path(comment.user.username) do %>
       <%= comment.user_avatar %>
     <% end %>
   <% end %>
-
 </div>
 
 <div class="cell auto sign-comments__comment">
   <span class="cell auto">
-    <%= link_to user_path(comment.user), class: "sign-comments__comment__username--link" do %>
+    <%= link_to user_path(comment.user.username), class: "sign-comments__comment__username--link" do %>
       <%= comment.username %>
     <% end unless comment.anonymous || comment.removed %>
   </span>
-  <span class="cell auto">
-    <% if comment.removed? %>
-      <em>This comment has been removed</em>
-    <% else %>
+
+  <% if comment.removed? %>
+    <em>This comment has been removed</em>
+  <% elsif comment&.video.attached? %>
+    <span class="cell auto">
+      <%= comment.video_description %>
+    </span>
+    <span class="cell auto video-wrapper data-overlay">
+      <%= video_tag url_for(comment.video), size: "320x240", controls: true %>
+    </span>
+  <% else %>
+    <span class="cell auto">
       <%= comment.user_comment %>
-    <% end %>
-  </span>
+    </span>
+  <% end %>
 </div>
 
 <div class="cell shrink">
-  <% unless comment.removed? %>
-      <%= render "sign_comments/options", comment: comment %>
-  <% end %>
+  <%= render "sign_comments/shared/options", comment: comment %>
 </div>

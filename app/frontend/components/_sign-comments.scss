@@ -66,17 +66,32 @@
     font-weight: bold;
   }
 
-  &__label {
-    padding-right: 0.5rem;
+  &__checkbox {
+    bottom: 1rem;
+  }
 
-    &--text {
+  &__video {
+    margin-left: 3.5rem;
+
+    &__byte-size {
+      color: $medium-gray;
       font-size: 0.875rem;
       font-weight: normal;
-      margin-top: 0.5rem;
+    }
+
+    &__text-heading {
+      color: $medium-gray;
+      font-size: 0.875rem;
+      font-weight: bold;
+    }
+
+    &__delete {
+      float: right;
     }
   }
 
   &__text-area {
+
     &--new-reply {
       margin-bottom: 0.5rem;
       margin-left: 0.5rem;

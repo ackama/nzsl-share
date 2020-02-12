@@ -17,11 +17,23 @@ class SignCommentPresenter < ApplicationPresenter
   end
 
   def user_comment
-    h.simple_format(sign_comment.comment, {}, wrapper_tag: "span")
+    comment_with_href(sign_comment.comment)
+  end
+
+  def video_description
+    comment_with_href(sign_comment.video_description)
   end
 
   def user_avatar
     user = h.present(sign_comment.user)
     user.avatar("avatar avatar--small")
+  end
+
+  private
+
+  def comment_with_href(comment="")
+    h.simple_format(comment.gsub(URI::DEFAULT_PARSER.make_regexp) do |u|
+      "<a class='sign-comments__comment__username--link' href=#{u}>#{u}</a>"
+    end, {}, wrapper_tag: "span")
   end
 end

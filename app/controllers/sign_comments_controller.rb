@@ -1,22 +1,31 @@
 # frozen_string_literal: true
 
-class SignCommentController < ApplicationController
+class SignCommentsController < ApplicationController
   def create
     @sign = fetch_sign
     @sign_comment = SignComment.new(build_text_comment)
-    authorize @sign_comment
+    authorize_create!(@sign_comment)
+
     @sign_comment.save
     @sign.reload
     refresh_comments
+  end
+
+  def edit
+    @sign = fetch_sign
+    @sign_comment = fetch_sign_comment
+    authorize @sign_comment
+
+    render
   end
 
   def update
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
-    @sign_comment.update(comment: comment_params[:comment], display: true)
-    @sign.reload
-    refresh_comments
+    @sign_comment.update(build_text_comment.merge(display: true))
+
+    refresh_comments(location: @sign)
   end
 
   def remove
@@ -43,15 +52,26 @@ class SignCommentController < ApplicationController
 
   def refresh_comments
     respond_to do |format|
-      format.html { redirect_back(fallback_location: @sign) }
-      format.js   do
-        @comments = policy_scope(@sign.sign_comments
-          .includes(user: :avatar_attachment))
-                    .where(folder_id: @sign_comment.folder_id)
-                    .page(params[:comments_page]).per(10)
-        render partial: "sign_comments/refresh"
+      format.html { location ? redirect_to(location) : redirect_back(fallback_location: @sign) }
+      format.js do
+        render inline: if location
+                         "window.location='#{polymorphic_path(location)}'"
+                       else
+                         "window.location.reload()"
+                       end
       end
     end
+  end
+
+  def authorize_create!(sign_comment)
+    policy = SignCommentPolicy.new(
+      current_user,
+      sign_comment,
+      current_folder_id: sign_comment.folder_id)
+
+    return true if policy.create?
+
+    fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy_scope
   end
 
   def comment_params
@@ -71,7 +91,7 @@ class SignCommentController < ApplicationController
   end
 
   def fetch_sign_comment
-    policy_scope(SignComment.where(sign: @sign)).find_by!(id: id)
+    policy_scope(SignComment).find_by(id: id, sign_id: sign_id)
   end
 
   def fetch_sign

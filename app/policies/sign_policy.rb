@@ -1,4 +1,10 @@
 class SignPolicy < ApplicationPolicy
+  def initialize(user, record, current_folder_id: nil)
+    @user = user
+    @record = record
+    @current_folder_id = current_folder_id
+  end
+
   def index?
     true
   end
@@ -35,10 +41,6 @@ class SignPolicy < ApplicationPolicy
     return true if public_record?
 
     Pundit.policy_scope(user, record.folders).any?
-  end
-
-  def show_comment_element?
-    collaborator? || user&.approved? || user&.administrator?
   end
 
   def destroy?
@@ -144,6 +146,6 @@ class SignPolicy < ApplicationPolicy
 
     record.folders.left_outer_joins(:collaborations)
           .where(folders: { collaborations: { collaborator_id: user.id } })
-          .any?
+          .exists?
   end
 end

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "sign_comment", type: :request do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, :published) }
 
   let(:create_params) { { comment: "my first comment" } }
@@ -11,26 +11,26 @@ RSpec.describe "sign_comment", type: :request do
   let(:update_params) { { comment: "updated comment" } }
 
   let(:create) do
-    ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params } }
+    ->(sign) { post "/signs/#{sign.id}/comments", params: { sign_comment: create_params } }
   end
 
   let(:anonymous) do
-    ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params.merge(anonymous: true) } }
+    ->(sign) { post "/signs/#{sign.id}/comments", params: { sign_comment: create_params.merge(anonymous: true) } }
   end
 
   let(:destroy) do
-    ->(sign, sign_comment) { delete "/signs/#{sign.id}/comment/#{sign_comment.id}" }
+    ->(sign, sign_comment) { delete "/signs/#{sign.id}/comments/#{sign_comment.id}" }
   end
 
   let(:reply) do
     lambda { |sign, sign_comment|
-      post "/signs/#{sign.id}/comment/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
+      post "/signs/#{sign.id}/comments/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
     }
   end
 
   let(:update) do
     lambda { |sign, sign_comment|
-      patch "/signs/#{sign.id}/comment/#{sign_comment.id}", params: { sign_comment: update_params }
+      patch "/signs/#{sign.id}/comments/#{sign_comment.id}", params: { sign_comment: update_params }
     }
   end
 
@@ -77,16 +77,6 @@ RSpec.describe "sign_comment", type: :request do
         expect(sign.sign_comments.count).to eq 0
         expect(response).to redirect_to sign_path(sign)
       end
-
-      it "will delete a comment for the sign owner" do
-        sign.update(contributor: user)
-        expect(sign.sign_comments.count).to eq 0
-        create.call(sign)
-        expect(sign.sign_comments.count).to eq 1
-        destroy.call(sign, sign.sign_comments.first)
-        expect(sign.sign_comments.count).to eq 0
-        expect(response).to redirect_to sign_path(sign)
-      end
     end
 
     describe "update" do
@@ -101,8 +91,7 @@ RSpec.describe "sign_comment", type: :request do
         expect(response).to redirect_to sign_path(sign)
       end
 
-      it "will update a comment for the sign owner" do
-        sign.update(contributor: user)
+      it "will update a comment for the commenter" do
         expect(sign.sign_comments.count).to eq 0
         create.call(sign)
         expect(sign.sign_comments.count).to eq 1

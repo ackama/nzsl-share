@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Sign commenting" do
   let(:user) { FactoryBot.create(:user, :approved) }
-  let(:sign) { FactoryBot.create(:sign, contributor: user) }
+  let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
   let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
@@ -11,11 +11,10 @@ RSpec.describe "Sign commenting" do
     sign_page.start(sign)
   end
 
-  context "public sign comments" do
-    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign, user: user) }
+  context "on a public sign" do
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user) }
 
-    it "shows public comments" do
+    it "public context is selected" do
       expect(page).to have_select("comments_in_folder", with_options: ["Public"])
     end
 
@@ -24,10 +23,112 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
-    it "posts a new comment", uses_javascript: true do
+    it "can create a new comment", uses_javascript: true do
       comment_text = Faker::Lorem.sentence
       fill_in "Write your text comment", with: "#{comment_text}\n"
+      click_button("Post comment")
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
+    end
+
+    context "non-approved user", uses_javascript: true do
+      let(:user) { FactoryBot.create(:user) }
+
+      it "cannot post a comment" do
+        expect(page).to have_no_field "Write your text comment"
+      end
+    end
+  end
+
+  context "editing comments" do
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+
+    it "can edit the comment text" do
+      visit current_path
+      within ".sign-comment__options" do
+        click_on "Comment Options"
+        click_on "Edit"
+      end
+
+      comment_text = "Updated comment text"
+      fill_in "Write your text comment", with: comment_text
+      click_on "Update comment"
+      expect(page).to have_selector ".sign-comments__comment", text: comment_text
+    end
+
+    it "can make the comment anonymous" do
+      visit current_path
+      within ".sign-comment__options" do
+        click_on "Comment Options"
+        click_on "Edit"
+      end
+
+      check "comment anonymously"
+      click_on "Update comment"
+
+      expect(page).to have_no_css ".sign-comments__comment__username--link"
+    end
+
+    context "a reply" do
+      let!(:reply) { FactoryBot.create(:sign_comment, sign: sign, user: user, in_reply_to: comment) }
+
+      it "can edit the comment text" do
+        visit current_path
+        within "#options_sign_comment_#{reply.id}" do
+          click_on "Edit"
+        end
+
+        comment_text = "Updated comment text"
+        fill_in "Write your text comment", with: comment_text
+        click_on "Update comment"
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+      end
+
+      it "can make the comment anonymous" do
+        visit current_path
+        expect(page).to have_css ".sign-comments__comment__username--link",
+                                 text: reply.user.username,
+                                 count: 2 # 2 comments by this user
+
+        within "#options_sign_comment_#{reply.id}" do
+          click_on "Edit"
+        end
+
+        check "comment anonymously"
+        click_on "Update comment"
+
+        expect(page).to have_css ".sign-comments__comment__username--link",
+                                 text: reply.user.username,
+                                 count: 1
+      end
+
+      it "retains the parent association" do
+        visit current_path
+        expect(page).to have_selector ".sign-comments__comment", text: reply.comment
+
+        within("#options_sign_comment_#{reply.id}") { click_on "Edit" }
+        click_on "Update comment"
+        expect(page).to have_selector ".sign-comments__comment", text: reply.comment
+
+        reply.reload
+        expect(reply.in_reply_to).to eq comment
+      end
+    end
+
+    context "a video comment" do
+      let!(:comment) { FactoryBot.create(:sign_comment, :video, sign: sign, user: user) }
+
+      it "can edit the video caption" do
+        visit current_path
+        within "#options_sign_comment_#{comment.id}" do
+          click_on "Edit"
+        end
+
+        caption_text = "Updated caption text"
+        expect(page).to have_selector ".sign-comment--heading", text: "dummy.mp4"
+        fill_in "Write a text translation", with: caption_text
+        click_on "Update comment"
+        expect(page).to have_selector ".sign-comments__comment", text: caption_text
+      end
     end
   end
 
@@ -48,7 +149,6 @@ RSpec.describe "Sign commenting" do
   end
 
   context "pagination" do
-    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
     let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign: sign, user: user) }
 
     it "shows older comments without JS" do
@@ -86,35 +186,57 @@ RSpec.describe "Sign commenting" do
   end
 
   context "folder comments" do
+    let(:sign) { FactoryBot.create(:sign, contributor: user) }
     let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FactoryBot.create(:folder_membership, sign: sign, folder: folder) }
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 10, sign: sign, user: user, folder: folder) }
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user, folder: folder) }
 
     before do
       visit current_path
       select folder.title, from: "comments_in_folder"
     end
 
-    it "does not show public comments" do
-      expect(page).to have_select("comments_in_folder", options: [folder.title])
+    it "folder context is selected" do
+      expect(page).to have_select("comments_in_folder", selected: [folder.title])
     end
 
     it "shows the expected number of comments", uses_javascript: true do
-      select folder.title, from: "comments_in_folder"
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
     it "posts a new comment", uses_javascript: true do
       comment_text = Faker::Lorem.sentence
-      select folder.title, from: "sign_comment_folder_id"
+      select folder.title, from: "sign_comment_folder"
       fill_in "Write your text comment", with: "#{comment_text}\n"
+      click_button("Post comment")
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
       expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+    end
+
+    context "non-approved user", uses_javascript: true do
+      let(:user) { FactoryBot.create(:user) }
+      let(:sign) { FactoryBot.create(:sign, :published) }
+      let!(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
+
+      it "posts a new comment", uses_javascript: true do
+        comment_text = Faker::Lorem.sentence
+        select folder.title, from: "comments_in_folder"
+        fill_in "Write your text comment", with: "#{comment_text}\n"
+        click_button("Post comment")
+        visit current_path
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+        expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+      end
+
+      it "cannot comment publicly", uses_javascript: true do
+        select "Public", from: "comments_in_folder"
+        expect(page).to have_no_field "Write your text comment"
+      end
     end
   end
 
   context "reporting" do
-    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
     let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
 
     it "reports a comment" do

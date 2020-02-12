@@ -1,4 +1,3 @@
-<% if policy(comment.sign).show_comment_element? %>
 <a href="#" data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
   <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
 </a>
@@ -10,20 +9,24 @@
      data-hover="true"
      data-hover-pane="true">
   <ul class="list__item-menu vertical icons">
-    <% if policy(comment).remove? && !comment.removed %>
-      <li class="list__item-menu__menu-item">
-        <%= link_to remove_sign_comment_path(comment.sign, comment.id), method: :patch, data: { confirm: t("sign_comments.remove.confirm") }, remote: true do %>
-          <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
-        <% end %>
-      </li>
-    <% end %>
-    <% if policy(CommentReport).create? && !comment.removed %>
+    <%= content_tag :li, class: "list__item-menu__menu-item" do %>
+      <%= link_to edit_sign_comment_path(comment.sign, comment.id) do %>
+        <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+      <% end %>
+    <% end if policy(comment).edit? %>
+
+    <%= content_tag :li, class: "list__item-menu__menu-item" do %>
+      <%= link_to remove_sign_comment_path(comment.sign, comment.id), method: :patch, data: { confirm: t("sign_comments.remove.confirm") }, remote: true do %>
+        <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
+      <% end %>
+    <% end if policy(comment).remove? %>
+
+    <% if policy(CommentReport).create? && !comment.reports.where(user: current_user).exists? %>
       <li class="list__item-menu__menu-item">
         <%= link_to sign_comment_reports_path(comment.sign, comment.id), method: :post do %>
           <%= inline_svg "media/images/flag.svg" %><span>Flag as inappropriate</span>
-        <% end unless comment.reports.where(user: current_user).exists?%>
+        <% end %>
       </li>
     <% end %>
   </ul>
 </div>
-<% end %>

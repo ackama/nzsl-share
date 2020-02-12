@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 class SignCommentPolicy < ApplicationPolicy
+  def initialize(user, record, current_folder_id: nil)
+    @user = user
+    @record = record
+    @current_folder_id = current_folder_id
+  end
+
   def create?
     if private_sign?
-      collaborator?
+      sign_collaborator?
     else
-      collaborator? || user&.approved? || user&.administrator?
+      (sign_collaborator? && folder_context?) || user&.approved? || user&.administrator?
     end
   end
 
@@ -14,11 +20,15 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def remove?
-    comment_author? || user&.administrator?
+    update?
   end
 
   def reply?
     create?
+  end
+
+  def options?
+    update?
   end
 
   private
@@ -27,6 +37,12 @@ class SignCommentPolicy < ApplicationPolicy
     return unless user
 
     record.user == user
+  end
+
+  def folder_context?
+    return if @current_folder_id.blank?
+
+    true
   end
 
   def private_sign?
@@ -40,6 +56,6 @@ class SignCommentPolicy < ApplicationPolicy
 
     record.sign.folders.left_outer_joins(:collaborations)
           .where(folders: { collaborations: { collaborator_id: user.id } })
-          .any?
+          .exists?
   end
 end
