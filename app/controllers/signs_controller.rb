@@ -2,9 +2,9 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topics, :sign_comments).find(id))
     @current_folder_id = params[:comments_in_folder]
-    @new_comment = SignComment.new(sign: @sign)
+    @new_comment = SignComment.new(sign: @sign.sign)
     authorize @sign
     @sign.topic = fetch_referer
     sign_comments
@@ -26,10 +26,9 @@ class SignsController < ApplicationController
   end
 
   def create
-    builder = build_sign
-    @sign = builder.sign
+    @sign = build_sign.sign
     authorize @sign
-    return render(:new) unless builder.save
+    return render(:new) unless build_sign.save
 
     flash[:notice] = t(".success")
     respond_to do |format|
@@ -39,13 +38,13 @@ class SignsController < ApplicationController
   end
 
   def edit
-    @sign = signs.find(params[:id])
+    @sign = signs.find(id)
     authorize @sign
     render
   end
 
   def update
-    @sign = signs.find(params[:id])
+    @sign = signs.find(id)
     @sign.assign_attributes(edit_sign_params)
     set_signs_submitted_state
     authorize @sign
@@ -55,7 +54,7 @@ class SignsController < ApplicationController
   end
 
   def destroy
-    @sign = signs.find(params[:id])
+    @sign = signs.find(id)
     authorize @sign
     @sign.destroy
     redirect_to user_signs_path, notice: t(".success", sign_name: @sign.word)
@@ -96,6 +95,10 @@ class SignsController < ApplicationController
   def edit_sign_params
     params.require(:sign).permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
                                  :conditions_accepted, topic_ids: []).merge(create_sign_params)
+  end
+
+  def id
+    params[:id]
   end
 
   def comments_folder_id
