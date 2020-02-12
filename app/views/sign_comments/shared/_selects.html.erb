@@ -11,7 +11,10 @@
     <%= select_tag :sign_comment_type,
                    options_for_select(SignComment.comment_types, @sign_comment&.video ? "video" : "text"), { class: "sign-comment__select__items #{js_sign_comment}" } %>
     &nbsp;
-    <%= label_tag :folder_id, "in" %>
-    <%= select_tag :sign_comment_folder, options_for_select(folder_selection(@sign), params[:comments_in_folder]), { class: "sign-comment__select__items js-sign-comment-folder" } %> <br>
+
+    <% unless is_reply %>
+      <%= label_tag :folder_id, "in" %>
+      <%= select_tag :sign_comment_folder, options_for_select(folder_selection(@sign), params[:comments_in_folder]), { class: "sign-comment__select__items js-sign-comment-folder" } %> <br>
+    <% end %>
   </div>
 </div>
