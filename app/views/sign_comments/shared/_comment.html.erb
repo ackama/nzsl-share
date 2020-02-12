@@ -18,7 +18,7 @@
   </span>
   <% if comment&.video.attached? %>
     <span class="cell auto">
-      <%= comment.video_description %>
+      <%= comment.video_description %><br>
     </span>
     <span class="cell auto video-wrapper data-overlay">
       <%= video_tag url_for(comment.video), size: "320x240", controls: true %>
