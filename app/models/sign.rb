@@ -51,7 +51,6 @@ class Sign < ApplicationRecord
   scope :for_cards, -> { with_attached_video.includes(:contributor) }
 
   attr_reader :topic # breadcrumb for show template
-  attr_accessor :comments_in_folder
 
   def topic=(path)
     tpc_id = if path && path.match(REFERRED_TOPIC)
