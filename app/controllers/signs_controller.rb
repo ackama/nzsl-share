@@ -85,7 +85,7 @@ class SignsController < ApplicationController
   end
 
   def build_sign(builder: SignBuilder.new)
-    builder.build(create_sign_params)
+    @build_sign ||= builder.build(create_sign_params)
   end
 
   def create_sign_params
