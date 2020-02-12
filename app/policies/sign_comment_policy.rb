@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class SignCommentPolicy < ApplicationPolicy
+  def initialize(user, record, current_folder_id: nil)
+    @user = user
+    @record = record
+    @current_folder_id = current_folder_id
+  end
+
   def create?
     if private_sign?
       sign_collaborator?
@@ -28,7 +34,9 @@ class SignCommentPolicy < ApplicationPolicy
   private
 
   def folder_context?
-    return true unless record.sign.comments_in_folder == ""
+    return if @current_folder_id.blank?
+
+    true
   end
 
   def private_sign?
