@@ -38,9 +38,9 @@ class SignComment < ApplicationRecord
     video.blob.metadata[:description] || ""
   end
 
-  def remove(sign_comment)
+  def self.remove(sign_comment)
     ActiveRecord::Base.transaction do
-      sign_comment.update(removed: true)
+      sign_comment.update!(removed: true)
       sign_comment.reports.destroy_all
     end
   end
