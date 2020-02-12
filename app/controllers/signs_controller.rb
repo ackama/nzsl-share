@@ -3,6 +3,8 @@ class SignsController < ApplicationController
 
   def show
     @sign = present(signs.includes(:contributor, :topics, :folders, sign_comments: :replies).find(id))
+    @current_folder_id = params[:comments_in_folder]
+    @new_comment = SignComment.new(sign: @sign.sign)
     authorize @sign
     @sign.topic = fetch_referer
     sign_comments
@@ -24,10 +26,9 @@ class SignsController < ApplicationController
   end
 
   def create
-    builder = build_sign
-    @sign = builder.sign
+    @sign = build_sign.sign
     authorize @sign
-    return render(:new) unless builder.save
+    return render(:new) unless build_sign.save
 
     flash[:notice] = t(".success")
     respond_to do |format|
@@ -84,7 +85,7 @@ class SignsController < ApplicationController
   end
 
   def build_sign(builder: SignBuilder.new)
-    builder.build(create_sign_params)
+    @build_sign ||= builder.build(create_sign_params)
   end
 
   def create_sign_params

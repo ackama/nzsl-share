@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "sign_comment", type: :request do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, :published) }
 
   let(:create_params) { { comment: "my first comment" } }
@@ -77,16 +77,6 @@ RSpec.describe "sign_comment", type: :request do
         expect(sign.sign_comments.count).to eq 0
         expect(response).to redirect_to sign_path(sign)
       end
-
-      it "will delete a comment for the sign owner" do
-        sign.update(contributor: user)
-        expect(sign.sign_comments.count).to eq 0
-        create.call(sign)
-        expect(sign.sign_comments.count).to eq 1
-        destroy.call(sign, sign.sign_comments.first)
-        expect(sign.sign_comments.count).to eq 0
-        expect(response).to redirect_to sign_path(sign)
-      end
     end
 
     describe "update" do
@@ -101,8 +91,7 @@ RSpec.describe "sign_comment", type: :request do
         expect(response).to redirect_to sign_path(sign)
       end
 
-      it "will update a comment for the sign owner" do
-        sign.update(contributor: user)
+      it "will update a comment for the commenter" do
         expect(sign.sign_comments.count).to eq 0
         create.call(sign)
         expect(sign.sign_comments.count).to eq 1
