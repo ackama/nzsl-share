@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding-x">
   <div class="cell shrink">
     <% user = present(current_user) %>
-    <%= link_to user_path(user) do %>
+    <%= link_to user_path(user.username) do %>
       <%= user.avatar("avatar avatar--small") %>
     <% end %><br>
   </div>
