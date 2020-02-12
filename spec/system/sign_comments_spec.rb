@@ -200,7 +200,7 @@ RSpec.describe "Sign commenting" do
     context "non-approved user", uses_javascript: true do
       let(:user) { FactoryBot.create(:user) }
       let(:sign) { FactoryBot.create(:sign, :published) }
-      let(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder) { FactoryBot.create(:folder, user: user) }
       let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
 
       it "posts a new comment", uses_javascript: true do
