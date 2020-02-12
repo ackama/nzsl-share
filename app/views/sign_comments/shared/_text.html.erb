@@ -1,4 +1,4 @@
-<%= form_with(model: SignComment.new, url: sign_comment_index_path(@sign), method: :post) do |f| %>
+<%= form_with(model: @new_comment, url: sign_comment_index_path(@sign), method: :post) do |f| %>
   <div class="grid-x grid-padding-x">
     <div class="cell shrink"></div>
     <div class="cell auto sign-comment__text-area">

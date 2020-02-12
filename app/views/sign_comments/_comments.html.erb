@@ -39,7 +39,7 @@
 
   <hr class="sign-comments__divider">
 
-  <%= render "sign_comments/new", sign: @sign if policy(@sign).allow_new_comment? %>
+  <%= render "sign_comments/new", sign: @sign if SignCommentPolicy.new(current_user, @new_comment, current_folder_id: @current_folder_id).create? %>
 
   <div class="margin-bottom-1"></div>
 </div>
