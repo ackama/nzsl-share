@@ -11,10 +11,10 @@ RSpec.describe "Sign commenting" do
     sign_page.start(sign)
   end
 
-  context "public sign comments" do
+  context "on a public sign" do
     let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user) }
 
-    it "shows public comments" do
+    it "public context is selected" do
       expect(page).to have_select("comments_in_folder", with_options: ["Public"])
     end
 
@@ -23,7 +23,7 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
-    it "posts a new comment", uses_javascript: true do
+    it "can create a new comment", uses_javascript: true do
       comment_text = Faker::Lorem.sentence
       fill_in "Write your text comment", with: "#{comment_text}\n"
       click_button("Post comment")
@@ -45,6 +45,14 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_no_selector ".sign-comments__comment", text: comment_text
       expect(page).to have_selector ".sign-comments__comment", text: "check ruby gems"
       expect(page).to have_no_link(href: "https://rubygems.org/")
+    end
+
+    context "non-approved user", uses_javascript: true do
+      let(:user) { FactoryBot.create(:user) }
+
+      it "cannot post a comment" do
+        expect(page).to have_no_field "Write your text comment"
+      end
     end
   end
 
@@ -189,12 +197,11 @@ RSpec.describe "Sign commenting" do
       select folder.title, from: "comments_in_folder"
     end
 
-    it "does not show public comments" do
+    it "folder context is selected" do
       expect(page).to have_select("comments_in_folder", selected: [folder.title])
     end
 
     it "shows the expected number of comments", uses_javascript: true do
-      select folder.title, from: "comments_in_folder"
       expect(page).to have_selector(".sign-comment", count: comments.size)
     end
 
@@ -205,6 +212,28 @@ RSpec.describe "Sign commenting" do
       click_button("Post comment")
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
       expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+    end
+
+    context "non-approved user", uses_javascript: true do
+      let(:user) { FactoryBot.create(:user) }
+      let(:sign) { FactoryBot.create(:sign, :published) }
+      let!(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
+
+      it "posts a new comment", uses_javascript: true do
+        comment_text = Faker::Lorem.sentence
+        select folder.title, from: "comments_in_folder"
+        fill_in "Write your text comment", with: "#{comment_text}\n"
+        click_button("Post comment")
+        visit current_path
+        expect(page).to have_selector ".sign-comments__comment", text: comment_text
+        expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+      end
+
+      it "cannot comment publicly", uses_javascript: true do
+        select "Public", from: "comments_in_folder"
+        expect(page).to have_no_field "Write your text comment"
+      end
     end
   end
 

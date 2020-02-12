@@ -4,7 +4,8 @@ class SignCommentsController < ApplicationController
   def create
     @sign = fetch_sign
     @sign_comment = SignComment.new(build_text_comment)
-    authorize @sign_comment
+    authorize_create!(@sign_comment)
+
     @sign_comment.save
     @sign.reload
     refresh_comments
@@ -50,6 +51,17 @@ class SignCommentsController < ApplicationController
                        end
       end
     end
+  end
+
+  def authorize_create!(sign_comment)
+    policy = SignCommentPolicy.new(
+      current_user,
+      sign_comment,
+      current_folder_id: sign_comment.folder_id)
+
+    return true if policy.create?
+
+    fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy
   end
 
   def comment_params
