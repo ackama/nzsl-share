@@ -5,6 +5,6 @@
     <label for="sign_comment_anonymous">comment anonymously</label>
   </div>
   <div class="cell shrink">
-    <%= form.submit "Post comment", class: "button medium royal primary" %>
+    <%= form.submit "#{form.object.persisted? ? "Update" : "Post"} comment", class: "button medium royal primary" %>
   </div>
 </div>

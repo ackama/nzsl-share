@@ -1,6 +1,8 @@
 <%= render "sign_comments/shared/selects", js_sign_comment: "js-sign-comment-type-new" %>
 <div id="new-text-comment">
-  <%= render "sign_comments/shared/text", comment: nil %>
+  <%= form_with model: SignComment.new, url: sign_comments_path(@sign) do |f| %>
+    <%= render "sign_comments/shared/text", comment: f.object, parent: nil, f: f %>
+  <% end %>
 </div>
 <div id="new-video-comment" style="display:none;">
   <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">

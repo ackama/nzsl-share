@@ -1,10 +1,7 @@
+<% allow_delete = true unless defined?(allow_delete) %>
+
 <%= form_with(model: @sign_comment, url: sign_comment_video_path(@sign, @sign_comment.id), method: :patch) do |f| %>
   <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
-    <div class="cell">
-      <%= content_tag(:div, class: "file-upload") do %>
-        <%= label_tag :"video_comment", "Browse files", class: "button primary large" %>
-      <% end %>
-    </div>
     <div class="cell">
       <span class="sign-comment--heading">
         <%= @sign_comment.video.filename %>&nbsp;
@@ -13,6 +10,8 @@
         <%= number_to_human_size(@sign_comment.video.byte_size) %>&nbsp;
         <%= inline_svg "media/images/tick.svg" %>
       </span>
+
+      <% if allow_delete %>
       <span class="sign-comment__video__delete">
         <%= link_to sign_comment_video_path(@sign, @sign_comment),
           data: { method: :delete, remote: true },
@@ -20,12 +19,13 @@
           <%= inline_svg "media/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
         <% end %>
       </span>
+      <% end %>
       <div class="cell sign-comment__video__text-heading">
         Text translation (not required)
       </div>
     </div>
     <div class="sign-comment__text-area cell">
-      <%= f.text_area :description, maxlength: "50", placeholder: "Write a text translation", data: {characters: ""}, class: "sign-comment__text-area--text" %>
+      <%= f.text_area :description, value: @sign_comment.video_description, maxlength: "50", placeholder: "Write a text translation", data: {characters: ""}, class: "sign-comment__text-area--text" %>
       <%= f.hidden_field :video_folder_id, value: "" %>
       <p class="help-text text-right"><span data-character-count="sign_comment_description">0</span>/50 characters</p>
     </div>

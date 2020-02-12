@@ -35,6 +35,6 @@ class SignComment < ApplicationRecord
   def video_description
     return unless video && video.attached?
 
-    video.blob.metadata[:description]
+    video.blob.metadata[:description] || ""
   end
 end
