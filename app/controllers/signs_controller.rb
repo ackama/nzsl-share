@@ -8,7 +8,6 @@ class SignsController < ApplicationController
     authorize @sign
     @sign.topic = fetch_referer
     sign_comments
-    return unless stale?(@sign)
 
     render
   end
