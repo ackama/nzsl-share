@@ -30,6 +30,23 @@ RSpec.describe "Sign commenting" do
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
     end
 
+    it "posts a new comment with a url", uses_javascript: true do
+      comment_text = "check this out https://rubygems.org/"
+      fill_in "Write your text comment", with: "#{comment_text}\n"
+      click_button("Post comment")
+      expect(page).to have_selector ".sign-comments__comment", text: comment_text
+      expect(page).to have_link(href: "https://rubygems.org/")
+    end
+
+    it "posts a new comment with a link", uses_javascript: true do
+      comment_text = "check <a href='http://rubygems.org/'>ruby gems</a>"
+      fill_in "Write your text comment", with: "#{comment_text}\n"
+      click_button("Post comment")
+      expect(page).to have_no_selector ".sign-comments__comment", text: comment_text
+      expect(page).to have_selector ".sign-comments__comment", text: "check ruby gems"
+      expect(page).to have_no_link(href: "https://rubygems.org/")
+    end
+
     context "non-approved user", uses_javascript: true do
       let(:user) { FactoryBot.create(:user) }
 

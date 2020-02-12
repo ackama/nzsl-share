@@ -17,11 +17,11 @@ class SignCommentPresenter < ApplicationPresenter
   end
 
   def user_comment
-    comment_with_href(sign_comment.comment)
+    convert_urls(sign_comment.comment)
   end
 
   def video_description
-    comment_with_href(sign_comment.video_description)
+    convert_urls(sign_comment.video_description)
   end
 
   def user_avatar
@@ -31,9 +31,9 @@ class SignCommentPresenter < ApplicationPresenter
 
   private
 
-  def comment_with_href(comment="")
+  def convert_urls(comment="")
     h.simple_format(comment.gsub(URI::DEFAULT_PARSER.make_regexp) do |u|
-      "<a class='sign-comments__comment__username--link' href=#{u}>#{u}</a>"
-    end, {}, wrapper_tag: "span")
+      "<a class='sign-comments__comment__username--link' target='_blank' rel='noopener noreferrer' href=#{u}>#{u}</a>"
+    end, {}, wrapper_tag: "span", sanitize: false)
   end
 end

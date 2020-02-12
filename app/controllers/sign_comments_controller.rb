@@ -70,7 +70,7 @@ class SignCommentsController < ApplicationController
 
   def build_text_comment
     {
-      comment: comment_params[:comment],
+      comment: Sanitizer.sanitize(comment_params[:comment]),
       parent_id: comment_params[:parent_id],
       anonymous: comment_params[:anonymous],
       folder_id: comment_params[:folder_id],
