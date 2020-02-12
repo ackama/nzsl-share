@@ -32,7 +32,7 @@ class SignCommentsController < ApplicationController
     @sign = fetch_sign
     @sign_comment = fetch_sign_comment
     authorize @sign_comment
-    remove_comment_and_reports
+    SignComment.remove(@sign_comment)
     if request.referer.include?("admin/comment_reports")
       respond_to do |format|
         format.js { render js: "window.location.href = '#{admin_comment_reports_path}'" }
@@ -44,11 +44,6 @@ class SignCommentsController < ApplicationController
   end
 
   private
-
-  def remove_comment_and_reports
-    @sign_comment.update(removed: true)
-    @sign_comment.reports.destroy_all
-  end
 
   def refresh_comments
     respond_to do |format|
