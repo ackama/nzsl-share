@@ -45,7 +45,7 @@ class SignCommentsController < ApplicationController
 
   private
 
-  def refresh_comments
+  def refresh_comments(location: nil)
     respond_to do |format|
       format.html { location ? redirect_to(location) : redirect_back(fallback_location: @sign) }
       format.js do
