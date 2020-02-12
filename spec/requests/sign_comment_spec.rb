@@ -11,26 +11,26 @@ RSpec.describe "sign_comment", type: :request do
   let(:update_params) { { comment: "updated comment" } }
 
   let(:create) do
-    ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params } }
+    ->(sign) { post "/signs/#{sign.id}/comments", params: { sign_comment: create_params } }
   end
 
   let(:anonymous) do
-    ->(sign) { post "/signs/#{sign.id}/comment", params: { sign_comment: create_params.merge(anonymous: true) } }
+    ->(sign) { post "/signs/#{sign.id}/comments", params: { sign_comment: create_params.merge(anonymous: true) } }
   end
 
   let(:destroy) do
-    ->(sign, sign_comment) { delete "/signs/#{sign.id}/comment/#{sign_comment.id}" }
+    ->(sign, sign_comment) { delete "/signs/#{sign.id}/comments/#{sign_comment.id}" }
   end
 
   let(:reply) do
     lambda { |sign, sign_comment|
-      post "/signs/#{sign.id}/comment/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
+      post "/signs/#{sign.id}/comments/", params: { sign_comment: reply_params.merge(parent_id: sign_comment.id) }
     }
   end
 
   let(:update) do
     lambda { |sign, sign_comment|
-      patch "/signs/#{sign.id}/comment/#{sign_comment.id}", params: { sign_comment: update_params }
+      patch "/signs/#{sign.id}/comments/#{sign_comment.id}", params: { sign_comment: update_params }
     }
   end
 
