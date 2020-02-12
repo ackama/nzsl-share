@@ -107,6 +107,7 @@ RSpec.describe "Sign commenting" do
 
     context "non-approved user", uses_javascript: true do
       let(:user) { FactoryBot.create(:user) }
+      let(:sign) { FactoryBot.create(:sign, :published) }
       let(:folder) { FactoryBot.create(:folder, user: user) }
       let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
 
@@ -118,6 +119,11 @@ RSpec.describe "Sign commenting" do
         visit current_path
         expect(page).to have_selector ".sign-comments__comment", text: comment_text
         expect(SignComment.order(created_at: :desc).first.folder).to eq folder
+      end
+
+      it "cannot comment publicly", uses_javascript: true do
+        select "Public", from: "comments_in_folder"
+        expect(page).to have_no_field "Write your text comment"
       end
     end
   end
