@@ -1,4 +1,10 @@
 class SignPolicy < ApplicationPolicy
+  def initialize(user, record, current_folder_id: nil)
+    @user = user
+    @record = record
+    @current_folder_id = current_folder_id
+  end
+
   def index?
     true
   end
@@ -35,16 +41,6 @@ class SignPolicy < ApplicationPolicy
     return true if public_record?
 
     Pundit.policy_scope(user, record.folders).any?
-  end
-
-  def allow_new_comment?
-    new_sign_comment = record.sign_comments.build(user: user)
-    policy = SignCommentPolicy.new(user, new_sign_comment)
-    policy.create?
-  end
-
-  def allow_comment_options?
-    allow_new_comment?
   end
 
   def destroy?
