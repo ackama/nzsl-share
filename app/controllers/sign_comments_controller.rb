@@ -61,7 +61,7 @@ class SignCommentsController < ApplicationController
 
     return true if policy.create?
 
-    fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy_scope
+    fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy
   end
 
   def comment_params
