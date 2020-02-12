@@ -25,9 +25,9 @@
       </div>
     </div>
     <div class="sign-comment__text-area cell">
-      <%= f.text_area :description, value: @sign_comment.video_description, maxlength: "50", rows: "3", placeholder: "Write a text translation", data: {characters: ""}, class: "sign-comment__text-area--text" %>
+      <%= f.text_area :description, value: @sign_comment.video_description, maxlength: "200", rows: "3", placeholder: "Write a text translation", data: {characters: ""}, class: "sign-comment__text-area--text" %>
       <%= f.hidden_field :video_folder_id, value: "" %>
-      <p class="help-text text-right"><span data-character-count="sign_comment_description">0</span>/50 characters</p>
+      <p class="help-text text-right"><span data-character-count="sign_comment_description">0</span>/200 characters</p>
     </div>
     <div class="cell">
       <%= render "sign_comments/shared/anonymous", form: f %>
