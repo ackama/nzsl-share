@@ -34,5 +34,7 @@
 </div>
 
 <div class="cell shrink">
-  <%= render "sign_comments/shared/options", comment: comment %>
+  <% if !comment.removed? && policy(comment).options? %>
+    <%= render "sign_comments/shared/options", comment: comment %>
+  <% end %>
 </div>
