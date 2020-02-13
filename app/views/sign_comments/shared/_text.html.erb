@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding-x">
   <div class="cell shrink"></div>
   <div class="cell auto sign-comment__text-area">
-    <%= f.text_area :comment, placeholder: "Write your text comment", class: "sign-comment__text-area--text" %>
+    <%= f.text_area :comment, placeholder: "Write your text comment", rows: "3", class: "sign-comment__text-area--text" %>
     <%= f.hidden_field :parent_id, value: parent&.id %>
     <%= f.hidden_field :folder_id, value: "" %>
   </div>
