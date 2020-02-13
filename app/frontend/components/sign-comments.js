@@ -9,8 +9,10 @@ $(document).ready(function() {
   $("body").on("change", ".js-sign-comment-folder", function(event) {
     event.preventDefault();
     var folderId = $(this).val();
-    var element = document.getElementById("new-text-comment");
-    $(element).children().find("input#sign_comment_folder_id").val(folderId);
+    var textElement = document.getElementById("new-text-comment");
+    var videoElement = document.getElementById("new-video-comment");
+    $(textElement).children().find("input#sign_comment_folder_id").val(folderId);
+    $(videoElement).children().find("input#sign_comment_folder_id").val(folderId);
   });
 
   $(".js-sign-comment-folder").trigger("change");
