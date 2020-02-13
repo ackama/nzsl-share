@@ -19,7 +19,11 @@ RSpec.describe "sign_comment", type: :request do
   end
 
   let(:destroy) do
-    ->(sign, sign_comment) { delete "/signs/#{sign.id}/comments/#{sign_comment.id}" }
+    lambda { |sign, sign_comment|
+      delete "/signs/#{sign.id}/comments/#{sign_comment.id}",
+             params: {},
+             headers: { "HTTP_REFERER" => "http://www.example.com/signs/#{sign.id}" }
+    }
   end
 
   let(:reply) do
@@ -68,13 +72,14 @@ RSpec.describe "sign_comment", type: :request do
     end
 
     describe "destroy" do
-      it "will delete a comment for an administrator" do
+      it "will remove a comment for an administrator" do
         user.update(administrator: true)
         expect(sign.sign_comments.count).to eq 0
         create.call(sign)
         expect(sign.sign_comments.count).to eq 1
         destroy.call(sign, sign.sign_comments.first)
-        expect(sign.sign_comments.count).to eq 0
+        expect(sign.sign_comments.count).to eq 1
+        expect(sign.sign_comments.first.removed).to be true
         expect(response).to redirect_to sign_path(sign)
       end
     end

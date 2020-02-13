@@ -14,9 +14,12 @@
   <span class="cell auto">
     <%= link_to user_path(comment.user.username), class: "sign-comments__comment__username--link" do %>
       <%= comment.username %>
-    <% end unless comment.anonymous %>
+    <% end unless comment.anonymous || comment.removed %>
   </span>
-  <% if comment&.video.attached? %>
+
+  <% if comment.removed? %>
+    <em>This comment has been removed</em>
+  <% elsif comment&.video.attached? %>
     <span class="cell auto">
       <%= comment.video_description %><br>
     </span>
@@ -31,5 +34,7 @@
 </div>
 
 <div class="cell shrink">
-  <%= render "sign_comments/shared/options", comment: comment %>
+  <% if !comment.removed? && policy(comment).options? %>
+    <%= render "sign_comments/shared/options", comment: comment %>
+  <% end %>
 </div>

@@ -149,6 +149,22 @@ RSpec.describe "Sign commenting" do
     end
   end
 
+  context "removing", uses_javascript: true do
+    let!(:public_sign) { FactoryBot.create(:sign, :published) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: public_sign, user: user) }
+
+    it "approved user can delete own comment" do
+      visit sign_path(public_sign)
+      within ".sign-comment__options" do
+        click_on "Comment Options"
+        accept_confirm do
+          click_on "Delete"
+        end
+      end
+      expect(page).to have_content "This comment has been removed"
+    end
+  end
+
   context "pagination" do
     let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign: sign, user: user) }
 

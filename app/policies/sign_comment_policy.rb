@@ -16,15 +16,11 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user || user&.administrator?
-  end
-
-  def edit?
-    update?
+    comment_author? || user&.administrator?
   end
 
   def destroy?
-    record.user == user || user&.administrator?
+    update?
   end
 
   def reply?
@@ -32,10 +28,16 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def options?
-    record.user == user || user&.administrator?
+    update?
   end
 
   private
+
+  def comment_author?
+    return unless user
+
+    record.user == user
+  end
 
   def folder_context?
     return if @current_folder_id.blank?
@@ -50,8 +52,10 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def sign_collaborator?
-    return unless user
+    return false if record.try(:sign).blank? || !user
 
-    record.sign.folders.joins(:collaborations).where(collaborations: { collaborator_id: user.id }).exists?
+    record.sign.folders.left_outer_joins(:collaborations)
+          .where(folders: { collaborations: { collaborator_id: user.id } })
+          .exists?
   end
 end

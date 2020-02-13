@@ -35,7 +35,6 @@ Rails.application.routes.draw do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
     resources :comments, only: %i[create edit update destroy], controller: :sign_comments do
       resources :reports, only: :create, controller: :comment_reports
-      patch :appropriate, on: :member
       resource :video, only: %i[update destroy], controller: :sign_video_comment
     end
     resources :video_comment, only: %i[create], controller: :sign_video_comment

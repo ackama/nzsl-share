@@ -56,8 +56,9 @@ as well as a link to its edit page.
         <%= link_to t("administrate.actions.back"), :back, class: "button clear" %>
       </div>
       <div>
-        <%= link_to "Remove comment", :back, class: "button alert margin-right-1" %>
-        <%= link_to "Ignore report", :back, class: "button" %>
+        <%= link_to "Remove comment", sign_comment_path(page.resource.comment.sign.id, page.resource.comment.id), method: :delete, data: { confirm: t("sign_comments.destroy.confirm") }, class: "button alert margin-right-1", remote: true %>
+
+        <%= link_to "Ignore report", admin_comment_report_path(page.resource), method: :delete, data: { confirm: t("comment_reports.destroy.confirm") }, class: "button" %>
       </div>
     </div>
   </div>
