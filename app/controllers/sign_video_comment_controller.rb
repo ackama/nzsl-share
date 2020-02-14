@@ -7,7 +7,7 @@ class SignVideoCommentController < ApplicationController
     @sign = fetch_sign
     @sign_comment = SignComment.new(create_params)
 
-    authorize @sign_comment, :create?
+    authorize_create! @sign_comment
 
     @sign_comment.save
     @sign_comment_attachment = ActiveStorage::Attachment.new(attachment)
@@ -37,6 +37,17 @@ class SignVideoCommentController < ApplicationController
   end
 
   private
+
+  def authorize_create!(sign_comment)
+    policy = SignCommentPolicy.new(
+      current_user,
+      sign_comment,
+      current_folder_id: sign_comment.folder_id)
+
+    return true if policy.create?
+
+    fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy
+  end
 
   def refresh_comments
     respond_to do |format|
