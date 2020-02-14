@@ -7,11 +7,11 @@
       <hr class="sign-comments__divider">
     </div>
 
-    <div class="grid-x align-middle grid-padding-x sign-comment__options">
+    <div class="grid-x grid-padding-x sign-comment__options">
       <%= render "sign_comments/shared/comment", comment: comment %>
     </div>
 
-    <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+    <div class="grid-x grid-padding-x sign-comments__replies">
       <div class="cell auto sign-comments__replies--reply">
 
         <% if SignCommentPolicy.new(current_user, comment, current_folder_id: @current_folder_id).create? %>
