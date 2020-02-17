@@ -20,7 +20,7 @@
       <% comment_total = @comments.unscope(:limit, :offset).count %>
       showing <%= comment_total %> of <%= comment_total %> comments
     </div>
-    <% unless SignCommentPolicy.new(current_user, @new_comment, current_folder_id: @current_folder_id).create? %>
+    <% unless sign_comment_policy(current_user, comment, @current_folder_id).create? %>
       <div class="cell margin-1">Only <%= link_to edit_user_registration_path(anchor: "approved-member-information") do %>approved users<% end %> can comment on public signs.</div>
     <% end %>
   </div>
@@ -42,7 +42,7 @@
 
   <hr class="sign-comments__divider">
 
-  <%= render "sign_comments/new", sign: @sign if SignCommentPolicy.new(current_user, @new_comment, current_folder_id: @current_folder_id).create? %>
+  <%= render "sign_comments/new", sign: @sign if sign_comment_policy(current_user, comment, @current_folder_id).create? %>
 
   <div class="margin-bottom-1"></div>
 </div>
