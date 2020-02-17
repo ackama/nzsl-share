@@ -34,7 +34,7 @@
 </div>
 
 <div class="cell shrink sign-comments__comment__options">
-  <% if !comment.removed? && policy(comment).options? %>
+  <% if !comment.removed? && SignCommentPolicy.new(current_user, comment, current_folder_id: @current_folder_id).options? %>
     <%= render "sign_comments/shared/options", comment: comment %>
   <% end %>
 </div>
