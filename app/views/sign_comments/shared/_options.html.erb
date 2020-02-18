@@ -13,15 +13,15 @@
       <%= link_to edit_sign_comment_path(comment.sign, comment.id) do %>
         <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
       <% end %>
-    <% end if SignCommentPolicy.new(current_user, comment, current_folder_id: @current_folder_id).edit? %>
+    <% end if sign_comment_policy(current_user, comment, @current_folder_id).edit? %>
 
     <%= content_tag :li, class: "list__item-menu__menu-item" do %>
       <%= link_to sign_comment_path(comment.sign, comment.id), method: :delete, data: { confirm: t("sign_comments.destroy.confirm") }, remote: true do %>
         <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
       <% end %>
-    <% end if SignCommentPolicy.new(current_user, comment, current_folder_id: @current_folder_id).destroy? %>
+    <% end if sign_comment_policy(current_user, comment, @current_folder_id).destroy? %>
 
-    <% if policy(CommentReport).create? && SignCommentPolicy.new(current_user, comment, current_folder_id: @current_folder_id).report? %>
+    <% if policy(CommentReport).create? && sign_comment_policy(current_user, comment, @current_folder_id).report? %>
       <li class="list__item-menu__menu-item">
         <%= link_to sign_comment_reports_path(comment.sign, comment.id), method: :post do %>
           <%= inline_svg "media/images/flag.svg" %><span>Flag as inappropriate</span>
