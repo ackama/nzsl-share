@@ -2,11 +2,11 @@
 
 class CommentReportPolicy < ApplicationPolicy
   def create?
-    user&.approved?
+    user&.approved? || user&.administrator?
   end
 
   def destroy?
-    administrator?
+    user&.administrator?
   end
 
   class Scope < Scope

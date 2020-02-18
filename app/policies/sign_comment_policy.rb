@@ -28,7 +28,15 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def options?
-    update?
+    if !folder_context?
+      user&.approved? || comment_author? || user&.administrator?
+    else
+      comment_author? || user&.administrator?
+    end
+  end
+
+  def report?
+    !folder_context? && !record.reports.where(user: user).exists? && !comment_author?
   end
 
   private
