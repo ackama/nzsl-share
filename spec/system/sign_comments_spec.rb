@@ -230,6 +230,13 @@ RSpec.describe "Sign commenting" do
       expect(SignComment.order(created_at: :desc).first.folder).to eq folder
     end
 
+    it "cannot report comments", uses_javascript: true do
+      within ".sign-comment__options", match: :first do
+        click_on "Comment Options"
+        expect(page).to have_no_link "Flag as inappropriate"
+      end
+    end
+
     context "non-approved user", uses_javascript: true do
       let(:user) { FactoryBot.create(:user) }
       let(:sign) { FactoryBot.create(:sign, :published) }
