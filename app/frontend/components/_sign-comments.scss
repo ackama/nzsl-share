@@ -26,6 +26,13 @@
     text-align: right;
   }
 
+  &__video {
+    height: auto;
+    max-height: 15rem; // 240px;
+    max-width: 20rem;  // 320px;
+    width: auto;
+  }
+
   &__comment {
     background-color: get-color(extra-light);
     border-radius: 0 0.75rem 0.75rem;
@@ -68,6 +75,11 @@
   &--heading {
     font-size: 0.875rem;
     font-weight: bold;
+  }
+
+  &__reply {
+    margin-right: 2rem;
+    padding-bottom: 1rem;
   }
 
   &__checkbox {
