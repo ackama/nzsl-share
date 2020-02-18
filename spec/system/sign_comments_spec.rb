@@ -249,6 +249,7 @@ RSpec.describe "Sign commenting" do
       it "cannot comment publicly", uses_javascript: true do
         select "Public", from: "comments_in_folder"
         expect(page).to have_no_field "Write your text comment"
+        expect(page).to have_content "Only approved users can comment on public signs."
       end
     end
   end
