@@ -6,7 +6,7 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.submitted(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("We've received your application")
+      expect(mail.subject).to eq("NZSL Share - Thank you for your application")
       expect(mail.to).to eq([application.user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
@@ -22,7 +22,7 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.accepted(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Your approved member application on NZSL Share")
+      expect(mail.subject).to eq("NZSL Share - You have been accepted as an approved member")
       expect(mail.to).to eq([application.user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
@@ -38,14 +38,14 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.declined(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Your approved member application on NZSL Share")
+      expect(mail.subject).to eq("NZSL Share - Sorry, your application has not been approved")
       expect(mail.to).to eq([application.user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
 
     it "renders the body" do
       body = mail.body.encoded
-      expect(body).to include("Unfortunately, we have not approved your application.")
+      expect(body).to include("We have not accepted your application")
     end
   end
 
@@ -55,7 +55,7 @@ RSpec.describe ApprovedUserMailer, type: :mailer do
     let(:mail) { ApprovedUserMailer.admin_submitted(application) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("New approved member application received")
+      expect(mail.subject).to eq("NZSL Share Admin - Member application")
       expect(mail.to).to eq([admin.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
