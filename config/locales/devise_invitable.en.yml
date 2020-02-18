@@ -17,7 +17,7 @@ en:
         submit_button: "Set my password"
     mailer:
       invitation_instructions:
-        subject: "NZSL Share: invitation to join"
+        subject: "NZSL Share - You have been invited to join a team"
         hello: "Hello %{email}"
         someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         accept: "Accept invitation"
