@@ -262,7 +262,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "reporting" do
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: FactoryBot.create(:user)) }
 
     it "reports a comment" do
       visit current_path
@@ -292,6 +292,18 @@ RSpec.describe "Sign commenting" do
       within ".sign-comment__options" do
         click_on "Comment Options"
         expect(page).to have_link "Flag as inappropriate"
+      end
+    end
+
+    context "a comment authored by the current user" do
+      let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+      it "cannot report own comment" do
+        visit current_path
+
+        within ".sign-comment__options" do
+          click_on "Comment Options"
+          expect(page).to have_no_link "Flag as inappropriate"
+        end
       end
     end
   end
