@@ -1,7 +1,18 @@
-<p>Hello <%= @email %>!</p>
+<p>Kia Ora <%= @email %></p>
 
 <% if @resource.try(:unconfirmed_email?) %>
-  <p>We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.</p>
+  <p>You are changing your email address to <%= @resource.unconfirmed_email %>.</p>
 <% else %>
-  <p>We're contacting you to notify you that your email has been changed to <%= @resource.email %>.</p>
+  <p>You have changed your email address to <%= @resource.email %>.</p>
 <% end %>
+
+<p>You can update your email address at any time on your NZSL Share profile</p>
+
+<p>Kind regards</p>
+
+<p>NZSL Share Team</p>
+
+NZSL Share: https://nzslshare.nz<br>
+NZSL Online Dictionary: https://nzsl.nz<br>
+Learn NZSL: http://www.learnnzsl.nz<br>
+Email: DSRU@vuw.ac.nz
