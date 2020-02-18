@@ -73,7 +73,8 @@ class SignVideoCommentController < ApplicationController
       sign_status: @sign.status,
       comment: Sanitizer.sanitize(blob.filename.to_s),
       display: false,
-      parent_id: parent_id
+      parent_id: params[:parent_id],
+      folder_id: params[:folder_id]
     }
   end
 
@@ -113,9 +114,5 @@ class SignVideoCommentController < ApplicationController
 
   def comment_id
     params[:comment_id]
-  end
-
-  def parent_id
-    params[:parent_id]
   end
 end

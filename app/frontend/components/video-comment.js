@@ -6,9 +6,11 @@ const handleCommentAttachmentUpload = ($container) => {
   const listSelector = ".video-comment";
   const signId = $container.data("signId");
   const signedBlobId = $field.val();
+  const folder = document.getElementById("sign_comment_folder");
+  const folderId = $(folder).children("option:selected").val();
 
   // eslint-disable-next-line camelcase
-  return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId })
+  return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, folder_id: folderId })
     .done(() => {
       $(listSelector).load(`${window.location} ${listSelector} > *`);
       const fieldName = $field.attr("name");

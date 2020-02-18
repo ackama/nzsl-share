@@ -40,11 +40,11 @@
       <% next unless reply.display %>
       <% reply = present(reply) %>
 
-      <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+      <div class="grid-x grid-padding-x sign-comments__replies">
         <%= render "sign_comments/shared/comment", comment: reply %>
       </div>
 
-      <div class="grid-x align-middle grid-padding-x sign-comments__replies">
+      <div class="grid-x grid-padding-x sign-comments__replies">
         <div class="cell auto sign-comments__replies sign-comments__replies--reply">
           <%= comment.friendly_date %>
         </div>

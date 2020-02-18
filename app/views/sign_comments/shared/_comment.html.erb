@@ -23,8 +23,8 @@
     <span class="cell auto">
       <%= comment.video_description %><br>
     </span>
-    <span class="cell auto video-wrapper data-overlay">
-      <%= video_tag url_for(comment.video), size: "320x240", controls: true %>
+    <span class="cell auto video-wrapper data-overlay sign-comments__video">
+      <%= video_tag url_for(comment.video), controls: true %>
     </span>
   <% else %>
     <span class="cell auto">
