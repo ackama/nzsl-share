@@ -1,0 +1,21 @@
+.sign-examples {
+
+  &__image {
+    background: $black;
+    text-align: center;
+
+    &--bad {
+      width: 50%;
+    }
+  }
+
+  &__list {
+    li {
+      padding: 0.25rem;
+    }
+
+    li > svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
