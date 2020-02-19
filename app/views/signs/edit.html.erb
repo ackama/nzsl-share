@@ -86,9 +86,9 @@
         </legend>
         <div class="checkbox">
           <%= f.check_box :conditions_accepted, class: (@sign.errors[:conditions_accepted].any? && "invalid")%>
-          <%= f.label :conditions_accepted do
-            "I agree to follow the &nbsp; #{link_to("privacy policy", page_url("privacy-policy"))}".html_safe
-          end %>
+          <%= f.label :conditions_accepted do %>
+            I agree to follow the &nbsp;<%= link_to "privacy policy", page_url("privacy-policy") %>
+          <% end %>
         </div>
       </fieldset>
     <% end %>
