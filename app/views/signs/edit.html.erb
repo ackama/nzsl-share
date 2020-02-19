@@ -70,7 +70,7 @@
 
         <div class="radio">
           <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?,
-                data: { toggle_truthy: "#terms-and-conditions" }) %>
+                data: { toggle_truthy: "#privacy-policy" }) %>
             <%= label_tag(:should_submit_for_publishing_true, "Yes, I want my sign to be public") %>
         </div>
 
@@ -80,13 +80,15 @@
         </div>
       </fieldset>
 
-      <fieldset class="form__section" id="terms-and-conditions">
+      <fieldset class="form__section" id="privacy-policy">
         <legend>
-          <h2 class="primary">Terms and Conditions</h2>
+          <h2 class="primary">Privacy Policy</h2>
         </legend>
         <div class="checkbox">
           <%= f.check_box :conditions_accepted, class: (@sign.errors[:conditions_accepted].any? && "invalid")%>
-          <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
+          <%= f.label :conditions_accepted do
+            "I agree to follow the &nbsp; #{link_to("privacy policy", page_url("privacy-policy"))}".html_safe
+          end %>
         </div>
       </fieldset>
     <% end %>
