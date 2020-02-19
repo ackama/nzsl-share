@@ -1,7 +1,8 @@
 class ApprovedUserMailer < ApplicationMailer
+  helper :mailers
+
   def submitted(application)
     @user = application.user
-    @nzsl_text_signature = nzsl_text_signature
     mail to: @user.email
   end
 
@@ -12,13 +13,11 @@ class ApprovedUserMailer < ApplicationMailer
 
   def accepted(application)
     @user = application.user
-    @nzsl_text_signature = nzsl_text_signature
     mail to: @user.email
   end
 
   def declined(application)
     @user = application.user
-    @nzsl_text_signature = nzsl_text_signature
     mail to: @user.email
   end
 end
