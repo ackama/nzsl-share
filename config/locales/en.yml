@@ -178,16 +178,16 @@ en:
         success: Sign was made private # Pending message
   approved_user_mailer:
     admin_submitted:
-      subject: "New approved member application received"
+      subject: NZSL Share Admin - Member application
     submitted:
-      subject: We've received your application
+      subject: NZSL Share - Thank you for your application
     accepted:
-      subject: Your approved member application on NZSL Share
+      subject: NZSL Share - You have been accepted as an approved member
     declined:
-      subject: Your approved member application on NZSL Share
+      subject: NZSL Share - Sorry, your application has not been approved
   collaboration_mailer:
     success:
-      subject: "NZSL Share: invitation to join a team"
+      subject: NZSL Share - You are invited to join a team
   activemodel:
     errors: &activemodel_errors
       messages:
