@@ -1,6 +1,6 @@
 <% allow_delete = true unless defined?(allow_delete) %>
 
-<%= form_with(model: @sign_comment, url: sign_comment_video_path(@sign, @sign_comment.id), method: :patch) do |f| %>
+<%= form_with(model: @sign_comment, local: true, url: sign_comment_video_path(@sign, @sign_comment.id), method: :patch) do |f| %>
   <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
     <div class="cell">
       <span class="sign-comment--heading">

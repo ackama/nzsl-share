@@ -7,7 +7,7 @@
     <% if @sign_comment.video&.attached? %>
      <%= render "sign_comments/shared/video", allow_delete: false %>
     <% else %>
-      <%= form_with model: @sign_comment, url: sign_comment_path(@sign, @sign_comment), method: :patch do |f| %>
+      <%= form_with model: @sign_comment, url: sign_comment_path(@sign, @sign_comment), local: true, method: :patch do |f| %>
         <%= render "sign_comments/shared/text", comment: f.object, parent: f.object.in_reply_to, f: f %>
       <% end %>
     <% end %>
