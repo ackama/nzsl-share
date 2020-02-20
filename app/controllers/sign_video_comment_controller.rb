@@ -49,17 +49,8 @@ class SignVideoCommentController < ApplicationController
     fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy
   end
 
-  def refresh_comments(location: nil)
-    respond_to do |format|
-      format.html { location ? redirect_to(location) : redirect_back(fallback_location: @sign) }
-      format.js do
-        render inline: if location
-                         "window.location='#{polymorphic_path(location)}'"
-                       else
-                         "window.location.reload()"
-                       end
-      end
-    end
+  def refresh_comments
+    redirect_to polymorphic_path(@sign, comments_in_folder: @sign_comment.folder_id, anchor: "sign-comments")
   end
 
   def fetch_sign_comment
