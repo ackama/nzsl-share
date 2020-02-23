@@ -1,6 +1,6 @@
 <%= render "sign_comments/shared/selects", js_sign_comment: "js-sign-comment-type-reply", is_reply: true %>
 <div id="new-text-comment-reply" class="sign-comment__reply">
-  <%= form_with model: SignComment.new, url: sign_comments_path(@sign) do |f| %>
+  <%= form_with model: SignComment.new, url: sign_comments_path(@sign), local: true do |f| %>
     <%= render "sign_comments/shared/text", comment: f.object, parent: comment, f: f %>
   <% end %>
 </div>
