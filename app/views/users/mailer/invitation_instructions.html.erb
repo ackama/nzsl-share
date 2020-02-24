@@ -1,16 +1,17 @@
-<p>Hello <%= @resource.email %>,</p>
+<p>Kia Ora <%= @resource.email %></p>
 
 <p>
 Someone has invited you to join a team on NZSL Share.
-To join the team and set up an NZSL Share account, click on the link below.
+To join the team and set up an NZSL Share account, click on this link: <%= link_to 'Accept invitation', accept_invitation_url(@resource, invitation_token: @token) %>
 </p>
 
-<p>
-<%= link_to 'Accept invitation', accept_invitation_url(@resource, invitation_token: @token) %>
-</p>
+<p>Don't want to join NZSL Share? That's ok, you don't have to do anything else.</p>
 
-<p>Don't want to join NZSL Share? That's ok you don't have to do anything else.</p>
+<p>Kind regards</p>
 
-<p>Thank you,</p>
+<p>NZSL Share Team</p>
 
-<p>NZSL Share admin (dsru@vuw.ac.nz)</p>
+NZSL Share: https://nzslshare.nz<br>
+NZSL Online Dictionary: https://nzsl.nz<br>
+Learn NZSL: http://www.learnnzsl.nz<br>
+Email: DSRU@vuw.ac.nz

@@ -1,7 +1,13 @@
-<p>Hello <%= @resource.email %>!</p>
+<p>Kia Ora <%= @resource.email %></p>
 
-<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<p>You have tried to log in too many times with the wrong details. Your account has been locked</p>
+<p>Click the link to unlock your account: <%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %></p>
 
-<p>Click the link below to unlock your account:</p>
+<p>Kind regards</p>
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %></p>
+<p>NZSL Share Team</p>
+
+NZSL Share: https://nzslshare.nz<br>
+NZSL Online Dictionary: https://nzsl.nz<br>
+Learn NZSL: http://www.learnnzsl.nz<br>
+Email: DSRU@vuw.ac.nz

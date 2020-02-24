@@ -1,5 +1,12 @@
-<p>Welcome <%= @email %>!</p>
+<p>Kia Ora <%= @email %> and welcome to NZSL Share</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Please click the link to confirm your email account: <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>Kind regards</p>
+
+<p>NZSL Share Team</p>
+
+NZSL Share: https://nzslshare.nz<br>
+NZSL Online Dictionary: https://nzsl.nz<br>
+Learn NZSL: http://www.learnnzsl.nz<br>
+Email: DSRU@vuw.ac.nz

@@ -31,7 +31,7 @@ RSpec.describe CollaborationMailer, type: :mailer do
     end
 
     it "renders the headers" do
-      expect(mail.subject).to eq("NZSL Share: invitation to join a team")
+      expect(mail.subject).to eq("NZSL Share - You are invited to join a team")
       expect(mail.to).to eq([user.email])
       expect(mail.from).to eq([ApplicationMailer.default[:from]])
     end
