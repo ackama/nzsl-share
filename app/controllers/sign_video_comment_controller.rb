@@ -23,7 +23,7 @@ class SignVideoCommentController < ApplicationController
     @sign_comment.update!(update_params)
 
     @metadata = metadata_service(@sign_comment.video.attachment)
-    @metadata.set!(:description, Sanitizer.sanitize(params[:sign_comment][:description]))
+    @metadata.set!(:description, Sanitizer.sanitize_text_with_urls(params[:sign_comment][:description]))
 
     refresh_comments
   end
@@ -66,7 +66,7 @@ class SignVideoCommentController < ApplicationController
       user: current_user,
       sign: @sign,
       sign_status: @sign.status,
-      comment: Sanitizer.sanitize(blob.filename.to_s),
+      comment: Sanitizer.sanitize_text_with_urls(blob.filename.to_s),
       display: false,
       parent_id: params[:parent_id],
       folder_id: params[:folder_id]
