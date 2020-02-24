@@ -54,20 +54,20 @@
           This is an Open Source project.
         <%end%>
         </li>
-        <li><%= link_to "https://www.ackama.com/", target: "_blank", rel: "noreferrer" do %>
-        <%= inline_svg "media/images/ackama-logo-white.svg", aria: true, title: "Ackama Logo" %>
-          ackama
-        <% end %>
-        </li>
       </ul>
     </div>
   </div>
   <div class="footer__license">
     <div class="footer__license__content grid-x">
-      <div class="cell small-12 medium-auto">
+      <div class="cell auto">
         <p>
           <%= link_to "© Deaf Studies Research Unit, Victoria University of Wellington", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>
         </p>
+      </div>
+      <div class="cell shrink">
+        <%= link_to "https://www.ackama.com/", rel: "noreferrer", target: "_blank" do %>
+          <%= inline_svg "media/images/ackama-lockup.svg", aria: true, title: "Ackama Logo" %>
+        <% end %>
       </div>
     </div>
   </div>
