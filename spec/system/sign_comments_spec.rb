@@ -243,7 +243,7 @@ RSpec.describe "Sign commenting" do
       let!(:folder) { FactoryBot.create(:folder, user: user) }
       let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
 
-      it "posts a new comment", uses_javascript: true do
+      it "posts a new comment" do
         comment_text = Faker::Lorem.sentence
         select folder.title, from: "comments_in_folder"
         fill_in "Write your text comment", with: "#{comment_text}\n"
@@ -252,7 +252,14 @@ RSpec.describe "Sign commenting" do
         expect(SignComment.order(created_at: :desc).first.folder).to eq folder
       end
 
-      it "cannot comment publicly", uses_javascript: true do
+      it "can post a reply comment" do
+        page.find(".sign-comments__replies--link", match: :first).click
+        fill_in "Write your text comment", match: :first, with: "My reply"
+        click_button("Post comment", match: :first)
+        expect(page).to have_content "My reply"
+      end
+
+      it "cannot comment publicly" do
         select "Public", from: "comments_in_folder"
         expect(page).to have_no_field "Write your text comment"
         expect(page).to have_content "Only approved users can comment on public signs."
