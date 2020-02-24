@@ -50,12 +50,7 @@ class SignVideoCommentController < ApplicationController
   end
 
   def refresh_comments
-    respond_to do |format|
-      format.html { redirect_to @sign }
-      format.js do
-        render inline: "window.location='#{polymorphic_path(@sign)}'"
-      end
-    end
+    redirect_to polymorphic_path(@sign, comments_in_folder: @sign_comment.folder_id, anchor: "sign-comments")
   end
 
   def fetch_sign_comment

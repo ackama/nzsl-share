@@ -5,7 +5,7 @@ default: &default
   xml: tmp/freelex.xml
   obscene_xml: tmp/freelex_obscene.xml
   public_host: https://nzsl.nz
-  asset_host: http://nzsl-assets.vuw.ac.nz/dnzsl/freelex/assets/
+  asset_host: https://nzsl-assets-proxy.herokuapp.com/dnzsl/freelex/assets/
   timeout: 120
 
 development:

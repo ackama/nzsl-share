@@ -16,7 +16,7 @@
     <% end if sign_comment_policy(current_user, comment, @current_folder_id).edit? %>
 
     <%= content_tag :li, class: "list__item-menu__menu-item" do %>
-      <%= link_to sign_comment_path(comment.sign, comment.id), method: :delete, data: { confirm: t("sign_comments.destroy.confirm") }, remote: true do %>
+      <%= link_to sign_comment_path(comment.sign, comment.id), method: :delete, data: { confirm: t("sign_comments.destroy.confirm") } do %>
         <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
       <% end %>
     <% end if sign_comment_policy(current_user, comment, @current_folder_id).destroy? %>
