@@ -52,12 +52,12 @@ RSpec.describe FreelexSignPresenter, type: :presenter do
     subject { presenter.sign_video_sourceset }
 
     it "returns a webm source to the video key" do
-      source = "<source src=\"http://nzsl-assets.vuw.ac.nz/dnzsl/freelex/assets/video/sign.webm\"></source>"
+      source = "<source src=\"#{FREELEX_CONFIG[:asset_host]}video/sign.webm\"></source>"
       expect(subject).to include source
     end
 
     it "returns an mp4 source to the video key" do
-      source = "<source src=\"http://nzsl-assets.vuw.ac.nz/dnzsl/freelex/assets/video/sign.mp4\"></source>"
+      source = "<source src=\"#{FREELEX_CONFIG[:asset_host]}video/sign.mp4\"></source>"
       expect(subject).to include source
     end
   end
