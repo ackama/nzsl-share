@@ -10,7 +10,7 @@ const handleCommentAttachmentUpload = ($container) => {
   const folderId = $(folder).children("option:selected").val();
 
   // eslint-disable-next-line camelcase
-  return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, folder_id: folderId })
+  return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, folder_id: folderId, format: "js" })
     .done(() => {
       $(listSelector).load(`${window.location} ${listSelector} > *`);
       const fieldName = $field.attr("name");
@@ -32,9 +32,10 @@ const handleCommentReplyAttachmentUpload = ($container) => {
   const signId = $container.data("signId");
   const parentId = $container.data("parentId");
   const signedBlobId = $field.val();
+  const folderId = $container.data("folderId");
 
   // eslint-disable-next-line camelcase
-  return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, parent_id: parentId })
+  return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, parent_id: parentId, folder_id: folderId, format: "js" })
     .done(() => {
       $(listSelector).load(`${window.location} ${listSelector} > *`);
       const fieldName = $field.attr("name");

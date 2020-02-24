@@ -3,7 +3,7 @@
   <div class="cell auto sign-comment__text-area">
     <%= f.text_area :comment, placeholder: "Write your text comment", rows: "3", class: "sign-comment__text-area--text" %>
     <%= f.hidden_field :parent_id, value: parent&.id %>
-    <%= f.hidden_field :folder_id, value: "" %>
+    <%= f.hidden_field :folder_id, value: parent&.folder_id %>
   </div>
   <div class="cell">
     <%= render "sign_comments/shared/anonymous", form: f %>

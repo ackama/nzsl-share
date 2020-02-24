@@ -8,7 +8,7 @@
   <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
     <div class="video-comment-reply cell">
       <%= content_tag(:div, class: "file-upload video-comment-file-upload-reply",
-                      data: { sign_id: @sign.id, parent_id: comment.id, file_upload_controller: "video_comment_reply_#{comment.id}" }) do %>
+                      data: { sign_id: @sign.id, parent_id: comment.id, folder_id: comment.folder_id, file_upload_controller: "video_comment_reply_#{comment.id}" }) do %>
         <%= label_tag :"video_comment_reply", "Browse files", class: "button primary large" %>
       <% end %>
     </div>
