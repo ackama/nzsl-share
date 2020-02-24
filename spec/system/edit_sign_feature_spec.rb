@@ -61,7 +61,7 @@ RSpec.describe "Editing a sign", type: :system do
     let(:user) { FactoryBot.create(:user) }
 
     it "doesn't see the conditions" do
-      expect(page).to have_no_selector "#terms-and-conditions"
+      expect(page).to have_no_selector "#privacy-policy"
     end
 
     it "doesn't have an option to submit for publishing" do
@@ -105,10 +105,10 @@ RSpec.describe "Editing a sign", type: :system do
     end
   end
 
-  it "hides the terms and conditions with JS unless they are required to be accepted", uses_javascript: true do
-    expect(page).to have_selector "#terms-and-conditions", visible: false
+  it "hides the privacy policy with JS unless they are required to be accepted", uses_javascript: true do
+    expect(page).to have_selector "#privacy-policy", visible: false
     choose "Yes, I want my sign to be public"
-    expect(page).to have_selector "#terms-and-conditions", visible: true
+    expect(page).to have_selector "#privacy-policy", visible: true
   end
 
   it "displays information about the video belonging to the sign" do
