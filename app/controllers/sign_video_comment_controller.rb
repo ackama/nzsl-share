@@ -1,4 +1,6 @@
 class SignVideoCommentController < ApplicationController
+  include ActionView::RecordIdentifier
+
   protect_from_forgery except: :create
   before_action :authenticate_user!
   after_action :post_process, only: :create
@@ -50,7 +52,7 @@ class SignVideoCommentController < ApplicationController
   end
 
   def refresh_comments
-    redirect_to polymorphic_path(@sign, comments_in_folder: @sign_comment.folder_id, anchor: "sign-comments")
+    redirect_to polymorphic_path(@sign, comments_in_folder: @sign_comment.folder_id, anchor: dom_id(@sign_comment))
   end
 
   def fetch_sign_comment

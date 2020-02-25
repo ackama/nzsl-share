@@ -7,7 +7,7 @@
       <hr class="sign-comments__divider">
     </div>
 
-    <div class="grid-x grid-padding-x sign-comment__options">
+    <div id="<%= dom_id(comment) %>" class="grid-x grid-padding-x sign-comment__options">
       <%= render "sign_comments/shared/comment", comment: comment %>
     </div>
 
@@ -16,7 +16,7 @@
 
         <% if sign_comment_policy(current_user, comment, @current_folder_id).create? %>
           <span class="cell auto">
-            <%= content_tag "a", nil, data: { id: dom_id(comment) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
+            <%= content_tag "a", nil, data: { id: dom_id(comment, :reply) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
               <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
               Reply
             <% end %>
@@ -31,7 +31,7 @@
     </div>
 
     <% if sign_comment_policy(current_user, comment, @current_folder_id).create? %>
-      <div id="<%= dom_id(comment) %>" class="sign-comments__replies" style="display:none">
+      <div id="<%= dom_id(comment, :reply) %>" class="sign-comments__replies" style="display:none">
         <%= render "sign_comments/reply", comment: comment %>
       </div>
     <% end %>
@@ -40,7 +40,7 @@
       <% next unless reply.display %>
       <% reply = present(reply) %>
 
-      <div class="grid-x grid-padding-x sign-comments__replies">
+      <div id="<%= dom_id(reply) %>" class="grid-x grid-padding-x sign-comments__replies">
         <%= render "sign_comments/shared/comment", comment: reply %>
       </div>
 

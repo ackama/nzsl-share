@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SignCommentsController < ApplicationController
+  include ActionView::RecordIdentifier
   def create
     @sign = fetch_sign
     @sign_comment = SignComment.new(build_text_comment)
@@ -46,7 +47,7 @@ class SignCommentsController < ApplicationController
   private
 
   def refresh_comments
-    redirect_to polymorphic_path(@sign, comments_in_folder: @sign_comment.folder_id, anchor: "sign-comments")
+    redirect_to polymorphic_path(@sign, comments_in_folder: @sign_comment.folder_id, anchor: dom_id(@sign_comment))
   end
 
   def authorize_create!(sign_comment)
