@@ -50,7 +50,7 @@ RSpec.describe "sign_comment", type: :request do
         anonymous.call(sign)
         expect(sign.sign_comments.count).to eq 1
         expect(sign.sign_comments.first.anonymous).to be true
-        expect(response).to redirect_to sign_path(sign, anchor: "sign-comments")
+        expect(response).to redirect_to sign_path(sign, anchor: "sign_comment_#{sign.sign_comments.first.id}")
       end
 
       context "when associating with a folder" do
@@ -80,7 +80,7 @@ RSpec.describe "sign_comment", type: :request do
         destroy.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.count).to eq 1
         expect(sign.sign_comments.first.removed).to be true
-        expect(response).to redirect_to sign_path(sign, anchor: "sign-comments")
+        expect(response).to redirect_to sign_path(sign, anchor: "sign_comment_#{sign.sign_comments.first.id}")
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe "sign_comment", type: :request do
         update.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.count).to eq 1
         expect(sign.sign_comments.first.comment).to eq "updated comment"
-        expect(response).to redirect_to sign_path(sign, anchor: "sign-comments")
+        expect(response).to redirect_to sign_path(sign, anchor: "sign_comment_#{sign.sign_comments.first.id}")
       end
 
       it "will update a comment for the commenter" do
@@ -103,7 +103,7 @@ RSpec.describe "sign_comment", type: :request do
         update.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.count).to eq 1
         expect(sign.sign_comments.first.comment).to eq "updated comment"
-        expect(response).to redirect_to sign_path(sign, anchor: "sign-comments")
+        expect(response).to redirect_to sign_path(sign, anchor: "sign_comment_#{sign.sign_comments.first.id}")
       end
     end
 
@@ -116,7 +116,8 @@ RSpec.describe "sign_comment", type: :request do
         expect(sign.sign_comments.first.replies.count).to eq 0
         reply.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.first.replies.count).to eq 1
-        expect(response).to redirect_to sign_path(sign, anchor: "sign-comments")
+        anchor = "sign_comment_#{sign.sign_comments.first.replies.first.id}"
+        expect(response).to redirect_to sign_path(sign, anchor: anchor)
       end
 
       it "will not create a reply for an unapproved user" do
