@@ -3,7 +3,7 @@
 # https://github.com/bbatsov/rubocop/blob/master/config/default.yml
 
 # We do not typically use/need class documentation
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Run rails specific checks
@@ -22,7 +22,7 @@ AllCops:
     - "doc/**/*"
     - "node_modules/**/*"
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/ModuleLength:
