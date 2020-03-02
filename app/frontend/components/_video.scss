@@ -4,6 +4,14 @@
   position: relative;
 }
 
+.video-wrapper--hero {
+  max-height: 360px;
+  overflow: hidden;
+  @include breakpoint(large) {
+    overflow: visible;
+  }
+}
+
 .video {
   max-width: 100%;
 
@@ -32,6 +40,23 @@
       position: absolute;
       width: auto;
       z-index: 0;
+    }
+  }
+
+  &__poster {
+    height: 100%;
+    max-width: none;
+    position: absolute;
+    right: 0px;
+    z-index: 1;
+
+    @include breakpoint(large) {
+      max-height: 360px;
+      max-width: none;
+      position: absolute;
+      right: -10px;
+      width: auto;
+      z-index: 1;
     }
   }
 
