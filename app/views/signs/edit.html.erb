@@ -42,8 +42,8 @@
       <%= f.text_field :maori %>
       <%= f.error :maori %>
 
-      <%= f.label :topic_id, "Topic" %>
-      <%= f.collection_select :topic_id, Topic.all, :id, :name, prompt: "-- Please select --" %>
+      <%= f.label :topics, "Topics" %>
+      <%= f.collection_select :topic_ids, Topic.all, :id, :name, { selected: @sign.topics.map(&:id) }, { class: "js-chosen-topics", multiple: true } %>
     </fieldset>
 
     <fieldset class="form__section">
@@ -64,14 +64,14 @@
         <%= label :should_submit_for_publishing, "Do you want your sign to be public?" do %>
           <span>
             <h3>Do you want your sign to be public?</h3>
-            <p> Your sign will go through a validation process with our NZSL Share moderators before it is published. </p>
+            <p> An NZSL Share moderator will check your sign before it is made public.</p>
           </span>
         <% end %>
 
         <div class="radio">
           <%= radio_button_tag(:should_submit_for_publishing, "true", !!@sign.submitted_to_publish?,
-                data: { toggle_truthy: "#terms-and-conditions" }) %>
-            <%= label_tag(:should_submit_for_publishing_true, "Yes, request my sign be public") %>
+                data: { toggle_truthy: "#privacy-policy" }) %>
+            <%= label_tag(:should_submit_for_publishing_true, "Yes, I want my sign to be public") %>
         </div>
 
         <div class="radio">
@@ -80,13 +80,15 @@
         </div>
       </fieldset>
 
-      <fieldset class="form__section" id="terms-and-conditions">
+      <fieldset class="form__section" id="privacy-policy">
         <legend>
-          <h2 class="primary">Terms and Conditions</h2>
+          <h2 class="primary">Privacy Policy</h2>
         </legend>
         <div class="checkbox">
           <%= f.check_box :conditions_accepted, class: (@sign.errors[:conditions_accepted].any? && "invalid")%>
-          <%= f.label :conditions_accepted, "I agree to follow the terms and conditions (rules)" %>
+          <%= f.label :conditions_accepted do %>
+            I agree to follow the &nbsp;<%= link_to "privacy policy", page_url("privacy-policy") %>
+          <% end %>
         </div>
       </fieldset>
     <% end %>

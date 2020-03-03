@@ -74,6 +74,28 @@ RSpec.describe SignPresenter, type: :presenter do
     end
   end
 
+  describe "#status_notes" do
+    let(:user) { FactoryBot.create(:user, :approved) }
+    let(:sign) { FactoryBot.build(:sign, contributor: user) }
+    before { sign_in user }
+    subject { presenter.status_notes }
+
+    context "user contributed the sign" do
+      it { is_expected.to eq I18n.t!("signs.personal.status_notes") }
+    end
+
+    context "user is not the contributor" do
+      let(:other_user) { FactoryBot.create(:user) }
+      before { sign_in other_user }
+      it { is_expected.to be_nil }
+    end
+
+    context "sign is not private" do
+      let(:sign) { FactoryBot.build(:sign, :submitted) }
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe "#assignable_folder_options" do
     # We need the sign to actually exist so we can set up
     # folder associations

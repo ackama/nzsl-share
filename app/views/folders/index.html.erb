@@ -25,12 +25,15 @@
             <%= inline_svg "media/images/folder-collection.svg", class: "list__item__icon list__item__icon--folder icon--medium" %>
             <div class="list__item__title">
             <%= link_to folder_path(folder) do %>
-              <%= folder.title %> ›
+              <%= folder.title %>
             <% end %>
             </div>
           </div>
           <div class="cell auto list__item__details">
-            created <%= folder.created_at.strftime("%d %b %Y") %>
+            created by <%= link_to folder.user.username, user_path(folder.user.username) %>
+          </div>
+          <div class="cell auto list__item__details">
+            on <%= folder.created_at.strftime("%d %b %Y") %>
           </div>
           <div class="cell auto list__item__details">
             <%= pluralize(folder.signs_count, "sign") %>
@@ -51,6 +54,13 @@
                     <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
                   <% end %>
                 </li>
+                <% if policy(folder).manage_collaborators? %>
+                  <li class="list__item-menu__menu-item">
+                    <%= link_to new_folder_collaboration_path(folder), remote: true do %>
+                      <%= inline_svg "media/images/users.svg" %><span>Manage team</span>
+                    <% end %>
+                  </li>
+                <% end %>
                 <%= content_tag :li, class: "list__item-menu__menu-item" do %>
                   <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
                     <%= inline_svg "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
@@ -64,6 +74,9 @@
     </div>
   </div>
   <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>
+    Loading...
+  </div>
+  <div class="reveal modal-form align-center" id="manage-collaboration-modal" data-reveal>
     Loading...
   </div>
 </div>

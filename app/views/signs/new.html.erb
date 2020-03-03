@@ -4,34 +4,104 @@
   <%= javascript_pack_tag "contributions", async: true, defer: true %>
 <% end %>
 
-<div class="grid-x grid-margin-x margin-top-1 margin-bottom-2">
-  <%= render "errors" %>
-  <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
-    <div class="file-upload" data-file-upload-controller="sign[video]">
-      <%= f.label :video, "Browse files", class: "button primary large" %>
-      <%= f.file_field :video, class: "show-for-sr" %>
-      <%= f.submit "Start Upload", class: "button secondary large" %>
-    </div>
-  <% end %>
-  <div class="callout cell grid-x grid-margin-x align-middle">
-    <div class="cell small-12 medium-6">
-      <div class="responsive-embed">
-        <iframe src="https://player.vimeo.com/video/361959003"
-                width="640"
-                height="360"
-                frameborder="0"
-                allow="autoplay; fullscreen"
-                allowfullscreen></iframe>
+<div class="grid-x margin-top-2 form">
+  <div class="cell form__header">
+      <h1 class="primary">Add a sign</h1>
+  </div>
+  <hr class="form__divider">
+  <div class="cell grid-x padding-2">
+    <%= render "errors" %>
+    <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
+      <div class="file-upload" data-file-upload-controller="sign[video]">
+        <%= f.label :video, "Browse files", class: "button primary large" %>
+        <%= f.file_field :video, class: "show-for-sr" %>
+        <%= f.submit "Start Upload", class: "button secondary large" %>
       </div>
+    <% end %>
+
+    <div class="cell padding-top-1 padding-bottom-1">
+      <h2 class="primary">Tips to record a good sign video</h2>
     </div>
-    <div class="cell small-12 medium-6" id="sign-video-upload-tips">
-      <h5>Tips to record a good sign video</h5>
-      <ol class="callout__list">
+    <hr class="form__divider">
+    <div class="cell padding-top-1 padding-bottom-1" id="sign-video-upload-tips">
+      <ol>
         <li>Record the sign on its own (you can record an example sentence or other detail later if you want to)</li>
         <li>Keep recordings under 5 seconds</li>
-        <li>Include head to waist</li>
-        <li>If using your phone, record in landscape mode</li>
+        <li>Include head to waist, not too close or too far away</li>
+        <li>Think about good background, lighting and angle</li>
+        <li>Wear plain clothes - no distracting patterns</li>
+        <li>On your phone, record in landscape (wide) mode</li>
       </ol>
+    </div>
+
+    <div class="cell grid-x">
+      <div class="cell medium-5 margin-right-2">
+        <%= image_pack_tag "media/images/good-example.jpg", alt: "Good sign video example image" %>
+      </div>
+      <div class="cell auto">
+        <ul class="sign-examples__list">
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/tick.svg" %>
+            <div>landscape (wide)</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/tick.svg" %>
+            <div>clear background</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/tick.svg" %>
+            <div>plain top</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/tick.svg" %>
+            <div>shows face and full upper body</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/tick.svg" %>
+            <div>good distance from the camera</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/tick.svg" %>
+            <div>good angle</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cell padding-top-2 grid-x">
+      <div class="cell medium-5 margin-right-2">
+        <div class="sign-examples__image">
+          <%= image_pack_tag "media/images/bad-example.jpg", alt: "Bad sign video example image", class: "sign-examples__image--bad" %>
+        </div>
+      </div>
+      <div class="cell auto">
+        <ul class="sign-examples__list">
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/remove.svg", class: " icon icon--small icon--alert" %>
+            <div>portrait (tall)</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/remove.svg", class: " icon icon--small icon--alert" %>
+            <div>window too bright</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/remove.svg", class: " icon icon--small icon--alert" %>
+            <div>patterned clothing</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/remove.svg", class: " icon icon--small icon--alert" %>
+            <div>too far away</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/remove.svg", class: " icon icon--small icon--alert" %>
+            <div>arms/hands not clear to see</div>
+          </li>
+          <li class="grid-x align-middle">
+            <%= inline_svg "media/images/remove.svg", class: " icon icon--small icon--alert" %>
+            <div>bad angle</div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

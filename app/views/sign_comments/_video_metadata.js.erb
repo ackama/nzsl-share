@@ -1,0 +1,2 @@
+$("#new-video-comment").html("<%= j render(partial: "sign_comments/shared/video",  locals: { allow_delete: true, sign: @sign, sign_comment: @sign_comment }) %>");
+$("#new-video-comment-reply-<%= @sign_comment.parent_id %>").html("<%= j render(partial: "sign_comments/shared/video",  locals: { allow_delete: true, sign: @sign, sign_comment: @sign_comment }) %>");

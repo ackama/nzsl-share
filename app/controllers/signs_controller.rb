@@ -2,16 +2,19 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topic).find(params[:id]))
+    @sign = present(signs.includes(:contributor, :topics, :folders, sign_comments: :replies).find(id))
+    @current_folder_id = params[:comments_in_folder]
+    @new_comment = SignComment.new(sign: @sign.sign)
     authorize @sign
-    return unless stale?(@sign)
+    @sign.topic = fetch_referer
+    sign_comments
 
     render
   end
 
   def index
-    @signs = my_signs
-    authorize my_signs
+    @signs = signs.where(contributor: current_user)
+    authorize @signs
   end
 
   def new
@@ -22,13 +25,11 @@ class SignsController < ApplicationController
   end
 
   def create
-    builder = build_sign
-    @sign = builder.sign
+    @sign = build_sign.sign
     authorize @sign
-    return render(:new) unless builder.save
+    return render(:new) unless build_sign.save
 
     flash[:notice] = t(".success")
-
     respond_to do |format|
       format.html { redirect_to [:edit, @sign] }
       format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
@@ -38,7 +39,6 @@ class SignsController < ApplicationController
   def edit
     @sign = signs.find(id)
     authorize @sign
-
     render
   end
 
@@ -49,7 +49,6 @@ class SignsController < ApplicationController
     authorize @sign
     return render(:edit) unless @sign.save
 
-    flash[:notice] = t(".success")
     redirect_after_update(@sign)
   end
 
@@ -57,52 +56,53 @@ class SignsController < ApplicationController
     @sign = signs.find(id)
     authorize @sign
     @sign.destroy
-
     redirect_to user_signs_path, notice: t(".success", sign_name: @sign.word)
   end
 
   private
+
+  def fetch_referer
+    request.referer ? URI(request.referer).path : nil
+  end
+
+  def sign_comments
+    @comments = policy_scope(@sign.sign_comments)
+                .includes(:replies, user: :avatar_attachment).where(folder_id: comments_folder_id)
+                .page(params[:comments_page]).per(10)
+  end
 
   def check_contribution_limit!
     return true unless current_user.contribution_limit_reached?
 
     message = t("users.contribution_limit_reached_html",
                 email: Rails.application.config.contact_email)
-    redirect_to(root_path, alert: message)
-
-    false
+    redirect_to(root_path, alert: message) && false
   end
 
   def signs
     policy_scope(Sign).order(word: :asc)
   end
 
-  def my_signs
-    signs.where(contributor: current_user)
-  end
-
   def build_sign(builder: SignBuilder.new)
-    builder.build(create_sign_params)
+    @build_sign ||= builder.build(create_sign_params)
   end
 
   def create_sign_params
-    params
-      .require(:sign)
-      .permit(:video)
-      .merge(contributor: current_user)
+    params.require(:sign).permit(:video).merge(contributor: current_user)
   end
 
   def edit_sign_params
-    params
-      .require(:sign)
-      .permit(
-        :video, :maori, :secondary, :notes, :word, :topic_id, :usage_examples,
-        :illustrations, :conditions_accepted
-      )
+    params.require(:sign).permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
+                                 :conditions_accepted, topic_ids: []).merge(create_sign_params)
   end
 
   def id
     params[:id]
+  end
+
+  def comments_folder_id
+    fallback = @sign.published? || @sign.unpublish_requested? ? nil : policy_scope(@sign.folders).first
+    params[:comments_in_folder].presence || fallback
   end
 
   def set_signs_submitted_state
@@ -119,7 +119,7 @@ class SignsController < ApplicationController
 
   def redirect_after_update(sign)
     respond_to do |format|
-      format.html { redirect_to sign }
+      format.html { redirect_to sign, notice: t(".success") }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" }
     end
   end

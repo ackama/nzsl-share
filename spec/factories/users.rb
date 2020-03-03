@@ -7,6 +7,14 @@ FactoryBot.define do
     password_confirmation { "password" }
     confirmed_at { Time.zone.now }
 
+    trait :with_avatar do
+      after(:create) do |user|
+        image_file = File.open(Rails.root.join("spec", "fixtures", "image.jpeg"))
+        image_file_io = { io: image_file, filename: File.basename(image_file) }
+        user.avatar.attach(image_file_io)
+      end
+    end
+
     trait :moderator do
       moderator { true }
     end

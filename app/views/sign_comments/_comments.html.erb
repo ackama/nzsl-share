@@ -1,0 +1,48 @@
+<% return unless policy(@sign).display_comments? %>
+
+<%= content_for :head do %>
+  <%= javascript_pack_tag "videocomment", async: true, defer: true %>
+<% end %>
+
+<div id="sign-comments">
+  <div class="grid-x">
+    <div class="cell auto sign-comments--heading">
+      <%= form_with url: params.to_unsafe_h, method: :get, local: true, class: "comment-select" do |f| %>
+        <%= f.label :comments_in_folder, "Comments for " %>
+        <%= f.select :comments_in_folder,
+                     options_for_select(folder_selection(@sign), params[:comments_in_folder]),
+                     {},
+                     class: "comment-select",
+                     onchange: "this.form.submit()" %>
+      <% end %>
+    </div>
+    <div class="cell shrink sign-comments--total">
+      <% comment_total = @comments.unscope(:limit, :offset).count %>
+      showing <%= comment_total %> of <%= comment_total %> comments
+    </div>
+    <% unless sign_comment_policy(current_user, @new_comment, @current_folder_id).create? %>
+      <div class="cell margin-1">Only <%= link_to edit_user_registration_path(anchor: "approved-member-information") do %>approved users<% end %> can comment on public signs.</div>
+    <% end %>
+  </div>
+
+  <% unless @comments.blank? %>
+    <hr class="sign-comments__divider">
+  <% end %>
+  <%= render "sign_comments/pagination_prev" %>
+  <%= render "sign_comments/comments_list" %>
+
+  <%= content_tag(:div, class: "text-center show-if-no-js") do %>
+    <%= link_to params.to_unsafe_h.merge(anchor: "sign-comments", comments_page: @comments.prev_page),
+                class: "button clear" do %>
+      <%= inline_svg "media/images/dropdown.svg", class: "margin-right-1" %>
+      Show newer comments
+    <% end %>
+  <% end unless @comments.first_page? %>
+
+
+  <hr class="sign-comments__divider">
+
+  <%= render "sign_comments/new", sign: @sign if sign_comment_policy(current_user, @new_comment, @current_folder_id).create? %>
+
+  <div class="margin-bottom-1"></div>
+</div>

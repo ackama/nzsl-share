@@ -1,0 +1,7 @@
+<%= content_tag(:div, class: "sign-comments-pagination--older text-center") do %>
+  <%= link_to sign_path(@sign, comments_in_folder: params[:comments_in_folder], anchor: "sign-comments", comments_page: @comments.next_page),
+              class: "button clear", remote: true do %>
+    <%= inline_svg "media/images/dropdown.svg", class: "vertical-flip margin-right-1" %>
+    Show older comments
+  <% end %>
+<% end if !@comments.last_page? && @comments.any? %>

@@ -1,0 +1,32 @@
+<a href="#" data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
+  <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
+</a>
+<div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin"
+     id="<%= dom_id(comment, :options) %>"
+     data-position="bottom"
+     data-alignment="right"
+     data-dropdown
+     data-hover="true"
+     data-hover-pane="true">
+  <ul class="list__item-menu vertical icons">
+    <%= content_tag :li, class: "list__item-menu__menu-item" do %>
+      <%= link_to edit_sign_comment_path(comment.sign, comment.id) do %>
+        <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+      <% end %>
+    <% end if sign_comment_policy(current_user, comment, @current_folder_id).edit? %>
+
+    <%= content_tag :li, class: "list__item-menu__menu-item" do %>
+      <%= link_to sign_comment_path(comment.sign, comment.id), method: :delete, data: { confirm: t("sign_comments.destroy.confirm") } do %>
+        <%= inline_svg "media/images/trash.svg" %><span>Delete</span>
+      <% end %>
+    <% end if sign_comment_policy(current_user, comment, @current_folder_id).destroy? %>
+
+    <% if policy(CommentReport).create? && sign_comment_policy(current_user, comment, @current_folder_id).report? %>
+      <li class="list__item-menu__menu-item">
+        <%= link_to sign_comment_reports_path(comment.sign, comment.id), method: :post do %>
+          <%= inline_svg "media/images/flag.svg" %><span>Flag as inappropriate</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

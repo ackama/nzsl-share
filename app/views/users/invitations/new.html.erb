@@ -1,0 +1,21 @@
+<% provide(:title, t("devise.invitations.new.header")) %>
+
+<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post , class: "form margin-top-3 margin-bottom-0" }) do |f| %>
+  <legend class="form__header margin-0"><h1 class="black"><%= t "devise.invitations.new.header" %></h1></legend>
+  <hr class="form__divider">
+
+  <%= f.hidden_field :invitation_token, readonly: true %>
+
+  <fieldset class="form__section">
+    <% resource.class.invite_key_fields.each do |field| -%>
+      <%= f.label field %>
+      <%= f.text_field field %>
+    <% end -%>
+  </fieldset>
+
+  <hr class="form__divider">
+
+  <div class="form__footer">
+    <%= f.submit t("devise.invitations.new.submit_button"), class: "button" %>
+  </div>
+<% end %>

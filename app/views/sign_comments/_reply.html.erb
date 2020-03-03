@@ -1,0 +1,16 @@
+<%= render "sign_comments/shared/selects", js_sign_comment: "js-sign-comment-type-reply", is_reply: true %>
+<div id="new-text-comment-reply" class="sign-comment__reply">
+  <%= form_with model: SignComment.new, url: sign_comments_path(@sign), local: true do |f| %>
+    <%= render "sign_comments/shared/text", comment: f.object, parent: comment, f: f %>
+  <% end %>
+</div>
+<div id="new-video-comment-reply-<%= comment.id %>" style="display: none;" class="sign-comment__reply">
+  <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
+    <div class="video-comment-reply cell">
+      <%= content_tag(:div, class: "file-upload video-comment-file-upload-reply",
+                      data: { sign_id: @sign.id, parent_id: comment.id, folder_id: comment.folder_id, file_upload_controller: "video_comment_reply_#{comment.id}" }) do %>
+        <%= label_tag :"video_comment_reply", "Browse files", class: "button primary large" %>
+      <% end %>
+    </div>
+  </div>
+</div>

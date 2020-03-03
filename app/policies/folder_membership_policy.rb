@@ -1,21 +1,15 @@
 class FolderMembershipPolicy < ApplicationPolicy
   def create?
-    owns_folder?
+    collaborator?
   end
 
   def destroy?
-    owns_folder?
+    collaborator?
   end
 
   private
 
-  def owns_folder?
-    record.folder.user_id == user.id
-  end
-
-  class Scope < Scope
-    def resolve
-      scope.includes(:folder).where(folders: { user_id: user.id })
-    end
+  def collaborator?
+    record.folder.collaborators.map(&:id).include? user.id
   end
 end

@@ -1,0 +1,40 @@
+<div class="cell shrink">
+  <% if comment.anonymous? %>
+    <%= link_to "#" do %>
+      <% inline_svg("media/images/avatar.svg", title: "Avatar", aria: true, class: "avatar avatar--small") %>
+    <% end %>
+  <% else %>
+    <%= link_to user_path(comment.user.username) do %>
+      <%= comment.user_avatar %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="cell auto sign-comments__comment">
+  <span class="cell auto">
+    <%= link_to user_path(comment.user.username), class: "sign-comments__comment__username--link" do %>
+      <%= comment.username %>
+    <% end unless comment.anonymous || comment.removed %>
+  </span>
+
+  <% if comment.removed? %>
+    <em>This comment has been removed</em>
+  <% elsif comment&.video.attached? %>
+    <span class="cell auto">
+      <%= comment.video_description %><br>
+    </span>
+    <span class="cell auto video-wrapper data-overlay">
+      <%= video_tag url_for(comment.video), controls: true, class: "sign-comments__video" %>
+    </span>
+  <% else %>
+    <span class="cell auto">
+      <%= comment.user_comment %>
+    </span>
+  <% end %>
+</div>
+
+<div class="cell shrink sign-comments__comment__options">
+  <% if !comment.removed? && sign_comment_policy(current_user, comment, @current_folder_id).options? %>
+    <%= render "sign_comments/shared/options", comment: comment %>
+  <% end %>
+</div>

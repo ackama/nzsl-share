@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_231329) do
+ActiveRecord::Schema.define(version: 2020_02_10_004349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,26 @@ ActiveRecord::Schema.define(version: 2019_12_02_231329) do
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
+  create_table "collaborations", force: :cascade do |t|
+    t.bigint "folder_id", null: false
+    t.bigint "collaborator_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collaborator_id"], name: "index_collaborations_on_collaborator_id"
+    t.index ["folder_id", "collaborator_id"], name: "index_collaborations_on_folder_id_and_collaborator_id", unique: true
+    t.index ["folder_id"], name: "index_collaborations_on_folder_id"
+  end
+
+  create_table "comment_reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_comment_reports_on_comment_id"
+    t.index ["user_id", "comment_id"], name: "index_comment_reports_on_user_id_and_comment_id", unique: true
+    t.index ["user_id"], name: "index_comment_reports_on_user_id"
+  end
+
   create_table "folder_memberships", force: :cascade do |t|
     t.bigint "folder_id", null: false
     t.bigint "sign_id", null: false
@@ -85,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_231329) do
     t.string "secondary", limit: 512
     t.string "tags", default: [], array: true
     t.datetime "published_at", null: false
-    t.string "video_key"
+    t.string "video_key", default: [], array: true
     t.index ["headword_id"], name: "index_freelex_signs_on_headword_id", unique: true
     t.index ["maori"], name: "idx_freelex_signs_maori"
     t.index ["secondary"], name: "idx_freelex_signs_secondary"
@@ -105,6 +125,34 @@ ActiveRecord::Schema.define(version: 2019_12_02_231329) do
     t.index ["user_id"], name: "index_sign_activities_on_user_id"
   end
 
+  create_table "sign_comments", force: :cascade do |t|
+    t.bigint "parent_id"
+    t.bigint "sign_id", null: false
+    t.bigint "user_id", null: false
+    t.text "comment"
+    t.text "sign_status", null: false
+    t.boolean "display", default: true
+    t.boolean "anonymous", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "folder_id"
+    t.boolean "removed", default: false
+    t.index ["folder_id"], name: "index_sign_comments_on_folder_id"
+    t.index ["parent_id"], name: "index_sign_comments_on_parent_id"
+    t.index ["sign_id"], name: "index_sign_comments_on_sign_id"
+    t.index ["user_id"], name: "index_sign_comments_on_user_id"
+  end
+
+  create_table "sign_topics", force: :cascade do |t|
+    t.bigint "topic_id", null: false
+    t.bigint "sign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sign_id"], name: "index_sign_topics_on_sign_id"
+    t.index ["topic_id", "sign_id"], name: "index_sign_topics_on_topic_id_and_sign_id", unique: true
+    t.index ["topic_id"], name: "index_sign_topics_on_topic_id"
+  end
+
   create_table "signs", id: :serial, force: :cascade do |t|
     t.string "word", limit: 256, null: false
     t.string "maori", limit: 256
@@ -113,7 +161,6 @@ ActiveRecord::Schema.define(version: 2019_12_02_231329) do
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
-    t.bigint "topic_id"
     t.text "description"
     t.text "notes"
     t.boolean "processed_videos", default: false, null: false
@@ -130,7 +177,6 @@ ActiveRecord::Schema.define(version: 2019_12_02_231329) do
     t.index ["secondary"], name: "idx_signs_secondary"
     t.index ["share_token"], name: "index_signs_on_share_token", unique: true
     t.index ["status"], name: "index_signs_on_status"
-    t.index ["topic_id"], name: "index_signs_on_topic_id"
     t.index ["word"], name: "idx_signs_word"
   end
 
@@ -168,17 +214,36 @@ ActiveRecord::Schema.define(version: 2019_12_02_231329) do
     t.datetime "confirmation_sent_at"
     t.integer "contribution_limit", default: 50
     t.text "bio"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "approved_user_applications", "users"
+  add_foreign_key "collaborations", "folders"
+  add_foreign_key "collaborations", "users", column: "collaborator_id"
+  add_foreign_key "comment_reports", "sign_comments", column: "comment_id"
+  add_foreign_key "comment_reports", "users"
   add_foreign_key "folder_memberships", "folders"
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
   add_foreign_key "sign_activities", "users"
-  add_foreign_key "signs", "topics"
+  add_foreign_key "sign_comments", "signs"
+  add_foreign_key "sign_comments", "users"
+  add_foreign_key "sign_topics", "signs"
+  add_foreign_key "sign_topics", "topics"
   add_foreign_key "signs", "users", column: "contributor_id"
 end

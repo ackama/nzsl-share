@@ -8,19 +8,19 @@ RSpec.describe "Profile page", type: :system do
     before { visit user_path(username: user.username) }
 
     it "shows username" do
-      within ".form" do
+      within ".list" do
         expect(page).to have_content(user.username)
       end
     end
 
     it "shows bio" do
-      within ".form" do
+      within ".list" do
         expect(page).to have_content(user.bio)
       end
     end
 
     it "shows profile picture" do
-      within ".form" do
+      within ".list" do
         expect(page).to have_selector(".avatar")
       end
     end
@@ -51,6 +51,16 @@ RSpec.describe "Profile page", type: :system do
       fill_in "Current password", with: user.password
       click_on "Update"
       expect(page).to have_content I18n.t("devise.registrations.updated")
+    end
+
+    it "can upload an avatar successfully" do
+      path = Rails.root.join("spec", "fixtures", "image.jpeg")
+      visit edit_user_registration_path(user)
+      page.attach_file("user_avatar", path)
+      fill_in "Current password", with: user.password
+      click_on "Update"
+      expect(page).to have_content I18n.t("devise.registrations.updated")
+      expect(page).to have_css("img[src*='image.jpeg']")
     end
 
     it "displays errors when I don't confirm my password" do

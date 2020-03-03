@@ -40,3 +40,4 @@ yarn-debug.log*
 /.envrc
 /config/master.key
 /.env
+.DS_Store

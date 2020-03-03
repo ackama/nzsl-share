@@ -1,0 +1,56 @@
+<div class="grid-x grid-padding-x">
+  <div class="cell grid-x align-middle modal-form__title modal-form__title--collaborators">
+    <h2>Manage team</h2>
+    <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
+      <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
+    </button>
+    <div class="cell modal-form__metadata"><%= pluralize(folder.collaborators.count, "team members")%></div>
+  </div>
+
+  <div class="cell">
+    <%= form_with(model: [ :folder, collaboration ]) do |f| %>
+      <div class="modal-form__fields modal-form__fields--collaborators">
+        <ul class="list__item-menu list__item-menu--collab vertical grid-x">
+          <% folder.collaborators.each do |collaborator| %>
+            <li class="list__item--interactive grid-x align-middle cell">
+              <div class="cell auto padding-1">
+                <%= collaborator.username %>
+                <%= " (that's you!)" if collaborator == current_user %>
+                <%= " (folder owner)" if folder.user == collaborator %>
+              </div>
+              <div class="cell shrink">
+                <%= link_to folder_collaboration_path(folder, Collaboration.for(collaborator, folder)),
+                            method: :delete,
+                            data: { confirm: t("collaborations.destroy.confirm") } do %>
+                    <%= inline_svg "media/images/trash.svg", aria: true, title: "Remove from folder", class: "icon icon--alert"%>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="modal-form__fields">
+       <legend><h6 class="modal-form__subheading">Add to folder</h6></legend>
+        <hr class="form__divider">
+
+        <fieldset>
+          <%= f.label :identifier, "Email or username", class: "required margin-top-1" %>
+          <%= f.text_field :identifier, placeholder: "Type email or username", class: (collaboration.errors[:collaborator_id].any? && "invalid") %>
+          <%= f.error :identifier %>
+          <% unless collaboration.errors[:identifier].any? %>
+            <%= f.error :collaborator_id %>
+          <% end %>
+        </fieldset>
+
+        <%= f.hidden_field :folder_id, value: folder.id %>
+      </div>
+
+      <div class="grid-x align-middle align-right modal-form__buttons">
+        <button class="button clear modal-form__buttons--cancel" data-close aria-label="Close reveal" type="button">
+          Cancel
+        </button>
+        <%= f.submit "Add to folder", class: "button royal primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

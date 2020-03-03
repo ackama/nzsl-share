@@ -15,6 +15,10 @@
       <div class="cell grid-x align-middle">
         <h1 class="cell auto"><%= @folder.title %></h1>
         <div class="cell shrink grid-x align-middle">
+          <%= link_to new_folder_collaboration_path(@folder), remote: true, class: "button clear" do %>
+            <%= inline_svg "media/images/users.svg", class: "icon icon--royal" %>Manage team
+          <% end %>
+          <div class="list__divider--vertical"></div>
           <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear", data: { confirm: t("folder_share.create.confirmation") } do %>
             <%= inline_svg "media/images/share.svg", class: "icon icon--royal" %>Share
           <% end if policy(@folder).share? %>
@@ -27,6 +31,17 @@
       <div class="list__description cell grid-x align-middle">
         <%= @folder.description %>
       </div>
+      <div class="list__description cell grid-x align-middle">
+        <div class="list__description--metadata">
+          Created by <%= link_to @folder.user.username, user_path(@folder.user.username) %>
+        </div>
+        <div class="bullet">•</div>
+        <div class="list__description--metadata">
+            on <%= @folder.created_at.strftime("%d %b %Y") %>
+        </div>
+        <div class="bullet">•</div>
+        <div class="list__description--metadata"><%= pluralize(@folder.collaborators.count, "team member") %></div>
+      </div>
     </div>
     <hr class="list__divider"/>
     <div class="list__section list__section--sign-cards cell margin-vertical-0 sign-grid">
@@ -35,6 +50,9 @@
       <% end %>
     </div>
     <div class="reveal modal-form align-center" id="manage-folder-modal" data-reveal>
+      Loading...
+    </div>
+    <div class="reveal modal-form align-center" id="manage-collaboration-modal" data-reveal>
       Loading...
     </div>
   </div>

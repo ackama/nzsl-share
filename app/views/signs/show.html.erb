@@ -6,8 +6,8 @@
 <nav class="grid-x" aria-label="You are here:" role="navigation">
   <ul class="breadcrumbs cell-shrink">
     <li><%= link_to "Home", root_path %></li>
-    <% if @sign.topic %>
-      <li><%= link_to "Topics", "/topics" %></li>
+    <li><%= link_to "Topics", "/topics" %></li>
+    <% if @sign.topic.present? %>
       <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
     <% end %>
     <li><span class="show-for-sr">Current: </span> <%= @sign.word %></li>
@@ -57,7 +57,7 @@
         <% end %>
         &nbsp;•&nbsp;uploaded&nbsp;
         <%= @sign.friendly_date %>
-        <% if @sign.topic %>
+        <% if @sign.topic.present? %>
           &nbsp;•&nbsp;
           <%= @sign.topic.name %>
         <% end %>
@@ -91,5 +91,11 @@
         </div>
       </div>
     <% end %>
+  </div>
+</div>
+
+<div class="grid-x">
+  <div class="cell medium-8 margin-bottom-2 sign-comments">
+    <%= render "sign_comments/comments", sign: @sign %>
   </div>
 </div>

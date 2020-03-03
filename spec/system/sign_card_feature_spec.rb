@@ -3,12 +3,12 @@ require "rails_helper"
 RSpec.describe "Sign card features", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let!(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+  let!(:private_sign) { FactoryBot.create(:sign, :personal) }
   let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
   let(:authenticator) { AuthenticateFeature.new(user) }
 
   before do |example|
     authenticator.sign_in unless example.metadata[:signed_out]
-    visit topic_path(sign.topic)
   end
 
   def sign_card
@@ -45,6 +45,8 @@ RSpec.describe "Sign card features", type: :system do
   end
 
   it "does not show the sign status if they are logged out", signed_out: true do
+    visit sign_path(sign)
+    expect(sign_path(sign)).to eq current_path
     expect(sign_card).to have_no_content "Public"
   end
 
@@ -63,23 +65,32 @@ RSpec.describe "Sign card features", type: :system do
   describe "Adding & removing from folders with JS", uses_javascript: true do
     let(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: user) }
+    let!(:collab_folder) { FactoryBot.create(:folder) }
+    let!(:empty_collab_folder) { FactoryBot.create(:folder) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-
+    let!(:collab_folder_membership) { FolderMembership.create(folder: collab_folder, sign: sign) }
     # We have added records so need to reload
-    before { visit topic_path(sign.topic) }
+    before do
+      collab_folder.collaborators << user
+      empty_collab_folder.collaborators << user
+
+      visit topic_path(sign.topics.first)
+    end
 
     it "shows existing folder state" do
       inside_card do
         click_on "Folders"
         active_checkbox = page.find_field("membership_folder_#{folder.id}_sign_#{sign.id}")
         inactive_checkbox = page.find_field("membership_folder_#{other_folder.id}_sign_#{sign.id}")
+        inactive_collab_checkbox = page.find_field("membership_folder_#{empty_collab_folder.id}_sign_#{sign.id}")
         expect(active_checkbox).to be_checked
         expect(inactive_checkbox).not_to be_checked
+        expect(inactive_collab_checkbox).not_to be_checked
         expect(page).to have_selector ".sign-card__folders__button--in-folder"
       end
     end
 
-    it "adds the sign to a folder" do
+    it "adds the sign to an owned folder" do
       inside_card do
         click_on "Folders"
         expect do
@@ -89,11 +100,21 @@ RSpec.describe "Sign card features", type: :system do
       end
     end
 
+    it "adds the sign to a collaborative folder" do
+      inside_card do
+        click_on "Folders"
+        expect do
+          page.find("label", text: empty_collab_folder.title).click
+          wait_for_ajax
+        end.to change(FolderMembership, :count).by(1)
+      end
+    end
+
     it "updates the signs count on another sign card automatically" do
-      FactoryBot.create(:sign, :published, topic: sign.topic)
+      FactoryBot.create(:sign, :published, topics: sign.topics)
 
       # We have added records so need to reload
-      visit topic_path(sign.topic)
+      visit topic_path(sign.topics.first)
 
       cards = all(".sign-card")
       this_card = cards.first
@@ -112,11 +133,21 @@ RSpec.describe "Sign card features", type: :system do
       end
     end
 
-    it "removes the sign from a folder" do
+    it "removes a sign from an owned folder" do
       inside_card do
         click_on "Folders"
         expect do
           page.find("label", text: folder.title).click
+          wait_for_ajax
+        end.to change(FolderMembership, :count).by(-1)
+      end
+    end
+
+    it "removes a sign from a collab folder" do
+      inside_card do
+        click_on "Folders"
+        expect do
+          page.find("label", text: collab_folder.title).click
           wait_for_ajax
         end.to change(FolderMembership, :count).by(-1)
       end
@@ -179,7 +210,8 @@ RSpec.describe "Sign card features", type: :system do
 
     it "links the user to sign in page if they are logged out", signed_out: true do
       original_path = current_path
-      within ".sign-card__folders" do
+      sign_card_folder = find(".sign-card__folders", match: :first)
+      within sign_card_folder do
         click_on("Folders")
       end
       expect(page).to have_current_path(new_user_session_path)

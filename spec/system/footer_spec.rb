@@ -13,8 +13,8 @@ RSpec.describe "Footer", type: :system do
     expect(page).to have_link("Privacy policy")
   end
 
-  it "has the terms and conditions with link" do
-    expect(page).to have_link("Terms & Conditions")
+  it "has the rules with link" do
+    expect(page).to have_link("Rules")
   end
 
   it "displays the sitemap with links" do

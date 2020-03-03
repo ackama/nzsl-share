@@ -11,3 +11,7 @@
 legend {
   @extend label;
 }
+
+.vertical-flip {
+  transform: rotate(-180deg);
+}

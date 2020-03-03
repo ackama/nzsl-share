@@ -1,0 +1,54 @@
+  <div class="sign-comments__list">
+  <% @comments.reverse.each do |comment| %>
+    <% next unless comment.display %>
+    <div class="grid-x align-middle grid-padding-x sign-comment">
+      <% comment = present(comment) %>
+
+      <hr class="sign-comments__divider">
+    </div>
+
+    <div id="<%= dom_id(comment) %>" class="grid-x grid-padding-x sign-comment__options">
+      <%= render "sign_comments/shared/comment", comment: comment %>
+    </div>
+
+    <div class="grid-x grid-padding-x sign-comments__replies">
+      <div class="cell auto sign-comments__replies--reply">
+
+        <% if sign_comment_policy(current_user, comment, @current_folder_id).create? %>
+          <span class="cell auto">
+            <%= content_tag "a", nil, data: { id: dom_id(comment, :reply) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
+              <%= inline_svg "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+              Reply
+            <% end %>
+            &nbsp;•&nbsp;
+          </span>
+        <% end %>
+
+        <span class="cell auto">
+          <%= comment.friendly_date %>
+        </span>
+      </div>
+    </div>
+
+    <% if sign_comment_policy(current_user, comment, @current_folder_id).create? %>
+      <div id="<%= dom_id(comment, :reply) %>" class="sign-comments__replies" style="display:none">
+        <%= render "sign_comments/reply", comment: comment %>
+      </div>
+    <% end %>
+
+    <% comment.replies.each do |reply| %>
+      <% next unless reply.display %>
+      <% reply = present(reply) %>
+
+      <div id="<%= dom_id(reply) %>" class="grid-x grid-padding-x sign-comments__replies">
+        <%= render "sign_comments/shared/comment", comment: reply %>
+      </div>
+
+      <div class="grid-x grid-padding-x sign-comments__replies">
+        <div class="cell auto sign-comments__replies sign-comments__replies--reply">
+          <%= reply.friendly_date %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  </div>

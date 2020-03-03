@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     sign_in_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: sign_in_attrs + %i[remember_me bio]
-    devise_parameter_sanitizer.permit :account_update, keys: sign_in_attrs + [:bio]
+    devise_parameter_sanitizer.permit :account_update, keys: sign_in_attrs + %i[bio avatar]
   end
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -38,8 +38,10 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    redirect_back fallback_location: root_path,
-                  alert: t("application.unauthorized")
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, alert: t("application.unauthorized") }
+      format.js { render inline: "alert(\"#{t("application.unauthorized")}\");" }
+    end
   end
 
   def http_basic_auth

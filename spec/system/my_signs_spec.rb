@@ -41,7 +41,7 @@ RSpec.describe "My Signs", type: :system do
     end
 
     it "doesn't include unexpected signs" do
-      expect(page).not_to have_selector ".sign-card .sign-card__title", text: unowned_sign.word
+      expect(page).to have_no_selector ".sign-card .sign-card__title", text: unowned_sign.word
     end
   end
 end

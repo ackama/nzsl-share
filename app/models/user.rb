@@ -2,21 +2,29 @@ class User < ApplicationRecord
   include AASM
 
   USERNAME_REGEXP = /\A[a-zA-Z0-9_\.]+\Z/.freeze
+  PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}.freeze
+  MAXIMUM_FILE_SIZE = 250.megabytes
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, authentication_keys: [:login]
 
   attr_writer :login
   has_many :folders, dependent: :destroy
   has_many :signs, foreign_key: :contributor_id, inverse_of: :contributor, dependent: :nullify
+  has_many :collaborations, foreign_key: :collaborator_id, inverse_of: :collaborator, dependent: :destroy
+
   has_one :approved_user_application, dependent: :destroy
+  has_one_attached :avatar
 
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        format: { with: USERNAME_REGEXP, multiline: true }
+
+  validates :avatar, content_type: { with: PERMITTED_IMAGE_CONTENT_TYPE_REGEXP },
+                     size: { less_than: MAXIMUM_FILE_SIZE }
 
   def username=(value)
     super(value.downcase)

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sign show page", system: true do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, contributor: user) }
   let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
@@ -58,11 +58,11 @@ RSpec.describe "Sign show page", system: true do
     end
 
     it "does not have the sign share link" do
-      expect(page).not_to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+      expect(page).to have_no_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
     end
 
     it "does not have the sign status" do
-      expect(page).not_to have_selector("#sign_status")
+      expect(page).to have_no_selector("#sign_status")
     end
 
     it "has the expected link 'Add to Folder'" do
@@ -85,15 +85,15 @@ RSpec.describe "Sign show page", system: true do
     end
 
     it "does not have the sign share link" do
-      expect(page).not_to have_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
+      expect(page).to have_no_link(nil, href: "/signs/#{sign.id}/share") # be explicit page has another 'share' context
     end
 
     it "does not have the sign status" do
-      expect(page).not_to have_selector("#sign_status")
+      expect(page).to have_no_selector("#sign_status")
     end
 
     it "does not have the expected link 'Add to Folder'" do
-      expect(page).not_to have_link "Add to Folder"
+      expect(page).to have_no_link "Add to Folder"
     end
   end
 
@@ -247,7 +247,7 @@ RSpec.describe "Sign show page", system: true do
         let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
         subject(:sign_page) { SignPage.new }
 
-        it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
+        it { within("#sign_overview") { expect(sign_page).to have_no_link "Edit" } }
         it { expect(sign_page).to have_content "Public" }
 
         it "shows the published description on hover" do
@@ -273,7 +273,7 @@ RSpec.describe "Sign show page", system: true do
       context "user has asked for sign to be unpublished" do
         let(:sign) { FactoryBot.create(:sign, :unpublish_requested, contributor: user) }
 
-        it { within("#sign_overview") { expect(sign_page).not_to have_link "Edit" } }
+        it { within("#sign_overview") { expect(sign_page).to have_no_link "Edit" } }
         it { expect(sign_page).to have_content "(asked on #{sign.requested_unpublish_at.strftime("%d %b %Y")})" }
         it { expect(sign_page).to have_content "Asked to Unpublish" }
 
@@ -301,7 +301,7 @@ RSpec.describe "Sign show page", system: true do
     context "not owned by the current user" do
       let(:sign) { FactoryBot.create(:sign, :published) }
       let(:user) { FactoryBot.create(:user) }
-      it { expect(sign_page).not_to have_css "#sign_overview" }
+      it { expect(sign_page).to have_no_css "#sign_overview" }
     end
   end
 
@@ -328,7 +328,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "displays the sign topic" do
-    expect(subject).to have_content sign.topic.name
+    expect(subject).to have_content sign.topics.first.name
   end
 
   it "shows a breadcrumb to the sign" do
@@ -336,7 +336,7 @@ RSpec.describe "Sign show page", system: true do
   end
 
   it "shows a breadcrumb to the topic" do
-    subject.breadcrumb { expect(subject).to have_link sign.topic.name }
+    subject.breadcrumb { expect(subject).to have_link sign.topics.first.name }
   end
 
   it "displays the sign description" do
@@ -394,7 +394,7 @@ RSpec.describe "Sign show page", system: true do
 
     context "not an approved user" do
       let(:user) { FactoryBot.create(:user) }
-      it { expect(page).not_to have_link "Agree" }
+      it { expect(page).to have_no_link "Agree" }
       it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
     end
 

@@ -30,9 +30,30 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  helpers:
+    label:
+      comment_report:
+        user: Reporter
+        created_at: Reported at
   approved_user_applications:
     create:
       success: Thank you! An NZSL Share Admin will look at your application soon.
+  collaborations:
+    create:
+      success: "Successfully added team member to this folder."
+    destroy:
+      confirm: "Are you sure you want to remove this person from the folder?"
+      success: "Successfully removed from folder."
+      failure: "Failed to remove from folder."
+  sign_comments:
+    destroy:
+      confirm: Are you sure you want to remove this comment? You cannot undo this action.
+  comment_reports:
+    create:
+      success: This comment has been flagged for review
+    destroy:
+      confirm: Are you sure you want to ignore this report? It will be removed permanently.
+      success: Comment report has been ignored and removed.
   folder_memberships:
     create:
       success: "Successfully added '%{sign}' to '%{folder}'"
@@ -88,6 +109,7 @@ en:
       alpha_desc: Alphabetical (Z-A)
       recent: Most Recent
       relevant: Most Relevant
+      popular: Most Popular
   application:
     unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
   sign_workflow:
@@ -156,13 +178,16 @@ en:
         success: Sign was made private # Pending message
   approved_user_mailer:
     admin_submitted:
-      subject: "New approved member application received"
+      subject: NZSL Share Admin - Member application
     submitted:
-      subject: We've received your application
+      subject: NZSL Share - Thank you for your application
     accepted:
-      subject: Your approved member application on NZSL Share
+      subject: NZSL Share - You have been accepted as an approved member
     declined:
-      subject: Your approved member application on NZSL Share
+      subject: NZSL Share - Sorry, your application has not been approved
+  collaboration_mailer:
+    success:
+      subject: NZSL Share - You are invited to join a team
   activemodel:
     errors: &activemodel_errors
       messages:

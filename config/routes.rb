@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
     end
     resources :topics
+    resources :comment_reports
     root to: "signs#index"
   end
 
@@ -32,6 +33,11 @@ Rails.application.routes.draw do
   resources :approved_user_applications, only: %i[new create]
   resources :signs, except: %i[index] do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token
+    resources :comments, only: %i[create edit update destroy], controller: :sign_comments do
+      resources :reports, only: :create, controller: :comment_reports
+      resource :video, only: %i[update destroy], controller: :sign_video_comment
+    end
+    resources :video_comment, only: %i[create], controller: :sign_video_comment
     resources :sign_attachments, only: %i[create update destroy],
                                  path: "/:attachment_type",
                                  as: :attachments,
@@ -47,11 +53,13 @@ Rails.application.routes.draw do
 
   resources :folders do
     resources :share, only: %i[show create destroy], controller: :folder_share, param: :token
+    resources :collaborations, controller: :collaborations
   end
 
   get "/videos/:id/:preset" => "videos#show", as: :video
 
   resources :folder_memberships, only: %i[create destroy]
+
   scope "/user" do
     resources :signs, only: [:index], as: :user_signs
   end
