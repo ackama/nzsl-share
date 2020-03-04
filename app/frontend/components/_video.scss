@@ -40,6 +40,10 @@
       position: absolute;
       width: auto;
       z-index: 0;
+
+      &--large {
+        display: none;
+      }
     }
   }
 
