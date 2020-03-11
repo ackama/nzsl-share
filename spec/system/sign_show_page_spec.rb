@@ -339,9 +339,9 @@ RSpec.describe "Sign show page", system: true do
     subject.breadcrumb { expect(subject).to have_link sign.topics.first.name }
   end
 
-  it "displays the sign description" do
-    sign.update!(description: "Hello, world!")
-    visit current_path # Reload
+  it "displays the sign notes" do
+    sign.update!(notes: "Hello, world!")
+    visit current_path
     expect(subject).to have_selector "p", text: "Hello, world!"
   end
 

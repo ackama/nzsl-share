@@ -61,9 +61,11 @@
           &nbsp;•&nbsp;
           <%= @sign.topic.name %>
         <% end %>
-    </p>
+      </p>
 
-      <%= content_tag(:p, simple_format(@sign.description)) %>
+      <div class="sign-card__text-area--notes">
+        <%= simple_format(@sign.notes) %>
+      </div>
     </div>
 
     <% if @sign.usage_examples.any? %>
