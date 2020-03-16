@@ -60,6 +60,16 @@
     padding: 0 1rem;
   }
 
+  &__text-area {
+    &--notes {
+      color: $medium-gray;
+      font-size: 0.875rem;
+      font-weight: normal;
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+    }
+  }
+
   &__folders {
     &__button {
       align-items: center;
