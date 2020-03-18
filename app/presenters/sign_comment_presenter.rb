@@ -7,7 +7,7 @@ class SignCommentPresenter < ApplicationPresenter
   def friendly_date
     created = sign_comment.created_at
 
-    return h.localize(created, format: "%-d %b %I:%M %p %Y") unless created.today?
+    return h.localize(created, format: "%-d %b %Y %I:%M %p") unless created.today?
 
     "Today at #{h.localize(created, format: "%I:%M %p")}"
   end
