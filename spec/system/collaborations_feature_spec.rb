@@ -110,11 +110,12 @@ RSpec.describe "Collaborative Folders", type: :system do
       process.start
     end
 
-    it "can view other users' private signs in the folder" do
+    it "can view other users' private signs in the folder", uses_javascript: true do
       click_on collab_folder.title
       expect(page).to have_content(private_sign.word)
       click_on private_sign.word
       expect(page).to have_current_path sign_path(private_sign.id)
+      expect(page).to have_select "comments_in_folder", selected: collab_folder.title
     end
 
     it "can edit other users' private signs in the folder" do
