@@ -46,7 +46,7 @@ module SignsHelper
 
   def folder_selection(sign)
     folders = policy_scope(sign.folders).map { |f| [f.title, f.id] }
-    folders << (sign.published? || sign.unpublish_requested? ? ["Public", nil] : [])
+    folders << ["Public", nil] if sign.published? || sign.unpublish_requested?
     folders.reverse
   end
 
