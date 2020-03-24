@@ -113,8 +113,13 @@ class SignPolicy < ApplicationPolicy
     end
 
     def resolve
-      if user && user.moderator
-        resolve_moderator
+      if user&.moderator?
+        collaboration_sign_ids =
+          user.collaborations
+              .joins(folder: :folder_memberships)
+              .pluck("folder_memberships.sign_id")
+
+        Sign.where(id: collaboration_sign_ids).or(resolve_moderator)
       elsif user
         resolve_user
       else
