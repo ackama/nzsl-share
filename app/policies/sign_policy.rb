@@ -119,6 +119,8 @@ class SignPolicy < ApplicationPolicy
               .joins(folder: :folder_memberships)
               .pluck("folder_memberships.sign_id")
 
+        return resolve_moderator if collaboration_sign_ids.blank?
+
         Sign.where(id: collaboration_sign_ids).or(resolve_moderator)
       elsif user
         resolve_user
