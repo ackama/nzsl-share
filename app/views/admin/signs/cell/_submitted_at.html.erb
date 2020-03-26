@@ -1,4 +1,4 @@
 <% if resource.submitted_at %>
-<%= localize resource.submitted_at, format: :short %>,
+<%= localize resource.submitted_at, format: "%-d %b %I:%M %p" %>,
 <% end %>
 by <%= resource.contributor.username %>

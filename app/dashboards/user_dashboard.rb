@@ -16,7 +16,7 @@ class UserDashboard < Administrate::BaseDashboard
     approved: Field::Boolean.with_options(searchable: false),
     validator: Field::Boolean.with_options(searchable: false),
     contribution_limit: Field::Number.with_options(searchable: false),
-    signs_count: Field::Number.with_options(searchable: false),
+    signs: Field::HasMany,
     approved_user_application: Field::BelongsTo
   }.freeze
 
@@ -28,6 +28,7 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     username
     email
+    signs
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,7 +37,6 @@ class UserDashboard < Administrate::BaseDashboard
     username
     email
     bio
-    signs_count
     contribution_limit
     administrator
     moderator
