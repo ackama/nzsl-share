@@ -119,7 +119,8 @@ class SignPolicy < ApplicationPolicy
               .joins(folder: :folder_memberships)
               .pluck("folder_memberships.sign_id")
 
-        Sign.where(id: collaboration_sign_ids).or(resolve_moderator)
+        ids = (collaboration_sign_ids + resolve_moderator.map(&:id)).uniq
+        Sign.where(id: ids)
       elsif user
         resolve_user
       else
