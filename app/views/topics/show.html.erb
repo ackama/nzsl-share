@@ -15,6 +15,7 @@
     <h1><%= @topic.name %></h1>
     <div class="sign-grid cell">
       <% @signs.for_cards.each do |sign| %>
+        <% next unless sign.topics.include?(@topic) %>
         <%= render "signs/card", sign: sign %>
       <% end %>
     </div>
