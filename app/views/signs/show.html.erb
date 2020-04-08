@@ -48,11 +48,10 @@
     <div class="grid-x sign-card__section">
       <p class="sign-card__subtitle">
         <%= link_to user_path(@sign.contributor.username) do %>
-          <img
-            class="avatar avatar--small avatar--left"
-            src="https://picsum.photos/id/550/32/32"
-            alt="Profile Image"
-          />
+          <% contributor = present(@sign.contributor) %>
+          <%= contributor.avatar("avatar avatar--small avatar--left") %>
+        <% end %>
+        <%= link_to user_path(@sign.contributor.username) do %>
           <%= @sign.contributor.username %>
         <% end %>
         &nbsp;•&nbsp;uploaded&nbsp;
