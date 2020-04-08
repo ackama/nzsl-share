@@ -59,14 +59,14 @@
   &__buttons {
 
     &--alert {
-      color: get-color(alert) !important; //sass-lint:disable-line no-important
+      color: get-color(alert) !important;
 
       span {
         margin-left: 0.5rem;
       }
 
       &:hover {
-        background-color: get-color(alert-x-light) !important; //sass-lint:disable-line no-important
+        background-color: get-color(alert-x-light) !important;
       }
     }
   }

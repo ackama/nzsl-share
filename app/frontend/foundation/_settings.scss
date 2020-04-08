@@ -97,9 +97,8 @@ $foundation-palette: (
   pending: #c38c46,
   nzsl-official: #027ac9,
   // Below colours just so that colour palette classes generate all options
-  // sass-lints below are false positives
-  black: $black, // sass-lint:disable-line no-color-keywords
-  white: $white // sass-lint:disable-line no-color-keywords
+  black: $black,
+  white: $white
 );
 
 $body-background: $background;

@@ -10,7 +10,7 @@ $clear-button-palette: (
 
 // important! is allowed here because active states must overrride
 // hover states
-.button { //sass-lint:disable-block no-important
+.button {
   align-items: center;
   display: inline-flex;
   font-weight: bold;

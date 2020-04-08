@@ -12,27 +12,27 @@
       @include xy-cell(11);
 
       margin-top: 0;
-    };
+    }
 
     @include breakpoint(large) {
       @include xy-cell(9);
       @include xy-cell-offset(2);
-    };
+    }
 
     .home-page-messages {
       width: 75%;
 
       @include breakpoint(large) {
         width: 85%;
-      };
+      }
 
       @include breakpoint(xlarge) {
         width: 75%;
-      };
+      }
 
       @include breakpoint(xxlarge) {
         width: 70%;
-      };
+      }
     }
   }
 }

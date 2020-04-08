@@ -1,4 +1,4 @@
-.navigation {  // sass-lint:disable-block no-important
+.navigation {
 
   @include breakpoint(medium) {
     @include flex;
@@ -86,8 +86,6 @@
     }
   }
 
-
-
   &__item {
     @include breakpoint(medium) {
       @include flex;
@@ -96,7 +94,7 @@
 
     & > a,
     & > li > a {
-      //sass-lint:disable-next-line no-important
+
       color: $white !important; // Override default menu styles
       font-weight: bold !important; //Override default menu styles
       padding: 0.5rem;
@@ -127,7 +125,6 @@
     }
   }
 }
-
 
 .submenu-toggle {
   outline: none;

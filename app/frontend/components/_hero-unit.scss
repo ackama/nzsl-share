@@ -18,7 +18,6 @@
     margin-top: 1rem;
     z-index: 1;
 
-
     @include breakpoint(large) {
       padding: 4rem 0 2rem;
     }
@@ -34,7 +33,7 @@
       background-image: url("images/search.svg");
       background-position: calc(100% - 1rem);
       background-repeat: no-repeat;
-      margin: 0 !important; // sass-lint:disable-line no-important
+      margin: 0 !important;
       padding-right: 2rem;
       transition: box-shadow, background-color linear 0.5s;
     }
@@ -62,7 +61,7 @@
 
     & > a,
     & > li > a {
-      //sass-lint:disable-block no-important
+
       color: get-color(medium) !important;
       font-weight: normal !important;
       padding: 0 1.5rem 0 0 !important;
