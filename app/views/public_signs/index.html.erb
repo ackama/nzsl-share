@@ -1,0 +1,34 @@
+<div class="grid-x margin-vertical-2">
+  <div class="cell auto">
+    <h2 class="normal">
+      <% if @page[:limit] >= @page[:total] %>
+        <%= @page[:total] %> of <%= @page[:total] %> signs
+      <% else %>
+        <%= @page[:limit] %> of <%= @page[:total] %> signs
+      <% end %>
+    </h2>
+  </div>
+
+  <div class="cell shrink">
+    <%= render "search/sort_by", page: @page unless @page[:total].zero? %>
+  </div>
+</div>
+<hr class="list__divider list__divider--dark">
+
+<% if @signs.any? %>
+  <div class="grid-x cell" id="community-signs">
+    <div class="cell margin-top-3 margin-bottom-0 grid-x align-middle">
+      <h2 class="cell auto">All community signs</h2>
+    </div>
+    <div class="sign-grid cell">
+      <% @signs.each do |sign| %>
+        <%= render "signs/card", sign: sign %>
+      <% end %>
+    </div>
+  </div>
+  <% if @page[:total] >= @page[:limit] %>
+    <div class="cell auto text-center margin-2">
+      <%= link_to "Show More", params.to_unsafe_h.merge(page: @page[:next_page], anchor: dom_id(@signs.last, :card)), class: "button primary" %>
+    </div>
+  <% end %>
+<% end %>
