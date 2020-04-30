@@ -10,7 +10,7 @@
     "@svgr/webpack": "^4.3.3",
     "chosen-js": "^1.8.7",
     "foundation-sites": "^6.5.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "sass-lint": "^1.13.1",
