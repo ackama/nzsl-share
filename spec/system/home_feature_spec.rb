@@ -25,8 +25,14 @@ RSpec.describe "Homepage", type: :system do
   end
 
   context "recently added signs" do
+    it "shows recently published heading" do
+      expect(page).to have_selector "h2:contains('Recently Added')"
+    end
+
     it "shows the 4 most recently published signs" do
-      expect(page).to have_selector "h2:contains('Recently Added') + .sign-grid .sign-card", count: 4
+      within "#recently-published" do
+        expect(page).to have_selector ".sign-grid .sign-card", count: 4
+      end
     end
   end
 end

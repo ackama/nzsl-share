@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :search, only: [:index]
+  resources :public_signs, only: [:index]
   resources :approved_user_applications, only: %i[new create]
   resources :signs, except: %i[index] do
     resources :share, only: %i[show create destroy], controller: :sign_share, param: :token

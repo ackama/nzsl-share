@@ -38,8 +38,15 @@
     <p>Approved member can add new signs for everyone to see</p>
   </div>
 
-  <div class="cell margin-top-1 home-main__signs">
-    <h2>Recently Added</h2>
+  <div id="recently-published" class="cell margin-top-1 home-main__signs">
+    <div class="grid-x">
+      <div class="cell auto">
+        <h2>Recently Added</h2>
+      </div>
+      <div class="cell shrink">
+        <%= link_to "See all", public_signs_path, class: "button primary" %>
+      </div>
+    </div>
     <div class="sign-grid sign-grid--not-bottom">
       <% @recent_signs.each do |sign| %>
         <%= render "signs/card", sign: sign %>
