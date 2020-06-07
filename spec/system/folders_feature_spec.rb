@@ -92,7 +92,7 @@ RSpec.describe "Folders", type: :system do
 
     it "does not show delete link of the folder if it's the last one" do
       # Delete all but the first folder
-      folders[1..-1].each(&:destroy)
+      folders[1..].each(&:destroy)
       process.start
       process.within_list_item_menu do
         expect(page).to have_no_link "Delete"

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include AASM
 
-  USERNAME_REGEXP = /\A[a-zA-Z0-9_\.]+\Z/.freeze
+  USERNAME_REGEXP = /\A[a-zA-Z0-9_.]+\Z/.freeze
   PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}.freeze
   MAXIMUM_FILE_SIZE = 250.megabytes
 
@@ -12,6 +12,7 @@ class User < ApplicationRecord
          :confirmable, authentication_keys: [:login]
 
   attr_writer :login
+
   has_many :folders, dependent: :destroy
   has_many :signs, foreign_key: :contributor_id, inverse_of: :contributor, dependent: :nullify
   has_many :collaborations, foreign_key: :collaborator_id, inverse_of: :collaborator, dependent: :destroy
