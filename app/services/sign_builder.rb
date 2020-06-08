@@ -1,5 +1,6 @@
 class SignBuilder
   attr_reader :sign
+
   delegate :valid?, to: :sign
 
   def build(sign_params)

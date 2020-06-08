@@ -6,7 +6,7 @@
   [type="checkbox"],
   [type="radio"] {
     appearance: none;
-    border: 0 !important; // sass-lint:disable-line no-important - Stop invalid classes from showing the input
+    border: 0 !important;
     box-shadow: none;
     height: rem-calc(16);
     left: 0;
@@ -49,8 +49,7 @@
   }
 }
 
-
-.checkbox { //sass-lint:disable-block force-pseudo-nesting
+.checkbox {
   label {
     &::before {
       background: url("images/checkbox.svg");
@@ -74,7 +73,7 @@
   }
 }
 
-.radio { //sass-lint:disable-block force-pseudo-nesting
+.radio {
   label {
     &::before {
       background: url("images/radio.svg");

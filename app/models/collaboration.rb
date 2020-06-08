@@ -1,5 +1,6 @@
 class Collaboration < ApplicationRecord
   attr_accessor :identifier
+
   belongs_to :folder
   belongs_to :collaborator, class_name: :User
 

@@ -48,7 +48,6 @@ $icon-palette: map-merge(
   @include icon-fill;
   @include icon-size;
 
-
   @each $name, $color in $icon-palette {
     &--#{$name} { @include icon-fill($color); }
     &--stroke-#{$name} { @include icon-stroke($color); }

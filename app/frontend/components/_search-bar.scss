@@ -3,7 +3,6 @@
   flex: 1;
   height: 100%;
 
-
   label {
     flex: 1;
     margin: 0;
@@ -22,7 +21,7 @@
       border-radius: 5000px;
     }
 
-    @include breakpoint(medium) { // sass-lint:disable-block no-important
+    @include breakpoint(medium) {
       border-radius: $global-radius;
       margin: 0.5rem auto !important;
     }
