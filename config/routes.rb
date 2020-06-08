@@ -66,9 +66,6 @@ Rails.application.routes.draw do
   end
   post "/rails/active_storage/direct_uploads" => "direct_uploads#create"
 
-  get "/sitemap.xml" => "sitemaps#index", defaults: { format: "xml" }, as: :sitemap
-  get "/:page" => "static#show", as: :page
-
   ##
   # Workaround a "bug" in lighthouse CLI
   #
@@ -92,4 +89,10 @@ Rails.application.routes.draw do
                     .to_s
     get "/asset-manifest.json", to: redirect(manifest_path)
   end
+
+  get "/sitemap.xml" => "sitemaps#index", defaults: { format: "xml" }, as: :sitemap
+
+  # This route acts as a catch-all, and so should always be placed at the end of the routes declaration
+  # block
+  get "/:page" => "static#show", as: :page
 end
