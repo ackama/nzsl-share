@@ -2,6 +2,7 @@ class AuthenticateFeature
   include Capybara::DSL
 
   attr_reader :user
+
   def initialize(user=FactoryBot.create(:user))
     @user = user
   end

@@ -12,7 +12,7 @@ RSpec.describe VideosHelper, type: :helper do
   describe "#video_sourceset" do
     subject { helper.video_sourceset(video) }
     it "renders with default presets" do
-      matcher = %r{<source src="/videos/#{signed_id}/(1080|720|360)p\">}
+      matcher = %r{<source src="/videos/#{signed_id}/(1080|720|360)p">}
       expect(subject.scan(matcher).size).to eq 3
     end
 

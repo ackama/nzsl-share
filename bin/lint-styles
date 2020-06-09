@@ -3,6 +3,6 @@
 # vi ft:ruby
 
 rails_root = File.absolute_path(File.join(__dir__, ".."))
-cmd = "#{rails_root}/node_modules/.bin/sass-lint -c #{rails_root}/.sass-lint.yml -v -q --max-warnings 1"
+cmd = "#{rails_root}/node_modules/.bin/stylelint '**/*.{css,scss}'"
 result = system cmd
 exit(false) unless result

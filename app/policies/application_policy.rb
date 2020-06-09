@@ -1,5 +1,6 @@
 class ApplicationPolicy
   attr_reader :user, :record
+
   delegate :administrator?, :validator?, :approved?, :moderator?, to: :user, allow_nil: true
 
   def initialize(user, record)

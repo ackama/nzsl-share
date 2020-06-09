@@ -48,7 +48,7 @@
   }
 
   &__canonical-link {
-    color: get-color(success) !important; // sass-lint:disable-line no-important
+    color: get-color(success) !important;
   }
 
   &__bottom {
@@ -82,14 +82,13 @@
       position: relative;
       width: 40px;
 
-
       svg {
         @include icon-fill(royal);
         @include icon-size(mid);
       }
 
       &--text-color {
-        color: #646970 !important; // sass-lint:disable-line no-important
+        color: #646970 !important;
       }
 
       &--in-folder {
@@ -258,7 +257,7 @@
 
     &--agree,
     &--disagree {
-      color: get-color(medium) !important; // sass-lint:disable-line no-important
+      color: get-color(medium) !important;
       display: inline-flex;
       text-decoration: none;
     }
@@ -268,7 +267,7 @@
     }
 
     &--agreed {
-      color: get-color(success) !important; // sass-lint:disable-line no-important
+      color: get-color(success) !important;
       & > svg { @include icon-fill(success); }
 
       &:hover {
@@ -277,7 +276,7 @@
     }
 
     &--disagreed {
-      color: get-color(alert) !important; // sass-lint:disable-line no-important
+      color: get-color(alert) !important;
       & > svg { @include icon-fill(alert); }
 
       &:hover {
@@ -293,7 +292,6 @@
   }
 }
 
-// sass-lint:disable force-element-nesting,force-pseudo-nesting,no-important
 .no-js .sign-card {
   .sign-card__folders__menu:hover,
   &:active .sign-card__folders__menu,
@@ -302,4 +300,3 @@
     visibility: visible !important;
   }
 }
-// sass-lint:enable
