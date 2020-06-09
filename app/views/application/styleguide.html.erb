@@ -259,18 +259,18 @@
 <div class="cell">
 <h3>File uploads</h3>
 
-<h5>Default state:</h5>
+<h4>Default state:</h4>
 <form class="file-upload">
-  <h4 class="medium">Drag and drop your video file here</h4>
+  <h5 class="medium">Drag and drop your video file here</h5>
   <%= label_tag :file, "Browse files", class: "button primary large" %>
   <%= file_field_tag :file, direct_upload: true, class: "show-for-sr" %>
 
   <%= submit_tag "Start Upload", class: "button secondary large" %>
 </form>
 
-<h5>Indeterminate state:</h5>
+<h4>Indeterminate state:</h4>
 <form class="file-upload file-upload--uploading">
-  <h6 class="medium">Processing, please wait...</h6>
+  <h5 class="medium">Processing, please wait...</h5>
   <%= inline_svg "media/images/progress-indicator.svg",
                  class: "progress-indicator--indeterminate" %>
 </form>
