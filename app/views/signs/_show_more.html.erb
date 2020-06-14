@@ -1,0 +1,7 @@
+<div class="show-more cell auto text-center margin-2">
+  <noscript>
+    <%= link_to "Previous page", params.to_unsafe_h.merge(page: @signs.prev_page) if @signs.prev_page %>
+  </noscript>
+
+  <%= link_to "Show More", params.to_unsafe_h.merge(page: @signs.next_page, anchor: dom_id(@signs.last, :card)), data: { disable_with: "Loading..." }, remote: true, class: "button primary" if @signs.next_page %>
+</div>
