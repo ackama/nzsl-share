@@ -46,7 +46,7 @@ class SignPresenter < ApplicationPresenter
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
-    map_folders_to_memberships(folders, memberships, &block)
+    @available_folders ||= map_folders_to_memberships(folders, memberships, &block)
   end
 
   def assignable_folder_options
