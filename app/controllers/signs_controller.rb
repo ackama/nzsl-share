@@ -2,7 +2,7 @@ class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def show
-    @sign = present(signs.includes(:contributor, :topics, :folders, sign_comments: :replies).find(id))
+    @sign = present(signs.includes(sign_comments: :replies).find(id))
     @current_folder_id = params[:comments_in_folder]
     @new_comment = SignComment.new(sign: @sign.sign)
     authorize @sign
@@ -80,7 +80,7 @@ class SignsController < ApplicationController
   end
 
   def signs
-    policy_scope(Sign).order(word: :asc)
+    policy_scope(Sign).for_cards.order(word: :asc)
   end
 
   def build_sign(builder: SignBuilder.new)
