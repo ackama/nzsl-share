@@ -114,6 +114,7 @@ class SignPresenter < ApplicationPresenter
 
   def folders
     @folders ||= Pundit.policy_scope(h.current_user, Folder)
+                       .includes(collaborations: :collaborator)
                        .where(collaborations: { collaborator_id: h.current_user.id })
   end
 
