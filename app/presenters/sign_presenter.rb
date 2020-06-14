@@ -58,7 +58,7 @@ class SignPresenter < ApplicationPresenter
     return h.asset_pack_path("media/images/processing.svg") unless sign.processed_thumbnails?
 
     preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
-    video.preview(preset).processed.service_url
+    video.preview(preset).service_url
   end
 
   def sign_video_sourceset(presets=nil)
