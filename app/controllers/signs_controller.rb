@@ -13,7 +13,7 @@ class SignsController < ApplicationController
   end
 
   def index
-    @signs = signs.where(contributor: current_user).page(params[:page]).per(25)
+    @signs = signs.where(contributor: current_user).page(params[:page])
     authorize @signs
   end
 
