@@ -55,7 +55,7 @@
   <div class="cell margin-top-1 home-main__signs">
     <h2>Most viewed</h2>
     <div class="sign-grid">
-      <%= render partial: "signs/card", collection: @viewed_signs, sign: :sign %>
+      <%= render partial: "signs/card", collection: @viewed_signs, as: :sign %>
     </div>
   </div>
 </div>
