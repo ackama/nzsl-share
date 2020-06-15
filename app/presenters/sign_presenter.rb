@@ -54,13 +54,19 @@ class SignPresenter < ApplicationPresenter
     h.options_for_select(assignable_folders.map { |f, _m| [f.title, f.id] })
   end
 
-  def poster_url(size: 1080)
+  # AbcSize is disabled because it is the descriptive cache
+  # key is what pushes it over - 15.17 / 15 - and a descriptive cache
+  # key is preferred to AbcSize compliance here
+  def poster_url(size: 1080) # rubocop:disable Metrics/AbcSize
     return fallback_poster_url unless sign.processed_thumbnails?
 
     preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
     preview = video.preview(preset)
 
-    Rails.cache.fetch([sign, :poster_url, preview.variation.key]) do
+    # We do not use the 'sign' instance here, because we want this cache
+    # to not expire unless the variation key changes. If we use the sign instance,
+    # the cache expires each time the sign is changed at all.
+    Rails.cache.fetch([:signs, sign.id, :poster_url, preview.variation.key]) do
       preview.service_url
     end
   end
