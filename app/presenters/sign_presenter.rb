@@ -67,7 +67,7 @@ class SignPresenter < ApplicationPresenter
     # to not expire unless the variation key changes. If we use the sign instance,
     # the cache expires each time the sign is changed at all.
     Rails.cache.fetch([:signs, sign.id, :poster_url, preview.variation.key]) do
-      preview.service_url
+      preview.processed.service_url
     end
   end
 
