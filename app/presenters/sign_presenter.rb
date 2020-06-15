@@ -55,10 +55,18 @@ class SignPresenter < ApplicationPresenter
   end
 
   def poster_url(size: 1080)
-    return h.asset_pack_path("media/images/processing.svg") unless sign.processed_thumbnails?
+    return fallback_poster_url unless sign.processed_thumbnails?
 
     preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
-    video.preview(preset).service_url
+    preview = video.preview(preset)
+
+    Rails.cache.fetch([sign, :poster_url, preview.variation.key]) do
+      preview.service_url
+    end
+  end
+
+  def fallback_poster_url
+    h.asset_pack_path("media/images/processing.svg")
   end
 
   def sign_video_sourceset(presets=nil)
