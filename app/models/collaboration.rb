@@ -2,7 +2,7 @@ class Collaboration < ApplicationRecord
   attr_accessor :identifier
 
   belongs_to :folder
-  belongs_to :collaborator, class_name: :User
+  belongs_to :collaborator, class_name: :User, touch: true
 
   validates :folder_id, presence: true
   validates :collaborator_id, presence: { message: "This username does not exist" }
