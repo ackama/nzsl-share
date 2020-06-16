@@ -48,18 +48,14 @@
       </div>
     </div>
     <div class="sign-grid sign-grid--not-bottom">
-      <% @recent_signs.each do |sign| %>
-        <%= render "signs/card", sign: sign %>
-      <% end %>
+      <%= render partial: "signs/card", collection: @recent_signs, as: :sign %>
     </div>
   </div>
 
   <div class="cell margin-top-1 home-main__signs">
     <h2>Most viewed</h2>
     <div class="sign-grid">
-      <% @viewed_signs.each do |sign| %>
-        <%= render "signs/card", sign: sign %>
-      <% end %>
+      <%= render partial: "signs/card", collection: @viewed_signs, as: :sign %>
     </div>
   </div>
 </div>
