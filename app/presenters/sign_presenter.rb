@@ -46,7 +46,7 @@ class SignPresenter < ApplicationPresenter
   def available_folders(&block)
     return [] unless h.user_signed_in?
 
-    map_folders_to_memberships(folders, memberships, &block)
+    @available_folders ||= map_folders_to_memberships(folders, memberships, &block)
   end
 
   def assignable_folder_options
@@ -54,11 +54,25 @@ class SignPresenter < ApplicationPresenter
     h.options_for_select(assignable_folders.map { |f, _m| [f.title, f.id] })
   end
 
-  def poster_url(size: 1080)
-    return h.asset_pack_path("media/images/processing.svg") unless sign.processed_thumbnails?
+  # AbcSize is disabled because it is the descriptive cache
+  # key is what pushes it over - 15.17 / 15 - and a descriptive cache
+  # key is preferred to AbcSize compliance here
+  def poster_url(size: 1080) # rubocop:disable Metrics/AbcSize
+    return fallback_poster_url unless sign.processed_thumbnails?
 
     preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
-    video.preview(preset).processed.service_url
+    preview = video.preview(preset)
+
+    # We do not use the 'sign' instance here, because we want this cache
+    # to not expire unless the variation key changes. If we use the sign instance,
+    # the cache expires each time the sign is changed at all.
+    Rails.cache.fetch([:signs, sign.id, :poster_url, preview.variation.key]) do
+      preview.processed.service_url
+    end
+  end
+
+  def fallback_poster_url
+    h.asset_pack_path("media/images/processing.svg")
   end
 
   def sign_video_sourceset(presets=nil)
@@ -114,6 +128,7 @@ class SignPresenter < ApplicationPresenter
 
   def folders
     @folders ||= Pundit.policy_scope(h.current_user, Folder)
+                       .includes(collaborations: :collaborator)
                        .where(collaborations: { collaborator_id: h.current_user.id })
   end
 

@@ -2,8 +2,8 @@ class SignActivity < ApplicationRecord
   ACTIVITY_AGREE = "agree".freeze
   ACTIVITY_DISAGREE = "disagree".freeze
 
-  belongs_to :user
-  belongs_to :sign
+  belongs_to :user, touch: true
+  belongs_to :sign, touch: true
 
   class << self
     def for_type(type, attrs={})

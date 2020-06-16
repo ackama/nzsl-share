@@ -158,22 +158,26 @@ RSpec.describe SignPresenter, type: :presenter do
       before { sign.processed_thumbnails = true }
 
       it "requests a video preview with the default size" do
+        preview = double.as_null_object
+
         expect(sign.video).to receive(:preview)
           .with(ThumbnailPreset.default.scale_1080.to_h)
-          .and_return(double.as_null_object)
-        # (service_url: nil)
-        # this was breaking the test and
-        # I don't know what it is doing
+          .and_return(preview)
 
-        presenter.poster_url
+        expect(preview).to receive(:service_url).and_return("/preview-url")
+
+        expect(presenter.poster_url).to eq "/preview-url"
       end
 
       it "requests a video preview with the given size" do
+        preview = double.as_null_object
+        expect(preview).to receive(:service_url).and_return("/preview-url")
+
         expect(sign.video).to receive(:preview)
           .with(ThumbnailPreset.default.scale_720.to_h)
-          .and_return(double.as_null_object)
+          .and_return(preview)
 
-        presenter.poster_url(size: 720)
+        expect(presenter.poster_url(size: 720)).to eq "/preview-url"
       end
     end
   end

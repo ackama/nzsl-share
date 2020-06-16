@@ -48,7 +48,12 @@ class Sign < ApplicationRecord
 
   scope :recent, -> { published.order(published_at: :desc) }
 
-  scope :for_cards, -> { with_attached_video.includes(:contributor) }
+  scope :for_cards, lambda {
+    includes(:topics,
+             video_attachment: { blob: { preview_image_attachment: :blob } },
+             folders: { folder_memberships: nil, collaborations: :collaborator },
+             contributor: { avatar_attachment: :blob })
+  }
 
   attr_reader :topic # breadcrumb for show template
 

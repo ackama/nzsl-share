@@ -6,8 +6,8 @@
   </div>
   <hr class="list__divider">
   <div class="list__section list__section--sign-cards margin-vertical-0 cell sign-grid">
-    <% @signs.each do |sign| %>
-      <%= render "card", sign: sign %>
-    <% end %>
+    <%= render partial: "card", collection: @signs, as: :sign %>
   </div>
+
+  <%= render "show_more" %>
 </div>

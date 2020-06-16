@@ -1,36 +1,49 @@
 module SignsHelper
   def agree_button(sign, extra_classes="grid-x align-middle", &block)
-    classes = "sign-card__votes--agree #{extra_classes}"
-    return content_tag(:div, class: classes, &block) unless policy(sign).agree?
+    Rails.cache.fetch([sign, current_user, :agree_button]) do
+      classes = "sign-card__votes--agree #{extra_classes}"
+      next content_tag(:div, class: classes, &block) unless policy(sign).agree?
 
-    if SignActivity.agree?(sign_id: sign.id, user: current_user)
-      classes << " sign-card__votes--agreed"
-      return link_to(sign_agreement_path(sign), method: :delete,
-                                                data: { remote: true },
-                                                title: "Undo agree", class: classes, &block)
+      if SignActivity.agree?(sign_id: sign.id, user: current_user)
+        classes << " sign-card__votes--agreed"
+        next undo_agree_button(sign, classes, &block)
+      end
+
+      link_to(sign_agreement_path(sign), method: :post,
+                                         title: "Agree",
+                                         data: { remote: true },
+                                         class: classes, &block)
     end
-
-    link_to(sign_agreement_path(sign), method: :post,
-                                       title: "Agree",
-                                       data: { remote: true },
-                                       class: classes, &block)
   end
 
   def disagree_button(sign, extra_classes="grid-x align-middle", &block)
-    classes = "sign-card__votes--disagree #{extra_classes}"
-    return content_tag(:div, class: classes, &block) unless policy(sign).disagree?
+    Rails.cache.fetch([sign, current_user, :disagree_button]) do
+      classes = "sign-card__votes--disagree #{extra_classes}"
+      next content_tag(:div, class: classes, &block) unless policy(sign).disagree?
 
-    if SignActivity.disagree?(sign_id: sign.id, user: current_user)
-      classes << " sign-card__votes--disagreed"
-      return link_to(sign_disagreement_path(sign), title: "Undo disagree",
-                                                   data: { remote: true },
-                                                   method: :delete, class: classes, &block)
+      if SignActivity.disagree?(sign_id: sign.id, user: current_user)
+        classes << " sign-card__votes--disagreed"
+        next undo_disagree_button(sign, classes, &block)
+      end
+
+      link_to(sign_disagreement_path(sign), method: :post,
+                                            data: { remote: true },
+                                            title: "Disagree",
+                                            class: classes, &block)
     end
+  end
 
-    link_to(sign_disagreement_path(sign), method: :post,
+  def undo_agree_button(sign, classes, &block)
+    link_to(sign_agreement_path(sign), method: :delete,
+                                       data: { remote: true },
+                                       title: "Undo agree",
+                                       class: classes, &block)
+  end
+
+  def undo_disagree_button(sign, classes, &block)
+    link_to(sign_disagreement_path(sign), title: "Undo disagree",
                                           data: { remote: true },
-                                          title: "Disagree",
-                                          class: classes, &block)
+                                          method: :delete, class: classes, &block)
   end
 
   def overview_reject_link(sign)
