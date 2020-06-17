@@ -1,4 +1,4 @@
 class SignTopic < ApplicationRecord
   belongs_to :topic
-  belongs_to :sign
+  belongs_to :sign, touch: true
 end
