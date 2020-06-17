@@ -164,14 +164,13 @@ RSpec.describe SignPresenter, type: :presenter do
           .with(ThumbnailPreset.default.scale_1080.to_h)
           .and_return(preview)
 
-        expect(preview).to receive(:service_url).and_return("/preview-url")
-
+        expect(view).to receive(:url_for).with(preview.image).and_return("/preview-url")
         expect(presenter.poster_url).to eq "/preview-url"
       end
 
       it "requests a video preview with the given size" do
         preview = double.as_null_object
-        expect(preview).to receive(:service_url).and_return("/preview-url")
+        expect(view).to receive(:url_for).with(preview.image).and_return("/preview-url")
 
         expect(sign.video).to receive(:preview)
           .with(ThumbnailPreset.default.scale_720.to_h)
