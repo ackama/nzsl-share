@@ -58,4 +58,5 @@ group :test do
   gem "webdrivers"
   gem "axe-matchers"
   gem "lighthouse-matchers"
+  gem "rspec-retry"
 end
