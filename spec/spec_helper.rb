@@ -123,12 +123,12 @@ RSpec.configure do |config|
   config.display_try_failure_messages = true
 
   # run retry only on features
-  config.around :each, :js do |ex|
+  config.around :each, :uses_javascript do |ex|
     ex.run_with_retry retry: 3
   end
 
   # Reset Capybara state (cookies, flash, page state etc. before retrying)
   config.retry_callback = proc do |ex|
-    Capybara.reset! if ex.metadata[:js]
+    Capybara.reset! if ex.metadata[:uses_javascript]
   end
 end
