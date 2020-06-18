@@ -1,4 +1,5 @@
 require "simplecov"
+require "rspec/retry"
 
 # Use a consistent test timezone
 ENV["TZ"] = "UTC"
