@@ -123,7 +123,7 @@ RSpec.configure do |config|
   config.display_try_failure_messages = true
 
   # run retry up to 3 times
-  config.around :each do |ex|
+  config.around :each, type: :system do |ex|
     ex.run_with_retry retry: 3
   end
 
