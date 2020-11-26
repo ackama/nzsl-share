@@ -1,7 +1,6 @@
-<%= cache([sign, current_user]) do %>
-  <% sign = present(sign) %>
+<% sign = present(sign) %>
 
-  <div class="sign-card" id="<%= dom_id(sign, :card) %>">
+<div class="sign-card" id="<%= dom_id(sign, :card) %>">
     <div class="sign-card__media">
       <%= render "signs/card/video", sign: sign %>
     </div>
@@ -45,5 +44,4 @@
       <%= render "signs/card/votes", sign: sign %>
       <%= render "signs/card/folders", sign: sign %>
     </div>
-  </div>
-<% end %>
+</div>
