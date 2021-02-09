@@ -1,6 +1,4 @@
 class SignAttachmentPostProcessor
-  include VideoEncodingHelper
-
   def initialize(blob, presets=nil)
     @blob = blob
     @presets = presets || default_presets
@@ -44,7 +42,7 @@ class SignAttachmentPostProcessor
 
   def default_presets
     {
-      video: PRESET_MAP.values,
+      video: VideoEncodingPreset.new.presetmap.values,
       thumbnail: [
         ThumbnailPreset.default.scale_1080,
         ThumbnailPreset.default.scale_720,

@@ -1,6 +1,5 @@
 class VideosController < ApplicationController
   skip_before_action :store_user_location!
-  include VideoEncodingHelper
 
   def show
     unless representation.exist?
@@ -18,7 +17,8 @@ class VideosController < ApplicationController
   end
 
   def preset
-    PRESET_MAP[preset_name] || (fail ActionController::RoutingError, "Unknown preset '#{preset_name}'")
+    VideoEncodingPreset.new.presetmap[preset_name] ||
+      (fail ActionController::RoutingError, "Unknown preset '#{preset_name}'")
   end
 
   def preset_name
