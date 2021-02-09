@@ -1,11 +1,6 @@
 class VideosController < ApplicationController
   skip_before_action :store_user_location!
-
-  PRESET_MAP = {
-    "1080p" => VideoEncodingPreset.default.muted.scale_1080,
-    "720p" => VideoEncodingPreset.default.muted.scale_720,
-    "360p" => VideoEncodingPreset.default.muted.scale_360
-  }.freeze
+  include VideoEncodingHelper
 
   def show
     unless representation.exist?

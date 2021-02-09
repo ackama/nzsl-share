@@ -2,8 +2,7 @@
 import jQuery from "jquery";
 
 var selector = ".js-sign-video-container";
-var updateInterval = 500;
-var intervalId;
+var nextrun = 2000;
 
 function refresh() {
   var $currentContainer = jQuery(selector);
@@ -19,9 +18,6 @@ function refresh() {
         .find(selector);
       var $newVideo = $newVideoContainer.find(".video");
 
-      // Stop polling once the video has been processed
-      if ($newVideo.hasClass("has-video")) { clearInterval(intervalId); }
-
       // Only refresh the HTML of the element if the classes of the video have changed
       if (
         $newVideo.get(0) &&
@@ -30,12 +26,13 @@ function refresh() {
       ) {
         $currentContainer.html($newVideoContainer.html());
       }
+
+      // Kick off another poll if the video isn't processed yet
+      if (!$newVideo.hasClass("has-video")) {
+        setTimeout(refresh, nextrun);
+      }
     });
 }
 
 // refresh immediately to check if the video has been processed
 refresh();
-
-jQuery(function() {
-  intervalId = setInterval(refresh, updateInterval);
-});
