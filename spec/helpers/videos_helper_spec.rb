@@ -6,7 +6,7 @@ RSpec.describe VideosHelper, type: :helper do
 
   describe "#video_source_tag" do
     subject { helper.video_source_tag(video, "720p") }
-    it { is_expected.to eq "<source src=\"/videos/#{signed_id}/720p\"></source>" }
+    it { is_expected.to eq "<source src=\"/videos/#{signed_id}/720p\">" }
   end
 
   describe "#video_sourceset" do
