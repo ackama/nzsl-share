@@ -42,11 +42,7 @@ class SignAttachmentPostProcessor
 
   def default_presets
     {
-      video: [
-        VideoEncodingPreset.default.scale_1080.muted,
-        VideoEncodingPreset.default.scale_720.muted,
-        VideoEncodingPreset.default.scale_360.muted
-      ],
+      video: VideoEncodingPreset.new.presetmap.values,
       thumbnail: [
         ThumbnailPreset.default.scale_1080,
         ThumbnailPreset.default.scale_720,
