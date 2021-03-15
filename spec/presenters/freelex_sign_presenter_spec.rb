@@ -33,7 +33,7 @@ RSpec.describe FreelexSignPresenter, type: :presenter do
   describe "#sign_video_attributes" do
     subject { presenter.sign_video_attributes }
     it "includes default video attributes" do
-      expect(subject).to include(controls: true, muted: true)
+      expect(subject).to include(muted: true)
     end
 
     it "assigns a 'has-video' class" do
