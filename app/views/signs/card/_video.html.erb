@@ -1,6 +1,9 @@
 <% overlay ||= true %>
 <div class="video-wrapper" <%= "data-overlay" if overlay %>>
-  <%= content_tag :video, **sign.sign_video_attributes do %>
+  <%= content_tag :video, id: "sign_video_#{sign.video.id}", onEnded: "this.classList.remove('video--playing')", **sign.sign_video_attributes do %>
     <%= sign.sign_video_sourceset %>
   <% end %>
+
+  <i class="video__overlay" alt="Play video" onclick='togglePlayPause($( "#sign_video_<%= sign.video.id %>" ).get(0))' ></i>
+
 </div>
