@@ -1,12 +1,5 @@
-/* the ended event apparently doesn't bubble up to document so this never fires */
-$(document).on("ended", ".video--playing", function() {
-  console.log("ON ENDED");
-  $(this).get(0).classList.remove("video--playing");
-
-  return false;
-});
-
-/* This one fires though. Perhaps its not the best way to do this though */
+// we can't do the `jquery $(document).on("ended"` because onended
+// doesn't bubble up to document like click does
 document.addEventListener(
   "ended",
   function(e) {
@@ -18,6 +11,7 @@ document.addEventListener(
   true
 );
 
+// play/pause the video underneath the video__overlay div and add the video--playing class
 $(document).on("click", ".video__overlay", function() {
   console.log("on click");
   var videoElement = $(this).siblings(".video").get(0);

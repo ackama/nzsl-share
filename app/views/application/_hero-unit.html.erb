@@ -2,12 +2,12 @@
   <div class="cell large-5 video-wrapper--hero" data-overlay >
     <%= image_pack_tag "hero-image.jpg", class: "video__poster" %>
 
-    <video class="video video--hero video--hero--large has-video" onclick='togglePlayPause($( "#video_hero_element" ).get(0))' onended="this.classList.remove('video--playing')" id="video_hero_element">
+    <video class="video video--hero video--hero--large has-video" >
       <source src="<%= asset_pack_path 'media/images/home-intro.webm' %>" type="video/webm">
       <source src="<%= asset_pack_path 'media/images/home-intro.mp4' %>" type="video/mp4">
     </video>
 
-    <i class="video__overlay video__overlay--hero" alt="Play video" onclick='togglePlayPause($( "#video_hero_element" ).get(0))'></i>
+    <i class="video__overlay video__overlay--hero" alt="Play video" ></i>
   </div>
 
   <div class="cell large-7 grid-x hero-unit__container">
