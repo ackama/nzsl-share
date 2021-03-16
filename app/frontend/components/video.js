@@ -1,6 +1,5 @@
-/* eslint-disable */
-
-togglePlayPause = function (el) {
+// eslint-disable-next-line no-undef
+togglePlayPause = function(el) {
   if (el.classList.contains("video--hero")) {
     $("img.video__poster").toggle();
     el.classList.toggle("video--hero--large");
