@@ -2,7 +2,7 @@
 // doesn't bubble up to document like click does
 document.addEventListener(
   "ended",
-  (event) => {
+  event => {
     if ($(event.target).is("video")) {
       event.target.classList.remove("video--playing");
     }
