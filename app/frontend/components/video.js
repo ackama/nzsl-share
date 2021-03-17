@@ -2,10 +2,9 @@
 // doesn't bubble up to document like click does
 document.addEventListener(
   "ended",
-  function(e) {
-    if ($(e.target).is("video")) {
-      console.log("ON ENDED 2");
-      e.target.classList.remove("video--playing");
+  (event) => {
+    if ($(event.target).is("video")) {
+      event.target.classList.remove("video--playing");
     }
   },
   true
@@ -13,8 +12,7 @@ document.addEventListener(
 
 // play/pause the video underneath the video__overlay div and add the video--playing class
 $(document).on("click", ".video__overlay", function() {
-  console.log("on click");
-  var videoElement = $(this).siblings(".video").get(0);
+  const videoElement = $(this).siblings(".video").get(0);
 
   if (videoElement.classList.contains("video--hero")) {
     $("img.video__poster").toggle();
