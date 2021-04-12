@@ -1,29 +1,26 @@
-const togglePlayPause = (el) => {
-  if (el.classList.contains("video--hero")) {
+// we can't do the `jquery $(document).on("ended"` because onended
+// doesn't bubble up to document like click does
+document.addEventListener(
+  "ended",
+  event => {
+    if ($(event.target).is("video")) {
+      event.target.classList.remove("video--playing");
+    }
+  },
+  true
+);
+
+// play/pause the video underneath the video__overlay div and add the video--playing class
+$(document).on("click", ".video__overlay", function() {
+  const videoElement = $(this).siblings(".video").get(0);
+
+  if (videoElement.classList.contains("video--hero")) {
     $("img.video__poster").toggle();
-    el.classList.toggle("video--hero--large");
+    videoElement.classList.toggle("video--hero--large");
   }
 
-  el.classList.toggle("video--playing");
-  el.paused ? el.play() : el.pause();
+  videoElement.classList.toggle("video--playing");
+  videoElement.paused ? videoElement.play() : videoElement.pause();
 
   return false;
-};
-
-$(document).ready(() => {
-  $(".video").each(function() {
-    const $vid = $(this);
-
-    // Hide sign controls on Firefox and other browsers not implementing
-    // pseodoclasses for controls
-    $vid.attr("controls", false);
-    $("<i class=\"video__overlay\" alt=\"Play video\"></i>").appendTo($vid.parents(".video-wrapper[data-overlay]"));
-    $("<i class=\"video__overlay video__overlay--hero\" alt=\"Play video\"></i>").appendTo($vid.parents(".video-wrapper--hero[data-overlay]"));
-
-    $vid
-      .on("click", () => togglePlayPause($vid.get(0)))
-      .on("ended", () => $vid.get(0).classList.remove("video--playing"));
-    $vid.siblings(".video__overlay").on("click", () => togglePlayPause($vid.get(0)));
-  });
 });
-
