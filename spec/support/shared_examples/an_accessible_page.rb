@@ -4,6 +4,6 @@ shared_examples "an accessible page", uses_javascript: true do
   end
 
   it "passes a Lighthouse accessibility audit" do
-    expect(page).to pass_lighthouse_audit(:accessibility)
+    expect(page).to pass_lighthouse_audit(:accessibility, score: 88)
   end
 end
