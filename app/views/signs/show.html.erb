@@ -1,109 +1,102 @@
 <% provide(:title, @sign.word) %>
-  <% provide(:og_title, @sign.word) %>
-    <% provide(:og_description, @sign.secondary) %>
-      <% provide(:og_image, @sign.poster_url) %>
+<% provide(:og_title, @sign.word) %>
+<% provide(:og_description, @sign.secondary) %>
+<% provide(:og_image, @sign.poster_url) %>
 
-        <nav class="grid-x" aria-label="You are here:" role="navigation">
-          <ul class="breadcrumbs cell-shrink">
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Topics", "/topics" %></li>
-            <% if @sign.topic.present? %>
-              <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
-            <% end %>
-            <li>
-              <span class="show-for-sr">Current:
-              </span>
-              <%= @sign.word %></li>
-          </ul>
-        </nav>
+<nav class="grid-x" aria-label="You are here:" role="navigation">
+  <ul class="breadcrumbs cell-shrink">
+    <li><%= link_to "Home", root_path %></li>
+    <li><%= link_to "Topics", "/topics" %></li>
+    <% if @sign.topic.present? %>
+      <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
+    <% end %>
+    <li><span class="show-for-sr">Current: </span> <%= @sign.word %></li>
+  </ul>
+</nav>
 
-        <div class="grid-x margin-bottom-2">
+<div class="grid-x margin-bottom-2">
 
-          <%= render "signs/overview", sign: @sign if policy(@sign).overview?%>
+    <%= render "signs/overview", sign: @sign if policy(@sign).overview?%>
 
-          <div class="cell sign-card medium-8 sign-card--borderless">
-            <div class="sign-card__media">
-              <%= render "signs/card/video", sign: @sign %>
+  <div class="cell sign-card medium-8 sign-card--borderless">
+    <div class="sign-card__media">
+      <%= render "signs/card/video", sign: @sign %>
+    </div>
+    <div class="sign-card__section">
+      <h2>
+        <%= @sign.word %>
+        <% if @sign.maori.present? %><small>•&nbsp;<%= @sign.maori %></small><% end %>
+      </h2>
+
+      <p class="sign-card__supplementary-titles__secondary"><%= @sign.secondary %></p>
+    </div>
+
+    <div class="grid-x grid-padding-x sign-controls sign-card__section sign-card__section--horizontal">
+      <%= render "signs/show/votes", sign: @sign %>
+      <div class="cell auto"></div>
+      <div class="cell shrink">
+        <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear sign-card__folders__button--text-color" do %>
+          <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
+          Share
+          <% end if policy(@sign).share? %>
+      </div>
+      <div class="cell shrink">
+        <%= render "signs/card/sign-show-folders", sign: @sign if policy(@sign).manage_folders? %>
+      </div>
+    </div>
+    <hr class="sign-card__divider">
+    <div class="grid-x sign-card__section">
+      <p class="sign-card__subtitle">
+        <%= link_to user_path(@sign.contributor.username) do %>
+          <% contributor = present(@sign.contributor) %>
+          <%= contributor.avatar("avatar avatar--small avatar--left") %>
+        <% end %>
+        <%= link_to user_path(@sign.contributor.username) do %>
+          <%= @sign.contributor.username %>
+        <% end %>
+        &nbsp;•&nbsp;uploaded&nbsp;
+        <%= @sign.friendly_date %>
+        <% if @sign.topic.present? %>
+          &nbsp;•&nbsp;
+          <%= @sign.topic.name %>
+        <% end %>
+      </p>
+
+      <div class="sign-card__text-area--notes">
+        <%= simple_format(@sign.notes) %>
+      </div>
+    </div>
+
+    <% if @sign.usage_examples.any? %>
+      <div class="grid-x sign-card__section sign-card__section--horizontal usage-examples">
+        <strong>Usage</strong>
+        <div class="grid-x grid-margin-x small-up-1 medium-up-2">
+          <% @sign.usage_examples.each do |usage_example| %>
+            <div class="cell">
+              <%= render "signs/card/attachment", attachment: usage_example %>
             </div>
-            <div class="sign-card__section">
-              <h2>
-                <%= @sign.word %>
-                <% if @sign.maori.present? %>
-                  <small>•&nbsp;<%= @sign.maori %></small>
-                <% end %>
-              </h2>
-
-              <p class="sign-card__supplementary-titles__secondary"><%= @sign.secondary %></p>
-            </div>
-
-            <div class="grid-x grid-padding-x sign-controls sign-card__section sign-card__section--horizontal">
-              <%= render "signs/show/votes", sign: @sign %>
-              <div class="cell auto"></div>
-              <div class="cell shrink">
-                <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear sign-card__folders__button--text-color" do %>
-                <%= inline_svg "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
-                Share
-                <% end if policy(@sign).share? %>
-                </div>
-                <div class="cell shrink">
-                  <%= render "signs/card/sign-show-folders", sign: @sign if policy(@sign).manage_folders? %>
-                </div>
-              </div>
-              <hr class="sign-card__divider">
-              <div class="grid-x sign-card__section">
-                <p class="sign-card__subtitle">
-                  <%= link_to user_path(@sign.contributor.username) do %>
-                  <% contributor = present(@sign.contributor) %>
-                    <%= contributor.avatar("avatar avatar--small avatar--left") %>
-                  <% end %>
-                  <%= link_to user_path(@sign.contributor.username) do %>
-                  <%= @sign.contributor.username %>
-                <% end %>
-                &nbsp;•&nbsp;uploaded&nbsp;
-                <%= @sign.friendly_date %>
-                <% if @sign.topic.present? %>
-                  &nbsp;•&nbsp;
-                  <%= @sign.topic.name %>
-                <% end %>
-              </p>
-
-              <div class="sign-card__text-area--notes">
-                <%= simple_format(@sign.notes) %>
-              </div>
-            </div>
-
-            <% if @sign.usage_examples.any? %>
-              <div class="grid-x sign-card__section sign-card__section--horizontal usage-examples">
-                <strong>Usage</strong>
-              </div>
-
-              <div class="grid-x grid-margin-x small-up-1 medium-up-2">
-                <% @sign.usage_examples.each do |usage_example| %>
-                  <div class="cell">
-                    <%= render "signs/card/attachment", attachment: usage_example %>
-                  </div>
-                <% end %>
-              </div>
-
-            <% end %>
-
-            <% if @sign.illustrations.any? %>
-              <div class="grid-x sign-card__section sign-card__section--horizontal illustrations">
-                <strong>Illustrations</strong>
-                <div class="grid-x grid-margin-x small-up-1 medium-up-3">
-                  <% @sign.illustrations.each do |illustration| %>
-                    <div class="shadowed thumbnail cell">
-                      <%= image_tag illustration.representation(ThumbnailPreset.default.scale_720.to_h) %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+          <% end %>
         </div>
+      </div>
+    <% end %>
 
-        <div class="grid-x">
-          <div class="cell medium-8 margin-bottom-2 sign-comments">
-            <%= render "sign_comments/comments", sign: @sign %>
-          </div>
+    <% if @sign.illustrations.any? %>
+      <div class="grid-x sign-card__section sign-card__section--horizontal illustrations">
+        <strong>Illustrations</strong>
+        <div class="grid-x grid-margin-x small-up-1 medium-up-3">
+          <% @sign.illustrations.each do |illustration| %>
+            <div class="shadowed thumbnail cell">
+              <%= image_tag illustration.representation(ThumbnailPreset.default.scale_720.to_h)   %>
+            </div>
+          <% end %>
         </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="grid-x">
+  <div class="cell medium-8 margin-bottom-2 sign-comments">
+    <%= render "sign_comments/comments", sign: @sign %>
+  </div>
+</div>
