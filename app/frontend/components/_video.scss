@@ -14,6 +14,7 @@
 
 .video {
   max-width: 100%;
+  margin: auto;
 
   // Hide the controls on Chrome
   &::-webkit-media-controls {

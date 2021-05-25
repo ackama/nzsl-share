@@ -1,6 +1,8 @@
 <% overlay ||= true %>
 <div class="video-wrapper" <%= "data-overlay" if overlay %>>
-  <%= content_tag :video, video_attributes.merge(class: "video has-video") do %>
+  <%= content_tag :video, @sign.sign_video_attributes do %>
     <%= video_sourceset(attachment) %>
   <% end %>
+
+  <i class="video__overlay" alt="Play video" ></i>
 </div>
