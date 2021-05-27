@@ -1,4 +1,8 @@
 class ApprovedUserApplicationPolicy < ApplicationPolicy
+  def index?
+    administrator?
+  end
+
   def new?
     !approved?
   end

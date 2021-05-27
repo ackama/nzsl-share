@@ -1,4 +1,8 @@
 class UserPolicy < ApplicationPolicy
+  def index?
+    administrator?
+  end
+
   def edit?
     administrator?
   end
