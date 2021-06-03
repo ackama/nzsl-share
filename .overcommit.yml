@@ -22,10 +22,6 @@ PreCommit:
   BundleCheck:
     enabled: true
 
-  ScssLint:
-    enabled: true
-    required_executable: 'bin/sass-lint'
-
   FixMe:
     enabled: true
     keywords: ["FIXME"]
