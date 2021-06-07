@@ -24,7 +24,7 @@ gem "inline_svg"
 gem "sidekiq-batch"
 gem "image_processing"
 gem "aasm"
-gem "administrate", "~> 0.13"
+gem "administrate", "~> 0.16"
 gem "raygun4ruby"
 gem "kaminari"
 

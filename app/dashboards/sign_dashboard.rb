@@ -17,14 +17,14 @@ class SignDashboard < Administrate::BaseDashboard
       foreign_key: :contributor_id,
       source: :contributor,
       searchable: true,
-      searchable_field: :email
+      searchable_fields: [:email]
     ),
     contributor_username: Field::BelongsTo.with_options(
       class_name: "User",
       foreign_key: :contributor_id,
       source: :contributor,
       searchable: true,
-      searchable_field: :username
+      searchable_fields: [:username]
     )
   }.freeze
 

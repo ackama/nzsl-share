@@ -23,7 +23,7 @@ module Administrate
         next unless attribute_types[attribute].searchable? && association_search?(attribute)
 
         attribute_types[attribute].options.fetch(:source, attribute)
-      end
+      end.compact
     end
   end
 end
