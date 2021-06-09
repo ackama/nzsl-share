@@ -6,7 +6,7 @@ class AddContributorToSigns < ActiveRecord::Migration[6.0]
                   :contributor, null: true,
                                 foreign_key: { to_table: :users }
 
-    user = User.where(username: "Unknown Contributor")
+    user = User.where(username: "unknowncontributor")
                .first_or_initialize
                .tap { |u| u.save(validate: false) }
     Sign.where(contributor: nil).update_all(contributor_id: user.id)
