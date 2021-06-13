@@ -1,6 +1,26 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1f5bce3e919d9636f7e3ad264fc6b4f0e7b10914df8cecd7617afa3b55b51a60",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/search_service.rb",
+      "line": 42,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"array_position(array[#{result_ids.join(\",\")}]::integer[],\\n                       \\\"#{relation.table_name}\\\".\\\"#{relation.primary_key}\\\")\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SearchService",
+        "method": "fetch_results"
+      },
+      "user_input": "result_ids.join(\",\")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "378082454d97d60a7aa8ca6e6af6915b93a8480ce792b4cffb4cea39227c4969",
@@ -19,8 +39,28 @@
       "user_input": "params[:page]",
       "confidence": "High",
       "note": "This is protected by the gaurd clause on the line above"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f5338d0bbad04a1aa7750c4974f36e6ee9b6ef921c0584e568c89c9a0f3c0fcd",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/public_sign_service.rb",
+      "line": 33,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"array_position(array[#{result_ids.join(\",\")}]::integer[],\\n                       \\\"#{relation.table_name}\\\".\\\"#{relation.primary_key}\\\")\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PublicSignService",
+        "method": "fetch_results"
+      },
+      "user_input": "result_ids.join(\",\")",
+      "confidence": "Medium",
+      "note": ""
     }
   ],
-  "updated": "2019-11-18 09:56:11 +1300",
-  "brakeman_version": "4.7.1"
+  "updated": "2021-06-10 10:53:40 +1200",
+  "brakeman_version": "5.0.4"
 }
