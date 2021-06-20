@@ -3,7 +3,14 @@ namespace :bulkupload do
   task local: :environment do
     require "find"
 
+    # MAKE THIS LOOK UP ktr_videoresources
+    contributer = User.find_by username: "ktr_videoresources"
     videodirs = ["/home/jake/Videos/nzsl-share-1/", "/home/jake/Videos/nzsl-share-2/"]
+    common_topics = []
+    common_topics << Topic.find_or_create_by(name: "All Signs")
+    common_topics << Topic.find_or_create_by(name: "School life and curriculum")
+    common_topics << Topic.find_or_create_by(name: "Maths")
+
     puts "lets go local"
 
     videodirs.each do |videodir|
@@ -23,8 +30,11 @@ namespace :bulkupload do
         sign.video.attach(io: File.open(afile), filename: sign_name_and_topic[1])
         sign.word = sign_name_and_topic[1].split(".")[0]
         sign.topics << Topic.find_or_create_by(name: sign_name_and_topic[0])
+        sign.topics << common_topics
+        sign.contributor = contributer
+
+        # saving initiates the processing
         sign.save
-        # initaite processing here with sign builder?
       end
     end
   end
