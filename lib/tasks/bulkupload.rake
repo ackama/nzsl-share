@@ -48,6 +48,7 @@ namespace :bulkupload do
 
         # saving initiates the processing
         sign.save
+        SignPostProcessor.new(sign).process
       end
     end
   end
@@ -96,6 +97,7 @@ namespace :bulkupload do
 
           # saving initiates the processing
           sign.save
+          SignPostProcessor.new(sign).process
         end
       end
     end
