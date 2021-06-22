@@ -39,6 +39,23 @@ namespace :bulkupload do
     end
   end
 
-  task froms3: :environment do
+  task s3: :environment do
+    bucket = "nzsl-share-videos-to-import"
+
+    s3 = Aws::S3::Client.new(
+      region: ENV["AWS_REGION"],
+      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
+    )
+
+    s3.list_objects_v2(bucket: bucket, max_keys: 1000, prefix: "real").each do |response|
+      response.contents.each do |an_object|
+        a_file = s3.get_object({ bucket: bucket, key: an_object.key })
+        puts a_file.content_type
+        next if a_file.content_type == "application/x-directory"
+      end
+
+      # content_type="application/x-directory; charset=UTF-8",
+    end
   end
 end
