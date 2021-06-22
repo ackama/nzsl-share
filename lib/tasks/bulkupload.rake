@@ -30,6 +30,7 @@ namespace :bulkupload do
       puts "--\niterating #{videodir}\n--"
       Find.find(videodir) do |afile|
         next unless FileTest.file?(afile)
+        next unless FileTest.file?(afile)
 
         puts "#{afile} is a file"
         sign_name_and_topic = afile[videodir.length, afile.length].split "/"
@@ -48,6 +49,7 @@ namespace :bulkupload do
 
         # saving initiates the processing
         sign.save
+        SignPostProcessor.new(sign).process
       end
     end
   end
@@ -96,6 +98,7 @@ namespace :bulkupload do
 
           # saving initiates the processing
           sign.save
+          SignPostProcessor.new(sign).process
         end
       end
     end
