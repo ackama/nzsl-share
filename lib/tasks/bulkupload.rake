@@ -1,11 +1,24 @@
 namespace :bulkupload do
-  desc "TODO"
+  desc <<~DESC
+    Ingests files from either the local filesystem, or s3, and creates signs
+    based on their name adds topics based on their immediate parent directory
+    and also these 3 hardcoded topics:
+    "All Signs", "School life and curriculum", and "Maths"
+    It assumes the files are videos, without checking they are.
+    For s3, hardcodes the bucket to 'nzsl-share-videos-to-import', and I'm pretty sure you can't have a slash at the start of the upload path
+
+    Usage:
+    BULK_UPLOAD_PATHS="/path/to/videos/,/path/to/more/videos/" bundle exec rake bulkupload:local
+    BULK_UPLOAD_PATHS="path/to/videos,path/to/more/videos/,path/to/even more/videos/" bundle exec rake bulkupload:s3
+  DESC
+
   task local: :environment do
     require "find"
 
     # MAKE THIS LOOK UP ktr_videoresources
     contributer = User.find_by username: "ktr_videoresources"
-    videodirs = ["/home/jake/Videos/nzsl-share-1/", "/home/jake/Videos/nzsl-share-2/"]
+    # videodirs = ["/home/jake/Videos/nzsl-share-1/", "/home/jake/Videos/nzsl-share-2/"]
+    videodirs = ENV.fetch("BULK_UPLOAD_PATHS", "").split(",")
     common_topics = []
     common_topics << Topic.find_or_create_by(name: "All Signs")
     common_topics << Topic.find_or_create_by(name: "School life and curriculum")
@@ -45,7 +58,8 @@ namespace :bulkupload do
     # MAKE THIS LOOK UP ktr_videoresources
     contributer = User.find_by username: "ktr_videoresources"
     # need to end with "/" for the .split "/" down below
-    videodirs = ["real/Micky/Algebra & Statistics/", "real/Micky/Geometry and Measurements"]
+    videodirs = ENV.fetch("BULK_UPLOAD_PATHS", "").split(",")
+    # videodirs = ["real/Micky/Algebra & Statistics/", "real/Micky/Geometry and Measurements/"]
     # videodirs = ["test/nzsl-share-1/", "test/nzsl-share-2/"]
     common_topics = []
     common_topics << Topic.find_or_create_by(name: "All Signs")
