@@ -30,7 +30,6 @@ namespace :bulkupload do
       puts "--\niterating #{videodir}\n--"
       Find.find(videodir) do |afile|
         next unless FileTest.file?(afile)
-        next unless FileTest.file?(afile)
 
         puts "#{afile} is a file"
         sign_name_and_topic = afile[videodir.length, afile.length].split "/"
