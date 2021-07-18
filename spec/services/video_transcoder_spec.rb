@@ -26,11 +26,11 @@ RSpec.describe VideoTranscoder, type: :service do
     end
 
     it "derives the expected content type from the transcoded file" do
-      expect(subject[:content_type]).to eq "video/ogg"
+      expect(subject[:content_type]).to eq "video/theora"
     end
 
     it "derives the expected filename from the transcoded file" do
-      expect(subject[:filename]).to eq "dummy.ogg"
+      expect(subject[:filename]).to eq "dummy.theora"
     end
 
     context "when a block is passed" do
