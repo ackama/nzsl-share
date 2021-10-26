@@ -27,6 +27,9 @@ class User < ApplicationRecord
   validates :avatar, content_type: { with: PERMITTED_IMAGE_CONTENT_TYPE_REGEXP },
                      size: { less_than: MAXIMUM_FILE_SIZE }
 
+  scope :confirmed, -> { where.not(id: unconfirmed) }
+  scope :unconfirmed, -> { where(confirmed_at: nil) }
+
   def username=(value)
     super(value.downcase)
   end

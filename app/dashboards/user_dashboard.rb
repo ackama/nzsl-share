@@ -67,11 +67,14 @@ class UserDashboard < Administrate::BaseDashboard
   #     open: ->(resources) { where(open: true) }
   #   }.freeze
   COLLECTION_FILTERS = {
-    administrator: ->(resources) { resources.where(administrator: true) },
-    moderator: ->(resources) { resources.where(moderator: true) },
-    validator: ->(resources) { resources.where(validator: true) },
-    approved: ->(resources) { resources.where(approved: true) },
-    basic: ->(resources) { resources.where(administrator: false, validator: false, moderator: false, approved: false) }
+    administrator: ->(resources) { resources.confirmed.where(administrator: true) },
+    moderator: ->(resources) { resources.confirmed.where(moderator: true) },
+    validator: ->(resources) { resources.confirmed.where(validator: true) },
+    approved: ->(resources) { resources.confirmed.where(approved: true) },
+    basic: lambda do |resources|
+      resources.confirmed.where(administrator: false, validator: false, moderator: false, approved: false)
+    end,
+    unconfirmed: ->(resources) { resources.unconfirmed }
   }.freeze
 
   # Overwrite this method to customize how users are displayed

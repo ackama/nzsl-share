@@ -61,6 +61,18 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe ".confirmed" do
+    subject { User.confirmed }
+
+    it "returns expected records" do
+      confirmed_user = FactoryBot.create(:user, confirmed_at: Time.zone.now)
+      unconfirmed_user = FactoryBot.create(:user, confirmed_at: nil)
+
+      expect(subject).not_to include unconfirmed_user
+      expect(subject).to eq [confirmed_user]
+    end
+  end
+
   describe "#contribution_limit_reached?" do
     let(:contribution_limit) { 10 }
     let(:signs_count) { 0 }

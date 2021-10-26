@@ -16,7 +16,7 @@ This README describes the purpose of this repository and how to set up a develop
 
 This project requires:
 
-* Ruby 2.6.5, preferably managed using [rbenv][]
+* Ruby 2.7.4, preferably managed using [rbenv][]
 * Google Chrome for headless Capybara testing
 * PostgreSQL must be installed and accepting connections
 * Redis must be installed and accepting connections
