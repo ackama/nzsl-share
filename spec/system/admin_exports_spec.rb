@@ -15,4 +15,8 @@ RSpec.describe "Admin: Exports", type: :system do
   it "displays an option to download published signs" do
     expect(page).to have_link("Download published signs (CSV format)", href: published_signs_admin_exports_path)
   end
+
+  it "displays an option to download user data" do
+    expect(page).to have_link("Download user data (CSV format)", href: users_admin_exports_path)
+  end
 end
