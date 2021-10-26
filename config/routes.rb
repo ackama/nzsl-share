@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     end
     resources :topics
     resources :comment_reports
+    resources :exports, only: :index do
+      get :published_signs, on: :collection
+    end
     root to: "signs#index"
   end
 

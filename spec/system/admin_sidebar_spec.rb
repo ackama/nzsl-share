@@ -21,10 +21,17 @@ RSpec.describe "The admin sidebar", type: :system do
     end
   end
 
-  it "links to users dashboard" do
+  it "links to comment reports dashboard" do
     within ".sidebar--inside-grid" do
       click_on "Comment Reports"
       expect(page).to have_current_path(admin_comment_reports_path)
+    end
+  end
+
+  it "links to the exports page" do
+    within ".sidebar--inside-grid" do
+      click_on "Export data"
+      expect(page).to have_current_path(admin_exports_path)
     end
   end
 end

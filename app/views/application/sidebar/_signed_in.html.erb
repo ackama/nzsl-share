@@ -47,7 +47,12 @@
       <%= link_to admin_comment_reports_path do %>
         <%= inline_svg "media/images/comment.svg", aria_hidden: true %><span>Comment Reports</span>
       <% end %>
-    </li>
+      </li>
+      <li class="<%= current_page?("/admin/exports") && "is-active" %>">
+      <%= link_to admin_exports_path do %>
+        <%= inline_svg "media/images/table.svg", aria_hidden: true %><span>Export data</span>
+      <% end %>
+      </li>
     <% end %>
   </ul>
 <% end %>

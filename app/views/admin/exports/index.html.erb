@@ -1,0 +1,23 @@
+<div class="grid-x list list--admin">
+  <% content_for(:title) do %>
+    Export data
+  <% end %>
+
+  <div class="list__title list__title--admin cell grid-x align-middle">
+    <h1 class="cell auto" id="page-title">
+      <%= content_for(:title) %>
+    </h1>
+  </div>
+
+  <hr class="list__divider"/>
+
+  <section class="cell padding-2">
+    <h4>Published signs</h4>
+    <p>This export contains published sign data in CSV format, which can be imported into
+    Excel and other data processing programs.</p>
+
+    <%= link_to(published_signs_admin_exports_path, class: "button royal primary") do %>
+        Download published signs (CSV format)
+    <% end %>
+  </section>
+</div>
