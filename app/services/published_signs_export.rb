@@ -7,8 +7,8 @@ class PublishedSignsExport
       u.username,
       u.email,
       s.created_at,
-      count(saa.id) as agrees,
-      count(sad.id) as disagrees
+      count(DISTINCT saa.id) as agrees,
+      count(DISTINCT sad.id) as disagrees
     FROM
       public.signs s
       inner join users u on s.contributor_id = u.id
@@ -35,6 +35,8 @@ class PublishedSignsExport
 
   def to_csv
     CSV.generate do |csv|
+      break if results.empty?
+
       csv << results.first.keys # adds the attributes name on the first line
       results.each do |hash|
         csv << hash.values
