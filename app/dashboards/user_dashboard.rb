@@ -71,7 +71,8 @@ class UserDashboard < Administrate::BaseDashboard
     moderator: ->(resources) { resources.where(moderator: true) },
     validator: ->(resources) { resources.where(validator: true) },
     approved: ->(resources) { resources.where(approved: true) },
-    basic: ->(resources) { resources.where(administrator: false, validator: false, moderator: false, approved: false) }
+    basic: ->(resources) { resources.where(administrator: false, validator: false, moderator: false, approved: false) },
+    unconfirmed: ->(resources) { resources.unconfirmed }
   }.freeze
 
   # Overwrite this method to customize how users are displayed
