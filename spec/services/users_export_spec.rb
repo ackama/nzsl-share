@@ -53,6 +53,7 @@ class UsersExportWorld
                                                   :validator, :moderator, :approved, username: "AAAA")
     @users << @no_roles_user = FactoryBot.create(:user, username: "ZZZ")
     @users << @moderator_user = FactoryBot.create(:user, :moderator, username: "BBB")
+    @unconfirmed_user = FactoryBot.create(:user, confirmed_at: nil)
     @all_roles_user_signs = FactoryBot.create_list(:sign, 2, contributor: @all_roles_user)
 
     self
