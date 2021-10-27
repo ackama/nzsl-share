@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :comment_reports
     resources :exports, only: :index do
       get :published_signs, on: :collection
+      get :users, on: :collection
     end
     root to: "signs#index"
   end

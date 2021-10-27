@@ -16,8 +16,16 @@
     <p>This export contains published sign data in CSV format, which can be imported into
     Excel and other data processing programs.</p>
 
-    <%= link_to(published_signs_admin_exports_path, class: "button royal primary") do %>
+    <%= link_to(published_signs_admin_exports_path, class: "margin-bottom-2 button royal primary") do %>
         Download published signs (CSV format)
+    <% end %>
+
+    <h4>Users</h4>
+    <p>This export contains registered user data in CSV format, which can be imported into
+    Excel and other data processing programs.</p>
+
+    <%= link_to(users_admin_exports_path, class: "margin-bottom-2 button royal primary") do %>
+        Download user data (CSV format)
     <% end %>
   </section>
 </div>
