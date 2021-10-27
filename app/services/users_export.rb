@@ -34,6 +34,7 @@ class UsersExport
     FROM
       users u
       LEFT JOIN signs s ON u.id = s.contributor_id
+    WHERE confirmed_at IS NOT NULL
     GROUP BY
       u.username,
       u.email,
