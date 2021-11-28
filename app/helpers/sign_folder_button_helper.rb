@@ -49,23 +49,23 @@ module SignFolderButtonHelper
   end
 
   def in_folder?(sign)
-    sign.available_folders.reject { |_folder, membership| membership.nil? }.any?
+    sign.available_folders.compact.any?
   end
 
   def in_folder_icon
-    inline_svg("media/images/folder-success.svg", title: "Folders", aria: true, class: "icon")
+    inline_svg_pack_tag("media/images/folder-success.svg", title: "Folders", aria: true, class: "icon")
   end
 
   def add_folder_icon
-    inline_svg("media/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
+    inline_svg_pack_tag("media/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
   end
 
   def in_sign_show_folder_icon
-    inline_svg("media/images/folder-success.svg", aria: true, class: "icon icon--medium") + "Add to Folder"
+    "#{inline_svg_pack_tag("media/images/folder-success.svg", aria: true, class: "icon icon--medium")}Add to Folder"
   end
 
   def add_sign_show_folder_icon
-    inline_svg("media/images/folder-add.svg", aria: true, class: "icon icon--medium") + "Add to Folder"
+    "#{inline_svg_pack_tag("media/images/folder-add.svg", aria: true, class: "icon icon--medium")}Add to Folder"
   end
 
   def link_to_login(icon, classes)

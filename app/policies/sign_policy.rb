@@ -1,7 +1,6 @@
 class SignPolicy < ApplicationPolicy
   def initialize(user, record, current_folder_id: nil)
-    @user = user
-    @record = record
+    super(user, record)
     @current_folder_id = current_folder_id
   end
 
@@ -151,7 +150,6 @@ class SignPolicy < ApplicationPolicy
     return unless user
 
     record.folders.left_outer_joins(:collaborations)
-          .where(folders: { collaborations: { collaborator_id: user.id } })
-          .exists?
+          .exists?(folders: { collaborations: { collaborator_id: user.id } })
   end
 end

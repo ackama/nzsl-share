@@ -2,8 +2,7 @@
 
 class SignCommentPolicy < ApplicationPolicy
   def initialize(user, record, current_folder_id: nil)
-    @user = user
-    @record = record
+    super(user, record)
     @current_folder_id = current_folder_id
   end
 
@@ -28,15 +27,13 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def options?
-    if !folder_context?
-      user&.approved? || comment_author? || user&.administrator?
-    else
-      comment_author? || user&.administrator?
-    end
+    return true if user&.approved? && !folder_context?
+
+    comment_author? || user&.administrator?
   end
 
   def report?
-    !folder_context? && !record.reports.where(user: user).exists? && !comment_author?
+    !folder_context? && !record.reports.exists?(user: user) && !comment_author?
   end
 
   private
@@ -63,7 +60,6 @@ class SignCommentPolicy < ApplicationPolicy
     return false if record.try(:sign).blank? || !user
 
     record.sign.folders.left_outer_joins(:collaborations)
-          .where(folders: { collaborations: { collaborator_id: user.id } })
-          .exists?
+          .exists?(folders: { collaborations: { collaborator_id: user.id } })
   end
 end

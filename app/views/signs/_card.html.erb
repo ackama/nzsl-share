@@ -25,7 +25,7 @@
         <% end %>
 
         <div class="sign-card__subtitle">
-          <%= inline_svg "media/images/user.svg", aria_hidden: true %>
+          <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true %>
           <%= link_to user_path(sign.contributor.username) do %>
             <%= sign.contributor.username %>
           <% end %>

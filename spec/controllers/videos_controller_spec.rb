@@ -9,13 +9,13 @@ RSpec.describe VideosController, type: :controller do
     let!(:id) { blob.signed_id }
     let(:preset) { "1080p" }
 
-    before do
-      allow(CachedVideoTranscoder).to receive(:new).and_return(fake_representation)
-    end
-
     subject { get :show, params: { id: id, preset: preset } }
 
     context "valid params" do
+      before do
+        allow(CachedVideoTranscoder).to receive(:new).and_return(fake_representation)
+      end
+
       context "preset representation does not exist" do
         before { allow(fake_representation).to receive(:exist?).and_return(false) }
 

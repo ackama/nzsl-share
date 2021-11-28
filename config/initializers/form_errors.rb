@@ -1,5 +1,5 @@
 ActionView::Base.field_error_proc = proc do |html_tag|
-  next html_tag if html_tag.match?(/<label/) # Don't style labels
+  next html_tag if html_tag.include?("<label") # Don't style labels
 
   class_attr_index = html_tag.index 'class="'
 

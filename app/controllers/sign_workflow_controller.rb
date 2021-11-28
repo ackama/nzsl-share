@@ -54,6 +54,6 @@ class SignWorkflowController < ApplicationController
   def sign
     @sign ||= policy_scope(Sign)
               .find(params[:id])
-              .tap(&method(:authorize))
+              .tap { |sign| authorize sign }
   end
 end

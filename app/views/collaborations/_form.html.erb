@@ -22,7 +22,7 @@
                 <%= link_to folder_collaboration_path(folder, Collaboration.for(collaborator, folder)),
                             method: :delete,
                             data: { confirm: t("collaborations.destroy.confirm") } do %>
-                    <%= inline_svg "media/images/trash.svg", aria: true, title: "Remove from folder", class: "icon icon--alert"%>
+                    <%= inline_svg_pack_tag "media/images/trash.svg", aria: true, title: "Remove from folder", class: "icon icon--alert"%>
                 <% end %>
               </div>
             </li>

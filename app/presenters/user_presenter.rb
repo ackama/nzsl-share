@@ -7,7 +7,7 @@ class UserPresenter < ApplicationPresenter
     if user.avatar.attached?
       h.image_tag(transform(user.avatar), class: classes)
     else
-      h.inline_svg("media/images/avatar.svg", title: "Avatar", aria: true, class: classes)
+      h.inline_svg_pack_tag("media/images/avatar.svg", title: "Avatar", aria: true, class: classes)
     end
   end
 

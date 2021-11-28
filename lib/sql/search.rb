@@ -5,7 +5,7 @@ module SQL
     module_function
 
     def search_freelex(order:)
-      <<-SQL
+      <<-SQL.squish
         WITH sign_search(id, rank_precedence, rank_order, row_num) AS
           (SELECT rs1.id,
                   rs1.rank_precedence,
@@ -42,7 +42,7 @@ module SQL
     end
 
     def search(order:)
-      <<-SQL
+      <<-SQL.squish
         WITH sign_search(id, rank_precedence, rank_order, row_num) AS
           (SELECT rs1.id,
                   rs1.rank_precedence,

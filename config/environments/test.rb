@@ -8,6 +8,13 @@ Rails.application.configure do
 
   config.cache_classes = false
 
+  # Rails 6.1 started caching templates rendered, which need
+  # to be reset between test runs
+
+  # https://github.com/rails/rails/issues/40613
+  # https://github.com/rspec/rspec-rails/issues/2485
+  config.action_view.cache_template_loading = true
+
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.

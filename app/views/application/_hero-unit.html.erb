@@ -20,7 +20,7 @@
         <ul class="dropdown menu" data-dropdown-menu data-position="bottom" data-alignment="right" data-v-offset="8" data-h-offset="8">
           <li class="hero-unit__browse-link">
             <%= link_to "Browse Topics", topics_path, class: "hero-unit__browse-link--button"%>
-            <%= inline_svg "media/images/dropdown.svg", aria_hidden: true %>
+            <%= inline_svg_pack_tag "media/images/dropdown.svg", aria_hidden: true %>
             <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
               <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
               <hr class="menu-divider" />

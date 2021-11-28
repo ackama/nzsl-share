@@ -37,7 +37,7 @@ class FolderShareController < ApplicationController
   end
 
   def fetch_folder
-    policy_scope(Folder).find_by!(id: folder_id)
+    policy_scope(Folder).find(folder_id)
   end
 
   def fetch_folder_by_token

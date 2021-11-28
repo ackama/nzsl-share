@@ -31,6 +31,6 @@ module FileUploads
   end
 
   def default_attachment_path
-    Rails.root.join("spec", "fixtures", "dummy.mp4")
+    Rails.root.join("spec/fixtures/dummy.mp4")
   end
 end

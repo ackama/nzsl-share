@@ -17,11 +17,11 @@ module RolesHelper
   ].freeze
 
   def find_roles(user)
-    roles = ROLE_CHECKS.map do |(check, label)|
+    roles = ROLE_CHECKS.filter_map do |(check, label)|
       next unless check.call(user)
 
       label
-    end.compact
+    end
 
     roles.push("Basic") if roles.empty?
     roles.join(", ")
