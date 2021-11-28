@@ -2,12 +2,10 @@
 
 require "./lib/sql/search"
 
-class SearchService < ApplicationService
+class SearchService
   attr_reader :search, :results
 
   def initialize(search:, relation:)
-    super()
-
     @search = search
     @relation = relation
     @results = new_results

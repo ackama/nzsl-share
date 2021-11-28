@@ -2,11 +2,10 @@
 
 require "./lib/sql/status"
 
-class PublicSignService < ApplicationService
+class PublicSignService
   attr_reader :search, :results
 
   def initialize(search:, relation:)
-    super
     @search = search
     @relation = relation
     @results = SearchResults.new
