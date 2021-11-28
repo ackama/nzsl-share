@@ -19,7 +19,7 @@ class CachedVideoTranscoder
     ensure_active_storage_host
     return process unless processed?
 
-    encoded_blob.service_url
+    encoded_blob.url
   end
 
   private
@@ -42,7 +42,7 @@ class CachedVideoTranscoder
     @processor.transcode(@blob) do |file|
       service.upload(key, file[:io], **file)
       @encoded_blob = persist_blob(file)
-      @encoded_blob.service_url
+      @encoded_blob.url
     end
   end
 
