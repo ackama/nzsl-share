@@ -114,7 +114,7 @@ RSpec.configure do |config|
 
   # run retry on all examples
   config.around :each do |ex|
-    ex.run_with_retry retry: 3
+    ex.run_with_retry retry: ENV.fetch("RSPEC_RETRY", 1)
   end
 
   # callback to be run between retries
