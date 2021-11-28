@@ -1,5 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require "spec_helper"
+require_relative "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../config/environment", __dir__)
 
@@ -50,7 +50,7 @@ Capybara.register_driver :chrome do |app|
   options.add_argument("--proxy-bypass-list=*")
   options.add_argument("--headless") unless ENV["FOREGROUND"]
 
-  Capybara::Selenium::Driver.new app, browser: :chrome, options: options
+  Capybara::Selenium::Driver.new app, browser: :chrome, capabilities: [options]
 end
 
 RSpec.configure do |config|
