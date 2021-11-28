@@ -6,6 +6,8 @@ class SearchService < ApplicationService
   attr_reader :search, :results
 
   def initialize(search:, relation:)
+    super()
+
     @search = search
     @relation = relation
     @results = new_results
@@ -33,7 +35,7 @@ class SearchService < ApplicationService
   end
 
   def parameterize_term
-    search.term.split(" ").map { |s| s.parameterize(separator: "") }.join(" ")
+    search.term.split.map { |s| s.parameterize(separator: "") }.join(" ")
   end
 
   def fetch_results(result_relation, result_ids)
@@ -56,6 +58,6 @@ class SearchService < ApplicationService
   end
 
   def prepare_search(term)
-    [SQL::Search.search(search_args), term: term]
+    [SQL::Search.search(**search_args), { term: term }]
   end
 end

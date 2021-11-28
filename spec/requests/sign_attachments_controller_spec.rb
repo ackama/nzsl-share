@@ -109,8 +109,8 @@ RSpec.describe SignAttachmentsController, type: :request do
   private
 
   def generate_blob
-    ActiveStorage::Blob.create_after_upload!(
-      io: File.open(Rails.root.join("spec", "fixtures", "dummy.mp4")),
+    ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("spec/fixtures/dummy.mp4")),
       filename: "stub.fake",
       content_type: "video/mp4"
     )

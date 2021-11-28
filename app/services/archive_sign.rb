@@ -1,9 +1,11 @@
 class ArchiveSign < ApplicationService
   def initialize(sign, user=nil)
+    super
     @sign = sign
     @user = user || SystemUser.find
   end
 
+  # rubocop:disable Performance/MethodObjectAsBlock
   def process
     @sign
       .then(&:dup) # After this point we're acting on the copy
@@ -12,6 +14,7 @@ class ArchiveSign < ApplicationService
       .then(&method(:copy_attachments))
       .tap(&:save!)
   end
+  # rubocop:enable Performance/MethodObjectAsBlock
 
   private
 

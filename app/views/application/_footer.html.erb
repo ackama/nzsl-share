@@ -3,7 +3,7 @@
 <footer class="footer">
 <div class="grid-container">
   <div class="grid-x margin-bottom-3 margin-top-2 align-middle">
-    <div class="cell medium-auto small-12"><%= inline_svg "media/images/logo.svg", aria: true, title: "NZSL Share Logo" %></div>
+    <div class="cell medium-auto small-12"><%= inline_svg_pack_tag "media/images/logo.svg", aria: true, title: "NZSL Share Logo" %></div>
     <div class="cell medium-shrink small-12">
       <%= link_to "Privacy policy", "/privacy-policy", class: "margin-right-2" %>
       <%= link_to "Rules", "/rules" %>
@@ -35,13 +35,13 @@
       <ul class="footer__list">
         <li>
           <%= link_to "https://www.facebook.com/NZSL-Share-104408607647069", rel: "noreferrer", target: "_blank" do %>
-          <%= inline_svg "media/images/facebook.svg", aria: true, title: "Facebook Logo" %>
+          <%= inline_svg_pack_tag "media/images/facebook.svg", aria: true, title: "Facebook Logo" %>
           Facebook
           <%end%>
         </li>
         <li>
           <%= link_to "https://twitter.com/NzslShare", target: "_blank", rel: "noreferrer" do %>
-          <%= inline_svg "media/images/twitter.svg", aria: true, title: "Twitter Logo" %>
+          <%= inline_svg_pack_tag "media/images/twitter.svg", aria: true, title: "Twitter Logo" %>
           Twitter
           <%end%>
         </li>
@@ -51,7 +51,7 @@
       <h3>Open source</h3>
       <ul class="footer__list">
         <li><%= link_to "https://github.com/ackama/nzsl-share", rel: "noreferrer", target: "_blank" do %>
-        <%= inline_svg "media/images/github.svg", aria: true, title: "Github Logo" %>
+        <%= inline_svg_pack_tag "media/images/github.svg", aria: true, title: "Github Logo" %>
           This is an Open Source project.
         <%end%>
         </li>
@@ -67,7 +67,7 @@
       </div>
       <div class="cell shrink">
         <%= link_to "https://www.ackama.com/", rel: "noreferrer", target: "_blank" do %>
-          <%= inline_svg "media/images/ackama-lockup.svg", aria: true, title: "Ackama Logo" %>
+          <%= inline_svg_pack_tag "media/images/ackama-lockup.svg", aria: true, title: "Ackama Logo" %>
         <% end %>
       </div>
     </div>

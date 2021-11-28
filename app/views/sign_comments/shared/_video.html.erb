@@ -8,7 +8,7 @@
       </span>
       <span class="sign-comment__video__byte-size">
         <%= number_to_human_size(@sign_comment.video.byte_size) %>&nbsp;
-        <%= inline_svg "media/images/tick.svg" %>
+        <%= inline_svg_pack_tag "media/images/tick.svg" %>
       </span>
 
       <% if allow_delete %>
@@ -16,7 +16,7 @@
         <%= link_to sign_comment_video_path(@sign, @sign_comment),
           data: { method: :delete, remote: true },
           class: "button icon-only clear small" do %>
-          <%= inline_svg "media/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
+          <%= inline_svg_pack_tag "media/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
         <% end %>
       </span>
       <% end %>

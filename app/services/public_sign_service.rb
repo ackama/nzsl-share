@@ -6,6 +6,7 @@ class PublicSignService < ApplicationService
   attr_reader :search, :results
 
   def initialize(search:, relation:)
+    super
     @search = search
     @relation = relation
     @results = SearchResults.new

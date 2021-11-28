@@ -1,5 +1,5 @@
 class PublishedSignsExport
-  QUERY = <<~SQL.freeze
+  QUERY = <<~SQL.squish.freeze
     SELECT
       s.id,
       'https://www.nzslshare.nz/signs/' || s.id as url,

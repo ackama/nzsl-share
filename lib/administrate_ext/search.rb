@@ -5,11 +5,11 @@ module Administrate
     def query_table_name(attr)
       if association_search?(attr)
         table_name = begin
-                       attribute_types[attr]
-                         .options.fetch(:class_name).constantize.table_name
-                     rescue StandardError
-                       attr.to_s.pluralize
-                     end
+          attribute_types[attr]
+            .options.fetch(:class_name).constantize.table_name
+        rescue StandardError
+          attr.to_s.pluralize
+        end
 
         ActiveRecord::Base.connection.quote_table_name(table_name)
       else
@@ -19,11 +19,11 @@ module Administrate
     end
 
     def tables_to_join
-      attribute_types.keys.map do |attribute|
+      attribute_types.keys.filter_map do |attribute|
         next unless attribute_types[attribute].searchable? && association_search?(attribute)
 
         attribute_types[attribute].options.fetch(:source, attribute)
-      end.compact
+      end
     end
   end
 end

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   include AASM
 
-  USERNAME_REGEXP = /\A[a-zA-Z0-9_.]+\Z/.freeze
-  PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}.freeze
+  USERNAME_REGEXP = /\A[a-zA-Z0-9_.]+\Z/
+  PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}
   MAXIMUM_FILE_SIZE = 250.megabytes
 
   # Include default devise modules. Others available are:

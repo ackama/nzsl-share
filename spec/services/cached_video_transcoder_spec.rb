@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe CachedVideoTranscoder, type: :service do
   let(:fake_processor) { double }
   let(:fake_processor_class) { double(new: fake_processor) }
-  let(:io) { File.open(Rails.root.join("spec", "fixtures", "dummy.mp4")) }
+  let(:io) { File.open(Rails.root.join("spec/fixtures/dummy.mp4")) }
   let(:transcode_options) { {} }
   let(:new_blob) do
     ActiveStorage::Blob.create_after_upload!(

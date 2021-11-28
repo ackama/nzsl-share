@@ -152,16 +152,16 @@
     </div>
   </fieldset>
   <button class="button primary">Primary Button</button><br />
-  <button class="button primary"><%= inline_svg("media/images/bell.svg", title: "Yes", class: "icon icon--white", aria_hidden: "true") %>Primary Button</button><br>
-  <button class="button primary icon-only"><%= inline_svg("media/images/agree.svg", aria: true, title: "Yes") %></button><br>
-  <button class="button success icon-only", title= "Approve"> <%= inline_svg("media/images/agree.svg", aria_hidden: true, class: "icon")%></button><br>
-  <button class="button alert icon-only", title= "Reject"> <%= inline_svg("media/images/disagree.svg", aria_hidden: true, class: "icon")%></button><br>
+  <button class="button primary"><%= inline_svg_pack_tag("media/images/bell.svg", title: "Yes", class: "icon icon--white", aria_hidden: "true") %>Primary Button</button><br>
+  <button class="button primary icon-only"><%= inline_svg_pack_tag("media/images/agree.svg", aria: true, title: "Yes") %></button><br>
+  <button class="button success icon-only", title= "Approve"> <%= inline_svg_pack_tag("media/images/agree.svg", aria_hidden: true, class: "icon")%></button><br>
+  <button class="button alert icon-only", title= "Reject"> <%= inline_svg_pack_tag("media/images/disagree.svg", aria_hidden: true, class: "icon")%></button><br>
   <button class="button secondary">Secondary Button</button><br />
-  <button class="button secondary"><%= inline_svg("media/images/agree.svg", title: "Yes", class: "icon", aria_hidden: "true") %>Secondary Button</button><br>
-  <button class="button secondary icon-only"><%= inline_svg("media/images/agree.svg", aria: true, title: "Yes") %></button><br>
+  <button class="button secondary"><%= inline_svg_pack_tag("media/images/agree.svg", title: "Yes", class: "icon", aria_hidden: "true") %>Secondary Button</button><br>
+  <button class="button secondary icon-only"><%= inline_svg_pack_tag("media/images/agree.svg", aria: true, title: "Yes") %></button><br>
   <button class="button clear">Frameless Button</button><br />
-  <button class="button clear"><%= inline_svg("media/images/agree.svg", title: "Yes", class: "icon icon--royal", aria_hidden: "true") %>Yes</button><br>
-  <button class="button clear icon-only"><%= inline_svg("media/images/agree.svg", aria: true, title: "Yes") %></button><br>
+  <button class="button clear"><%= inline_svg_pack_tag("media/images/agree.svg", title: "Yes", class: "icon icon--royal", aria_hidden: "true") %>Yes</button><br>
+  <button class="button clear icon-only"><%= inline_svg_pack_tag("media/images/agree.svg", aria: true, title: "Yes") %></button><br>
   <div class="callout">
     <% %w[medium success default].each do |clear_btn_tint| %>
       <button class="button clear <%= clear_btn_tint %>">Clear button <%= clear_btn_tint %></button>
@@ -207,16 +207,16 @@
       <div class="sign-card__bottom grid-x align-middle">
         <div class="sign-card__votes">
           <div class="sign-card__votes--agree grid-x align-middle">
-            <%= inline_svg "media/images/agree.svg", title: "Agree", aria: true, class: "sign-card__votes--icon" %>
+            <%= inline_svg_pack_tag "media/images/agree.svg", title: "Agree", aria: true, class: "sign-card__votes--icon" %>
             <div>2.1k</div>
           </div>
           <div class="sign-card__votes--disagree grid-x align-middle">
-            <%= inline_svg "media/images/disagree.svg", title: "Disagree", aria: true, class: "sign-card__votes--icon" %>
+            <%= inline_svg_pack_tag "media/images/disagree.svg", title: "Disagree", aria: true, class: "sign-card__votes--icon" %>
             <div>33</div>
           </div>
         </div>
         <div class="sign-card__folder">
-          <%= inline_svg "media/images/folder-add.svg", title: "Add to folder", aria: true, class: "sign-card__folder--icon" %>
+          <%= inline_svg_pack_tag "media/images/folder-add.svg", title: "Add to folder", aria: true, class: "sign-card__folder--icon" %>
         </div>
       </div>
     </div>
@@ -228,13 +228,13 @@
         accent-x-light royal royal-x-light success success-x-light
         warning alert-x-light alert light extra-light medium]
     .each do |tint| %>
-      <%= inline_svg "media/images/agree.svg", class: "icon icon--#{tint}" %>
-      <%= inline_svg "media/images/agree.svg", class: "icon icon--hollow icon--stroke-#{tint}" %>
+      <%= inline_svg_pack_tag "media/images/agree.svg", class: "icon icon--#{tint}" %>
+      <%= inline_svg_pack_tag "media/images/agree.svg", class: "icon icon--hollow icon--stroke-#{tint}" %>
       &nbsp;
     <% end %>
     <br>
     <% %w[default mid large].each do |size| %>
-      <%= inline_svg "media/images/bell.svg", class: "icon icon--#{size}" %>
+      <%= inline_svg_pack_tag "media/images/bell.svg", class: "icon icon--#{size}" %>
     <% end %>
   </div>
   <h4>Headings</h4>
@@ -271,7 +271,7 @@
 <h4>Indeterminate state:</h4>
 <form class="file-upload file-upload--uploading">
   <h5 class="medium">Processing, please wait...</h5>
-  <%= inline_svg "media/images/progress-indicator.svg",
+  <%= inline_svg_pack_tag "media/images/progress-indicator.svg",
                  class: "progress-indicator--indeterminate" %>
 </form>
 
@@ -283,7 +283,7 @@
 </style>
 <form class="file-upload file-upload--uploading">
   <h6 class="medium">File(s) uploading&hellip; <span data-file-upload-progress>81%<span></h6>
-  <%= inline_svg "media/images/progress-indicator.svg",
+  <%= inline_svg_pack_tag "media/images/progress-indicator.svg",
                  class: "styleguide__progress-indicator--fixed" %>
 </form>
 </div>

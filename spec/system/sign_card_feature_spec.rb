@@ -4,7 +4,7 @@ RSpec.describe "Sign card features", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let!(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
   let!(:private_sign) { FactoryBot.create(:sign, :personal) }
-  let(:presenter) { SignPresenter.new(sign, ActionView::Base.new) }
+  let(:presenter) { SignPresenter.new(sign, ApplicationController.new) }
   let(:authenticator) { AuthenticateFeature.new(user) }
 
   before do |example|
