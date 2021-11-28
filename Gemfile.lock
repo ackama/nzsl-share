@@ -326,6 +326,8 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
+    rspec-retry (0.6.2)
+      rspec-core (> 3.3)
     rspec-support (3.10.3)
     rubocop (1.23.0)
       parallel (~> 1.10)
@@ -452,6 +454,7 @@ DEPENDENCIES
   raygun4ruby
   redis
   rspec-rails
+  rspec-retry
   rubocop
   rubocop-performance
   rubocop-rails
