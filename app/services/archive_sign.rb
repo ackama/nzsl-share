@@ -1,6 +1,5 @@
-class ArchiveSign < ApplicationService
+class ArchiveSign
   def initialize(sign, user=nil)
-    super
     @sign = sign
     @user = user || SystemUser.find
   end

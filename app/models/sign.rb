@@ -103,7 +103,7 @@ class Sign < ApplicationRecord
       transitions from: %i[unpublish_requested submitted], to: :published
     end
 
-    event :unpublish, before: -> { ArchiveSign.call(self) },
+    event :unpublish, before: -> { ArchiveSign.new(self).process },
                       after:
                       lambda {
                         FolderMembership.where(sign: self)

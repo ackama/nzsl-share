@@ -104,10 +104,10 @@ RSpec.describe PublicSignService, type: :service do
             sign.save
           end
 
-          signs = PublicSignService.call(
+          signs = PublicSignService.new(
             relation: scoped_relation,
             search: Search.new(sort: "popular")
-          ).data
+          ).process.data
 
           # returns a collection of agreed counts in order i.e [1, 2, 3, 3, 4, 6]
           agrees = signs.inject([]) do |arr, sign|
@@ -127,7 +127,7 @@ RSpec.describe PublicSignService, type: :service do
   private
 
   def search(relation, params)
-    PublicSignService.call(search: Search.new(params), relation: relation)
+    PublicSignService.new(search: Search.new(params), relation: relation).process
   end
 
   def scoped_relation
