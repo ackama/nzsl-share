@@ -20,7 +20,7 @@ RSpec.describe VideoTranscoder, type: :service do
     it "transcodes a video with the expected command" do
       expect(service).to receive(:exec).with(
         "ffmpeg", "-y", "-i", include("/ActiveStorage-"),
-        "-f", "ogg", include("/NZSL-VideoEncode")).and_call_original
+        "-f", "ogg", include("/NZSL-VideoEncode"))
 
       subject
     end
