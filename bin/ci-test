@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+bundle exec bundle-audit --update --ignore CVE-2021-22904 CVE-2021-22902 CVE-2021-22885
+bundle exec brakeman --run-all-checks --exit-on-warn .
+bin/lint-styles
+bin/js-lint
+
+# Run all the tests except system
+bundle exec rake spec SPEC_OPTS="--tag ~@type:system"
