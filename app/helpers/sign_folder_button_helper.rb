@@ -61,11 +61,11 @@ module SignFolderButtonHelper
   end
 
   def in_sign_show_folder_icon
-    "#{inline_svg_pack_tag("media/images/folder-success.svg", aria: true, class: "icon icon--medium")}Add to Folder"
+    raw "#{inline_svg_pack_tag("media/images/folder-success.svg", aria: true, class: "icon icon--medium")}Add to Folder" # rubocop:disable Rails/OutputSafety
   end
 
   def add_sign_show_folder_icon
-    "#{inline_svg_pack_tag("media/images/folder-add.svg", aria: true, class: "icon icon--medium")}Add to Folder"
+    raw "#{inline_svg_pack_tag("media/images/folder-add.svg", aria: true, class: "icon icon--medium")}Add to Folder" # rubocop:disable Rails/OutputSafety
   end
 
   def link_to_login(icon, classes)
