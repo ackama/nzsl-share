@@ -11,7 +11,6 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 gem "redis"
 gem "sidekiq"
-gem "turbolinks"
 gem "webpacker", "~> 5.0"
 gem "devise"
 gem "devise_invitable"
@@ -27,6 +26,7 @@ gem "aasm"
 gem "administrate", "~> 0.16"
 gem "raygun4ruby"
 gem "kaminari"
+gem "hotwire-rails"
 
 gem "rack-canonical-host"
 

@@ -12,6 +12,8 @@
 require.context("../images", true);
 import Rails from "@rails/ujs";
 require("@rails/activestorage").start();
+import "@hotwired/turbo-rails";
+import $ from "jquery";
 Rails.start();
 
 import "foundation";
@@ -26,3 +28,9 @@ import "../components/toggle-truthy";
 import "chosen-js/chosen.jquery";
 import "../components/chosen-topics";
 import "../components/sign-comments";
+
+import "../controllers";
+
+$(document).on("turbo:load", () => $(document).foundation());
+
+

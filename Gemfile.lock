@@ -175,6 +175,10 @@ GEM
     ffi (1.15.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    hotwire-rails (0.1.3)
+      rails (>= 6.0.0)
+      stimulus-rails
+      turbo-rails
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -385,12 +389,13 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stimulus-rails (0.7.3)
+      rails (>= 6.0.0)
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbo-rails (0.9.0)
+      rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -436,6 +441,7 @@ DEPENDENCIES
   faker
   faraday
   faraday_middleware
+  hotwire-rails
   image_processing
   inline_svg
   kaminari
@@ -463,7 +469,6 @@ DEPENDENCIES
   sidekiq
   sidekiq-batch
   simplecov
-  turbolinks
   webdrivers
   webpacker (~> 5.0)
 

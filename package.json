@@ -8,6 +8,8 @@
   ],
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@hotwired/stimulus": "^3.0.1",
+    "@hotwired/turbo-rails": "^7.1.0",
     "@rails/actioncable": "^6.0.0-alpha",
     "@rails/activestorage": "^6.0.0-alpha",
     "@rails/ujs": "^6.0.0-alpha",
@@ -17,8 +19,7 @@
     "foundation-sites": "^6.5.3",
     "jquery": "^3.4.1",
     "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "turbolinks": "^5.2.0"
+    "react-dom": "^16.10.2"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
