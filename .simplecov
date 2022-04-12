@@ -5,4 +5,3 @@ SimpleCov.start("rails") do
   add_filter("/lib/tasks/coverage.rake")
 end
 SimpleCov.minimum_coverage(75)
-SimpleCov.use_merging(false)
