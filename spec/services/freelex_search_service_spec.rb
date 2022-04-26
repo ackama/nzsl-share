@@ -16,9 +16,9 @@ RSpec.describe FreelexSearchService, type: :service do
       end
 
       it "returns 0 results if policy scope is none" do
-        results = FreelexSearchService.call(
+        results = FreelexSearchService.new(
           relation: Pundit.policy_scope(user, FreelexSign.none),
-          search: Search.new(term: "a"))
+          search: Search.new(term: "a")).process
 
         expect(results.data.count).to be_zero
       end
@@ -263,7 +263,7 @@ RSpec.describe FreelexSearchService, type: :service do
   private
 
   def search(relation, params)
-    FreelexSearchService.call(relation: relation, search: Search.new(params))
+    FreelexSearchService.new(relation: relation, search: Search.new(params)).process
   end
 
   def scoped_relation

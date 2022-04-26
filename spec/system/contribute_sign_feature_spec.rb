@@ -29,7 +29,7 @@ RSpec.describe "Contributing a new sign", type: :system do
     end
 
     it "is prevented from contributing an invalid file" do |example|
-      subject.choose_file(Rails.root.join("spec", "fixtures", "dummy.exe"))
+      subject.choose_file(Rails.root.join("spec/fixtures/dummy.exe"))
 
       # Until uploading JS is implemented, an error is shown using the raw direct upload error
       # from rails-ujs. This means that the test (temporarily) needs to expect to see an

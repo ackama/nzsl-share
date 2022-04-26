@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  after_action :create_default_folder, only: :create
-
-  def create
-    super
-  end
+  after_action :create_default_folder, only: :create # rubocop:disable Rails/LexicallyScopedActionFilter
 
   private
 

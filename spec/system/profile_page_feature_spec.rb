@@ -54,7 +54,7 @@ RSpec.describe "Profile page", type: :system do
     end
 
     it "can upload an avatar successfully" do
-      path = Rails.root.join("spec", "fixtures", "image.jpeg")
+      path = Rails.root.join("spec/fixtures/image.jpeg")
       visit edit_user_registration_path(user)
       page.attach_file("user_avatar", path)
       fill_in "Current password", with: user.password

@@ -32,6 +32,6 @@ module MetaTagsHelper
   private
 
   def og_meta_tag(property, content)
-    content_tag(:meta, nil, "property": property, content: content)
+    content_tag(:meta, nil, property: property, content: content)
   end
 end

@@ -282,8 +282,8 @@ RSpec.describe SearchService, type: :service do
             sign.save
           end
 
-          signs = SearchService.call(relation: scoped_relation,
-                                     search: Search.new(term: "a", sort: "popular")).data
+          signs = SearchService.new(relation: scoped_relation,
+                                    search: Search.new(term: "a", sort: "popular")).process.data
 
           # returns a collection of agreed counts in order i.e [1, 2, 3, 3, 4, 6]
           agrees = signs.inject([]) do |arr, sign|
@@ -303,7 +303,7 @@ RSpec.describe SearchService, type: :service do
   private
 
   def search(relation, params)
-    SearchService.call(relation: relation, search: Search.new(params))
+    SearchService.new(relation: relation, search: Search.new(params)).process
   end
 
   def scoped_relation

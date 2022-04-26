@@ -14,11 +14,12 @@ class SearchController < ApplicationController
   end
 
   def search_results
-    @search_results ||= SearchService.call(search: search, relation: search_relation)
+    @search_results ||= SearchService.new(search: search, relation: search_relation).process
   end
 
   def freelex_search_results
-    @freelex_search_results ||= FreelexSearchService.call(search: freelex_search, relation: freelex_search_relation)
+    @freelex_search_results ||= FreelexSearchService.new(search: freelex_search,
+                                                         relation: freelex_search_relation).process
   end
 
   def search_relation

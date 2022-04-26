@@ -37,7 +37,7 @@ to display a collection of resources in an HTML table.
           ).titleize %>
           <% if collection_presenter.ordered_by?(attr_name) %>
             <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
-              <%= inline_svg "media/images/dropdown.svg", class: "icon--small" %>
+              <%= inline_svg_pack_tag "media/images/dropdown.svg", class: "icon--small" %>
             </span>
           <% end %>
         <% end %>
@@ -67,7 +67,7 @@ to display a collection of resources in an HTML table.
         <% end %>
         <td class="admin-icons">
           <button title="Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
-            <%= inline_svg "media/images/options.svg", class: "icon--medium list__item__icon" %>
+            <%= inline_svg_pack_tag "media/images/options.svg", class: "icon--medium list__item__icon" %>
           </button>
         </td>
       </tr>
@@ -75,20 +75,20 @@ to display a collection of resources in an HTML table.
             <ul class="list__item-menu vertical icons">
               <li class="list__item-menu__menu-item">
                 <%= link_to edit_sign_path(resource) do %>
-                  <%= inline_svg "media/images/edit.svg" %><span>Edit</span>
+                  <%= inline_svg_pack_tag "media/images/edit.svg" %><span>Edit</span>
                 <% end %>
               </li>
               <% if policy(resource).unpublish? %>
                 <li class="list__item-menu__menu-item">
                   <%= link_to unpublish_sign_path(resource), method: :patch,
                       data: { confirm: t("admin.sign_workflow.unpublish.confirm") } do %>
-                      <%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Unpublish</span>
+                      <%= inline_svg_pack_tag "media/images/archive.svg", class: "icon--medium" %><span>Unpublish</span>
                   <% end %>
                 </li>
               <% elsif valid_action? :destroy, collection_presenter.resource_name %>
                 <li class="list__item-menu__menu-item">
                   <%= link_to sign_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") } do %>
-                    <%= inline_svg "media/images/archive.svg", class: "icon--medium" %><span>Destroy</span>
+                    <%= inline_svg_pack_tag "media/images/archive.svg", class: "icon--medium" %><span>Destroy</span>
                   <% end if show_action? :destroy, resource %>
                 </li>
               <% end %>

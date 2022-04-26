@@ -64,7 +64,7 @@ module SignsHelper
   end
 
   def reject_icon
-    inline_svg("media/images/disagree.svg", aria_hidden: true, class: "icon")
+    inline_svg_pack_tag("media/images/disagree.svg", aria_hidden: true, class: "icon")
   end
 
   def reject_confirm(sign)
@@ -91,7 +91,7 @@ module SignsHelper
   end
 
   def approve_icon
-    inline_svg("media/images/agree.svg", aria_hidden: true, class: "icon")
+    inline_svg_pack_tag("media/images/agree.svg", aria_hidden: true, class: "icon")
   end
 
   def approve_confirm(sign)

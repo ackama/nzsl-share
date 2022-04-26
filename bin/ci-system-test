@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+# Run system specs
+bundle exec rake spec SPEC_OPTS="--tag @type:system"

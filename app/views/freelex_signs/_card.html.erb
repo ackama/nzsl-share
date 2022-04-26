@@ -7,7 +7,7 @@
 
   <span class="label nzsl-official">
     <span class="label__icon-wrapper">
-    <%= inline_svg("media/images/agree.svg", class: "icon icon--white icon--tiny") %>
+    <%= inline_svg_pack_tag("media/images/agree.svg", class: "icon icon--white icon--tiny") %>
     </span>
     <strong>NZSL</strong>&nbsp;<em>Dictionary</em>
   </span>
@@ -24,7 +24,7 @@
                             if sign.secondary %>
       <small><em>
         <%= link_to sign.url, class: "sign-card__canonical-link" do %>
-          <%= sign.url -%><%= inline_svg("media/images/external-link.svg", class: "icon icon--success icon--inline") %>
+          <%= sign.url -%><%= inline_svg_pack_tag("media/images/external-link.svg", class: "icon icon--success icon--inline") %>
         <% end %>
       </em></small>
     </div>

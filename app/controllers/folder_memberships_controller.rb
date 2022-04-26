@@ -26,9 +26,9 @@ class FolderMembershipsController < ApplicationController
     translation_interpolations = { sign: @membership.sign.word, folder: @membership.folder.title }
 
     if succeeded
-      flash[:notice] = t(".success", translation_interpolations)
+      flash[:notice] = t(".success", **translation_interpolations)
     else
-      flash[:alert] = t(".failure", translation_interpolations)
+      flash[:alert] = t(".failure", **translation_interpolations)
     end
   end
 

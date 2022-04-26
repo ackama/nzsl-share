@@ -136,7 +136,7 @@ RSpec.describe Sign, type: :model do
 
   describe "#unpublish" do
     let(:model) { FactoryBot.create(:sign, :published) }
-    before { allow(ArchiveSign).to receive(:call) }
+    before { allow(ArchiveSign).to receive_message_chain(:new, :process) }
     subject { model.unpublish! }
 
     context "invalid record" do
@@ -158,7 +158,9 @@ RSpec.describe Sign, type: :model do
     end
 
     it "archives the sign during the transition" do
-      expect(ArchiveSign).to receive(:call)
+      archive_sign = double
+      expect(ArchiveSign).to receive(:new).with(model).and_return(archive_sign)
+      expect(archive_sign).to receive(:process)
       subject
     end
 

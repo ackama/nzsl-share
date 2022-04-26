@@ -13,7 +13,7 @@
         <ul class="dropdown menu" data-dropdown-menu data-v-offset="8" data-h-offset="8">
           <li class="navigation__item">
             <%= link_to "Browse Topics", topics_path %>
-            <%= inline_svg "media/images/dropdown.svg", aria_hidden: true, class: "icon--white" %>
+            <%= inline_svg_pack_tag "media/images/dropdown.svg", aria_hidden: true, class: "icon--white" %>
             <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
               <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
               <hr class="menu-divider" />

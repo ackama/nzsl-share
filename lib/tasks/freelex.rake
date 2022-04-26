@@ -22,8 +22,8 @@ namespace :freelex do
   task load: :environment do
     puts "Loading all"
     doc = Nokogiri::XML(File.read(FREELEX_CONFIG[:xml]))
-    data = doc.xpath("//entry").map(&method(:fetch_freelex_values))
-    ids = FreelexSign.upsert_all(data, unique_by: :headword_id, returning: %i[headword_id])
+    data = doc.xpath("//entry").map { |entry| fetch_freelex_values(entry) }
+    ids = FreelexSign.upsert_all(data, unique_by: :headword_id, returning: %i[headword_id]) # rubocop:disable Rails/SkipsModelValidations
     FreelexSign.where.not(headword_id: ids).destroy_all
   end
 
@@ -44,7 +44,7 @@ namespace :freelex do
       maori: att.xpath("glossmaori").text.empty? ? nil : att.xpath("glossmaori").text,
       secondary: att.xpath("glosssecondary").text.empty? ? nil : att.xpath("glosssecondary").text,
       video_key: att.xpath("ASSET/glossmain").map(&:text),
-      tags: att.xpath("HEADWORDTAGS").text.empty? ? [] : att.xpath("HEADWORDTAGS").text.split(/,/),
+      tags: att.xpath("HEADWORDTAGS").text.empty? ? [] : att.xpath("HEADWORDTAGS").text.split(","),
       published_at: Time.zone.now
     }
   end

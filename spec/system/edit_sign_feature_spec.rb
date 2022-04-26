@@ -163,7 +163,7 @@ RSpec.describe "Editing a sign", type: :system do
     let(:field_name) { "sign_#{attribute}" }
     let(:list_selector) { ".#{field_name.tr("_", "-")}" }
     let(:container_selector) { ".#{attribute.to_s.tr("_", "-")}" }
-    let(:invalid_file) { Rails.root.join("spec", "fixtures", "dummy.exe") }
+    let(:invalid_file) { Rails.root.join("spec/fixtures/dummy.exe") }
 
     context "without JS" do
       it "sees existing attachment data" do
@@ -188,7 +188,7 @@ RSpec.describe "Editing a sign", type: :system do
         desc = Faker::Lorem.sentence
         single_record = sign.public_send(attribute).first
         expect do
-          within(list_selector + " li") do
+          within("#{list_selector} li") do
             fill_in :description, with: desc
             page.find("input[type=submit]", visible: false).click
             single_record.reload
@@ -254,7 +254,7 @@ RSpec.describe "Editing a sign", type: :system do
       it "can update the description of an attachment" do
         desc = Faker::Lorem.sentence
         single_record = sign.public_send(attribute).first
-        within(list_selector + " li") do
+        within("#{list_selector} li") do
           field = find_field(:description)
           field.send_keys desc, :return
           expect(page).to have_field(:description, with: desc)
@@ -278,14 +278,14 @@ RSpec.describe "Editing a sign", type: :system do
 
   xdescribe "usage examples" do
     let!(:sign) { FactoryBot.create(:sign, :with_usage_examples, contributor: user) }
-    let(:valid_file) { Rails.root.join("spec", "fixtures", "dummy.mp4") }
+    let(:valid_file) { Rails.root.join("spec/fixtures/dummy.mp4") }
     let(:content_type) { "video/mp4" }
     include_examples "sign attachment behaviour", :usage_examples
   end
 
   xdescribe "illustrations" do
     let!(:sign) { FactoryBot.create(:sign, :with_illustrations, contributor: user) }
-    let(:valid_file) { Rails.root.join("spec", "fixtures", "image.jpeg") }
+    let(:valid_file) { Rails.root.join("spec/fixtures/image.jpeg") }
     let(:content_type) { "image/jpeg" }
     include_examples "sign attachment behaviour", :illustrations
   end

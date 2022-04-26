@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.describe CachedVideoTranscoder, type: :service do
   let(:fake_processor) { double }
   let(:fake_processor_class) { double(new: fake_processor) }
-  let(:io) { File.open(Rails.root.join("spec", "fixtures", "dummy.mp4")) }
+  let(:io) { File.open(Rails.root.join("spec/fixtures/dummy.mp4")) }
   let(:transcode_options) { {} }
   let(:new_blob) do
-    ActiveStorage::Blob.create_after_upload!(
+    ActiveStorage::Blob.create_and_upload!(
       io: io,
       filename: "dummy.mp4",
       content_type: "video/mp4"
@@ -62,7 +62,7 @@ RSpec.describe CachedVideoTranscoder, type: :service do
       end
 
       it "returns the URL for the new blob" do
-        expect(transcoder.send(:encoded_blob)).to receive(:service_url)
+        expect(transcoder.send(:encoded_blob)).to receive(:url)
         subject
       end
     end
@@ -93,7 +93,7 @@ RSpec.describe CachedVideoTranscoder, type: :service do
 
     it "persists the blob and returns the URL to the persisted blob" do
       expect(transcoder).to receive(:persist_blob).with(process_result).and_return(processed_blob)
-      expect(processed_blob).to receive(:service_url)
+      expect(processed_blob).to receive(:url)
       subject
     end
 
