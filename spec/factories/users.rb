@@ -2,14 +2,14 @@ FactoryBot.define do
   factory :user do
     sequence(:username) { |n| "#{Faker::Internet.username}#{n}" }
     email { Faker::Internet.email }
-    bio { Faker::Lorem.paragraph_by_chars(256, false) }
+    bio { Faker::Lorem.paragraph_by_chars(number: 256, supplemental: false) }
     password { "password" }
     password_confirmation { "password" }
     confirmed_at { Time.zone.now }
 
     trait :with_avatar do
       after(:create) do |user|
-        image_file = File.open(Rails.root.join("spec", "fixtures", "image.jpeg"))
+        image_file = File.open(Rails.root.join("spec/fixtures/image.jpeg"))
         image_file_io = { io: image_file, filename: File.basename(image_file) }
         user.avatar.attach(image_file_io)
       end

@@ -12,7 +12,7 @@ RSpec.describe Search, type: :model do
       it "uses the first 50 chars for search" do
         str = "banana man is on the move protecting the city from the broccoli soup gang"
         expect(Search.new(term: str).term.chars.count).to eq(50)
-        expect(Search.new(term: str).term).to eq(str.chars.first(50).join(""))
+        expect(Search.new(term: str).term).to eq(str[0...50].chars.join)
       end
     end
   end

@@ -4,7 +4,7 @@ class Search
   include ActiveModel::Model
 
   DEFAULT_SORT = "alpha_asc"
-  PAGE = /\A[0-9]{1,2}\Z/.freeze
+  PAGE = /\A[0-9]{1,2}\Z/
   DEFAULT_LIMIT = 16
   KNOWN_SORTS = {
     "alpha_asc" => "word ASC",

@@ -1,5 +1,5 @@
 class UsersExport
-  QUERY = <<~SQL.freeze
+  QUERY = <<~SQL.squish.freeze
     SELECT
       u.username,
       u.email,

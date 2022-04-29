@@ -13,7 +13,7 @@ class VideosController < ApplicationController
   private
 
   def blob
-    ActiveStorage::Blob.find_signed(params[:id])
+    ActiveStorage::Blob.find_signed!(params[:id])
   end
 
   def preset

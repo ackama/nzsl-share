@@ -32,7 +32,7 @@ class SignsController < ApplicationController
     flash[:notice] = t(".success")
     respond_to do |format|
       format.html { redirect_to [:edit, @sign] }
-      format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" }
+      format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" } # rubocop:disable Rails/RenderInline
     end
   end
 
@@ -120,7 +120,7 @@ class SignsController < ApplicationController
   def redirect_after_update(sign)
     respond_to do |format|
       format.html { redirect_to sign, notice: t(".success") }
-      format.js { render inline: "window.location = '#{sign_path(sign)}'" }
+      format.js { render inline: "window.location = '#{sign_path(sign)}'" } # rubocop:disable Rails/RenderInline
     end
   end
 end

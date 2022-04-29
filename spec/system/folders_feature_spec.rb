@@ -40,10 +40,10 @@ RSpec.describe "Folders", type: :system do
       it "updates the folder successfully" do |example|
         title = folder.title
         process.edit_folder(dropdown: example.metadata[:uses_javascript])
-        process.enter_title(title + " CHANGED")
+        process.enter_title("#{title} CHANGED")
         process.submit_edit_folder_form
         expect(process).to have_content "Folder successfully updated."
-        expect(process).to have_content(title + " CHANGED")
+        expect(process).to have_content("#{title} CHANGED")
       end
 
       it "displays correct validation errors" do |example|
@@ -73,10 +73,10 @@ RSpec.describe "Folders", type: :system do
         process.within_specific_list_item_menu(collab_folder.title, dropdown: true) do
           click_on "Edit"
         end
-        process.enter_title(title + " CHANGED")
+        process.enter_title("#{title} CHANGED")
         process.submit_edit_folder_form
         expect(process).to have_content "Folder successfully updated."
-        expect(process).to have_content(title + " CHANGED")
+        expect(process).to have_content("#{title} CHANGED")
       end
     end
   end

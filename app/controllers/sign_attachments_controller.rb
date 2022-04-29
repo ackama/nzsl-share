@@ -52,7 +52,7 @@ class SignAttachmentsController < ApplicationController
   end
 
   def blob
-    ActiveStorage::Blob.find_signed(signed_blob_id)
+    ActiveStorage::Blob.find_signed!(signed_blob_id)
   end
 
   def signed_blob_id

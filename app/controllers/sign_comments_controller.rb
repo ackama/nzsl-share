@@ -82,7 +82,7 @@ class SignCommentsController < ApplicationController
   end
 
   def fetch_sign
-    policy_scope(Sign).find_by!(id: sign_id)
+    policy_scope(Sign).find(sign_id)
   end
 
   def sign_id

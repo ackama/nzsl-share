@@ -6,7 +6,7 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folder = policy_scope(Folder).find_by!(id: id)
+    @folder = policy_scope(Folder).find(id)
     authorize @folder
     render :show
   end
@@ -61,7 +61,7 @@ class FoldersController < ApplicationController
     flash[:notice] = t(".success")
 
     respond_to do |format|
-      format.js { render inline: "location.reload();" }
+      format.js { render inline: "location.reload();" } # rubocop:disable Rails/RenderInline
       format.html { redirect_to folders_path }
     end
   end

@@ -62,7 +62,7 @@ RSpec.describe ApplicationJob, type: :job do
 
     def stub_queue(arguments, job_class: "ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper")
       serialized_args = arguments.map { |a| ActiveJob::Arguments.serialize(a) }
-      fake_queue = [OpenStruct.new(item: {
+      fake_queue = [OpenStruct.new(item: { # rubocop:disable Style/OpenStructUse
                                      "class" => job_class,
                                      "args" => serialized_args.map { |a| { "arguments" => a } } })]
       allow(Sidekiq::Queue).to receive(:new).and_return(fake_queue)

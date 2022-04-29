@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe VideoTranscoder, type: :service do
   let(:blob) do
-    ActiveStorage::Blob.create_after_upload!(
-      io: File.open(Rails.root.join("spec", "fixtures", "dummy.mp4")),
+    ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("spec/fixtures/dummy.mp4")),
       filename: "dummy.mp4",
       content_type: "video/mp4"
     )
@@ -19,8 +19,8 @@ RSpec.describe VideoTranscoder, type: :service do
 
     it "transcodes a video with the expected command" do
       expect(service).to receive(:exec).with(
-        "ffmpeg", "-y", "-i", start_with("/tmp/ActiveStorage-"),
-        "-f", "ogg", start_with("/tmp/NZSL-VideoEncode")).and_call_original
+        "ffmpeg", "-y", "-i", include("/ActiveStorage-"),
+        "-f", "ogg", include("/NZSL-VideoEncode"))
 
       subject
     end
