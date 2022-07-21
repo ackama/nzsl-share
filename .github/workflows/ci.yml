@@ -8,12 +8,10 @@ on:
       - production
 
 env:
-  DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
-  REDIS_URL: redis://localhost:6379/3
-  SECRET_KEY_BASE: anything
   RAILS_ENV: test
-  MAIL_FROM: test@example.com
-  CONTACT_EMAIL: test@example.com
+  PGHOST: localhost
+  PGUSER: postgres
+  PGPASSWORD: postgres
 
 jobs:
   check-dependencies:
@@ -124,13 +122,10 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Install required JS packages
-        run: |
-          yarn install
-
       - name: Prepare database for testing
         run: |
-          bundle exec rails db:prepare
+          bin/setup
+          bundle exec overcommit --uninstall
 
       - name: Run rspec
         run: bundle exec rake spec SPEC_OPTS="--profile --tag ~@type:system"
@@ -178,13 +173,10 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Install required JS packages
-        run: |
-          yarn install
-
       - name: Prepare database for testing
         run: |
-          bundle exec rails db:prepare
+          bin/setup
+          bundle exec overcommit --uninstall
 
       - name: Run rspec
         run: bundle exec rake spec SPEC_OPTS="--profile --tag @type:system"
