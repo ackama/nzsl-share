@@ -133,7 +133,7 @@ jobs:
           bundle exec rails db:prepare
 
       - name: Run rspec
-        run: bundle exec rake spec SPEC_OPTS="--tag ~@type:system"
+        run: bundle exec rake spec SPEC_OPTS="--profile --tag ~@type:system"
 
   rspec-system:
     runs-on: ubuntu-latest
@@ -187,4 +187,4 @@ jobs:
           bundle exec rails db:prepare
 
       - name: Run rspec
-        run: bundle exec rake spec SPEC_OPTS="--tag @type:system"
+        run: bundle exec rake spec SPEC_OPTS="--profile --tag @type:system"
