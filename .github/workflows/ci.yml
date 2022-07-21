@@ -11,6 +11,8 @@ env:
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
   SECRET_KEY_BASE: anything
   RAILS_ENV: test
+  MAIL_FROM: test@example.com
+  CONTACT_EMAIL: test@example.com
 
 jobs:
   check-dependencies:
