@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - production
+
+env:
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+  SECRET_KEY_BASE: anything
+  RAILS_ENV: test
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check dependencies for security vulnerabilities
+        uses: g-rath/check-with-osv-detector@v0.1.0
+
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Install Ruby (version given by .ruby-version) and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Run Ruby linting
+        run: bundle exec rubocop -D
+
+  brakeman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Install Ruby (version given by .ruby-version) and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run Ruby static analysis
+        run: bundle exec brakeman --run-all-checks --exit-on-warn --format plain .
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install required JS packages
+        run: yarn install
+      - name: Run JS linting
+        run: yarn run js-lint
+
+  stylelint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install required JS packages
+        run: yarn install
+      - name: Run JS linting
+        run: yarn run scss-lint
+
+  rspec:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+
+      - name: Install required OS packages
+        run: |
+          sudo apt-get -y install libpq-dev google-chrome-stable ffmpeg
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install Ruby (version given by .ruby-version) and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install required JS packages
+        run: |
+          yarn install
+
+      - name: Prepare database for testing
+        run: |
+          bundle exec rails db:prepare
+
+      - name: Run rspec
+        run: bundle exec rspec spec
