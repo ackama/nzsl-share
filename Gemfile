@@ -11,8 +11,9 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 gem "redis"
 gem "sidekiq"
+gem 'shakapacker', '6.0.0.rc.13'
 gem "turbolinks"
-gem "webpacker", "~> 5.0"
+
 gem "devise"
 gem "devise_invitable"
 gem "nokogiri", "~> 1.13"

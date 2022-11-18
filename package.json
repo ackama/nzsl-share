@@ -7,18 +7,41 @@
     "not ie 11"
   ],
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/core": "7",
+    "@babel/plugin-transform-runtime": "7",
+    "@babel/preset-env": "7",
+    "@babel/runtime": "7",
     "@rails/actioncable": "^6.0.0-alpha",
     "@rails/activestorage": "^6.0.0-alpha",
     "@rails/ujs": "^6.0.0-alpha",
     "@rails/webpacker": "^5.1.0",
     "@svgr/webpack": "^4.3.3",
+    "babel-loader": "8",
     "chosen-js": "^1.8.7",
+    "compression-webpack-plugin": "9",
+    "css-loader": "^6.7.2",
+    "css-minimizer-webpack-plugin": "^4.2.2",
     "foundation-sites": "^6.5.3",
     "jquery": "^3.4.1",
+    "mini-css-extract-plugin": "^2.7.0",
+    "pnp-webpack-plugin": "1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "turbolinks": "^5.2.0"
+    "sass-loader": "^13.2.0",
+    "shakapacker": "^6.0.0-rc.14",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "5",
+    "turbolinks": "^5.2.0",
+    "webpack": "5",
+    "webpack-assets-manifest": "5",
+    "webpack-cli": "4",
+    "webpack-merge": "5"
+  },
+  "babel": {
+    "presets": [
+      "./node_modules/shakapacker/package/babel/preset.js",
+      "@babel/preset-react"
+    ]
   },
   "devDependencies": {
     "eslint": "^6.5.1",
@@ -30,6 +53,6 @@
     "stylelint": "^13.3.0",
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-scss": "^3.16.0",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^4.11.1"
   }
 }

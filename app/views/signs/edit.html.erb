@@ -1,6 +1,7 @@
 <% provide(:title, "Edit '#{@sign.word}'") %>
 <% @sign = present(@sign) %>
 <%= content_for :head do %>
+<!-- SHOULD ONLY HAVE ONE javascript_pack_tag - DO I DO A else HERE? -->
   <% unless @sign.fully_processed? %>
     <%= javascript_pack_tag "edit", async: true, defer: true %>
   <% end %>
