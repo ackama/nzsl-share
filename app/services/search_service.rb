@@ -44,7 +44,7 @@ class SearchService
   end
 
   def parse_results(results)
-    results.field_values(@relation.primary_key)
+    results.pluck(@relation.primary_key)
   end
 
   def exec_query(sql_arr)
