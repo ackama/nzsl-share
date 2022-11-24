@@ -385,6 +385,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite3 (1.5.4)
+      mini_portile2 (~> 2.8.0)
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -463,6 +465,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-batch
   simplecov
+  sqlite3
   turbolinks
   webdrivers
   webpacker (~> 5.0)
@@ -471,4 +474,4 @@ RUBY VERSION
    ruby 3.0.4p208
 
 BUNDLED WITH
-   2.3.11
+   2.3.24
