@@ -26,33 +26,26 @@ class SearchService
   def build_results
     term = parameterize_term
     sql_arr = prepare_search(term)
-    result_ids = parse_results(exec_query(sql_arr))
-    result_relation = @relation.where(@relation.primary_key => result_ids)
-    search.total = result_relation.count
-    fetch_results(result_relation, result_ids)
+    results = exec_query(sql_arr)
+    search.total = results.count
+
+    results.limit(search.page[:limit])
   end
 
   def parameterize_term
     search.term.split.map { |s| s.parameterize(separator: "") }.join(" ")
   end
 
-  def fetch_results(result_relation, result_ids)
-    result_relation
-      .limit(search.page[:limit])
-      .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[],
-                       \"#{@relation.table_name}\".\"#{@relation.primary_key}\")"))
-  end
-
-  def parse_results(results)
-    results.pluck(@relation.primary_key)
-  end
-
   def exec_query(sql_arr)
-    ApplicationRecord.connection.execute(ApplicationRecord.send(:sanitize_sql_array, sql_arr))
+    model_class = @relation.model
+    @relation.joins("
+      INNER JOIN (#{model_class.sanitize_sql_array(sql_arr)}) search_results
+      ON search_results.id=#{model_class.table_name}.#{model_class.primary_key}
+    ").order(prepare_order)
   end
 
-  def search_args
-    { order: search.order_clause }
+  def prepare_order
+    Arel.sql(search.order_clause)
   end
 
   def prepare_search(term)
