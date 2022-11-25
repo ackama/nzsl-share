@@ -246,7 +246,9 @@ RSpec.describe SignbankSearchService, type: :service do
           # We don't support this sort order for this type of search
           # In SearchController, we alias this and 'popular' to ordering
           # by word in ascending order
-          expect { search(scoped_relation, term: "a", sort: "recent").data.to_a }.to raise_error
+          expect do
+            search(scoped_relation, term: "a", sort: "recent").data.to_a
+          end.to raise_error ActiveRecord::StatementInvalid
         end
       end
 
@@ -255,7 +257,9 @@ RSpec.describe SignbankSearchService, type: :service do
           # We don't support this sort order for this type of search
           # In SearchController, we alias this and 'recent' to ordering
           # by word in ascending order
-          expect { search(scoped_relation, term: "a", sort: "popular").data.to_a }.to raise_error
+          expect do
+            search(scoped_relation, term: "a", sort: "popular").data.to_a
+          end.to raise_error ActiveRecord::StatementInvalid
         end
       end
 
