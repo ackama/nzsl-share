@@ -35,7 +35,7 @@ class SearchController < ApplicationController
   end
 
   def dictionary_search
-    search.sort = if %w[popular recent].includes(search.sort.to_s.downcase)
+    search.sort = if %w[popular recent].include?(search.sort.to_s.downcase)
                     search.sort = "relevance"
                   else
                     search.sort.presence || "relevant"
