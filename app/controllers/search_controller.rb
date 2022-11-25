@@ -35,10 +35,12 @@ class SearchController < ApplicationController
   end
 
   def dictionary_search
-    return search unless search.sort.to_s.downcase == "popular"
+    search.sort = if %w[popular recent].includes(search.sort.to_s.downcase)
+                    search.sort = "relevance"
+                  else
+                    search.sort.presence || "relevant"
+                  end
 
-    clone = search.clone
-    clone.sort = "alpha_asc"
-    clone
+    search
   end
 end
