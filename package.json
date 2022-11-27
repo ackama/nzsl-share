@@ -2,6 +2,12 @@
   "name": "nzsl_share",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "js-lint": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
+    "js-lint-fix": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
+    "scss-lint": "stylelint '**/*.{css,scss}'",
+    "scss-lint-fix": "stylelint '**/*.{css,scss}' --fix"
+  },
   "browserslist": [
     "> 0.25% in NZ and last 2 versions",
     "not ie 11"
