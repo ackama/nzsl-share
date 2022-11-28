@@ -1,7 +1,6 @@
 class SignVideoCommentController < ApplicationController
   include ActionView::RecordIdentifier
 
-  protect_from_forgery except: :create
   before_action :authenticate_user!
   after_action :post_process, only: :create
 

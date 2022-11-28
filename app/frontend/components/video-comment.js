@@ -34,6 +34,10 @@ const handleCommentReplyAttachmentUpload = ($container) => {
   const signedBlobId = $field.val();
   const folderId = $container.data("folderId");
 
+  $.ajaxSetup({
+    headers: { "X-CSRF-TOKEN": $("meta[name='csrf-token']").attr("content") }
+  });
+
   // eslint-disable-next-line camelcase
   return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, parent_id: parentId, folder_id: folderId, format: "js" })
     .done(() => {
