@@ -60,6 +60,8 @@ RSpec.describe "Searching for signs" do
 
   context "with only Share results" do
     before do
+      DictionarySign.unscoped.destroy_all
+      FreelexSign.unscoped.destroy_all
       FactoryBot.create_list(:sign, 5, :published, word: "a")
       submit_search("a")
     end
