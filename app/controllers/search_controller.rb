@@ -3,7 +3,7 @@
 class SearchController < ApplicationController
   def index
     @signs = search_results.data
-    @freelex_signs = freelex_search_results.data.preview
+    @freelex_signs = dictionary_search_results.data.preview
     @page = search_results.support
   end
 
@@ -17,28 +17,30 @@ class SearchController < ApplicationController
     @search_results ||= SearchService.new(search: search, relation: search_relation).process
   end
 
-  def freelex_search_results
-    @freelex_search_results ||= FreelexSearchService.new(search: freelex_search,
-                                                         relation: freelex_search_relation).process
+  def dictionary_search_results
+    @dictionary_search_results ||= DictionarySearchService.new(search: dictionary_search,
+                                                               relation: dictionary_search_relation).process
   end
 
   def search_relation
     policy_scope(Sign)
   end
 
-  def freelex_search_relation
-    policy_scope(FreelexSign)
+  def dictionary_search_relation
+    policy_scope(Rails.application.config.dictionary_sign_model)
   end
 
   def search_params
     { term: params.require(:term) }.merge(params.permit(:page, :sort))
   end
 
-  def freelex_search
-    return search unless search.sort.to_s.downcase == "popular"
+  def dictionary_search
+    search.sort = if %w[popular recent].include?(search.sort.to_s.downcase)
+                    search.sort = "relevance"
+                  else
+                    search.sort.presence || "relevant"
+                  end
 
-    clone = search.clone
-    clone.sort = "alpha_asc"
-    clone
+    search
   end
 end
