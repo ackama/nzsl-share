@@ -37,7 +37,7 @@ module SQL
         FROM sign_search
         JOIN signs ON signs.id=sign_search.id
         LEFT JOIN LATERAL (SELECT sign_activities.sign_id,
-                                  COUNT(sign_activities.sign_id) AS count
+                                  COUNT(sign_activities.sign_id) AS activity_count
                            FROM sign_activities
                            WHERE sign_search.row_num = 1 AND
                                  sign_activities.sign_id = sign_search.id AND
