@@ -6,7 +6,6 @@ ruby File.read(".ruby-version")
 gem "rails", "~> 6.0"
 gem "puma"
 gem "pg", ">= 0.18"
-gem "sqlite3"
 gem 'dotenv-rails', require: "dotenv/rails-now"
 gem "bootsnap", require: false
 gem "sassc-rails"

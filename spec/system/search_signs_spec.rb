@@ -3,8 +3,7 @@ require "rails_helper"
 RSpec.describe "Searching for signs" do
   context "with full results" do
     before do
-      DictionarySign.unscoped.destroy_all
-      Array.new(6) { DictionarySign.create!(id: SecureRandom.uuid, gloss_normalized: "a") }
+      FactoryBot.create_list(:freelex_sign, 6, word: "a")
       FactoryBot.create_list(:sign, 5, :published, word: "a")
       submit_search("a")
     end
@@ -16,36 +15,7 @@ RSpec.describe "Searching for signs" do
     end
   end
 
-  context "with only Signbank results" do
-    around do |example|
-      original_dictionary_sign_model = Rails.application.config.dictionary_sign_model
-      Rails.application.config.dictionary_sign_model = DictionarySign
-      example.run
-    ensure
-      Rails.application.config.dictionary_sign_model = original_dictionary_sign_model
-    end
-
-    before do
-      FactoryBot.create_list(:freelex_sign, 6, word: "a")
-      submit_search("a")
-    end
-
-    it "shows the expected results" do
-      # We only show a preview of official signs
-      expect(page).to have_selector "#official-signs .sign-card", count: 4
-      expect(page).to have_no_selector "#community-signs"
-    end
-  end
-
   context "with only Freelex results" do
-    around do |example|
-      original_dictionary_sign_model = Rails.application.config.dictionary_sign_model
-      Rails.application.config.dictionary_sign_model = FreelexSign
-      example.run
-    ensure
-      Rails.application.config.dictionary_sign_model = original_dictionary_sign_model
-    end
-
     before do
       FactoryBot.create_list(:freelex_sign, 6, word: "a")
       submit_search("a")
@@ -60,8 +30,6 @@ RSpec.describe "Searching for signs" do
 
   context "with only Share results" do
     before do
-      DictionarySign.unscoped.destroy_all
-      FreelexSign.unscoped.destroy_all
       FactoryBot.create_list(:sign, 5, :published, word: "a")
       submit_search("a")
     end
