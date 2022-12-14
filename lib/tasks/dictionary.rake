@@ -19,8 +19,8 @@ namespace :dictionary do
     database = SQLite3::Database.open("db/new-dictionary.sqlite3")
     fail "Database does not pass integrity check" unless database.integrity_check == [["ok"]]
 
-    FileUtils.mv("db/new-dictionary.sqlite3", "db/dictionary.sqlite3")
+    FileUtils.mv("db/new-dictionary.sqlite3", "db/nzsl-dictionary.db.sqlite3")
 
-    puts "Updated db/dictionary.sqlite3 to #{release["name"]}"
+    puts "Updated db/nzsl-dictionary.db.sqlite3 to #{release["name"]}"
   end
 end
