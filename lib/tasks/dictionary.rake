@@ -11,10 +11,7 @@ namespace :dictionary do
     end
 
     database_url = database_asset.fetch("browser_download_url")
-
-    File.open("db/new-dictionary.sqlite3", "wb") do |f|
-      f.write URI.parse(database_url).open.read
-    end
+    File.binwrite("db/new-dictionary.sqlite3", URI.parse(database_url).open.read)
 
     database = SQLite3::Database.open("db/new-dictionary.sqlite3")
     fail "Database does not pass integrity check" unless database.integrity_check == [["ok"]]
