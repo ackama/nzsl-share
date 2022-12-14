@@ -48,4 +48,4 @@ yarn-debug.log*
 # for dev use, even if it's out of date. We also update the dictionary file each
 # time bin/setup or rake dictionary:update is run, and automatically download
 # the latest version when we start deployed dynos.
-/db/nzsl-signbank.db.sqlite3
+/db/nzsl-dictionary.db.sqlite3
