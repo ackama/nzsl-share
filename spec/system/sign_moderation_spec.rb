@@ -11,6 +11,10 @@ RSpec.describe "Sign moderation", type: :system do
   it_behaves_like "an Administrate dashboard", :signs, except: %i[destroy new show]
 
   context "filtering" do
+    it "defaults to the 'pending' filter" do
+      expect(page).to have_field "search", with: "pending:"
+    end
+
     context "using dropdown" do
       it "filters by Pending" do
         select "Pending", from: "status"
