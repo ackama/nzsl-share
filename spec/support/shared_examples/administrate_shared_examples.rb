@@ -1,8 +1,6 @@
-RSpec.shared_examples "an Administrate dashboard" do |url_base, only: %i[index show new edit destroy], except: []|
+RSpec.shared_examples "an Administrate dashboard" do |_url_base, only: %i[index show new edit destroy], except: []|
   include AdministratePageHelpers
   actions = only - except
-
-  before { visit_admin url_base }
 
   if actions.include?(:index)
     it "can visit the index page" do
