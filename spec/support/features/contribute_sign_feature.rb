@@ -7,9 +7,9 @@ class ContributeSignFeature
   include FileUploads
   attr_reader :user
 
-  def start(user=FactoryBot.create(:user))
-    @user = user
-    sign_in user
+  def start
+    visit "/"
+
     within ".sidebar--inside-grid" do
       click_on "Add a sign"
     end

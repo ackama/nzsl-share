@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "Profile page", type: :system do
   let!(:user) { FactoryBot.create(:user) }
-  let(:auth) { AuthenticateFeature.new(user) }
 
   context "viewing" do
     before { visit user_path(username: user.username) }
@@ -33,7 +32,7 @@ RSpec.describe "Profile page", type: :system do
   end
 
   context "editing" do
-    before { auth.sign_in }
+    before { sign_in user }
 
     it "nav links to edit profile page", uses_javascript: true do
       visit root_path

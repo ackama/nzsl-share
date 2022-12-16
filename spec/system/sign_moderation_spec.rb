@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "Sign moderation", type: :system do
   include AdministratePageHelpers
   let!(:moderator) { FactoryBot.create(:user, :moderator) }
-  let(:auth) { AuthenticateFeature.new(moderator) }
   let!(:signs) { FactoryBot.create_list(:sign, 3, :published) }
 
   before { visit_admin(:signs, admin: moderator) }

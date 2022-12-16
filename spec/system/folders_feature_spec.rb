@@ -1,10 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "Folders", type: :system do
+  let(:user) { FactoryBot.create(:user) }
   let(:process) { FolderFeature.new }
 
   describe "Creating a new folder" do
-    before { process.start }
+    before do
+      sign_in user
+      process.start
+    end
 
     shared_examples "creating a folder" do
       it "can add a new folder successfully" do
@@ -33,8 +37,11 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "Editing a folder" do
-    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
-    before { process.start }
+    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    before do
+      sign_in user
+      process.start
+    end
 
     shared_examples "editing a folder" do
       it "updates the folder successfully" do |example|
@@ -65,7 +72,8 @@ RSpec.describe "Folders", type: :system do
     context "as a collaborator" do
       let!(:collab_folder) { FactoryBot.create(:folder) }
       before do
-        collab_folder.collaborators << process.user
+        collab_folder.collaborators << user
+        sign_in user
         process.start
       end
 
@@ -82,8 +90,11 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "Removing a folder" do
-    let!(:folders) { FactoryBot.create_list(:folder, 3, user: process.user) }
-    before { process.start }
+    let!(:folders) { FactoryBot.create_list(:folder, 3, user: user) }
+    before do
+      sign_in user
+      process.start
+    end
 
     it "removes the folder" do
       process.remove_folder
@@ -113,7 +124,8 @@ RSpec.describe "Folders", type: :system do
     context "as a collaborator" do
       let!(:collab_folder) { FactoryBot.create(:folder) }
       before do
-        collab_folder.collaborators << process.user
+        collab_folder.collaborators << user
+        sign_in user
         process.start
       end
 
@@ -126,11 +138,12 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "The folders index page" do
-    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:collab_folder) { FactoryBot.create(:folder) }
 
     before do
       collab_folder.collaborators << process.user
+      sign_in user
       process.start
     end
 
@@ -150,8 +163,10 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "The folder show page" do
-    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:folder) { FactoryBot.create(:folder, user: user) }
+
     before do
+      sign_in user
       process.start
       click_on folder.title
     end

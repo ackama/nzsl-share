@@ -5,10 +5,9 @@ RSpec.describe "Sign card features", type: :system do
   let!(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
   let!(:private_sign) { FactoryBot.create(:sign, :personal) }
   let(:presenter) { SignPresenter.new(sign, ApplicationController.new) }
-  let(:authenticator) { AuthenticateFeature.new(user) }
 
   before do |example|
-    authenticator.sign_in unless example.metadata[:signed_out]
+    sign_in user unless example.metadata[:signed_out]
   end
 
   def sign_card

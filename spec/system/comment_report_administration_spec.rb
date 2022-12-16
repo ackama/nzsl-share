@@ -6,7 +6,6 @@ RSpec.describe "Comment report administration", type: :system do
   let!(:sign) { FactoryBot.create(:sign, :published) }
   let!(:comment) { FactoryBot.create(:sign_comment, sign: sign) }
   let!(:comment_report) { FactoryBot.create(:comment_report, comment: comment) }
-  let(:auth) { AuthenticateFeature.new(admin) }
 
   before do
     visit_admin(:comment_reports, admin: admin)
