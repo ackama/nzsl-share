@@ -11,7 +11,7 @@ RSpec.describe "Comment report administration", type: :system do
     visit_admin(:comment_reports, admin: admin)
   end
 
-  it_behaves_like "an Administrate dashboard", :comment_reports, except: %i[destroy new edit]
+  it_behaves_like "an Administrate dashboard", except: %i[destroy new edit]
 
   describe "viewing", uses_javascript: true do
     it "can view a comment report" do

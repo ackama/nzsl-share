@@ -14,7 +14,7 @@ RSpec.describe "Approved user applications administration", type: :system do
     end
   end
 
-  it_behaves_like "an Administrate dashboard", :approved_user_applications, except: %i[destroy edit new]
+  it_behaves_like "an Administrate dashboard", except: %i[destroy edit new]
 
   describe "accepting" do
     before { click_on_first_row }

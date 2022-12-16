@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe "Sign moderation", type: :system do
   include AdministratePageHelpers
-  let!(:moderator) { FactoryBot.create(:user, :moderator) }
+  let(:moderator) { FactoryBot.create(:user, :moderator) }
   let!(:signs) { FactoryBot.create_list(:sign, 3, :published) }
 
   before { visit_admin(:signs, admin: moderator) }
 
-  it_behaves_like "an Administrate dashboard", :signs, except: %i[destroy new show]
+  it_behaves_like "an Administrate dashboard", except: %i[destroy new show]
 
   context "filtering" do
     context "using dropdown" do
