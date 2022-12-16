@@ -7,6 +7,7 @@ RSpec.describe "My Signs", type: :system do
 
   before do
     sign_in user
+    visit root_path
     within ".sidebar--inside-grid" do
       click_on "My signs"
     end

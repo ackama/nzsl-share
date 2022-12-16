@@ -8,6 +8,7 @@ RSpec.describe "Sign card features", type: :system do
 
   before do |example|
     sign_in user unless example.metadata[:signed_out]
+    visit root_path
   end
 
   def sign_card
