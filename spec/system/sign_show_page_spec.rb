@@ -52,7 +52,7 @@ RSpec.describe "Sign show page", system: true do
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
-      sign_out
+      sign_out :user
       visit sign_share_url(sign, sign.share_token)
     end
 
@@ -79,7 +79,7 @@ RSpec.describe "Sign show page", system: true do
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
-      sign_out
+      sign_out :user
       visit sign_share_url(sign, sign.share_token)
     end
 
@@ -98,7 +98,7 @@ RSpec.describe "Sign show page", system: true do
 
   context "user not signed in" do
     before do
-      sign_out
+      sign_out :user
       sign_page.start(sign)
     end
 
