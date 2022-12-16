@@ -16,24 +16,12 @@ class ContributeSignFeature
   end
 
   def submit
-    return wait_for_path if supports_javascript?
-
-    click_on("Start Upload")
+    click_on("Start Upload") unless supports_javascript? # In this case, the form is submitted automatically
+    page.has_content?(I18n.t("signs.create.success"))
   end
 
   def has_error?(message)
     page.has_content?(message)
-  end
-
-  def sign_in(user)
-    visit "/users/sign_in"
-    return if current_path != "/users/sign_in"
-
-    within "form#new_user" do
-      fill_in "Username/Email", with: user.email
-      fill_in "Password", with: user.password
-      click_on "Log in"
-    end
   end
 
   private
