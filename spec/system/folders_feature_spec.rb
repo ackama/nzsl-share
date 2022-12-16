@@ -142,7 +142,7 @@ RSpec.describe "Folders", type: :system do
     let!(:collab_folder) { FactoryBot.create(:folder) }
 
     before do
-      collab_folder.collaborators << process.user
+      collab_folder.collaborators << user
       sign_in user
       process.start
     end
