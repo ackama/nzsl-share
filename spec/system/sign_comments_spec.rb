@@ -116,11 +116,12 @@ RSpec.describe "Sign commenting" do
   end
 
   context "removing", uses_javascript: true do
-    let!(:public_sign) { FactoryBot.create(:sign, :published) }
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: public_sign, user: user) }
+    let(:commenter) { FactoryBot.create(:user) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: commenter) }
 
     it "approved user can delete own comment" do
-      visit sign_path(public_sign)
+      commenter.destroy!
+      visit sign_path(sign)
       within ".sign-comment__options" do
         click_on "Comment Options"
         accept_confirm do
@@ -132,12 +133,12 @@ RSpec.describe "Sign commenting" do
   end
 
   context "when the user is deleted" do
-    let!(:public_sign) { FactoryBot.create(:sign, :published) }
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: public_sign, user: user) }
+    let(:commenter) { FactoryBot.create(:user) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: commenter) }
 
     it "continues to show the comment, but not the user details" do
-      user.destroy!
-      visit sign_path(public_sign)
+      commenter.destroy!
+      visit sign_path(sign)
       expect(page).to have_no_selector("sign-comments__comment__username--link")
       expect(page).to have_selector ".sign-comments__comment", text: comment.comment
     end
