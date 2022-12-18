@@ -8,7 +8,7 @@ class SignWorkflowController < ApplicationController
 
   def unpublish
     sign.unpublish!
-    succeeded(redirect_back: false)
+    succeeded(redirect_path: redirect_location)
   end
 
   def cancel_submit
@@ -28,7 +28,7 @@ class SignWorkflowController < ApplicationController
 
   def decline
     sign.decline!
-    succeeded(redirect_back: false)
+    succeeded(redirect_path: redirect_location)
   end
 
   # Unused - this transition is invoked from the
@@ -42,11 +42,11 @@ class SignWorkflowController < ApplicationController
 
   private
 
-  def succeeded(redirect_back: true)
-    if redirect_back
-      redirect_back(fallback_location: redirect_location, notice: success_messsage)
+  def succeeded(redirect_path: nil)
+    if redirect_path
+      redirect_to redirect_path, notice: success_messsage
     else
-      redirect_to redirect_location, notice: success_messsage
+      redirect_back(fallback_location: redirect_location, notice: success_messsage)
     end
   end
 
