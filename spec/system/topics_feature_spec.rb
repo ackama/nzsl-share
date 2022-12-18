@@ -13,6 +13,10 @@ RSpec.describe "Topics", type: :system do
     it "has the correct page title" do
       expect(page).to have_title "Topics – NZSL Share"
     end
+
+    it "has a link to view all signs" do
+      expect(page).to have_link "See all signs", href: public_signs_path
+    end
   end
 
   describe "show" do
