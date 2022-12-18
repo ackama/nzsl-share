@@ -131,6 +131,18 @@ RSpec.describe "Sign commenting" do
     end
   end
 
+  context "when the user is deleted" do
+    let!(:public_sign) { FactoryBot.create(:sign, :published) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: public_sign, user: user) }
+
+    it "continues to show the comment, but not the user details" do
+      user.destroy!
+      visit sign_path(public_sign)
+      expect(page).to have_no_selector("sign-comments__comment__username--link")
+      expect(page).to have_selector ".sign-comments__comment", text: comment.comment
+    end
+  end
+
   context "pagination" do
     let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign: sign, user: user) }
 
