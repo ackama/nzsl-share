@@ -9,4 +9,12 @@ class TopicsController < ApplicationController
     @signs = policy_scope(@topic.signs)
     authorize @topic
   end
+
+  def uncategorised
+    @topic = Topic.new(name: Topic::NO_TOPIC_DESCRIPTION)
+    authorize @topic, :show?
+    @signs = policy_scope(Sign).uncategorised
+
+    render :show
+  end
 end

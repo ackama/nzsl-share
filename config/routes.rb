@@ -54,7 +54,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :topics, only: %i[index show]
+  resources :topics, only: %i[index show] do
+    get :uncategorised, on: :collection
+  end
 
   resources :folders do
     resources :share, only: %i[show create destroy], controller: :folder_share, param: :token
