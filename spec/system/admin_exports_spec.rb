@@ -2,9 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Admin: Exports", type: :system do
   let(:administrator) { FactoryBot.create(:user, :administrator) }
-  let(:auth) { AuthenticateFeature.new(administrator) }
   before do
-    auth.sign_in
+    sign_in administrator
     visit admin_exports_path
   end
 
