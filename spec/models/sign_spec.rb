@@ -207,4 +207,17 @@ RSpec.describe Sign, type: :model do
       expect(result).not_to include not_published
     end
   end
+
+  describe ".uncategorised" do
+    it "returns expected records" do
+      no_topic = FactoryBot.create(:sign)
+      no_topic.sign_topics.destroy_all
+      single_topic = FactoryBot.create(:sign)
+      multiple_topics = FactoryBot.create(:sign, topics: Topic.all.sample(2))
+
+      expect(described_class.uncategorised).to include no_topic
+      expect(described_class.uncategorised).not_to include single_topic
+      expect(described_class.uncategorised).not_to include multiple_topics
+    end
+  end
 end
