@@ -4,7 +4,6 @@ RSpec.describe "User administration", type: :system do
   include AdministratePageHelpers
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:users) { FactoryBot.create_list(:user, 3) }
-  let(:auth) { AuthenticateFeature.new(admin) }
 
   before { visit_admin(:users, admin: admin) }
 

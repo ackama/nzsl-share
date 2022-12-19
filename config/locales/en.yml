@@ -190,6 +190,9 @@ en:
       subject: NZSL Share - You have been accepted as an approved member
     declined:
       subject: NZSL Share - Sorry, your application has not been approved
+  sign_workflow_mailer:
+    moderation_requested:
+      subject: NZSL Share - Submitted sign requires moderation
   collaboration_mailer:
     success:
       subject: NZSL Share - You are invited to join a team

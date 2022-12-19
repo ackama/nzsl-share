@@ -3,11 +3,10 @@ require "rails_helper"
 RSpec.describe "Sign commenting" do
   let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
-  let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
   before do
-    auth.sign_in if user
+    sign_in user if user
     sign_page.start(sign)
   end
 

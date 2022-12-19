@@ -134,6 +134,20 @@ RSpec.describe Sign, type: :model do
     end
   end
 
+  describe "#submit" do
+    let(:model) { FactoryBot.create(:sign, conditions_accepted: true) }
+    subject { model.submit! }
+
+    it "changes the status to submitted" do
+      expect { subject }.to change(model, :status).to eq "submitted"
+    end
+
+    it "sends an email notification to moderators" do
+      ActiveJob::Base.queue_adapter = :test
+      expect { subject }.to have_enqueued_mail(SignWorkflowMailer, :moderation_requested)
+    end
+  end
+
   describe "#unpublish" do
     let(:model) { FactoryBot.create(:sign, :published) }
     before { allow(ArchiveSign).to receive_message_chain(:new, :process) }

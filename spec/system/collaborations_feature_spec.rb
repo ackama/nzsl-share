@@ -2,13 +2,15 @@ require "rails_helper"
 
 RSpec.describe "Collaborative Folders", type: :system do
   let(:process) { FolderFeature.new }
+  let(:user) { FactoryBot.create(:user) }
 
   describe "Managing collaborations" do
-    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:collab_folder) { FactoryBot.create(:folder) }
 
     before do
-      collab_folder.collaborators << process.user
+      sign_in user
+      collab_folder.collaborators << user
       folder.collaborators.destroy_all
       process.start
     end
@@ -29,10 +31,13 @@ RSpec.describe "Collaborative Folders", type: :system do
   end
 
   describe "Creating a new collaboration", uses_javascript: true do
-    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:collaborator) { FactoryBot.create(:user) }
 
-    before { process.start }
+    before do
+      sign_in user
+      process.start
+    end
 
     context "by email" do
       it "successfully adds new collaborator" do
@@ -68,10 +73,11 @@ RSpec.describe "Collaborative Folders", type: :system do
   end
 
   describe "Removing a collaborator" do
-    let!(:folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:collaborator) { FactoryBot.create(:user) }
 
     before do
+      sign_in user
       folder.collaborators << collaborator
       process.start
     end
@@ -91,7 +97,7 @@ RSpec.describe "Collaborative Folders", type: :system do
       it "successfully" do
         process.manage_collaborators(dropdown: true)
         within ".modal-form__fields", match: :first do
-          process.find("div", text: process.user.username, visible: true).sibling("div").click
+          process.find("div", text: user.username, visible: true).sibling("div").click
         end
         confirmation = page.driver.browser.switch_to.alert
         expect(confirmation.text).to eq I18n.t!("collaborations.destroy.confirm")
@@ -100,11 +106,12 @@ RSpec.describe "Collaborative Folders", type: :system do
   end
 
   describe "Sign permissions in collaborative folders" do
-    let!(:collab_folder) { FactoryBot.create(:folder, user: process.user) }
+    let!(:collab_folder) { FactoryBot.create(:folder, user: user) }
     let!(:collaborator) { FactoryBot.create(:user) }
     let!(:private_sign) { FactoryBot.create(:sign, :personal, contributor: collaborator) }
 
     before do
+      sign_in user
       collab_folder.collaborators << collaborator
       FolderMembership.create(folder: collab_folder, sign: private_sign)
       process.start
@@ -120,7 +127,7 @@ RSpec.describe "Collaborative Folders", type: :system do
 
     it "can edit other users' private signs in the folder" do
       visit sign_path(private_sign.id)
-      expect(page).to have_content "Hey #{process.user.username}, you are a collaborator on this sign"
+      expect(page).to have_content "Hey #{user.username}, you are a collaborator on this sign"
       within "#sign_overview" do
         expect(page).to have_link "Edit"
         click_link "Edit"

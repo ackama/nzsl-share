@@ -1,6 +1,4 @@
 class ApprovedUserMailer < ApplicationMailer
-  helper :mailers
-
   def submitted(application)
     @user = application.user
     mail to: @user.email
