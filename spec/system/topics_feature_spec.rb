@@ -17,6 +17,10 @@ RSpec.describe "Topics", type: :system do
     it "has a link to view all signs" do
       expect(page).to have_link "See all signs", href: public_signs_path
     end
+
+    it "has a link to view uncategorised signs" do
+      expect(page).to have_link Topic::NO_TOPIC_DESCRIPTION, href: uncategorised_topics_path
+    end
   end
 
   describe "show" do
