@@ -68,9 +68,9 @@ class SignCommentsController < ApplicationController
   def build_text_comment
     {
       comment: Sanitizer.sanitize_text_with_urls(comment_params[:comment]),
-      parent_id: comment_params[:parent_id],
       anonymous: comment_params[:anonymous],
-      folder_id: comment_params[:folder_id],
+      parent_id: @sign_comment&.parent_id || comment_params[:parent_id],
+      folder_id: @sign_comment&.folder_id || comment_params[:folder_id],
       sign_status: @sign.status,
       sign: @sign,
       user: current_user
