@@ -3,9 +3,11 @@ require "rails_helper"
 RSpec.describe "The admin sidebar", type: :system do
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:users) { FactoryBot.create_list(:user, 3) }
-  let(:auth) { AuthenticateFeature.new(admin) }
 
-  before { auth.sign_in }
+  before do
+    sign_in admin
+    visit root_path
+  end
 
   it "links to signs dashboard" do
     within ".sidebar--inside-grid" do

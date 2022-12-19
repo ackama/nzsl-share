@@ -3,11 +3,10 @@ require "rails_helper"
 RSpec.describe "Sign show page", system: true do
   let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, contributor: user) }
-  let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
   before do
-    auth.sign_in if user
+    sign_in user if user
     sign_page.start(sign)
   end
 
@@ -53,7 +52,7 @@ RSpec.describe "Sign show page", system: true do
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
-      auth.sign_out
+      sign_out :user
       visit sign_share_url(sign, sign.share_token)
     end
 
@@ -80,7 +79,7 @@ RSpec.describe "Sign show page", system: true do
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
-      auth.sign_out
+      sign_out :user
       visit sign_share_url(sign, sign.share_token)
     end
 
@@ -99,7 +98,7 @@ RSpec.describe "Sign show page", system: true do
 
   context "user not signed in" do
     before do
-      auth.sign_out
+      sign_out :user
       sign_page.start(sign)
     end
 
@@ -154,7 +153,7 @@ RSpec.describe "Sign show page", system: true do
           end
         end
 
-        it "allows the moderator to manage the sign", uses_javascript: true do
+        it "allows the moderator to publish the sign", uses_javascript: true do
           within("#sign_overview") { expect(sign_page).to have_link "Edit" }
 
           my_link = find(:xpath, "//a[contains(@href,'signs/#{sign.id}/publish')]")
@@ -167,6 +166,21 @@ RSpec.describe "Sign show page", system: true do
           expect(subject).to have_content I18n.t!("sign_workflow.publish.success")
           sign.reload
           expect(sign.published?).to eq true
+        end
+
+        it "allows the moderator to decline the sign", uses_javascript: true do
+          within("#sign_overview") { expect(sign_page).to have_link "Edit" }
+
+          my_link = find(:xpath, "//a[contains(@href,'signs/#{sign.id}/decline')]")
+
+          my_link.click
+          alert = page.driver.browser.switch_to.alert
+
+          expect(alert.text).to eq I18n.t!("sign_workflow.decline.confirm")
+          alert.accept
+          expect(subject).to have_content I18n.t!("sign_workflow.decline.success")
+          sign.reload
+          expect(sign.declined?).to eq true
         end
       end
 

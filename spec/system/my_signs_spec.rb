@@ -4,10 +4,10 @@ RSpec.describe "My Signs", type: :system do
   let!(:user) { FactoryBot.create(:user) }
   let!(:signs) { FactoryBot.create_list(:sign, 5, contributor: user) }
   let!(:unowned_sign) { FactoryBot.create(:sign) }
-  let(:auth) { AuthenticateFeature.new(user) }
 
   before do
-    auth.sign_in
+    sign_in user
+    visit root_path
     within ".sidebar--inside-grid" do
       click_on "My signs"
     end

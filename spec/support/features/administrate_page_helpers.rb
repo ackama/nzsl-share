@@ -1,7 +1,7 @@
 module AdministratePageHelpers
   def visit_admin(path, namespace: "/admin", admin: FactoryBot.create(:user, administrator: true))
-    visit [namespace, path].join("/")
     sign_in admin
+    visit [namespace, path].join("/")
   end
 
   def header
@@ -22,16 +22,5 @@ module AdministratePageHelpers
 
   def last_row
     all("tr.js-table-row").last
-  end
-
-  def sign_in(user)
-    # We're already signed in
-    return if current_path != "/users/sign_in"
-
-    within "form#new_user" do
-      fill_in "Email", with: user.email
-      fill_in "Password", with: user.password
-      click_on "Log in"
-    end
   end
 end

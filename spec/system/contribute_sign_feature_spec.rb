@@ -3,14 +3,17 @@ require "rails_helper"
 RSpec.describe "Contributing a new sign", type: :system do
   let(:user) { FactoryBot.create(:user) }
   subject { ContributeSignFeature.new }
-  before { subject.start(user) }
+  before do
+    sign_in user
+    subject.start
+  end
 
   shared_examples_for "sign contribution feature" do
     it "can contribute a valid video file" do
       expect do
         subject.choose_file
         subject.submit
-      end.to change(subject.user.signs, :count).by(1)
+      end.to change(user.signs, :count).by(1)
     end
 
     it "using drag and drop can contribute a valid video file" do
@@ -18,7 +21,7 @@ RSpec.describe "Contributing a new sign", type: :system do
         subject.drop_file_in_file_upload
         subject.submit
         expect(subject).to have_content I18n.t!("signs.create.success")
-      end.to change(subject.user.signs, :count).by(1)
+      end.to change(user.signs, :count).by(1)
     end
 
     it "shows a success message and navigates to the sign page" do
