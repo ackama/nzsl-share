@@ -43,8 +43,8 @@ bin/setup
 This project follows the typical structure for a Rails application: generally, application code is located in `app`
 and tests are in `spec`. Other locations of interest include:
 
-* `app/frontend` - our webpacker directory (we don't have app/assets)
-* `lib` - some additional files that are tangentially related to the application
+- `app/frontend` - our webpacker directory (we don't have app/assets)
+- `lib` - some additional files that are tangentially related to the application
 
 There are other files in the project, of course, but these are likely the ones
 you'll be most interested in.
@@ -56,11 +56,11 @@ appropriate. We aim to keep classes as single-responsibility as we can.
 
 In addition, tests are broken up into two categories:
 
-* Unit tests — low-level tests for individual classes. These tests typically stub out arguments and dependencies
+- Unit tests — low-level tests for individual classes. These tests typically stub out arguments and dependencies
   that an object has.
-* Integration tests — high-level tests to ensure that the application works. We don't have many of these tests, as
+- Integration tests — high-level tests to ensure that the application works. We don't have many of these tests, as
   we just use them to fill in gaps between system and unit tests (for example, API-only controllers).
-* System tests - behaviour-driven tests, driven by Capybara through either Rack::Test or Google Chrome. Only use
+- System tests - behaviour-driven tests, driven by Capybara through either Rack::Test or Google Chrome. Only use
   Chrome if you absolutely need it, as it's the slowest type of test we have.
 
 Our approach to testing tends to iterate over time. The best approach for writing tests is to copy an existing test in the same file as where you want to add a new test. We may suggest changes to bring the tests in line with
@@ -72,11 +72,11 @@ We follow a derivative of the [unofficial Ruby style guide] created by the
 Rubocop developers. You can view our Rubocop configuration [here], but here are
 some key differences:
 
-* We allow longer blocks in spec files. This is because `RSpec.describe` blocks can
+- We allow longer blocks in spec files. This is because `RSpec.describe` blocks can
   quite easily go over the default Rubocop limit.
-* We have increased the maximum line length to 100 characters.
+- We have increased the maximum line length to 100 characters.
 
-[unofficial Ruby style guide]: https://github.com/rubocop-hq/ruby-style-guide
+[unofficial ruby style guide]: https://github.com/rubocop-hq/ruby-style-guide
 [here]: .rubocop.yml
 
 We also follow the core ESLint and SASS-Lint style guides, and these processes are all
@@ -131,11 +131,10 @@ In order to run all of the tests, simply run:
 bundle exec rake
 ```
 
-
 ## Managing your branch
 
-* Use well-crafted commit messages, providing context if possible.
-* Squash "WIP" commits and remove merge commits by rebasing your branch against
+- Use well-crafted commit messages, providing context if possible.
+- Squash "WIP" commits and remove merge commits by rebasing your branch against
   `master`. We try to keep our commit history as clean as possible.
 
 ## Documentation
@@ -146,13 +145,12 @@ are prefaced with inline documentation.
 If your changes end up extending or updating the API, it helps greatly to update the
 docs at the same time for future developers and other readers of the source code.
 
-
 ## Continuous integration
 
 While running `bundle exec rake` is a great way to check your work, this command
 will only run your tests against the latest supported Ruby and Rails version.
 Ultimately, though, you'll want to ensure that your changes work in all possible
-environments. We make use of [Codeship][codeship] to do this work for us. Codeship
+environments. We make use of [Github Actions](https://github.com/ackama/nzsl-share/actions) to do this work for us. Actions
 will kick in after you push up a branch or open a PR. It takes about 20 minutes to
 run a complete build.
 
@@ -160,5 +158,3 @@ What happens if the build fails in some way? Don't fear! Click on a failed job
 and scroll through its output to determine the cause of the failure. You'll want
 to make changes to your branch and push them up until the entire build is green.
 It may take a bit of time, but overall it is worth it and it helps us immensely!
-
-[travis]: https://codeship.io
