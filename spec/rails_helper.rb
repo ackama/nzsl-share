@@ -94,6 +94,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :presenter
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :system
 
   config.include WaitForAjax, type: :system
 

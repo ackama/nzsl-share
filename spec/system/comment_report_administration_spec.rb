@@ -6,13 +6,12 @@ RSpec.describe "Comment report administration", type: :system do
   let!(:sign) { FactoryBot.create(:sign, :published) }
   let!(:comment) { FactoryBot.create(:sign_comment, sign: sign) }
   let!(:comment_report) { FactoryBot.create(:comment_report, comment: comment) }
-  let(:auth) { AuthenticateFeature.new(admin) }
 
   before do
     visit_admin(:comment_reports, admin: admin)
   end
 
-  it_behaves_like "an Administrate dashboard", :comment_reports, except: %i[destroy new edit]
+  it_behaves_like "an Administrate dashboard", except: %i[destroy new edit]
 
   describe "viewing", uses_javascript: true do
     it "can view a comment report" do

@@ -5,16 +5,16 @@ RSpec.describe "Approved user applications administration", type: :system do
 
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:application) { FactoryBot.create(:approved_user_application) }
-  let(:auth) { AuthenticateFeature.new(admin) }
 
   before do
-    auth.sign_in
+    sign_in admin
+    visit root_path
     within ".sidebar--inside-grid" do
       click_on "User approvals"
     end
   end
 
-  it_behaves_like "an Administrate dashboard", :approved_user_applications, except: %i[destroy edit new]
+  it_behaves_like "an Administrate dashboard", except: %i[destroy edit new]
 
   describe "accepting" do
     before { click_on_first_row }

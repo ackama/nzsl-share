@@ -1,10 +1,8 @@
 class ApprovedUserApplicationFeature
   include Capybara::DSL
 
-  def start(user, application=FactoryBot.build(:approved_user_application))
-    @user = user
+  def start(application=FactoryBot.build(:approved_user_application))
     @application = application
-    sign_in user
     visit "/approved_user_applications/new"
   end
 
@@ -17,13 +15,5 @@ class ApprovedUserApplicationFeature
 
   def submit
     click_on "Submit"
-  end
-
-  private
-
-  def sign_in(user)
-    return unless user
-
-    AuthenticateFeature.new(user).sign_in
   end
 end

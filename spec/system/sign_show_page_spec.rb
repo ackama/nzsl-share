@@ -3,11 +3,10 @@ require "rails_helper"
 RSpec.describe "Sign show page", system: true do
   let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, contributor: user) }
-  let(:auth) { AuthenticateFeature.new(user) }
   subject(:sign_page) { SignPage.new }
 
   before do
-    auth.sign_in if user
+    sign_in user if user
     sign_page.start(sign)
   end
 
@@ -53,7 +52,7 @@ RSpec.describe "Sign show page", system: true do
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
-      auth.sign_out
+      sign_out :user
       visit sign_share_url(sign, sign.share_token)
     end
 
@@ -80,7 +79,7 @@ RSpec.describe "Sign show page", system: true do
 
     before do
       sign.update(share_token: sign.share_token || SecureRandom.uuid)
-      auth.sign_out
+      sign_out :user
       visit sign_share_url(sign, sign.share_token)
     end
 
@@ -99,7 +98,7 @@ RSpec.describe "Sign show page", system: true do
 
   context "user not signed in" do
     before do
-      auth.sign_out
+      sign_out :user
       sign_page.start(sign)
     end
 
