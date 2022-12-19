@@ -10,7 +10,7 @@ RSpec.describe "Editing a sign", type: :system do
   subject { page }
 
   before do
-    AuthenticateFeature.new(user).sign_in
+    sign_in user
     visit edit_sign_path(sign)
   end
 

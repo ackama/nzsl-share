@@ -7,7 +7,7 @@ RSpec.describe "Topic administration", type: :system do
 
   before { visit_admin(:topics, admin: admin) }
 
-  it_behaves_like "an Administrate dashboard", :topics, except: %i[show]
+  it_behaves_like "an Administrate dashboard", except: %i[show]
 
   it "can visit the show page" do
     click_on_first_row

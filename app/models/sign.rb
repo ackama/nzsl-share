@@ -81,7 +81,8 @@ class Sign < ApplicationRecord
 
   aasm column: "status", whiny_transitions: false do # rubocop:disable Metrics/BlockLength
     state :personal, initial: true
-    state :submitted, before_enter: -> { self.submitted_at = Time.zone.now }
+    state :submitted, before_enter: -> { self.submitted_at = Time.zone.now },
+                      after_enter: -> { SignWorkflowMailer.moderation_requested(self).deliver_later }
     state :published, before_enter: -> { self.published_at = Time.zone.now }
     state :declined, before_enter: -> { self.declined_at = Time.zone.now }
     state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }

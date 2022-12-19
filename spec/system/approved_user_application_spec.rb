@@ -5,7 +5,11 @@ RSpec.describe "Approved user application", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let!(:admin) { FactoryBot.create(:user, :administrator) } # We need a user to receive admin emails
   subject { ApprovedUserApplicationFeature.new }
-  before { subject.start(user) }
+
+  before do
+    sign_in user if user
+    subject.start
+  end
 
   it "completes the mandatory fields only" do
     subject.fill_in_mandatory_fields
@@ -53,6 +57,7 @@ RSpec.describe "Approved user application", type: :system do
     subject.check "Other:"
     subject.fill_in "application_language_roles", with: other_role
     subject.submit
+    expect(page).to have_content I18n.t!("approved_user_applications.create.success")
     expect(ApprovedUserApplication.last.language_roles).to match_array ["other", other_role]
   end
 
@@ -62,6 +67,7 @@ RSpec.describe "Approved user application", type: :system do
     subject.choose "Other ethnic group:"
     subject.fill_in "application_ethnicity", with: other_ethnicity
     subject.submit
+    expect(page).to have_content I18n.t!("approved_user_applications.create.success")
     expect(ApprovedUserApplication.last.ethnicity).to eq other_ethnicity
   end
 

@@ -4,11 +4,10 @@ RSpec.describe "User administration", type: :system do
   include AdministratePageHelpers
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:users) { FactoryBot.create_list(:user, 3) }
-  let(:auth) { AuthenticateFeature.new(admin) }
 
   before { visit_admin(:users, admin: admin) }
 
-  it_behaves_like "an Administrate dashboard", :users, except: %i[destroy new]
+  it_behaves_like "an Administrate dashboard", except: %i[destroy new]
 
   it "excludes unconfirmed users by default" do
     confirmed_user = FactoryBot.create(:user)
