@@ -63,15 +63,14 @@ RSpec.describe "Topics", type: :system do
       categorised_private_sign = FactoryBot.create(:sign, contributor:
         uncategorised_private_sign.contributor)
 
-      auth = AuthenticateFeature.new(categorised_private_sign.contributor)
-      auth.sign_in
+      sign_in categorised_private_sign.contributor
 
       visit uncategorised_topics_path
       expect(page).to have_selector(".sign-card#card_sign_#{uncategorised_published_sign.to_param}")
       expect(page).to have_selector(".sign-card#card_sign_#{uncategorised_private_sign.to_param}")
       expect(page).to have_no_selector(".sign-card#card_sign_#{categorised_private_sign.to_param}")
 
-      auth.sign_out
+      sign_out :user
       visit uncategorised_topics_path
       expect(page).to have_selector(".sign-card#card_sign_#{uncategorised_published_sign.to_param}")
       expect(page).to have_no_selector(".sign-card#card_sign_#{uncategorised_private_sign.to_param}")
