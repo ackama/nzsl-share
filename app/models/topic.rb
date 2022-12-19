@@ -4,6 +4,8 @@ class Topic < ApplicationRecord
   has_many :sign_topics, dependent: :destroy
   has_many :signs, through: :sign_topics
 
+  NO_TOPIC_DESCRIPTION = "Other signs".freeze
+
   def featured
     featured_at.present?
   end

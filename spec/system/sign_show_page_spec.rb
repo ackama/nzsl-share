@@ -335,6 +335,12 @@ RSpec.describe "Sign show page", system: true do
     subject.breadcrumb { expect(subject).to have_content "Current: #{sign.word}" }
   end
 
+  it "shows a breadcrumb to 'Other signs' when there is no topic" do
+    sign.update!(topics: [])
+    visit current_path
+    subject.breadcrumb { expect(subject).to have_content Topic::NO_TOPIC_DESCRIPTION }
+  end
+
   it "shows a breadcrumb to the topic" do
     subject.breadcrumb { expect(subject).to have_link sign.topics.first.name }
   end
