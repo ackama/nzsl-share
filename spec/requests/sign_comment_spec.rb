@@ -105,6 +105,15 @@ RSpec.describe "sign_comment", type: :request do
         expect(sign.sign_comments.first.comment).to eq "updated comment"
         expect(response).to redirect_to sign_path(sign, anchor: "sign_comment_#{sign.sign_comments.first.id}")
       end
+
+      it "retains the folder context of a comment" do
+        folder = FactoryBot.create(:folder)
+        create_params[:folder_id] = folder.id
+        create.call(sign)
+        comment = sign.sign_comments.last
+        update.call(sign, comment)
+        expect { comment.reload }.not_to change(comment, :folder).from(folder)
+      end
     end
 
     describe "reply" do
