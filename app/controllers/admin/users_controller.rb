@@ -12,7 +12,7 @@ module Admin
 
     def destroy
       DeleteUserJob.perform_now(requested_resource)
-      redirect_to action: :index, notice: translate_with_resource("destroy.success")
+      redirect_to admin_users_path, notice: translate_with_resource("destroy.success")
     end
 
     # Override this method to specify custom lookup behavior.
