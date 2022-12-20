@@ -23,5 +23,8 @@
         <%= link_to content_tag(:p, topic.name, class: "royal"), topic, class: "no-underline" %>
       <% end %>
     </div>
+    <div class="list__section list__section--topics cell">
+      <%= link_to Topic::NO_TOPIC_DESCRIPTION, uncategorised_topics_path, class: "royal no-underline" %>
+    </div>
   </div>
 </div>

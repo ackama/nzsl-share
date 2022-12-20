@@ -5,6 +5,12 @@ Rails.application.reloader.to_prepare do
   dictionary_mode = ENV["DICTIONARY_MODE"]&.downcase
   dictionary_sign_model = dictionary_mode == "freelex" ? FreelexSign : DictionarySign
   Rails.application.config.dictionary_sign_model = dictionary_sign_model
+  break if dictionary_sign_model != DictionarySign
+
+  # Update the dictionary file if it is older than 1 month
+  path = Rails.root.join("db/nzsl-dictionary.db.sqlite3")
+  Rails.application.load_tasks
+  Rake::Task["dictionary:update"].execute if !path.exist? || path.mtime <= 1.month.ago
 
   ##
   # All other tables make heavy use of a 'word' column. Add an alias for it here so that
