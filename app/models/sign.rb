@@ -47,6 +47,7 @@ class Sign < ApplicationRecord
   scope :preview, -> { limit(4) }
 
   scope :recent, -> { published.order(published_at: :desc) }
+  scope :uncategorised, -> { left_outer_joins(:sign_topics).group(:id).having("COUNT(sign_topics.id) = 0") }
 
   scope :for_cards, lambda {
     includes(:topics,
