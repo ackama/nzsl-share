@@ -115,11 +115,9 @@ RSpec.describe "Sign commenting" do
   end
 
   context "removing", uses_javascript: true do
-    let(:commenter) { FactoryBot.create(:user) }
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: commenter) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
 
     it "approved user can delete own comment" do
-      commenter.destroy!
       visit sign_path(sign)
       within ".sign-comment__options" do
         click_on "Comment Options"
