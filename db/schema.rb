@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_28_080318) do
+ActiveRecord::Schema.define(version: 2022_12_18_222106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2021_11_28_080318) do
   create_table "sign_comments", force: :cascade do |t|
     t.bigint "parent_id"
     t.bigint "sign_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.text "comment"
     t.text "sign_status", null: false
     t.boolean "display", default: true
