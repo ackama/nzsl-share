@@ -36,14 +36,21 @@ If you know what you're doing already, `bin/setup` should get you set up, and yo
 
 ## Signbank Dictionary
 
-This application allows users to search for signs that are already published in the
-[NZSL Dictionary](https://nzsl.nz). This reduces the risk that a contribution duplicates already-published work.
+This application allows users to search for signs that are already published in
+the [NZSL Dictionary](https://nzsl.nz). This reduces the risk that a
+contribution duplicates already-published work.
 
-The dictionary data is consumed from a SQLite database that is downloaded from a Github release. From time to time, the dictionary data is updated, and exported by [nzsl-dictionary-scripts](https://github.com/odnzsl/nzsl-dictionary-scripts).
+The dictionary data is consumed from a SQLite database that is downloaded from a
+Github release. From time to time, the dictionary data is updated, and exported
+by [nzsl-dictionary-scripts](https://github.com/odnzsl/nzsl-dictionary-scripts).
 
-Unless there has been a major change to published data, **you don't need to update the dictionary SQLite file often**. Running `bin/setup` fetched the most recent copy for you during application setup. Additionally, when the application is started after each deploy, the most recent copy is also downloaded in staging and production.
+Unless there has been a major change to published data, **you don't need to
+update the dictionary SQLite file often**. When the application is started, the
+most recent copy is also downloaded if the database file is missing or older
+than 1 month.
 
-If you know there has been an update, and want the latest copy, you can run `bundle exec rake dictionary:update` to download it.
+If you know there has been an update, and want the latest copy immediately, you
+can run `bundle exec rake dictionary:update` to download it.
 
 ## Deployment
 
