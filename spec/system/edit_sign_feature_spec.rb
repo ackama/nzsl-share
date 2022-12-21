@@ -146,7 +146,7 @@ RSpec.describe "Editing a sign", type: :system do
 
     context "when the sign video has had thumbnails generated" do
       it "displays the processed thumbnail" do
-        sign.update!(processed_thumbnails)
+        sign.update!(processed_thumbnails: true)
         visit sign_path(sign)
         expect(page).to have_selector(".video[poster*='/rails/active_storage/']")
       end
