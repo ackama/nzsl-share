@@ -5,7 +5,16 @@ namespace :dictionary do
     filename = "nzsl.db"
     content_type = "application/vnd.sqlite3"
     release_uri = URI::HTTPS.build(host: "api.github.com", path: "/repos/#{repo}/releases/latest")
-    release = JSON.parse(release_uri.open.read)
+    release = {}
+
+    begin
+      release = JSON.parse(release_uri.open.read)
+    rescue OpenURI::HTTPError => e
+      puts "Failed to access release, retrying after 10s... (#{e})"
+      sleep 10
+      retry
+    end
+
     database_asset = release["assets"].find do |asset|
       asset["name"] == filename && asset["content_type"] == content_type
     end
