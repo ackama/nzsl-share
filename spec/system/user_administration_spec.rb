@@ -7,7 +7,7 @@ RSpec.describe "User administration", type: :system do
 
   before { visit_admin(:users, admin: admin) }
 
-  it_behaves_like "an Administrate dashboard", except: %i[destroy new]
+  it_behaves_like "an Administrate dashboard", :users, except: %i[new]
 
   it "excludes unconfirmed users by default" do
     confirmed_user = FactoryBot.create(:user)

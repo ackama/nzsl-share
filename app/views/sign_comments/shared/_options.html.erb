@@ -1,6 +1,6 @@
-<a href="#" data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
+<button data-toggle="<%= dom_id(comment, :options) %>" title="Comment Options">
   <%= inline_svg_pack_tag "media/images/options.svg", class: "icon--medium list__item__icon" %>
-</a>
+</button>
 <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--admin"
      id="<%= dom_id(comment, :options) %>"
      data-position="bottom"
