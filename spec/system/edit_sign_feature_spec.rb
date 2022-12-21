@@ -146,7 +146,7 @@ RSpec.describe "Editing a sign", type: :system do
 
     context "when the sign video has had thumbnails generated" do
       before { sign.update!(processed_thumbnails: true); }
-      it { expect(page).to have_selector ".video[poster*='/rails/active_storage/']" }
+      it { expect(page).to have_selector(".video[poster*='/rails/active_storage/']", wait: 30.seconds) }
     end
 
     context "when the sign video has been encoded" do
