@@ -3,7 +3,7 @@
     <%= link_to "#" do %>
       <% inline_svg_pack_tag("media/images/avatar.svg", title: "Avatar", aria: true, class: "avatar avatar--small") %>
     <% end %>
-  <% else %>
+  <% elsif comment.user %>
     <%= link_to user_path(comment.user.username) do %>
       <%= comment.user_avatar %>
     <% end %>
@@ -12,9 +12,9 @@
 
 <div class="cell auto sign-comments__comment">
   <span class="cell auto">
-    <%= link_to user_path(comment.user.username), class: "sign-comments__comment__username--link" do %>
+    <%= link_to user_path(comment.user), class: "sign-comments__comment__username--link" do %>
       <%= comment.username %>
-    <% end unless comment.anonymous || comment.removed %>
+    <% end unless comment.anonymous || comment.removed || comment.user.nil? %>
   </span>
 
   <% if comment.removed? %>

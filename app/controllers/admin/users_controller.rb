@@ -10,6 +10,11 @@ module Admin
     #   send_foo_updated_email
     # end
 
+    def destroy
+      DeleteUserJob.perform_now(requested_resource)
+      redirect_to admin_users_path, notice: translate_with_resource("destroy.success")
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

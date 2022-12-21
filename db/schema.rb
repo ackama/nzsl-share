@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status", default: "submitted"
+    t.index ["status"], name: "index_approved_user_applications_on_status"
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
@@ -100,7 +101,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "signs_count", default: 0
     t.string "share_token"
-    t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
+    t.index "user_id, TRIM(BOTH FROM lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
     t.index ["share_token"], name: "index_folders_on_share_token", unique: true
     t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_folders_on_user_id"

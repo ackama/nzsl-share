@@ -81,6 +81,14 @@ to display a collection of resources in an HTML table.
               <%= inline_svg_pack_tag "media/images/edit.svg" %><span>Edit</span>
             <% end %>
           </li>
+
+          <% if policy(resource).destroy? %>
+            <li class="list__item-menu__menu-item">
+              <%= link_to([namespace, resource], method: :delete, data: { confirm: t(".confirm_destroy")}) do %>
+                <%= inline_svg_pack_tag "media/images/close.svg" %><span>Delete</span>
+              <% end %>
+            </li>
+          <% end %>
         </ul>
       </div>
     <% end %>
