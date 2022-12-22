@@ -1,4 +1,4 @@
-class SignsController < ApplicationController
+class SignsController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :authenticate_user!, except: %i[show]
   after_action :mark_comments_as_read, only: :show
 
