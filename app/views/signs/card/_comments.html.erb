@@ -1,0 +1,6 @@
+<% return unless user_signed_in? %>
+
+<%= link_to sign, class: "sign-card__controls--comments", id: sign.dom_id(:comments) do %>
+  <%= inline_svg_pack_tag "media/images/comment.svg", aria: true, title: "Comments", class: "sign-card__controls--icon" %>
+  <%= sign.comments_count %>
+<% end %>
