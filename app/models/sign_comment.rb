@@ -62,6 +62,7 @@ class SignComment < ApplicationRecord
 
   def remove
     update!(removed: true)
+    activities.destroy_all
     reports.destroy_all
   end
 end
