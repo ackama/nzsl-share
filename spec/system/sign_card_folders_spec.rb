@@ -1,10 +1,8 @@
 require "rails_helper"
 
-RSpec.describe "Sign card features", type: :system do
+RSpec.describe "Adding and removing signs to folders from the card view", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let!(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
-  let!(:private_sign) { FactoryBot.create(:sign, :personal) }
-  let(:presenter) { SignPresenter.new(sign, ApplicationController.new) }
 
   before do |example|
     sign_in user unless example.metadata[:signed_out]
@@ -15,54 +13,7 @@ RSpec.describe "Sign card features", type: :system do
     find(".sign-card", match: :first)
   end
 
-  def inside_card(&block)
-    within(sign_card, &block)
-  end
-
-  it "shows the title" do
-    expect(sign_card).to have_selector ".sign-card__title", text: sign.word
-  end
-
-  it "shows the contributor's username" do
-    expect(sign_card).to have_content sign.contributor.username
-  end
-
-  it "contributor's username links to their profile" do
-    inside_card do
-      click_on sign.contributor.username
-      expect(page).to have_current_path(user_path(sign.contributor.username))
-    end
-  end
-
-  it "shows a formatted date" do
-    expect(sign_card).to have_content presenter.friendly_date
-  end
-
-  it "shows the sign status" do
-    expect(sign_card).to have_content "Public"
-    title = sign_card.find("#sign_status")["title"]
-    assert_equal(title, I18n.t!("signs.published.description"))
-  end
-
-  it "does not show the sign status if they are logged out", signed_out: true do
-    visit sign_path(sign)
-    expect(sign_path(sign)).to eq current_path
-    expect(sign_card).to have_no_content "Public"
-  end
-
-  it "shows the embedded media" do
-    expect(sign_card).to have_selector ".sign-card__media > .video-wrapper > video.video"
-  end
-
-  it "shows the Māori gloss" do
-    expect(sign_card).to have_selector ".sign-card__supplementary-titles__maori", text: sign.maori
-  end
-
-  it "shows the secondary gloss" do
-    expect(sign_card).to have_selector ".sign-card__supplementary-titles__secondary", text: sign.secondary
-  end
-
-  describe "Adding & removing from folders with JS", uses_javascript: true do
+  context "with JS", uses_javascript: true do
     let(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: user) }
     let!(:collab_folder) { FactoryBot.create(:folder) }
@@ -78,7 +29,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "shows existing folder state" do
-      inside_card do
+      within sign_card do
         click_on "Folders"
         active_checkbox = page.find_field("membership_folder_#{folder.id}_sign_#{sign.id}")
         inactive_checkbox = page.find_field("membership_folder_#{other_folder.id}_sign_#{sign.id}")
@@ -91,7 +42,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "adds the sign to an owned folder" do
-      inside_card do
+      within sign_card do
         click_on "Folders"
         expect do
           page.find("label", text: other_folder.title).click
@@ -101,7 +52,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "adds the sign to a collaborative folder" do
-      inside_card do
+      within sign_card do
         click_on "Folders"
         expect do
           page.find("label", text: empty_collab_folder.title).click
@@ -134,7 +85,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "removes a sign from an owned folder" do
-      inside_card do
+      within sign_card do
         click_on "Folders"
         expect do
           page.find("label", text: folder.title).click
@@ -144,7 +95,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "removes a sign from a collab folder" do
-      inside_card do
+      within sign_card do
         click_on "Folders"
         expect do
           page.find("label", text: collab_folder.title).click
@@ -166,7 +117,7 @@ RSpec.describe "Sign card features", type: :system do
     end
   end
 
-  describe "Adding & removing from folders without JS" do
+  context "without JS" do
     let(:folder) { FactoryBot.create(:folder, user: user) }
     let!(:other_folder) { FactoryBot.create(:folder, user: user) }
     let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
@@ -175,7 +126,7 @@ RSpec.describe "Sign card features", type: :system do
     before { visit current_path }
 
     it "shows existing folder state" do
-      inside_card do
+      within sign_card do
         expect(page).to have_selector ".sign-card__folders__button--in-folder"
         within ".sign-card__folders__menu" do
           expect(page).to have_content folder.title
@@ -184,7 +135,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "adds the sign to a folder" do
-      inside_card do
+      within sign_card do
         within ".sign-card__folders__menu" do
           select other_folder.title, from: "Add to Folder:"
           click_on "Save"
@@ -197,7 +148,7 @@ RSpec.describe "Sign card features", type: :system do
     end
 
     it "removes the sign from a folder" do
-      inside_card do
+      within sign_card do
         within ".sign-card__folders__menu" do
           click_on "Remove from Folder"
         end
@@ -221,67 +172,6 @@ RSpec.describe "Sign card features", type: :system do
         click_on "Log in"
       end
       expect(page).to have_current_path(original_path)
-    end
-  end
-
-  shared_examples "sign card voting" do
-    it "is able to register an agree" do
-      within sign_card do
-        click_on "Agree"
-        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
-      end
-    end
-
-    it "is able to deregister an agree" do
-      within sign_card do
-        click_on "Agree"
-        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
-        click_on "Undo agree"
-        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
-      end
-    end
-
-    it "is able to register a disagree" do
-      within sign_card do
-        click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
-      end
-    end
-
-    it "is able to deregister a disagree" do
-      within sign_card do
-        click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
-        click_on "Undo disagree"
-        expect(page).to have_selector ".sign-card__votes--disagree", text: "0"
-      end
-    end
-
-    it "is able to switch from agree to disagree" do
-      within sign_card do
-        click_on "Agree"
-        click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--agree", text: "0", wait: 10
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1", wait: 10
-      end
-    end
-  end
-
-  describe "Voting" do
-    let(:user) { FactoryBot.create(:user, :approved) }
-
-    context "not an approved user" do
-      let(:user) { FactoryBot.create(:user) }
-      it { expect(page).to have_no_link "Agree" }
-      it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
-    end
-
-    context "without JS" do
-      include_examples "sign card voting"
-    end
-
-    context "with JS", uses_javascript: true do
-      include_examples "sign card voting"
     end
   end
 end
