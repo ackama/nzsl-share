@@ -128,6 +128,8 @@ class SignsController < ApplicationController
   end
 
   def mark_comments_as_read
+    return unless user_signed_in?
+
     @comments.each { |c| c.read_by!(current_user) }
   end
 end

@@ -40,5 +40,11 @@ RSpec.describe "sign", type: :request do
       expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(0)
       expect { get sign_path(sign, comments_page: 2) }.to change(SignCommentActivity.read, :count).by(5)
     end
+
+    it "doesn't mark comments as read when there is no user signed in" do
+      sign_out :user
+      FactoryBot.create(:sign_comment, sign: sign)
+      expect { get sign_path(sign) }.not_to change(SignCommentActivity.read, :count)
+    end
   end
 end
