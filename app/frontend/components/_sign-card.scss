@@ -266,6 +266,22 @@
       text-decoration: none;
     }
 
+    &--comments--unread {
+      position: relative;
+      &::after {
+        background: get-color(royal);
+        border-radius: 50px;
+        border: solid 1px get-color(white);
+        content: " ";
+        display: block;
+        height: rem-calc(8);
+        left: 12px; // Position over icon
+        position: absolute;
+        top: -4px;
+        width: rem-calc(8);
+      }
+    }
+
     &--agree, &--disagree {
       margin-right: 25px;
     }
