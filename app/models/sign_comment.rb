@@ -21,12 +21,26 @@ class SignComment < ApplicationRecord
            dependent: :destroy,
            foreign_key: :comment_id
 
+  has_many :activities, class_name: "SignCommentActivity",
+                        inverse_of: :sign_comment,
+                        dependent: :destroy
+
   has_one_attached :video
 
   validates :sign, presence: true
   validates :user, presence: true
   validates :sign_status, presence: true
   validates :comment, presence: true, length: { maximum: 1000 }
+
+  scope :read_by, lambda { |user|
+    includes(:activities)
+      .where(
+        activities: {
+          user: user,
+          key: SignCommentActivity.keys[:read]
+        }
+      )
+  }
 
   def self.comment_types
     [["Text comment", "text"], ["NZSL comment", "video"]]
@@ -38,10 +52,16 @@ class SignComment < ApplicationRecord
     video.blob.metadata[:description] || ""
   end
 
-  def self.remove(sign_comment)
-    ActiveRecord::Base.transaction do
-      sign_comment.update!(removed: true)
-      sign_comment.reports.destroy_all
-    end
+  def read_by!(user)
+    activities.read.where(user: user).first_or_create!
+  end
+
+  def read_by?(user)
+    self.class.read_by(user).exists?(sign_comments: { id: id })
+  end
+
+  def remove
+    update!(removed: true)
+    reports.destroy_all
   end
 end

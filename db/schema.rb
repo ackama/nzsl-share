@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_18_222106) do
+ActiveRecord::Schema.define(version: 2022_12_21_033513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2022_12_18_222106) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status", default: "submitted"
+    t.index ["status"], name: "index_approved_user_applications_on_status"
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
@@ -100,7 +101,7 @@ ActiveRecord::Schema.define(version: 2022_12_18_222106) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "signs_count", default: 0
     t.string "share_token"
-    t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
+    t.index "user_id, TRIM(BOTH FROM lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
     t.index ["share_token"], name: "index_folders_on_share_token", unique: true
     t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_folders_on_user_id"
@@ -130,6 +131,18 @@ ActiveRecord::Schema.define(version: 2022_12_18_222106) do
     t.index ["user_id", "sign_id"], name: "sign_agreements", unique: true, where: "((key)::text = 'agree'::text)"
     t.index ["user_id", "sign_id"], name: "sign_disagreements", unique: true, where: "((key)::text = 'disagree'::text)"
     t.index ["user_id"], name: "index_sign_activities_on_user_id"
+  end
+
+  create_table "sign_comment_activities", force: :cascade do |t|
+    t.bigint "sign_comment_id", null: false
+    t.bigint "user_id", null: false
+    t.string "key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key"], name: "index_sign_comment_activities_on_key"
+    t.index ["sign_comment_id", "user_id", "key"], name: "idx_sign_comment_activities"
+    t.index ["sign_comment_id"], name: "index_sign_comment_activities_on_sign_comment_id"
+    t.index ["user_id"], name: "index_sign_comment_activities_on_user_id"
   end
 
   create_table "sign_comments", force: :cascade do |t|
@@ -250,6 +263,8 @@ ActiveRecord::Schema.define(version: 2022_12_18_222106) do
   add_foreign_key "folder_memberships", "signs"
   add_foreign_key "sign_activities", "signs"
   add_foreign_key "sign_activities", "users"
+  add_foreign_key "sign_comment_activities", "sign_comments"
+  add_foreign_key "sign_comment_activities", "users"
   add_foreign_key "sign_comments", "signs"
   add_foreign_key "sign_comments", "users"
   add_foreign_key "sign_topics", "signs"

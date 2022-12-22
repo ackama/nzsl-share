@@ -1,5 +1,6 @@
 class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
+  after_action :mark_comments_as_read, only: :show
 
   def show
     @sign = present(signs.includes(sign_comments: :replies).find(id))
@@ -69,6 +70,8 @@ class SignsController < ApplicationController
     @comments = policy_scope(@sign.sign_comments)
                 .includes(:replies, user: :avatar_attachment).where(folder_id: comments_folder_id)
                 .page(params[:comments_page]).per(10)
+
+    @comments
   end
 
   def check_contribution_limit!
@@ -122,5 +125,9 @@ class SignsController < ApplicationController
       format.html { redirect_to sign, notice: t(".success") }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" } # rubocop:disable Rails/RenderInline
     end
+  end
+
+  def mark_comments_as_read
+    @comments.each { |c| c.read_by!(current_user) }
   end
 end
