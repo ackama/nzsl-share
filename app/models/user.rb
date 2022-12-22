@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :collaborations, foreign_key: :collaborator_id, inverse_of: :collaborator, dependent: :destroy
 
   has_many :sign_comments, dependent: :nullify
+  has_many :sign_comment_activities, dependent: :destroy
 
   has_one :approved_user_application, dependent: :destroy
   has_one_attached :avatar
