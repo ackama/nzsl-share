@@ -215,4 +215,17 @@ RSpec.describe SignPresenter, type: :presenter do
       it { is_expected.to eq "folders_sign_#{sign.id}" }
     end
   end
+
+  describe "#comments_count" do
+    it "counts comments using Pundit.policy_scope" do
+      user = User.new
+      sign_in user
+      relation_double = instance_double(ActiveRecord::Relation, count: 10)
+      expect(Pundit).to receive(:policy_scope)
+        .with(view.current_user, sign.sign_comments)
+        .and_return(relation_double)
+
+      expect(presenter.comments_count).to eq 10
+    end
+  end
 end

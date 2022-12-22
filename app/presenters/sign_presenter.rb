@@ -116,6 +116,10 @@ class SignPresenter < ApplicationPresenter
     SignPolicy
   end
 
+  def comments_count
+    @comments_count ||= Pundit.policy_scope(h.current_user, SignComment.where(sign: sign)).count
+  end
+
   private
 
   def map_folders_to_memberships(folders, memberships)
