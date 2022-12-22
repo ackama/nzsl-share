@@ -1,10 +1,10 @@
 module SignsHelper
   def agree_button(sign, extra_classes="grid-x align-middle", &block)
-    classes = "sign-card__votes--agree #{extra_classes}"
+    classes = "sign-card__controls--agree #{extra_classes}"
     return content_tag(:div, class: classes, &block) unless policy(sign).agree?
 
     if SignActivity.agree?(sign_id: sign.id, user: current_user)
-      classes << " sign-card__votes--agreed"
+      classes << " sign-card__controls--agreed"
       return undo_agree_button(sign, classes, &block)
     end
 
@@ -15,11 +15,11 @@ module SignsHelper
   end
 
   def disagree_button(sign, extra_classes="grid-x align-middle", &block)
-    classes = "sign-card__votes--disagree #{extra_classes}"
+    classes = "sign-card__controls--disagree #{extra_classes}"
     return content_tag(:div, class: classes, &block) unless policy(sign).disagree?
 
     if SignActivity.disagree?(sign_id: sign.id, user: current_user)
-      classes << " sign-card__votes--disagreed"
+      classes << " sign-card__controls--disagreed"
       return undo_disagree_button(sign, classes, &block)
     end
 

@@ -249,20 +249,24 @@
     }
   }
 
-  &__votes {
+  &__controls {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     font-size: rem-calc(13);
     font-weight: 600;
 
     &--agree,
-    &--disagree {
+    &--disagree,
+    &--comments {
       color: get-color(medium) !important;
       display: inline-flex;
       text-decoration: none;
     }
 
-    &--agree {
+    &--agree, &--disagree {
       margin-right: 25px;
     }
 
