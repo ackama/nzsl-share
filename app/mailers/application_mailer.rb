@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV["MAIL_FROM"]
+  default from: ENV.fetch("MAIL_FROM", nil)
   layout "mailer"
   helper :mailers
 

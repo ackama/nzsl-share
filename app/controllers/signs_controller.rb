@@ -2,6 +2,11 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   before_action :authenticate_user!, except: %i[show]
   after_action :mark_comments_as_read, only: :show
 
+  def index
+    @signs = signs.where(contributor: current_user).page(params[:page])
+    authorize @signs
+  end
+
   def show
     @sign = present(signs.includes(sign_comments: :replies).find(id))
     @current_folder_id = params[:comments_in_folder]
@@ -13,11 +18,6 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     render
   end
 
-  def index
-    @signs = signs.where(contributor: current_user).page(params[:page])
-    authorize @signs
-  end
-
   def new
     return unless check_contribution_limit!
 
@@ -25,22 +25,22 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize @sign
   end
 
+  def edit
+    @sign = signs.find(id)
+    authorize @sign
+    render
+  end
+
   def create
     @sign = build_sign.sign
     authorize @sign
     return render(:new) unless build_sign.save
 
-    flash[:notice] = t(".success")
+    flash.now[:notice] = t(".success")
     respond_to do |format|
       format.html { redirect_to [:edit, @sign] }
       format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" } # rubocop:disable Rails/RenderInline
     end
-  end
-
-  def edit
-    @sign = signs.find(id)
-    authorize @sign
-    render
   end
 
   def update

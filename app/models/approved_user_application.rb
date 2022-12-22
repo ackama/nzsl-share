@@ -28,6 +28,6 @@ class ApprovedUserApplication < ApplicationRecord
   end
 
   def language_roles=(new_roles)
-    super(new_roles.reject(&:blank?))
+    super(new_roles.compact_blank)
   end
 end

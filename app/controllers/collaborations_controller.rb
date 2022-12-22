@@ -33,7 +33,7 @@ class CollaborationsController < ApplicationController
   end
 
   def redirect_after_save
-    flash[:notice] = t(".success")
+    flash.now[:notice] = t(".success")
 
     respond_to do |format|
       format.js { render inline: "location.reload();" } # rubocop:disable Rails/RenderInline
@@ -42,7 +42,7 @@ class CollaborationsController < ApplicationController
   end
 
   def redirect_after_destroy(destroyed)
-    destroyed ? flash[:notice] = t(".success") : flash[:alert] = t(".failure")
+    destroyed ? flash.now[:notice] = t(".success") : flash.now[:alert] = t(".failure")
 
     respond_to do |format|
       format.js { render inline: "location.reload();" } # rubocop:disable Rails/RenderInline
