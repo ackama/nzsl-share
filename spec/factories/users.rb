@@ -9,7 +9,7 @@ FactoryBot.define do
 
     trait :with_avatar do
       after(:create) do |user|
-        image_file = File.open(Rails.root.join("spec/fixtures/image.jpeg"))
+        image_file = Rails.root.join("spec/fixtures/image.jpeg").open
         image_file_io = { io: image_file, filename: File.basename(image_file) }
         user.avatar.attach(image_file_io)
       end

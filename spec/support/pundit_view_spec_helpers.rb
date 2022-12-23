@@ -1,5 +1,5 @@
 module PunditViewSpecHelper
-  def stub_authorization(record=any_args, permissions={})
+  def stub_authorization(record = any_args, permissions = {})
     # Pundit#policy is a controller helper, so while we can safely
     # mock it, we cannot verify the mock on the view, since it does
     # not have controller methods mixed in

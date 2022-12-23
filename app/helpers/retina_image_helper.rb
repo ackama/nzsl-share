@@ -12,7 +12,7 @@ module RetinaImageHelper
   #        srcset="/assets/logo.png 1x,/assets/logo@2x.png 2x">
   #
   # The srcset attribute is supported by modern desktop browsers and iOS 8+.
-  def retina_image_tag(src, options={})
+  def retina_image_tag(src, options = {})
     src_1x = image_path(src)
     src_2x = image_path(src.sub(/^(.*)(\.[^.]+)$/, '\1@2x\2'))
     srcset = "#{src_1x} 1x,#{src_2x} 2x"

@@ -2,7 +2,7 @@ class VideoTranscoder
   class TranscodeError < StandardError; end
   attr_reader :blob
 
-  def initialize(options, logger=Rails.logger)
+  def initialize(options, logger = Rails.logger)
     @options = options
     @logger = logger
   end
