@@ -58,7 +58,7 @@ class FoldersController < ApplicationController
   end
 
   def redirect_after_save
-    flash.now[:notice] = t(".success")
+    flash[:notice] = t(".success")
 
     respond_to do |format|
       format.js { render inline: "location.reload();" } # rubocop:disable Rails/RenderInline

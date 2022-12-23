@@ -249,3 +249,6 @@ Rails/LexicallyScopedActionFilter:
 #RSpec/RepeatedExample:
 #  Exclude:
 #    - 'spec/policies/**'
+
+Rails/ActionControllerFlashBeforeRender:
+  Enabled: false
