@@ -1,5 +1,5 @@
 class ArchiveSign
-  def initialize(sign, user=nil)
+  def initialize(sign, user = nil)
     @sign = sign
     @user = user || SystemUser.find
   end

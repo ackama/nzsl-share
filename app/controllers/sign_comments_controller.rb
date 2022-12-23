@@ -2,6 +2,14 @@
 
 class SignCommentsController < ApplicationController
   include ActionView::RecordIdentifier
+  def edit
+    @sign = fetch_sign
+    @sign_comment = fetch_sign_comment
+    authorize @sign_comment
+
+    render
+  end
+
   def create
     @sign = fetch_sign
     @sign_comment = SignComment.new(build_text_comment)
@@ -10,14 +18,6 @@ class SignCommentsController < ApplicationController
     @sign_comment.save
     @sign.reload
     refresh_comments
-  end
-
-  def edit
-    @sign = fetch_sign
-    @sign_comment = fetch_sign_comment
-    authorize @sign_comment
-
-    render
   end
 
   def update

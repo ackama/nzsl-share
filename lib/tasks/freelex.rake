@@ -37,7 +37,7 @@ namespace :freelex do
 
   private
 
-  def fetch_freelex_values(att)
+  def fetch_freelex_values(att) # rubocop:disable Metrics/AbcSize
     {
       headword_id: att.xpath("headwordid").text.to_i,
       word: att.xpath("glossmain").text,

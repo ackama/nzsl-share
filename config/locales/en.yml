@@ -207,6 +207,9 @@ en:
       models:
         approved_user_application:
             inclusion: an answer must be selected
+        collaboration:
+          collaborator:
+            does_not_exist: This username does not exist
         sign:
           attributes:
             conditions_accepted:

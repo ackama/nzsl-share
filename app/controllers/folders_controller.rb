@@ -16,6 +16,11 @@ class FoldersController < ApplicationController
     authorize @folder
   end
 
+  def edit
+    @folder = folders.find(id)
+    authorize @folder
+  end
+
   def create
     @folder = folders.build(folders_params)
     authorize @folder
@@ -23,11 +28,6 @@ class FoldersController < ApplicationController
 
     @folder.collaborators << @folder.user
     redirect_after_save
-  end
-
-  def edit
-    @folder = folders.find(id)
-    authorize @folder
   end
 
   def update

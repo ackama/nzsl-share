@@ -18,7 +18,7 @@ class VideoEncodingPreset
     new.mp4
   end
 
-  def initialize(overrides=[])
+  def initialize(overrides = [])
     # These base presets are from https://gist.github.com/Vestride/278e13915894821e1d6f#convert-to-mp4
     @presets = Set.new(["-profile:v", "baseline", "-level", "3"]).merge(overrides)
   end

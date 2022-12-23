@@ -225,7 +225,7 @@ RSpec.describe FreelexSearchService, type: :service do
       context "by recent" do
         example "be in the expected order" do
           publish_dates = search(scoped_relation, term: "a", sort: "recent")
-                          .data.map { |hsh| hsh["published_at"] }
+                          .data.pluck("published_at")
 
           expect(publish_dates.sort.reverse).to eq publish_dates
         end
@@ -234,7 +234,7 @@ RSpec.describe FreelexSearchService, type: :service do
       context "by relevance" do
         example "be in the expected order" do
           words = search(scoped_relation, term: "ap", sort: "relevant")
-                  .data.map { |hsh| hsh["word"] }
+                  .data.pluck("word")
 
           expect(words.sort).to eq words
         end
@@ -243,7 +243,7 @@ RSpec.describe FreelexSearchService, type: :service do
       context "alphabetically ascending" do
         example "be in the expected order" do
           words = search(scoped_relation, term: "a", sort: "alpha_asc")
-                  .data.map { |hsh| hsh["word"] }
+                  .data.pluck("word")
 
           expect(words.sort).to eq words
         end
@@ -252,7 +252,7 @@ RSpec.describe FreelexSearchService, type: :service do
       context "alphabetically descending" do
         example "be in the expected order" do
           words = search(scoped_relation, term: "a", sort: "alpha_desc")
-                  .data.map { |hsh| hsh["word"] }
+                  .data.pluck("word")
 
           expect(words.sort.reverse).to eq words
         end
