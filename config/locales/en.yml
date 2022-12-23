@@ -176,6 +176,8 @@ en:
         link_to: Unpublish
         confirm: Make this sign private?
         success: Sign was made private # Pending message
+    user_sign_transfer:
+      new: Transfer Signs
   approved_user_mailer:
     admin_submitted:
       subject: NZSL Share Admin - Member application

@@ -1,0 +1,20 @@
+<% provide(:title, "Sign Transfer") %>
+
+<div class="grid-x margin-top-2 form">
+  <div class="cell form__header">
+    <h1 class="primary">User Sign Transfer</h1>
+
+    <p>On this page you can transfer signs owned by a user to another user.</p>
+
+    <p>This process is unreversable.</p>
+
+    <%= form_with url: admin_user_sign_transfers_path do |f| %>
+      <%= f.hidden_field :old_owner, value: @old_owner.id %>
+
+      <%= f.label :new_owner %>
+      <%= f.select :new_owner, User.where.not(id: @old_owner.id).collect{ |u| [u.username, u.id] } %>
+
+      <%= f.submit "Transfer owners", class: "button" %>
+    <% end %>
+  </div>
+</div>

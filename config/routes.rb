@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :signs
     resources :users
+    resources :user_sign_transfers, only: %i[new create]
     resources :approved_user_applications, only: %i[index show] do
       member do
         post :accept
