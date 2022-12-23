@@ -3,7 +3,7 @@ class SignPresenter < ApplicationPresenter
   delegate_missing_to :sign
   delegate :to_param, to: :sign
 
-  def dom_id(suffix=nil)
+  def dom_id(suffix = nil)
     h.dom_id(sign, suffix)
   end
 
@@ -76,7 +76,7 @@ class SignPresenter < ApplicationPresenter
     h.asset_pack_path("media/images/processing.svg")
   end
 
-  def sign_video_sourceset(presets=nil)
+  def sign_video_sourceset(presets = nil)
     return unless sign.processed_videos?
 
     h.video_sourceset(sign.video, presets)

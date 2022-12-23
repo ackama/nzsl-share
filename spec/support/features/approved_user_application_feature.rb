@@ -1,7 +1,7 @@
 class ApprovedUserApplicationFeature
   include Capybara::DSL
 
-  def start(application=FactoryBot.build(:approved_user_application))
+  def start(application = FactoryBot.build(:approved_user_application))
     @application = application
     visit "/approved_user_applications/new"
   end

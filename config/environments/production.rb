@@ -15,11 +15,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
   config.action_controller.enable_fragment_cache_logging = true
 
-  redis_url = if ENV["CACHING_REDIS_ADDON"]
-                ENV.fetch(ENV["CACHING_REDIS_ADDON"])
-              else
-                ENV.fetch("REDIS_URL")
-              end
+  redis_url = ENV.fetch(ENV["CACHING_REDIS_ADDON"] || "REDIS_URL")
 
   config.cache_store = :redis_cache_store, { url: redis_url }
 
@@ -90,9 +86,9 @@ Rails.application.configure do
     user_name: Rails.application.secrets.smtp_user_name,
     password: Rails.application.secrets.smtp_password,
     authentication: "login",
-    domain: ENV["HOSTNAME"]
+    domain: ENV.fetch("HOSTNAME", nil)
   }
-  config.action_mailer.asset_host = "https://#{ENV["HOSTNAME"]}"
+  config.action_mailer.asset_host = "https://#{ENV.fetch("HOSTNAME", nil)}"
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -102,7 +98,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'

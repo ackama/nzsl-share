@@ -5,7 +5,7 @@ FactoryBot.define do
     secondary    { Faker::Name.middle_name      }
     contributor_id { FactoryBot.create(:user) }
     video        do
-      video_file = File.open(Rails.root.join("spec/fixtures/dummy.mp4"))
+      video_file = Rails.root.join("spec/fixtures/dummy.mp4").open
       { io: video_file, filename: File.basename(video_file) }
     end
 
@@ -68,7 +68,7 @@ FactoryBot.define do
 
     trait :with_usage_examples do
       after(:create) do |sign|
-        video_file = File.open(Rails.root.join("spec/fixtures/dummy.mp4"))
+        video_file = Rails.root.join("spec/fixtures/dummy.mp4").open
         video_file_io = { io: video_file, filename: File.basename(video_file) }
 
         sign.usage_examples.attach(video_file_io)
@@ -77,7 +77,7 @@ FactoryBot.define do
 
     trait :with_illustrations do
       after(:create) do |sign|
-        video_file = File.open(Rails.root.join("spec/fixtures/image.jpeg"))
+        video_file = Rails.root.join("spec/fixtures/image.jpeg").open
         video_file_io = { io: video_file, filename: File.basename(video_file) }
 
         sign.illustrations.attach(video_file_io)

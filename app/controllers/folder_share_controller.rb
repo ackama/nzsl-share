@@ -3,6 +3,13 @@
 class FolderShareController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
+  def show
+    @folder = fetch_folder_by_token
+    authorize share_data, policy_class: SharePolicy
+
+    render "folders/show"
+  end
+
   def create
     @folder = fetch_folder
     authorize @folder, :share?
@@ -17,13 +24,6 @@ class FolderShareController < ApplicationController
     @folder.update(share_token: nil)
 
     redirect_back fallback_location: @folder, notice: t(".success")
-  end
-
-  def show
-    @folder = fetch_folder_by_token
-    authorize share_data, policy_class: SharePolicy
-
-    render "folders/show"
   end
 
   private

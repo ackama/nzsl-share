@@ -23,8 +23,6 @@ class SignComment < ApplicationRecord
 
   has_one_attached :video
 
-  validates :sign, presence: true
-  validates :user, presence: true
   validates :sign_status, presence: true
   validates :comment, presence: true, length: { maximum: 1000 }
 

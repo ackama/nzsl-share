@@ -29,7 +29,7 @@ module NzslShare
     # the full error message, not just the part after the attribute
     config.active_model.i18n_customize_full_message = true
 
-    config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV["MAIL_FROM"])
-    config.google_analytics_container_id = ENV["GOOGLE_ANALYTICS_CONTAINER_ID"]
+    config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV.fetch("MAIL_FROM", nil))
+    config.google_analytics_container_id = ENV.fetch("GOOGLE_ANALYTICS_CONTAINER_ID", nil)
   end
 end
