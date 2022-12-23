@@ -1,6 +1,11 @@
-class SignsController < ApplicationController
+class SignsController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :authenticate_user!, except: %i[show]
   after_action :mark_comments_as_read, only: :show
+
+  def index
+    @signs = signs.where(contributor: current_user).page(params[:page])
+    authorize @signs
+  end
 
   def show
     @sign = present(signs.includes(sign_comments: :replies).find(id))
@@ -13,16 +18,17 @@ class SignsController < ApplicationController
     render
   end
 
-  def index
-    @signs = signs.where(contributor: current_user).page(params[:page])
-    authorize @signs
-  end
-
   def new
     return unless check_contribution_limit!
 
     @sign = Sign.new
     authorize @sign
+  end
+
+  def edit
+    @sign = signs.find(id)
+    authorize @sign
+    render
   end
 
   def create
@@ -35,12 +41,6 @@ class SignsController < ApplicationController
       format.html { redirect_to [:edit, @sign] }
       format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" } # rubocop:disable Rails/RenderInline
     end
-  end
-
-  def edit
-    @sign = signs.find(id)
-    authorize @sign
-    render
   end
 
   def update
@@ -128,6 +128,8 @@ class SignsController < ApplicationController
   end
 
   def mark_comments_as_read
+    return unless user_signed_in?
+
     @comments.each { |c| c.read_by!(current_user) }
   end
 end

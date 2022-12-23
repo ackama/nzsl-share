@@ -31,7 +31,7 @@ class SignCommentPresenter < ApplicationPresenter
 
   private
 
-  def convert_urls(comment="")
+  def convert_urls(comment = "")
     h.simple_format(Sanitizer.sanitize(comment).gsub(URI::DEFAULT_PARSER.make_regexp) do |url|
       u = Sanitizer.sanitize_url(url)
       "<a class='sign-comments__comment__username--link' target='_blank' rel='noopener noreferrer' href=#{u}>#{u}</a>"

@@ -15,7 +15,7 @@ class Folder < ApplicationRecord
     super(new_title&.strip)
   end
 
-  def self.make_default(title=nil)
+  def self.make_default(title = nil)
     new(title: title.presence || I18n.t("folders.default_title"))
   end
 end

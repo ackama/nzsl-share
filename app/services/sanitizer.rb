@@ -2,17 +2,17 @@
 
 class Sanitizer
   class << self
-    def sanitize(input="")
+    def sanitize(input = "")
       input = ActionController::Base.helpers.sanitize(input)
       input = ActionController::Base.helpers.strip_links(input)
       ActionController::Base.helpers.strip_tags(input)
     end
 
-    def sanitize_text_with_urls(input="")
+    def sanitize_text_with_urls(input = "")
       sanitize(input).gsub(URI::DEFAULT_PARSER.make_regexp) { |url| sanitize_url(url) }
     end
 
-    def sanitize_url(input="")
+    def sanitize_url(input = "")
       url = CGI.unescape(input)
       uri = URI.parse(url)
 

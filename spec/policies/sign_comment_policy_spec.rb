@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe SignCommentPolicy, type: :policy do
   describe described_class::Scope do
-    def resolve(user, scope=SignComment)
+    def resolve(user, scope = SignComment)
       described_class.new(user, scope).resolve
     end
 

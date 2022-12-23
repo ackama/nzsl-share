@@ -3,7 +3,7 @@ class UserPresenter < ApplicationPresenter
   delegate_missing_to :user
   delegate :to_param, to: :user
 
-  def avatar(classes="")
+  def avatar(classes = "")
     if user.avatar.attached?
       h.image_tag(transform(user.avatar), class: classes)
     else

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe VideoTranscoder, type: :service do
   let(:blob) do
     ActiveStorage::Blob.create_and_upload!(
-      io: File.open(Rails.root.join("spec/fixtures/dummy.mp4")),
+      io: Rails.root.join("spec/fixtures/dummy.mp4").open,
       filename: "dummy.mp4",
       content_type: "video/mp4"
     )
