@@ -29,6 +29,7 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(id: unconfirmed) }
   scope :unconfirmed, -> { where(confirmed_at: nil) }
+  scope :not_system_user, -> { where.not(id: SystemUser.find.id) }
 
   def username=(value)
     super(value.downcase)

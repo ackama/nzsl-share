@@ -11,10 +11,13 @@
     <%= form_with url: admin_user_sign_transfers_path do |f| %>
       <%= f.hidden_field :old_owner, value: @old_owner.id %>
 
-      <%= f.label :new_owner %>
-      <%= f.select :new_owner, User.where.not(id: @old_owner.id).collect{ |u| [u.username, u.id] } %>
+      <%= f.label :old_owner %>
+      <p><%= @old_owner.username %></p>
 
-      <%= f.submit "Transfer owners", class: "button" %>
+      <%= f.label :new_owner %>
+      <%= f.select :new_owner, User.not_system_user.where.not(id: @old_owner.id).collect{ |u| [u.username, u.id] } %>
+
+      <%= f.submit "Transfer owners", class: "button alert" %>
     <% end %>
   </div>
 </div>
