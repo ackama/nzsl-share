@@ -28,7 +28,7 @@
     "react-dom": "^16.10.2"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
+    "eslint": "^8.31.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.16.0",
