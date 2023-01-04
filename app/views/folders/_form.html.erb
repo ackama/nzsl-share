@@ -14,10 +14,10 @@
         <%= f.error :title %>
       </fieldset>
 
-      <fieldset>
+      <fieldset data-controller="character-counter">
         <%= f.label :description %>
-        <%= f.text_area :description, rows: 5, maxlength: "250", placeholder: "Enter a description", data: {characters: ""} %>
-        <p class="help-text text-right"><span data-character-count="folder_description">0</span>/250 characters</p>
+        <%= f.text_area :description, rows: 5, maxlength: "250", placeholder: "Enter a description", data: { character_counter_target: "input" } %>
+        <p class="help-text text-right"><span data-character-counter-target="counter">0</span>/250 characters</p>
       </fieldset>
       <%= f.hidden_field :user_id, value: current_user.id %>
     </div>

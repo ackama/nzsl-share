@@ -6,7 +6,7 @@
     <legend class="form__header margin-0"><h1 class="black margin-bottom-0">Edit profile</h1></legend>
     <hr class="form__divider">
 
-    <fieldset class="form__section">
+    <fieldset class="form__section" data-controller="character-counter">
       <legend><h2 class="primary">My details</h2></legend>
       <hr class="form__divider">
 
@@ -21,8 +21,8 @@
       <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
 
       <%= f.label :bio %>
-      <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others.", maxlength: "250", data: {characters: ""} %>
-      <p class="help-text text-right"><span data-character-count="user_bio">0</span>/250 characters</p>
+      <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others.", maxlength: "250", data: { character_counter_target: "input"} %>
+      <p class="help-text text-right"><span data-character-counter-target="counter">0</span>/250 characters</p>
     </fieldset>
 
     <fieldset class="form__section">
