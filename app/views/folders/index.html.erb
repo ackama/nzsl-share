@@ -39,7 +39,7 @@
             <%= pluralize(folder.signs_count, "sign") %>
           </div>
           <div class="cell shrink list__item__details grid-x align-middle">
-            <a href="#" class="list__item__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
+            <button type="button" class="list__item__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
               <%= inline_svg_pack_tag "media/images/options.svg", class: "icon--medium list__item__icon" %>
             </a>
             <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--folders" id="<%= dom_id(folder, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
