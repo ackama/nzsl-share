@@ -26,7 +26,7 @@ gem "sassc-rails"
 gem "sidekiq"
 gem "sidekiq-batch"
 gem "sqlite3"
-gem "turbolinks"
+gem "turbo-rails"
 gem "webpacker", "~> 5.0"
 
 gem "rack-canonical-host"
