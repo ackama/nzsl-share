@@ -17,7 +17,6 @@ Rails.start();
 import "foundation";
 import "../application.scss";
 import "../components/header";
-import "../components/folder-membership";
 import "../components/hero-unit_search";
 import "../components/option-other";
 import "../components/video.js";

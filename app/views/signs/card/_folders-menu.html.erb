@@ -1,25 +1,27 @@
 
 <div class="sign-card__folders__menu top" id="<%= sign.dom_id(:folder_menu) %>" data-close-on-click="true" data-v-offset="8" data-dropdown data-auto-focus="true">
-  <form class="hide-if-no-js">
-    <% sign.available_folders.each do |folder, membership| %>
+  <% sign.available_folders.each do |folder, membership| %>
+    <%= form_with scope: :folder_membership,
+      **(if membership.present?
+        { url: folder_membership_path(membership), method: :DELETE }
+      else
+        { url: folder_memberships_path }
+      end) do |f| %>
+      <%= f.hidden_field :sign_id, value: sign.id %>
+
       <div class="checkbox">
-        <%= check_box_tag :folder_ids,
-                                  folder,
-                                  membership.present?,
-                                  data: {
-                                    trigger: "update-folder-membership",
-                                    folder_id: folder.id,
-                                    sign_id: sign.id,
-                                    membership_id: membership&.id
-                                  },
-                                  id: sign.dom_id(dom_id(folder, :membership)) %>
+        <%= f.check_box :folder_id,
+                        value: folder,
+                        checked: membership.present?,
+                        onchange: "this.form.submit()",
+                        id: sign.dom_id(dom_id(folder, :membership)) %>
         <%= label_tag sign.dom_id(dom_id(folder, :membership)) do %>
           <strong style="flex:1"><%= folder.title %></strong>
           <strong class="count" data-folder-id="<%= folder.id %>">(<%= folder.signs_count %>)</strong>
         <% end %>
       </div>
     <% end %>
-  </form>
+  <% end %>
   <div class="show-if-no-js">
     <ul class="no-bullet list list--compact">
       <% sign.available_folders.each do |folder, membership| %>
