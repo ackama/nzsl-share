@@ -9,6 +9,10 @@ const handleCommentAttachmentUpload = ($container) => {
   const folder = document.getElementById("sign_comment_folder");
   const folderId = $(folder).children("option:selected").val();
 
+  $.ajaxSetup({
+    headers: { "X-CSRF-TOKEN": $("meta[name='csrf-token']").attr("content") }
+  });
+
   // eslint-disable-next-line camelcase
   return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, folder_id: folderId, format: "js" })
     .done(() => {
