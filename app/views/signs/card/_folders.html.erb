@@ -1,4 +1,6 @@
-<div class="sign-card__folders" id="<%= dom_id(sign, :folders) %>">
+<% menuShown ||= false %>
+
+<div class="sign-card__folders" id="<%= dom_id(sign, :folders) %>" data-controller="foundation">
   <%= fetch_folder_button(sign) %>
-  <%= render "signs/card/folders-menu", sign: sign if user_signed_in? %>
+  <%= render "signs/card/folders-menu", sign: sign, show: menuShown if user_signed_in? %>
 </div>
