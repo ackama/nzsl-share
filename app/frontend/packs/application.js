@@ -11,11 +11,20 @@
 
 require.context("../images", true);
 import Rails from "@rails/ujs";
+import "@hotwired/turbo-rails";
 require("@rails/activestorage").start();
 Rails.start();
 
-import "foundation";
+
 import "../application.scss";
+
+import { application } from "../controllers/application";
+import characterCounterController from "../controllers/character-counter";
+import foundationController from "../controllers/foundation";
+application.register("foundation", foundationController);
+application.register("character-counter", characterCounterController);
+
+
 import "../components/header";
 import "../components/hero-unit_search";
 import "../components/option-other";
@@ -25,6 +34,3 @@ import "chosen-js/chosen.jquery";
 import "../components/chosen-topics";
 import "../components/sign-comments";
 
-import { application } from "../controllers/application";
-import characterCounterController from "../controllers/character-counter";
-application.register("character-counter", characterCounterController);

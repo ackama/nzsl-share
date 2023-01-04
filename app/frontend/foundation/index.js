@@ -1,7 +1,7 @@
 import "jquery";
 import Foundation from "foundation-sites";
 
-$(document).ready(function() {
+$(function() {
   Foundation.MediaQuery._init();
 });
 
