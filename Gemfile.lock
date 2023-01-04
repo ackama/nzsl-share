@@ -388,6 +388,8 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.5.4)
       mini_portile2 (~> 2.8.0)
+    stimulus-rails (1.2.1)
+      railties (>= 6.0.0)
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -468,6 +470,7 @@ DEPENDENCIES
   sidekiq-batch
   simplecov
   sqlite3
+  stimulus-rails
   turbo-rails
   webdrivers
   webpacker (~> 5.0)

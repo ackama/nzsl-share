@@ -26,6 +26,7 @@ gem "sassc-rails"
 gem "sidekiq"
 gem "sidekiq-batch"
 gem "sqlite3"
+gem "stimulus-rails"
 gem "turbo-rails"
 gem "webpacker", "~> 5.0"
 
