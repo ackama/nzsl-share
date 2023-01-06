@@ -1,4 +1,4 @@
-<div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
+<%= turbo_frame_tag sign.dom_id(:votes), class: "sign-card__votes", data: { autoscroll: true } do %>
   <%= agree_button(sign) do %>
     <%= inline_svg_pack_tag "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__votes--icon" %>
     <%= sign.agree_count %>
@@ -8,4 +8,4 @@
     <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__votes--icon" %>
     <%= sign.disagree_count %>
   <% end %>
-</div>
+<% end %>

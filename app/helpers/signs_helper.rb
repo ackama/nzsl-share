@@ -10,7 +10,6 @@ module SignsHelper
 
     link_to(sign_agreement_path(sign), method: :post,
                                        title: "Agree",
-                                       data: { remote: true },
                                        class: classes, &block)
   end
 
@@ -24,7 +23,6 @@ module SignsHelper
     end
 
     link_to(sign_disagreement_path(sign), method: :post,
-                                          data: { remote: true },
                                           title: "Disagree",
                                           class: classes, &block)
   end
