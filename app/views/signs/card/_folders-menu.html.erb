@@ -1,6 +1,14 @@
-
 <% show ||= false %>
-<%= turbo_frame_tag sign.dom_id(:folder_menu), class: "sign-card__folders__menu top", data: { dropdown_initially_open: show, close_on_click: true, v_offset: 8, dropdown: true, auto_focus: true } do %>
+
+<%= tag.div id: sign.dom_id(:folder_menu),
+            class: "sign-card__folders__menu top",
+            data: {
+              close_on_click: true,
+              controller: "foundation-dropdown",
+              v_offset: 8,
+              auto_focus: true,
+              dropdown_initially_open: show
+            } do %>
   <% sign.available_folders.each do |folder, membership| %>
     <%= form_with scope: :folder_membership,
       **(if membership.present?
@@ -20,7 +28,7 @@
         <%= label_tag sign.dom_id(dom_id(folder, :membership)) do %>
           <strong style="flex:1"><%= folder.title %></strong>
           <%= turbo_frame_tag sign.dom_id(dom_id(folder, :count)), class: "count", data: { folder_id: folder.id } do %>
-            (<%= folder.signs_count %>)
+            <strong>(<%= folder.signs_count %>)</strong>
           <% end %>
         <% end %>
       </div>

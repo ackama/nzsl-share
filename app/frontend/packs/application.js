@@ -16,14 +16,15 @@ require("@rails/activestorage").start();
 Rails.start();
 
 
+import "../foundation";
 import "../application.scss";
 
 import { application } from "../controllers/application";
 import characterCounterController from "../controllers/character-counter";
-import foundationController from "../controllers/foundation";
-application.register("foundation", foundationController);
-application.register("character-counter", characterCounterController);
+import foundationDropdownController from "../controllers/foundation-dropdown";
 
+application.register("character-counter", characterCounterController);
+application.register("foundation-dropdown", foundationDropdownController);
 
 import "../components/header";
 import "../components/hero-unit_search";
