@@ -1,6 +1,6 @@
-<% menuShown ||= false %>
+<% menu_open ||= false %>
 
-<div class="sign-card__folders" id="<%= dom_id(sign, :folders) %>" data-controller="foundation">
+<%= turbo_frame_tag dom_id(sign, :folders), class: "sign-card__folders" do %>
   <%= fetch_folder_button(sign) %>
-  <%= render "signs/card/folders-menu", sign: sign, show: menuShown if user_signed_in? %>
-</div>
+  <%= render "signs/card/folders-menu", sign: sign, show: menu_open if user_signed_in? %>
+<% end %>
