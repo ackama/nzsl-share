@@ -1,4 +1,4 @@
-  <div class="sign-comments__list">
+<%= turbo_frame_tag dom_id(@sign, :comments_list), class: "sign-comments__list" do %>
   <% @comments.reverse.each do |comment| %>
     <% next unless comment.display %>
     <div class="grid-x align-middle grid-padding-x sign-comment">
@@ -51,4 +51,4 @@
       </div>
     <% end %>
   <% end %>
-  </div>
+<% end %>
