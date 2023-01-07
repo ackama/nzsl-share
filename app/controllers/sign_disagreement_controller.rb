@@ -19,7 +19,7 @@ class SignDisagreementController < ApplicationController
   def respond_to_success
     respond_to do |format|
       format.html { redirect_back(fallback_location: sign) }
-      format.js { render votes_template }
+      format.turbo_stream { render votes_template }
     end
   end
 

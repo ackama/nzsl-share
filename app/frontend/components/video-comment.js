@@ -9,6 +9,7 @@ const handleCommentAttachmentUpload = ($container) => {
   const folder = document.getElementById("sign_comment_folder");
   const folderId = $(folder).children("option:selected").val();
 
+
   // eslint-disable-next-line camelcase
   return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, folder_id: folderId, format: "js" })
     .done(() => {
@@ -33,10 +34,6 @@ const handleCommentReplyAttachmentUpload = ($container) => {
   const parentId = $container.data("parentId");
   const signedBlobId = $field.val();
   const folderId = $container.data("folderId");
-
-  $.ajaxSetup({
-    headers: { "X-CSRF-TOKEN": $("meta[name='csrf-token']").attr("content") }
-  });
 
   // eslint-disable-next-line camelcase
   return $.post(`/signs/${signId}/video_comment`, { signed_blob_id: signedBlobId, parent_id: parentId, folder_id: folderId, format: "js" })

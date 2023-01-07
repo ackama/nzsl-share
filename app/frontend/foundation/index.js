@@ -1,10 +1,7 @@
 import "jquery";
 import Foundation from "foundation-sites";
 
-$(document).ready(function() {
+$(document).on("turbo:load turbo:frame-render", function() {
   Foundation.MediaQuery._init();
-});
-
-$(window).on("load", function() {
   $(document).foundation();
 });

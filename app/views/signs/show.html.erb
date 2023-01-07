@@ -47,7 +47,7 @@
         <% end if policy(@sign).share? %>
       </div>
       <div class="cell shrink">
-        <%= render "signs/card/sign-show-folders", sign: @sign if policy(@sign).manage_folders? %>
+        <%= render "signs/card/folders", sign: @sign if policy(@sign).manage_folders? %>
       </div>
     </div>
 

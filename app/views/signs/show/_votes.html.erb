@@ -1,4 +1,4 @@
-<div class="cell shrink js-sign-votes" id="<%= sign.dom_id(:votes) %>">
+<%= turbo_frame_tag sign.dom_id(:votes), class: "cell shrink" do %>
   <%= agree_button(sign, "button clear") do %>
     <%= inline_svg_pack_tag "media/images/agree.svg", aria_hidden: true, class: "icon icon--medium" %>
     <%= sign.agree_count %> Agree
@@ -8,4 +8,4 @@
     <%= sign.disagree_count %>
     Disagree
   <% end %>
-</div>
+<% end %>

@@ -1,46 +1,52 @@
+<% show ||= false %>
 
-<div class="sign-card__folders__menu top" id="<%= sign.dom_id(:folder_menu) %>" data-close-on-click="true" data-v-offset="8" data-dropdown data-auto-focus="true">
-  <form class="hide-if-no-js">
-    <% sign.available_folders.each do |folder, membership| %>
-      <div class="checkbox">
-        <%= check_box_tag :folder_ids,
-                                  folder,
-                                  membership.present?,
-                                  data: {
-                                    trigger: "update-folder-membership",
-                                    folder_id: folder.id,
-                                    sign_id: sign.id,
-                                    membership_id: membership&.id
-                                  },
-                                  id: sign.dom_id(dom_id(folder, :membership)) %>
+<%= tag.div id: sign.dom_id(:folder_menu),
+            class: "sign-card__folders__menu top",
+            data: {
+              close_on_click: true,
+              controller: "foundation-dropdown",
+              v_offset: 8,
+              auto_focus: true,
+              dropdown_initially_open: show
+            } do %>
+  <% sign.available_folders.each do |folder, membership| %>
+    <%= form_with scope: :folder_membership,
+      **(if membership.present?
+        { url: folder_membership_path(membership), method: :DELETE }
+      else
+        { url: folder_memberships_path }
+      end) do |f| %>
+      <%= f.hidden_field :sign_id, value: sign.id %>
+      <%= f.hidden_field :folder_id, value: folder.id %>
+
+      <div class="checkbox hide-if-no-js">
+        <%= f.check_box :_folder_id,
+                        value: folder.id,
+                        checked: membership.present?,
+                        onchange: "this.form.requestSubmit()",
+                        id: sign.dom_id(dom_id(folder, :membership)) %>
         <%= label_tag sign.dom_id(dom_id(folder, :membership)) do %>
           <strong style="flex:1"><%= folder.title %></strong>
-          <strong class="count" data-folder-id="<%= folder.id %>">(<%= folder.signs_count %>)</strong>
+          <%= turbo_frame_tag sign.dom_id(dom_id(folder, :count)), class: "count", data: { folder_id: folder.id } do %>
+            <strong>(<%= folder.signs_count %>)</strong>
+          <% end %>
         <% end %>
       </div>
-    <% end %>
-  </form>
-  <div class="show-if-no-js">
-    <ul class="no-bullet list list--compact">
-      <% sign.available_folders.each do |folder, membership| %>
-        <% next unless membership # Ignore folders that this sign is not in %>
-        <li class="list__item--compact">
-          <span><%= membership.folder.title %></span>
-          <%= button_to folder_membership_path(membership),
-                        method: :delete,
-                        class: "button icon-only clear medium small",
-                        title: "Remove from Folder" do %>
-                        <%= inline_svg_pack_tag "media/images/close.svg", class: "icon icon--small icon--medium" %>
+
+      <ul class="show-if-no-js no-bullet list list--compact">
+        <li class="list-item--compact">
+          <span><%= folder.title %></span>
+          <% if membership.present? %>
+            <%= f.button class: "button icon-only clear medium small", title: "Remove from Folder" do %>
+              <%= inline_svg_pack_tag "media/images/close.svg", class: "icon icon--small icon--medium" %>
+            <% end %>
+          <% else %>
+            <%= f.button class: "button icon-only clear medium small", title: "Add to Folder" do %>
+              <%= inline_svg_pack_tag "media/images/add.svg", class: "icon icon--small icon--medium" %>
+            <% end %>
           <% end %>
         </li>
-      <% end %>
-    </ul>
-    <%= form_tag folder_memberships_path(sign_id: sign.id) do %>
-      <%= hidden_field_tag :"folder_membership[sign_id]", sign.id %>
-      <%= label_tag :"folder_membership[folder_id]", "Add to Folder:" %>
-      <%= select_tag :"folder_membership[folder_id]",
-                     sign.assignable_folder_options %>
-      <%= submit_tag "Save", class: "button" %>
+      </ul>
     <% end %>
-  </div>
-</div>
+  <% end %>
+<% end %>

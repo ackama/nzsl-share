@@ -1,6 +1,0 @@
-<% sign = present(@sign) %>
-
-<%# Re-render the voting controls for this sign %>
-$("<%= escape_javascript(render 'signs/show/votes', sign: sign) %>")
-  .replaceAll("#<%= sign.dom_id(:votes) %>")
-  .foundation();

@@ -1,7 +1,0 @@
-var signComments = $("<%= escape_javascript(render("sign_comments/comments_list")) %>");
-var signPagination = $("<%= escape_javascript(render("sign_comments/pagination_prev")) %>");
-
-$('.sign-comments-pagination--older').replaceWith(signPagination);
-$('.sign-comments__list').prepend('<hr class="sign-comments__divider">');
-$('.sign-comments__list').prepend(signComments.html());
-$('.sign-comments__list').foundation();

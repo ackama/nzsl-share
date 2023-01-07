@@ -1,0 +1,3 @@
+<% @sign.reload %>
+<% sign = present(@sign) %>
+<%= turbo_stream.replace sign.dom_id(:votes), partial: "signs/show/votes", locals: { sign: sign } %>

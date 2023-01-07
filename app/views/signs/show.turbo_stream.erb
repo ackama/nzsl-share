@@ -1,0 +1,3 @@
+<%= turbo_stream.update(dom_id(@sign, :comments_pagination), partial: "sign_comments/pagination_prev") %>
+<%= turbo_stream.prepend(dom_id(@sign, :comments_list)) do %><%= content_tag(:hr, nil, class: "sign-comments__divider") %><% end %>
+<%= turbo_stream.prepend(dom_id(@sign, :comments_list), partial: "sign_comments/comments_list") %>

@@ -12,7 +12,7 @@
 
     <%# CSS should go closest to the top of the document as possible. %>
     <%= stylesheet_pack_tag("application",
-                            "data-turbolinks-track": "reload") %>
+                            "data-turbo-track": "reload") %>
 
     <%= javascript_pack_tag "application", async: true, defer: true %>
 
@@ -41,7 +41,7 @@
     <meta name="twitter:card" content="summary">
 
   </head>
-  <body class="no-js">
+  <body class="no-js" data-controller="foundation">
     <%# Prevent FOUS on page load %>
     <script>document.body.classList.remove("no-js");</script>
     <%= render "application/analytics/google/body" %>

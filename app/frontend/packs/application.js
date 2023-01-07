@@ -11,14 +11,22 @@
 
 require.context("../images", true);
 import Rails from "@rails/ujs";
+import "@hotwired/turbo-rails";
 require("@rails/activestorage").start();
 Rails.start();
 
-import "foundation";
+
+import "../foundation";
 import "../application.scss";
+
+import { application } from "../controllers/application";
+import characterCounterController from "../controllers/character-counter";
+import foundationDropdownController from "../controllers/foundation-dropdown";
+
+application.register("character-counter", characterCounterController);
+application.register("foundation-dropdown", foundationDropdownController);
+
 import "../components/header";
-import "../components/character-count";
-import "../components/folder-membership";
 import "../components/hero-unit_search";
 import "../components/option-other";
 import "../components/video.js";
@@ -26,3 +34,4 @@ import "../components/toggle-truthy";
 import "chosen-js/chosen.jquery";
 import "../components/chosen-topics";
 import "../components/sign-comments";
+

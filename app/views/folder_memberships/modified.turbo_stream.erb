@@ -1,0 +1,5 @@
+<% sign = present(@membership.sign) %>
+<%= turbo_stream.replace sign.dom_id(:folders), partial: "signs/card/folders", locals: { sign: sign, menu_open: true } %>
+<%= turbo_stream.update_all ".count[data-folder-id='#{@membership.folder.id}']" do %>
+  <strong>(<%= @membership.folder.signs_count %>)</strong>
+<% end %>

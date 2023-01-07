@@ -10,5 +10,12 @@
 
 
 require.context("../images", true);
+
+// Rails is loaded to set up CSRF tokens with jQuery.
+// Because of how webpack scopes imports, this must be done
+// once per pack.
+// eslint-disable-next-line no-unused-vars
+import Rails from "@rails/ujs";
+
 import "../components/file-upload";
 import "../components/video-comment";
