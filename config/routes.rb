@@ -92,7 +92,7 @@ Rails.application.routes.draw do
     manifest_path = Webpacker::Configuration
                     .new(root_path: Rails.root, config_path: Rails.root.join("config/webpacker.yml"), env: Rails.env)
                     .public_manifest_path
-                    .relative_path_from(Rails.root.join("public"))
+                    .relative_path_from(Rails.public_path)
                     .to_s
     get "/asset-manifest.json", to: redirect(manifest_path)
   end

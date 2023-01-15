@@ -6,7 +6,7 @@ class SignActivity < ApplicationRecord
   belongs_to :sign, touch: true
 
   class << self
-    def for_type(type, attrs={})
+    def for_type(type, attrs = {})
       where(attrs.merge(key: type)).first_or_initialize
     end
 

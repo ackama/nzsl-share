@@ -15,7 +15,7 @@ class ThumbnailPreset
     new.scale_720
   end
 
-  def initialize(overrides={})
+  def initialize(overrides = {})
     @presets = {}.merge(overrides)
   end
 

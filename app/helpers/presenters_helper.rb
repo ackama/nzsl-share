@@ -1,5 +1,5 @@
 module PresentersHelper
-  def present(object, klass=nil)
+  def present(object, klass = nil)
     presenter = if object.is_a?(ApplicationPresenter)
                   object
                 else
@@ -11,7 +11,7 @@ module PresentersHelper
     presenter
   end
 
-  def present_collection(collection, klass=nil)
+  def present_collection(collection, klass = nil)
     collection.map { |item| present(item, klass) }
   end
 end

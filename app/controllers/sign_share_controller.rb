@@ -3,6 +3,16 @@
 class SignShareController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
+  def show
+    @sign = present(fetch_sign_by_token)
+    authorize share_data, policy_class: SharePolicy
+
+    @sign.topic = fetch_referer
+    sign_comments
+
+    render "signs/show"
+  end
+
   def create
     @sign = fetch_sign
     authorize @sign, :share?
@@ -15,16 +25,6 @@ class SignShareController < ApplicationController
     authorize @sign, :share?
     @sign.update(share_token: nil)
     redirect_back(fallback_location: @sign, notice: t(".success"))
-  end
-
-  def show
-    @sign = present(fetch_sign_by_token)
-    authorize share_data, policy_class: SharePolicy
-
-    @sign.topic = fetch_referer
-    sign_comments
-
-    render "signs/show"
   end
 
   private

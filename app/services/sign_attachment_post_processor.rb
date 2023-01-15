@@ -1,5 +1,5 @@
 class SignAttachmentPostProcessor
-  def initialize(blob, presets=nil)
+  def initialize(blob, presets = nil)
     @blob = blob
     @presets = presets || default_presets
   end
@@ -21,7 +21,7 @@ class SignAttachmentPostProcessor
     @presets[:thumbnail].each { |preset| GenerateThumbnailJob.perform_later(@blob, preset.to_h) }
   end
 
-  def batch(description, callback_handler=nil, callback_data={}, &block)
+  def batch(description, callback_handler = nil, callback_data = {}, &block)
     batch = new_batch
     batch.description = "Post processing: #{description} for Blob ##{@blob.id}"
 

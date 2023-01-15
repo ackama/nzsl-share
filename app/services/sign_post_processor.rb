@@ -13,7 +13,7 @@ class SignPostProcessor < SignAttachmentPostProcessor
     end
   end
 
-  def initialize(sign, presets=nil)
+  def initialize(sign, presets = nil)
     @sign = sign
     super(@sign.video.blob, presets)
   end

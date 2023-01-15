@@ -5,11 +5,16 @@ RSpec.describe "Sign moderation", type: :system do
   let(:moderator) { FactoryBot.create(:user, :moderator) }
   let!(:signs) { FactoryBot.create_list(:sign, 3, :published) }
 
-  before { visit_admin(:signs, admin: moderator) }
+  before { visit_admin("signs?search=published:", admin: moderator) }
 
   it_behaves_like "an Administrate dashboard", except: %i[destroy new show]
 
   context "filtering" do
+    it "defaults to the 'pending' filter" do
+      visit_admin(:signs, admin: moderator)
+      expect(page).to have_field "search", with: "pending:"
+    end
+
     context "using dropdown" do
       it "filters by Pending" do
         select "Pending", from: "status"
