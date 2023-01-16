@@ -111,7 +111,7 @@ jobs:
 
       - name: Install required OS packages
         run: |
-          sudo apt-get -y install libpq-dev google-chrome-stable ffmpeg
+          sudo apt-get -y install libpq-dev google-chrome-stable ffmpeg --fix-missing
 
       - name: Install NodeJS
         uses: actions/setup-node@v3
@@ -162,7 +162,7 @@ jobs:
 
       - name: Install required OS packages
         run: |
-          sudo apt-get -y install libpq-dev google-chrome-stable ffmpeg
+          sudo apt-get -y install libpq-dev google-chrome-stable ffmpeg --fix-missing
 
       - name: Install NodeJS
         uses: actions/setup-node@v3
