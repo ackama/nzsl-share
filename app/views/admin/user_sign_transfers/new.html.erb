@@ -2,13 +2,11 @@
 
 <div class="grid-x margin-top-2 form">
   <div class="cell form__header">
-    <h1 class="primary">User Sign Transfer</h1>
+    <h1 class="primary"><%= t("admin.user_sign_transfers.new.title") %></h1>
 
     <p>On this page you can transfer signs owned by a user to another user.</p>
 
-    <p>This process is unreversable.</p>
-
-    <%= form_with url: admin_user_sign_transfers_path do |f| %>
+    <%= form_with url: admin_user_sign_transfers_path, local: true do |f| %>
       <%= f.hidden_field :old_owner, value: @old_owner.id %>
 
       <%= f.label :old_owner %>
@@ -17,7 +15,8 @@
       <%= f.label :new_owner %>
       <%= f.select :new_owner, User.not_system_user.where.not(id: @old_owner.id).collect{ |u| [u.username, u.id] } %>
 
-      <%= f.submit "Transfer owners", class: "button alert" %>
+      <%= f.submit "Transfer sign ownership", class: "button alert",
+                                              data: { confirm: t("admin.user_sign_transfers.new.confirm")} %>
     <% end %>
   </div>
 </div>
