@@ -111,9 +111,7 @@ jobs:
 
       - name: Install required OS packages
         run: |
-          sudo apt-get -y install libpq-dev
-          sudo apt-get -y install google-chrome-stable
-          sudo apt-get -y install ffmpeg
+          sudo apt-get -y install mesa-vdpau-drivers libpq-dev google-chrome-stable ffmpeg
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
@@ -163,7 +161,7 @@ jobs:
 
       - name: Install required OS packages
         run: |
-          sudo apt-get -y install libpq-dev google-chrome-stable ffmpeg
+          sudo apt-get -y install mesa-vdpau-drivers libpq-dev google-chrome-stable ffmpeg
 
       - name: Install NodeJS
         uses: actions/setup-node@v3
