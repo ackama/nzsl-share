@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Contributing a new sign", type: :system do
+RSpec.describe "Contributing a new sign", type: :system, upload_mode: :legacy do
   let(:user) { FactoryBot.create(:user) }
   subject { ContributeSignFeature.new }
   before do

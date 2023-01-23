@@ -74,6 +74,12 @@ RSpec.configure do |config|
     driven_by :chrome
   end
 
+  # Allow tests to specify a particular upload mode (uppy or legacy).
+  config.before(:each, :upload_mode) do |example|
+    allow(Rails.application.config).to receive(:upload_mode)
+      .and_return(example.metadata.fetch(:upload_mode))
+  end
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
