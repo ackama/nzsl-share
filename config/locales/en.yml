@@ -180,7 +180,6 @@ en:
       new:
         title: User Sign Transfer
         link_text: Transfer Signs
-        old_owner_required: The original owner of the signs that you are transfering is required.
         confirm: "Transfer ownership of these signs? This process is not reversible."
       create:
         success: Successfully transferred ownership of signs

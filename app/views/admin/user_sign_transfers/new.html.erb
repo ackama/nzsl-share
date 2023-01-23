@@ -17,7 +17,7 @@
       <p><%= @old_owner.username %></p>
 
       <%= f.label :new_owner %>
-      <%= f.select :new_owner, User.not_system_user.where.not(id: @old_owner.id).collect{ |u| [u.username, u.id] } %>
+      <%= f.select :new_owner, User.not_system_user.where.not(id: @old_owner.id).collect { |u| [u.username, u.id] } %>
     </div>
 
     <hr class="form__divider">
