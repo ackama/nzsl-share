@@ -173,7 +173,7 @@ GEM
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
     ffi (1.15.5)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
@@ -225,7 +225,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.16.3)
+    minitest (5.17.0)
     mock_redis (0.29.0)
       ruby2_keywords
     momentjs-rails (2.20.1)
