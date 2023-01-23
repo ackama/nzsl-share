@@ -88,6 +88,18 @@ RSpec.describe "signs/_card.html.erb", type: :view do
     expect(rendered).to have_selector(".sign-card__controls--comments", text: "Comments\n\n  10")
   end
 
+  it "shows an indicator on the comment icon when the user has unread comments" do
+    allow(view).to receive(:current_user).and_return(user)
+    allow(view).to receive(:user_signed_in?).and_return(true)
+    allow(view).to receive(:present).with(sign).and_return(presenter)
+    expect(presenter).to receive(:comments_count).and_return(1)
+    expect(presenter).to receive(:unread_comments?).and_return(true)
+
+    expect(rendered).to have_selector(
+      ".sign-card__controls--comments--unread",
+      text: "Comments\n\n  1")
+  end
+
   it "does not show the comment count when the user is not signed in" do
     expect(rendered).not_to have_selector(".sign-card__controls--comments")
   end

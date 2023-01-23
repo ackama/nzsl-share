@@ -40,6 +40,8 @@ class SignComment < ApplicationRecord
       )
   }
 
+  scope :unread_by, ->(user) { where.not(id: read_by(user)) }
+
   def self.comment_types
     [["Text comment", "text"], ["NZSL comment", "video"]]
   end
