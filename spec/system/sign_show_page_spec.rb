@@ -355,8 +355,26 @@ RSpec.describe "Sign show page", system: true do
     subject.breadcrumb { expect(subject).to have_content Topic::NO_TOPIC_DESCRIPTION }
   end
 
-  it "shows a breadcrumb to the topic" do
+  it "shows a breadcrumb to the first topic when there are multiple topics" do
+    sign.topics << FactoryBot.create(:topic)
     subject.breadcrumb { expect(subject).to have_link sign.topics.first.name }
+  end
+
+  it "shows a breadcrumb to the referring topic if resolved" do
+    first_topic = FactoryBot.create(:topic)
+    second_topic = FactoryBot.create(:topic)
+    sign.topics = [first_topic, second_topic]
+
+    visit current_path
+    subject.breadcrumb { expect(subject).to have_link first_topic.name }
+
+    visit topic_path(first_topic)
+    click_on sign.word
+    subject.breadcrumb { expect(subject).to have_content first_topic.name }
+
+    visit topic_path(second_topic)
+    click_on sign.word
+    subject.breadcrumb { expect(subject).to have_content second_topic.name }
   end
 
   it "displays the sign notes" do
