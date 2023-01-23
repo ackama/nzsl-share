@@ -31,5 +31,11 @@ module NzslShare
 
     config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV.fetch("MAIL_FROM", nil))
     config.google_analytics_container_id = ENV.fetch("GOOGLE_ANALYTICS_CONTAINER_ID", nil)
+
+    config.upload_mode = if ENV.fetch("FEATURE_MULTIPLE_UPLOAD", "false").match?(/\Atrue|y/)
+                           :uppy
+                         else
+                           :legacy
+                         end
   end
 end
