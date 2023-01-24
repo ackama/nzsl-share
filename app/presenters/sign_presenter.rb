@@ -1,4 +1,4 @@
-class SignPresenter < ApplicationPresenter
+class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   presents :sign
   delegate_missing_to :sign
   delegate :to_param, to: :sign
@@ -114,6 +114,24 @@ class SignPresenter < ApplicationPresenter
 
   def self.policy_class
     SignPolicy
+  end
+
+  def unread_comments?
+    user = h.current_user
+    return false unless user
+
+    # We use SignComment.where here because sign.sign_comments only includes root-level comments,
+    # not replies.
+    Pundit
+      .policy_scope(user, SignComment.where(sign: sign).unread_by(user))
+      .where("sign_comments.created_at > ?", user.created_at)
+      .any?
+  end
+
+  def comments_count
+    # We use SignComment.where here because sign.sign_comments only includes root-level comments,
+    # not replies.
+    @comments_count ||= Pundit.policy_scope(h.current_user, SignComment.where(sign: sign)).count
   end
 
   private

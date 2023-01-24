@@ -62,4 +62,15 @@ class SignCommentPolicy < ApplicationPolicy
     record.sign.folders.left_outer_joins(:collaborations)
           .exists?(folders: { collaborations: { collaborator_id: user.id } })
   end
+
+  class Scope < Scope
+    def resolve
+      accessible_signs = SignPolicy::Scope.new(user, Sign).resolve
+      accessible_folders = FolderPolicy::Scope.new(user, Folder).resolve
+
+      scope
+        .where(sign_id: accessible_signs)
+        .where(folder_id: [nil, *accessible_folders])
+    end
+  end
 end
