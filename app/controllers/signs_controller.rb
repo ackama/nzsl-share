@@ -1,4 +1,4 @@
-class SignsController < ApplicationController # rubocop:disable Metrics/ClassLength
+class SignsController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
 
   def index
