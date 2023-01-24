@@ -19,6 +19,8 @@
     "@rails/ujs": "^6.0.0-alpha",
     "@rails/webpacker": "^5.1.0",
     "@svgr/webpack": "^4.3.3",
+    "@uppy/core": "^3.0.4",
+    "@uppy/dashboard": "^3.2.0",
     "chosen-js": "^1.8.7",
     "foundation-sites": "^6.5.3",
     "jquery": "^3.4.1",
