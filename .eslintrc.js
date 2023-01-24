@@ -9,11 +9,11 @@ module.exports = {
     'plugin:react/recommended'
   ],
   env: {
-    browser: true
+    browser: true,
+    es6: true
   },
   globals: {
-    "$": "readonly",
-    "Promise": "readonly"
+    "$": "readonly"
   },
   settings: {
     react: {
