@@ -15,7 +15,7 @@ const createSignController = (container) => {
 
   uppy.setOptions({
     restrictions: {
-      maxFileSize: (maxFileSizeMb * 1024) * 1024,  // 250 mb
+      maxFileSize: (maxFileSizeMb * 1024) * 1024,
       maxNumberOfFiles: maxNumberOfFiles,
       minNumberOfFiles: 1,
       allowedFileTypes: ["video/*", "application/mp4"]
