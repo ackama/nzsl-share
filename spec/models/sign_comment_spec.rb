@@ -46,4 +46,20 @@ RSpec.describe SignComment, type: :model do
       it { expect { subject }.not_to change(SignActivity, :count) }
     end
   end
+
+  describe ".unread_by" do
+    let(:model) { FactoryBot.create(:sign_comment) }
+    let(:user) { FactoryBot.create(:user) }
+
+    subject { described_class.unread_by(user) }
+
+    context "the user has read the comment" do
+      before { model.read_by!(user) }
+      it { is_expected.not_to include model }
+    end
+
+    context "the user has not read the comment" do
+      it { is_expected.to include model }
+    end
+  end
 end

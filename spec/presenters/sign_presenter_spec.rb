@@ -215,4 +215,43 @@ RSpec.describe SignPresenter, type: :presenter do
       it { is_expected.to eq "folders_sign_#{sign.id}" }
     end
   end
+
+  describe "#comments_count" do
+    it "counts comments using Pundit.policy_scope" do
+      user = User.new
+      sign_in user
+      relation_double = instance_double(ActiveRecord::Relation, count: 10)
+      expect(Pundit).to receive(:policy_scope)
+        .with(view.current_user, sign.sign_comments)
+        .and_return(relation_double)
+
+      expect(presenter.comments_count).to eq 10
+    end
+  end
+
+  describe "#unread_comments?" do
+    let(:sign) { FactoryBot.create(:sign, :published) }
+
+    it "is true when there is an unread comment" do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(:sign_comment, sign: sign)
+      allow(presenter.h).to receive(:current_user).and_return(user)
+      expect(presenter.unread_comments?).to be true
+    end
+
+    it "is false when there are no unread comments" do
+      user = FactoryBot.create(:user)
+      comment = FactoryBot.create(:sign_comment, sign: sign)
+      comment.activities.read.create!(user: user)
+      allow(presenter.h).to receive(:current_user).and_return(user)
+      expect(presenter.unread_comments?).to be false
+    end
+
+    it "doesn't count comments created before the user registered" do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(:sign_comment, sign: sign, created_at: user.created_at - 1.hour)
+      allow(presenter.h).to receive(:current_user).and_return(user)
+      expect(presenter.unread_comments?).to be false
+    end
+  end
 end

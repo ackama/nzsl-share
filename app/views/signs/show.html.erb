@@ -9,6 +9,8 @@
     <li><%= link_to "Topics", "/topics" %></li>
     <% if @sign.topic.present? %>
       <li><%= link_to @sign.topic.name, "/topics/#{@sign.topic.to_param}" %></li>
+    <% elsif @sign.topics.any? %>
+      <li><%= link_to @sign.topics.first.name, "/topics/#{@sign.topics.first.to_param}" %></li>
     <% else %>
       <li><%= Topic::NO_TOPIC_DESCRIPTION %></li>
     <% end %>

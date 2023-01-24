@@ -355,8 +355,26 @@ RSpec.describe "Sign show page", system: true do
     subject.breadcrumb { expect(subject).to have_content Topic::NO_TOPIC_DESCRIPTION }
   end
 
-  it "shows a breadcrumb to the topic" do
+  it "shows a breadcrumb to the first topic when there are multiple topics" do
+    sign.topics << FactoryBot.create(:topic)
     subject.breadcrumb { expect(subject).to have_link sign.topics.first.name }
+  end
+
+  it "shows a breadcrumb to the referring topic if resolved" do
+    first_topic = FactoryBot.create(:topic)
+    second_topic = FactoryBot.create(:topic)
+    sign.topics = [first_topic, second_topic]
+
+    visit current_path
+    subject.breadcrumb { expect(subject).to have_link first_topic.name }
+
+    visit topic_path(first_topic)
+    click_on sign.word
+    subject.breadcrumb { expect(subject).to have_content first_topic.name }
+
+    visit topic_path(second_topic)
+    click_on sign.word
+    subject.breadcrumb { expect(subject).to have_content second_topic.name }
   end
 
   it "displays the sign notes" do
@@ -369,32 +387,32 @@ RSpec.describe "Sign show page", system: true do
     it "is able to register an agree" do
       within ".sign-controls" do
         click_on "Agree"
-        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+        expect(page).to have_selector ".sign-card__controls--agreed", text: "1"
       end
     end
 
     it "is able to deregister an agree" do
       within ".sign-controls" do
         click_on "Agree"
-        expect(page).to have_selector ".sign-card__votes--agreed", text: "1"
+        expect(page).to have_selector ".sign-card__controls--agreed", text: "1"
         click_on "Undo agree"
-        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
+        expect(page).to have_selector ".sign-card__controls--agree", text: "0"
       end
     end
 
     it "is able to register a disagree" do
       within ".sign-controls" do
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        expect(page).to have_selector ".sign-card__controls--disagreed", text: "1"
       end
     end
 
     it "is able to deregister a disagree" do
       within ".sign-controls" do
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        expect(page).to have_selector ".sign-card__controls--disagreed", text: "1"
         click_on "Undo disagree"
-        expect(page).to have_selector ".sign-card__votes--disagree", text: "0"
+        expect(page).to have_selector ".sign-card__controls--disagree", text: "0"
       end
     end
 
@@ -402,8 +420,8 @@ RSpec.describe "Sign show page", system: true do
       within ".sign-controls" do
         click_on "Agree"
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__votes--agree", text: "0"
-        expect(page).to have_selector ".sign-card__votes--disagreed", text: "1"
+        expect(page).to have_selector ".sign-card__controls--agree", text: "0"
+        expect(page).to have_selector ".sign-card__controls--disagreed", text: "1"
       end
     end
   end
@@ -415,7 +433,7 @@ RSpec.describe "Sign show page", system: true do
     context "not an approved user" do
       let(:user) { FactoryBot.create(:user) }
       it { expect(page).to have_no_link "Agree" }
-      it { expect(page).to have_selector ".sign-card__votes--agree", text: "0" }
+      it { expect(page).to have_selector ".sign-card__controls--agree", text: "0" }
     end
 
     context "without JS" do

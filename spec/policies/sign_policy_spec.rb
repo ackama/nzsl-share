@@ -29,6 +29,13 @@ RSpec.describe SignPolicy do
           expect(scope.map(&:status).uniq).to eq ["personal"]
         end
 
+        it "applies any existing clauses on the scope" do
+          signs = FactoryBot.create_list(:sign, 3, :personal, contributor: user)
+          scope = Pundit.policy_scope!(user, Sign.where(id: signs.last))
+          expect(scope.count).to eq 1
+          expect(scope.first).to eq signs.last
+        end
+
         it "does not have scope for other users private signs" do
           FactoryBot.create_list(:sign, 3, :personal)
           scope = Pundit.policy_scope!(user, Sign)

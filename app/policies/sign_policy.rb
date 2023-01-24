@@ -119,7 +119,7 @@ class SignPolicy < ApplicationPolicy
               .pluck("folder_memberships.sign_id")
 
         ids = (collaboration_sign_ids + resolve_moderator.map(&:id)).uniq
-        Sign.where(id: ids)
+        scope.where(id: ids)
       elsif user
         resolve_user
       else
