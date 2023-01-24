@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2019,
     sourceType: 'module'
   },
   extends: [
@@ -12,7 +12,8 @@ module.exports = {
     browser: true
   },
   globals: {
-    "$": "readonly"
+    "$": "readonly",
+    "Promise": "readonly"
   },
   settings: {
     react: {
