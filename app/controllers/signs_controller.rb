@@ -36,11 +36,8 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize @sign
     return render(:new) unless build_sign.save
 
-    flash[:notice] = t(".success")
-    respond_to do |format|
-      format.html { redirect_to [:edit, @sign] }
-      format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" } # rubocop:disable Rails/RenderInline
-    end
+    flash[:notice] = t(".success") unless request.format.json?
+    redirect_to [:edit, @sign]
   end
 
   def update
