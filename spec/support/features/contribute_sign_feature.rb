@@ -8,11 +8,7 @@ class ContributeSignFeature
   attr_reader :user
 
   def start
-    visit "/"
-
-    within ".sidebar--inside-grid" do
-      click_on "Add a sign"
-    end
+    visit "/signs/new"
   end
 
   def submit
