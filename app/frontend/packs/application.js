@@ -11,10 +11,8 @@
 
 require.context("../images", true);
 import Rails from "@rails/ujs";
-import Turbolinks from "turbolinks";
 require("@rails/activestorage").start();
 Rails.start();
-Turbolinks.start();
 
 import "foundation";
 import "../application.scss";
