@@ -245,9 +245,9 @@ RSpec.describe "Editing a sign", type: :system do
 
         page.scroll_to(find(container_selector))
         within container_selector do
-          drop_file_in_file_upload(valid_file,
-                                   content_type: content_type,
-                                   selector: "#{container_selector}-file-upload")
+          drop_file(valid_file,
+                    content_type: content_type,
+                    selector: "#{container_selector}-file-upload")
         end
 
         expect(page.find(list_selector)).to have_selector "li", count: original_count + 1, wait: 10

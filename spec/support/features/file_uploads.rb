@@ -1,10 +1,6 @@
 module FileUploads
-  def drop_file_in_file_upload(path = default_attachment_path, selector: nil)
-    # If we're using JS, we can drop onto the file upload component
-    # Otherwise, we need to specifically select the file
-    return choose_file(path) if Capybara.current_driver == :rack_test
-
-    find("#{selector}.file-upload").drop(path)
+  def drop_file(path = default_attachment_path, selector: ".file-upload")
+    find(selector).drop(path)
   end
 
   def choose_file(path = default_attachment_path)
