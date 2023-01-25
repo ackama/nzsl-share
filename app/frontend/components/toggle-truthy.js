@@ -1,4 +1,4 @@
-$(() => {
+$(document).on("turbolinks:load", () => {
   $("input:radio[data-toggle-truthy]").each(function() {
     const $all = $(`input[name='${this.name}']`);
     const $target = $(this.dataset.toggleTruthy);

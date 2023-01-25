@@ -27,4 +27,4 @@ const uppyFileUpload = (container, options = {}) => {
 
 export default uppyFileUpload;
 
-$(() => $("[data-controller='file-upload']").each((_idx, container) => uppyFileUpload(container)));
+$(document).on("turbolinks:load", () => $("[data-controller='file-upload']").each((_idx, container) => uppyFileUpload(container)));
