@@ -1,61 +1,48 @@
 require "rails_helper"
 
-RSpec.describe "Contributing a new sign", type: :system, upload_mode: :legacy do
+RSpec.describe "Contributing a new sign", type: :system do
   let(:user) { FactoryBot.create(:user) }
-  subject { ContributeSignFeature.new }
+  subject(:feature) { ContributeSignFeature.new }
+
   before do
     sign_in user
-    subject.start
+    feature.start
   end
 
-  shared_examples_for "sign contribution feature" do
-    it "can contribute a valid video file" do
-      expect do
-        subject.choose_file
-        subject.submit
-      end.to change(user.signs, :count).by(1)
-    end
+  it "can select a valid video file in legacy mode", uses_javascript: true, upload_mode: :legacy do
+    expect do
+      feature.choose_file
+      expect(feature).to have_current_path(%r{\A/signs/\d+/edit})
+    end.to change(user.signs, :count).by(1)
 
-    it "using drag and drop can contribute a valid video file" do
-      expect do
-        subject.drop_file_in_file_upload
-        subject.submit
-        expect(subject).to have_content I18n.t!("signs.create.success")
-      end.to change(user.signs, :count).by(1)
-    end
+    expect(subject).to have_content I18n.t!("signs.create.success")
+  end
 
-    it "shows a success message and navigates to the sign page" do
-      subject.choose_file
-      subject.submit
-      expect(subject.current_path).to eq edit_sign_path(Sign.order(created_at: :desc).first)
+  it "can drop a valid video file in legacy mode", uses_javascript: true, upload_mode: :legacy do
+    expect do
+      feature.drop_file
       expect(subject).to have_content I18n.t!("signs.create.success")
-    end
+    end.to change(user.signs, :count).by(1)
+  end
 
-    it "is prevented from contributing an invalid file" do |example|
-      subject.choose_file(Rails.root.join("spec/fixtures/dummy.exe"))
+  it "is prevented from contributing an invalid file in legacy mode", uses_javascript: true,
+                                                                      upload_mode: :legacy do |_example|
+    feature.choose_file(Rails.root.join("spec/fixtures/dummy.exe"))
+    expect(subject).to have_error "The file you selected does not comply with our upload guidelines."
+  end
 
-      # Until uploading JS is implemented, an error is shown using the raw direct upload error
-      # from rails-ujs. This means that the test (temporarily) needs to expect to see an
-      # technical rather than useful error message when running in JS mode.
-      if example.metadata[:uses_javascript]
-        expect(subject).to have_error "The file you selected does not comply with our upload guidelines."
-      else
-        subject.click_on("Start Upload")
-        expect(subject).to have_error "Video file is not of an accepted type"
-      end
-    end
+  it "can upload a file with JS disabled", uses_javacript: false do
+    expect do
+      feature.choose_file
+      feature.submit
+    end.to change(user.signs, :count).by(1)
+
+    expect(feature.current_path).to eq edit_sign_path(Sign.order(created_at: :desc).first)
+    expect(subject).to have_content I18n.t!("signs.create.success")
   end
 
   it "has the expected page title" do
     expect(subject).to have_title "New Sign – NZSL Share"
-  end
-
-  context "with Javascript disabled" do
-    include_examples "sign contribution feature"
-  end
-
-  context "with Javascript enabled", uses_javascript: true do
-    include_examples "sign contribution feature"
   end
 
   context "exceeding contribution limit" do
