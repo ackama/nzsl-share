@@ -50,7 +50,10 @@ const createSignController = (container) => {
       });
 
       return post("/signs", {
-        body: JSON.stringify({ sign: { video: file.response.signed_id } }),
+        body: JSON.stringify({
+          batch: fileIds.length > 1,
+          sign: { video: file.response.signed_id },
+        }),
       }).then((response) => {
         if (!response.ok) {
           return Promise.reject(

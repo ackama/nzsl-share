@@ -35,9 +35,9 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     @sign = build_sign.sign
     authorize @sign
     return render(:new) unless build_sign.save
+    return redirect_to user_signs_path if params[:batch]
 
-    flash[:notice] = t(".success") unless request.format.json?
-    redirect_to [:edit, @sign]
+    redirect_to edit_sign_path(@sign), notice: t(".success")
   end
 
   def update

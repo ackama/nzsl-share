@@ -8,6 +8,28 @@ RSpec.describe "sign", type: :request do
 
   before { sign_in user }
 
+  describe "POST create" do
+    let(:sign_params) { { video: fixture_file_upload("spec/fixtures/dummy.mp4") } }
+    let(:params) { { sign: sign_params } }
+
+    it "creates the sign"  do
+      expect { post signs_path, params: params }.to change(user.signs, :count).by(1)
+    end
+
+    it "adds a flash message and redirects to the edit sign page" do
+      post signs_path, params: params
+      expect(response).to redirect_to edit_sign_path(Sign.order(created_at: :desc).first)
+      expect(flash[:notice]).to eq I18n.t("signs.create.success")
+    end
+
+    it "does not add a flash message and redirects to the my signs page with batch=true" do
+      params[:batch] = true
+      post signs_path, params: params
+      expect(response).to redirect_to user_signs_path
+      expect(flash[:notice]).to be_nil
+    end
+  end
+
   describe "PATCH /:id" do
     let(:update) do
       ->(sign) { patch "/signs/#{sign.id}", params: { sign: { notes: "this is a note for a sign" } } }
