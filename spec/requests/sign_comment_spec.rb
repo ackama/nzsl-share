@@ -108,6 +108,7 @@ RSpec.describe "sign_comment", type: :request do
 
       it "retains the folder context of a comment" do
         folder = FactoryBot.create(:folder, user: user)
+        sign.folders << folder
         create_params[:folder_id] = folder.id
         create.call(sign)
         comment = sign.sign_comments.last
