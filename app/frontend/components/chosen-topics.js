@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", () =>
+$(() =>
   $(".js-chosen-topics").chosen({
     placeholder_text_multiple: "--Please select--",
     single_backstroke_delete: false,

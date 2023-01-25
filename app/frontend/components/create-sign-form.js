@@ -73,7 +73,7 @@ const createSignController = (container) => {
   });
 };
 
-$(document).on("turbolinks:load", () => {
+$(() => {
   $("[data-controller='create-sign']").each((_idx, container) =>
     createSignController(container)
   );
