@@ -9,6 +9,8 @@ $(document).on("upload-success", "#new_sign .file-upload", () =>
 const maxFileSizeMb = 250;
 
 const createSignController = (container) => {
+  container.innerHTML = null; // Reset the container before adding Uppy
+
   const uppy = uppyFileUpload(container, {
     dashboard: {
       hideRetryButton: true,
