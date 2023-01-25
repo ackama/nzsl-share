@@ -1,9 +1,58 @@
+$font-family-base: $body-font-family;
+$blue: get-color(royal);
+$green: get-color(success);
+$gray-600: $neutral-gray;
+
 @import "@uppy/core/src/style";
 @import "@uppy/dashboard/src/style";
-@import '@uppy/drop-target/dist/style';
+@import "@uppy/drop-target/dist/style";
 @import "@uppy/webcam/dist/style";
 
+// Overrides
 .uppy-size--md .uppy-Dashboard-Item {
   float: left; // Fix invalid inline-start float property from Uppy
 }
 
+.uppy-Root {
+  -webkit-font-smoothing: antialiased;
+}
+
+// Themeing
+.uppy-Dashboard-AddFiles-title {
+  font-weight: 400;
+  font-size: rem-calc(22) !important;
+
+  button {
+    font-weight: 700 !important;
+  }
+}
+
+.uppy-DashboardTab-name {
+  font-size: rem-calc(15);
+  font-weight: 400;
+}
+
+.uppy-Informer p {
+  padding: 10px 10px;
+}
+
+.uppy-StatusBar {
+  height: rem-calc(64);
+}
+
+.uppy-StatusBar-actionBtn--done {
+  &,
+  &:active,
+  &:hover,
+  &:focus {
+    background: get-color(royal);
+    color: $white;
+    padding: rem-calc(12) rem-calc(18);
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 4px 16px 0 rgba(get-color(royal), 0.6);
+  }
+}
