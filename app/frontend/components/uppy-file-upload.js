@@ -19,6 +19,12 @@ const uppyFileUpload = (container, options = {}) => {
     inline: true,
     target: container,
     proudlyDisplayPoweredByUppy: false,
+    locale: {
+      strings: {
+        ...options?.dashboard?.locale?.strings,
+        dropPasteImportFiles: "Drop files here, or %{browseFiles}"
+      }
+    },
     plugins: ["Webcam"]
   });
 
