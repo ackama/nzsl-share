@@ -36,11 +36,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize @sign
     return render(:new) unless build_sign.save
 
-    flash[:notice] = t(".success")
-    respond_to do |format|
-      format.html { redirect_to [:edit, @sign] }
-      format.js { render inline: "window.location = '#{edit_sign_path(@sign)}'" } # rubocop:disable Rails/RenderInline
-    end
+    respond_to_create(@sign)
   end
 
   def update
@@ -50,7 +46,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize @sign
     return render(:edit) unless @sign.save
 
-    redirect_after_update(@sign)
+    respond_to_update(@sign)
   end
 
   def destroy
@@ -99,6 +95,17 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
                                  :conditions_accepted, topic_ids: [])
   end
 
+  def respond_to_create(sign)
+    return redirect_to user_signs_path if params[:batch]
+
+    flash[:notice] = t(".success")
+
+    respond_to do |format|
+      format.html { redirect_to edit_sign_path(sign) }
+      format.js { render }
+    end
+  end
+
   def id
     params[:id]
   end
@@ -120,7 +127,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     end
   end
 
-  def redirect_after_update(sign)
+  def respond_to_update(sign)
     respond_to do |format|
       format.html { redirect_to sign, notice: t(".success") }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" } # rubocop:disable Rails/RenderInline

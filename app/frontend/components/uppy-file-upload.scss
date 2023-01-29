@@ -3,3 +3,7 @@
 @import '@uppy/drop-target/dist/style';
 @import "@uppy/webcam/dist/style";
 
+.uppy-size--md .uppy-Dashboard-Item {
+  float: left; // Fix invalid inline-start float property from Uppy
+}
+
