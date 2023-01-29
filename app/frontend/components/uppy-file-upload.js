@@ -10,7 +10,6 @@ const uppyFileUpload = (container) => {
     id: container.id
   });
 
-
   uppy.use(DropTarget, { target: document.body });
   uppy.use(Webcam,  { modes: "video-only", countdown: true });
   uppy.use(ActiveStorageUpload, { directUploadUrl: "/rails/active_storage/direct_uploads" });
@@ -21,7 +20,10 @@ const uppyFileUpload = (container) => {
     proudlyDisplayPoweredByUppy: false,
     plugins: ["Webcam"]
   });
+
+  return uppy;
 };
 
+export default uppyFileUpload;
 
 $(() => $("[data-controller='file-upload']").each((_idx, container) => uppyFileUpload(container)));

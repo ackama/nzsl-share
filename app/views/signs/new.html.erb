@@ -13,7 +13,9 @@
     <%= render "errors" %>
     <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
       <% if Rails.application.config.upload_mode == :uppy %>
-        <div data-controller="file-upload"></div>
+        <div data-controller="create-sign"
+             data-create-sign-contribution-limit-value="<%= current_user.contribution_limit - current_user.signs.count %>"
+        ></div>
       <% else %>
         <div class="file-upload" data-file-upload-controller="sign[video]">
           <%= f.label :video, "Browse files", class: "button primary large" %>
