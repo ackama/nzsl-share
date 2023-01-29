@@ -137,6 +137,13 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   def mark_comments_as_read
     return unless user_signed_in?
 
-    @comments.each { |c| c.read_by!(current_user) }
+    @comments.each { |comment| mark_comment_as_read(comment) }
+  end
+
+  ## Recursively marks each comment and it's replies (etc)
+  # as read.
+  def mark_comment_as_read(comment)
+    comment.read_by!(current_user)
+    comment.replies.each { |reply| mark_comment_as_read(reply) }
   end
 end

@@ -176,6 +176,13 @@ en:
         link_to: Unpublish
         confirm: Make this sign private?
         success: Sign was made private # Pending message
+    user_sign_transfers:
+      new:
+        title: User Sign Transfer
+        link_text: Transfer Signs
+        confirm: "Transfer ownership of these signs? This process is not reversible."
+      create:
+        success: Successfully transferred ownership of signs
     users:
       collection:
         confirm_destroy: |

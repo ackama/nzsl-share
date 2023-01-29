@@ -63,6 +63,27 @@ RSpec.describe "sign", type: :request do
       expect { get sign_path(sign, comments_page: 2) }.to change(SignCommentActivity.read, :count).by(5)
     end
 
+    it "marks each seen comment's replies as read" do
+      unread = FactoryBot.create(:sign_comment, sign: sign)
+      reply_depth_1 = FactoryBot.create(:sign_comment, sign: sign, in_reply_to: unread)
+      reply_depth_2 = FactoryBot.create(:sign_comment, sign: sign, in_reply_to: reply_depth_1)
+
+      expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(3)
+      expect(unread).to be_read_by(user)
+      expect(reply_depth_1).to be_read_by(user)
+      expect(reply_depth_2).to be_read_by(user)
+    end
+
+    it "marks an unread reply as read, even if the original comment is already read" do
+      read = FactoryBot.create(:sign_comment, sign: sign)
+      read.read_by!(user)
+      reply = FactoryBot.create(:sign_comment, sign: sign, in_reply_to: read)
+
+      expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(1)
+      expect(read).to be_read_by(user)
+      expect(reply).to be_read_by(user)
+    end
+
     it "doesn't mark comments as read when there is no user signed in" do
       sign_out :user
       FactoryBot.create(:sign_comment, sign: sign)

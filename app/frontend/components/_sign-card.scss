@@ -269,7 +269,7 @@
     &--comments--unread {
       position: relative;
       &::after {
-        background: get-color(royal);
+        background: get-color(accent);
         border-radius: 50px;
         border: solid 1px get-color(white);
         content: " ";
