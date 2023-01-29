@@ -13,11 +13,15 @@ $gray-600: $neutral-gray;
   float: left; // Fix invalid inline-start float property from Uppy
 }
 
+// Make bold text antialiased
 .uppy-Root {
   -webkit-font-smoothing: antialiased;
 }
 
 // Themeing
+
+// Make the title less bold, but a larger font.
+// Make the 'Browse files' button bold
 .uppy-Dashboard-AddFiles-title {
   font-weight: 400;
   font-size: rem-calc(22) !important;
@@ -32,10 +36,13 @@ $gray-600: $neutral-gray;
   font-weight: 400;
 }
 
+// Increase the spacing around an informer flash message
 .uppy-Informer p {
   padding: 10px 10px;
 }
 
+// Ensure the status bar can contain action buttons styled to match
+// NZSL theme buttons
 .uppy-StatusBar {
   height: rem-calc(64);
 }
