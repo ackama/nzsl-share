@@ -25,9 +25,16 @@ RSpec.describe SignCommentPolicy, type: :policy do
       expect(resolve(user)).not_to include comment
     end
 
+    it "does not resolve a folder comment on a private sign when the sign no longer belongs to the folder" do
+      folder = FactoryBot.create(:folder)
+      sign = FactoryBot.create(:sign, contributor: folder.user)
+      comment = FactoryBot.create(:sign_comment, folder: folder, sign: sign)
+      expect(resolve(folder.user)).not_to include comment
+    end
+
     it "resolves a folder comment on a private sign" do
       folder = FactoryBot.create(:folder)
-      folder.signs << sign = FactoryBot.create(:sign)
+      folder.signs << sign = FactoryBot.create(:sign, contributor: folder.user)
       comment = FactoryBot.create(:sign_comment, folder: folder, sign: sign)
       expect(resolve(folder.user)).to include comment
     end
