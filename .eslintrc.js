@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2019,
     sourceType: 'module'
   },
   extends: [
@@ -9,7 +9,8 @@ module.exports = {
     'plugin:react/recommended'
   ],
   env: {
-    browser: true
+    browser: true,
+    es6: true
   },
   globals: {
     "$": "readonly"

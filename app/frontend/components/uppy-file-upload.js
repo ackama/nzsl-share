@@ -2,6 +2,7 @@ import Uppy from "@uppy/core";
 import Dashboard from "@uppy/dashboard";
 import DropTarget from "@uppy/drop-target";
 import Webcam from "@uppy/webcam";
+import ActiveStorageUpload from "./uppy/ActiveStorageUpload";
 
 
 const uppyFileUpload = (container) => {
@@ -12,6 +13,7 @@ const uppyFileUpload = (container) => {
 
   uppy.use(DropTarget, { target: document.body });
   uppy.use(Webcam,  { modes: "video-only", countdown: true });
+  uppy.use(ActiveStorageUpload, { directUploadUrl: "/rails/active_storage/direct_uploads" });
 
   uppy.use(Dashboard, {
     inline: true,
