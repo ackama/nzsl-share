@@ -70,13 +70,15 @@ $gray-600: $neutral-gray;
   }
 }
 
+// Style uppy buttons to match NZSL buttons for 'Done' and 'Upload'
+.uppy-StatusBar-actionBtn--done, .uppy-StatusBar-actionBtn--upload {
   &,
   &:active,
   &:hover,
   &:focus {
-    background: get-color(royal);
+    background-color: get-color(royal) !important;
     color: $white;
-    padding: rem-calc(12) rem-calc(18);
+    padding: rem-calc(12) rem-calc(18) !important;
     font-weight: bold;
   }
 
