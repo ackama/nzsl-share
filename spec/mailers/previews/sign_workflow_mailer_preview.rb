@@ -4,4 +4,14 @@ class SignWorkflowMailerPreview < ActionMailer::Preview
     sign = FactoryBot.build_stubbed(:sign, :submitted)
     SignWorkflowMailer.moderation_requested(sign)
   end
+
+  def published
+    sign = FactoryBot.build_stubbed(:sign, :published)
+    SignWorkflowMailer.published(sign)
+  end
+
+  def declined
+    sign = FactoryBot.build_stubbed(:sign, :declined)
+    SignWorkflowMailer.declined(sign)
+  end
 end

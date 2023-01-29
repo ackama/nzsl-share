@@ -84,8 +84,10 @@ class Sign < ApplicationRecord
     state :personal, initial: true
     state :submitted, before_enter: -> { self.submitted_at = Time.zone.now },
                       after_enter: -> { SignWorkflowMailer.moderation_requested(self).deliver_later }
-    state :published, before_enter: -> { self.published_at = Time.zone.now }
-    state :declined, before_enter: -> { self.declined_at = Time.zone.now }
+    state :published, before_enter: -> { self.published_at = Time.zone.now },
+                      after_enter: -> { SignWorkflowMailer.published(self).deliver_later }
+    state :declined, before_enter: -> { self.declined_at = Time.zone.now },
+                     after_enter: -> { SignWorkflowMailer.declined(self).deliver_later }
     state :unpublish_requested, before_enter: -> { self.requested_unpublish_at = Time.zone.now }
     state :archived
 

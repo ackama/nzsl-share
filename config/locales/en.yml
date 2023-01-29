@@ -193,6 +193,10 @@ en:
   sign_workflow_mailer:
     moderation_requested:
       subject: NZSL Share - Submitted sign requires moderation
+    published:
+      subject: NZSL Share - Your sign has been published
+    declined:
+      subject: NZSL Share - Your sign has been declined
   collaboration_mailer:
     success:
       subject: NZSL Share - You are invited to join a team
