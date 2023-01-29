@@ -40,7 +40,36 @@ $gray-600: $neutral-gray;
   height: rem-calc(64);
 }
 
-.uppy-StatusBar-actionBtn--done {
+
+// Show the 'browse files' button, but not the button right below that,
+// since it's redundant.
+.uppy-DashboardTab[data-uppy-acquirer-id="MyDevice"] {
+  display: none;
+}
+
+// Make thumbnails less bold
+.uppy-Dashboard-Item-previewInnerWrap {
+  background-color: get-color(royal-x-light) !important;
+  filter: grayscale(1);
+
+  .uppy-Dashboard-Item-previewIconBg {
+    display: none; // Use the element background
+  }
+
+  .uppy-Dashboard-Item-previewIcon {
+    .uppy-size--md & {
+      width: 64px;
+      height: 64px;
+    }
+
+    // Matches https://github.com/transloadit/uppy/blob/d1499b3b09b07b4c876d44af20306c0303e2c6a5/packages/%40uppy/dashboard/src/style.scss#L890
+    .uppy-Dashboard--singleFile & {
+      width: 176px;
+      height: 176px;
+    }
+  }
+}
+
   &,
   &:active,
   &:hover,
