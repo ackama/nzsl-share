@@ -94,3 +94,18 @@ $gray-600: $neutral-gray;
     box-shadow: 0 4px 16px 0 rgba(get-color(royal), 0.6);
   }
 }
+
+// Reverse order of webcam controls so that the cancel action is on the left
+.uppy-Webcam-footer {
+  .uppy-Webcam-buttonContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+
+    .uppy-Webcam-button {
+      margin: auto;
+    }
+  }
+}
