@@ -17,7 +17,7 @@
     <fieldset class="form__section">
       <legend><h2 class="primary">Sign details</h2></legend>
       <hr class="form__divider">
-      <div class="file-preview js-sign-video-container">
+      <div class="file-preview js-sign-video-container" data-controller="update-sign-video" data-update-sign-video-sign-id-value="<%= @sign.to_param %>">
         <div class="file-preview__media">
           <%= render "signs/card/video", sign: @sign, overlay: false %>
         </div>
@@ -30,6 +30,8 @@
           <span class="file-preview__metadata__value">
             <%= number_to_human_size @sign.video.byte_size %>
           </span>
+
+          <%= button_tag "Change video", class: "button clear", type: "button", data: { update_sign_video_target: "trigger" } %>
         </div>
       </div>
 
