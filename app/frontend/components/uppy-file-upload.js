@@ -8,6 +8,7 @@ import ActiveStorageUpload from "./uppy/ActiveStorageUpload";
 const uppyFileUpload = (container, options = {}) => {
   const uppy = new Uppy({
     id: container.id,
+    ...options.uppy
   });
 
   uppy.use(DropTarget, { target: document.body });
@@ -26,7 +27,6 @@ const uppyFileUpload = (container, options = {}) => {
   uppy.use(ActiveStorageUpload, { directUploadUrl: "/rails/active_storage/direct_uploads" });
 
   uppy.use(Dashboard, {
-    ...options.dashboard,
     inline: true,
     target: container,
     proudlyDisplayPoweredByUppy: false,
@@ -36,7 +36,8 @@ const uppyFileUpload = (container, options = {}) => {
         dropPasteImportFiles: "Drop files here, or %{browseFiles}"
       }
     },
-    plugins: ["Webcam"]
+    plugins: ["Webcam"],
+    ...options.dashboard,
   });
 
   return uppy;
