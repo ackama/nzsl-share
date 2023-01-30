@@ -11,7 +11,18 @@ const uppyFileUpload = (container, options = {}) => {
   });
 
   uppy.use(DropTarget, { target: document.body });
-  uppy.use(Webcam,  { modes: "video-only", countdown: true });
+  uppy.use(Webcam,  {
+    modes: "video-only",
+    countdown: true,
+    locale: {
+      strings: {
+        pluginNameCamera: "Video recording",
+        noCameraDescription: "In order to record video with your camera, please connect a camera device.",
+        allowAccessDescription: "In order to record video with your camera, please allow camera access for this site."
+      }
+    }
+  });
+
   uppy.use(ActiveStorageUpload, { directUploadUrl: "/rails/active_storage/direct_uploads" });
 
   uppy.use(Dashboard, {
@@ -19,6 +30,12 @@ const uppyFileUpload = (container, options = {}) => {
     inline: true,
     target: container,
     proudlyDisplayPoweredByUppy: false,
+    locale: {
+      strings: {
+        ...options?.dashboard?.locale?.strings,
+        dropPasteImportFiles: "Drop files here, or %{browseFiles}"
+      }
+    },
     plugins: ["Webcam"]
   });
 

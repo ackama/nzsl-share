@@ -63,7 +63,9 @@ const createSignController = (container) => {
           );
         }
 
-        if (fileIds.length === 1) {
+        // We check the internal Uppy state to see if a single file has been selected
+        // rather than fileIds, since a user can select files in more than one go.
+        if (uppy.getFiles().length === 1) {
           window.location = response.headers.get("Location");
         } else {
           return Promise.resolve(); // Do nothing, allow the user to click 'Done'
