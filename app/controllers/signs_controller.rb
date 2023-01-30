@@ -32,19 +32,22 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def create
-    @sign = build_sign.sign
+    creator = SignCreator.new(create_sign_params)
+    @sign = creator.sign
     authorize @sign
-    return render(:new) unless build_sign.save
+    return render(:new) unless creator.create
 
     respond_to_create(@sign)
   end
 
   def update
     @sign = signs.find(id)
-    @sign.assign_attributes(edit_sign_params)
-    set_signs_submitted_state
     authorize @sign
-    return render(:edit) unless @sign.save
+
+    updater = SignUpdater.new(@sign, update_sign_params)
+
+    set_signs_submitted_state
+    return render(:edit) unless updater.update
 
     respond_to_update(@sign)
   end
@@ -82,16 +85,12 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     policy_scope(Sign).for_cards.order(word: :asc)
   end
 
-  def build_sign(builder: SignBuilder.new)
-    @build_sign ||= builder.build(create_sign_params)
-  end
-
   def create_sign_params
     params.require(:sign).permit(:video).merge(contributor: current_user)
   end
 
-  def edit_sign_params
-    params.require(:sign).permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
+  def update_sign_params
+    params.require(:sign).permit(:maori, :secondary, :video, :notes, :word, :usage_examples, :illustrations,
                                  :conditions_accepted, topic_ids: [])
   end
 
