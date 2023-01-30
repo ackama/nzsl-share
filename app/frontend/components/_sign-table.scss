@@ -1,0 +1,12 @@
+.sign-table-row {
+  a {
+    color: inherit;
+    font-weight: normal;
+    text-decoration: none;
+
+    &:hover {
+      color: get-color(royal);
+      text-decoration: underline;
+    }
+  }
+}
