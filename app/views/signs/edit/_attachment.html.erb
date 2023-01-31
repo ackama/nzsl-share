@@ -14,8 +14,7 @@
           { maxFileSize: Sign::MAXIMUM_FILE_SIZE,
             maxNumberOfFiles: attribute == :illustrations ? 3 : 2,
             allowedFileTypes: attribute == :illustrations ? ["image/*"] : ["video/*"] }.to_json %>">
-      <%= form.label :"#{attribute}", "Upload files", class: "button primary", data: { sign_attachment_target: "trigger" } %>
-      <%= form.file_field :"#{attribute}", class: (form.object.errors[attribute].any? ? "invalid" : nil) %>
+      <%= button_tag "Upload files", type: :button, class: "button primary", data: { sign_attachment_target: "trigger" } %>
       <%= content_tag(:div, form.object.sign.errors.full_messages_for(attribute).join(", ")) %>
     </div>
   <% else %>
