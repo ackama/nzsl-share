@@ -14,3 +14,4 @@ import "../components/file-upload";
 import "../components/uppy-file-upload";
 import "../components/create-sign-form";
 import "../components/edit-sign-form";
+import "../components/edit-sign-video";
