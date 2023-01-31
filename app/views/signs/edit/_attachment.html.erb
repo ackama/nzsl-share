@@ -1,16 +1,31 @@
 <% collective_class ||= field.to_s.dasherize.pluralize %>
-<% attribute ||= field.to_s.underscore.pluralize %>
+<% attribute ||= field.to_s.underscore.pluralize.to_sym %>
 
 <div class="<%= collective_class %> form__section">
 
   <%= label_tag :"new_#{field}", t(".#{field}.label") %>
   <%= content_tag(:p, t(".#{field}.hint"), class: "help-text") %>
-  <%= content_tag(:div,
-    class: "file-upload #{collective_class}-file-upload",
-    data: { sign_id: form.object.to_param, file_upload_controller: "new_#{field}" }) do %>
-    <%= form.label :"#{attribute}", "Browse files", class: "button primary large" %>
-    <%= form.file_field :"#{attribute}", class: (form.object.errors[attribute].any? ? "invalid" : nil) %>
-    <%= content_tag(:div, form.object.sign.errors.full_messages_for(attribute).join(", ")) %>
+
+  <% if Rails.application.config.upload_mode == :uppy %>
+    <div data-controller="sign-attachment"
+         data-sign-attachment-refresh-selector-value="<%= ".sign-#{collective_class}" %>"
+         data-sign-attachment-url-value="<%= sign_attachments_path(@sign, attribute) %>"
+         data-sign-attachment-restrictions-value="<%=
+          { maxFileSize: Sign::MAXIMUM_FILE_SIZE,
+            maxNumberOfFiles: attribute == :illustrations ? 3 : 2,
+            allowedFileTypes: attribute == :illustrations ? ["image/*"] : ["video/*"] }.to_json %>">
+      <%= form.label :"#{attribute}", "Upload files", class: "button primary", data: { sign_attachment_target: "trigger" } %>
+      <%= form.file_field :"#{attribute}", class: (form.object.errors[attribute].any? ? "invalid" : nil) %>
+      <%= content_tag(:div, form.object.sign.errors.full_messages_for(attribute).join(", ")) %>
+    </div>
+  <% else %>
+    <%= content_tag(:div,
+      class: "file-upload #{collective_class}-file-upload",
+      data: { sign_id: form.object.to_param, file_upload_controller: "new_#{field}" }) do %>
+      <%= form.label :"#{attribute}", "Browse files", class: "button primary large" %>
+      <%= form.file_field :"#{attribute}", class: (form.object.errors[attribute].any? ? "invalid" : nil) %>
+      <%= content_tag(:div, form.object.sign.errors.full_messages_for(attribute).join(", ")) %>
+    <% end %>
   <% end %>
 
   <ul class="no-bullet list list--compact sign-<%= collective_class %>">
@@ -43,7 +58,7 @@
           <% end %>
 
           <%= button_tag formmethod: :post,
-                        form: "delete_#{attribute.singularize}_form",
+                        form: "delete_#{attribute.to_s.singularize}_form",
                         formaction: sign_attachment_path(form.object, attach, attachment_type: attribute),
                         class: "button icon-only clear small show-if-no-js pull-right" do %>
             <%= inline_svg_pack_tag "media/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
