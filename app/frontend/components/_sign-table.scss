@@ -1,5 +1,17 @@
 .sign-table-row {
+  border-bottom: 1px #C2CDD1 solid;
+
   a {
+    text-decoration: none;
+  }
+
+  &__header {
+    font-weight: bold;
+    font-size: 0.825rem;
+    color: #556970;
+  }
+
+  &__contributor {
     color: inherit;
     font-weight: normal;
     text-decoration: none;
@@ -7,6 +19,24 @@
     &:hover {
       color: get-color(royal);
       text-decoration: underline;
+    }
+  }
+
+  &__image {
+    padding-left: 20px;
+    margin: 6px;
+    width: 80%;
+
+    &__container {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__comments {
+    margin-right: 25px;
+
+    a {
+      font-weight: normal;
     }
   }
 }

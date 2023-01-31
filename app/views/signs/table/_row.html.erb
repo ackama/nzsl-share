@@ -1,0 +1,45 @@
+<% sign = present(sign) %>
+
+<div class="grid-x grid-margin-x align-middle sign-table-row">
+  <div class="cell medium-2 large-2 grid-x align-middle sign-table-row__image__container">
+    <input type="checkbox" />
+
+    <% preview = sign.video.preview(ThumbnailPreset.default.scale_360.to_h) %>
+    <%= image_tag(url_for(preview.image), class: "sign-table-row__image") unless preview.image.persisted?.nil? %>
+  </div>
+
+  <div class="cell medium-2 large-2">
+    <%= link_to sign_path(sign) do %>
+      <h1 class="sign-card__title"><%= sign.word %></h1>
+    <% end %>
+
+    <%= content_tag(:h2, sign.topics.pluck(:name).join(", "),
+                          class: "sign-card__supplementary-titles__secondary small") %>
+  </div>
+
+  <div class="cell medium-2 large-2">
+    <% if policy(sign).overview? %>
+      <small id="sign_status" title="<%= sign.status_description %>" class="sign-card__status"> <%= sign.status_name %> </small>
+    <% end %>
+  </div>
+
+  <div class="cell medium-2 large-2">
+    <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true %>
+    <%= link_to user_path(sign.contributor.username), class: "sign-table-row__contributor" do %>
+      <%= sign.contributor.username %>
+    <% end %>
+    <div><%= sign.friendly_date %></div>
+  </div>
+
+  <div class="cell medium-3 large-3">
+    <div class="grid-x align-middle">
+      <span class="sign-table-row__comments"><%= render "signs/card/comments", sign: sign %></span>
+      <%= render "signs/card/votes", sign: sign %>
+      <%= render "signs/card/folders", sign: sign %>
+    </div>
+  </div>
+
+  <div class="cell medium-1 large-1">
+    <%= link_to "Edit", edit_sign_path(sign), class: "button" %>
+  </div>
+</div>

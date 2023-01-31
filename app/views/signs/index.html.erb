@@ -4,23 +4,9 @@
     <h1>My signs</h1>
     <p class="margin-0">Signs you have contributed.</p>
   </div>
-  <hr class="list__divider">
-  <div class="list__section margin-vertical-0 cell sign-grid">
-    <table class="max-width-100">
-      <thead>
-        <tr>
-          <td>Video</td>
-          <td>Word</td>
-          <td>Status</td>
-          <td>Submitted</td>
-          <td>Activity</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <%= render partial: "table_row", collection: @signs, as: :sign %>
-      </tbody>
-    </table>
+  <div class="list__section margin-vertical-0 cell">
+    <%= render "signs/table/header" %>
+    <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
   </div>
 
   <%= render "show_more" %>
