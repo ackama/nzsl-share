@@ -2,7 +2,14 @@
 
 <tr class="sign-table-row">
   <td>
-    <%= image_tag(url_for(sign.video.preview(ThumbnailPreset.default.scale_360.to_h).image)) %>
+    <div class="checkbox">
+      <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
+      <%= label_tag dom_id(sign, :batch_selection) do %>
+        <span class="show-for-sr">Add sign to selection</span>
+      <% end %>
+    </div>
+  <td>
+    <%= image_tag(sign.poster_url(size: 360)) %>
   </td>
 
   <td>
