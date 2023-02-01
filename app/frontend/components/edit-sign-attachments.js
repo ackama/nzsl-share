@@ -25,7 +25,6 @@ const signAttachmentController = (container) => {
       },
     });
 
-    console.log(maxNumberOfFiles);
     if (maxNumberOfFiles < 1) {
       uppy.getPlugin("Dashboard").setOptions({ disabled: true });
     } else {
