@@ -7,9 +7,15 @@
 <div id="new-video-comment" style="display:none;">
   <div class="grid-x grid-padding-x margin-bottom-2 sign-comment__video">
     <div class="video-comment cell">
-      <%= content_tag(:div, class: "file-upload video-comment-file-upload",
-        data: { sign_id: @sign.id, file_upload_controller: "video_comment" }) do %>
-        <%= label_tag :"video_comment", "Browse files", class: "button primary large" %>
+      <% if Rails.application.config.upload_mode == :uppy %>
+        <%= form_with model: @new_comment, url: sign_video_comment_index_path(@sign) do |f| %>
+          <%= render "sign_comments/shared/video_fields", comment: f.object, parent: nil, f: f %>
+        <% end %>
+      <% else %>
+        <%= content_tag(:div, class: "file-upload video-comment-file-upload",
+          data: { sign_id: @sign.id, file_upload_controller: "video_comment" }) do %>
+          <%= label_tag :"video_comment", "Browse files", class: "button primary large" %>
+        <% end %>
       <% end %>
     </div>
   </div>
