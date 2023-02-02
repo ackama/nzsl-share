@@ -5,7 +5,7 @@ class Sign < ApplicationRecord
 
   PERMITTED_VIDEO_CONTENT_TYPE_REGEXP = %r{\Avideo/.+|application/mp4\Z}
   PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}
-  REFERRED_TOPIC = %r{\A/topics/\d{1,3}\Z}
+  REFERRED_TOPIC = %r{\A/topics/\d+\Z}
   MAXIMUM_FILE_SIZE = 250.megabytes
 
   belongs_to :contributor, class_name: :User

@@ -163,136 +163,26 @@ RSpec.describe "Editing a sign", type: :system do
     end
   end
 
-  shared_examples_for "sign attachment behaviour" do |attribute|
-    include ActionView::Helpers::NumberHelper
-    let(:field_name) { "sign_#{attribute}" }
-    let(:list_selector) { ".#{field_name.tr("_", "-")}" }
-    let(:container_selector) { ".#{attribute.to_s.tr("_", "-")}" }
-    let(:invalid_file) { Rails.root.join("spec/fixtures/dummy.exe") }
-
-    context "without JS" do
-      it "sees existing attachment data" do
-        single_record = sign.public_send(attribute).first
-        expected_file_size = number_to_human_size(single_record.byte_size)
-        within(list_selector) do
-          expect(page).to have_content single_record.filename
-          expect(page).to have_content expected_file_size
-          expect(page).to have_button "Remove File"
-        end
-      end
-
-      it "can remove a file" do
-        within(list_selector) do
-          expect(page).to have_selector "li", count: 1
-          click_button "Remove File"
-          expect(page).to have_no_selector "li"
-        end
-      end
-
-      it "can update the description of an attachment" do
-        desc = Faker::Lorem.sentence
-        single_record = sign.public_send(attribute).first
-        expect do
-          within("#{list_selector} li") do
-            fill_in :description, with: desc
-            page.find("input[type=submit]", visible: false).click
-            single_record.reload
-          end
-        end.to change { single_record.blob.metadata["description"] }.to eq desc
-
-        within(list_selector) { expect(page).to have_field(:description, with: desc) }
-      end
-
-      it "can upload a new file" do
-        within container_selector { page.attach_file field_name, valid_file }
-        click_on "Update Sign"
-        click_on "Edit"
-        expect(page).to have_selector "#{list_selector} li", count: 1
-      end
-
-      it "rejects an invalid file with an error" do
-        within container_selector do
-          choose_file invalid_file
-        end
-
-        click_on "Update Sign"
-
-        expect(page).to have_selector "input##{field_name}.invalid"
-        expect(page).to have_content "file is not of an accepted type"
-      end
+  describe "Updating the video on a sign", uses_javascript: true do
+    it "can update the video using file selection" do
+      click_on "Change video"
+      choose_file(selector: "files[]", visible: false, match: :first)
+      expect do
+        click_on "Upload 1 file"
+        expect(page).to have_content(I18n.t("signs.update.success"))
+        sign.reload
+      end.to change(sign, :video_blob)
     end
 
-    context "with JS", uses_javascript: true do
-      it "can remove a file" do
-        within container_selector do
-          click_on "Remove File"
-        end
-
-        expect(page.find(list_selector)).to have_no_selector "li"
-      end
-
-      it "can upload a new file" do
-        original_count = sign.public_send(attribute).size
-        page.scroll_to(find(container_selector))
-        within container_selector do
-          choose_file(valid_file)
-        end
-
-        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1, wait: 10
-        expect(sign.public_send(attribute).count).to eq original_count + 1
-      end
-
-      it "can upload a new file using drag and drop", flaky: true, skip: "Flaky test" do
-        original_count = sign.public_send(attribute).size
-
-        page.scroll_to(find(container_selector))
-        within container_selector do
-          drop_file(valid_file,
-                    content_type: content_type,
-                    selector: "#{container_selector}-file-upload")
-        end
-
-        expect(page.find(list_selector)).to have_selector "li", count: original_count + 1, wait: 10
-        expect(sign.public_send(attribute).count).to eq original_count + 1
-      end
-
-      it "can update the description of an attachment" do
-        desc = Faker::Lorem.sentence
-        single_record = sign.public_send(attribute).first
-        within("#{list_selector} li") do
-          field = find_field(:description)
-          field.send_keys desc, :return
-          expect(page).to have_field(:description, with: desc)
-        end
-
-        single_record.reload
-        expect(single_record.blob.metadata["description"]).to eq desc
-      end
-
-      it "rejects an invalid file with an error" do
-        expected_err = "The file you selected does not comply with our upload guidelines."
-
-        within container_selector do
-          choose_file invalid_file
-          expect(page).to have_content expected_err
-          expect(page).to have_link "Try again."
-        end
-      end
+    it "can update the video using drag and drop" do
+      click_on "Change video"
+      drop_file(selector: "body")
+      expect do
+        click_on "Upload 1 file"
+        expect(page).to have_content(I18n.t("signs.update.success"))
+        sign.reload
+      end.to change(sign, :video_blob)
     end
-  end
-
-  xdescribe "usage examples" do
-    let!(:sign) { FactoryBot.create(:sign, :with_usage_examples, contributor: user) }
-    let(:valid_file) { Rails.root.join("spec/fixtures/dummy.mp4") }
-    let(:content_type) { "video/mp4" }
-    include_examples "sign attachment behaviour", :usage_examples
-  end
-
-  xdescribe "illustrations" do
-    let!(:sign) { FactoryBot.create(:sign, :with_illustrations, contributor: user) }
-    let(:valid_file) { Rails.root.join("spec/fixtures/image.jpeg") }
-    let(:content_type) { "image/jpeg" }
-    include_examples "sign attachment behaviour", :illustrations
   end
 
   describe "Updating the video on a sign", uses_javascript: true do
