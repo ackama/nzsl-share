@@ -5,7 +5,7 @@ RSpec.describe BatchOperation do
   let(:records) { [1, 2, 3, 4, 5] }
   let(:operation) { proc { |record| "Processing record: #{record}" } }
   let(:precondition) { proc { |record| record.even? } }
-  let(:batch_operation) { BatchOperation.new(records, operation, &precondition) }
+  let(:batch_operation) { BatchOperation.new(records, operation, precondition: precondition) }
 
   describe "#process" do
     it "returns a tuple of successful records and failed records" do

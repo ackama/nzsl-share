@@ -7,8 +7,8 @@ class SignBatchOperationsController < ApplicationController
     operation = resolve_operation
     return head(:unprocessable_entity) unless operation
 
-    precondition = method(:authorize_operation)
-    batch = BatchOperation.new(signs, operation, &precondition)
+    authorize_operation = method(:authorize_record_operation)
+    batch = BatchOperation.new(signs, operation, precondition: authorize_operation)
     succeeded, failed = batch.process
 
     respond_to do |format|
@@ -30,7 +30,7 @@ class SignBatchOperationsController < ApplicationController
     end
   end
 
-  def authorize_operation(record)
+  def authorize_record_operation(record)
     permission = operation_name == :submit_for_publishing ? :submit? : :update?
     policy(record).public_send(permission)
   end

@@ -5,7 +5,7 @@
 # the record is added to the failure list, otherwise, the operation is executed
 # and the result (success or failure) is recorded accordingly.
 class BatchOperation
-  def initialize(records, operation, &precondition)
+  def initialize(records, operation, precondition: nil)
     @records = records
     @operation = operation
     @precondition = precondition
