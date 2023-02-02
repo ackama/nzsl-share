@@ -2,7 +2,11 @@
 <div class="grid-x list margin-top-2">
   <div class="list__section">
     <h1>My signs</h1>
-    <p class="margin-0">Signs you have contributed.</p>
+    <form class="cell auto">
+      <%= label_tag :sort_by %>
+      <%= select_tag :sort_by, options_for_select(SignsController::SORT_OPTIONS.keys.collect{ |name| [name.to_s.humanize, name] }, params[:sort_by]),
+                               onchange: "this.form.submit()" %>
+    </form>
   </div>
   <div class="list__section margin-vertical-0 cell">
     <%= render "signs/table/header" %>
