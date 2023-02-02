@@ -26,7 +26,7 @@ RSpec.describe "My Signs", type: :system do
   describe "signs" do
     it "includes the expected signs" do
       signs.each do |sign|
-        expect(page).to have_selector ".sign-card .sign-card__title", text: sign.word
+        expect(page).to have_selector ".sign-card__title", text: sign.word
       end
     end
 
