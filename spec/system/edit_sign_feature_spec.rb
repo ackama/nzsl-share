@@ -184,4 +184,26 @@ RSpec.describe "Editing a sign", type: :system do
       end.to change(sign, :video_blob)
     end
   end
+
+  describe "Updating the video on a sign", uses_javascript: true do
+    it "can update the video using file selection" do
+      click_on "Change video"
+      choose_file(selector: "files[]", visible: false, match: :first)
+      expect do
+        click_on "Upload 1 file"
+        expect(page).to have_content(I18n.t("signs.update.success"))
+        sign.reload
+      end.to change(sign, :video_blob)
+    end
+
+    it "can update the video using drag and drop" do
+      click_on "Change video"
+      drop_file(selector: "body")
+      expect do
+        click_on "Upload 1 file"
+        expect(page).to have_content(I18n.t("signs.update.success"))
+        sign.reload
+      end.to change(sign, :video_blob)
+    end
+  end
 end
