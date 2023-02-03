@@ -1,7 +1,11 @@
 select {
-  background-image: url("images/dropdown.svg");
+  background-image: url("images/dropdown-light.svg");
   background-origin: border-box;
   background-position: right 1rem center;
   background-repeat: no-repeat;
   background-size: rem-calc(16);
+
+  &:active, &:focus {
+    background-image: url("images/dropdown.svg");
+  }
 }
