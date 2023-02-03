@@ -3,6 +3,9 @@
   <div class="list__section cell">
     <h1>My signs</h1>
   </div>
+
+  <%= render "signs/table/controls" %>
+
   <div class="list__section margin-vertical-0 cell">
     <%= render "signs/table/header" %>
     <%= render partial: "signs/table/row", collection: @signs, as: :sign %>

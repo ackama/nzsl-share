@@ -1,0 +1,10 @@
+<%= form_with url: signs_batch_operations_path, id: "sign_list_controls", local: true, html: { class: "grid-x cell grid-padding-x" } do |f| %>
+  <%= f.hidden_field "sign_ids[]" %>
+  <div class="cell grid-x medium-4 small-12">
+    <%= f.label :topic_id, "Assign topics", class: "cell" %>
+    <%= f.collection_select :topic_id, policy_scope(Topic).all, :id, :name, { prompt: "--Select topic--" }, class: "cell auto margin-right-2" %>
+    <div class="cell shrink">
+      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral" %>
+    </div>
+  </div>
+<% end %>
