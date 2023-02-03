@@ -103,6 +103,9 @@ en:
       link: "Remove from NZSL Share"
       confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."
       success: Your sign, '%{sign_name}' has been removed from NZSL Share
+  sign_batch_operations:
+    create:
+      success: Successfully processed %{succeeded_count} sign(s), %{failed_count} failed to process
   search:
     sort_by:
       alpha_asc: Alphabetical (A-Z)
