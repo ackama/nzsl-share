@@ -103,7 +103,7 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
   end
 
   it "checks the batch selection checkbox when an appropriate param is present" do
-    params[:sign_ids] = [sign.id]
+    params[:sign_ids] = [sign.to_param]
     rendered = render "signs/table/row", sign: sign
     expect(rendered).to have_field("Add sign to selection", checked: true)
   end
