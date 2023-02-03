@@ -5,4 +5,18 @@ class SignWorkflowMailer < ApplicationMailer
 
     mail bcc: moderators
   end
+
+  def published(sign)
+    @contributor = sign.contributor
+    @sign = sign
+
+    mail to: @contributor.email
+  end
+
+  def declined(sign)
+    @contributor = sign.contributor
+    @sign = sign
+
+    mail to: @contributor.email
+  end
 end
