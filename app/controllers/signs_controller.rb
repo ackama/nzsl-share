@@ -2,6 +2,11 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   before_action :authenticate_user!, except: %i[show]
   after_action :mark_comments_as_read, only: :show
 
+  SORT_OPTIONS = {
+    alphabetical: { word: :asc },
+    most_recent: { created_at: :desc }
+  }.freeze
+
   def index
     @signs = signs.where(contributor: current_user).page(params[:page])
     authorize @signs
@@ -79,7 +84,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def signs
-    sort_by = Sign::SORT_OPTIONS[params[:sort_by].try(:to_sym)] || Sign::SORT_OPTIONS[:alphabetical]
+    sort_by = SORT_OPTIONS[params[:sort_by]&.to_sym] || SORT_OPTIONS[:alphabetical]
     policy_scope(Sign).for_cards.order(sort_by)
   end
 

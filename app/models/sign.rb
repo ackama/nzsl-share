@@ -7,10 +7,6 @@ class Sign < ApplicationRecord
   PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}
   REFERRED_TOPIC = %r{\A/topics/\d{1,3}\Z}
   MAXIMUM_FILE_SIZE = 250.megabytes
-  SORT_OPTIONS = {
-    alphabetical: "word ASC",
-    most_recent: "created_at DESC"
-  }.freeze
 
   belongs_to :contributor, class_name: :User
   has_many :folder_memberships, dependent: :destroy
