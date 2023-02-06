@@ -120,21 +120,26 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     user = h.current_user
     return false unless user
 
-    # We use SignComment.where here because sign.sign_comments only includes root-level comments,
-    # not replies.
-    Pundit
-      .policy_scope(user, SignComment.where(sign: sign).unread_by(user))
+    accessible_sign_comments
       .where("sign_comments.created_at > ?", user.created_at)
+      .unread_by(user)
       .any?
   end
 
   def comments_count
     # We use SignComment.where here because sign.sign_comments only includes root-level comments,
     # not replies.
-    @comments_count ||= Pundit.policy_scope(h.current_user, SignComment.where(sign: sign)).count
+    @comments_count ||= accessible_sign_comments.count
   end
 
   private
+
+  def accessible_sign_comments
+    Pundit
+      .policy_scope(h.current_user, SignComment.where(sign: sign))
+      .joins(:sign)
+      .where("sign_comments.sign_status = signs.status")
+  end
 
   def map_folders_to_memberships(folders, memberships)
     folders.each_with_object({}) do |folder, acc|
