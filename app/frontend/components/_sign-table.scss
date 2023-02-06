@@ -1,5 +1,6 @@
 .sign-table-row {
   border-bottom: 1px #C2CDD1 solid;
+  padding: 8px 0;
 
   a {
     text-decoration: none;
@@ -9,6 +10,10 @@
     font-weight: bold;
     font-size: 0.825rem;
     color: #556970;
+
+    @media #{$small-only} {
+      display: none;
+    }
   }
 
   &__contributor {
@@ -24,8 +29,7 @@
 
   &__image {
     padding-left: 20px;
-    margin: 6px;
-    width: 80%;
+    width: 90px;
 
     &__container {
       flex-wrap: nowrap;
@@ -37,6 +41,22 @@
 
     a {
       font-weight: normal;
+    }
+  }
+
+  &__controls {
+    &--agree,
+    &--disagree,
+    &--comments {
+      color: get-color(medium) !important;
+      display: inline-flex;
+      text-decoration: none;
+    }
+
+    &--agree,
+    &--disagree,
+    &--comments {
+      margin-right: 10px;
     }
   }
 }

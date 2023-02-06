@@ -33,8 +33,20 @@
 
   <div class="cell medium-3 large-3">
     <div class="grid-x align-middle">
-      <span class="sign-table-row__comments"><%= render "signs/card/comments", sign: sign %></span>
-      <%= render "signs/card/votes", sign: sign %>
+      <span class="sign-table-row__controls--comments"><%= render "signs/card/comments", sign: sign %></span>
+
+      <div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
+        <%= agree_button(sign, table: true) do %>
+          <%= inline_svg_pack_tag "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__controls--icon" %>
+          <%= sign.agree_count %>
+        <% end %>
+
+        <%= disagree_button(sign, table: true) do %>
+          <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__controls--icon" %>
+          <%= sign.disagree_count %>
+        <% end %>
+      </div>
+
       <%= render "signs/card/folders", sign: sign %>
     </div>
   </div>
