@@ -1,12 +1,11 @@
 import Rails from "@rails/ujs";
 import uppyFileUpload from "./uppy-file-upload";
 import { post } from "@rails/request.js";
+import signVideoRestrictions from "./uppy/signVideoRestrictions";
 
 $(document).on("upload-success", "#new_sign .file-upload", () =>
   Rails.fire($("#new_sign").get(0), "submit")
 );
-
-const maxFileSizeMb = 250;
 
 const createSignController = (container) => {
   container.innerHTML = null; // Reset the container before adding Uppy
@@ -31,10 +30,8 @@ const createSignController = (container) => {
 
   uppy.setOptions({
     restrictions: {
-      maxFileSize: maxFileSizeMb * 1024 * 1024,
+      ...signVideoRestrictions,
       maxNumberOfFiles: maxNumberOfFiles,
-      minNumberOfFiles: 1,
-      allowedFileTypes: ["video/*", "application/mp4"],
     },
     locale: {
       strings: {
@@ -63,7 +60,9 @@ const createSignController = (container) => {
           );
         }
 
-        if (fileIds.length === 1) {
+        // We check the internal Uppy state to see if a single file has been selected
+        // rather than fileIds, since a user can select files in more than one go.
+        if (uppy.getFiles().length === 1) {
           window.location = response.headers.get("Location");
         } else {
           return Promise.resolve(); // Do nothing, allow the user to click 'Done'
