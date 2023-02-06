@@ -49,7 +49,7 @@ RSpec.describe "My Signs", type: :system do
   end
 
   it "can bulk assign topics to signs" do
-    topic_to_assign = Topic.where.not(id: signs.pluck(&:topic_ids)).sample
+    topic_to_assign = Topic.where.not(id: signs.flat_map(&:topic_ids)).sample
     all(".sign-table-row input[name='sign_ids[]']")[0..2].each(&:check)
     select topic_to_assign.name, from: "Assign topics"
     click_on "Assign"
