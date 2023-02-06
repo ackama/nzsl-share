@@ -122,7 +122,7 @@ RSpec.describe "Editing sign usage examples", type: :system do
       drop_file(selector: ".uppy-Dashboard")
       drop_file("spec/fixtures/small.mp4", selector: ".uppy-Dashboard")
       drop_file("spec/fixtures/medium.mp4", selector: ".uppy-Dashboard")
-      expect(page).to have_content "You can only upload 2 files"
+      expect(page).to have_content "You can only upload 2 file(s) at a time"
 
       click_on "Upload 2 files"
     end
