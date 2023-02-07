@@ -16,6 +16,7 @@ class UserDashboard < Administrate::BaseDashboard
     approved: Field::Boolean.with_options(searchable: false),
     validator: Field::Boolean.with_options(searchable: false),
     contribution_limit: Field::Number.with_options(searchable: false),
+    batch_sign_contributions_permitted: Field::Boolean.with_options(searchable: false),
     signs: Field::HasMany,
     approved_user_application: Field::BelongsTo
   }.freeze
@@ -38,6 +39,7 @@ class UserDashboard < Administrate::BaseDashboard
     email
     bio
     contribution_limit
+    batch_sign_contributions_permitted
     administrator
     moderator
     approved
@@ -54,6 +56,7 @@ class UserDashboard < Administrate::BaseDashboard
     approved
     validator
     contribution_limit
+    batch_sign_contributions_permitted
   ].freeze
 
   # COLLECTION_FILTERS
