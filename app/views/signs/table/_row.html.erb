@@ -5,7 +5,7 @@
     <input type="checkbox" />
 
     <% preview = sign.video.preview(ThumbnailPreset.default.scale_360.to_h) %>
-    <%= image_tag(url_for(preview.image), class: "sign-table-row__image") unless preview.image.persisted?.nil? %>
+    <%= image_tag(sign.poster_url(size: 360) class: "sign-table-row__image") %>
   </div>
 
   <div class="cell medium-2 large-2">
