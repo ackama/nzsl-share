@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_21_033513) do
+ActiveRecord::Schema.define(version: 2023_02_07_003822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status", default: "submitted"
-    t.index ["status"], name: "index_approved_user_applications_on_status"
     t.index ["user_id"], name: "index_approved_user_applications_on_user_id"
   end
 
@@ -101,7 +100,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "signs_count", default: 0
     t.string "share_token"
-    t.index "user_id, TRIM(BOTH FROM lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
+    t.index "user_id, btrim(lower((title)::text))", name: "user_folders_title_unique_idx", unique: true
     t.index ["share_token"], name: "index_folders_on_share_token", unique: true
     t.index ["user_id", "title"], name: "index_folders_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_folders_on_user_id"
@@ -191,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.datetime "declined_at"
     t.datetime "requested_unpublish_at"
     t.boolean "conditions_accepted", default: false
+    t.datetime "last_user_edit_at"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["notes"], name: "index_signs_on_notes"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.boolean "batch_sign_contributions_permitted", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
