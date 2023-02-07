@@ -10,7 +10,19 @@ RSpec.describe "signs/table/_controls.html.erb", type: :view do
   end
 
   it "allows submission of signs" do
+    allow(view).to receive(:current_user).and_return(FactoryBot.create(:user, :approved))
     rendered = render
     expect(rendered).to have_button("Submit for publishing")
+  end
+
+  it "doesn't show the submit for publishing button if the current user is not approved" do
+    allow(view).to receive(:current_user).and_return(FactoryBot.create(:user))
+    rendered = render
+    expect(rendered).not_to have_button("Submit for publishing")
+  end
+
+  it "doesn't show the submit for publishing button if no user is logged in" do
+    rendered = render
+    expect(rendered).not_to have_button("Submit for publishing")
   end
 end
