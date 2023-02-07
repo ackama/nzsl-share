@@ -4,10 +4,17 @@ import DropTarget from "@uppy/drop-target";
 import Webcam from "@uppy/webcam";
 import ActiveStorageUpload from "./uppy/ActiveStorageUpload";
 
-
 const uppyFileUpload = (container, options = {}) => {
   const uppy = new Uppy({
     id: container.id,
+    locale: {
+      strings: {
+        youCanOnlyUploadX: {
+          0: "You can only upload %{smart_count} file at a time",
+          1: "You can only upload %{smart_count} file(s) at a time",
+        },
+      },
+    },
     ...options.uppy
   });
 
@@ -30,13 +37,13 @@ const uppyFileUpload = (container, options = {}) => {
     inline: true,
     target: container,
     proudlyDisplayPoweredByUppy: false,
+    plugins: ["Webcam"],
     locale: {
       strings: {
         ...options?.dashboard?.locale?.strings,
         dropPasteImportFiles: "Drop files here, or %{browseFiles}"
       }
     },
-    plugins: ["Webcam"],
     ...options.dashboard,
   });
 
@@ -45,4 +52,8 @@ const uppyFileUpload = (container, options = {}) => {
 
 export default uppyFileUpload;
 
-$(() => $("[data-controller='file-upload']").each((_idx, container) => uppyFileUpload(container)));
+$(() =>
+  $("[data-controller='file-upload']").each((_idx, container) =>
+    uppyFileUpload(container)
+  )
+);

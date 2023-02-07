@@ -47,7 +47,7 @@ RSpec.describe "Edit sign illustrations", type: :system do
       drop_file("spec/fixtures/image.jpeg", selector: ".uppy-Dashboard")
       drop_file("spec/fixtures/image.gif", selector: ".uppy-Dashboard")
       drop_file("spec/fixtures/image.webp", selector: ".uppy-Dashboard")
-      expect(page).to have_content "You can only upload 3 files"
+      expect(page).to have_content "You can only upload 3 file(s) at a time"
 
       click_on "Upload 3 files"
     end
