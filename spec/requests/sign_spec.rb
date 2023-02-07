@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "sign", type: :request do
   let(:user) { FactoryBot.create(:user, :approved) }
-  let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+  let(:sign) { FactoryBot.create(:sign, contributor: user) }
 
   before { sign_in user }
 
@@ -14,6 +14,12 @@ RSpec.describe "sign", type: :request do
 
     it "creates the sign"  do
       expect { post signs_path, params: params }.to change(user.signs, :count).by(1)
+    end
+
+    it "initially records the sign as unmodified by the user" do
+      post signs_path, params: params
+      sign = Sign.order(created_at: :desc).first
+      expect(sign.last_user_edit_at).to be_nil
     end
 
     it "adds a flash message and redirects to the edit sign page" do
@@ -36,13 +42,17 @@ RSpec.describe "sign", type: :request do
     end
 
     it "does not change sign ownership after update" do
-      expect(sign.contributor).to eq user
-      update.call(sign)
-      expect(sign.contributor).to eq user
+      expect { update.call(sign) }.not_to change { sign.tap(&:reload).contributor }
+    end
+
+    it "updates the timestamp when the record was last user modified" do
+      expect { update.call(sign) }.to change { sign.tap(&:reload).last_user_edit_at }
     end
   end
 
   describe "GET show" do
+    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+
     it "marks unseen comments as read" do
       read = FactoryBot.create_list(:sign_comment, 5, sign: sign).each do |comment|
         comment.read_by!(user)

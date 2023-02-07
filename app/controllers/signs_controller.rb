@@ -91,8 +91,10 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def edit_sign_params
-    params.require(:sign).permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
-                                 :conditions_accepted, topic_ids: [])
+    params.require(:sign)
+          .permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
+                  :conditions_accepted, topic_ids: [])
+          .merge(last_user_edit_at: Time.zone.now)
   end
 
   def respond_to_create(sign)
