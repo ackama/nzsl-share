@@ -27,6 +27,8 @@ class SignBatchOperationsController < ApplicationController
     case operation_name&.to_sym
     when :assign_topic
       method(:assign_topic)
+    when :submit_for_publishing
+      method(:submit_for_publishing)
     end
   end
 
@@ -39,8 +41,15 @@ class SignBatchOperationsController < ApplicationController
     record.topics << policy_scope(Topic).find(params.require(:topic_id))
   end
 
+  def submit_for_publishing(record)
+    record.conditions_accepted = true
+    record.submit
+
+    record.save
+  end
+
   def operation_name
-    params.require(:operation)
+    params.require(:operation).to_sym
   end
 
   def sign_ids

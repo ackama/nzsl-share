@@ -43,5 +43,14 @@ RSpec.describe "My Signs", type: :system do
     it "doesn't include unexpected signs" do
       expect(page).to have_no_selector ".sign-card .sign-card__title", text: unowned_sign.word
     end
+
+    it "can bulk submit signs for publishing" do
+      user.update(approved: true)
+      all(".sign-table-row input[name='sign_ids[]']")[0..2].each(&:check)
+      click_on "Submit for publishing"
+
+      expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
+      expect(all(".sign-table-row input[name='sign_ids[]']")[0..2]).to all(be_checked)
+    end
   end
 end

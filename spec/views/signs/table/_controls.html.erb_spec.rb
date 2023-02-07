@@ -8,4 +8,9 @@ RSpec.describe "signs/table/_controls.html.erb", type: :view do
     expect(rendered).to have_select("Assign topics", with_options: Topic.pluck(:name))
     expect(rendered).to have_button("Assign")
   end
+
+  it "allows submission of signs" do
+    rendered = render
+    expect(rendered).to have_button("Submit for publishing")
+  end
 end
