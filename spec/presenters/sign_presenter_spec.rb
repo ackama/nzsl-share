@@ -254,18 +254,4 @@ RSpec.describe SignPresenter, type: :presenter do
       expect(presenter.unread_comments?).to be false
     end
   end
-
-  describe "#edited?" do
-    it "is true if the updated timestamp is different from the created timestamp" do
-      sign.updated_at = 1.day.ago
-      sign.created_at = 2.days.ago
-      expect(presenter).to be_edited
-    end
-
-    it "is false if the updated timestamp is the same as the created timestamp" do
-      sign.updated_at = 1.day.ago
-      sign.created_at = sign.updated_at
-      expect(presenter).not_to be_edited
-    end
-  end
 end

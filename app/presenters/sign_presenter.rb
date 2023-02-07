@@ -134,10 +134,6 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     @comments_count ||= Pundit.policy_scope(h.current_user, SignComment.where(sign: sign)).count
   end
 
-  def edited?
-    updated_at != created_at
-  end
-
   private
 
   def map_folders_to_memberships(folders, memberships)
