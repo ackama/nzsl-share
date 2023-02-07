@@ -57,4 +57,14 @@ RSpec.describe "My Signs", type: :system do
     expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
     expect(all(".sign-table-row input[name='sign_ids[]']")[0..2]).to all(be_checked)
   end
+
+  it "can bulk submit signs for publishing" do
+    user.update(approved: true)
+    visit user_signs_path
+    all(".sign-table-row input[name='sign_ids[]']")[0..2].each(&:check)
+    click_on "Submit for publishing"
+
+    expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
+    expect(all(".sign-table-row input[name='sign_ids[]']")[0..2]).to all(be_checked)
+  end
 end
