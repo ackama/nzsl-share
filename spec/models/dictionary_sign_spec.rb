@@ -10,18 +10,18 @@ RSpec.describe DictionarySign, type: :model do
   end
 
   it "filters out obscene entries by default" do
-    sign = DictionarySign.create!(usage: "obscene", id: SecureRandom.uuid)
+    sign = FactoryBot.create(:dictionary_sign, usage: "obscene", id: SecureRandom.uuid)
     expect(DictionarySign.unscoped.where(id: sign.id)).to eq [sign]
     expect(DictionarySign.where(id: sign.id)).to be_empty
   end
 
   it "defines the preview scope to not include too many results" do
-    signs = Array.new(5) { DictionarySign.create!(id: SecureRandom.uuid) }
+    signs = FactoryBot.create_list(:dictionary_sign, 5)
     expect(DictionarySign.where(id: signs.map(&:id)).preview.length).to eq 4
   end
 
-  it "aliases methods to be compatible with FreelexSign" do
-    sign = DictionarySign.new(gloss: "GLOSS", minor: "SECONDARY")
+  it "aliases methods to be compatible with Sign" do
+    sign = FactoryBot.create(:dictionary_sign, gloss: "GLOSS", minor: "SECONDARY")
     expect(sign.word).to eq sign.gloss
     expect(sign.secondary).to eq sign.secondary
   end

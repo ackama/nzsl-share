@@ -4,7 +4,7 @@ RSpec.describe "Searching for signs" do
   context "with full results" do
     before do
       DictionarySign.unscoped.destroy_all
-      Array.new(6) { DictionarySign.create!(id: SecureRandom.uuid, gloss_normalized: "a") }
+      FactoryBot.create_list(:dictionary_sign, 6, gloss_normalized: "a")
       FactoryBot.create_list(:sign, 5, :published, word: "a")
       submit_search("a")
     end

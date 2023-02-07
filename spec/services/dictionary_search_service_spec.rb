@@ -14,7 +14,7 @@ RSpec.describe DictionarySearchService, type: :service do
           sign_attrs[:id] = SecureRandom.uuid
           sign_attrs[:gloss_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:word])
           sign_attrs[:minor_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:secondary])
-          DictionarySign.create!(sign_attrs.except(:published_at))
+          FactoryBot.create(:dictionary_sign, sign_attrs.except(:published_at))
         end
       end
 
@@ -82,7 +82,7 @@ RSpec.describe DictionarySearchService, type: :service do
           sign_attrs[:id] = SecureRandom.uuid
           sign_attrs[:gloss_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:word])
           sign_attrs[:minor_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:secondary])
-          DictionarySign.create!(sign_attrs.except(:published_at))
+          FactoryBot.create(:dictionary_sign, sign_attrs.except(:published_at))
         end
       end
 
@@ -126,7 +126,7 @@ RSpec.describe DictionarySearchService, type: :service do
           sign_attrs[:id] = SecureRandom.uuid
           sign_attrs[:gloss_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:word])
           sign_attrs[:minor_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:secondary])
-          DictionarySign.create!(sign_attrs.except(:published_at))
+          FactoryBot.create(:dictionary_sign, sign_attrs.except(:published_at))
         end
       end
 
@@ -156,7 +156,7 @@ RSpec.describe DictionarySearchService, type: :service do
             sign_attrs[:id] = SecureRandom.uuid
             sign_attrs[:gloss_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:word])
             sign_attrs[:minor_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:secondary])
-            DictionarySign.create!(sign_attrs.except(:published_at))
+            FactoryBot.create(:dictionary_sign, sign_attrs.except(:published_at))
           end
         end
 
@@ -199,7 +199,7 @@ RSpec.describe DictionarySearchService, type: :service do
             sign_attrs[:id] = SecureRandom.uuid
             sign_attrs[:gloss_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:word])
             sign_attrs[:minor_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:secondary])
-            DictionarySign.create!(sign_attrs.except(:published_at))
+            FactoryBot.create(:dictionary_sign, sign_attrs.except(:published_at))
           end
         end
 
@@ -237,7 +237,7 @@ RSpec.describe DictionarySearchService, type: :service do
           sign_attrs[:id] = SecureRandom.uuid
           sign_attrs[:gloss_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:word])
           sign_attrs[:minor_normalized] = ActiveSupport::Inflector.transliterate(sign_attrs[:secondary])
-          DictionarySign.create!(sign_attrs.except(:published_at))
+          FactoryBot.create(:dictionary_sign, sign_attrs.except(:published_at))
         end
       end
 
