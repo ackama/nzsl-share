@@ -2,6 +2,11 @@
   border-bottom: 1px #C2CDD1 solid;
   padding: 8px 0;
 
+  &--unedited {
+    background: get-color(accent-x-light);
+    border-left: solid get-color(accent) rem-calc(6);
+  }
+
   a {
     text-decoration: none;
   }
