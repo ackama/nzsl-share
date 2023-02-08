@@ -1,9 +1,28 @@
 .sign-table {
   display: grid;
-  grid-template-columns: max-content max-content 1fr max-content max-content 1fr max-content;
 
+
+  // Reset table elements to be stylable as a grid
   thead, tbody, tr {
     display: contents;
+  }
+
+  // Space elements across a grid
+  @include breakpoint(large up) {
+    grid-template-columns: max-content max-content 1fr max-content max-content 1fr max-content;
+    //                     ^ checkbox  ^ image     ^ title ^ status   ^ user   ^ controls  ^ edit button
+  }
+
+  @include breakpoint(medium down) {
+    tbody > tr > td:not(:first-child) {
+      grid-column-start: 2;
+      grid-column-end: span 6;
+    }
+
+    // Hide headings when we collapse to a card display
+    thead {
+      display: none;
+    }
   }
 
   a {
@@ -63,19 +82,6 @@
 
 
 .sign-table-row {
-
-
-
-  a {
-    text-decoration: none;
-  }
-
-  &__header {
-
-  }
-
-
-
 
   &__contributor {
     color: inherit;
