@@ -4,8 +4,7 @@
   <div class="cell medium-2 large-2 grid-x align-middle sign-table-row__image__container">
     <input type="checkbox" />
 
-    <% preview = sign.video.preview(ThumbnailPreset.default.scale_360.to_h) %>
-    <%= image_tag(sign.poster_url(size: 360) class: "sign-table-row__image") %>
+    <%= image_tag(sign.poster_url(size: 360), class: "sign-table-row__image") %>
   </div>
 
   <div class="cell medium-2 large-2">
