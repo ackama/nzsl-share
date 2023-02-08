@@ -61,7 +61,8 @@
   }
 
   &__image {
-    width: 99px;
+    max-width: 60px;
+    max-height: 100px;
   }
 
   &__title {
