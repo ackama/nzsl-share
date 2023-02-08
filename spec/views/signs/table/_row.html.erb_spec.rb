@@ -106,4 +106,14 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
     sign.last_user_edit_at = Time.zone.now
     expect(rendered).to have_selector(".sign-table-row:not(.sign-table-row--unedited)")
   end
+
+  it "renders a checkbox for batch selection" do
+    expect(rendered).to have_field("Add sign to selection", checked: false)
+  end
+
+  it "checks the batch selection checkbox when an appropriate param is present" do
+    params[:sign_ids] = [sign.id]
+    rendered = render "signs/table/row", sign: sign
+    expect(rendered).to have_field("Add sign to selection", checked: true)
+  end
 end
