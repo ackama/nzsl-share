@@ -9,14 +9,13 @@
     <%= image_tag(sign.poster_url(size: 360), class: "sign-table-row__image") %>
   </div>
 
-  <div class="cell medium-2 large-2">
-    <%= link_to sign_path(sign) do %>
-      <h1 class="sign-card__title"><%= sign.word %></h1>
-    <% end %>
+  <%= link_to sign, class: "cell medium-3" do %>
+    <h1 class="sign-table-row__title"><%= sign.word %></h1>
+
 
     <%= content_tag(:h2, sign.topics.pluck(:name).join(", "),
                           class: "sign-card__supplementary-titles__secondary small") %>
-  </div>
+  <% end %>
 
   <div class="cell medium-2 large-2">
     <% if policy(sign).overview? %>

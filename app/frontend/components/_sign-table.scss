@@ -7,7 +7,7 @@
   }
 
   &__header {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 0.825rem;
     color: $neutral-gray;
 
@@ -15,6 +15,14 @@
       display: none;
     }
   }
+
+  &__title {
+    color: get-color(royal);
+    font-size: 1.2rem;
+    line-height: $header-lineheight;
+    font-weight: bold;
+  }
+
 
   &__contributor {
     color: inherit;
@@ -29,7 +37,6 @@
 
   &__image {
     width: 99px;
-
   }
 
   &__comments {
