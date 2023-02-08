@@ -7,16 +7,28 @@
     display: contents;
   }
 
+  grid-template-columns:
+    [checkbox-start] max-content // Checkbox
+    [checkbox-end content-start] max-content // Image
+    1fr // Titles
+    max-content // Status
+    max-content // Contributor
+    1fr // Activity
+    max-content [content-end]; // Controls
+
+
   // Space elements across a grid
   @include breakpoint(large up) {
-    grid-template-columns: max-content max-content 1fr max-content max-content 1fr max-content;
-    //                     ^ checkbox  ^ image     ^ title ^ status   ^ user   ^ controls  ^ edit button
+    // The first and last cells are stretched across two columns:
+    thead > tr > th:first-child, thead > tr > th:last-child {
+      grid-column-end: span 2;
+    }
   }
 
   @include breakpoint(medium down) {
+    // Stretch every content column across the grid
     tbody > tr > td:not(:first-child) {
-      grid-column-start: 2;
-      grid-column-end: span 6;
+      grid-column: content-start / content-end;
     }
 
     // Hide headings when we collapse to a card display
