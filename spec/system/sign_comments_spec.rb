@@ -3,9 +3,11 @@ require "rails_helper"
 RSpec.describe "Sign commenting" do
   let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+  let(:comments) { [] }
   subject(:sign_page) { SignPage.new }
 
   before do
+    comments
     sign_in user if user
     sign_page.start(sign)
   end
@@ -18,6 +20,56 @@ RSpec.describe "Sign commenting" do
       fill_in "Write your text comment", with: "#{comment_text}\n"
       click_button("Post comment")
       expect(page).to have_selector ".sign-comments__comment", text: comment_text
+    end
+
+    it "can create a new video comment", uses_javascript: true, upload_mode: :uppy do
+      select "NZSL comment"
+      within("#new-video-comment") do
+        attach_file "files[]", "spec/fixtures/dummy.exe", visible: false, match: :first
+        expect(page).to have_content "You can only upload: video/*, application/mp4"
+        attach_file "files[]", "spec/fixtures/small.mp4", visible: false, match: :first
+        click_on "Upload 1 file"
+        expect(page).to have_selector(".sign-comment__video", count: 1)
+        fill_in "Write a text translation", with: "Translation test"
+        click_on "Update comment"
+      end
+
+      expect(page).to have_selector ".sign-comments__comment video", count: 1
+      within(all(".sign-comments__comment").last) { expect(page).to have_content("Translation test") }
+    end
+
+    it "can drag and drop a new video comment", uses_javascript: true, upload_mode: :uppy do
+      select "NZSL comment"
+      within("#new-video-comment") do
+        find(".uppy-Dashboard").drop("spec/fixtures/small.mp4")
+        find(".uppy-Dashboard").drop("spec/fixtures/medium.mp4")
+        expect(page).to have_content "You can only upload 1 file"
+        click_on "Upload 1 file"
+        expect(page).to have_selector(".sign-comment__video", count: 1)
+        click_on "Update comment"
+      end
+
+      expect(page).to have_selector ".sign-comments__comment video", count: 1
+    end
+
+    it "can post a reply text comment", uses_javascript: true do
+      page.find(".sign-comments__replies--link", match: :first).click
+      fill_in "Write your text comment", match: :first, with: "My reply"
+      click_button("Post comment", match: :first)
+      expect(page).to have_content "My reply"
+    end
+
+    it "can post a reply video comment", uses_javascript: true, upload_mode: :uppy do
+      page.find(".sign-comments__replies--link", match: :first).click
+      within("[id^='reply_sign_comment']", match: :first) do
+        select "NZSL comment"
+        attach_file "files[]", "spec/fixtures/small.mp4", visible: false, match: :first
+        click_on "Upload 1 file"
+        expect(page).to have_selector(".sign-comment__video", count: 1)
+        click_on "Update comment"
+      end
+
+      expect(page).to have_selector("[id^='sign_comment_'].sign-comments__replies", count: 1)
     end
   end
 
@@ -206,6 +258,21 @@ RSpec.describe "Sign commenting" do
       expect(SignComment.order(created_at: :desc).first.folder).to eq folder
     end
 
+    it "posts a new video comment", uses_javascript: true, upload_mode: :uppy do
+      select "NZSL comment"
+      select folder.title, from: "sign_comment_folder"
+
+      within "#new-video-comment" do
+        attach_file "files[]", "spec/fixtures/small.mp4", visible: false, match: :first
+        click_on "Upload 1 file"
+        expect(page).to have_selector(".sign-comment__video", count: 1)
+        click_on "Update comment"
+      end
+
+      expect(page).to have_select("sign_comment_folder", selected: [folder.title])
+      expect(page).to have_selector ".sign-comments__comment video", count: 1
+    end
+
     it "cannot report comments", uses_javascript: true do
       within ".sign-comment__options", match: :first do
         click_on "Comment Options"
@@ -216,24 +283,6 @@ RSpec.describe "Sign commenting" do
     context "non-approved user", uses_javascript: true do
       let(:user) { FactoryBot.create(:user) }
       let(:sign) { FactoryBot.create(:sign, :published) }
-      let!(:folder) { FactoryBot.create(:folder, user: user) }
-      let!(:folder_membership) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
-
-      it "posts a new comment" do
-        comment_text = Faker::Lorem.sentence
-        select folder.title, from: "comments_in_folder"
-        fill_in "Write your text comment", with: "#{comment_text}\n"
-        click_button("Post comment")
-        expect(page).to have_selector ".sign-comments__comment", text: comment_text
-        expect(SignComment.order(created_at: :desc).first.folder).to eq folder
-      end
-
-      it "can post a reply comment" do
-        page.find(".sign-comments__replies--link", match: :first).click
-        fill_in "Write your text comment", match: :first, with: "My reply"
-        click_button("Post comment", match: :first)
-        expect(page).to have_content "My reply"
-      end
 
       it "cannot comment publicly" do
         select "Public", from: "comments_in_folder"

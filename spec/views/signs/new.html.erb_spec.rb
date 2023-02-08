@@ -19,8 +19,16 @@ RSpec.describe "signs/new.html.erb", type: :view do
 
   it "passes the contribution limit to the create sign process", upload_mode: :uppy do
     view.current_user.contribution_limit = 10
+    view.current_user.batch_sign_contributions_permitted = true
     allow(view.current_user.signs).to receive(:count).and_return(5)
     rendered = render
     expect(rendered).to have_selector("[data-create-sign-contribution-limit-value='5']")
+  end
+
+  it "limits the upload to a single file unless the user has batch uploads enabled", upload_mode: :uppy do
+    view.current_user.contribution_limit = 10
+    view.current_user.batch_sign_contributions_permitted = false
+    rendered = render
+    expect(rendered).to have_selector("[data-create-sign-contribution-limit-value='1']")
   end
 end

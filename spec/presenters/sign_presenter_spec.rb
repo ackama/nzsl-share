@@ -220,12 +220,25 @@ RSpec.describe SignPresenter, type: :presenter do
     it "counts comments using Pundit.policy_scope" do
       user = User.new
       sign_in user
-      relation_double = instance_double(ActiveRecord::Relation, count: 10)
+      relation_double = instance_double(ActiveRecord::Relation, count: 10).as_null_object
       expect(Pundit).to receive(:policy_scope)
         .with(view.current_user, sign.sign_comments)
         .and_return(relation_double)
 
       expect(presenter.comments_count).to eq 10
+    end
+
+    it "does not count comments that are added when the sign is in a different state" do
+      sign = FactoryBot.create(:sign, :published)
+      presenter = SignPresenter.new(sign, view)
+      allow(presenter.h).to receive(:current_user).and_return(sign.contributor)
+      FactoryBot.create(:sign_comment, sign: sign)
+
+      expect(presenter.comments_count).to eq 1
+
+      sign.unpublish!
+      presenter.instance_variable_set(:@comments_count, nil) # Bust cache
+      expect(presenter.comments_count).to eq 0
     end
   end
 

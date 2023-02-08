@@ -148,6 +148,34 @@ RSpec.describe Sign, type: :model do
     end
   end
 
+  describe "#publish" do
+    let(:model) { FactoryBot.create(:sign, :submitted) }
+    subject { model.publish! }
+
+    it "changes the status to published" do
+      expect { subject }.to change(model, :status).to eq "published"
+    end
+
+    it "sends an email notification to the contributor" do
+      ActiveJob::Base.queue_adapter = :test
+      expect { subject }.to have_enqueued_mail(SignWorkflowMailer, :published)
+    end
+  end
+
+  describe "#decline" do
+    let(:model) { FactoryBot.create(:sign, :submitted) }
+    subject { model.decline! }
+
+    it "changes the status to declined" do
+      expect { subject }.to change(model, :status).to eq "declined"
+    end
+
+    it "sends an email notification to the contributor" do
+      ActiveJob::Base.queue_adapter = :test
+      expect { subject }.to have_enqueued_mail(SignWorkflowMailer, :declined)
+    end
+  end
+
   describe "#unpublish" do
     let(:model) { FactoryBot.create(:sign, :published) }
     before { allow(ArchiveSign).to receive_message_chain(:new, :process) }

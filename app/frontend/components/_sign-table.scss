@@ -1,20 +1,20 @@
 .sign-table-row {
-  border-bottom: 1px #C2CDD1 solid;
-  padding: 8px 0;
+  border-bottom: 1px $light-neutral-gray solid;
+  padding: 0.5rem 0;
+
+  a {
+    text-decoration: none;
+  }
 
   &--unedited {
     background: get-color(accent-x-light);
     border-left: solid get-color(accent) rem-calc(6);
   }
 
-  a {
-    text-decoration: none;
-  }
-
   &__header {
     font-weight: bold;
     font-size: 0.825rem;
-    color: #556970;
+    color: $neutral-gray;
 
     @media #{$small-only} {
       display: none;
@@ -33,8 +33,8 @@
   }
 
   &__image {
-    padding-left: 20px;
-    width: 90px;
+    padding-left: 1.25rem;
+    width: 99px;
 
     &__container {
       flex-wrap: nowrap;
@@ -42,7 +42,7 @@
   }
 
   &__comments {
-    margin-right: 25px;
+    margin-right: 1.5rem;
 
     a {
       font-weight: normal;
@@ -56,7 +56,7 @@
       color: get-color(medium) !important;
       display: inline-flex;
       text-decoration: none;
-      margin-right: 10px;
+      margin-right: 0.625rem;
     }
   }
 }
