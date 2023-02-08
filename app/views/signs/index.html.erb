@@ -6,7 +6,9 @@
   </div>
   <div class="list__section margin-vertical-0 cell">
     <%= render "signs/table/header" %>
-    <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
+    <div id="sign-table">
+      <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
+    </div>
   </div>
 
   <%= render "show_more" %>

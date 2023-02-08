@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "signs/table/_row.html.erb", type: :view do
   let(:user) { FactoryBot.build(:user) }
   let(:sign) { FactoryBot.build_stubbed(:sign, :published, contributor: user, topics: topics) }
-  let(:topics) { FactoryBot.build_list(:topic, 3) }
+  let(:topics) { FactoryBot.create_list(:topic, 3) }
   let(:presenter) { SignPresenter.new(sign, view) }
   subject(:rendered) { render "signs/table/row", sign: sign }
 
