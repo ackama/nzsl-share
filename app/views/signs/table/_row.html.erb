@@ -2,7 +2,12 @@
 
 <div class="grid-x grid-margin-x align-middle sign-table-row">
   <div class="cell medium-2 large-2 grid-x align-middle sign-table-row__image__container">
-    <input type="checkbox" />
+    <div class="checkbox">
+      <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
+      <%= label_tag dom_id(sign, :batch_selection) do %>
+        <span class="show-for-sr">Add sign to selection</span>
+      <% end %>
+    </div>
 
     <%= image_tag(sign.poster_url(size: 360), class: "sign-table-row__image") %>
   </div>
