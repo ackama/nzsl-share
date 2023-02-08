@@ -99,7 +99,9 @@
   }
 
   &__controls {
+    align-items: center;
     flex-direction: row;
+    justify-content: space-between;
   }
 }
 
