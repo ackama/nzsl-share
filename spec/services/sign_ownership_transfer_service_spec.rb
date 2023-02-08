@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SignBuilder, type: :service do
+RSpec.describe SignOwnershipTransferService, type: :service do
   describe ".transfer_sign" do
     subject { SignOwnershipTransferService.new }
 

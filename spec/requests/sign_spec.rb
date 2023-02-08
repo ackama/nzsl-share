@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "sign", type: :request do
   let(:user) { FactoryBot.create(:user, :approved) }
-  let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+  let(:sign) { FactoryBot.create(:sign, contributor: user) }
 
   before { sign_in user }
 
@@ -31,8 +31,25 @@ RSpec.describe "sign", type: :request do
   end
 
   describe "PATCH /:id" do
+    let(:sign_params) { { notes: "this is a note for a sign" } }
     let(:update) do
-      ->(sign) { patch "/signs/#{sign.id}", params: { sign: { notes: "this is a note for a sign" } } }
+      ->(sign) { patch "/signs/#{sign.id}", params: { sign: sign_params } }
+    end
+
+    it "post-processes sign videos when it is provided" do
+      new_video = fixture_file_upload("spec/fixtures/small.mp4")
+      sign_params[:video] = new_video
+      allow(SignPostProcessor).to receive(:new).and_return(double.as_null_object)
+      update.call(sign)
+
+      expect(SignPostProcessor).to have_received(:new).with(sign)
+    end
+
+    it "does not post process sign videos when the sign video is not provided" do
+      allow(SignPostProcessor).to receive(:new)
+      update.call(sign)
+
+      expect(SignPostProcessor).not_to have_received(:new).with(sign)
     end
 
     it "does not change sign ownership after update" do
@@ -43,6 +60,8 @@ RSpec.describe "sign", type: :request do
   end
 
   describe "GET show" do
+    let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+
     it "marks unseen comments as read" do
       read = FactoryBot.create_list(:sign_comment, 5, sign: sign).each do |comment|
         comment.read_by!(user)

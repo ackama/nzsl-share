@@ -1,9 +1,144 @@
+$font-family-base: $body-font-family;
+$blue: get-color(royal);
+$green: get-color(success);
+$gray-600: $neutral-gray;
+
 @import "@uppy/core/src/style";
 @import "@uppy/dashboard/src/style";
-@import '@uppy/drop-target/dist/style';
+@import "@uppy/drop-target/dist/style";
 @import "@uppy/webcam/dist/style";
 
+// Overrides
 .uppy-size--md .uppy-Dashboard-Item {
   float: left; // Fix invalid inline-start float property from Uppy
 }
 
+// Make bold text antialiased
+.uppy-Root {
+  -webkit-font-smoothing: antialiased;
+}
+
+// Themeing
+
+// Make the title less bold, but a larger font.
+// Make the 'Browse files' button bold
+.uppy-Dashboard-AddFiles-title {
+  font-weight: 400;
+  font-size: rem-calc(22) !important;
+
+  button {
+    font-weight: 700 !important;
+  }
+}
+
+.uppy-size--md .uppy-DashboardTab-name,
+.uppy-DashboardTab-name {
+  font-size: rem-calc(15);
+  font-weight: 400;
+}
+
+// Increase the spacing around an informer flash message
+.uppy-Informer p {
+  padding: 10px 10px;
+}
+
+// Ensure the status bar can contain action buttons styled to match
+// NZSL theme buttons
+.uppy-StatusBar {
+  height: rem-calc(64);
+}
+
+// Show the 'browse files' button, but not the button right below that,
+// since it's redundant.
+.uppy-DashboardTab[data-uppy-acquirer-id="MyDevice"] {
+  display: none;
+}
+
+// Change the SVG icon used for webcam buttons
+.uppy-DashboardTab[data-uppy-acquirer-id="Webcam"] {
+  svg {
+    display: none;
+  }
+
+  .uppy-DashboardTab-btn {
+    &::before {
+      display: block;
+      content: " ";
+      width: 40px;
+      height: 40px;
+      background-color: get-color(royal);
+      background-image: url("images/record.svg");
+      background-repeat: no-repeat;
+      margin-right: 1rem;
+      background-position: 50%;
+
+      border-radius: 50%;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+
+      &::before {
+        box-shadow: 0 4px 16px 0 rgba(get-color(royal), 0.6);
+      }
+    }
+  }
+}
+
+// Make thumbnails less bold
+.uppy-Dashboard-Item-previewInnerWrap {
+  background-color: get-color(royal-x-light) !important;
+  filter: grayscale(1);
+
+  .uppy-Dashboard-Item-previewIconBg {
+    display: none; // Use the element background
+  }
+
+  .uppy-Dashboard-Item-previewIcon {
+    .uppy-size--md & {
+      width: 64px;
+      height: 64px;
+    }
+
+    // Matches https://github.com/transloadit/uppy/blob/d1499b3b09b07b4c876d44af20306c0303e2c6a5/packages/%40uppy/dashboard/src/style.scss#L890
+    .uppy-Dashboard--singleFile & {
+      width: 176px;
+      height: 176px;
+    }
+  }
+}
+
+// Style uppy buttons to match NZSL buttons for 'Done' and 'Upload'
+.uppy-StatusBar-actionBtn--done,
+.uppy-StatusBar-actionBtn--upload {
+  &,
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: get-color(royal) !important;
+    color: $white;
+    padding: rem-calc(12) rem-calc(18) !important;
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 4px 16px 0 rgba(get-color(royal), 0.6);
+  }
+}
+
+// Reverse order of webcam controls so that the cancel action is on the left
+.uppy-Webcam-footer {
+  .uppy-Webcam-buttonContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+
+    .uppy-Webcam-button {
+      margin: auto;
+    }
+  }
+}
