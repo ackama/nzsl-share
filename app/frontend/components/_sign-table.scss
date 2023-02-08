@@ -1,7 +1,6 @@
 .sign-table {
   display: grid;
 
-
   // Reset table elements to be stylable as a grid
   thead, tbody, tr {
     display: contents;
@@ -41,23 +40,34 @@
     text-decoration: none;
   }
 
-  th {
+  &__cell, &__column-heading {
+    border-bottom: solid 1px $light-neutral-gray;
+    padding: 1.5rem 1rem;
+
+    &:first-child {
+      padding-left: 2rem;
+    }
+
+    &:last-child {
+      padding-right: 2rem;
+    }
+  }
+
+  &__column-heading {
     font-weight: 600;
     font-size: 0.825rem;
     color: $neutral-gray;
+    padding-bottom: 0.5rem;
 
     @media #{$small-only} {
       display: none;
     }
   }
 
-  tr > td, tr > th {
-    border-bottom: 1px $light-neutral-gray solid;
+  &__cell {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0.5rem 0;
-    @include xy-cell-gutters($grid-margin-gutters, padding);
   }
 
   &__image {
