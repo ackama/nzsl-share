@@ -1,11 +1,15 @@
 <% sign = present(sign) %>
 
-<div class="grid-x grid-margin-x align-middle sign-table-row">
+<div class="grid-x grid-padding-x align-middle sign-table-row">
   <div class="cell medium-2 large-2 grid-x align-middle sign-table-row__image__container">
-    <input type="checkbox" />
+    <div class="checkbox">
+      <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
+      <%= label_tag dom_id(sign, :batch_selection) do %>
+        <span class="show-for-sr">Add sign to selection</span>
+      <% end %>
+    </div>
 
-    <% preview = sign.video.preview(ThumbnailPreset.default.scale_360.to_h) %>
-    <%= image_tag(url_for(preview.image), class: "sign-table-row__image") unless preview.image.persisted?.nil? %>
+    <%= image_tag(sign.poster_url(size: 360), class: "sign-table-row__image") %>
   </div>
 
   <div class="cell medium-2 large-2">
@@ -33,8 +37,20 @@
 
   <div class="cell medium-3 large-3">
     <div class="grid-x align-middle">
-      <span class="sign-table-row__comments"><%= render "signs/card/comments", sign: sign %></span>
-      <%= render "signs/card/votes", sign: sign %>
+      <span class="sign-table-row__controls--comments"><%= render "signs/card/comments", sign: sign %></span>
+
+      <div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
+        <%= agree_button(sign, table: true) do %>
+          <%= inline_svg_pack_tag "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__controls--icon" %>
+          <%= sign.agree_count %>
+        <% end %>
+
+        <%= disagree_button(sign, table: true) do %>
+          <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__controls--icon" %>
+          <%= sign.disagree_count %>
+        <% end %>
+      </div>
+
       <%= render "signs/card/folders", sign: sign %>
     </div>
   </div>

@@ -97,4 +97,14 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
   it "does not show the comment count when the user is not signed in" do
     expect(rendered).not_to have_selector(".sign-card__controls--comments")
   end
+
+  it "renders a checkbox for batch selection" do
+    expect(rendered).to have_field("Add sign to selection", checked: false)
+  end
+
+  it "checks the batch selection checkbox when an appropriate param is present" do
+    params[:sign_ids] = [sign.id]
+    rendered = render "signs/table/row", sign: sign
+    expect(rendered).to have_field("Add sign to selection", checked: true)
+  end
 end

@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe SignBuilder, type: :service do
-  describe ".build" do
-    subject { SignBuilder.new.build(attrs).sign }
+RSpec.describe SignCreator, type: :service do
+  describe ".initialize" do
+    subject { SignCreator.new(attrs).sign }
 
     context "word is already present" do
       let(:attrs) { FactoryBot.attributes_for(:sign) }
@@ -30,11 +30,11 @@ RSpec.describe SignBuilder, type: :service do
     end
   end
 
-  describe ".save" do
+  describe ".create" do
     let(:attrs) { FactoryBot.attributes_for(:sign).merge(contributor: FactoryBot.build(:user)) }
-    let(:builder) { SignBuilder.new.build(attrs) }
-    let(:sign) { builder.sign }
-    subject { builder.save! }
+    let(:creator) { SignCreator.new(attrs) }
+    let(:sign) { creator.sign }
+    subject { creator.create }
 
     it "persists the sign record" do
       expect { subject }.to change(sign, :persisted?).to(true)

@@ -1,4 +1,5 @@
 <% provide(:title, "New Sign") %>
+<% contribution_limit = current_user.batch_sign_contributions_permitted? ? current_user.contribution_limit - current_user.signs.count : 1 %>
 
 <%= content_for :head do %>
   <%= javascript_pack_tag "contributions", async: true, defer: true %>
@@ -8,13 +9,14 @@
   <div class="cell form__header">
       <h1 class="primary">Add a sign</h1>
   </div>
+
   <hr class="form__divider">
   <div class="cell grid-x padding-2">
     <%= render "errors" %>
     <%= form_with model: @sign, class: "cell", id: "new_sign" do |f| %>
       <% if Rails.application.config.upload_mode == :uppy %>
         <div data-controller="create-sign"
-             data-create-sign-contribution-limit-value="<%= current_user.contribution_limit - current_user.signs.count %>">
+             data-create-sign-contribution-limit-value="<%= contribution_limit %>">
               <%= f.label :video, "Browse files", class: "button primary large" %>
               <%= f.file_field :video, class: "show-for-sr" %>
               <%= f.submit "Start Upload", class: "button secondary large" %>
