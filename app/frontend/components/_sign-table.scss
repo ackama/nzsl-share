@@ -1,12 +1,16 @@
-.sign-table-row {
-  border-bottom: 1px $light-neutral-gray solid;
-  padding: 0.5rem 0;
+.sign-table {
+  display: grid;
+  grid-template-columns: max-content max-content 1fr max-content max-content 1fr max-content;
+
+  thead, tbody, tr {
+    display: contents;
+  }
 
   a {
     text-decoration: none;
   }
 
-  &__header {
+  th {
     font-weight: 600;
     font-size: 0.825rem;
     color: $neutral-gray;
@@ -16,12 +20,61 @@
     }
   }
 
+  tr > td, tr > th {
+    border-bottom: 1px $light-neutral-gray solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0;
+    @include xy-cell-gutters($grid-margin-gutters, padding);
+  }
+
+  &__image {
+    width: 99px;
+  }
+
   &__title {
     color: get-color(royal);
     font-size: 1.2rem;
     line-height: $header-lineheight;
     font-weight: bold;
   }
+
+  &__subtitle {
+    font-weight: 400;
+    color: $neutral-gray;
+    font-size: 1rem;
+  }
+
+  &__status {
+    text-transform: uppercase;
+    color: get-color(primary);
+    font-weight: 600;
+    background: get-color(primary-light);
+    padding: 0.25rem 0.375rem;
+    border-radius: rem-calc(2);
+    width: fit-content;
+  }
+
+  &__controls {
+    flex-direction: row;
+  }
+}
+
+
+.sign-table-row {
+
+
+
+  a {
+    text-decoration: none;
+  }
+
+  &__header {
+
+  }
+
+
 
 
   &__contributor {

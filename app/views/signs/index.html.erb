@@ -4,12 +4,12 @@
     <h1>My signs</h1>
     <p class="margin-0">Signs you have contributed.</p>
   </div>
-  <div class="list__section margin-vertical-0 cell">
+
+
+  <table class="sign-table list__section cell" id="sign-table">
     <%= render "signs/table/header" %>
-    <div id="sign-table">
-      <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
-    </div>
-  </div>
+    <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
+  </table>
 
   <%= render "show_more" %>
 </div>
