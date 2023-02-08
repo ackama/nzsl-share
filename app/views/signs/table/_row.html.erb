@@ -1,57 +1,61 @@
 <% sign = present(sign) %>
 
-<div class="grid-x grid-margin-x align-middle sign-table-row">
-  <div class="cell shrink margin-right-0">
+<div class="grid-x align-middle sign-table-row">
+  <div class="cell small-1 small-align-self-top large-align-self-center">
     <input type="checkbox" />
   </div>
 
-  <div class="cell shrink align-middle">
-    <%= image_tag(sign.poster_url(size: 360), class: "sign-table-row__image") %>
-  </div>
+  <div class="cell small-11">
+    <div class="grid-x grid-margin-x">
+     <div class="cell large-2 align-middle small-order-2 large-order-1">
+        <%= image_tag(sign.poster_url(size: 360), class: "sign-table-row__image") %>
+      </div>
 
-  <%= link_to sign, class: "cell medium-3" do %>
-    <h1 class="sign-table-row__title"><%= sign.word %></h1>
+      <%= link_to sign, class: "cell large-2 small-order-1 large-order-2" do %>
+        <h1 class="sign-table-row__title"><%= sign.word %></h1>
 
 
-    <%= content_tag(:h2, sign.topics.pluck(:name).join(", "),
-                          class: "sign-card__supplementary-titles__secondary small") %>
-  <% end %>
+        <%= content_tag(:h2, sign.topics.pluck(:name).join(", "),
+                              class: "sign-card__supplementary-titles__secondary small") %>
+      <% end %>
 
-  <div class="cell medium-2 large-2">
-    <% if policy(sign).overview? %>
-      <small id="sign_status" title="<%= sign.status_description %>" class="sign-card__status"> <%= sign.status_name %> </small>
-    <% end %>
-  </div>
-
-  <div class="cell medium-2 large-2">
-    <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true %>
-    <%= link_to user_path(sign.contributor.username), class: "sign-table-row__contributor" do %>
-      <%= sign.contributor.username %>
-    <% end %>
-    <div><%= sign.friendly_date %></div>
-  </div>
-
-  <div class="cell medium-3 large-3">
-    <div class="grid-x align-middle">
-      <span class="sign-table-row__controls--comments"><%= render "signs/card/comments", sign: sign %></span>
-
-      <div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
-        <%= agree_button(sign, table: true) do %>
-          <%= inline_svg_pack_tag "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__controls--icon" %>
-          <%= sign.agree_count %>
-        <% end %>
-
-        <%= disagree_button(sign, table: true) do %>
-          <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__controls--icon" %>
-          <%= sign.disagree_count %>
+      <div class="cell large-1 small-order-3">
+        <% if policy(sign).overview? %>
+          <small id="sign_status" title="<%= sign.status_description %>" class="sign-card__status"> <%= sign.status_name %> </small>
         <% end %>
       </div>
 
-      <%= render "signs/card/folders", sign: sign %>
-    </div>
-  </div>
+      <div class="cell large-2 small-order-4">
+        <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true %>
+        <%= link_to user_path(sign.contributor.username), class: "sign-table-row__contributor" do %>
+          <%= sign.contributor.username %>
+        <% end %>
+        <div><%= sign.friendly_date %></div>
+      </div>
 
-  <div class="cell shrink">
-    <%= link_to "Edit", edit_sign_path(sign), class: "button" %>
+      <div class="cell large-3 small-order-5">
+        <div class="grid-x align-middle">
+          <span class="sign-table-row__controls--comments"><%= render "signs/card/comments", sign: sign %></span>
+
+          <div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
+            <%= agree_button(sign, table: true) do %>
+              <%= inline_svg_pack_tag "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__controls--icon" %>
+              <%= sign.agree_count %>
+            <% end %>
+
+            <%= disagree_button(sign, table: true) do %>
+              <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__controls--icon" %>
+              <%= sign.disagree_count %>
+            <% end %>
+          </div>
+
+          <%= render "signs/card/folders", sign: sign %>
+        </div>
+      </div>
+
+      <div class="cell large-2 text-right small-order-6">
+        <%= link_to "Edit", edit_sign_path(sign), class: "button" %>
+      </div>
+    </div>
   </div>
 </div>
