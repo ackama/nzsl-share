@@ -25,7 +25,7 @@ class SignAgreementController < ApplicationController
 
   def votes_template
     parts = _routes.recognize_path(request.referer).slice(:controller, :action)
-    parts == { controller: "signs", action: "show" } ? "signs/show/votes" : "signs/card/votes"
+    parts == { controller: "signs", action: "show" } ? "signs/show/votes" : "signs/votes/votes"
   end
 
   def sign

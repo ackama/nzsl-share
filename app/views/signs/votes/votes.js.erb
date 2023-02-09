@@ -1,0 +1,11 @@
+<% @sign.reload %>
+<% sign = present(@sign) %>
+
+<%# Re-render the voting controls for this sign %>
+$("<%= escape_javascript(render 'signs/votes/agree', sign: sign) %>")
+  .replaceAll("#<%= sign.dom_id(:agree_button) %>")
+  .foundation();
+
+$("<%= escape_javascript(render 'signs/votes/disagree', sign: sign) %>")
+  .replaceAll("#<%= sign.dom_id(:disagree_button) %>")
+  .foundation();
