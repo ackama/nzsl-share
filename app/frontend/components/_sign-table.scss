@@ -1,38 +1,43 @@
 .sign-table {
   display: grid;
 
-  // Reset table elements to be stylable as a grid
-  thead, tbody, tr {
-    display: contents;
-  }
-
-  grid-template-columns:
-    [checkbox-start] max-content // Checkbox
-    [checkbox-end content-start] max-content // Image
-    1fr // Titles
-    max-content // Status
-    max-content // Contributor
-    1fr // Activity
-    max-content [content-end]; // Controls
-
-
-  // Space elements across a grid
+  // Apply the grid to the whole table. This allows headings and columns to line up,
+  // but basically wacks each cell into a single list, which means that ordering applies
+  // across the whole list, not the 'row'
   @include breakpoint(large up) {
-    // The first and last cells are stretched across two columns:
-    thead > tr > th:first-child, thead > tr > th:last-child {
-      grid-column-end: span 2;
+    // Reset table elements to be stylable as a grid
+    thead, tbody, tr {
+      display: contents;
     }
+
+    grid-template-columns:
+        [checkbox-start] max-content // Checkbox
+        [checkbox-end content-start] max-content // Image
+        1fr // Titles
+        max-content // Status
+        max-content // Contributor
+        1fr // Activity
+        max-content [content-end]; // Controls
   }
 
+  // Apply the grid to each table row. This makes each 'row'
+  // it's own grid context, allowing for spacing and ordering within
+  // the row, but prevents headings from lining up against the table since
+  // min-content etc doesn't calculate correctly
   @include breakpoint(medium down) {
-    // Stretch every content column across the grid
-    tbody > tr > td:not(:first-child) {
-      grid-column: content-start / content-end;
-    }
+    tbody > tr {
+      border-bottom: solid 1px $light-neutral-gray;
+      margin: 3rem 0;
 
-    // Hide headings when we collapse to a card display
-    thead {
-      display: none;
+      display: grid;
+      grid-template-columns:
+        [checkbox-start] max-content // Checkbox
+        [checkbox-end content-start] max-content // Image
+        1fr // Titles
+        max-content // Status
+        max-content // Contributor
+        1fr // Activity
+        max-content [content-end]; // Controls
     }
   }
 
