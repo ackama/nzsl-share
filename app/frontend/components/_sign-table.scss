@@ -71,8 +71,12 @@
   }
 
   &__image {
-    max-width: 60px;
-    max-height: 100px;
+    border-radius: rem-calc(4);
+
+    @include breakpoint(large up) {
+      max-width: 60px;
+      max-height: 100px;
+    }
   }
 
   &__title {
