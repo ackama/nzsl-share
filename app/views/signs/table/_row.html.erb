@@ -3,7 +3,11 @@
 <div class="grid-x grid-padding-x align-middle sign-table-row <%= 'sign-table-row--unedited' unless sign.last_user_edit_at %>">
   <div class="cell medium-2 large-2 grid-x align-middle sign-table-row__image__container">
     <div class="checkbox">
-      <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
+      <%= check_box_tag "sign_ids[]",
+                        sign.to_param,
+                        params[:sign_ids]&.include?(sign.to_param),
+                        id: dom_id(sign, :batch_selection),
+                        form: :sign_list_controls %>
       <%= label_tag dom_id(sign, :batch_selection) do %>
         <span class="show-for-sr">Add sign to selection</span>
       <% end %>

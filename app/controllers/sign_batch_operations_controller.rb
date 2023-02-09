@@ -14,8 +14,8 @@ class SignBatchOperationsController < ApplicationController
     respond_to do |format|
       format.json { render json: { succeeded: succeeded, failed: failed } }
       format.html do
-        redirect_to signs_path, notice: t(".success",
-                                          succeeded_count: succeeded.size,
+        redirect_to user_signs_path(sign_ids: sign_ids),
+                    notice: t(".success", succeeded_count: succeeded.size,
                                           failed_count: failed.size)
       end
     end
@@ -43,7 +43,11 @@ class SignBatchOperationsController < ApplicationController
     params.require(:operation)
   end
 
+  def sign_ids
+    params.require(:sign_ids)
+  end
+
   def signs
-    policy_scope(Sign.where(id: params.require(:sign_ids)).limit(BULK_OPERATIONS_LIMIT))
+    policy_scope(Sign.where(id: sign_ids)).limit(BULK_OPERATIONS_LIMIT)
   end
 end
