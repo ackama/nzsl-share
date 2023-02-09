@@ -98,6 +98,15 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
     expect(rendered).not_to have_selector(".sign-card__controls--comments")
   end
 
+  it "adds a modifier class to the component when the sign has not been user-edited" do
+    expect(rendered).to have_selector(".sign-table-row.sign-table-row--unedited")
+  end
+
+  it "does not add a modifier class to the component when the sign has been user-edited" do
+    sign.last_user_edit_at = Time.zone.now
+    expect(rendered).to have_selector(".sign-table-row:not(.sign-table-row--unedited)")
+  end
+
   it "renders a checkbox for batch selection" do
     expect(rendered).to have_field("Add sign to selection", checked: false)
   end

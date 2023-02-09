@@ -6,6 +6,11 @@
     text-decoration: none;
   }
 
+  &--unedited {
+    background: get-color(accent-x-light);
+    border-left: solid get-color(accent) rem-calc(6);
+  }
+
   &__header {
     font-weight: bold;
     font-size: 0.825rem;
