@@ -1,4 +1,8 @@
 class UpdateTimestampsOnFreelexSigns < ActiveRecord::Migration[6.0]
+  # Define shadow model since this model has been removed from the codebase
+  class FreelexSign < ApplicationRecord
+  end
+
   def up
     add_column :freelex_signs, :published_at, :datetime
     FreelexSign.update_all("published_at=created_at")

@@ -1,0 +1,12 @@
+<% parent ||= nil %>
+
+<div data-controller="sign-video-comment">
+   <noscript>
+    <%= f.file_field :video, class: "show-for-sr" %>
+    <%= f.label :video, "Upload a video comment file", class: "button primary" %>
+  </noscript>
+
+  <%= hidden_field_tag :signed_blob_id, nil, data: { sign_video_comment_target: "receiver" } %>
+  <%= hidden_field_tag :parent_id, parent&.id %>
+  <%= hidden_field_tag :folder_id, parent&.folder_id, id: "sign_comment_folder_id" %>
+</div>

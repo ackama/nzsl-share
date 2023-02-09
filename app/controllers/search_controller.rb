@@ -3,7 +3,7 @@
 class SearchController < ApplicationController
   def index
     @signs = search_results.data
-    @freelex_signs = dictionary_search_results.data.preview
+    @dictionary_signs = dictionary_search_results.data.preview
     @page = search_results.support
   end
 
@@ -27,7 +27,7 @@ class SearchController < ApplicationController
   end
 
   def dictionary_search_relation
-    policy_scope(Rails.application.config.dictionary_sign_model)
+    policy_scope(DictionarySign)
   end
 
   def search_params

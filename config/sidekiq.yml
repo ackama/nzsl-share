@@ -1,6 +1,7 @@
 ---
 :queues:
   - default
+  - active_storage_purge
   - active_storage_analysis
   - video_encoding
   - thumbnail_generation

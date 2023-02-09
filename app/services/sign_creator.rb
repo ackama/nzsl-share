@@ -1,33 +1,19 @@
-class SignBuilder
+class SignCreator
   attr_reader :sign
 
-  delegate :valid?, to: :sign
-
-  def build(sign_params)
+  def initialize(sign_params)
+    @sign_params = sign_params
     @sign = Sign.new(sign_params).tap do |sign|
       sign.word.presence || (sign.word = derive_word_from_attachment(sign.video))
     end
-
-    self
   end
 
-  def save!
-    @sign.save!
-    post_process
+  def create
+    return unless @sign.save
 
-    true
-  end
-
-  def save
-    save!
-  rescue ActiveRecord::RecordInvalid
-    false
-  end
-
-  private
-
-  def post_process
     SignPostProcessor.new(@sign).process
+
+    @sign
   end
 
   def derive_word_from_attachment(attachment)
