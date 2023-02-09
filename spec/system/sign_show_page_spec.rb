@@ -385,43 +385,43 @@ RSpec.describe "Sign show page", system: true do
 
   shared_examples "sign card voting" do
     it "is able to register an agree" do
-      within ".sign-controls" do
+      within ".sign-control" do
         click_on "Agree"
-        expect(page).to have_selector ".sign-card__controls--agreed", text: "1"
+        expect(page).to have_selector ".sign-control--agreed", text: "1"
       end
     end
 
     it "is able to deregister an agree" do
-      within ".sign-controls" do
+      within ".sign-control" do
         click_on "Agree"
-        expect(page).to have_selector ".sign-card__controls--agreed", text: "1"
+        expect(page).to have_selector ".sign-control--agreed", text: "1"
         click_on "Undo agree"
-        expect(page).to have_selector ".sign-card__controls--agree", text: "0"
+        expect(page).to have_selector ".sign-control--agree", text: "0"
       end
     end
 
     it "is able to register a disagree" do
-      within ".sign-controls" do
+      within ".sign-control" do
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__controls--disagreed", text: "1"
+        expect(page).to have_selector ".sign-control--disagreed", text: "1"
       end
     end
 
     it "is able to deregister a disagree" do
-      within ".sign-controls" do
+      within ".sign-control" do
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__controls--disagreed", text: "1"
+        expect(page).to have_selector ".sign-control--disagreed", text: "1"
         click_on "Undo disagree"
-        expect(page).to have_selector ".sign-card__controls--disagree", text: "0"
+        expect(page).to have_selector ".sign-control--disagree", text: "0"
       end
     end
 
     it "is able to switch from agree to disagree" do
-      within ".sign-controls" do
+      within ".sign-control" do
         click_on "Agree"
         click_on "Disagree"
-        expect(page).to have_selector ".sign-card__controls--agree", text: "0"
-        expect(page).to have_selector ".sign-card__controls--disagreed", text: "1"
+        expect(page).to have_selector ".sign-control--agree", text: "0"
+        expect(page).to have_selector ".sign-control--disagreed", text: "1"
       end
     end
   end
@@ -433,7 +433,7 @@ RSpec.describe "Sign show page", system: true do
     context "not an approved user" do
       let(:user) { FactoryBot.create(:user) }
       it { expect(page).to have_no_link "Agree" }
-      it { expect(page).to have_selector ".sign-card__controls--agree", text: "0" }
+      it { expect(page).to have_selector ".sign-control--agree", text: "0" }
     end
 
     context "without JS" do

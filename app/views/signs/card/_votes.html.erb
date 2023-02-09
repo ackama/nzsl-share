@@ -1,5 +1,5 @@
 <div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
-  <%= render "signs/votes/agree", sign: sign %>
+  <span class="sign-card__controls__margin"><%= render "signs/votes/agree", sign: sign %></span>
 
-  <%= render "signs/votes/disagree", sign: sign %>
+  <span class="sign-card__controls__margin"><%= render "signs/votes/disagree", sign: sign %></span>
 </div>
