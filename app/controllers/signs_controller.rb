@@ -96,8 +96,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def update_sign_params
-    params.require(:sign).permit(:maori, :secondary, :video, :notes, :word, :usage_examples, :illustrations,
-                                 :conditions_accepted, topic_ids: [])
+    permitted_attributes(@sign)
   end
 
   def respond_to_create(sign)

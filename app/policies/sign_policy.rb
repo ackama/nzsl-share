@@ -90,6 +90,14 @@ class SignPolicy < ApplicationPolicy
     owns_record?
   end
 
+  def permitted_attributes_for_update
+    attributes = [:maori, :secondary, :notes, :word, :usage_examples, :illustrations, :conditions_accepted, {
+      topic_ids: [] }]
+    attributes << :video unless record.published?
+
+    attributes
+  end
+
   class Scope < Scope
     def resolve_admin
       scope
