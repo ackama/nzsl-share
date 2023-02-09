@@ -8,7 +8,7 @@
     <%= image_tag(sign.poster_url(size: 360), class: "sign-table__image") %>
   </td>
 
-  <td class="sign-table__cell">
+  <td class="sign-table__cell sign-table__titles">
     <h1 class="sign-table__title"><%= link_to sign.word, sign %></h1>
     <h2 class="sign-table__subtitle"><%= sign.topics.pluck(:name).join(", ") %>
   </td>
@@ -21,7 +21,7 @@
 
   <td class="sign-table__cell">
     <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true %>
-    <%= link_to user_path(sign.contributor.username), class: "sign-table-row__contributor" do %>
+    <%= link_to user_path(sign.contributor.username), class: "sign-table__contributor" do %>
       <%= sign.contributor.username %>
     <% end %>
     <div><%= sign.friendly_date %></div>
@@ -39,7 +39,7 @@
       <%= disagree_button(sign, table: true) do %>
         <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__controls--icon" %>
         <%= sign.disagree_count %>
-      <% end %>
+    <% end %>
     </div>
 
     <%= render "signs/card/folders", sign: sign %>
