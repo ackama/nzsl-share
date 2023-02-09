@@ -29,7 +29,7 @@
 
   <td class="sign-table__cell">
     <% if policy(sign).overview? %>
-      <small title="<%= sign.status_description %>" class="sign-table__status"><%= sign.status_name %></small>
+      <span title="<%= sign.status_description %>" class="status"><%= sign.status_name %></span>
     <% end %>
   </td>
 

@@ -1,0 +1,39 @@
+.status {
+  border-radius: $global-radius / 2;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  width: fit-content;
+  line-height: 1.4;
+  padding: 0.25rem 0.375rem;
+  background: get-color(primary-light);
+  color: get-color(primary);
+
+  svg {
+    margin: 0 4px 0 0;
+  }
+
+  &--archived {
+    color: $white;
+    background: get-color(alert);
+  }
+
+  &--private {
+    color: $white;
+    background: get-color(royal);
+  }
+
+  &--pending {
+    color: $white;
+    background: get-color(pending);
+  }
+
+  &--published {
+    color: $white;
+    background: get-color(success);
+  }
+}
+
+small.status {
+  font-size: 0.65rem;
+}
