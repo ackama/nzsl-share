@@ -9,6 +9,15 @@ module PunditViewSpecHelper
     end
   end
 
+  def stub_policy_scope(scope)
+    # Pundit#policy_scope is a controller helper, so while we can safely
+    # mock it, we cannot verify the mock on the view, since it does
+    # not have controller methods mixed in
+    without_partial_double_verification do
+      allow(view).to receive(:policy_scope).with(scope).and_return(scope)
+    end
+  end
+
   # Use to mock out when an auth flow uses a specific policy type not automatically
   # associated with the model type passed in.
   # Calls in prod code typically look like:

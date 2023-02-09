@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "signs/table/_row.html.erb", type: :view do
   let(:user) { FactoryBot.build(:user) }
   let(:sign) { FactoryBot.build_stubbed(:sign, :published, contributor: user, topics: topics) }
-  let(:topics) { FactoryBot.create_list(:topic, 3) }
+  let(:topics) { FactoryBot.build_list(:topic, 3) }
   let(:presenter) { SignPresenter.new(sign, view) }
   subject(:rendered) { render "signs/table/row", sign: sign }
 
@@ -98,12 +98,21 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
     expect(rendered).not_to have_selector(".sign-card__controls--comments")
   end
 
+  it "adds a modifier class to the component when the sign has not been user-edited" do
+    expect(rendered).to have_selector(".sign-table__row.sign-table__row--unedited")
+  end
+
+  it "does not add a modifier class to the component when the sign has been user-edited" do
+    sign.last_user_edit_at = Time.zone.now
+    expect(rendered).to have_selector(".sign-table__row:not(.sign-table__row--unedited)")
+  end
+
   it "renders a checkbox for batch selection" do
     expect(rendered).to have_field("Add sign to selection", checked: false)
   end
 
   it "checks the batch selection checkbox when an appropriate param is present" do
-    params[:sign_ids] = [sign.id]
+    params[:sign_ids] = [sign.to_param]
     rendered = render "signs/table/row", sign: sign
     expect(rendered).to have_field("Add sign to selection", checked: true)
   end

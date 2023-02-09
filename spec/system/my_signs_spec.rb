@@ -7,20 +7,25 @@ RSpec.describe "My Signs", type: :system do
 
   before do
     sign_in user
+    visit user_signs_path
+  end
+
+  it "can be accessed via the sidebar" do
     visit root_path
+
     within ".sidebar--inside-grid" do
       click_on "My signs"
     end
+
+    expect(page).to have_current_path(user_signs_path)
   end
 
-  it "has the expected page title" do
+  it "has the expected browser page title" do
     expect(page).to have_title "My signs – NZSL Share"
   end
 
-  describe "header" do
-    it "is titled" do
-      expect(page).to have_selector "h1", text: "My signs"
-    end
+  it "has the expected page title" do
+    expect(page).to have_selector "h1", text: "My signs"
   end
 
   describe "signs" do
@@ -34,10 +39,6 @@ RSpec.describe "My Signs", type: :system do
       sign_card = page.find(".sign-table__status", match: :prefer_exact)
       expect(sign_card.text).to eq "Private"
       expect(sign_card["title"]).to eq(I18n.t!("signs.personal.description"))
-    end
-
-    it "includes 'Folders' button" do
-      expect(page).to have_button "Folders"
     end
 
     it "doesn't include unexpected signs" do

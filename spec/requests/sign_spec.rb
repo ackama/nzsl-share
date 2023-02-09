@@ -16,6 +16,12 @@ RSpec.describe "sign", type: :request do
       expect { post signs_path, params: params }.to change(user.signs, :count).by(1)
     end
 
+    it "initially records the sign as unmodified by the user" do
+      post signs_path, params: params
+      sign = Sign.order(created_at: :desc).first
+      expect(sign.last_user_edit_at).to be_nil
+    end
+
     it "adds a flash message and redirects to the edit sign page" do
       post signs_path, params: params
       expect(response).to redirect_to edit_sign_path(Sign.order(created_at: :desc).first)
@@ -53,9 +59,11 @@ RSpec.describe "sign", type: :request do
     end
 
     it "does not change sign ownership after update" do
-      expect(sign.contributor).to eq user
-      update.call(sign)
-      expect(sign.contributor).to eq user
+      expect { update.call(sign) }.not_to change { sign.tap(&:reload).contributor }
+    end
+
+    it "updates the timestamp when the record was last user modified" do
+      expect { update.call(sign) }.to change { sign.tap(&:reload).last_user_edit_at }
     end
   end
 
