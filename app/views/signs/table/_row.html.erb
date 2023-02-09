@@ -10,7 +10,11 @@
     </div>
   </td>
 
-  <td class="sign-table__cell">
+  <td class="sign-table__cell hide-for-large">
+    <%= render "signs/card/video", sign: sign %>
+  </td>
+
+  <td class="sign-table__cell show-for-large">
     <%= image_tag(sign.poster_url(size: 360), class: "sign-table__image") %>
   </td>
 
