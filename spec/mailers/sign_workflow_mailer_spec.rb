@@ -45,7 +45,7 @@ RSpec.describe SignWorkflowMailer, type: :mailer do
     end
 
     it "has the expected body text" do
-      expect(mail.body.decoded).to include "Your sign for the word #{sign.word} has been approved"
+      expect(mail.body.decoded).to include "Your sign ‘#{sign.word}’ has been approved"
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe SignWorkflowMailer, type: :mailer do
     end
 
     it "has the expected body text" do
-      expect(mail.body.decoded).to include "Your sign for the word #{sign.word} has unfortunately been declined."
+      expect(mail.body.decoded).to include "Your sign ‘#{sign.word}’ has been declined"
     end
   end
 end

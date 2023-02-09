@@ -18,7 +18,7 @@ class DictionarySign < ApplicationRecord
   default_scope -> { where.not(usage: "obscene").or(where(usage: nil)) }
   scope :preview, -> { limit(4) }
 
-  # Freelex sign compatibility
+  # Use attributes for common sign elements to match the NZSL Share sign schema
   alias_attribute :word, :gloss
   alias_attribute :secondary, :minor
 end
