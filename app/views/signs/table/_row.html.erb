@@ -4,7 +4,7 @@
   <td class="sign-table__cell">
     <div class="checkbox">
       <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
-      <%= label_tag dom_id(sign, :batch_selection) do %>
+      <%= label_tag dom_id(sign, :batch_selection), class: "margin-0" do %>
         <span class="show-for-sr">Add sign to selection</span>
       <% end %>
     </div>

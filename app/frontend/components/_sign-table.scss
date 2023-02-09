@@ -87,6 +87,7 @@
     @include breakpoint(medium down) {
       &:first-child {
         justify-content: flex-start;
+        padding: 1rem 0.5rem 0 1.4rem;
       }
 
       &:not(:first-child) {
