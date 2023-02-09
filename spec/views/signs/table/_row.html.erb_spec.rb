@@ -10,7 +10,7 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
   before { stub_authorization }
 
   it "shows the title" do
-    expect(rendered).to have_selector ".sign-card__title", text: sign.word
+    expect(rendered).to have_selector ".sign-table__title", text: sign.word
   end
 
   it "shows the contributor's username" do
@@ -27,7 +27,7 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
 
   it "shows the sign status if the user can access the record" do
     expect(rendered).to have_content "Public"
-    title = Capybara.string(rendered).find("#sign_status")["title"]
+    title = Capybara.string(rendered).find(".sign-table__status")["title"]
     expect(title).to eq I18n.t!("signs.published.description")
   end
 
@@ -37,7 +37,7 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
   end
 
   it "shows the topics" do
-    expect(rendered).to have_selector ".sign-card__supplementary-titles__secondary",
+    expect(rendered).to have_selector ".sign-table__subtitle",
                                       text: sign.topics.pluck(:name).join(", ")
   end
 
@@ -99,12 +99,12 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
   end
 
   it "adds a modifier class to the component when the sign has not been user-edited" do
-    expect(rendered).to have_selector(".sign-table-row.sign-table-row--unedited")
+    expect(rendered).to have_selector(".sign-table__row.sign-table__row--unedited")
   end
 
   it "does not add a modifier class to the component when the sign has been user-edited" do
     sign.last_user_edit_at = Time.zone.now
-    expect(rendered).to have_selector(".sign-table-row:not(.sign-table-row--unedited)")
+    expect(rendered).to have_selector(".sign-table__row:not(.sign-table__row--unedited)")
   end
 
   it "renders a checkbox for batch selection" do

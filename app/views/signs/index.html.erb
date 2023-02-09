@@ -9,16 +9,14 @@
       <%= select_tag :sort_by, options_for_select(SignsController::SORT_OPTIONS.keys.collect{ |name| [name.to_s.humanize, name] }, params[:sort_by]),
                               onchange: "this.form.submit()" %>
     </form>
+
+    <%= render "signs/table/controls" %>
   </div>
 
-  <%= render "signs/table/controls" %>
-
-  <div class="list__section  padding-horizontal-0  margin-vertical-0 cell">
+  <table class="sign-table padding-horizontal-0 list__section cell" id="sign-table">
     <%= render "signs/table/header" %>
-    <div id="sign-table">
-      <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
-    </div>
-  </div>
+    <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
+  </table>
 
   <%= render "show_more" %>
 </div>

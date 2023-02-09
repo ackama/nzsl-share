@@ -1,24 +1,157 @@
-.sign-table-row {
-  border-bottom: 1px $light-neutral-gray solid;
-  padding: 0.5rem 0;
+.sign-table {
+  display: grid;
+
+  // Apply the grid to the whole table. This allows headings and columns to line up,
+  // but basically wacks each cell into a single list, which means that ordering applies
+  // across the whole list, not the 'row'
+  @include breakpoint(large up) {
+    // Reset table elements to be stylable as a grid
+    thead, tbody, tr {
+      display: contents;
+    }
+
+    grid-template-columns:
+        [checkbox-start] max-content // Checkbox
+        [checkbox-end content-start] max-content // Image
+        1fr // Titles
+        max-content // Status
+        max-content // Contributor
+        1fr // Activity
+        max-content [content-end]; // Controls
+  }
+
+  // Apply the grid to each table row. This makes each 'row'
+  // it's own grid context, allowing for spacing and ordering within
+  // the row, but prevents headings from lining up against the table since
+  // min-content etc doesn't calculate correctly
+  @include breakpoint(medium down) {
+    &__row {
+      border-bottom: solid 1px $light-neutral-gray;
+      margin: 1.4rem 0;
+      padding-bottom: 1.4rem;
+
+      display: grid;
+      grid-template-columns:
+        [checkbox-start] max-content // Checkbox
+        [checkbox-end content-start] max-content // Image
+        1fr // Titles
+        max-content // Status
+        max-content // Contributor
+        1fr // Activity
+        max-content [content-end]; // Controls
+    }
+  }
 
   a {
     text-decoration: none;
   }
 
-  &--unedited {
+  &__row--unedited {
     background: get-color(accent-x-light);
     border-left: solid get-color(accent) rem-calc(6);
+
+    // On large screens, the tr is display: contents, so
+    // we style the cell instead
+    @include breakpoint(large up) {
+      > .sign-table__cell {
+        background: get-color(accent-x-light);
+
+        &:first-child {
+          border-left: solid get-color(accent) rem-calc(6);
+        }
+      }
+    }
   }
 
-  &__header {
-    font-weight: bold;
+  &__cell, &__column-heading {
+    @include breakpoint(large up) {
+      border-bottom: solid 1px $light-neutral-gray;
+      padding: 1.5rem 1rem;
+
+      &:first-child {
+        padding-left: 2rem;
+      }
+
+      &:last-child {
+        padding-right: 2rem;
+      }
+    }
+  }
+
+  &__column-heading {
+    font-weight: 600;
     font-size: 0.825rem;
     color: $neutral-gray;
+    padding-bottom: 0.5rem;
+    display: none;
 
-    @media #{$small-only} {
-      display: none;
+    // Space elements across a grid
+    @include breakpoint(large up) {
+      display: block;
+
+      // The first and last cells are stretched across two columns:
+      &:first-child, &:last-child {
+        grid-column-end: span 2;
+      }
     }
+  }
+
+  &__cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include breakpoint(medium down) {
+      &:first-child {
+        justify-content: flex-start;
+        padding: 1rem 0.5rem 0 1.4rem;
+      }
+
+      &:not(:first-child) {
+        grid-column: content-start / content-end;
+        margin-right: 4rem;
+        padding: 0.75rem 0;
+      }
+    }
+  }
+
+  &__image {
+    border-radius: rem-calc(4);
+
+    @include breakpoint(large up) {
+      max-width: 60px;
+      max-height: 100px;
+    }
+  }
+
+  &__titles {
+    @include breakpoint(medium down) {
+      grid-row: 1;
+    }
+  }
+
+  &__title {
+    color: get-color(royal);
+    font-size: 1.2rem;
+    line-height: $header-lineheight;
+    font-weight: bold;
+  }
+
+  &__subtitle {
+    font-weight: 400;
+    color: $neutral-gray;
+    font-size: 1rem;
+  }
+
+  &__status {
+    text-transform: uppercase;
+    color: get-color(primary);
+    font-weight: 600;
+    background: get-color(primary-light);
+    padding: 0.25rem 0.375rem;
+    border-radius: rem-calc(2);
+    line-height: 1.4;
+    width: fit-content;
   }
 
   &__contributor {
@@ -32,24 +165,11 @@
     }
   }
 
-  &__image {
-    padding-left: 1.25rem;
-    width: 99px;
-
-    &__container {
-      flex-wrap: nowrap;
-    }
-  }
-
-  &__comments {
-    margin-right: 1.5rem;
-
-    a {
-      font-weight: normal;
-    }
-  }
-
   &__controls {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
     &--agree,
     &--disagree,
     &--comments {

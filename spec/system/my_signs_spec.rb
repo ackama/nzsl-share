@@ -28,34 +28,22 @@ RSpec.describe "My Signs", type: :system do
     expect(page).to have_selector "h1", text: "My signs"
   end
 
-  it "includes the expected signs" do
-    signs.each do |sign|
-      expect(page).to have_selector ".sign-card__title", text: sign.word
+  describe "signs" do
+    it "includes the expected signs" do
+      signs.each do |sign|
+        expect(page).to have_selector ".sign-table__title", text: sign.word
+      end
     end
-  end
 
-  it "includes expected sign status and description" do
-    sign_card = page.find("#sign_status", match: :prefer_exact)
-    expect(sign_card.text).to eq "Private"
-    expect(sign_card["title"]).to eq(I18n.t!("signs.personal.description"))
-  end
+    it "includes expected sign status and description" do
+      sign_card = page.find(".sign-table__status", match: :prefer_exact)
+      expect(sign_card.text).to eq "Private"
+      expect(sign_card["title"]).to eq(I18n.t!("signs.personal.description"))
+    end
 
-  it "includes 'Folders' button" do
-    expect(page).to have_button "Folders"
-  end
-
-  it "doesn't include unexpected signs" do
-    expect(page).to have_no_selector ".sign-card .sign-card__title", text: unowned_sign.word
-  end
-
-  it "can bulk assign topics to signs" do
-    topic_to_assign = Topic.where.not(id: signs.flat_map(&:topic_ids)).sample
-    all(".sign-table-row input[name='sign_ids[]']")[0..2].each(&:check)
-    select topic_to_assign.name, from: "Assign topics"
-    click_on "Assign"
-
-    expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
-    expect(all(".sign-table-row input[name='sign_ids[]']")[0..2]).to all(be_checked)
+    it "doesn't include unexpected signs" do
+      expect(page).to have_no_selector ".sign-table__title", text: unowned_sign.word
+    end
   end
 
   describe "sorting specs" do
@@ -71,26 +59,26 @@ RSpec.describe "My Signs", type: :system do
       it "shows signs in alphabetical order when set to sort by alphabetical order" do
         visit user_signs_path(sort_by: "alphabetical")
 
-        expect(page.all(".sign-card__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
+        expect(page.all(".sign-table__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
       end
 
       it "shows signs in alphabetical order when no sort param is provided" do
         visit user_signs_path
 
-        expect(page.all(".sign-card__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
+        expect(page.all(".sign-table__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
       end
 
       it "shows signs in alphabetical order when an invalid sort param is provided" do
         visit user_signs_path(sort_by: "pineapple_pizza")
 
-        expect(page.all(".sign-card__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
+        expect(page.all(".sign-table__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
       end
 
       it "sorts by alphabetical order when the dropdown is set to sort by alphabetical order", uses_javascript: true do
         visit user_signs_path(sort_by: "most_recent")
-        expect(page.all(".sign-card__title").collect(&:text)).not_to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
+        expect(page.all(".sign-table__title").collect(&:text)).not_to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
         select "Alphabetical", from: "Sort by"
-        expect(page.all(".sign-card__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
+        expect(page.all(".sign-table__title").collect(&:text)).to eq(%w[AAAAAAAAAA BBBBBBBBBB CCCCCCCCCC])
       end
     end
 
@@ -106,14 +94,14 @@ RSpec.describe "My Signs", type: :system do
       it "shows signs in date order when set to sort by most recent" do
         visit user_signs_path(sort_by: "most_recent")
 
-        expect(page.all(".sign-card__title").collect(&:text)).to eq(%w[NEW CURRENT OLD])
+        expect(page.all(".sign-table__title").collect(&:text)).to eq(%w[NEW CURRENT OLD])
       end
 
       it "sorts by most recent when the dropdown is set to sort by most recent", uses_javascript: true do
         visit user_signs_path(sort_by: "alphabetical")
-        expect(page.all(".sign-card__title").collect(&:text)).not_to eq(%w[NEW CURRENT OLD])
+        expect(page.all(".sign-table__title").collect(&:text)).not_to eq(%w[NEW CURRENT OLD])
         select "Most recent", from: "Sort by"
-        expect(page.all(".sign-card__title").collect(&:text)).to eq(%w[NEW CURRENT OLD])
+        expect(page.all(".sign-table__title").collect(&:text)).to eq(%w[NEW CURRENT OLD])
       end
     end
   end

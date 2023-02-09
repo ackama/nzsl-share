@@ -1,7 +1,7 @@
 module SignsHelper
   def agree_button(sign, extra_classes = "grid-x align-middle", table: false, &block)
-    classes = "sign-#{table ? "table-row" : "card"}__controls--agree #{extra_classes}"
-    return content_tag(:div, class: classes, &block) unless policy(sign).agree?
+    classes = "sign-#{table ? "table" : "card"}__controls--agree #{extra_classes}"
+    return content_tag(:div, id: dom_id(sign, :agree_button), class: classes, &block) unless policy(sign).agree?
 
     if SignActivity.agree?(sign_id: sign.id, user: current_user)
       classes << " sign-card__controls--agreed"
@@ -9,13 +9,14 @@ module SignsHelper
     end
 
     link_to(sign_agreement_path(sign), method: :post,
+                                       id: dom_id(sign, :agree_button),
                                        title: "Agree",
                                        data: { remote: true },
                                        class: classes, &block)
   end
 
   def disagree_button(sign, extra_classes = "grid-x align-middle", table: false, &block)
-    classes = "sign-#{table ? "table-row" : "card"}__controls--disagree #{extra_classes}"
+    classes = "sign-#{table ? "table" : "card"}__controls--disagree #{extra_classes}"
     return content_tag(:div, class: classes, &block) unless policy(sign).disagree?
 
     if SignActivity.disagree?(sign_id: sign.id, user: current_user)
