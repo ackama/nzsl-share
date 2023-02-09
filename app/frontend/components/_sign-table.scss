@@ -68,6 +68,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @include breakpoint(medium down) {
+      &:first-child {
+        justify-content: flex-start;
+      }
+
+      &:not(:first-child) {
+        grid-column: content-start / content-end;
+        margin-right: 4rem;
+        padding: 0.75rem 0;
+
+
+      }
+    }
   }
 
   &__image {
