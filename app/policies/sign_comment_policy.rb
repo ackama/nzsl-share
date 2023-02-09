@@ -65,12 +65,12 @@ class SignCommentPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      accessible_signs = SignPolicy::Scope.new(user, Sign).resolve
+      accessible_signs = SignPolicy::Scope.new(user, Sign.where(id: scope.pluck(:sign_id))).resolve
       folder_ids = accessible_signs.left_outer_joins(:folders).pluck("folders.id").compact
       accessible_folders = FolderPolicy::Scope.new(user, Folder.where(id: folder_ids)).resolve
 
       scope
-        .where(sign_id: accessible_signs)
+        .where(sign_id: accessible_signs.pluck("signs.id"))
         .where(folder_id: [nil, *accessible_folders])
     end
   end

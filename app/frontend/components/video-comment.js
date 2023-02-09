@@ -1,5 +1,40 @@
 import { initialHTML, errorHTML } from "./file-upload";
 
+import uppyFileUpload from "./uppy-file-upload";
+import signVideoRestrictions from "./uppy/signVideoRestrictions";
+
+const signVideoCommentController = (container) => {
+  const receiver = container.querySelector("input[data-sign-video-comment-target='receiver']");
+
+  const uppy = uppyFileUpload(container, {
+    uppy: {
+      restrictions: {
+        ...signVideoRestrictions,
+        maxNumberOfFiles: 1
+      }
+    },
+    dashboard: {
+      hideRetryButton: true,
+    },
+  });
+
+  uppy.on("complete", (result) => {
+    const [file] = result.successful;
+    if (!file) {
+      return;
+    }
+
+    receiver.value = file.response.signed_id;
+    receiver.form.requestSubmit();
+  });
+};
+
+$(() => {
+  $("[data-controller='sign-video-comment']").each((_idx, container) =>
+    signVideoCommentController(container)
+  );
+});
+
 const handleCommentAttachmentUpload = ($container) => {
   const $content = $container.find(".file-upload__content");
   const $field = $container.find(`input[name="${$container.data("fileUploadController")}"]`);

@@ -1,5 +1,6 @@
 .sign-table-row {
-  border-bottom: 1px #C2CDD1 solid;
+  border-bottom: 1px $light-neutral-gray solid;
+  padding: 0.5rem 0;
 
   a {
     text-decoration: none;
@@ -9,6 +10,10 @@
     font-weight: bold;
     font-size: 0.825rem;
     color: $neutral-gray;
+
+    @media #{$small-only} {
+      display: none;
+    }
   }
 
   &__contributor {
@@ -23,9 +28,8 @@
   }
 
   &__image {
-    padding-left: 20px;
-    margin: 6px;
-    width: 80%;
+    padding-left: 1.25rem;
+    width: 99px;
 
     &__container {
       flex-wrap: nowrap;
@@ -33,10 +37,21 @@
   }
 
   &__comments {
-    margin-right: 25px;
+    margin-right: 1.5rem;
 
     a {
       font-weight: normal;
+    }
+  }
+
+  &__controls {
+    &--agree,
+    &--disagree,
+    &--comments {
+      color: get-color(medium) !important;
+      display: inline-flex;
+      text-decoration: none;
+      margin-right: 0.625rem;
     }
   }
 }

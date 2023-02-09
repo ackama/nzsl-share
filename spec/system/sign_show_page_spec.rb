@@ -448,6 +448,6 @@ RSpec.describe "Sign show page", system: true do
   it "has the sign metadata for social sharing" do
     expect(subject).to have_css "meta[property='og:site_name'][content='NZSL Share']", visible: false
     expect(subject).to have_css "meta[property='og:title'][content=#{sign.word}]", visible: false
-    expect(subject).to have_css "meta[property='og:description'][content=#{sign.secondary}]", visible: false
+    expect(subject).to have_css "meta[property='og:description'][content='#{sign.secondary}']", visible: false
   end
 end
