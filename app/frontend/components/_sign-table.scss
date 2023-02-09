@@ -41,15 +41,17 @@
   }
 
   &__cell, &__column-heading {
-    border-bottom: solid 1px $light-neutral-gray;
-    padding: 1.5rem 1rem;
+    @include breakpoint(large up) {
+      border-bottom: solid 1px $light-neutral-gray;
+      padding: 1.5rem 1rem;
 
-    &:first-child {
-      padding-left: 2rem;
-    }
+      &:first-child {
+        padding-left: 2rem;
+      }
 
-    &:last-child {
-      padding-right: 2rem;
+      &:last-child {
+        padding-right: 2rem;
+      }
     }
   }
 
@@ -58,9 +60,16 @@
     font-size: 0.825rem;
     color: $neutral-gray;
     padding-bottom: 0.5rem;
+    display: none;
 
-    @media #{$small-only} {
-      display: none;
+    // Space elements across a grid
+    @include breakpoint(large up) {
+      display: block;
+
+      // The first and last cells are stretched across two columns:
+      &:first-child, &:last-child {
+        grid-column-end: span 2;
+      }
     }
   }
 
