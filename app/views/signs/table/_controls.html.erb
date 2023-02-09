@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <% if current_user&.approved? %>
+  <% if current_user.approved? %>
     <div class="cell grid-x medium-4 medium-offset-4 small-12 align-right align-bottom">
       <%= f.button "Submit for publishing", value: :submit_for_publishing,
                                             name: :operation,
