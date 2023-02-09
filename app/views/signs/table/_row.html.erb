@@ -1,9 +1,13 @@
 <% sign = present(sign) %>
 
-<tr>
+<tr class="sign-table__row <%= 'sign-table__row--unedited' unless sign.last_user_edit_at %>">
   <td class="sign-table__cell">
     <div class="checkbox">
-      <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
+      <%= check_box_tag "sign_ids[]",
+                        sign.to_param,
+                        params[:sign_ids]&.include?(sign.to_param),
+                        id: dom_id(sign, :batch_selection),
+                        form: :sign_list_controls %>
       <%= label_tag dom_id(sign, :batch_selection), class: "margin-0" do %>
         <span class="show-for-sr">Add sign to selection</span>
       <% end %>

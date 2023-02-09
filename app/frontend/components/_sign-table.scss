@@ -25,7 +25,7 @@
   // the row, but prevents headings from lining up against the table since
   // min-content etc doesn't calculate correctly
   @include breakpoint(medium down) {
-    tbody > tr {
+    &__row {
       border-bottom: solid 1px $light-neutral-gray;
       margin: 1.4rem 0;
       padding-bottom: 1.4rem;
@@ -44,6 +44,11 @@
 
   a {
     text-decoration: none;
+  }
+
+  &__row--unedited {
+    background: get-color(accent-x-light);
+    border-left: solid get-color(accent) rem-calc(6);
   }
 
   &__cell, &__column-heading {

@@ -70,6 +70,16 @@ $clear-button-palette: (
     }
   }
 
+  &.neutral {
+    color: $neutral-gray;
+    background: $white;
+    border: solid 1px get-color(light);
+
+    &:active, &:hover, &:focus {
+      border-color: $neutral-gray;
+    }
+  }
+
   &.alert {
     background: get-color(alert-x-light) !important;
     color: get-color(alert);

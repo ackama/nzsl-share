@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 2023_02_07_021057) do
     t.datetime "declined_at"
     t.datetime "requested_unpublish_at"
     t.boolean "conditions_accepted", default: false
+    t.datetime "last_user_edit_at"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["notes"], name: "index_signs_on_notes"
