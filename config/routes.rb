@@ -53,6 +53,12 @@ Rails.application.routes.draw do
     Sign.aasm.events.map(&:name).each do |event_name|
       patch event_name, on: :member, controller: :sign_workflow
     end
+
+    collection do
+      resources :batch_operation, only: :create,
+                                  as: :signs_batch_operations,
+                                  controller: :sign_batch_operations
+    end
   end
 
   resources :topics, only: %i[index show] do
