@@ -49,6 +49,18 @@
   &__row--unedited {
     background: get-color(accent-x-light);
     border-left: solid get-color(accent) rem-calc(6);
+
+    // On large screens, the tr is display: contents, so
+    // we style the cell instead
+    @include breakpoint(large up) {
+      > .sign-table__cell {
+        background: get-color(accent-x-light);
+
+        &:first-child {
+          border-left: solid get-color(accent) rem-calc(6);
+        }
+      }
+    }
   }
 
   &__cell, &__column-heading {
