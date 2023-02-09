@@ -1,8 +1,14 @@
 <% provide(:title, "My signs") %>
 <div class="grid-x list margin-top-2">
-  <div class="list__section">
-    <h1>My signs</h1>
-    <p class="margin-0">Signs you have contributed.</p>
+  <div class="list__section cell grid-x align-middle">
+    <div class="cell small-12 large-9">
+      <h1>My signs</h1>
+    </div>
+    <form class="cell small-12 large-3">
+      <%= label_tag :sort_by, nil, class: "margin-top-0" %>
+      <%= select_tag :sort_by, options_for_select(SignsController::SORT_OPTIONS.keys.collect{ |name| [name.to_s.humanize, name] }, params[:sort_by]),
+                              onchange: "this.form.submit()" %>
+    </form>
   </div>
 
 

@@ -1,4 +1,8 @@
 class ConvertFreelexSignVideoKeyToArray < ActiveRecord::Migration[6.0]
+  # Define shadow model since this model has been removed from the codebase
+  class FreelexSign < ApplicationRecord
+  end
+
   def up
     rename_column :freelex_signs, :video_key, :old_video_key
     add_column :freelex_signs, :video_key, :string, array: true, default: []

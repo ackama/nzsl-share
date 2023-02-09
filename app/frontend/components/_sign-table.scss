@@ -151,4 +151,15 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
+  &__controls {
+    &--agree,
+    &--disagree,
+    &--comments {
+      color: get-color(medium) !important;
+      display: inline-flex;
+      text-decoration: none;
+      margin-right: 0.625rem;
+    }
+  }
 }

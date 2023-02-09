@@ -1,12 +1,4 @@
-# Conditionally switch between dictionary sign models based on an environment variable.
-# This allows us to quickly switch between searching Freelex and Signbank data for signs.
-
 Rails.application.reloader.to_prepare do
-  dictionary_mode = ENV["DICTIONARY_MODE"]&.downcase
-  dictionary_sign_model = dictionary_mode == "freelex" ? FreelexSign : DictionarySign
-  Rails.application.config.dictionary_sign_model = dictionary_sign_model
-  next if dictionary_sign_model != DictionarySign
-
   # Update the dictionary file if it is older than 1 month
   path = Rails.root.join("db/nzsl-dictionary.db.sqlite3")
   Rails.application.load_tasks

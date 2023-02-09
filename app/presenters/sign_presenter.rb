@@ -66,7 +66,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     # We do not use the 'sign' instance here, because we want this cache
     # to not expire unless the variation key changes. If we use the sign instance,
     # the cache expires each time the sign is changed at all.
-    Rails.cache.fetch([:signs, sign.id, :poster_url, preview.variation.key]) do
+    Rails.cache.fetch([:signs, sign.id, video.blob_id, :poster_url, preview.variation.key]) do
       preview.processed # Ensure the preview is processed
       h.url_for(preview.image)
     end

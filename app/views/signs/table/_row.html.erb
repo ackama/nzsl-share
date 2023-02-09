@@ -2,8 +2,14 @@
 
 <tr>
   <td class="sign-table__cell">
-    <input type="checkbox" />
+    <div class="checkbox">
+      <%= check_box_tag "sign_ids[]", sign.id, params[:sign_ids]&.include?(sign.id), id: dom_id(sign, :batch_selection) %>
+      <%= label_tag dom_id(sign, :batch_selection) do %>
+        <span class="show-for-sr">Add sign to selection</span>
+      <% end %>
+    </div>
   </td>
+
   <td class="sign-table__cell">
     <%= image_tag(sign.poster_url(size: 360), class: "sign-table__image") %>
   </td>
