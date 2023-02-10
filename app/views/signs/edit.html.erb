@@ -31,7 +31,9 @@
             <%= number_to_human_size @sign.video.byte_size %>
           </span>
 
-          <%= button_tag "Change video", class: "button clear", type: "button", data: { update_sign_video_target: "trigger" } %>
+          <% unless @sign.published? %>
+            <%= button_tag "Change video", class: "button clear", type: "button", data: { update_sign_video_target: "trigger" } %>
+          <% end %>
         </div>
       </div>
 
