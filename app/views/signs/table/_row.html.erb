@@ -29,16 +29,24 @@
 
   <td class="sign-table__cell">
     <% if policy(sign).overview? %>
-      <small title="<%= sign.status_description %>" class="sign-table__status"><%= sign.status_name %></small>
+      <span title="<%= sign.status_description %>" class="status"><%= sign.status_name %></span>
     <% end %>
   </td>
 
   <td class="sign-table__cell">
-    <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true %>
-    <%= link_to user_path(sign.contributor.username), class: "sign-table__contributor" do %>
-      <%= sign.contributor.username %>
-    <% end %>
-    <div><%= sign.friendly_date %></div>
+    <div class="sign-table__contributor">
+      <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true, class: "sign-table__contributor__icon" %>
+
+      <div class="sign-table__contributor__info">
+        <%= link_to user_path(sign.contributor.username) do %>
+          <%= sign.contributor.username %>
+        <% end %>
+        <div>
+          <span class="hide-for-large">&nbsp;|&nbsp;</span>
+          <%= sign.friendly_date %>
+        </div>
+      </div>
+    </div>
   </td>
 
   <td class="sign-table__cell sign-table__controls">

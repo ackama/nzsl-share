@@ -65,6 +65,19 @@ RSpec.describe "sign", type: :request do
     it "updates the timestamp when the record was last user modified" do
       expect { update.call(sign) }.to change { sign.tap(&:reload).last_user_edit_at }
     end
+
+    context "when the sign has been published" do
+      let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
+
+      it "does not post process sign videos" do
+        new_video = fixture_file_upload("spec/fixtures/small.mp4")
+        sign_params[:video] = new_video
+        allow(SignPostProcessor).to receive(:new).and_return(double.as_null_object)
+        update.call(sign)
+
+        expect(SignPostProcessor).not_to have_received(:new).with(sign)
+      end
+    end
   end
 
   describe "GET show" do

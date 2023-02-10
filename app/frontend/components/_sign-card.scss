@@ -190,22 +190,6 @@
     }
   }
 
-  &__status {
-    align-items: center;
-    background-color: get-color(primary-light) ;
-    border-radius: $global-radius;
-    color: get-color(primary);
-    display: flex;
-    flex-direction: row;
-    font-size: 0.6rem;
-    font-weight: bold;
-    justify-content: center;
-    margin-bottom: rem-calc(2);
-    padding: 0 8px;
-    text-transform: uppercase;
-    width: max-content;
-  }
-
   &__media {
     @include responsive-embed;
     border-top-left-radius: $global-radius * 2;
@@ -238,6 +222,7 @@
     flex-wrap: wrap;
     font-size: rem-calc(13);
     line-height: 1.4rem;
+    margin-top: 0.2rem;
 
     .bullet {
       font-weight: normal;

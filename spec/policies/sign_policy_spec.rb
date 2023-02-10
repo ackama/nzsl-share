@@ -9,6 +9,26 @@ RSpec.describe SignPolicy do
     expect(described_class.superclass).to eq ApplicationPolicy
   end
 
+  describe "permitted_attributes_for_update" do
+    subject(:policy) { described_class.new(user, sign) }
+
+    context "when the sign is not published" do
+      let(:sign) { FactoryBot.create(:sign) }
+
+      it "includes video if the sign is not published" do
+        expect(policy.permitted_attributes_for_update).to include(:video)
+      end
+    end
+
+    context "when the sign is published" do
+      let(:sign) { FactoryBot.create(:sign, :published) }
+
+      it "doesn't include video in permitted attributes" do
+        expect(policy.permitted_attributes_for_update).not_to include(:video)
+      end
+    end
+  end
+
   describe "scope" do
     describe "user as moderator" do
       it { expect(user.moderator).to be true }

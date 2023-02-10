@@ -36,7 +36,7 @@ RSpec.describe "My Signs", type: :system do
     end
 
     it "includes expected sign status and description" do
-      sign_card = page.find(".sign-table__status", match: :prefer_exact)
+      sign_card = page.find(".status", match: :prefer_exact)
       expect(sign_card.text).to eq "Private"
       expect(sign_card["title"]).to eq(I18n.t!("signs.personal.description"))
     end
