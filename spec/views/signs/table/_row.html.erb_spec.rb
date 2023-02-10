@@ -27,7 +27,7 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
 
   it "shows the sign status if the user can access the record" do
     expect(rendered).to have_content "Public"
-    title = Capybara.string(rendered).find(".sign-table__status")["title"]
+    title = Capybara.string(rendered).find(".status")["title"]
     expect(title).to eq I18n.t!("signs.published.description")
   end
 
