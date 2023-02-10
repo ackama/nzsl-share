@@ -73,6 +73,7 @@ $extra-light-gray: #eceeee;
 $light-gray: #a0a7ab;
 $lighter-gray: #d6dadb;
 $neutral-gray: #556970;
+$light-neutral-gray: #C2CDD1;
 $medium-gray: #646970;
 $dark-gray: $medium-gray;
 $black: #041723;
@@ -83,7 +84,7 @@ $foundation-palette: (
   primary-light: #d6e2ee,
   primary-x-light: #eff4f8,
   accent: #ff571f,
-  accent-x-light: #ffe8e0,
+  accent-x-light: #FFF7F4,
   royal: #354ae7,
   royal-x-light: #f1f2fb,
   success: #038500,
@@ -316,7 +317,7 @@ $breadcrumbs-item-separator-color: get-color(medium);
 // ----------
 
 $button-font-family: inherit;
-$button-padding: 0.85em 1em;
+$button-padding: 0.5rem 1rem;
 $button-margin: 0 0 $global-margin 0;
 $button-fill: solid;
 $button-background: get-color(royal);
@@ -463,7 +464,7 @@ $input-prefix-border: 1px solid $dark-gray;
 $input-prefix-padding: 1rem;
 $form-label-color: $medium-gray;
 $form-label-font-size: 1rem;
-$form-label-font-weight: bold;
+$form-label-font-weight: 600;
 $form-label-line-height: 1.6;
 $select-background: $white;
 $select-triangle-color: $dark-gray;

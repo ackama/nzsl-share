@@ -66,7 +66,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     # We do not use the 'sign' instance here, because we want this cache
     # to not expire unless the variation key changes. If we use the sign instance,
     # the cache expires each time the sign is changed at all.
-    Rails.cache.fetch([:signs, sign.id, :poster_url, preview.variation.key]) do
+    Rails.cache.fetch([:signs, sign.id, video.blob_id, :poster_url, preview.variation.key]) do
       preview.processed # Ensure the preview is processed
       h.url_for(preview.image)
     end
@@ -120,21 +120,26 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     user = h.current_user
     return false unless user
 
-    # We use SignComment.where here because sign.sign_comments only includes root-level comments,
-    # not replies.
-    Pundit
-      .policy_scope(user, SignComment.where(sign: sign).unread_by(user))
+    accessible_sign_comments
       .where("sign_comments.created_at > ?", user.created_at)
+      .unread_by(user)
       .any?
   end
 
   def comments_count
     # We use SignComment.where here because sign.sign_comments only includes root-level comments,
     # not replies.
-    @comments_count ||= Pundit.policy_scope(h.current_user, SignComment.where(sign: sign)).count
+    @comments_count ||= accessible_sign_comments.count
   end
 
   private
+
+  def accessible_sign_comments
+    Pundit
+      .policy_scope(h.current_user, SignComment.where(sign: sign))
+      .joins(:sign)
+      .where("sign_comments.sign_status = signs.status")
+  end
 
   def map_folders_to_memberships(folders, memberships)
     folders.each_with_object({}) do |folder, acc|

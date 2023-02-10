@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_21_033513) do
+ActiveRecord::Schema.define(version: 2023_02_07_021057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,19 +107,6 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
-  create_table "freelex_signs", primary_key: "headword_id", id: :integer, default: nil, force: :cascade do |t|
-    t.string "word", limit: 512, null: false
-    t.string "maori", limit: 512
-    t.string "secondary", limit: 512
-    t.string "tags", default: [], array: true
-    t.datetime "published_at", null: false
-    t.string "video_key", default: [], array: true
-    t.index ["headword_id"], name: "index_freelex_signs_on_headword_id", unique: true
-    t.index ["maori"], name: "idx_freelex_signs_maori"
-    t.index ["secondary"], name: "idx_freelex_signs_secondary"
-    t.index ["word"], name: "idx_freelex_signs_word"
-  end
-
   create_table "sign_activities", force: :cascade do |t|
     t.string "key", null: false
     t.bigint "user_id", null: false
@@ -191,6 +178,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.datetime "declined_at"
     t.datetime "requested_unpublish_at"
     t.boolean "conditions_accepted", default: false
+    t.datetime "last_user_edit_at"
     t.index ["contributor_id"], name: "index_signs_on_contributor_id"
     t.index ["maori"], name: "idx_signs_maori"
     t.index ["notes"], name: "index_signs_on_notes"
@@ -243,6 +231,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_033513) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.boolean "batch_sign_contributions_permitted", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

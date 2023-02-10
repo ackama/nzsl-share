@@ -2,6 +2,11 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   before_action :authenticate_user!, except: %i[show]
   after_action :mark_comments_as_read, only: :show
 
+  SORT_OPTIONS = {
+    alphabetical: { word: :asc },
+    most_recent: { created_at: :desc }
+  }.freeze
+
   def index
     @signs = signs.where(contributor: current_user).page(params[:page])
     authorize @signs
@@ -32,19 +37,22 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def create
-    @sign = build_sign.sign
+    creator = SignCreator.new(create_sign_params)
+    @sign = creator.sign
     authorize @sign
-    return render(:new) unless build_sign.save
+    return render(:new) unless creator.create
 
     respond_to_create(@sign)
   end
 
   def update
     @sign = signs.find(id)
-    @sign.assign_attributes(edit_sign_params)
-    set_signs_submitted_state
     authorize @sign
-    return render(:edit) unless @sign.save
+
+    updater = SignUpdater.new(@sign, update_sign_params)
+
+    set_signs_submitted_state
+    return render(:edit) unless updater.update
 
     respond_to_update(@sign)
   end
@@ -79,20 +87,19 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def signs
-    policy_scope(Sign).for_cards.order(word: :asc)
-  end
-
-  def build_sign(builder: SignBuilder.new)
-    @build_sign ||= builder.build(create_sign_params)
+    sort_by = SORT_OPTIONS[params[:sort_by]&.to_sym] || SORT_OPTIONS[:alphabetical]
+    policy_scope(Sign).for_cards.order(sort_by)
   end
 
   def create_sign_params
     params.require(:sign).permit(:video).merge(contributor: current_user)
   end
 
-  def edit_sign_params
-    params.require(:sign).permit(:maori, :secondary, :notes, :word, :usage_examples, :illustrations,
-                                 :conditions_accepted, topic_ids: [])
+  def update_sign_params
+    params.require(:sign)
+          .permit(:maori, :secondary, :notes, :video, :word, :usage_examples, :illustrations,
+                  :conditions_accepted, topic_ids: [])
+          .merge(last_user_edit_at: Time.zone.now)
   end
 
   def respond_to_create(sign)

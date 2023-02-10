@@ -13,7 +13,9 @@ $clear-button-palette: (
 .button {
   align-items: center;
   display: inline-flex;
+  flex-direction: column;
   font-weight: bold;
+  font-size: 1rem;
   line-height: 1.2;
   text-decoration: none;
 
