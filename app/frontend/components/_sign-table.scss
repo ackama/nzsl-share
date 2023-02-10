@@ -25,7 +25,7 @@
   // the row, but prevents headings from lining up against the table since
   // min-content etc doesn't calculate correctly
   @include breakpoint(medium down) {
-    tbody > tr {
+    &__row {
       border-bottom: solid 1px $light-neutral-gray;
       margin: 1.4rem 0;
       padding-bottom: 1.4rem;
