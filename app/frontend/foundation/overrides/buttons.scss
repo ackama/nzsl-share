@@ -13,7 +13,9 @@ $clear-button-palette: (
 .button {
   align-items: center;
   display: inline-flex;
+  flex-direction: column;
   font-weight: bold;
+  font-size: 1rem;
   line-height: 1.2;
   text-decoration: none;
 
@@ -65,6 +67,16 @@ $clear-button-palette: (
     &:focus {
       background: $button-color-alt;
       color: $button-color;
+    }
+  }
+
+  &.neutral {
+    color: $neutral-gray;
+    background: $white;
+    border: solid 1px get-color(light);
+
+    &:active, &:hover, &:focus {
+      border-color: $neutral-gray;
     }
   }
 

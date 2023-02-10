@@ -1,6 +1,6 @@
 <% provide(:title, "My signs") %>
 <div class="grid-x list margin-top-2">
-  <div class="list__section cell grid-x align-middle">
+  <div class="list__section cell grid-x align-middle padding-bottom-0">
     <div class="cell small-12 large-9">
       <h1>My signs</h1>
     </div>
@@ -9,13 +9,14 @@
       <%= select_tag :sort_by, options_for_select(SignsController::SORT_OPTIONS.keys.collect{ |name| [name.to_s.humanize, name] }, params[:sort_by]),
                               onchange: "this.form.submit()" %>
     </form>
+
+    <%= render "signs/table/controls" %>
   </div>
-  <div class="list__section margin-vertical-0 padding-horizontal-0 cell">
+
+  <table class="sign-table padding-horizontal-0 list__section cell" id="sign-table">
     <%= render "signs/table/header" %>
-    <div id="sign-table">
-      <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
-    </div>
-  </div>
+    <%= render partial: "signs/table/row", collection: @signs, as: :sign %>
+  </table>
 
   <%= render "show_more" %>
 </div>

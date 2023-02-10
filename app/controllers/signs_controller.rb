@@ -96,7 +96,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def update_sign_params
-    permitted_attributes(@sign)
+    permitted_attributes(@sign).merge(last_user_edit_at: Time.zone.now)
   end
 
   def respond_to_create(sign)
