@@ -46,6 +46,26 @@ RSpec.describe "My Signs", type: :system do
     end
   end
 
+  it "can bulk assign topics to signs" do
+    topic_to_assign = Topic.where.not(id: signs.flat_map(&:topic_ids)).sample
+    all(".sign-table__row input[name='sign_ids[]']")[0..2].each(&:check)
+    select topic_to_assign.name, from: "Assign topics"
+    click_on "Assign"
+
+    expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
+    expect(all(".sign-table__row input[name='sign_ids[]']")[0..2]).to all(be_checked)
+  end
+
+  it "can bulk submit signs for publishing" do
+    user.update(approved: true)
+    visit user_signs_path
+    all(".sign-table__row input[name='sign_ids[]']")[0..2].each(&:check)
+    click_on "Submit for publishing"
+
+    expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
+    expect(all(".sign-table__row input[name='sign_ids[]']")[0..2]).to all(be_checked)
+  end
+
   describe "sorting specs" do
     describe "when the specs are to be sorted in alphabetical order" do
       let!(:signs) do

@@ -51,5 +51,38 @@ RSpec.describe "/signs/batch_operation", type: :request do
         expect(response_json["failed"]).to eq [sign.as_json]
       end
     end
+
+    context "when signs are submitted to be published" do
+      it "submits the signs" do
+        user.update(approved: true)
+        params = { operation: :submit_for_publishing, sign_ids: [sign.id] }
+        post signs_batch_operations_path(params: params)
+        expect(sign.tap(&:reload).submitted?).to eq(true)
+      end
+
+      it "fails a record that has already been published" do
+        user.update(approved: true)
+        sign.conditions_accepted = true
+        sign.submit!
+        sign.publish!
+        params = { operation: :submit_for_publishing, sign_ids: [sign.id] }
+        expect do
+          post signs_batch_operations_path(params: params, format: :json)
+        end.not_to change { sign.status }
+
+        response_json = JSON.parse(response.body)
+        expect(response_json["failed"]).to eq [sign.as_json]
+      end
+
+      it "fails a record id the owner is not an approved user" do
+        params = { operation: :submit_for_publishing, sign_ids: [sign.id] }
+        expect do
+          post signs_batch_operations_path(params: params, format: :json)
+        end.not_to change { sign.status }
+
+        response_json = JSON.parse(response.body)
+        expect(response_json["failed"]).to eq [sign.as_json]
+      end
+    end
   end
 end

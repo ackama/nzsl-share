@@ -10,4 +10,13 @@
       <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral" %>
     </div>
   </div>
+
+  <% if current_user.approved? %>
+    <div class="cell grid-x medium-4 medium-offset-4 small-12 align-right align-bottom">
+      <%= f.button "Submit for publishing", value: :submit_for_publishing,
+                                            name: :operation,
+                                            class: "button neutral",
+                                            data: { confirm: "I agree to follow the privacy policy - #{page_url("privacy-policy")}" } %>
+    </div>
+  <% end %>
 <% end %>
