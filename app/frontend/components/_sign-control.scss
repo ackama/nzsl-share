@@ -1,0 +1,49 @@
+.sign-control {
+  &--agree,
+  &--disagree,
+  &--comments {
+    color: get-color(medium) !important;
+    display: inline-flex;
+    text-decoration: none;
+  }
+
+  &--agreed {
+    color: get-color(success) !important;
+    & > svg { @include icon-fill(success); }
+
+    &:hover {
+      filter: brightness(75%);
+    }
+  }
+
+  &--disagreed {
+    color: get-color(alert) !important;
+    & > svg { @include icon-fill(alert); }
+
+    &:hover {
+      filter: brightness(75%);
+    }
+  }
+
+  &--icon {
+    height: rem-calc(16);
+    margin-right: 8px;
+    width: rem-calc(16);
+  }
+
+  &--comments--unread {
+    position: relative;
+    &::after {
+      background: get-color(accent);
+      border-radius: 50px;
+      border: solid 1px get-color(white);
+      content: " ";
+      display: block;
+      height: rem-calc(8);
+      left: 12px; // Position over icon
+      position: absolute;
+      top: -4px;
+      width: rem-calc(8);
+    }
+  }
+}

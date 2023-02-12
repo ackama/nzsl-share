@@ -1,11 +1,5 @@
 <div class="sign-card__votes js-sign-votes" id="<%= sign.dom_id(:votes) %>">
-  <%= agree_button(sign) do %>
-    <%= inline_svg_pack_tag "media/images/agree.svg", aria: true, title: "Agree", class: "sign-card__controls--icon" %>
-    <%= sign.agree_count %>
-  <% end %>
+  <span class="sign-card__controls__margin"><%= render "signs/votes/agree", sign: sign %></span>
 
-  <%= disagree_button(sign) do %>
-    <%= inline_svg_pack_tag "media/images/disagree.svg", aria: true, title: "Disagree", class: "sign-card__controls--icon" %>
-    <%= sign.disagree_count %>
-  <% end %>
+  <span class="sign-card__controls__margin"><%= render "signs/votes/disagree", sign: sign %></span>
 </div>
