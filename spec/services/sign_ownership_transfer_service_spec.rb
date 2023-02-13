@@ -10,7 +10,7 @@ RSpec.describe SignOwnershipTransferService, type: :service do
 
     it "updates the owner of the signs" do
       signs = FactoryBot.create_list(:sign, 3, :published, contributor: old_owner)
-      subject.transfer_sign(old_owner: old_owner, new_owner: new_owner)
+      subject.transfer_sign(old_owner:, new_owner:)
       signs.each do |sign|
         sign.reload
         expect(sign.contributor).to eq(new_owner)
@@ -21,7 +21,7 @@ RSpec.describe SignOwnershipTransferService, type: :service do
       folder = FactoryBot.create(:folder)
       published_signs = FactoryBot.create_list(:sign, 2, :published, contributor: old_owner, folders: [folder])
       unpublished_signs = FactoryBot.create_list(:sign, 2, contributor: old_owner, folders: [folder])
-      subject.transfer_sign(old_owner: old_owner, new_owner: new_owner)
+      subject.transfer_sign(old_owner:, new_owner:)
 
       published_signs.each do |sign|
         sign.reload
@@ -38,7 +38,7 @@ RSpec.describe SignOwnershipTransferService, type: :service do
       unrelated_user = FactoryBot.create(:user)
       old_owner_signs = FactoryBot.create_list(:sign, 3, :published, contributor: old_owner)
       unrelated_signs = FactoryBot.create_list(:sign, 3, :published, contributor: unrelated_user)
-      subject.transfer_sign(old_owner: old_owner, new_owner: new_owner)
+      subject.transfer_sign(old_owner:, new_owner:)
 
       old_owner_signs.each do |sign|
         sign.reload
@@ -54,7 +54,7 @@ RSpec.describe SignOwnershipTransferService, type: :service do
     it "will not transfer signs to the system user" do
       signs = FactoryBot.create_list(:sign, 3, :published, contributor: old_owner)
       new_owner = SystemUser.find
-      subject.transfer_sign(old_owner: old_owner, new_owner: new_owner)
+      subject.transfer_sign(old_owner:, new_owner:)
       signs.each do |sign|
         sign.reload
         expect(sign.contributor).to eq(old_owner)

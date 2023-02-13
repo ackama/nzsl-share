@@ -13,7 +13,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "on a public sign" do
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user) }
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign:, user:) }
 
     it "can create a new comment", uses_javascript: true do
       comment_text = Faker::Lorem.sentence
@@ -74,7 +74,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "editing comments" do
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign:, user:) }
 
     it "can edit the comment text" do
       visit current_path
@@ -103,7 +103,7 @@ RSpec.describe "Sign commenting" do
     end
 
     context "a reply" do
-      let!(:reply) { FactoryBot.create(:sign_comment, sign: sign, user: user, in_reply_to: comment) }
+      let!(:reply) { FactoryBot.create(:sign_comment, sign:, user:, in_reply_to: comment) }
 
       it "can edit the comment text" do
         visit current_path
@@ -149,7 +149,7 @@ RSpec.describe "Sign commenting" do
     end
 
     context "a video comment" do
-      let!(:comment) { FactoryBot.create(:sign_comment, :video, sign: sign, user: user) }
+      let!(:comment) { FactoryBot.create(:sign_comment, :video, sign:, user:) }
 
       it "can edit the video caption" do
         visit current_path
@@ -167,7 +167,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "removing", uses_javascript: true do
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign:, user:) }
 
     it "approved user can delete own comment" do
       visit sign_path(sign)
@@ -183,7 +183,7 @@ RSpec.describe "Sign commenting" do
 
   context "when the user is deleted" do
     let(:commenter) { FactoryBot.create(:user) }
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: commenter) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign:, user: commenter) }
 
     it "continues to show the comment, but not the user details" do
       commenter.destroy!
@@ -194,7 +194,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "pagination" do
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign: sign, user: user) }
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 30, sign:, user:) }
 
     it "shows older comments without JS" do
       expected_comments = comments.sort_by(&:created_at)[10...20].map(&:comment)
@@ -232,9 +232,9 @@ RSpec.describe "Sign commenting" do
 
   context "folder comments" do
     let(:sign) { FactoryBot.create(:sign, contributor: user) }
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
-    let!(:folder_membership) { FactoryBot.create(:folder_membership, sign: sign, folder: folder) }
-    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user, folder: folder) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
+    let!(:folder_membership) { FactoryBot.create(:folder_membership, sign:, folder:) }
+    let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign:, user:, folder:) }
 
     before do
       visit current_path
@@ -293,7 +293,7 @@ RSpec.describe "Sign commenting" do
   end
 
   context "reporting" do
-    let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: FactoryBot.create(:user)) }
+    let!(:comment) { FactoryBot.create(:sign_comment, sign:, user: FactoryBot.create(:user)) }
 
     it "reports a comment" do
       visit current_path
@@ -307,7 +307,7 @@ RSpec.describe "Sign commenting" do
     end
 
     it "cannot report a comment that has already been reported by this user" do
-      FactoryBot.create(:comment_report, comment: comment, user: user)
+      FactoryBot.create(:comment_report, comment:, user:)
       visit current_path
 
       within ".sign-comment__options" do
@@ -317,7 +317,7 @@ RSpec.describe "Sign commenting" do
     end
 
     it "can report a comment that has already been reported by a different user" do
-      FactoryBot.create(:comment_report, comment: comment, user: FactoryBot.create(:user))
+      FactoryBot.create(:comment_report, comment:, user: FactoryBot.create(:user))
       visit current_path
 
       within ".sign-comment__options" do
@@ -327,7 +327,7 @@ RSpec.describe "Sign commenting" do
     end
 
     context "a comment authored by the current user" do
-      let!(:comment) { FactoryBot.create(:sign_comment, sign: sign, user: user) }
+      let!(:comment) { FactoryBot.create(:sign_comment, sign:, user:) }
       it "cannot report own comment" do
         visit current_path
 

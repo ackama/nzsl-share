@@ -56,8 +56,8 @@ RSpec.describe Sign, type: :model do
   describe ".usage_examples" do
     let(:content_type) { "video/mp4" }
     let(:byte_size) { 10.megabytes }
-    let(:blob) { double(ActiveStorage::Blob, byte_size: byte_size, content_type: content_type) }
-    let(:attached) { double(ActiveStorage::Attached, attached?: true, blob: blob) }
+    let(:blob) { double(ActiveStorage::Blob, byte_size:, content_type:) }
+    let(:attached) { double(ActiveStorage::Attached, attached?: true, blob:) }
     before { allow(subject).to receive(:usage_examples_attachments).and_return([attached]) }
 
     context "with a valid file" do
@@ -95,8 +95,8 @@ RSpec.describe Sign, type: :model do
   describe ".illustrations" do
     let(:content_type) { "image/jpeg" }
     let(:byte_size) { 10.megabytes }
-    let(:blob) { double(ActiveStorage::Blob, byte_size: byte_size, content_type: content_type) }
-    let(:attached) { double(ActiveStorage::Attached, attached?: true, blob: blob) }
+    let(:blob) { double(ActiveStorage::Blob, byte_size:, content_type:) }
+    let(:attached) { double(ActiveStorage::Attached, attached?: true, blob:) }
     before { allow(subject).to receive(:illustrations_attachments).and_return([attached]) }
 
     context "with a valid file" do

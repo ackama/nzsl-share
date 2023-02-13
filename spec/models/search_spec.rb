@@ -18,7 +18,7 @@ RSpec.describe Search, type: :model do
   end
 
   describe "#order_clause" do
-    subject { Search.new(sort: sort).order_clause }
+    subject { Search.new(sort:).order_clause }
 
     context "with a known sort" do
       let(:sort) { "recent" }

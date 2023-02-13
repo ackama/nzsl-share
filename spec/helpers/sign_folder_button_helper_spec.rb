@@ -18,7 +18,7 @@ RSpec.describe SignFolderButtonHelper, type: :helper do
       context "sign is in user folders" do
         before do
           folder = FactoryBot.create(:folder, user_id: user.id)
-          FactoryBot.create(:folder_membership, folder: folder, sign: sign.object)
+          FactoryBot.create(:folder_membership, folder:, sign: sign.object)
         end
 
         it "shows the add to folder button with the --in-folder state" do

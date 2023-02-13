@@ -14,7 +14,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".for_type" do
-    subject { SignActivity.for_type("test", user: user) }
+    subject { SignActivity.for_type("test", user:) }
     it "uses the expected type" do
       expect(subject.key).to eq "test"
     end
@@ -25,7 +25,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".agreement" do
-    subject { SignActivity.agreement(user: user) }
+    subject { SignActivity.agreement(user:) }
     it "uses the expected type" do
       expect(subject.key).to eq SignActivity::ACTIVITY_AGREE
     end
@@ -36,7 +36,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".disagreement" do
-    subject { SignActivity.disagreement(user: user) }
+    subject { SignActivity.disagreement(user:) }
     it "uses the expected type" do
       expect(subject.key).to eq SignActivity::ACTIVITY_DISAGREE
     end
@@ -47,7 +47,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".agree?" do
-    let(:attrs) { { user: user, sign: sign } }
+    let(:attrs) { { user:, sign: } }
     subject { SignActivity.agree?(attrs) }
     context "the user has agreed" do
       before { SignActivity.agreement(attrs).tap(&:save!) }
@@ -60,7 +60,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".disagree?" do
-    let(:attrs) { { user: user, sign: sign } }
+    let(:attrs) { { user:, sign: } }
     subject { SignActivity.disagree?(attrs) }
 
     context "the user has disagreed" do
@@ -74,7 +74,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".agree!" do
-    let(:attrs) { { user: user, sign: sign } }
+    let(:attrs) { { user:, sign: } }
     subject { SignActivity.agree!(attrs) }
 
     it { expect { subject }.to change { SignActivity.agree?(attrs) }.from(false).to(true) }
@@ -96,7 +96,7 @@ RSpec.describe SignActivity, type: :model do
   end
 
   describe ".disagree!" do
-    let(:attrs) { { user: user, sign: sign } }
+    let(:attrs) { { user:, sign: } }
     subject { SignActivity.disagree!(attrs) }
 
     it { expect { subject }.to change { SignActivity.disagree?(attrs) }.from(false).to(true) }

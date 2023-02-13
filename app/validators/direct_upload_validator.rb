@@ -19,7 +19,7 @@ class DirectUploadValidator
 
   def validate!(args)
     blob = ActiveStorage::Blob.new(args)
-    file = OpenStruct.new(blob: blob, attached?: true) # rubocop:disable Style/OpenStructUse
+    file = OpenStruct.new(blob:, attached?: true) # rubocop:disable Style/OpenStructUse
     validatable = Validatable.new(attachment: file)
     validatable.valid? || fail(ActiveRecord::RecordInvalid, validatable)
   end

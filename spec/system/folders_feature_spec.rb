@@ -37,7 +37,7 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "Editing a folder" do
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
     before do
       sign_in user
       process.start
@@ -90,7 +90,7 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "Removing a folder" do
-    let!(:folders) { FactoryBot.create_list(:folder, 3, user: user) }
+    let!(:folders) { FactoryBot.create_list(:folder, 3, user:) }
     before do
       sign_in user
       process.start
@@ -138,7 +138,7 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "The folders index page" do
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
     let!(:collab_folder) { FactoryBot.create(:folder) }
 
     before do
@@ -163,7 +163,7 @@ RSpec.describe "Folders", type: :system do
   end
 
   describe "The folder show page" do
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
 
     before do
       sign_in user

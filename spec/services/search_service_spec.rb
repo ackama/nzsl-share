@@ -303,7 +303,7 @@ RSpec.describe SearchService, type: :service do
   private
 
   def search(relation, params)
-    SearchService.new(relation: relation, search: Search.new(params)).process
+    SearchService.new(relation:, search: Search.new(params)).process
   end
 
   def scoped_relation

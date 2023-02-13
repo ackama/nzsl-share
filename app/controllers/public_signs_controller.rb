@@ -11,6 +11,6 @@ class PublicSignsController < ApplicationController
   end
 
   def search_results
-    @search_results ||= PublicSignService.new(search: search, relation: policy_scope(Sign)).process
+    @search_results ||= PublicSignService.new(search:, relation: policy_scope(Sign)).process
   end
 end

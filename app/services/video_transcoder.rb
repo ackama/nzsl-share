@@ -36,8 +36,8 @@ class VideoTranscoder
   end
 
   # Downloads the blob to a tempfile on disk. Yields the tempfile.
-  def download_blob_to_tempfile(blob, &block)
-    blob.open tmpdir: tempdir, &block
+  def download_blob_to_tempfile(blob, &)
+    blob.open(tmpdir: tempdir, &)
   end
 
   # Executes a system command, capturing its binary output in a tempfile. Yields the tempfile.

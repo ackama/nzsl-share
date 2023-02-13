@@ -9,7 +9,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
 
     it "responds with the expected JSON" do
       params = { operation: :assign_topic, sign_ids: [1] }
-      post signs_batch_operations_path(params: params, format: :json)
+      post signs_batch_operations_path(params:, format: :json)
       expect(response).to be_ok
       response_json = JSON.parse(response.body)
       expect(response_json).to eq("succeeded" => [], "failed" => [])
@@ -17,14 +17,14 @@ RSpec.describe "/signs/batch_operation", type: :request do
 
     it "responds with the expected HTML" do
       params = { operation: :assign_topic, sign_ids: [1] }
-      post signs_batch_operations_path(params: params)
+      post signs_batch_operations_path(params:)
       expect(response).to redirect_to user_signs_path(sign_ids: [1])
       expect(flash[:notice]).to eq "Successfully processed 0 sign(s), 0 failed to process"
     end
 
     it "rejects an invalid operation name" do
       params = { operation: :does_not_exist, sign_ids: [1] }
-      post signs_batch_operations_path(params: params)
+      post signs_batch_operations_path(params:)
       expect(response.status).to eq 422
     end
 
@@ -34,7 +34,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
       it "updates the topic assigned to the signs" do
         params = { operation: :assign_topic, sign_ids: [sign.id], topic_id: topic.id }
         expect do
-          post signs_batch_operations_path(params: params)
+          post signs_batch_operations_path(params:)
         end.to change { sign.tap(&:reload).topics }
       end
 
@@ -44,7 +44,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
         sign.publish!
         params = { operation: :assign_topic, sign_ids: [sign.id], topic_id: topic.id }
         expect do
-          post signs_batch_operations_path(params: params, format: :json)
+          post signs_batch_operations_path(params:, format: :json)
         end.not_to change { sign.topics }
 
         response_json = JSON.parse(response.body)
@@ -56,7 +56,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
       it "submits the signs" do
         user.update(approved: true)
         params = { operation: :submit_for_publishing, sign_ids: [sign.id] }
-        post signs_batch_operations_path(params: params)
+        post signs_batch_operations_path(params:)
         expect(sign.tap(&:reload).submitted?).to eq(true)
       end
 
@@ -67,7 +67,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
         sign.publish!
         params = { operation: :submit_for_publishing, sign_ids: [sign.id] }
         expect do
-          post signs_batch_operations_path(params: params, format: :json)
+          post signs_batch_operations_path(params:, format: :json)
         end.not_to change { sign.status }
 
         response_json = JSON.parse(response.body)
@@ -77,7 +77,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
       it "fails a record id the owner is not an approved user" do
         params = { operation: :submit_for_publishing, sign_ids: [sign.id] }
         expect do
-          post signs_batch_operations_path(params: params, format: :json)
+          post signs_batch_operations_path(params:, format: :json)
         end.not_to change { sign.status }
 
         response_json = JSON.parse(response.body)

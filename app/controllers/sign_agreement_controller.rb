@@ -1,13 +1,13 @@
 class SignAgreementController < ApplicationController
   def create
     authorize sign, :agree?
-    @activity = SignActivity.agree!(sign: sign, user: current_user)
+    @activity = SignActivity.agree!(sign:, user: current_user)
 
     respond_to_success
   end
 
   def destroy
-    @activity = SignActivity.agreement(sign: sign, user: current_user)
+    @activity = SignActivity.agreement(sign:, user: current_user)
     authorize @activity
     @activity.destroy
 

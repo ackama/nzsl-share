@@ -4,7 +4,7 @@ class SignAttachmentsController < ApplicationController
 
   def create
     authorize sign, :edit?
-    @attachment = attachments.build(blob: blob)
+    @attachment = attachments.build(blob:)
     return head :created if sign.valid? && @attachment.save
 
     render json: sign.errors.full_messages, status: :unprocessable_entity

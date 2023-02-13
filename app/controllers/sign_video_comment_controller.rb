@@ -47,7 +47,7 @@ class SignVideoCommentController < ApplicationController
 
     return true if policy.create?
 
-    fail NotAuthorizedError, query: :create, record: sign_comment, policy: policy
+    fail NotAuthorizedError, query: :create, record: sign_comment, policy:
   end
 
   def refresh_comments
@@ -55,7 +55,7 @@ class SignVideoCommentController < ApplicationController
   end
 
   def fetch_sign_comment
-    policy_scope(SignComment).find_by(id: comment_id, sign_id: sign_id)
+    policy_scope(SignComment).find_by(id: comment_id, sign_id:)
   end
 
   def fetch_sign

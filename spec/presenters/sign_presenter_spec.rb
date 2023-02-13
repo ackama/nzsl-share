@@ -29,17 +29,17 @@ RSpec.describe SignPresenter, type: :presenter do
     end
 
     context "when the sign is assigned to a folder" do
-      let!(:folder) { FactoryBot.create(:folder, user: user, signs: [sign]) }
+      let!(:folder) { FactoryBot.create(:folder, user:, signs: [sign]) }
       it { expect(subject).to eq(folder => sign.folder_memberships.first) }
     end
 
     context "when the sign is not assigned to a folder" do
-      let!(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder) { FactoryBot.create(:folder, user:) }
       it { expect(subject).to eq(folder => nil) }
     end
 
     context "when a block is passed" do
-      let!(:folder) { FactoryBot.create(:folder, user: user, signs: [sign]) }
+      let!(:folder) { FactoryBot.create(:folder, user:, signs: [sign]) }
       it "yields the folder and membership to the block" do
         expect do |b|
           presenter.available_folders(&b)
@@ -105,12 +105,12 @@ RSpec.describe SignPresenter, type: :presenter do
     subject { presenter.assignable_folder_options }
 
     context "when the sign is assigned to the folder" do
-      let!(:folder) { FactoryBot.create(:folder, user: user, signs: [sign]) }
+      let!(:folder) { FactoryBot.create(:folder, user:, signs: [sign]) }
       it { is_expected.to be_empty }
     end
 
     context "when the sign is not assigned to a folder" do
-      let!(:folder) { FactoryBot.create(:folder, user: user) }
+      let!(:folder) { FactoryBot.create(:folder, user:) }
       it { is_expected.to match(/\A<option value="#{folder.id}">/) }
     end
   end
@@ -232,7 +232,7 @@ RSpec.describe SignPresenter, type: :presenter do
       sign = FactoryBot.create(:sign, :published)
       presenter = SignPresenter.new(sign, view)
       allow(presenter.h).to receive(:current_user).and_return(sign.contributor)
-      FactoryBot.create(:sign_comment, sign: sign)
+      FactoryBot.create(:sign_comment, sign:)
 
       expect(presenter.comments_count).to eq 1
 
@@ -247,22 +247,22 @@ RSpec.describe SignPresenter, type: :presenter do
 
     it "is true when there is an unread comment" do
       user = FactoryBot.create(:user)
-      FactoryBot.create(:sign_comment, sign: sign)
+      FactoryBot.create(:sign_comment, sign:)
       allow(presenter.h).to receive(:current_user).and_return(user)
       expect(presenter.unread_comments?).to be true
     end
 
     it "is false when there are no unread comments" do
       user = FactoryBot.create(:user)
-      comment = FactoryBot.create(:sign_comment, sign: sign)
-      comment.activities.read.create!(user: user)
+      comment = FactoryBot.create(:sign_comment, sign:)
+      comment.activities.read.create!(user:)
       allow(presenter.h).to receive(:current_user).and_return(user)
       expect(presenter.unread_comments?).to be false
     end
 
     it "doesn't count comments created before the user registered" do
       user = FactoryBot.create(:user)
-      FactoryBot.create(:sign_comment, sign: sign, created_at: user.created_at - 1.hour)
+      FactoryBot.create(:sign_comment, sign:, created_at: user.created_at - 1.hour)
       allow(presenter.h).to receive(:current_user).and_return(user)
       expect(presenter.unread_comments?).to be false
     end

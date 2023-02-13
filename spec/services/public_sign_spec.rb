@@ -127,7 +127,7 @@ RSpec.describe PublicSignService, type: :service do
   private
 
   def search(relation, params)
-    PublicSignService.new(search: Search.new(params), relation: relation).process
+    PublicSignService.new(search: Search.new(params), relation:).process
   end
 
   def scoped_relation

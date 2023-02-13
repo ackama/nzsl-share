@@ -49,19 +49,19 @@ class FolderFeature
   end
 
   def edit_folder(dropdown: false)
-    within_list_item_menu(dropdown: dropdown) do
+    within_list_item_menu(dropdown:) do
       click_on "Edit"
     end
   end
 
   def remove_folder(dropdown: false)
-    within_list_item_menu(dropdown: dropdown) do
+    within_list_item_menu(dropdown:) do
       click_on "Delete"
     end
   end
 
   def manage_collaborators(dropdown: false)
-    within_list_item_menu(dropdown: dropdown) do
+    within_list_item_menu(dropdown:) do
       click_on "Manage team"
     end
   end

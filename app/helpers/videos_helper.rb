@@ -1,6 +1,6 @@
 module VideosHelper
   def video_source_tag(video, preset)
-    tag.source(nil, src: video_path(id: video.signed_id, preset: preset))
+    tag.source(nil, src: video_path(id: video.signed_id, preset:))
   end
 
   def video_sourceset(video, presets = nil)

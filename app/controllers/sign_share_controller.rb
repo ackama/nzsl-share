@@ -17,7 +17,7 @@ class SignShareController < ApplicationController
     @sign = fetch_sign
     authorize @sign, :share?
     @sign.update(share_token: @sign.share_token || SecureRandom.uuid)
-    redirect_back(fallback_location: @sign, notice: t(".success", share_url: share_url))
+    redirect_back(fallback_location: @sign, notice: t(".success", share_url:))
   end
 
   def destroy
@@ -48,7 +48,7 @@ class SignShareController < ApplicationController
   end
 
   def fetch_sign_by_token
-    policy_scope(Sign, policy_scope_class: SharePolicy::Scope).find_by!(id: sign_id, share_token: share_token)
+    policy_scope(Sign, policy_scope_class: SharePolicy::Scope).find_by!(id: sign_id, share_token:)
   end
 
   def comments_folder_id

@@ -14,12 +14,12 @@ RSpec.describe "Adding and removing signs to folders from the card view", type: 
   end
 
   context "with JS", uses_javascript: true do
-    let(:folder) { FactoryBot.create(:folder, user: user) }
-    let!(:other_folder) { FactoryBot.create(:folder, user: user) }
+    let(:folder) { FactoryBot.create(:folder, user:) }
+    let!(:other_folder) { FactoryBot.create(:folder, user:) }
     let!(:collab_folder) { FactoryBot.create(:folder) }
     let!(:empty_collab_folder) { FactoryBot.create(:folder) }
-    let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
-    let!(:collab_folder_membership) { FolderMembership.create(folder: collab_folder, sign: sign) }
+    let!(:folder_membership) { FolderMembership.create(folder:, sign:) }
+    let!(:collab_folder_membership) { FolderMembership.create(folder: collab_folder, sign:) }
     # We have added records so need to reload
     before do
       collab_folder.collaborators << user
@@ -118,9 +118,9 @@ RSpec.describe "Adding and removing signs to folders from the card view", type: 
   end
 
   context "without JS" do
-    let(:folder) { FactoryBot.create(:folder, user: user) }
-    let!(:other_folder) { FactoryBot.create(:folder, user: user) }
-    let!(:folder_membership) { FolderMembership.create(folder: folder, sign: sign) }
+    let(:folder) { FactoryBot.create(:folder, user:) }
+    let!(:other_folder) { FactoryBot.create(:folder, user:) }
+    let!(:folder_membership) { FolderMembership.create(folder:, sign:) }
 
     # We have added records so need to reload
     before { visit current_path }

@@ -14,7 +14,7 @@ class SearchController < ApplicationController
   end
 
   def search_results
-    @search_results ||= SearchService.new(search: search, relation: search_relation).process
+    @search_results ||= SearchService.new(search:, relation: search_relation).process
   end
 
   def dictionary_search_results

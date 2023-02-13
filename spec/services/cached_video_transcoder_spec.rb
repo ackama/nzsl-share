@@ -7,7 +7,7 @@ RSpec.describe CachedVideoTranscoder, type: :service do
   let(:transcode_options) { {} }
   let(:new_blob) do
     ActiveStorage::Blob.create_and_upload!(
-      io: io,
+      io:,
       filename: "dummy.mp4",
       content_type: "video/mp4"
     )
@@ -77,7 +77,7 @@ RSpec.describe CachedVideoTranscoder, type: :service do
 
   describe "#process" do
     subject { transcoder.send(:process) }
-    let(:process_result) { { io: io, filename: "test.vid", content_type: "video/video" } }
+    let(:process_result) { { io:, filename: "test.vid", content_type: "video/video" } }
     before { allow(fake_processor).to receive(:transcode).and_yield(process_result) }
 
     it "transcodes the blob" do
@@ -139,7 +139,7 @@ RSpec.describe CachedVideoTranscoder, type: :service do
   end
 
   describe "#persist_blob" do
-    let(:file) { { io: io, filename: "test.vid", content_type: "video/video" } }
+    let(:file) { { io:, filename: "test.vid", content_type: "video/video" } }
     subject { transcoder.send(:persist_blob, file) }
 
     it "generates the expected record given a valid file hash" do

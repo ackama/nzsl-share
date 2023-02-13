@@ -1,49 +1,49 @@
 module SignsHelper
-  def agree_button(sign, extra_classes = "grid-x align-middle", &block)
+  def agree_button(sign, extra_classes = "grid-x align-middle", &)
     classes = "sign-control--agree #{extra_classes}"
-    return content_tag(:div, id: dom_id(sign, :agree_button), class: classes, &block) unless policy(sign).agree?
+    return content_tag(:div, id: dom_id(sign, :agree_button), class: classes, &) unless policy(sign).agree?
 
     if SignActivity.agree?(sign_id: sign.id, user: current_user)
       classes << " sign-control--agreed"
-      return undo_agree_button(sign, classes, &block)
+      return undo_agree_button(sign, classes, &)
     end
 
     link_to(sign_agreement_path(sign), method: :post,
                                        id: dom_id(sign, :agree_button),
                                        title: "Agree",
                                        data: { remote: true },
-                                       class: classes, &block)
+                                       class: classes, &)
   end
 
-  def disagree_button(sign, extra_classes = "grid-x align-middle", &block)
+  def disagree_button(sign, extra_classes = "grid-x align-middle", &)
     classes = "sign-control--disagree #{extra_classes}"
-    return content_tag(:div, id: dom_id(sign, :disagree_button), class: classes, &block) unless policy(sign).disagree?
+    return content_tag(:div, id: dom_id(sign, :disagree_button), class: classes, &) unless policy(sign).disagree?
 
     if SignActivity.disagree?(sign_id: sign.id, user: current_user)
       classes << " sign-control--disagreed"
-      return undo_disagree_button(sign, classes, &block)
+      return undo_disagree_button(sign, classes, &)
     end
 
     link_to(sign_disagreement_path(sign), method: :post,
                                           id: dom_id(sign, :disagree_button),
                                           data: { remote: true },
                                           title: "Disagree",
-                                          class: classes, &block)
+                                          class: classes, &)
   end
 
-  def undo_agree_button(sign, classes, &block)
+  def undo_agree_button(sign, classes, &)
     link_to(sign_agreement_path(sign), method: :delete,
                                        data: { remote: true },
                                        id: dom_id(sign, :agree_button),
                                        title: "Undo agree",
-                                       class: classes, &block)
+                                       class: classes, &)
   end
 
-  def undo_disagree_button(sign, classes, &block)
+  def undo_disagree_button(sign, classes, &)
     link_to(sign_disagreement_path(sign), title: "Undo disagree",
                                           id: dom_id(sign, :disagree_button),
                                           data: { remote: true },
-                                          method: :delete, class: classes, &block)
+                                          method: :delete, class: classes, &)
   end
 
   def overview_reject_link(sign)

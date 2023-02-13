@@ -9,7 +9,7 @@ RSpec.describe SignAttachmentsController, type: :request do
     let(:blob) { generate_blob }
     let(:signed_blob_id) { blob.signed_id }
     let(:attachment_type) { "usage_examples" }
-    let(:params) { { sign_id: sign_id, signed_blob_id: signed_blob_id, attachment_type: attachment_type } }
+    let(:params) { { sign_id:, signed_blob_id:, attachment_type: } }
 
     let(:create_request) { post(sign_attachments_path(params)) }
 
@@ -57,7 +57,7 @@ RSpec.describe SignAttachmentsController, type: :request do
 
   describe "PATCH update" do
     let(:attachment) { sign.usage_examples.first }
-    let(:params) { { attachment_type: :usage_examples, description: description } }
+    let(:params) { { attachment_type: :usage_examples, description: } }
     let(:update_request) { patch(sign_attachment_path(sign, attachment, params)) }
 
     context "valid description" do

@@ -9,7 +9,7 @@ RSpec.describe VideosController, type: :controller do
     let!(:id) { blob.signed_id }
     let(:preset) { "1080p" }
 
-    subject { get :show, params: { id: id, preset: preset } }
+    subject { get :show, params: { id:, preset: } }
 
     context "valid params" do
       before do

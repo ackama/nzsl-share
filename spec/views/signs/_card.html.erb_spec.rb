@@ -4,7 +4,7 @@ RSpec.describe "signs/_card.html.erb", type: :view do
   let(:user) { FactoryBot.build(:user) }
   let(:sign) { FactoryBot.build_stubbed(:sign, :published, contributor: user) }
   let(:presenter) { SignPresenter.new(sign, view) }
-  subject(:rendered) { render "signs/card", sign: sign }
+  subject(:rendered) { render "signs/card", sign: }
 
   before { stub_authorization }
 

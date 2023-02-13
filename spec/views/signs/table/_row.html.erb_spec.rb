@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.describe "signs/table/_row.html.erb", type: :view do
   let(:user) { FactoryBot.build(:user) }
-  let(:sign) { FactoryBot.build_stubbed(:sign, :published, contributor: user, topics: topics) }
+  let(:sign) { FactoryBot.build_stubbed(:sign, :published, contributor: user, topics:) }
   let(:topics) { FactoryBot.build_list(:topic, 3) }
   let(:presenter) { SignPresenter.new(sign, view) }
-  subject(:rendered) { render "signs/table/row", sign: sign }
+  subject(:rendered) { render "signs/table/row", sign: }
 
   before { stub_authorization }
 
@@ -113,7 +113,7 @@ RSpec.describe "signs/table/_row.html.erb", type: :view do
 
   it "checks the batch selection checkbox when an appropriate param is present" do
     params[:sign_ids] = [sign.to_param]
-    rendered = render "signs/table/row", sign: sign
+    rendered = render("signs/table/row", sign:)
     expect(rendered).to have_field("Add sign to selection", checked: true)
   end
 end

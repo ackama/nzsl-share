@@ -7,8 +7,8 @@ class SignPage
     visit "/signs/#{@sign.to_param}"
   end
 
-  def breadcrumb(&block)
-    within(".breadcrumbs", &block)
+  def breadcrumb(&)
+    within(".breadcrumbs", &)
   end
 
   def video_player
