@@ -12,10 +12,10 @@
   </div>
 
   <% if current_user.approved? %>
-    <div class="cell grid-x medium-4 medium-offset-4 small-12 align-right align-bottom">
+    <div class="cell grid-x large-3 large-offset-5 small-12 align-right align-bottom sign-table__mobile-margin">
       <%= f.button "Submit for publishing", value: :submit_for_publishing,
                                             name: :operation,
-                                            class: "button neutral",
+                                            class: "button neutral cell",
                                             data: { confirm: "I agree to follow the privacy policy - #{page_url("privacy-policy")}" } %>
     </div>
   <% end %>
