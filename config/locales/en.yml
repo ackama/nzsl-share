@@ -106,7 +106,7 @@ en:
   sign_batch_operations:
     create:
       success: You have successfully updated %{succeeded_count} sign(s)
-      mixed_success: You have successfully updated %{succeeded_count} sign(s)), but %{failed_count} sign(s) failed to update
+      mixed_success: You have successfully updated %{succeeded_count} sign(s), but %{failed_count} sign(s) failed to update
       failure_missing_sign_ids: No signs updated. Please select sign(s) before assigning updates
   search:
     sort_by:

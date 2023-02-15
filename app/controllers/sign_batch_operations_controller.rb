@@ -72,7 +72,7 @@ class SignBatchOperationsController < ApplicationController
   def flash_messages_for_result(succeeded_records, failed_records)
     if !succeeded_records.empty? && failed_records.empty?
       { notice: t(".success", succeeded_count: succeeded_records.size) }
-    elsif !succeeded_records.empty?
+    elsif !succeeded_records.empty? || !failed_records.empty?
       { alert: t(".mixed_success", succeeded_count: succeeded_records.size, failed_count: failed_records.size) }
     else
       { alert: t(".failure_missing_sign_ids") }
