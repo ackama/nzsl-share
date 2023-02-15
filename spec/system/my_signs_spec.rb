@@ -52,7 +52,7 @@ RSpec.describe "My Signs", type: :system do
     select topic_to_assign.name, from: "Assign topics"
     click_on "Assign"
 
-    expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
+    expect(page).to have_content "You have successfully updated 3 sign(s)"
     expect(all(".sign-table__row input[name='sign_ids[]']")[0..2]).to all(be_checked)
   end
 
@@ -62,7 +62,7 @@ RSpec.describe "My Signs", type: :system do
     all(".sign-table__row input[name='sign_ids[]']")[0..2].each(&:check)
     click_on "Submit for publishing"
 
-    expect(page).to have_content "Successfully processed 3 sign(s), 0 failed to process"
+    expect(page).to have_content "You have successfully updated 3 sign(s)"
     expect(all(".sign-table__row input[name='sign_ids[]']")[0..2]).to all(be_checked)
   end
 
