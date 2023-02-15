@@ -5,9 +5,9 @@
     <%= f.collection_select :topic_id, policy_scope(Topic).all,
                                        :id, :name,
                                        { prompt: "--Select topic--" },
-                                       class: "cell auto margin-right-2 margin-bottom-0" %>
-    <div class="cell shrink">
-      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral" %>
+                                       class: "cell large-auto margin-right-2 margin-bottom-0" %>
+    <div class="cell large-shrink padding-top-1 large-padding-top-0">
+      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral width-100" %>
     </div>
   </div>
 
