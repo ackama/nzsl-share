@@ -63,9 +63,7 @@ class SignBatchOperationsController < ApplicationController
   end
 
   def sign_ids
-    params.require(:sign_ids)
-  rescue ActionController::ParameterMissing
-    redirect_to(user_signs_path, alert: t(".failure_missing_sign_ids"))
+    params.fetch(:sign_ids, [])
   end
 
   def signs
