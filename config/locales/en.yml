@@ -106,6 +106,7 @@ en:
   sign_batch_operations:
     create:
       success: Successfully processed %{succeeded_count} sign(s), %{failed_count} failed to process
+      failure_missing_sign_ids: No signs updated. Please select sign(s) before assigning updates
   search:
     sort_by:
       alpha_asc: Alphabetical (A-Z)

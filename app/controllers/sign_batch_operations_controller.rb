@@ -5,10 +5,10 @@ class SignBatchOperationsController < ApplicationController
 
   def create
     operation = resolve_operation
-    return head(:unprocessable_entity) unless operation
-
     authorize_operation = method(:authorize_record_operation)
     batch = BatchOperation.new(signs, operation, precondition: authorize_operation)
+    return if performed? # Stop processing if any of the prepartion methods have halted the request
+
     succeeded, failed = batch.process
 
     respond_to do |format|
@@ -29,6 +29,8 @@ class SignBatchOperationsController < ApplicationController
       method(:assign_topic)
     when :submit_for_publishing
       method(:submit_for_publishing)
+    else
+      head(:unprocessable_entity)
     end
   end
 
@@ -54,6 +56,8 @@ class SignBatchOperationsController < ApplicationController
 
   def sign_ids
     params.require(:sign_ids)
+  rescue ActionController::ParameterMissing
+    redirect_to(user_signs_path, alert: t(".failure_missing_sign_ids"))
   end
 
   def signs

@@ -28,6 +28,13 @@ RSpec.describe "/signs/batch_operation", type: :request do
       expect(response.status).to eq 422
     end
 
+    it "returns a flash message when there were no signs to process" do
+      params = { operation: :assign_topic, sign_ids: [] }
+      post signs_batch_operations_path(params: params)
+      expect(response).to redirect_to user_signs_path(sign_ids: [])
+      expect(flash[:alert]).to eq "No signs updated. Please select sign(s) before assigning updates"
+    end
+
     context "when topics are assigned to signs" do
       let(:topic) { FactoryBot.create(:topic) }
 
