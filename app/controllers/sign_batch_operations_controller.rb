@@ -15,8 +15,7 @@ class SignBatchOperationsController < ApplicationController
       format.json { render json: { succeeded: succeeded, failed: failed } }
       format.html do
         redirect_to user_signs_path(sign_ids: sign_ids),
-                    notice: t(".success", succeeded_count: succeeded.size,
-                                          failed_count: failed.size)
+                    **flash_messages_for_result(succeeded, failed)
       end
     end
   end
@@ -68,5 +67,15 @@ class SignBatchOperationsController < ApplicationController
 
   def signs
     policy_scope(Sign.where(id: sign_ids)).limit(BULK_OPERATIONS_LIMIT)
+  end
+
+  def flash_messages_for_result(succeeded_records, failed_records)
+    if !succeeded_records.empty? && failed_records.empty?
+      { notice: t(".success", succeeded_count: succeeded_records.size) }
+    elsif !succeeded_records.empty?
+      { alert: t(".mixed_success", succeeded_count: succeeded_records.size, failed_count: failed_records.size) }
+    else
+      { alert: t(".failure_missing_sign_ids") }
+    end
   end
 end

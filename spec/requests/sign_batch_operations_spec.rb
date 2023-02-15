@@ -18,8 +18,8 @@ RSpec.describe "/signs/batch_operation", type: :request do
     it "responds with the expected HTML" do
       params = { operation: :echo, sign_ids: [sign.id] }
       post signs_batch_operations_path(params: params)
-      expect(response).to redirect_to user_signs_path(sign_ids: [1])
-      expect(flash[:notice]).to eq "Successfully processed 0 sign(s), 0 failed to process"
+      expect(response).to redirect_to user_signs_path(sign_ids: [sign.id])
+      expect(flash[:notice]).to eq "You have successfully updated 1 sign(s)"
     end
 
     it "rejects an invalid operation name" do
