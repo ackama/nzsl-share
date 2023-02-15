@@ -192,12 +192,4 @@
       margin-right: 0.625rem;
     }
   }
-
-  &__mobile-margin {
-    margin-top: 0;
-
-    @include breakpoint(medium down) {
-      margin-top: 2.2rem;
-    }
-  }
 }

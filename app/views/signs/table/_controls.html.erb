@@ -12,7 +12,7 @@
   </div>
 
   <% if current_user.approved? %>
-    <div class="cell grid-x large-3 large-offset-5 small-12 align-right align-bottom sign-table__mobile-margin">
+    <div class="cell grid-x large-3 large-offset-5 small-12 align-right align-bottom large-padding-top-0 padding-top-2">
       <%= f.button "Submit for publishing", value: :submit_for_publishing,
                                             name: :operation,
                                             class: "button neutral cell",
