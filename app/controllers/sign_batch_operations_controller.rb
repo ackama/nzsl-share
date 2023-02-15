@@ -29,6 +29,8 @@ class SignBatchOperationsController < ApplicationController
       method(:assign_topic)
     when :submit_for_publishing
       method(:submit_for_publishing)
+    when :echo
+      method(:echo)
     else
       head(:unprocessable_entity)
     end
@@ -41,6 +43,12 @@ class SignBatchOperationsController < ApplicationController
 
   def assign_topic(record)
     record.topics << policy_scope(Topic).find(params.require(:topic_id))
+  end
+
+  ##
+  # Just used for testing, just succeed the record
+  def echo(record)
+    record
   end
 
   def submit_for_publishing(record)
