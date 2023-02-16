@@ -8,24 +8,31 @@ RSpec.describe "/signs/batch_operation", type: :request do
     before { sign_in user }
 
     it "responds with the expected JSON" do
-      params = { operation: :assign_topic, sign_ids: [1] }
+      params = { operation: :echo, sign_ids: [sign.id] }
       post signs_batch_operations_path(params:, format: :json)
       expect(response).to be_ok
       response_json = JSON.parse(response.body)
-      expect(response_json).to eq("succeeded" => [], "failed" => [])
+      expect(response_json).to eq("succeeded" => [sign.as_json], "failed" => [])
     end
 
     it "responds with the expected HTML" do
-      params = { operation: :assign_topic, sign_ids: [1] }
+      params = { operation: :echo, sign_ids: [sign.id] }
       post signs_batch_operations_path(params:)
-      expect(response).to redirect_to user_signs_path(sign_ids: [1])
-      expect(flash[:notice]).to eq "Successfully processed 0 sign(s), 0 failed to process"
+      expect(response).to redirect_to user_signs_path(sign_ids: [sign.id])
+      expect(flash[:notice]).to eq "You have successfully updated 1 sign(s)"
     end
 
     it "rejects an invalid operation name" do
       params = { operation: :does_not_exist, sign_ids: [1] }
       post signs_batch_operations_path(params:)
       expect(response.status).to eq 422
+    end
+
+    it "returns a flash message when there were no signs to process" do
+      params = { operation: :echo, sign_ids: [] }
+      post signs_batch_operations_path(params:)
+      expect(response).to redirect_to user_signs_path(sign_ids: [])
+      expect(flash[:alert]).to eq "No signs updated. Please select sign(s) before assigning updates"
     end
 
     context "when topics are assigned to signs" do

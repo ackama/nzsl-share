@@ -5,17 +5,17 @@
     <%= f.collection_select :topic_id, policy_scope(Topic).all,
                                        :id, :name,
                                        { prompt: "--Select topic--" },
-                                       class: "cell auto margin-right-2 margin-bottom-0" %>
-    <div class="cell shrink">
-      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral" %>
+                                       class: "cell large-auto margin-right-2 margin-bottom-0" %>
+    <div class="cell large-shrink padding-top-1 large-padding-top-0">
+      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral width-100" %>
     </div>
   </div>
 
   <% if current_user.approved? %>
-    <div class="cell grid-x medium-4 medium-offset-4 small-12 align-right align-bottom">
+    <div class="cell grid-x large-3 large-offset-5 small-12 align-right align-bottom large-padding-top-0 padding-top-2">
       <%= f.button "Submit for publishing", value: :submit_for_publishing,
                                             name: :operation,
-                                            class: "button neutral",
+                                            class: "button neutral cell",
                                             data: { confirm: "I agree to follow the privacy policy - #{page_url("privacy-policy")}" } %>
     </div>
   <% end %>
