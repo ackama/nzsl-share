@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe "sign_comments/_comments.html.erb", type: :view do
   let(:user) { FactoryBot.create(:user, :approved) }
   let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
-  let(:new_comment) { SignComment.new(sign: sign) }
-  let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign: sign, user: user) }
+  let(:new_comment) { SignComment.new(sign:) }
+  let!(:comments) { FactoryBot.create_list(:sign_comment, 3, sign:, user:) }
   subject { rendered }
 
   before do

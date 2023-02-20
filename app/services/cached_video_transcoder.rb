@@ -29,7 +29,7 @@ class CachedVideoTranscoder
   end
 
   def encoded_blob
-    @encoded_blob ||= ActiveStorage::Blob.find_by(key: key)
+    @encoded_blob ||= ActiveStorage::Blob.find_by(key:)
   end
 
   def ensure_active_storage_host

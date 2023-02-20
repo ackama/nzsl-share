@@ -5,7 +5,7 @@ RSpec.describe "Topic administration", type: :system do
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:topics) { FactoryBot.create_list(:topic, 10) }
 
-  before { visit_admin(:topics, admin: admin) }
+  before { visit_admin(:topics, admin:) }
 
   it_behaves_like "an Administrate dashboard", except: %i[show]
 

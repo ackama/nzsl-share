@@ -10,7 +10,7 @@ class CommentReportsController < ApplicationController
   private
 
   def comment_report_params
-    { user: current_user, comment: comment }
+    { user: current_user, comment: }
   end
 
   def comment

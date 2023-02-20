@@ -78,9 +78,9 @@ namespace :bulkupload do
     videodirs.each do |videodir|
       puts "--\niterating #{videodir}\n--"
 
-      s3.list_objects_v2(bucket: bucket, max_keys: 1000, prefix: videodir).each do |response|
+      s3.list_objects_v2(bucket:, max_keys: 1000, prefix: videodir).each do |response|
         response.contents.each do |an_object|
-          a_file = s3.get_object({ bucket: bucket, key: an_object.key })
+          a_file = s3.get_object({ bucket:, key: an_object.key })
 
           next if a_file.content_type.starts_with? "application/x-directory"
 

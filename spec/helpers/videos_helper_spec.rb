@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe VideosHelper, type: :helper do
   let(:signed_id) { "abc123" }
-  let(:video) { double(signed_id: signed_id) }
+  let(:video) { double(signed_id:) }
 
   describe "#video_source_tag" do
     subject { helper.video_source_tag(video, "720p") }

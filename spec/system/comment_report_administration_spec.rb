@@ -4,11 +4,11 @@ RSpec.describe "Comment report administration", type: :system do
   include AdministratePageHelpers
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:sign) { FactoryBot.create(:sign, :published) }
-  let!(:comment) { FactoryBot.create(:sign_comment, sign: sign) }
-  let!(:comment_report) { FactoryBot.create(:comment_report, comment: comment) }
+  let!(:comment) { FactoryBot.create(:sign_comment, sign:) }
+  let!(:comment_report) { FactoryBot.create(:comment_report, comment:) }
 
   before do
-    visit_admin(:comment_reports, admin: admin)
+    visit_admin(:comment_reports, admin:)
   end
 
   it_behaves_like "an Administrate dashboard", except: %i[destroy new edit]
@@ -64,7 +64,7 @@ RSpec.describe "Comment report administration", type: :system do
 
   describe "removing", uses_javascript: true do
     context "without a comment report" do
-      let!(:unreported_comment) { FactoryBot.create(:sign_comment, sign: sign) }
+      let!(:unreported_comment) { FactoryBot.create(:sign_comment, sign:) }
 
       it "admin can delete a comment" do
         visit sign_path(sign)

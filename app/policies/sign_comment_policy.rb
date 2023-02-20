@@ -33,7 +33,7 @@ class SignCommentPolicy < ApplicationPolicy
   end
 
   def report?
-    !folder_context? && !record.reports.exists?(user: user) && !comment_author?
+    !folder_context? && !record.reports.exists?(user:) && !comment_author?
   end
 
   private

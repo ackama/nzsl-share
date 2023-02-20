@@ -34,7 +34,7 @@ class SignComment < ApplicationRecord
     includes(:activities)
       .where(
         activities: {
-          user: user,
+          user:,
           key: SignCommentActivity.keys[:read]
         }
       )
@@ -53,11 +53,11 @@ class SignComment < ApplicationRecord
   end
 
   def read_by!(user)
-    activities.read.where(user: user).first_or_create!
+    activities.read.where(user:).first_or_create!
   end
 
   def read_by?(user)
-    self.class.read_by(user).exists?(sign_comments: { id: id })
+    self.class.read_by(user).exists?(sign_comments: { id: })
   end
 
   def remove

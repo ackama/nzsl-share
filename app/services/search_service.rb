@@ -87,6 +87,6 @@ class SearchService
   end
 
   def prepare_search(term)
-    [self.class::SEARCH_SQL, { term: term }]
+    [self.class::SEARCH_SQL, { term: }]
   end
 end

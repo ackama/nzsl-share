@@ -21,7 +21,7 @@ class SignAttachmentPostProcessor
     @presets[:thumbnail].each { |preset| GenerateThumbnailJob.perform_later(@blob, preset.to_h) }
   end
 
-  def batch(description, callback_handler = nil, callback_data = {}, &block)
+  def batch(description, callback_handler = nil, callback_data = {}, &)
     batch = new_batch
     batch.description = "Post processing: #{description} for Blob ##{@blob.id}"
 
@@ -30,7 +30,7 @@ class SignAttachmentPostProcessor
     # batches to run through the failed/retry/dead Sidekiq workflow.
     batch.on(:success, callback_handler, callback_data) if callback_handler
 
-    batch.jobs(&block)
+    batch.jobs(&)
     Rails.logger.info "Started batch: #{batch.bid} - #{batch.description}"
 
     batch

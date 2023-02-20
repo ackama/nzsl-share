@@ -10,15 +10,15 @@ RSpec.describe FolderMembership, type: :model do
     subject { FolderMembership.owner_of(sign) }
 
     context "user is owner of the sign in this folder" do
-      let(:folder) { FactoryBot.create(:folder, user: user) }
-      let(:expected) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
+      let(:folder) { FactoryBot.create(:folder, user:) }
+      let(:expected) { FactoryBot.create(:folder_membership, folder:, sign:) }
       let(:user) { sign.contributor }
       it { is_expected.to match_array(expected) }
     end
 
     context "user is not owner of the sign in this folder" do
-      let(:folder) { FactoryBot.create(:folder, user: user) }
-      let(:expected) { FactoryBot.create(:folder_membership, folder: folder, sign: sign) }
+      let(:folder) { FactoryBot.create(:folder, user:) }
+      let(:expected) { FactoryBot.create(:folder_membership, folder:, sign:) }
       let(:user) { FactoryBot.create(:user) }
       it { is_expected.to be_empty }
     end

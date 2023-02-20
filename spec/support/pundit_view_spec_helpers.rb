@@ -28,7 +28,7 @@ module PunditViewSpecHelper
       # mock it, we cannot verify the mock on the view, since it does
       # not have controller methods mixed in
       without_partial_double_verification do
-        base = allow(view).to receive(:authorize).with(anything, "#{permission}?", policy_class: policy_class)
+        base = allow(view).to receive(:authorize).with(anything, "#{permission}?", policy_class:)
         base.and_raise NotAuthorizedError unless authorized
       end
     end

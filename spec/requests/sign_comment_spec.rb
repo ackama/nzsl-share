@@ -107,7 +107,7 @@ RSpec.describe "sign_comment", type: :request do
       end
 
       it "retains the folder context of a comment" do
-        folder = FactoryBot.create(:folder, user: user)
+        folder = FactoryBot.create(:folder, user:)
         sign.folders << folder
         create_params[:folder_id] = folder.id
         create.call(sign)
@@ -127,7 +127,7 @@ RSpec.describe "sign_comment", type: :request do
         reply.call(sign, sign.sign_comments.first)
         expect(sign.sign_comments.first.replies.count).to eq 1
         anchor = "sign_comment_#{sign.sign_comments.first.replies.first.id}"
-        expect(response).to redirect_to sign_path(sign, anchor: anchor)
+        expect(response).to redirect_to sign_path(sign, anchor:)
       end
 
       it "will not create a reply for an unapproved user" do

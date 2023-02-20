@@ -76,7 +76,7 @@ RSpec.describe User, type: :model do
   describe "#contribution_limit_reached?" do
     let(:contribution_limit) { 10 }
     let(:signs_count) { 0 }
-    let(:user) { FactoryBot.build(:user, contribution_limit: contribution_limit) }
+    let(:user) { FactoryBot.build(:user, contribution_limit:) }
     before { allow(user.signs).to receive(:count).and_return(signs_count) }
     subject { user.contribution_limit_reached? }
 

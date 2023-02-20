@@ -296,7 +296,7 @@ RSpec.describe DictionarySearchService, type: :service do
 
   def search(relation, params)
     params.reverse_merge!(sort: "relevant")
-    described_class.new(relation: relation, search: Search.new(params)).process
+    described_class.new(relation:, search: Search.new(params)).process
   end
 
   def scoped_relation

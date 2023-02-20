@@ -12,9 +12,9 @@ class SignBatchOperationsController < ApplicationController
     succeeded, failed = batch.process
 
     respond_to do |format|
-      format.json { render json: { succeeded: succeeded, failed: failed } }
+      format.json { render json: { succeeded:, failed: } }
       format.html do
-        redirect_to user_signs_path(sign_ids: sign_ids),
+        redirect_to user_signs_path(sign_ids:),
                     **flash_messages_for_result(succeeded, failed)
       end
     end

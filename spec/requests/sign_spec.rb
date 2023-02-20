@@ -13,24 +13,24 @@ RSpec.describe "sign", type: :request do
     let(:params) { { sign: sign_params } }
 
     it "creates the sign"  do
-      expect { post signs_path, params: params }.to change(user.signs, :count).by(1)
+      expect { post signs_path, params: }.to change(user.signs, :count).by(1)
     end
 
     it "initially records the sign as unmodified by the user" do
-      post signs_path, params: params
+      post(signs_path, params:)
       sign = Sign.order(created_at: :desc).first
       expect(sign.last_user_edit_at).to be_nil
     end
 
     it "adds a flash message and redirects to the edit sign page" do
-      post signs_path, params: params
+      post(signs_path, params:)
       expect(response).to redirect_to edit_sign_path(Sign.order(created_at: :desc).first)
       expect(flash[:notice]).to eq I18n.t("signs.create.success")
     end
 
     it "does not add a flash message and redirects to the my signs page with batch=true" do
       params[:batch] = true
-      post signs_path, params: params
+      post(signs_path, params:)
       expect(response).to redirect_to user_signs_path
       expect(flash[:notice]).to be_nil
     end
@@ -84,11 +84,11 @@ RSpec.describe "sign", type: :request do
     let(:sign) { FactoryBot.create(:sign, :published, contributor: user) }
 
     it "marks unseen comments as read" do
-      read = FactoryBot.create_list(:sign_comment, 5, sign: sign).each do |comment|
+      read = FactoryBot.create_list(:sign_comment, 5, sign:).each do |comment|
         comment.read_by!(user)
       end
 
-      unread = FactoryBot.create_list(:sign_comment, 5, sign: sign)
+      unread = FactoryBot.create_list(:sign_comment, 5, sign:)
 
       expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(unread.count)
       expect(read.map { |r| r.read_by?(user) }.all?).to be true
@@ -97,16 +97,16 @@ RSpec.describe "sign", type: :request do
 
     it "only marks one page of comments as read at a time" do
       # Page size of 10
-      FactoryBot.create_list(:sign_comment, 15, sign: sign)
+      FactoryBot.create_list(:sign_comment, 15, sign:)
       expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(10)
       expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(0)
       expect { get sign_path(sign, comments_page: 2) }.to change(SignCommentActivity.read, :count).by(5)
     end
 
     it "marks each seen comment's replies as read" do
-      unread = FactoryBot.create(:sign_comment, sign: sign)
-      reply_depth_1 = FactoryBot.create(:sign_comment, sign: sign, in_reply_to: unread)
-      reply_depth_2 = FactoryBot.create(:sign_comment, sign: sign, in_reply_to: reply_depth_1)
+      unread = FactoryBot.create(:sign_comment, sign:)
+      reply_depth_1 = FactoryBot.create(:sign_comment, sign:, in_reply_to: unread)
+      reply_depth_2 = FactoryBot.create(:sign_comment, sign:, in_reply_to: reply_depth_1)
 
       expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(3)
       expect(unread).to be_read_by(user)
@@ -115,9 +115,9 @@ RSpec.describe "sign", type: :request do
     end
 
     it "marks an unread reply as read, even if the original comment is already read" do
-      read = FactoryBot.create(:sign_comment, sign: sign)
+      read = FactoryBot.create(:sign_comment, sign:)
       read.read_by!(user)
-      reply = FactoryBot.create(:sign_comment, sign: sign, in_reply_to: read)
+      reply = FactoryBot.create(:sign_comment, sign:, in_reply_to: read)
 
       expect { get sign_path(sign) }.to change(SignCommentActivity.read, :count).by(1)
       expect(read).to be_read_by(user)
@@ -126,7 +126,7 @@ RSpec.describe "sign", type: :request do
 
     it "doesn't mark comments as read when there is no user signed in" do
       sign_out :user
-      FactoryBot.create(:sign_comment, sign: sign)
+      FactoryBot.create(:sign_comment, sign:)
       expect { get sign_path(sign) }.not_to change(SignCommentActivity.read, :count)
     end
   end

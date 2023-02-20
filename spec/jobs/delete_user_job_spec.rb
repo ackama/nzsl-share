@@ -17,19 +17,19 @@ RSpec.describe DeleteUserJob, type: :job do
   end
 
   it "leaves comments in place, but nullifies the user" do
-    comment = FactoryBot.create(:sign_comment, user: user)
+    comment = FactoryBot.create(:sign_comment, user:)
     expect { perform; comment.tap(&:reload) }.to change(comment, :user).from(user).to(nil)
     expect(comment).to be_persisted
   end
 
   it "destroys an uncollaborated folder" do
-    FactoryBot.create(:folder, user: user)
+    FactoryBot.create(:folder, user:)
     expect { perform }.to change(Folder, :count).by(-1)
   end
 
   it "reallocates ownership of a folder with collaborators" do
     collaborators = FactoryBot.create_list(:user, 2)
-    folder = FactoryBot.create(:folder, user: user)
+    folder = FactoryBot.create(:folder, user:)
     folder.collaborators << collaborators
     expect { perform }.not_to change(Folder, :count)
     expect(folder.tap(&:reload).user).to eq collaborators.first

@@ -43,10 +43,10 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     h.truncate(sign.secondary)
   end
 
-  def available_folders(&block)
+  def available_folders(&)
     return [] unless h.user_signed_in?
 
-    @available_folders ||= map_folders_to_memberships(folders, memberships, &block)
+    @available_folders ||= map_folders_to_memberships(folders, memberships, &)
   end
 
   def assignable_folder_options
@@ -136,7 +136,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
 
   def accessible_sign_comments
     Pundit
-      .policy_scope(h.current_user, SignComment.where(sign: sign))
+      .policy_scope(h.current_user, SignComment.where(sign:))
       .joins(:sign)
       .where("sign_comments.sign_status = signs.status")
   end

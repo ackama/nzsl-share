@@ -5,14 +5,14 @@ RSpec.describe "User administration", type: :system do
   let!(:admin) { FactoryBot.create(:user, :administrator) }
   let!(:users) { FactoryBot.create_list(:user, 3) }
 
-  before { visit_admin(:users, admin: admin) }
+  before { visit_admin(:users, admin:) }
 
   it_behaves_like "an Administrate dashboard", :users, except: %i[new]
 
   it "excludes unconfirmed users by default" do
     confirmed_user = FactoryBot.create(:user)
     unconfirmed_user = FactoryBot.create(:user, confirmed_at: nil)
-    visit_admin(:users, admin: admin)
+    visit_admin(:users, admin:)
     expect(page).to have_no_content(unconfirmed_user.email)
     expect(page).to have_content(confirmed_user.email)
   end

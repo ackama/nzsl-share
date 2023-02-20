@@ -5,7 +5,7 @@ RSpec.describe "Collaborative Folders", type: :system do
   let(:user) { FactoryBot.create(:user) }
 
   describe "Managing collaborations" do
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
     let!(:collab_folder) { FactoryBot.create(:folder) }
 
     before do
@@ -31,7 +31,7 @@ RSpec.describe "Collaborative Folders", type: :system do
   end
 
   describe "Creating a new collaboration", uses_javascript: true do
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
     let!(:collaborator) { FactoryBot.create(:user) }
 
     before do
@@ -73,7 +73,7 @@ RSpec.describe "Collaborative Folders", type: :system do
   end
 
   describe "Removing a collaborator" do
-    let!(:folder) { FactoryBot.create(:folder, user: user) }
+    let!(:folder) { FactoryBot.create(:folder, user:) }
     let!(:collaborator) { FactoryBot.create(:user) }
 
     before do
@@ -106,7 +106,7 @@ RSpec.describe "Collaborative Folders", type: :system do
   end
 
   describe "Sign permissions in collaborative folders" do
-    let!(:collab_folder) { FactoryBot.create(:folder, user: user) }
+    let!(:collab_folder) { FactoryBot.create(:folder, user:) }
     let!(:collaborator) { FactoryBot.create(:user) }
     let!(:private_sign) { FactoryBot.create(:sign, :personal, contributor: collaborator) }
 

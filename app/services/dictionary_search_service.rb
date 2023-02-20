@@ -37,7 +37,7 @@ class DictionarySearchService < SearchService
   def prepare_search(term)
     [
       SEARCH_SQL,
-      { term: term, like_term: "%#{DictionarySign.sanitize_sql_like(term)}%" }
+      { term:, like_term: "%#{DictionarySign.sanitize_sql_like(term)}%" }
     ]
   end
 end

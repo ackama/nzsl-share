@@ -5,7 +5,7 @@ module Admin
     end
 
     def create
-      SignOwnershipTransferService.new.transfer_sign(old_owner: old_owner, new_owner: new_owner)
+      SignOwnershipTransferService.new.transfer_sign(old_owner:, new_owner:)
 
       redirect_to admin_user_path(old_owner), notice: t(".success")
     end

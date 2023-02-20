@@ -9,6 +9,6 @@ class Collaboration < ApplicationRecord
   }
 
   def self.for(collaborator, folder)
-    find_by(collaborator: collaborator, folder: folder)
+    find_by(collaborator:, folder:)
   end
 end

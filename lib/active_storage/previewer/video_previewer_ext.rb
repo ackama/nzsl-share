@@ -6,8 +6,8 @@ require "active_storage/previewer/video_previewer"
 ActiveStorage::Previewer::VideoPreviewer.class_eval do
   private
 
-  def draw_relevant_frame_from(file, &block)
-    draw self.class.ffmpeg_path, "-i", file.path, *video_preview_arguments_with_frame_time, "-", &block
+  def draw_relevant_frame_from(file, &)
+    draw(self.class.ffmpeg_path, "-i", file.path, *video_preview_arguments_with_frame_time, "-", &)
   end
 
   def video_preview_arguments_with_frame_time(proportion: 0.25)

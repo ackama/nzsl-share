@@ -16,7 +16,7 @@ This README describes the purpose of this repository and how to set up a develop
 
 This project requires:
 
-- Ruby 2.7.4, preferably managed using [rbenv][]
+- Ruby 3.1.3, preferably managed using [rbenv][]
 - Google Chrome for headless Capybara testing
 - PostgreSQL must be installed and accepting connections
 - SQLite must be installed with development libraries to connect to the dictionary database

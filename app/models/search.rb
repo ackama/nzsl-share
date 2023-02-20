@@ -48,7 +48,7 @@ class Search
   end
 
   def page_with_total
-    page.merge!(total: total)
+    page.merge!(total:)
   end
 
   private
@@ -74,8 +74,8 @@ class Search
     {
       current_page: page,
       next_page: page + 1,
-      limit: limit,
-      term: term
+      limit:,
+      term:
     }
   end
 end

@@ -50,7 +50,7 @@ Capybara.register_driver :chrome do |app|
   options.add_argument("--proxy-bypass-list=*")
   options.add_argument("--headless") unless ENV["FOREGROUND"]
 
-  Capybara::Selenium::Driver.new app, browser: :chrome, capabilities: [options]
+  Capybara::Selenium::Driver.new app, browser: :chrome, options:
 end
 
 RSpec.configure do |config|

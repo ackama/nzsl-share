@@ -24,6 +24,6 @@ class ActiveStorageAttachmentMetadata
   private
 
   def save!
-    @blob.update!(metadata: metadata)
+    @blob.update!(metadata:)
   end
 end

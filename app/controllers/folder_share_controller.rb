@@ -15,7 +15,7 @@ class FolderShareController < ApplicationController
     authorize @folder, :share?
     @folder.update(share_token: @folder.share_token || SecureRandom.uuid)
 
-    redirect_back fallback_location: @folder, notice: t(".success", share_url: share_url)
+    redirect_back fallback_location: @folder, notice: t(".success", share_url:)
   end
 
   def destroy
@@ -41,7 +41,7 @@ class FolderShareController < ApplicationController
   end
 
   def fetch_folder_by_token
-    policy_scope(Folder, policy_scope_class: SharePolicy::Scope).find_by!(id: folder_id, share_token: share_token)
+    policy_scope(Folder, policy_scope_class: SharePolicy::Scope).find_by!(id: folder_id, share_token:)
   end
 
   def folder_id
