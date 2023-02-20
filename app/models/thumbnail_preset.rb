@@ -29,14 +29,14 @@ class ThumbnailPreset
   end
 
   def scale_1080
-    add!(resize: "1080x720", gravity: "center", background: "black", extent: "1080x720")
+    add!(resize_and_pad: [1080, 720, { extend: :black }])
   end
 
   def scale_720
-    add!(resize: "720x560", gravity: "center", background: "black", extent: "720x560")
+    add!(resize_and_pad: [1080, 720, { extend: :black }])
   end
 
   def scale_360
-    add!(resize: "360x240", gravity: "center", background: "black", extent: "360x240")
+    add!(resize_and_pad: [1080, 720, { extend: :black }])
   end
 end
