@@ -1,11 +1,10 @@
-import Rails from "@rails/ujs";
 import uppyFileUpload from "./uppy-file-upload";
 import { post } from "@rails/request.js";
 import signVideoRestrictions from "./uppy/signVideoRestrictions";
 
-$(document).on("upload-success", "#new_sign .file-upload", () =>
-  Rails.fire($("#new_sign").get(0), "submit")
-);
+$(document).on("upload-success", "#new_sign .file-upload", () => {
+  document.getElementById("new_sign").requestSubmit();
+});
 
 const createSignController = (container) => {
   container.innerHTML = null; // Reset the container before adding Uppy
