@@ -7,7 +7,8 @@
                                        { prompt: "--Select topic--" },
                                        class: "cell large-auto margin-right-2 margin-bottom-0" %>
     <div class="cell large-shrink padding-top-1 large-padding-top-0">
-      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button neutral width-100" %>
+      <%= f.button "Assign", value: :assign_topic, name: :operation, class: "button primary width-100",
+                             data: { disable_with: "Assigning topic..." } %>
     </div>
   </div>
 
@@ -15,8 +16,10 @@
     <div class="cell grid-x large-3 large-offset-5 small-12 align-right align-bottom large-padding-top-0 padding-top-2">
       <%= f.button "Submit for publishing", value: :submit_for_publishing,
                                             name: :operation,
-                                            class: "button neutral cell",
-                                            data: { confirm: "I agree to follow the privacy policy - #{page_url("privacy-policy")}" } %>
+                                            class: "button primary cell",
+                                            data: {
+                                              disable_with: "Submitting...",
+                                              confirm: "I agree to follow the privacy policy - #{page_url("privacy-policy")}" } %>
     </div>
   <% end %>
 <% end %>
