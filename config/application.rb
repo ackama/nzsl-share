@@ -35,6 +35,10 @@ module NzslShare
     config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV.fetch("MAIL_FROM", nil))
     config.google_analytics_container_id = ENV.fetch("GOOGLE_ANALYTICS_CONTAINER_ID", nil)
 
+    # NZSL Share uses .js.erb responses, so we need data-remote=true set
+    # on forms for @rails/rails_ujs to handle these responses
+    config.action_view.form_with_generates_remote_forms = true
+
     config.dictionary_host = ENV.fetch("NZSL_DICTIONARY_HOST", "https://nzsl.nz")
 
     config.upload_mode = if ENV.fetch("FEATURE_MULTIPLE_UPLOAD", "false").match?(/\Atrue|y/)
