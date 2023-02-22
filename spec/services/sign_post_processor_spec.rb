@@ -32,12 +32,12 @@ RSpec.describe SignPostProcessor, type: :service do
       expect(batch_double).to receive(:on).with(
         :success,
         SignPostProcessor::VideoCallback,
-        sign_id: sign.id)
+        { sign_id: sign.id })
 
       expect(batch_double).to receive(:on).with(
         :success,
         SignPostProcessor::ThumbnailCallback,
-        sign_id: sign.id)
+        { sign_id: sign.id })
 
       subject
     end

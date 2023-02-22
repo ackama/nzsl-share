@@ -14,10 +14,10 @@
   ],
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@rails/actioncable": "^6.0.0-alpha",
-    "@rails/activestorage": "^6.0.0-alpha",
+    "@rails/actioncable": "^7.0.4",
+    "@rails/activestorage": "^7.0.4",
     "@rails/request.js": "^0.0.8",
-    "@rails/ujs": "^6.0.0-alpha",
+    "@rails/ujs": "^7.0.4",
     "@rails/webpacker": "^5.1.0",
     "@svgr/webpack": "^4.3.3",
     "@uppy/core": "^3.0.4",

@@ -16,7 +16,7 @@ class CachedVideoTranscoder
   end
 
   def processed
-    ensure_active_storage_host
+    ensure_active_storage_url_options
     return process unless processed?
 
     encoded_blob.url
@@ -32,8 +32,8 @@ class CachedVideoTranscoder
     @encoded_blob ||= ActiveStorage::Blob.find_by(key:)
   end
 
-  def ensure_active_storage_host
-    ActiveStorage::Current.host ||= Rails.application.routes.default_url_options[:host]
+  def ensure_active_storage_url_options
+    ActiveStorage::Current.url_options ||= Rails.application.routes.default_url_options
   end
 
   def process

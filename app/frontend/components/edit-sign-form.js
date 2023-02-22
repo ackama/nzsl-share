@@ -8,6 +8,10 @@ const handleSignAttachmentUpload = ($container, listSelector, path) => {
   const signId = $container.data("signId");
   const signedBlobId = $field.val();
 
+  $.ajaxSetup({
+    headers: { "X-CSRF-TOKEN": $("meta[name='csrf-token']").attr("content") }
+  });
+
   // Need to match Rails params
   // eslint-disable-next-line camelcase
   return $.post(`/signs/${signId}/${path}`, { signed_blob_id: signedBlobId })

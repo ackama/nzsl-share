@@ -13,7 +13,7 @@ RSpec.describe CachedVideoTranscoder, type: :service do
     )
   end
 
-  before { transcoder.send(:ensure_active_storage_host) }
+  before { transcoder.send(:ensure_active_storage_url_options) }
 
   let(:processed_blob) do
     new_key = CachedVideoTranscoder.new(new_blob, {}).send(:key)

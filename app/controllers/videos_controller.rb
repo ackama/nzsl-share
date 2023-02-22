@@ -7,7 +7,7 @@ class VideosController < ApplicationController
       return head(:accepted)
     end
 
-    redirect_to representation.processed
+    redirect_to representation.processed, allow_other_host: true
   end
 
   private
