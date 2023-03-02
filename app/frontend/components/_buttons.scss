@@ -1,0 +1,7 @@
+.button {
+  &--with-icon {
+    @extend .button;
+
+    flex-direction: row;
+  }
+}

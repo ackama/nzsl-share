@@ -34,8 +34,9 @@
       <%= inline_svg_pack_tag "media/images/home/upload.svg", aria_hidden: true %>
       <%= inline_svg_pack_tag "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
     </div>
-    <h6>Post public signs</h6>
-    <p>Approved member can add new signs for everyone to see</p>
+    <h6>Request signs</h6>
+    <p>Request a sign from the community or ask questions about an existing sign.</p>
+    <%= link_to "Request sign", sign_requests_path %>
   </div>
 
   <div id="recently-published" class="cell margin-top-1 home-main__signs">

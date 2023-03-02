@@ -60,6 +60,7 @@ Rails.application.routes.draw do
                                   controller: :sign_batch_operations
     end
   end
+  resources :sign_requests, only: :index
 
   resources :topics, only: %i[index show] do
     get :uncategorised, on: :collection
