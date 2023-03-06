@@ -39,6 +39,14 @@ module NzslShare
     # on forms for @rails/rails_ujs to handle these responses
     config.action_view.form_with_generates_remote_forms = true
 
+    ##
+    # In Rails 7, the hash digest class was changed to SHA256. We have many
+    # ActiveStorage keys that use this hash value as part of a variation key, so
+    # we are sticking with SHA1.
+    # The pathway to supporting SHA256 would involve recalculating the new digest with
+    # SHA256 and either moving or regenerating all ActiveStorage::Blob variants.
+    config.active_support.key_generator_hash_digest_class = OpenSSL::Digest::SHA1
+
     config.dictionary_host = ENV.fetch("NZSL_DICTIONARY_HOST", "https://nzsl.nz")
 
     config.upload_mode = if ENV.fetch("FEATURE_MULTIPLE_UPLOAD", "false").match?(/\Atrue|y/)
