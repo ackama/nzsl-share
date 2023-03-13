@@ -33,7 +33,6 @@ module NzslShare
     config.active_model.i18n_customize_full_message = true
 
     config.contact_email = ENV.fetch("CONTACT_EMAIL", ENV.fetch("MAIL_FROM", nil))
-    config.requests_url = ENV.fetch("REQUESTS_URL", nil)
     config.google_analytics_container_id = ENV.fetch("GOOGLE_ANALYTICS_CONTAINER_ID", nil)
 
     # NZSL Share uses .js.erb responses, so we need data-remote=true set
