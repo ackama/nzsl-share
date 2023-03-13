@@ -8,8 +8,18 @@
 
     <hr class="form__divider">
 
-    <div class="cell padding-2">
+    <div class="cell padding-2 large-9">
       <h2>Overview</h2>
+
+      <div class="margin-vertical-1">
+        <div class="video-wrapper" "data-overlay">
+          <video class="video has-video" >
+            <source src="<%= asset_pack_path 'media/images/sign-requests.mp4' %>" type="video/mp4">
+          </video>
+
+          <i class="video__overlay" alt="Play video" ></i>
+        </div>
+      </div>
 
       <p>
         NZSL is growing and changing all the time. If you can’t find a sign, you can place a request
@@ -44,18 +54,24 @@
 
     <hr class="form__divider">
 
-    <div class="padding-2">
-      <%= inline_svg_pack_tag "media/images/facebook-light.svg", class: "margin-right-1", aria: true, title: "Facebook Logo" %>
+    <div class="padding-2 grid-x">
+      <div class="cell shrink">
+        <%= inline_svg_pack_tag "media/images/facebook-light.svg", aria: true, title: "Facebook Logo" %>
+      </div>
 
-      <p>
-        We are still developing the Request a Sign section. For now, you can place a request on our Facebook group:
-        NZSL Share – requests. Warning: this link will take you out of the NZSL Share page.
-      </p>
+      <div class="cell auto margin-left-1 margin-right-3">
+        <small>
+          We are still developing the Request a Sign section. For now, you can place a request on our Facebook group:
+          NZSL Share – requests. Warning: this link will take you out of the NZSL Share page.
+        </small>
+      </div>
 
-      <%= link_to "https://www.facebook.com/groups/213136893357675/", class: "button--with-icon" do %>
-        Go to Facebook
-        <%= inline_svg_pack_tag "media/images/chevron-right.svg", aria_hidden: true, class: "padding-left-1" %>
-      <% end %>
+      <div class="cell shrink">
+        <%= link_to Rails.application.config.requests_url, class: "button--with-icon" do %>
+          Go to Facebook
+          <%= inline_svg_pack_tag "media/images/chevron-right.svg", aria_hidden: true, class: "padding-left-1" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
