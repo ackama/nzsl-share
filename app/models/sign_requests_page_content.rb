@@ -1,9 +1,9 @@
-module SignRequestsHelper
-  def facebook_requests_url
+class SignRequestsPageContent
+  def self.facebook_requests_url
     "https://www.facebook.com/groups/213136893357675/"
   end
 
-  def sign_requests_video_sources
+  def self.sign_requests_video_sources
     [
       "https://#{s3_bucket_name}.s3.ap-southeast-2.amazonaws.com/assets/sign-requests-1080.mp4",
       "https://#{s3_bucket_name}.s3.ap-southeast-2.amazonaws.com/assets/sign-requests-1080.webm",
@@ -12,9 +12,7 @@ module SignRequestsHelper
     ]
   end
 
-  private
-
-  def s3_bucket_name
-    ENV.fetch("S3_BUCKET_NAME", nil)
+  def self.s3_bucket_name
+    "nzsl-share-production-uploaded-files"
   end
 end

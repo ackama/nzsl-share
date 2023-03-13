@@ -13,7 +13,7 @@
 
       <div class="margin-vertical-1">
         <div class="video-wrapper" "data-overlay">
-          <%= video_tag(sign_requests_video_sources, class: "video has-video") %>
+          <%= video_tag(SignRequestsPageContent.sign_requests_video_sources, class: "video has-video") %>
 
           <i class="video__overlay" alt="Play video" ></i>
         </div>
@@ -65,7 +65,7 @@
       </div>
 
       <div class="cell shrink">
-        <%= link_to facebook_requests_url, class: "button--with-icon" do %>
+        <%= link_to SignRequestsPageContent.facebook_requests_url, class: "button--with-icon" do %>
           Go to Facebook
           <%= inline_svg_pack_tag "media/images/chevron-right.svg", aria_hidden: true, class: "padding-left-1" %>
         <% end %>
