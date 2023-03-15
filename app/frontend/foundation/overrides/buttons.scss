@@ -149,6 +149,12 @@ $clear-button-palette: (
       background: map-get(map-get($clear-button-palette, default), hover);
     }
   }
+
+  &--with-icon {
+    @extend .button;
+
+    flex-direction: row;
+  }
 }
 
 .button-group {
