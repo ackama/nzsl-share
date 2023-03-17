@@ -1,0 +1,9 @@
+.sign-requests{
+  &__footer-text {
+    margin: 1rem 0;
+
+    @include breakpoint(large up) {
+      margin: 0 3rem 0 1rem;
+    }
+  }
+}

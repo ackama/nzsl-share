@@ -53,19 +53,19 @@
     <hr class="form__divider">
 
     <div class="padding-2 grid-x">
-      <div class="cell shrink">
+      <div class="cell small-12 large-shrink">
         <%= inline_svg_pack_tag "media/images/facebook-light.svg", aria: true, title: "Facebook Logo" %>
       </div>
 
-      <div class="cell auto margin-left-1 margin-right-3">
+      <div class="cell small-12 large-auto sign-requests__footer-text">
         <small>
           We are still developing the Request a Sign section. For now, you can place a request on our Facebook group:
           NZSL Share – requests. Warning: this link will take you out of the NZSL Share page.
         </small>
       </div>
 
-      <div class="cell shrink">
-        <%= link_to SignRequestsPageContent.facebook_requests_url, class: "button--with-icon" do %>
+      <div class="cell small-12 large-shrink">
+        <%= link_to SignRequestsPageContent.facebook_requests_url, class: "button--with-icon primary width-100 align-center" do %>
           Go to Facebook
           <%= inline_svg_pack_tag "media/images/chevron-right.svg", aria_hidden: true, class: "padding-left-1" %>
         <% end %>
