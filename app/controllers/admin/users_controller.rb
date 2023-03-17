@@ -28,6 +28,7 @@ module Admin
     #
     def scoped_resource
       return super if params[:search].present?
+      return resource_class if action_name == "destroy"
 
       resource_class.confirmed
     end
