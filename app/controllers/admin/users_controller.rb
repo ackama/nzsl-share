@@ -28,6 +28,8 @@ module Admin
     #
     def scoped_resource
       return super if params[:search].present?
+      # Unconfirmed users can be deleted, but are otherwise not included when administering users
+      # We include them during destroy so that they can be found to be destroyed.
       return resource_class if action_name == "destroy"
 
       resource_class.confirmed
