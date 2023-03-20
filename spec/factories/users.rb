@@ -35,6 +35,10 @@ FactoryBot.define do
       approved { true }
     end
 
+    trait :unconfirmed do
+      confirmed_at { nil }
+    end
+
     trait :with_demographics do
       callback(:after_build, :after_stub) do |user|
         user.build_demographic(
