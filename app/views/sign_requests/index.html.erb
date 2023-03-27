@@ -31,15 +31,13 @@
     <hr class="form__divider">
 
     <div class="cell padding-2 large-9">
-      <h2>Overview</h2>
+      <div class="video-wrapper" "data-overlay">
+        <%= video_tag(SignRequestsPageContent.sign_requests_video_sources, class: "video has-video") %>
 
-      <div class="margin-vertical-1">
-        <div class="video-wrapper" "data-overlay">
-          <%= video_tag(SignRequestsPageContent.sign_requests_video_sources, class: "video has-video") %>
-
-          <i class="video__overlay" alt="Play video" ></i>
-        </div>
+        <i class="video__overlay" alt="Play video" ></i>
       </div>
+
+      <h2 class="margin-vertical-1">Overview</h2>
 
       <p>
         NZSL is growing and changing all the time. If you can’t find a sign, you can place a request
