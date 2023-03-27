@@ -5,18 +5,9 @@
       <%= inline_svg_pack_tag "media/images/home/folder.svg", aria_hidden: true %>
       <%= inline_svg_pack_tag "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
     </div>
-    <h6>Save favourites</h6>
-    <p>Create folders and save your favourite signs</p>
+    <h6>Upload and save favourites</h6>
+    <p>Upload your recorded signs, keep them in your private folder and share links with others. </p>
     <%= link_to "Join NZSL Share", new_user_registration_path %>
-  </div>
-
-  <div class="home-main__container cell small-6 medium-3">
-    <div class="home-main__icon">
-      <%= inline_svg_pack_tag "media/images/home/camera-2.svg", aria_hidden: true %>
-      <%= inline_svg_pack_tag "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
-    </div>
-    <h6>Upload signs</h6>
-    <p>Upload your recorded signs, keep them in your private folder and share links with others</p>
   </div>
 
   <div class="home-main__container cell small-6 medium-3">
@@ -32,6 +23,15 @@
   <div class="home-main__container cell small-6 medium-3">
     <div class="home-main__icon">
       <%= inline_svg_pack_tag "media/images/home/upload.svg", aria_hidden: true %>
+      <%= inline_svg_pack_tag "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
+    </div>
+    <h6>Post public signs</h6>
+    <p>Approved member can add new signs for everyone to see</p>
+  </div>
+
+  <div class="home-main__container cell small-6 medium-3">
+    <div class="home-main__icon">
+      <%= inline_svg_pack_tag "media/images/home/camera-2.svg", aria_hidden: true %>
       <%= inline_svg_pack_tag "media/images/home/rectangle.svg", aria_hidden: true, class: "home-main__icon-shadow" %>
     </div>
     <h6>Request signs</h6>
