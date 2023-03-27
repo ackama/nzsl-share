@@ -1,0 +1,73 @@
+<% provide(:title, "Request signs") %>
+
+<div class="cell medium-8 medium-offset-2 margin-top-2">
+  <div class="grid-x margin-top-2 form">
+    <div class="cell form__header">
+      <h1 class="black">Request signs</h1>
+    </div>
+
+    <hr class="form__divider">
+
+    <div class="padding-2 grid-x">
+      <div class="cell small-12 large-shrink">
+        <%= inline_svg_pack_tag "media/images/facebook-light.svg", aria: true, title: "Facebook Logo" %>
+      </div>
+
+      <div class="cell small-12 large-auto sign-requests__facebook-text">
+        <small>
+          We are still developing the Request a Sign section. For now, you can place a request on our Facebook group:
+          NZSL Share – requests. Warning: this link will take you out of the NZSL Share page.
+        </small>
+      </div>
+
+      <div class="cell small-12 large-shrink">
+        <%= link_to SignRequestsPageContent.facebook_requests_url, class: "button--with-icon primary width-100 align-center" do %>
+          Go to Facebook
+          <%= inline_svg_pack_tag "media/images/chevron-right.svg", aria_hidden: true, class: "padding-left-1" %>
+        <% end %>
+      </div>
+    </div>
+
+    <hr class="form__divider">
+
+    <div class="cell padding-2 large-9">
+      <div class="video-wrapper" "data-overlay">
+        <%= video_tag(SignRequestsPageContent.sign_requests_video_sources, class: "video has-video") %>
+
+        <i class="video__overlay" alt="Play video" ></i>
+      </div>
+
+      <h2 class="margin-vertical-1">Overview</h2>
+
+      <p>
+        NZSL is growing and changing all the time. If you can’t find a sign, you can place a request
+        here.
+      </p>
+
+      <ul>
+        <li>
+          Check first – carry out a search. Try a few different related words – perhaps the sign
+          is translated slightly differently.
+        </li>
+
+        <li>
+          Request a sign – e.g. ‘how do you sign ....?’ ‘Is there a sign for ...?’
+        </li>
+
+        <li>
+          If a sign exists, approved NZSL Share members will reply and upload the sign they have seen.
+        </li>
+
+        <li>
+          Other approved members will now be able to comment and vote, so that you can see how widespread the sign is.
+        </li>
+      </ul>
+
+      <p>
+        Remember that natural language development takes time. There may not be a sign for the
+        concept yet – but keep checking! As more Deaf signers start to discuss a concept, signs will
+        emerge.
+      </p>
+    </div>
+  </div>
+</div>
