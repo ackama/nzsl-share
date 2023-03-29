@@ -129,7 +129,7 @@ RSpec.describe "Sign show page", system: true do
 
     context "sign has thumbnails processed, but not videos" do
       let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails, contributor: user) }
-      it { expect(subject[:poster]).to match(%r{/rails/active_storage}) }
+      it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
     end
 
     context "sign has videos" do
