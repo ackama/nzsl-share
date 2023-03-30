@@ -154,8 +154,16 @@ RSpec.describe SignPresenter, type: :presenter do
       end
     end
 
-    context "thumbnails are processed" do
-      before { sign.processed_thumbnails = true }
+    context "videos are not processed" do
+      before { sign.assign_attributes(processed_thumbnails: true, processed_videos: false) }
+
+      it "returns a placeholder" do
+        expect(presenter.poster_url).to match(/processing-[a-f0-9]+.svg\Z/)
+      end
+    end
+
+    context "thumbnails and videos are processed" do
+      before { sign.assign_attributes(processed_thumbnails: true, processed_videos: true) }
 
       it "requests a video preview with the default size" do
         preview = double.as_null_object
