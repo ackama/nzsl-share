@@ -58,7 +58,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   # key is what pushes it over - 15.17 / 15 - and a descriptive cache
   # key is preferred to AbcSize compliance here
   def poster_url(size: 1080) # rubocop:disable Metrics/AbcSize
-    return fallback_poster_url unless sign.processed_thumbnails?
+    return fallback_poster_url unless sign.processed_thumbnails? && sign.processed_videos?
 
     preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
     preview = video.preview(preset)
