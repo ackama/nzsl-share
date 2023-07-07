@@ -42,7 +42,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
     "lighthouse": "^9.0.0",
-    "stylelint": "^13.3.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-scss": "^3.16.0",
     "webpack-dev-server": "^3.8.0"
