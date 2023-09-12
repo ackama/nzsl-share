@@ -729,7 +729,8 @@ $prototype-text-overflow: ellipsis;
 
 $responsive-embed-margin-bottom: rem-calc(16);
 $responsive-embed-ratios: (
-  default: 16 by 9
+  default: 16 by 9,
+  dictionary: 4 by 3,
 );
 
 // 47. Reveal

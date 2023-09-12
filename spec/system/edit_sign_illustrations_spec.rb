@@ -55,7 +55,7 @@ RSpec.describe "Edit sign illustrations", type: :system do
     expect(page).to have_selector(".sign-illustrations > *", count: 3)
   end
 
-  it "can specify illustrations for a sign without javascript", uses_javacript: false do
+  it "can specify illustrations for a sign without javascript", uses_javacript: false, upload_mode: :legacy do
     within(".illustrations") { choose_file Rails.root.join("spec/fixtures/image.png") }
     click_on "Update Sign"
     expect(page).to have_content I18n.t("signs.update.success")
