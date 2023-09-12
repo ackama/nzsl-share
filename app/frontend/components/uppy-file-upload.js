@@ -22,6 +22,11 @@ const uppyFileUpload = (container, options = {}) => {
   uppy.use(Webcam,  {
     modes: "video-only",
     countdown: true,
+    videoConstraints: {
+      aspectRatio: {
+        ideal:  1.7777777778 // 16x9
+      }
+    },
     locale: {
       strings: {
         pluginNameCamera: "Video recording",
