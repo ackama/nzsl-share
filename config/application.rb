@@ -49,7 +49,7 @@ module NzslShare
 
     config.dictionary_host = ENV.fetch("NZSL_DICTIONARY_HOST", "https://nzsl.nz")
 
-    config.upload_mode = if ENV.fetch("FEATURE_MULTIPLE_UPLOAD", "false").match?(/\Atrue|y/)
+    config.upload_mode = if ENV.fetch("FEATURE_MULTIPLE_UPLOAD", "true").match?(/\Atrue|y/)
                            :uppy
                          else
                            :legacy

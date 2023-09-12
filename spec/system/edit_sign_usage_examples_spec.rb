@@ -130,7 +130,7 @@ RSpec.describe "Editing sign usage examples", type: :system do
     expect(page).to have_selector(".sign-usage-examples > *", count: 2)
   end
 
-  it "can specify usage examples for a sign without javascript", uses_javacript: false do
+  it "can specify usage examples for a sign without javascript", uses_javacript: false, upload_mode: :legacy do
     within(".usage-examples") { choose_file }
     click_on "Update Sign"
     expect(page).to have_content I18n.t("signs.update.success")

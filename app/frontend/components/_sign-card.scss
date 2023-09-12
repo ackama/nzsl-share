@@ -27,7 +27,10 @@
   }
 
   &--official {
-    .sign-card__media { background: #000; }
+    .sign-card__media {
+      @include responsive-embed(dictionary);
+      background: #000;
+    }
     .sign-card__title { color: $black; }
     h3 { margin-bottom: 0.25rem; }
 
