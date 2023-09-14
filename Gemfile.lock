@@ -323,6 +323,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.6.0)
+    redis-client (0.17.0)
+      connection_pool
     regexp_parser (2.6.1)
     responders (3.1.0)
       actionpack (>= 5.2)
@@ -385,10 +387,11 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    sidekiq (6.5.9)
-      connection_pool (>= 2.2.5, < 3)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
+    sidekiq (7.1.3)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
     sidekiq-batch (0.1.9)
       sidekiq (>= 3)
     simplecov (0.21.2)
@@ -479,7 +482,7 @@ DEPENDENCIES
   rubocop-rails
   sassc-rails
   selenium-webdriver
-  sidekiq (< 7)
+  sidekiq (< 8)
   sidekiq-batch
   simplecov
   sqlite3
