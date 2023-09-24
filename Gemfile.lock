@@ -487,7 +487,7 @@ DEPENDENCIES
   rubocop-rails
   sassc-rails
   selenium-webdriver
-  sidekiq (< 8)
+  sidekiq
   sidekiq-batch!
   simplecov
   sqlite3
