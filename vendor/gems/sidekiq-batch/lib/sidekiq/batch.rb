@@ -76,7 +76,7 @@ module Sidekiq
             end
           end
 
-          @initialized = true
+          @initialized = 'true'
         end
 
         @queued_jids = []
@@ -93,7 +93,7 @@ module Sidekiq
         end
 
         return [] if @queued_jids.size == 0
-        conditional_redis_increment!(true)
+        conditional_redis_increment!('true')
 
         Sidekiq.redis do |r|
           r.multi do |pipeline|
@@ -141,12 +141,12 @@ module Sidekiq
 
     def should_increment?
       return false unless @incremental_push
-      return true if @batch_push_interval == 0 || @queued_jids.length == 1
+      return 'true' if @batch_push_interval == 0 || @queued_jids.length == 1
       now = Time.now.to_f
       @last_increment ||= now
       if @last_increment + @batch_push_interval > now
         @last_increment = now
-        return true
+        return 'true'
       end
     end
 
@@ -248,7 +248,7 @@ module Sidekiq
         already_processed, _, callbacks, queue, parent_bid, callback_batch = Sidekiq.redis do |r|
           r.multi do |pipeline|
             pipeline.hget(batch_key, event_name)
-            pipeline.hset(batch_key, event_name, true)
+            pipeline.hset(batch_key, event_name, 'true')
             pipeline.smembers(callback_key)
             pipeline.hget(batch_key, "callback_queue")
             pipeline.hget(batch_key, "parent_bid")
@@ -292,7 +292,7 @@ module Sidekiq
         else
           # Otherwise finalize in sub batch complete callback
           cb_batch = self.new
-          cb_batch.callback_batch = true
+          cb_batch.callback_batch = 'true'
           Sidekiq.logger.debug {"Adding callback batch: #{cb_batch.bid} for batch: #{bid}"}
           cb_batch.on(:complete, "Sidekiq::Batch::Callback::Finalize#dispatch", opts)
           cb_batch.jobs do

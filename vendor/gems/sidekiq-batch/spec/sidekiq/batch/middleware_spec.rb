@@ -7,7 +7,7 @@ describe Sidekiq::Batch::Middleware do
         yielded = false
         expect(Sidekiq::Batch).not_to receive(:process_successful_job)
         expect(Sidekiq::Batch).not_to receive(:process_failed_job)
-        subject.call(nil, {}, nil) { yielded = true }
+        subject.call(nil, {}, nil) { yielded = 'true' }
         expect(yielded).to be_truthy
       end
     end
@@ -18,7 +18,7 @@ describe Sidekiq::Batch::Middleware do
       context 'when successful' do
         it 'yields' do
           yielded = false
-          subject.call(nil, { 'bid' => bid, 'jid' => jid }, nil) { yielded = true }
+          subject.call(nil, { 'bid' => bid, 'jid' => jid }, nil) { yielded = 'true' }
           expect(yielded).to be_truthy
         end
 
@@ -35,7 +35,7 @@ describe Sidekiq::Batch::Middleware do
           begin
             subject.call(nil, { 'bid' => bid }, nil) { raise 'ERR' }
           rescue
-            reraised = true
+            reraised = 'true'
           end
           expect(reraised).to be_truthy
         end
@@ -48,7 +48,7 @@ describe Sidekiq::Batch::Middleware do
       it 'just yields' do
         yielded = false
         expect(Sidekiq::Batch).not_to receive(:increment_job_queue)
-        subject.call(nil, {}, nil) { yielded = true }
+        subject.call(nil, {}, nil) { yielded = 'true' }
         expect(yielded).to be_truthy
       end
     end
@@ -60,7 +60,7 @@ describe Sidekiq::Batch::Middleware do
 
       it 'yields' do
         yielded = false
-        subject.call(nil, { 'jid' => jid }, nil) { yielded = true }
+        subject.call(nil, { 'jid' => jid }, nil) { yielded = 'true' }
         expect(yielded).to be_truthy
       end
 

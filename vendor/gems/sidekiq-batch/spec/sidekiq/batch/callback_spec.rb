@@ -12,7 +12,7 @@ describe Sidekiq::Batch::Callback::Worker do
     end
 
     it 'calls on_success if defined' do
-      callback_instance = double('SampleCallback', on_success: true)
+      callback_instance = double('SampleCallback', on_success: 'true')
       expect(SampleCallback).to receive(:new).and_return(callback_instance)
       expect(callback_instance).to receive(:on_success)
         .with(instance_of(Sidekiq::Batch::Status), {})
