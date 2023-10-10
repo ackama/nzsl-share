@@ -35,7 +35,6 @@ if RSpec.configuration.files_to_run.length > 1
     add_filter "/spec/factories/"
     add_filter "/spec/rails_helper.rb"
     add_filter "/spec/spec_helper.rb"
-    add_filter "/vendor/"
 
     # ignore files with fewer than 5 lines
     add_filter do |source_file|
