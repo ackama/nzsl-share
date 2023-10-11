@@ -36,7 +36,7 @@ module Sidekiq
       end
 
       def complete?
-        'true' == Sidekiq.redis { |r| r.hget("BID-#{bid}", 'complete') }
+        true == Sidekiq.redis { |r| r.hget("BID-#{bid}", 'complete') }
       end
 
       def child_count

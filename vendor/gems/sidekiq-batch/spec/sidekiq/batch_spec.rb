@@ -245,7 +245,7 @@ describe Sidekiq::Batch do
       it 'returns and does not enqueue callbacks' do
         batch = Sidekiq::Batch.new
         batch.on(event, SampleCallback)
-        Sidekiq.redis { |r| r.hset("BID-#{batch.bid}", event, 'true') }
+        Sidekiq.redis { |r| r.hset("BID-#{batch.bid}", event, true) }
 
         expect(Sidekiq::Client).not_to receive(:push)
         Sidekiq::Batch.enqueue_callbacks(event, batch.bid)
