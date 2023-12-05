@@ -1,4 +1,4 @@
-class SignsExport
+class SignbankExport
   include Rails.application.routes.url_helpers
   class URLForbiddenCharacterError < StandardError; end
 

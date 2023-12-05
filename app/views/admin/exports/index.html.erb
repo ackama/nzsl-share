@@ -27,5 +27,12 @@
     <%= link_to(users_admin_exports_path, class: "margin-bottom-2 button royal primary") do %>
         Download user data (CSV format)
     <% end %>
+
+    <h4>Signbank</h4>
+    <p>This export contains published sign data in CSV format, which can be used to import NZSL Share signs into Signbank.</p>
+
+    <%= link_to(signbank_admin_exports_path, class: "margin-bottom-2 button royal primary") do %>
+        Download signs data (CSV format)
+    <% end %>
   </section>
 </div>

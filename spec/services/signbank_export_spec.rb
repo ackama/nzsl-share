@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SignsExport, type: :service do
+RSpec.describe SignbankExport, type: :service do
   include Rails.application.routes.url_helpers
 
   def build_line(sign)
