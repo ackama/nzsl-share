@@ -83,5 +83,10 @@ FactoryBot.define do
         sign.illustrations.attach(video_file_io)
       end
     end
+
+    trait :with_additional_info do
+      description { Faker::Lorem.sentence }
+      notes { Faker::Lorem.paragraph }
+    end
   end
 end

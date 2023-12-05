@@ -1,5 +1,8 @@
 class SignsExport
   include Rails.application.routes.url_helpers
+  class URLForbiddenCharacterError < StandardError; end
+
+  SEPARATOR = "|".freeze
 
   def initialize(signs)
     @signs = Sign.where(id: signs)
@@ -47,10 +50,17 @@ class SignsExport
   end
 
   def collate_blob_urls(blobs)
-    join_collection(blobs.map { |blob| url_for(blob) })
+    urls = blobs.map { |blob| url_for(blob) }
+    # This shouldn't happen, main place this could be injected in is filenames but those aren't allowed to have | chars
+    # Still, to be better safe than sorry, this will cause the export to fail if a separator does get into a url somehow
+    urls.each do |url|
+      fail URLForbiddenCharacterError("Forbidden Character #{SEPARATOR} in #{url}") if url.include?(SEPARATOR)
+    end
+
+    join_collection(urls)
   end
 
   def join_collection(collection)
-    collection.join("|")
+    collection.map { |item| item.gsub(SEPARATOR, "") }.join(SEPARATOR)
   end
 end
