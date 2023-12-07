@@ -11,6 +11,6 @@ class Admin::ExportsController < Admin::ApplicationController
   end
 
   def signbank
-    send_data SignbankExport.new(Sign.published).to_csv, filename: "signbank.csv", type: "text/csv"
+    send_data SignbankExport.new.to_csv, filename: "signbank.csv", type: "text/csv"
   end
 end
