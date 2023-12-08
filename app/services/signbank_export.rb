@@ -5,29 +5,29 @@ class SignbankExport
   SEPARATOR = "|".freeze
   QUERY = <<~SQL.squish.freeze
     SELECT
-      array_to_string(array_agg(distinct videos.id), '|') as videos,
-      array_to_string(array_agg(distinct illustrations.id), '|') as illustrations,
-      array_to_string(array_agg(distinct usage_examples.id), '|') as usage_examples,
+      array_to_string(array_agg(DISTINCT videos.id), '|') AS videos,
+      array_to_string(array_agg(DISTINCT illustrations.id), '|') AS illustrations,
+      array_to_string(array_agg(DISTINCT usage_examples.id), '|') AS usage_examples,
       signs.word,
       signs.maori,
       signs.secondary,
       signs.description,
       signs.notes,
-      array_to_string(array_agg(distinct topics.name), '|') as topic_names
+      array_to_string(array_agg(DISTINCT topics.name), '|') AS topic_names
     FROM
       signs
-      FULL OUTER JOIN sign_topics on sign_topics.sign_id = signs.id
-      FULL OUTER JOIN topics on sign_topics.topic_id = topics.id
-      FULL OUTER JOIN active_storage_attachments on active_storage_attachments.record_id = signs.id and active_storage_attachments.record_type = 'Sign'
-      FULL OUTER JOIN active_storage_blobs as videos on active_storage_attachments.blob_id = videos.id and active_storage_attachments.name = 'video'
-      FULL OUTER JOIN active_storage_blobs as illustrations on active_storage_attachments.blob_id = illustrations.id and active_storage_attachments.name = 'illustrations'
-      FULL OUTER JOIN active_storage_blobs as usage_examples on active_storage_attachments.blob_id = usage_examples.id and active_storage_attachments.name = 'usage_examples'
-    where
-      status like 'published'
-    group by
+      FULL OUTER JOIN sign_topics ON sign_topics.sign_id = signs.id
+      FULL OUTER JOIN topics ON sign_topics.topic_id = topics.id
+      FULL OUTER JOIN active_storage_attachments ON active_storage_attachments.record_id = signs.id AND active_storage_attachments.record_type = 'Sign'
+      FULL OUTER JOIN active_storage_blobs AS videos ON active_storage_attachments.blob_id = videos.id AND active_storage_attachments.name = 'video'
+      FULL OUTER JOIN active_storage_blobs AS illustrations ON active_storage_attachments.blob_id = illustrations.id AND active_storage_attachments.name = 'illustrations'
+      FULL OUTER JOIN active_storage_blobs AS usage_examples ON active_storage_attachments.blob_id = usage_examples.id AND active_storage_attachments.name = 'usage_examples'
+    WHERE
+      status LIKE 'published'
+    GROUP BY
       signs.id
-    order by
-      signs.id asc;
+    ORDER BY
+      signs.id ASC;
   SQL
 
   def results
