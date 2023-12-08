@@ -59,17 +59,10 @@ class SignbankExport
   def collate_blob_urls(id_string)
     ids = id_string.split(SEPARATOR)
     blobs = ActiveStorage::Blob.where(id: ids)
-    urls = blobs.map { |blob| rails_blob_path(blob, expires_in: 7.days) }
-    # This shouldn't happen, main place this could be injected in is filenames but those aren't allowed to have | chars
-    # Still, to be better safe than sorry, this will cause the export to fail if a separator does get into a url somehow
-    urls.each do |url|
-      fail URLForbiddenCharacterError("Forbidden Character #{SEPARATOR} in #{url}") if url.include?(SEPARATOR)
-    end
-
-    join_collection(urls)
+    join_collection(blobs.map { |blob| rails_blob_path(blob, expires_in: 7.days) })
   end
 
   def join_collection(collection)
-    collection.map { |item| item.gsub(SEPARATOR, "") }.join(SEPARATOR)
+    collection.join(SEPARATOR)
   end
 end
