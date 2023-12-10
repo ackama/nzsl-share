@@ -47,7 +47,7 @@ RSpec.describe SignbankExport, type: :service do
     it "builds the expected CSV structure" do
       lines = csv.split("\n")
       expect(lines.first).to eq(
-        "videos,illustrations,usage_examples,word,maori,secondary,description,notes,topic_names"
+        "word,maori,secondary,description,notes,topic_names,videos,illustrations,usage_examples"
       )
       expect(lines.size).to eq 3 # Headers plus 2 included signs
     end
@@ -59,7 +59,7 @@ RSpec.describe SignbankExport, type: :service do
     end
 
     it "turns the video id into a signed url" do
-      video_url = csv.split("\n").last.split(",").first
+      video_url = csv.split("\n").last.split(",")[6]
       expect(video_url).to start_with("/rails/active_storage/blobs/redirect/")
       expect(video_url).to end_with("dummy.mp4")
     end
@@ -68,7 +68,7 @@ RSpec.describe SignbankExport, type: :service do
       image_file = Rails.root.join("spec/fixtures/image.jpeg").open
       image_file_io = { io: image_file, filename: File.basename(image_file) }
       world.published_signs.last.usage_examples.attach(image_file_io)
-      illustration_urls = csv.split("\n").last.split(",").second.split("|")
+      illustration_urls = csv.split("\n").last.split(",")[7].split("|")
 
       illustration_urls.each do |url|
         expect(url).to start_with("/rails/active_storage/blobs/redirect/")
@@ -80,7 +80,7 @@ RSpec.describe SignbankExport, type: :service do
       video_file = Rails.root.join("spec/fixtures/dummy.mp4").open
       video_file_io = { io: video_file, filename: File.basename(video_file) }
       world.published_signs.last.usage_examples.attach(video_file_io)
-      usage_example_urls = csv.split("\n").last.split(",").third.split("|")
+      usage_example_urls = csv.split("\n").last.split(",").last.split("|")
 
       usage_example_urls.each do |url|
         expect(url).to start_with("/rails/active_storage/blobs/redirect/")

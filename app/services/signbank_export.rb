@@ -5,15 +5,15 @@ class SignbankExport
   SEPARATOR = "|".freeze
   QUERY = <<~SQL.squish.freeze
     SELECT
-      array_to_string(array_agg(DISTINCT videos.id), '|') AS videos,
-      array_to_string(array_agg(DISTINCT illustrations.id), '|') AS illustrations,
-      array_to_string(array_agg(DISTINCT usage_examples.id), '|') AS usage_examples,
       signs.word,
       signs.maori,
       signs.secondary,
       signs.description,
       signs.notes,
-      array_to_string(array_agg(DISTINCT topics.name), '|') AS topic_names
+      array_to_string(array_agg(DISTINCT topics.name), '#{SEPARATOR}') AS topic_names,
+      array_to_string(array_agg(DISTINCT videos.id), '#{SEPARATOR}') AS videos,
+      array_to_string(array_agg(DISTINCT illustrations.id), '#{SEPARATOR}') AS illustrations,
+      array_to_string(array_agg(DISTINCT usage_examples.id), '#{SEPARATOR}') AS usage_examples
     FROM
       signs
       FULL OUTER JOIN sign_topics ON sign_topics.sign_id = signs.id
@@ -23,7 +23,7 @@ class SignbankExport
       FULL OUTER JOIN active_storage_blobs AS illustrations ON active_storage_attachments.blob_id = illustrations.id AND active_storage_attachments.name = 'illustrations'
       FULL OUTER JOIN active_storage_blobs AS usage_examples ON active_storage_attachments.blob_id = usage_examples.id AND active_storage_attachments.name = 'usage_examples'
     WHERE
-      status LIKE 'published'
+      status = 'published'
     GROUP BY
       signs.id
     ORDER BY
