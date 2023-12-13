@@ -88,9 +88,5 @@ FactoryBot.define do
       description { Faker::Lorem.sentence }
       notes { Faker::Lorem.paragraph }
     end
-
-    trait :with_sign_activities do
-      activities { FactoryBot.create_list(:sign_activity, 5) }
-    end
   end
 end

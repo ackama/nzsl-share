@@ -118,14 +118,14 @@ class SignbankExportWorld
 
   def setup
     @published_signs = FactoryBot.create_list(
-      :sign, 2, :published, :processed, :with_illustrations, :with_usage_examples,
-      :with_additional_info, :with_sign_activities
+      :sign, 2, :published, :processed, :with_illustrations, :with_usage_examples, :with_additional_info
     )
     @unpublished_sign = FactoryBot.create(:sign)
     @published_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second)
     @deleted_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second, removed: true)
     @invisible_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second, display: false)
     @anonymous_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second, anonymous: true)
+    FactoryBot.create_list(:sign_activity, 5, sign: @published_signs.second)
 
     self
   end
