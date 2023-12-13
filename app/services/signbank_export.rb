@@ -30,7 +30,7 @@ class SignbankExport
       FULL OUTER JOIN sign_topics ON sign_topics.sign_id = signs.id
       FULL OUTER JOIN users AS contributors ON contributors.id = signs.contributor_id
       FULL OUTER JOIN topics ON sign_topics.topic_id = topics.id
-      FULL OUTER JOIN sign_comments ON signs.id = sign_comments.sign_id AND sign_comments.removed = false AND sign_comments.display = true
+      FULL OUTER JOIN sign_comments ON signs.id = sign_comments.sign_id AND sign_comments.removed = false AND sign_comments.display = true AND sign_comments.folder_id IS NULL
       FULL OUTER JOIN users AS sign_commenters ON sign_comments.user_id = sign_commenters.id
       FULL OUTER JOIN active_storage_attachments ON active_storage_attachments.record_id = signs.id AND active_storage_attachments.record_type = 'Sign'
       FULL OUTER JOIN active_storage_blobs AS videos ON active_storage_attachments.blob_id = videos.id AND active_storage_attachments.name = 'video'
