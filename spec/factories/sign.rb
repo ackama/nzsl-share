@@ -92,9 +92,5 @@ FactoryBot.define do
     trait :with_sign_activities do
       activities { FactoryBot.create_list(:sign_activity, 5) }
     end
-
-    trait :with_sign_comments do
-      sign_comments { FactoryBot.create_list(:sign_comment, 2) }
-    end
   end
 end

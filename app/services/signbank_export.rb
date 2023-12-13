@@ -19,13 +19,18 @@ class SignbankExport
       ARRAY_TO_STRING(ARRAY_AGG(DISTINCT videos.id), '#{SEPARATOR}') AS videos,
       ARRAY_TO_STRING(ARRAY_AGG(DISTINCT illustrations.id), '#{SEPARATOR}') AS illustrations,
       ARRAY_TO_STRING(ARRAY_AGG(DISTINCT usage_examples.id), '#{SEPARATOR}') AS usage_examples,
-      ARRAY_TO_STRING(ARRAY_AGG(DISTINCT CONCAT_WS(': ', sign_commenters.username, sign_comments.comment)), '#{SEPARATOR}') AS sign_comments
+      ARRAY_TO_STRING(
+        ARRAY_AGG(
+          DISTINCT CONCAT_WS(': ',
+          CASE sign_comments.anonymous WHEN true THEN 'Anonymous' ELSE sign_commenters.username END,
+          sign_comments.comment)), '#{SEPARATOR}'
+        ) AS sign_comments
     FROM
       signs
       FULL OUTER JOIN sign_topics ON sign_topics.sign_id = signs.id
       FULL OUTER JOIN users AS contributors ON contributors.id = signs.contributor_id
       FULL OUTER JOIN topics ON sign_topics.topic_id = topics.id
-      FULL OUTER JOIN sign_comments ON signs.id = sign_comments.sign_id
+      FULL OUTER JOIN sign_comments ON signs.id = sign_comments.sign_id AND sign_comments.removed = false AND sign_comments.display = true
       FULL OUTER JOIN users AS sign_commenters ON sign_comments.user_id = sign_commenters.id
       FULL OUTER JOIN active_storage_attachments ON active_storage_attachments.record_id = signs.id AND active_storage_attachments.record_type = 'Sign'
       FULL OUTER JOIN active_storage_blobs AS videos ON active_storage_attachments.blob_id = videos.id AND active_storage_attachments.name = 'video'
@@ -34,7 +39,7 @@ class SignbankExport
       FULL OUTER JOIN sign_activities AS agrees ON signs.id = agrees.sign_id and agrees.key like 'agree'
       FULL OUTER JOIN sign_activities AS disagrees on signs.id = disagrees.sign_id and disagrees.key like 'disagree'
     WHERE
-      status = 'published'
+      signs.status = 'published'
     GROUP BY
       signs.id, contributors.email, contributors.username
     ORDER BY
