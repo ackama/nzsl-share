@@ -27,17 +27,38 @@ RSpec.describe SignbankExport, type: :service do
 
       # Get last result and check fields
       result = results.last # ordered by ID asc
-      expect(result).to eq({
+      expect(result).to include({
         videos: sign.video.blob.id.to_s,
-        usage_examples: sign.usage_examples.blobs.pluck(:id).join("|"),
-        illustrations: sign.illustrations.blobs.pluck(:id).join("|"),
+        usage_examples: sign.usage_examples.blobs.pluck(:id).sort.join("|"),
+        illustrations: sign.illustrations.blobs.pluck(:id).sort.join("|"),
         word: sign.word,
         maori: sign.maori,
         secondary: sign.secondary,
         description: sign.description,
         notes: sign.notes,
-        topic_names: sign.topics.pluck(:name).join("|")
+        topic_names: sign.topics.order(:id).pluck(:name).sort.join("|"),
+        contributor_email: sign.contributor.email,
+        contributor_username: sign.contributor.username,
+        agrees: sign.agree_count,
+        disagrees: sign.disagree_count,
+        sign_comments: sign.sign_comments.where(display: true).where(removed: false).map do |comment|
+                         "#{comment.anonymous ? "Anonymous" : comment.user.username}: #{comment.comment}"
+                       end.sort.join("|")
       }.stringify_keys)
+      expect(result["created_at"].beginning_of_hour).to eq(sign.created_at.beginning_of_hour)
+    end
+
+    it "includes expected sign comments but not unexpected ones" do
+      result = results.last
+      published_comment = world.published_comment
+      anonymous_comment = world.anonymous_comment
+      invisible_comment = world.invisible_comment
+      deleted_comment = world.deleted_comment
+      expect(result["sign_comments"]).to include("#{published_comment.user.username}: #{published_comment.comment}")
+      expect(result["sign_comments"]).to include("Anonymous: #{anonymous_comment.comment}")
+      expect(result["sign_comments"]).not_to include("#{anonymous_comment.user.username}: #{anonymous_comment.comment}")
+      expect(result["sign_comments"]).not_to include("#{invisible_comment.user.username}: #{invisible_comment.comment}")
+      expect(result["sign_comments"]).not_to include("#{deleted_comment.user.username}: #{deleted_comment.comment}")
     end
   end
 
@@ -47,7 +68,8 @@ RSpec.describe SignbankExport, type: :service do
     it "builds the expected CSV structure" do
       lines = csv.split("\n")
       expect(lines.first).to eq(
-        "word,maori,secondary,description,notes,topic_names,videos,illustrations,usage_examples"
+        "word,maori,secondary,description,notes,created_at,contributor_email,contributor_username,agrees," \
+        "disagrees,topic_names,videos,illustrations,usage_examples,sign_comments"
       )
       expect(lines.size).to eq 3 # Headers plus 2 included signs
     end
@@ -59,7 +81,7 @@ RSpec.describe SignbankExport, type: :service do
     end
 
     it "turns the video id into a signed url" do
-      video_url = csv.split("\n").last.split(",")[6]
+      video_url = csv.split("\n").last.split(",")[-4]
       expect(video_url).to start_with("/rails/active_storage/blobs/redirect/")
       expect(video_url).to end_with("dummy.mp4")
     end
@@ -68,7 +90,7 @@ RSpec.describe SignbankExport, type: :service do
       image_file = Rails.root.join("spec/fixtures/image.jpeg").open
       image_file_io = { io: image_file, filename: File.basename(image_file) }
       world.published_signs.last.usage_examples.attach(image_file_io)
-      illustration_urls = csv.split("\n").last.split(",")[7].split("|")
+      illustration_urls = csv.split("\n").last.split(",")[-3].split("|")
 
       illustration_urls.each do |url|
         expect(url).to start_with("/rails/active_storage/blobs/redirect/")
@@ -80,7 +102,7 @@ RSpec.describe SignbankExport, type: :service do
       video_file = Rails.root.join("spec/fixtures/dummy.mp4").open
       video_file_io = { io: video_file, filename: File.basename(video_file) }
       world.published_signs.last.usage_examples.attach(video_file_io)
-      usage_example_urls = csv.split("\n").last.split(",").last.split("|")
+      usage_example_urls = csv.split("\n").last.split(",")[-2].split("|")
 
       usage_example_urls.each do |url|
         expect(url).to start_with("/rails/active_storage/blobs/redirect/")
@@ -91,13 +113,19 @@ RSpec.describe SignbankExport, type: :service do
 end
 
 class SignbankExportWorld
-  attr_reader :published_signs, :unpublished_sign
+  attr_reader :published_signs, :unpublished_sign, :published_comment, :deleted_comment, :invisible_comment,
+              :anonymous_comment
 
   def setup
     @published_signs = FactoryBot.create_list(
       :sign, 2, :published, :processed, :with_illustrations, :with_usage_examples, :with_additional_info
     )
     @unpublished_sign = FactoryBot.create(:sign)
+    @published_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second)
+    @deleted_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second, removed: true)
+    @invisible_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second, display: false)
+    @anonymous_comment = FactoryBot.create(:sign_comment, sign: @published_signs.second, anonymous: true)
+    FactoryBot.create_list(:sign_activity, 5, sign: @published_signs.second)
 
     self
   end
