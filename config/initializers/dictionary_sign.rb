@@ -2,12 +2,11 @@ Rails.application.reloader.to_prepare do
   # Update the dictionary file on boot
   Rails.application.load_tasks
 
-  # begin
-  #   Rake::Task["dictionary:update"].execute
-  # rescue StandardError => e
-  #   warn e
-  # end
-  Rake::Task["dictionary:update"].execute
+  begin
+    Rake::Task["dictionary:update"].execute
+  rescue StandardError => e
+    warn e
+  end
 
   ##
   # All other tables make heavy use of a 'word' column. Add an alias for it here so that
