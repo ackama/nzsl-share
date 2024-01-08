@@ -21,7 +21,7 @@ namespace :dictionary do
   end
 
   def s3_client(region:, access_key_id: nil, secret_access_key: nil)
-    opts = { region: }
+    opts = { region:, credentials: nil }
     opts[:credentials] = Aws::Credentials.new(access_key_id, secret_access_key) if access_key_id && secret_access_key
 
     Aws::S3::Client.new(opts)
