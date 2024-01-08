@@ -2,13 +2,9 @@ namespace :dictionary do
   desc "Updates the NZSL dictionary packaged with the application to the latest release from Signbank"
   task :update do # rubocop:disable Rails/RakeEnvironment - we need to place this file before the app can start
     database_s3_location = URI.parse(ENV.fetch("DICTIONARY_DATABASE_S3_LOCATION") || "")
-    client = s3_client(region: ENV.fetch("DICTIONARY_AWS_REGION", ENV.fetch("AWS_REGION", nil)),
-                       access_key_id: ENV.fetch("DICTIONARY_AWS_ACCESS_KEY_ID", nil),
-                       secret_access_key: ENV.fetch("DICTIONARY_AWS_SECRET_ACCESS_KEY", nil))
-
     fail "DICTIONARY_DATABASE_S3_LOCATION must be an S3 URI" unless database_s3_location.scheme == "s3"
 
-    download_s3_uri(database_s3_location, "db/new-dictionary.sqlite3", client:)
+    download_s3_uri(database_s3_location, "db/new-dictionary.sqlite3")
 
     database = SQLite3::Database.open("db/new-dictionary.sqlite3")
     fail "Database does not pass integrity check" unless database.integrity_check == [["ok"]]
@@ -20,35 +16,31 @@ namespace :dictionary do
     puts "Updated db/nzsl-dictionary.db.sqlite3 to #{version}"
   end
 
-  def s3_client(region:, access_key_id: nil, secret_access_key: nil)
-    opts = { region:, access_key_id:, secret_access_key: }.compact_blank
-
-    Aws::S3::Client.new(opts)
+  def s3_client
+    @s3_client ||= Aws::S3::Client.new({
+      region: ENV.fetch("DICTIONARY_AWS_REGION", ENV.fetch("AWS_REGION", nil)),
+      access_key_id: ENV.fetch("DICTIONARY_AWS_ACCESS_KEY_ID", nil),
+      secret_access_key: ENV.fetch("DICTIONARY_AWS_SECRET_ACCESS_KEY", nil) }.compact)
   end
 
-  def download_uri(uri, target_path)
-    uri = URI.parse(uri) unless uri.is_a?(URI)
+  def download_s3_uri(s3_uri, target)
+    bucket = s3_uri.host
+    key = s3_uri.path[1..]
 
-    Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-      response = http.get(uri.request_uri).tap(&:value)
-      File.binwrite(target_path, response.body)
+    begin
+      s3_client.get_object({ bucket:, key: }, target:)
+    rescue Aws::Errors::MissingCredentialsError,
+           Aws::Sigv4::Errors::MissingCredentialsError,
+           Aws::S3::Errors::ServiceError
+
+      # Fallback to public-URL download over HTTP if credentials are not provided or invalid.
+      # TODO use aws-sdk to leverage aws-client optimizations once unsigned requests are supported:
+      # https://github.com/aws/aws-sdk-ruby/issues/1149
+      public_url = URI.parse(Aws::S3::Bucket.new(bucket, credentials: 0).object(key).public_url)
+      Net::HTTP.start(public_url.host, public_url.port, use_ssl: true) do |http|
+        response = http.get(public_url.request_uri).tap(&:value)
+        File.binwrite(target, response.body)
+      end
     end
-  end
-
-  def download_s3_uri(s3_uri, target_path, client:)
-    s3_object = Aws::S3::Object.new(s3_uri.host, s3_uri.path[1..], client:)
-    uris_to_try = [s3_object.public_url, s3_object.presigned_url(:get, expires_in: 60)]
-
-    downloaded_uri = uris_to_try.detect do |uri|
-      puts "Downloading #{uri}"
-      download_uri(uri, target_path)
-      true
-    rescue Net::HTTPClientException => e
-      next if e.message == "403 \"Forbidden\""
-
-      raise "Failed to download #{s3_uri}: #{e}"
-    end
-
-    fail "Failed to download #{s3_uri}: All URIs have been tried" unless downloaded_uri
   end
 end
