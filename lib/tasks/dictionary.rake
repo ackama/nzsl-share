@@ -41,6 +41,7 @@ namespace :dictionary do
     uris_to_try = [s3_object.public_url, s3_object.presigned_url(:get, expires_in: 60)]
 
     downloaded_uri = uris_to_try.detect do |uri|
+      puts "Downloading #{uri}"
       download_uri(uri, target_path)
       true
     rescue Net::HTTPClientException => e
