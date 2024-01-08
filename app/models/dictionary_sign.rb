@@ -21,4 +21,8 @@ class DictionarySign < ApplicationRecord
   # Use attributes for common sign elements to match the NZSL Share sign schema
   alias_attribute :word, :gloss
   alias_attribute :secondary, :minor
+
+  def video
+    DictionarySignAsset.new(super).url
+  end
 end
