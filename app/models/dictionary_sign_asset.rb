@@ -18,7 +18,7 @@ class DictionarySignAsset
     def self.client
       @client ||= Aws::S3::Client.new(region:, access_key_id:,
                                       secret_access_key:)
-    rescue Aws::Sigv4::Errors::MissingCredentialsError, Aws::Sigv4::Errors::MissingRegionError
+    rescue Aws::Errors::MissingCredentialsError, Aws::Errors::MissingRegionError
       nil
     end
 
