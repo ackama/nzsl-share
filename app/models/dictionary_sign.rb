@@ -21,4 +21,8 @@ class DictionarySign < ApplicationRecord
   # Use attributes for common sign elements to match the NZSL Share sign schema
   alias_attribute :word, :gloss
   alias_attribute :secondary, :minor
+
+  def self.version
+    @version ||= connection.execute("PRAGMA user_version").first["user_version"]
+  end
 end
