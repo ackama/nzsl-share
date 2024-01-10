@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :exports, only: :index do
       get :published_signs, on: :collection
       get :users, on: :collection
+      get :signbank, on: :collection
     end
     root to: "signs#index"
   end

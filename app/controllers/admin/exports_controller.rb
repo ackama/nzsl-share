@@ -9,4 +9,8 @@ class Admin::ExportsController < Admin::ApplicationController
   def users
     send_data UsersExport.new.to_csv, filename: "users.csv", type: "text/csv"
   end
+
+  def signbank
+    send_data SignbankExport.new.to_csv, filename: "signbank.csv", type: "text/csv"
+  end
 end
