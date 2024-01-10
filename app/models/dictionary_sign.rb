@@ -25,4 +25,8 @@ class DictionarySign < ApplicationRecord
   def video
     DictionarySignAsset.new(super).url
   end
+
+  def self.version
+    @version ||= connection.execute("PRAGMA user_version").first["user_version"]
+  end
 end
