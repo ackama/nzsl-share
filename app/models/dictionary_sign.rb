@@ -23,7 +23,7 @@ class DictionarySign < ApplicationRecord
   alias_attribute :secondary, :minor
 
   def video
-    return unless super
+    return unless super.presence
 
     DictionarySignAsset.new(super).url
   end
