@@ -22,12 +22,6 @@ class DictionarySign < ApplicationRecord
   alias_attribute :word, :gloss
   alias_attribute :secondary, :minor
 
-  def video
-    return unless super.presence
-
-    DictionarySignAsset.new(super).url
-  end
-
   def self.version
     @version ||= connection.execute("PRAGMA user_version").first["user_version"]
   end
