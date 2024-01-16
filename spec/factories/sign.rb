@@ -85,7 +85,6 @@ FactoryBot.define do
     end
 
     trait :with_additional_info do
-      description { Faker::Lorem.sentence }
       notes { Faker::Lorem.paragraph }
     end
   end
