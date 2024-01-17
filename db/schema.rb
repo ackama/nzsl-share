@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_07_021057) do
-
+ActiveRecord::Schema[7.0].define(version: 2024_01_16_022132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -168,7 +167,6 @@ ActiveRecord::Schema.define(version: 2023_02_07_021057) do
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
     t.bigint "contributor_id", null: false
-    t.text "description"
     t.text "notes"
     t.boolean "processed_videos", default: false, null: false
     t.boolean "processed_thumbnails", default: false, null: false

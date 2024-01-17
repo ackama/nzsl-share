@@ -8,7 +8,6 @@ class SignbankExport
       signs.word,
       signs.maori,
       signs.secondary,
-      signs.description,
       signs.notes,
       signs.created_at,
       contributors.email AS contributor_email,

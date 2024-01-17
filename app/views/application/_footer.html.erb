@@ -1,5 +1,4 @@
 
-<% cache do %>
 <footer class="footer">
 <div class="grid-container">
   <div class="grid-x margin-bottom-3 margin-top-2 align-middle">
@@ -55,6 +54,7 @@
           This is an Open Source project.
         <%end%>
         </li>
+
       </ul>
     </div>
   </div>
@@ -62,6 +62,9 @@
     <div class="footer__license__content grid-x">
       <div class="cell auto">
         <p>
+           <% if DictionarySign.version %>
+            Dictionary database version: <%= DictionarySign.version %><br>
+          <% end %>
           <%= link_to "© Deaf Studies Research Unit, Victoria University of Wellington", "https://www.victoria.ac.nz/lals/centres-and-institutes/dsru",  target: "_blank" %>
         </p>
       </div>
@@ -74,4 +77,3 @@
   </div>
   </div>
 </footer>
-<% end %>

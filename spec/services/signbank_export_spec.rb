@@ -34,7 +34,6 @@ RSpec.describe SignbankExport, type: :service do
         word: sign.word,
         maori: sign.maori,
         secondary: sign.secondary,
-        description: sign.description,
         notes: sign.notes,
         topic_names: sign.topics.order(:id).pluck(:name).sort.join("|"),
         contributor_email: sign.contributor.email,
@@ -68,7 +67,7 @@ RSpec.describe SignbankExport, type: :service do
     it "builds the expected CSV structure" do
       lines = csv.split("\n")
       expect(lines.first).to eq(
-        "word,maori,secondary,description,notes,created_at,contributor_email,contributor_username,agrees," \
+        "word,maori,secondary,notes,created_at,contributor_email,contributor_username,agrees," \
         "disagrees,topic_names,videos,illustrations,usage_examples,sign_comments"
       )
       expect(lines.size).to eq 3 # Headers plus 2 included signs
