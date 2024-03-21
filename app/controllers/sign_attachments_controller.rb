@@ -44,7 +44,15 @@ class SignAttachmentsController < ApplicationController
   end
 
   def attachments
-    sign.public_send(attachment_type)
+    case attachment_type
+    when "usage_examples"
+      sign.usage_examples
+    when "illustrations"
+      sign.illustrations
+    else
+      # we're constraining at the route level so this should never actually happen
+      fail NoMethodError, "#{attachment_type} is not supported"
+    end
   end
 
   def attachment_type
