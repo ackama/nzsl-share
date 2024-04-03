@@ -28,6 +28,7 @@ RSpec.describe SignbankExport, type: :service do
       # Get last result and check fields
       result = results.last # ordered by ID asc
       expect(result).to include({
+        id: sign.id,
         videos: sign.video.blob.id.to_s,
         usage_examples: sign.usage_examples.blobs.pluck(:id).sort.join("|"),
         illustrations: sign.illustrations.blobs.pluck(:id).sort.join("|"),
@@ -67,7 +68,7 @@ RSpec.describe SignbankExport, type: :service do
     it "builds the expected CSV structure" do
       lines = csv.split("\n")
       expect(lines.first).to eq(
-        "word,maori,secondary,notes,created_at,contributor_email,contributor_username,agrees," \
+        "id,word,maori,secondary,notes,created_at,contributor_email,contributor_username,agrees," \
         "disagrees,topic_names,videos,illustrations,usage_examples,sign_comments"
       )
       expect(lines.size).to eq 3 # Headers plus 2 included signs

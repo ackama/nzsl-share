@@ -5,6 +5,7 @@ class SignbankExport
   SEPARATOR = "|".freeze
   QUERY = <<~SQL.squish.freeze
     SELECT
+      signs.id,
       signs.word,
       signs.maori,
       signs.secondary,
