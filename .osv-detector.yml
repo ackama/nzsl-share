@@ -1,4 +1,5 @@
 ignore:
+  - GHSA-2p57-rm9w-gvfp
   - GHSA-2r2c-g63r-vccr
   - GHSA-5rrq-pxf6-6jx5
   - GHSA-7fh5-64p2-3v2j
@@ -10,4 +11,3 @@ ignore:
   - GHSA-wr3j-pwj9-hqq6
   - GHSA-ww39-953v-wcq6
   - GHSA-x4jg-mjrx-434g
-  - GHSA-2p57-rm9w-gvfp
