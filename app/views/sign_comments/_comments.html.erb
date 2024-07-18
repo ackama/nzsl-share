@@ -1,7 +1,7 @@
 <% return unless policy(@sign).display_comments? %>
 
 <%= content_for :head do %>
-  <%= javascript_pack_tag "videocomment", async: true, defer: true %>
+  <%= prepend_javascript_pack_tag "videocomment", defer: true %>
 <% end %>
 
 <div id="sign-comments">

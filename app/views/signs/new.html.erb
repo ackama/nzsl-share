@@ -2,7 +2,7 @@
 <% contribution_limit = current_user.batch_sign_contributions_permitted? ? current_user.contribution_limit - current_user.signs.count : 1 %>
 
 <%= content_for :head do %>
-  <%= javascript_pack_tag "contributions", async: true, defer: true %>
+  <%= prepend_javascript_pack_tag "contributions", defer: true %>
 <% end %>
 
 <div class="grid-x margin-top-2 form">

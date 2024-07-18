@@ -2,9 +2,9 @@
 <% @sign = present(@sign) %>
 <%= content_for :head do %>
   <% unless @sign.fully_processed? %>
-    <%= javascript_pack_tag "edit", async: true, defer: true %>
+    <%= prepend_javascript_pack_tag "edit", defer: true %>
   <% end %>
-  <%= javascript_pack_tag "contributions", async: true, defer: true %>
+  <%= prepend_javascript_pack_tag "contributions", defer: true %>
 <% end %>
 
 <div class="grid-x">
