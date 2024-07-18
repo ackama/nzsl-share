@@ -22,6 +22,22 @@ jobs:
       - name: Check dependencies for security vulnerabilities
         uses: g-rath/check-with-osv-detector@6bf2c012dff284895d644e970294396b01aecc1c
 
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install required JS packages
+        run: yarn install
+      - name: Run formatting
+        run: yarn run format-check
+
   rubocop:
     runs-on: ubuntu-latest
     steps:
