@@ -21,7 +21,6 @@
     "@rails/activestorage": "^7.0.4",
     "@rails/request.js": "^0.0.8",
     "@rails/ujs": "^7.0.4",
-    "@rails/webpacker": "^5.1.0",
     "@svgr/webpack": "^4.3.3",
     "@uppy/core": "^3.0.4",
     "@uppy/dashboard": "^3.2.0",
@@ -32,6 +31,7 @@
     "jquery": "^3.4.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "shakapacker": "^7.0.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
