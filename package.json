@@ -10,11 +10,6 @@
     "scss-lint": "stylelint '**/*.{css,scss}'",
     "scss-lint-fix": "stylelint '**/*.{css,scss}' --fix"
   },
-  "babel": {
-    "presets": [
-      "./node_modules/shakapacker/package/babel/preset.js"
-    ]
-  },
   "browserslist": [
     "> 0.25% in NZ and last 2 versions",
     "not ie 11"
