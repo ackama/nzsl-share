@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended'
   ],
+  ignorePatterns: ['tmp/'],
   env: {
     commonjs: true,
     node: true,
