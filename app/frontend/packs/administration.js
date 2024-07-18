@@ -8,10 +8,9 @@
 // To reference this file, add <%= javascript_pack_tag 'administration' %> to the appropriate
 // layout file, like app/views/layouts/admin/application.html.erb
 
+require.context('../images', true);
+require('@rails/activestorage').start();
 
-require.context("../images", true);
-require("@rails/activestorage").start();
-
-import "foundation";
-import "../application.scss";
-import "../components/header";
+import 'foundation';
+import '../application.scss';
+import '../components/header';

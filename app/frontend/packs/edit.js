@@ -1,24 +1,24 @@
 // I added this line to pass eslint
-import jQuery from "jquery";
+import jQuery from 'jquery';
 
-var selector = ".js-sign-video-container";
+var selector = '.js-sign-video-container';
 var nextrun = 2000;
 
 function refresh() {
   var $currentContainer = jQuery(selector);
   // check if the selector exists before we carry on
   if ($currentContainer.length > 0) {
-    var $currentVideo = $currentContainer.find(".video");
+    var $currentVideo = $currentContainer.find('.video');
     jQuery
       .ajax({
         url: window.location,
-        dataType: "html",
+        dataType: 'html'
       })
-      .done(function(responseText) {
-        var $newVideoContainer = jQuery("<div>")
+      .done(function (responseText) {
+        var $newVideoContainer = jQuery('<div>')
           .append(jQuery.parseHTML(responseText))
           .find(selector);
-        var $newVideo = $newVideoContainer.find(".video");
+        var $newVideo = $newVideoContainer.find('.video');
 
         // Only refresh the HTML of the element if the classes of the video have changed
         if (
@@ -30,7 +30,7 @@ function refresh() {
         }
 
         // Kick off another poll if the video isn't processed yet
-        if (!$newVideo.hasClass("has-video")) {
+        if (!$newVideo.hasClass('has-video')) {
           setTimeout(refresh, nextrun);
         }
       });

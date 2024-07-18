@@ -1,22 +1,22 @@
-import uppyFileUpload from "./uppy-file-upload";
-import signVideoRestrictions from "./uppy/signVideoRestrictions";
-import { put } from "@rails/request.js";
+import uppyFileUpload from './uppy-file-upload';
+import signVideoRestrictions from './uppy/signVideoRestrictions';
+import { put } from '@rails/request.js';
 
 const updateSignVideo = (signId, signedBlobId) => {
   return put(`/signs/${signId}`, {
     body: JSON.stringify({
-      sign: { video: signedBlobId },
-    }),
-  }).then((response) => {
+      sign: { video: signedBlobId }
+    })
+  }).then(response => {
     if (!response.ok) {
       return Promise.reject(
-        new Error("Something went wrong creating this sign.")
+        new Error('Something went wrong creating this sign.')
       );
     }
   });
 };
 
-const updateSignVideoController = (container) => {
+const updateSignVideoController = container => {
   const signId = container.dataset.updateSignVideoSignIdValue;
   const trigger = container.querySelector(
     "[data-update-sign-video-target='trigger']"
@@ -24,7 +24,7 @@ const updateSignVideoController = (container) => {
 
   if (!signId) {
     console.error(
-      "Missing required value [data-update-sign-video-sign-id-value]"
+      'Missing required value [data-update-sign-video-sign-id-value]'
     );
     return;
   }
@@ -34,15 +34,15 @@ const updateSignVideoController = (container) => {
     dashboard: {
       hideRetryButton: true,
       inline: false,
-      trigger,
-    },
+      trigger
+    }
   });
 
   uppy.addPostProcessor(([fileId]) => {
     const file = uppy.getFile(fileId);
-    uppy.emit("postprocess-progress", file, {
-      mode: "indeterminate",
-      message: "Creating signs...",
+    uppy.emit('postprocess-progress', file, {
+      mode: 'indeterminate',
+      message: 'Creating signs...'
     });
 
     updateSignVideo(signId, file.response.signed_id).then(() => {
@@ -50,7 +50,6 @@ const updateSignVideoController = (container) => {
     });
   });
 };
-
 
 $(() => {
   $("[data-controller='update-sign-video']").each((_idx, container) =>
