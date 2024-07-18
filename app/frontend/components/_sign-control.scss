@@ -10,7 +10,9 @@
 
   &--agreed {
     color: get-color(success) !important;
-    & > svg { @include icon-fill(success); }
+    & > svg {
+      @include icon-fill(success);
+    }
 
     &:hover {
       filter: brightness(75%);
@@ -19,7 +21,9 @@
 
   &--disagreed {
     color: get-color(alert) !important;
-    & > svg { @include icon-fill(alert); }
+    & > svg {
+      @include icon-fill(alert);
+    }
 
     &:hover {
       filter: brightness(75%);

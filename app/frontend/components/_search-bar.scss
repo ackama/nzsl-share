@@ -15,7 +15,9 @@
     background-repeat: no-repeat;
     margin: 0;
     padding-right: 2rem;
-    transition: box-shadow, background-color linear 0.5s;
+    transition:
+      box-shadow,
+      background-color linear 0.5s;
 
     @include breakpoint(small) {
       border-radius: 5000px;

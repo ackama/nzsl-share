@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "format-check": "prettier --check .",
+    "format-fix": "prettier --write .",
     "js-lint": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
     "js-lint-fix": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
     "scss-lint": "stylelint '**/*.{css,scss}'",
@@ -16,6 +18,7 @@
     "node": "^16.19.1",
     "yarn": "^1.0.0"
   },
+  "prettier": "prettier-config-ackama",
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@rails/actioncable": "^7.0.4",
@@ -37,11 +40,15 @@
   },
   "devDependencies": {
     "eslint": "^8.32.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
     "lighthouse": "^10.0.0",
+    "prettier": "^3.3.3",
+    "prettier-config-ackama": "^1.1.0",
     "stylelint": "^13.3.0",
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-scss": "^3.16.0",

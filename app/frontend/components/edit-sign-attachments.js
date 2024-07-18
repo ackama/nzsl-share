@@ -1,8 +1,8 @@
-import uppyFileUpload from "./uppy-file-upload";
-import { post } from "@rails/request.js";
+import uppyFileUpload from './uppy-file-upload';
+import { post } from '@rails/request.js';
 
-const signAttachmentController = (container) => {
-  container.querySelectorAll("input[type=file]").forEach((el) => el.remove());
+const signAttachmentController = container => {
+  container.querySelectorAll('input[type=file]').forEach(el => el.remove());
 
   const url = container.dataset.signAttachmentUrlValue;
   const restrictions = JSON.parse(
@@ -12,7 +12,7 @@ const signAttachmentController = (container) => {
     "[data-sign-attachment-target='trigger']"
   );
   const refreshSelector = container.dataset.signAttachmentRefreshSelectorValue;
-  const supportWebcam = restrictions.allowedFileTypes.includes("video/*");
+  const supportWebcam = restrictions.allowedFileTypes.includes('video/*');
 
   const updateDynamicRestrictions = () => {
     const maxNumberOfFiles =
@@ -21,14 +21,14 @@ const signAttachmentController = (container) => {
     uppy.setOptions({
       restrictions: {
         ...restrictions,
-        maxNumberOfFiles,
-      },
+        maxNumberOfFiles
+      }
     });
 
     if (maxNumberOfFiles < 1) {
-      uppy.getPlugin("Dashboard").setOptions({ disabled: true });
+      uppy.getPlugin('Dashboard').setOptions({ disabled: true });
     } else {
-      uppy.getPlugin("Dashboard").setOptions({ disabled: false });
+      uppy.getPlugin('Dashboard').setOptions({ disabled: false });
     }
   };
 
@@ -40,32 +40,32 @@ const signAttachmentController = (container) => {
       trigger,
       allowMultipleUploads: false,
       closeAfterFinish: true,
-      plugins: supportWebcam ? ["Webcam"] : [],
-    },
+      plugins: supportWebcam ? ['Webcam'] : []
+    }
   });
 
-  uppy.on("dashboard:modal-open", updateDynamicRestrictions);
+  uppy.on('dashboard:modal-open', updateDynamicRestrictions);
 
-  uppy.addPostProcessor((fileIds) => {
-    const postProcessPromises = fileIds.map((fileId) => {
+  uppy.addPostProcessor(fileIds => {
+    const postProcessPromises = fileIds.map(fileId => {
       const file = uppy.getFile(fileId);
-      uppy.emit("postprocess-progress", file, {
-        mode: "indeterminate",
-        message: "Processing...",
+      uppy.emit('postprocess-progress', file, {
+        mode: 'indeterminate',
+        message: 'Processing...'
       });
 
       return post(url, {
         // eslint-disable-next-line camelcase
-        body: JSON.stringify({ signed_blob_id: file.response.signed_id }),
-      }).then((response) => {
+        body: JSON.stringify({ signed_blob_id: file.response.signed_id })
+      }).then(response => {
         if (response.statusCode === 422) {
-          return response.json.then((errors) =>
-            Promise.reject(new Error(errors.join(", ")))
+          return response.json.then(errors =>
+            Promise.reject(new Error(errors.join(', ')))
           );
         }
         if (!response.ok) {
           return Promise.reject(
-            new Error("Something went wrong creating this sign.")
+            new Error('Something went wrong creating this sign.')
           );
         }
 

@@ -8,11 +8,10 @@
 // To reference this file, add <%= javascript_pack_tag 'contributions' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-
-require.context("../images", true);
-import "../components/file-upload";
-import "../components/uppy-file-upload";
-import "../components/create-sign-form";
-import "../components/edit-sign-form";
-import "../components/edit-sign-video";
-import "../components/edit-sign-attachments";
+require.context('../images', true);
+import '../components/file-upload';
+import '../components/uppy-file-upload';
+import '../components/create-sign-form';
+import '../components/edit-sign-form';
+import '../components/edit-sign-video';
+import '../components/edit-sign-attachments';

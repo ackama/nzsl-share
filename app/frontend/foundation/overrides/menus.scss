@@ -9,10 +9,14 @@
     font-weight: 600;
   }
 
-  &.is-submenu-item { @include menu-sub-item; }
+  &.is-submenu-item {
+    @include menu-sub-item;
+  }
 
   img {
-    & + span { margin-left: 1rem; }
+    & + span {
+      margin-left: 1rem;
+    }
   }
 
   svg {
@@ -26,8 +30,12 @@
 
   &:hover {
     background: get-color(royal-x-light);
-    & svg { @include icon-fill(get-color(royal)); }
-    & > a { color: get-color(royal); }
+    & svg {
+      @include icon-fill(get-color(royal));
+    }
+    & > a {
+      color: get-color(royal);
+    }
   }
 }
 
@@ -40,7 +48,9 @@
   }
 
   &.icons {
-    a { align-items: center; }
+    a {
+      align-items: center;
+    }
   }
 
   li {

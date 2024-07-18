@@ -1,9 +1,9 @@
-module.exports = function(api) {
-  var validEnv = ['development', 'test', 'production']
-  var currentEnv = api.env()
-  var isDevelopmentEnv = api.env('development')
-  var isProductionEnv = api.env('production')
-  var isTestEnv = api.env('test')
+module.exports = function (api) {
+  var validEnv = ['development', 'test', 'production'];
+  var currentEnv = api.env();
+  var isDevelopmentEnv = api.env('development');
+  var isProductionEnv = api.env('production');
+  var isTestEnv = api.env('test');
 
   if (!validEnv.includes(currentEnv)) {
     throw new Error(
@@ -12,7 +12,7 @@ module.exports = function(api) {
         '"test", and "production". Instead, received: ' +
         JSON.stringify(currentEnv) +
         '.'
-    )
+    );
   }
 
   return {
@@ -38,7 +38,7 @@ module.exports = function(api) {
     ].filter(Boolean),
     plugins: [
       require('babel-plugin-macros'),
-      require("@babel/plugin-transform-for-of").default,
+      require('@babel/plugin-transform-for-of').default,
       require('@babel/plugin-syntax-dynamic-import').default,
       isTestEnv && require('babel-plugin-dynamic-import-node'),
       require('@babel/plugin-transform-destructuring').default,
@@ -54,8 +54,14 @@ module.exports = function(api) {
           useBuiltIns: true
         }
       ],
-      [require('@babel/plugin-proposal-private-property-in-object').default, { loose: true }],
-      [require('@babel/plugin-proposal-private-methods').default, { loose: true }],
+      [
+        require('@babel/plugin-proposal-private-property-in-object').default,
+        { loose: true }
+      ],
+      [
+        require('@babel/plugin-proposal-private-methods').default,
+        { loose: true }
+      ],
       [
         require('@babel/plugin-transform-runtime').default,
         {
@@ -70,7 +76,7 @@ module.exports = function(api) {
           async: false
         }
       ],
-      ["@babel/plugin-transform-react-jsx"],
+      ['@babel/plugin-transform-react-jsx']
     ].filter(Boolean)
-  }
-}
+  };
+};

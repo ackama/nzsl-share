@@ -1,9 +1,9 @@
 default: &default
   age_brackets:
-    - "13_18"
-    - "19_29"
-    - "30_49"
-    - "50_plus"
+    - '13_18'
+    - '19_29'
+    - '30_49'
+    - '50_plus'
   ethnicities:
     - nz_european
     - māori
