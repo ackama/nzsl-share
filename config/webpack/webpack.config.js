@@ -8,6 +8,11 @@ const {
 } = require('shakapacker');
 
 module.exports = generateWebpackConfig({
+  resolve: {
+    alias: {
+      jquery: 'jquery/src/jquery'
+    }
+  },
   module: {
     rules: [
       {
