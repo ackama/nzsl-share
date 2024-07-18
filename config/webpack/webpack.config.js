@@ -26,5 +26,11 @@ module.exports = generateWebpackConfig({
         }
       }
     ]
-  }
+  },
+  ignoreWarnings: [
+    // these primarily come from dependencies like Foundation and are very noisy
+    // so lets just exclude them completely until Dart Sass 2 is actually near
+    /will be removed in Dart Sass 2\.0\.0/u,
+    /You probably don't mean to use the color value/u
+  ]
 });
