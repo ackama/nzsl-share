@@ -7,7 +7,10 @@ $icon-sizes: (
 
 $icon-palette: map-merge(
   $foundation-palette,
-  ( "white": $white, "black": $black)
+  (
+    "white": $white,
+    "black": $black
+  )
 );
 
 @mixin icon-fill($color: $black) {
@@ -49,12 +52,18 @@ $icon-palette: map-merge(
   @include icon-size;
 
   @each $name, $color in $icon-palette {
-    &--#{$name} { @include icon-fill($color); }
-    &--stroke-#{$name} { @include icon-stroke($color); }
+    &--#{$name} {
+      @include icon-fill($color);
+    }
+    &--stroke-#{$name} {
+      @include icon-stroke($color);
+    }
   }
 
   @each $name, $size in $icon-sizes {
-    &--#{$name} { @include icon-size($name); }
+    &--#{$name} {
+      @include icon-size($name);
+    }
   }
 
   &--inline {
@@ -62,5 +71,7 @@ $icon-palette: map-merge(
     vertical-align: middle;
   }
 
-  &--hollow { @include icon-fill(transparent); }
+  &--hollow {
+    @include icon-fill(transparent);
+  }
 }

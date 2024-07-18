@@ -16,4 +16,4 @@ amazon:
   upload:
     # Don't allow intermediataries to cache, and browser can cache
     # for 1 hour.
-    cache_control: "private, max-age=3600"
+    cache_control: 'private, max-age=3600'

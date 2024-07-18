@@ -1,7 +1,8 @@
 $pi: 3.141592653589793;
 $progress-indicator-diameter: 48px;
 $progress-indicator-stroke-width: 8px;
-$progress-indicator-radius: ($progress-indicator-diameter / 2) - ($progress-indicator-stroke-width / 2);
+$progress-indicator-radius: ($progress-indicator-diameter / 2) -
+  ($progress-indicator-stroke-width / 2);
 $progress-indicator-circumference: $progress-indicator-radius * 2 * $pi;
 
 .progress-indicator {
@@ -34,7 +35,8 @@ $progress-indicator-circumference: $progress-indicator-radius * 2 * $pi;
   @for $i from 0 through 100 {
     &--progress-#{$i} {
       .progress-indicator__progress {
-        stroke-dashoffset: $progress-indicator-circumference * ((100 - $i) / 100);
+        stroke-dashoffset: $progress-indicator-circumference *
+          ((100 - $i) / 100);
       }
     }
   }

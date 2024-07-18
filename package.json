@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "format-check": "prettier --check .",
+    "format-fix": "prettier --write .",
     "js-lint": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
     "js-lint-fix": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
     "scss-lint": "stylelint '**/*.{css,scss}'",

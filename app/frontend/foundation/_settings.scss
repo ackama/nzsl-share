@@ -73,7 +73,7 @@ $extra-light-gray: #eceeee;
 $light-gray: #a0a7ab;
 $lighter-gray: #d6dadb;
 $neutral-gray: #556970;
-$light-neutral-gray: #C2CDD1;
+$light-neutral-gray: #c2cdd1;
 $medium-gray: #646970;
 $dark-gray: $medium-gray;
 $black: #041723;
@@ -84,7 +84,7 @@ $foundation-palette: (
   primary-light: #d6e2ee,
   primary-x-light: #eff4f8,
   accent: #ff571f,
-  accent-x-light: #FFF7F4,
+  accent-x-light: #fff7f4,
   royal: #354ae7,
   royal-x-light: #f1f2fb,
   success: #038500,
@@ -152,7 +152,7 @@ $grid-margin-gutters: (
   medium: rem-calc(30),
   large: rem-calc(42)
 );
-$grid-container-padding:  (
+$grid-container-padding: (
   small: rem-calc(12) * 2,
   medium: rem-calc(34) * 2,
   large: rem-calc(38) * 2
@@ -177,7 +177,7 @@ $header-styles: (
       "font-size": 28
     ),
     "h2": (
-      "font-size": 22,
+      "font-size": 22
     ),
     "h3": (
       "font-size": 18
@@ -339,7 +339,11 @@ $button-palette: (
 $button-opacity-disabled: 0.25;
 $button-background-hover-lightness: 0%;
 $button-hollow-hover-lightness: 0%;
-$button-transition: background-color, box-shadow, transform 0.25s ease-out, color 0.25s ease-out;
+$button-transition:
+  background-color,
+  box-shadow,
+  transform 0.25s ease-out,
+  color 0.25s ease-out;
 $button-responsive-expanded: false;
 
 // 12. Button Group
@@ -421,7 +425,7 @@ $dropdown-radius: $global-radius;
 $dropdown-sizes: (
   tiny: 100px,
   small: 320px,
-  large: 400px,
+  large: 400px
 );
 
 // 18. Dropdown Menu
@@ -484,7 +488,9 @@ $input-padding: $form-spacing;
 $input-shadow: none;
 $input-shadow-focus: none;
 $input-cursor-disabled: not-allowed;
-$input-transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+$input-transition:
+  box-shadow 0.5s,
+  border-color 0.25s ease-in-out;
 $input-number-spinners: true;
 $input-radius: $global-radius;
 $form-button-radius: $global-radius;
@@ -685,8 +691,9 @@ $prototype-separator-margin-top: $global-margin;
 // --------------------
 
 $prototype-shadow-breakpoints: $global-prototype-breakpoints;
-$prototype-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
-0 2px 10px 0 rgba(0, 0, 0, 0.12);
+$prototype-box-shadow:
+  0 2px 5px 0 rgba(0, 0, 0, 0.16),
+  0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
 // 41. Prototype Sizing
 // --------------------
@@ -730,7 +737,7 @@ $prototype-text-overflow: ellipsis;
 $responsive-embed-margin-bottom: rem-calc(16);
 $responsive-embed-ratios: (
   default: 16 by 9,
-  dictionary: 4 by 3,
+  dictionary: 4 by 3
 );
 
 // 47. Reveal

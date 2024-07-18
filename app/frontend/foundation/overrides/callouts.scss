@@ -25,7 +25,8 @@
     color: $white;
   }
 
-  &__action { // Intended to be applied to a button
+  &__action {
+    // Intended to be applied to a button
     @include button-hollow;
     @include button-style(transparent, transparent, $callout-font-color-alt);
 
@@ -36,7 +37,9 @@
     padding-right: 0;
     text-align: left;
 
-    &.expanded { @include button-expand; }
+    &.expanded {
+      @include button-expand;
+    }
   }
 
   &__close {

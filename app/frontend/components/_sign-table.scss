@@ -6,18 +6,19 @@
   // across the whole list, not the 'row'
   @include breakpoint(large up) {
     // Reset table elements to be stylable as a grid
-    thead, tbody, tr {
+    thead,
+    tbody,
+    tr {
       display: contents;
     }
 
-    grid-template-columns:
-        [checkbox-start] max-content // Checkbox
-        [checkbox-end content-start] max-content // Image
-        1fr // Titles
-        max-content // Status
-        max-content // Contributor
-        1fr // Activity
-        max-content [content-end]; // Controls
+    grid-template-columns: [checkbox-start] max-content // Checkbox
+      [checkbox-end content-start] max-content // Image
+      1fr // Titles
+      max-content // Status
+      max-content // Contributor
+      1fr // Activity
+      max-content [content-end]; // Controls
   }
 
   // Apply the grid to each table row. This makes each 'row'
@@ -31,8 +32,7 @@
       padding-bottom: 1.4rem;
 
       display: grid;
-      grid-template-columns:
-        [checkbox-start] max-content // Checkbox
+      grid-template-columns: [checkbox-start] max-content // Checkbox
         [checkbox-end content-start] max-content // Image
         1fr // Titles
         max-content // Status
@@ -68,7 +68,8 @@
     }
   }
 
-  &__cell, &__column-heading {
+  &__cell,
+  &__column-heading {
     @include breakpoint(large up) {
       border-bottom: solid 1px $light-neutral-gray;
       padding: 1.5rem 1rem;
@@ -95,7 +96,8 @@
       display: block;
 
       // The first and last cells are stretched across two columns:
-      &:first-child, &:last-child {
+      &:first-child,
+      &:last-child {
         grid-column-end: span 2;
       }
     }
@@ -173,7 +175,8 @@
       }
     }
 
-    a, a:hover {
+    a,
+    a:hover {
       font-weight: normal;
       text-decoration: underline;
     }
