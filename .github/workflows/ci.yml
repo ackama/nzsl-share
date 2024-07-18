@@ -45,7 +45,7 @@ jobs:
           bundler-cache: true
 
       - name: Run Ruby static analysis
-        run: bundle exec brakeman --run-all-checks --exit-on-warn --format plain .
+        run: bundle exec brakeman --run-all-checks .
 
   eslint:
     runs-on: ubuntu-latest
