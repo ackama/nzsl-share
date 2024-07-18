@@ -12,7 +12,7 @@
       <hr class="form__divider">
 
       <%= f.label :username, class: "required" %>
-      <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
+      <%= f.text_field :username, pattern: User::USERNAME_JS_REGEXP %>
       <%= f.error :username %>
 
       <%= f.label :email, class: "required" %>
