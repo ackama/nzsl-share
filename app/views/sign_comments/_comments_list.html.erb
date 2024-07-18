@@ -17,7 +17,7 @@
         <% if sign_comment_policy(current_user, comment, @current_folder_id).create? %>
           <span class="cell auto">
             <%= content_tag "a", nil, data: { id: dom_id(comment, :reply) }, class: "js-sign-comment-reply sign-comments__replies--reply sign-comments__replies--link" do %>
-              <%= inline_svg_pack_tag "media/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
+              <%= inline_svg_pack_tag "static/images/reply.svg", aria_hidden: true, class: "icon icon--medium" %>
               Reply
             <% end %>
             &nbsp;•&nbsp;

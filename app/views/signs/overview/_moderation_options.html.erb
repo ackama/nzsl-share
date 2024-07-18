@@ -4,7 +4,7 @@
     <%= overview_reject_link(sign) %>
   <% end%>
   <%= link_to edit_sign_path(@sign), class: "button clear overview" do %>
-    <%= inline_svg_pack_tag "media/images/edit.svg", title: "Edit", class: "icon icon--royal" %>
+    <%= inline_svg_pack_tag "static/images/edit.svg", title: "Edit", class: "icon icon--royal" %>
     Edit
   <% end if policy(@sign).edit? %>
 </div>

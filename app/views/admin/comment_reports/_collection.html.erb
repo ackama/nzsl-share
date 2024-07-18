@@ -37,7 +37,7 @@ to display a collection of resources in an HTML table.
         ).titleize %>
             <% if collection_presenter.ordered_by?(attr_name) %>
               <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
-              <%= inline_svg_pack_tag "media/images/dropdown.svg", class: "icon--small" %>
+              <%= inline_svg_pack_tag "static/images/dropdown.svg", class: "icon--small" %>
             </span>
             <% end %>
           <% end %>

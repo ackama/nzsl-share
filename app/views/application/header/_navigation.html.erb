@@ -2,8 +2,8 @@
   <nav class="navigation">
     <ul class="navigation__list navigation__list--left">
       <li class="navigation__title"><a href="/">
-        <%= image_pack_tag "logo.svg", alt: "NZSL Share", class: "hide-for-medium-only" %>
-        <%= image_pack_tag "logo-stacked.svg", alt: "NZSL Share", class: "show-for-medium-only" %>
+        <%= image_pack_tag "static/images/logo.svg", alt: "NZSL Share", class: "hide-for-medium-only" %>
+        <%= image_pack_tag "static/images/logo-stacked.svg", alt: "NZSL Share", class: "show-for-medium-only" %>
       </a></li>
     </ul>
     <ul class="row align-center navigation__list navigation__list--left navigation__list--expand">
@@ -13,7 +13,7 @@
         <ul class="dropdown menu" data-dropdown-menu data-v-offset="8" data-h-offset="8">
           <li class="navigation__item">
             <%= link_to "Browse Topics", topics_path %>
-            <%= inline_svg_pack_tag "media/images/dropdown.svg", aria_hidden: true, class: "icon--white" %>
+            <%= inline_svg_pack_tag "static/images/dropdown.svg", aria_hidden: true, class: "icon--white" %>
             <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
               <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
               <hr class="menu-divider" />

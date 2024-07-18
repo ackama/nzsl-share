@@ -1,10 +1,10 @@
 <div class="hero-unit grid-x">
   <div class="cell large-5 video-wrapper--hero" data-overlay >
-    <%= image_pack_tag "hero-image.jpg", class: "video__poster" %>
+    <%= image_pack_tag "static/images/hero-image.jpg", class: "video__poster" %>
 
     <video class="video video--hero video--hero--large has-video" >
-      <source src="<%= asset_pack_path 'media/images/home-intro.webm' %>" type="video/webm">
-      <source src="<%= asset_pack_path 'media/images/home-intro.mp4' %>" type="video/mp4">
+      <source src="<%= asset_pack_path 'static/images/home-intro.webm' %>" type="video/webm">
+      <source src="<%= asset_pack_path 'static/images/home-intro.mp4' %>" type="video/mp4">
     </video>
 
     <i class="video__overlay video__overlay--hero" alt="Play video" ></i>
@@ -20,7 +20,7 @@
         <ul class="dropdown menu" data-dropdown-menu data-position="bottom" data-alignment="right" data-v-offset="8" data-h-offset="8">
           <li class="hero-unit__browse-link">
             <%= link_to "Browse Topics", topics_path, class: "hero-unit__browse-link--button"%>
-            <%= inline_svg_pack_tag "media/images/dropdown.svg", aria_hidden: true %>
+            <%= inline_svg_pack_tag "static/images/dropdown.svg", aria_hidden: true %>
             <ul class="hide-if-no-js vertical menu nested is-dropdown-submenu">
               <%= safe_join Topic.featured.map { |topic| content_tag(:li, link_to(topic.name, topic)) } %>
               <hr class="menu-divider" />

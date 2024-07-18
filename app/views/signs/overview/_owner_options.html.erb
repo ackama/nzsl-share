@@ -1,7 +1,7 @@
 <% if policy(@sign).edit? && !@sign.submitted_to_publish? %>
   <div class="cell small-3 grid-x align-middle align-right">
     <%= link_to edit_sign_path(@sign), class: "button clear overview" do %>
-      <%= inline_svg_pack_tag "media/images/edit.svg", aria_hidden: true, class: "icon icon--royal" %>
+      <%= inline_svg_pack_tag "static/images/edit.svg", aria_hidden: true, class: "icon icon--royal" %>
       Edit
     <% end %>
   </div>
@@ -9,14 +9,14 @@
 <% else %>
   <div class="cell small-1 grid-x align-middle">
     <button href="#" class="button clear icon-only overview" data-toggle="sign_options" title="Sign Options">
-      <%= inline_svg_pack_tag "media/images/options.svg", class: "icon icon--royal icon--mid list__item__icon" %>
+      <%= inline_svg_pack_tag "static/images/options.svg", class: "icon icon--royal icon--mid list__item__icon" %>
     </button>
     <div class="list__item-menu__dropdown-pane" id="sign_options" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
       <ul class="list__item-menu vertical icons">
         <% if policy(@sign).edit?%>
           <li class="list__item-menu__menu-item">
             <%= link_to edit_sign_path(@sign) do %>
-              <%= inline_svg_pack_tag "media/images/edit.svg", title: "Edit", aria_hidden: true, class: "icon--medium" %>
+              <%= inline_svg_pack_tag "static/images/edit.svg", title: "Edit", aria_hidden: true, class: "icon--medium" %>
               <span>Edit</span>
             <% end %>
           </li>
@@ -25,7 +25,7 @@
         <% if policy(@sign).cancel_submit? %>
           <li class="list__item-menu__menu-item">
             <%= link_to cancel_submit_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.cancel_submit.confirm") } do %>
-              <%= inline_svg_pack_tag "media/images/disagree.svg", title: "Cancel", class: "icon--medium" %>
+              <%= inline_svg_pack_tag "static/images/disagree.svg", title: "Cancel", class: "icon--medium" %>
               <span><%= t("sign_workflow.cancel_submit.link_to") %></span>
             <% end %>
           </li>
@@ -34,7 +34,7 @@
         <% if policy(@sign).request_unpublish? %>
           <li class="list__item-menu__menu-item">
             <%= link_to request_unpublish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.request_unpublish.confirm") } do %>
-              <%= inline_svg_pack_tag "media/images/private.svg", title: "Private", class: "icon--medium" %>
+              <%= inline_svg_pack_tag "static/images/private.svg", title: "Private", class: "icon--medium" %>
               <span><%= t("sign_workflow.request_unpublish.link_to") %></span>
             <% end %>
           </li>
@@ -43,7 +43,7 @@
         <% if policy(@sign).cancel_request_unpublish? %>
           <li class="list__item-menu__menu-item">
             <%= link_to cancel_request_unpublish_sign_path(@sign), method: :patch, data: { confirm: t("sign_workflow.cancel_request_unpublish.confirm") } do %>
-              <%= inline_svg_pack_tag "media/images/eye.svg", title: "Public", class: "icon--medium" %>
+              <%= inline_svg_pack_tag "static/images/eye.svg", title: "Public", class: "icon--medium" %>
               <span><%= t("sign_workflow.cancel_request_unpublish.link_to") %></span>
             <% end %>
           </li>
