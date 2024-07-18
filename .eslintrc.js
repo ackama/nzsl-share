@@ -10,6 +10,8 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   env: {
+    commonjs: true,
+    node: true,
     browser: true,
     es6: true
   },
