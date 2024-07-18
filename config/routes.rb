@@ -95,10 +95,10 @@ Rails.application.routes.draw do
   # accessibility and performance tests. You are encouraged to remove this hack
   # as soon as it is no longer needed.
   #
-  if defined?(Webpacker) && Rails.env.test?
-    # manifest paths depend on your webpacker config so we inspect it
-    manifest_path = Webpacker::Configuration
-                    .new(root_path: Rails.root, config_path: Rails.root.join("config/webpacker.yml"), env: Rails.env)
+  if defined?(Shakapacker) && Rails.env.test?
+    # manifest paths depend on your shakapacker config so we inspect it
+    manifest_path = Shakapacker::Configuration
+                    .new(root_path: Rails.root, config_path: Rails.root.join("config/shakapacker.yml"), env: Rails.env)
                     .public_manifest_path
                     .relative_path_from(Rails.public_path)
                     .to_s
