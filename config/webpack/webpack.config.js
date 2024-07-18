@@ -1,6 +1,7 @@
 'use strict';
 
 const { dirname } = require('path');
+const webpack = require('webpack');
 const {
   config: { source_path: sourcePath },
   generateWebpackConfig
@@ -27,6 +28,12 @@ module.exports = generateWebpackConfig({
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+  ],
   ignoreWarnings: [
     // these primarily come from dependencies like Foundation and are very noisy
     // so lets just exclude them completely until Dart Sass 2 is actually near
