@@ -445,7 +445,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  administrate (~> 0.18)
+  administrate (~> 0.19)
   aws-sdk-s3
   axe-matchers
   bootsnap
