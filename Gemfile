@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version")
 
 gem "aasm"
-gem "administrate", "~> 0.17"
+gem "administrate", "~> 0.18"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
 gem "devise"
