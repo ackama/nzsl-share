@@ -12,3 +12,4 @@ require('@rails/activestorage').start();
 import 'foundation';
 import '../application.scss';
 import '../components/header';
+import 'selectize/dist/js/selectize.min.js';
