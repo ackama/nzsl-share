@@ -5,8 +5,8 @@
   "scripts": {
     "format-check": "prettier --check .",
     "format-fix": "prettier --write .",
-    "js-lint": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
-    "js-lint-fix": "eslint app/frontend --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
+    "js-lint": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
+    "js-lint-fix": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
     "scss-lint": "stylelint '**/*.{css,scss}'",
     "scss-lint-fix": "stylelint '**/*.{css,scss}' --fix"
   },

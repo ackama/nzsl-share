@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 13,
+    ecmaVersion: 2020,
     sourceType: 'module'
   },
   extends: [
@@ -9,7 +9,10 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended'
   ],
+  ignorePatterns: ['tmp/'],
   env: {
+    commonjs: true,
+    node: true,
     browser: true,
     es6: true
   },
