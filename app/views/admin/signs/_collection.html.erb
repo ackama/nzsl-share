@@ -85,7 +85,7 @@ to display a collection of resources in an HTML table.
                       <%= inline_svg_pack_tag "media/images/archive.svg", class: "icon--medium" %><span>Unpublish</span>
                   <% end %>
                 </li>
-              <% elsif valid_action? :destroy, collection_presenter.resource_name %>
+              <% elsif existing_action?(collection_presenter.resource_name, :destroy) %>
                 <li class="list__item-menu__menu-item">
                   <%= link_to sign_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") } do %>
                     <%= inline_svg_pack_tag "media/images/archive.svg", class: "icon--medium" %><span>Destroy</span>
