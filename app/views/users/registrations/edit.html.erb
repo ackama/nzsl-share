@@ -18,7 +18,7 @@
       <% end %>
 
       <%= f.label :username %>
-      <%= f.text_field :username,pattern: User::USERNAME_REGEXP %>
+      <%= f.text_field :username, pattern: User::USERNAME_JS_REGEXP %>
 
       <%= f.label :bio %>
       <%= f.text_area :bio, rows: 5, placeholder: "Tell us a little about yourself! This will be visible to others.", maxlength: "250", data: {characters: ""} %>
@@ -112,4 +112,3 @@
     </div>
   <% end %>
 </div>
-
