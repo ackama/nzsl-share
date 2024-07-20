@@ -98,7 +98,8 @@
       <%= content_tag :span, t("demographic.language_roles.other") %><br />
       <%= f.text_field :"language_roles", multiple: true, value: nil, class: "cell small-6 margin-left-1" %>
     <% end %>
-    <%= f.label :subject_expertise, "Do you have any subject expertise? (e.g. work in IT, studying physics, work as a doctor)" %>
+  </div>
+  <%= f.label :subject_expertise, "Do you have any subject expertise? (e.g. work in IT, studying physics, work as a doctor)" %>
   <%= f.text_field :subject_expertise %>
   <%= f.error :subject_expertise %>
 </fieldset>
