@@ -1,8 +1,9 @@
-PATH
-  remote: vendor/gems/sidekiq-batch
+GIT
+  remote: https://github.com/breamware/sidekiq-batch.git
+  revision: f2ef0289ea23e652797741de96506957535099ff
   specs:
     sidekiq-batch (0.1.9)
-      sidekiq (>= 3, < 8)
+      sidekiq (>= 7, < 8)
 
 GEM
   remote: https://rubygems.org/
