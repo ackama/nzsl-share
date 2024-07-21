@@ -25,7 +25,6 @@
     "@rails/activestorage": "^7.0.4",
     "@rails/request.js": "^0.0.8",
     "@rails/ujs": "^7.0.4",
-    "@svgr/webpack": "^4.3.3",
     "@types/babel__core": "^7.0.0",
     "@types/webpack": "^5.0.0",
     "@uppy/core": "^3.0.4",
