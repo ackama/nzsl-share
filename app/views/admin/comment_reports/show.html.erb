@@ -32,20 +32,22 @@ as well as a link to its edit page.
         <%= link_to sign_path(sign) do %>
           <%= sign.word %>
         <% end %>
-        <% page.attributes.each do |attribute| %>
-          <dt class="attribute-label" id="<%= attribute.name %>">
-          <%= t(
-            "helpers.label.#{resource_name}.#{attribute.name}",
-            default: attribute.name.titleize,
-          ) %>
-          </dt>
-          <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
-            <% begin %>
-              <%= render "admin/comment_reports/cell/#{attribute.name}", resource: page.resource, namespace: namespace %>
-            <% rescue ActionView::MissingTemplate%>
-              <%= render_field attribute, page: page %>
-            <% end %>
-          </dd>
+        <% page.attributes.each do |_, attributes| %>
+          <% attributes.each do |attribute| %>
+            <dt class="attribute-label" id="<%= attribute.name %>">
+            <%= t(
+              "helpers.label.#{resource_name}.#{attribute.name}",
+              default: attribute.name.titleize,
+            ) %>
+            </dt>
+            <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+              <% begin %>
+                <%= render "admin/comment_reports/cell/#{attribute.name}", resource: page.resource, namespace: namespace %>
+              <% rescue ActionView::MissingTemplate%>
+                <%= render_field attribute, page: page %>
+              <% end %>
+            </dd>
+          <% end %>
         <% end %>
       </dl>
     </section>

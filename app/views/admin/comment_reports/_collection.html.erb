@@ -51,13 +51,13 @@ to display a collection of resources in an HTML table.
 
       <tr class="js-table-row"
           tabindex="0"
-          <% if valid_action? :show, collection_presenter.resource_name %>
+          <% if existing_action?(collection_presenter.resource_name, :show) %>
             <%= %(role=link data-url=#{polymorphic_path([namespace, resource])}) %>
           <% end %>
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
-            <% if show_action? :show, resource -%>
+            <% if accessible_action?(resource, :show) -%>
                 <% begin %>
                   <%= render "admin/comment_reports/cell/#{attribute.name}", resource: resource, namespace: namespace %>
                 <% rescue ActionView::MissingTemplate%>
