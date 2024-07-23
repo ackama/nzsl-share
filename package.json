@@ -14,10 +14,6 @@
     "> 0.25% in NZ and last 2 versions",
     "not ie 11"
   ],
-  "engines": {
-    "node": "^16.19.1",
-    "yarn": "^1.0.0"
-  },
   "prettier": "prettier-config-ackama",
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.3.0",
@@ -53,5 +49,9 @@
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-scss": "^3.16.0",
     "webpack-dev-server": "^3.8.0"
+  },
+  "engines": {
+    "node": "^16.19.1",
+    "yarn": "^1.0.0"
   }
 }
