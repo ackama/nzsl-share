@@ -2,7 +2,7 @@
 
 # NZSL Share
 
-This is a Rails 6 app.
+This is a Rails 7 app.
 
 ## Documentation
 
