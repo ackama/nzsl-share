@@ -2,6 +2,6 @@
 
 <%= link_to sign, class: "sign-control--comments #{'sign-control--comments--unread' if sign.unread_comments?}",
                   id: sign.dom_id(:comments) do %>
-  <%= inline_svg_pack_tag "media/images/comment.svg", aria: true, title: "Comments", class: "sign-control--icon" %>
+  <%= inline_svg_pack_tag "static/images/comment.svg", aria: true, title: "Comments", class: "sign-control--icon" %>
   <%= sign.comments_count %>
 <% end %>

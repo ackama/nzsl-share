@@ -44,7 +44,7 @@
       <div class="cell auto"></div>
       <div class="cell shrink">
         <%= link_to sign_share_index_path(@sign), method: :post, class: "button clear sign-card__folders__button--text-color" do %>
-          <%= inline_svg_pack_tag "media/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
+          <%= inline_svg_pack_tag "static/images/share.svg", aria_hidden: true, class: "icon icon--medium" %>
           Share
         <% end if policy(@sign).share? %>
       </div>

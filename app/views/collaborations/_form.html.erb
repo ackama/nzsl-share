@@ -2,7 +2,7 @@
   <div class="cell grid-x align-middle modal-form__title modal-form__title--collaborators">
     <h2>Manage team</h2>
     <button class="modal-form__close-button" data-close aria-label="Close reveal" type="button">
-      <%= image_pack_tag "media/images/close.svg", "aria-hidden": true %>
+      <%= image_pack_tag "static/images/close.svg", "aria-hidden": true %>
     </button>
     <div class="cell modal-form__metadata"><%= pluralize(folder.collaborators.count, "team members")%></div>
   </div>
@@ -22,7 +22,7 @@
                 <%= link_to folder_collaboration_path(folder, Collaboration.for(collaborator, folder)),
                             method: :delete,
                             data: { confirm: t("collaborations.destroy.confirm") } do %>
-                    <%= inline_svg_pack_tag "media/images/trash.svg", aria: true, title: "Remove from folder", class: "icon icon--alert"%>
+                    <%= inline_svg_pack_tag "static/images/trash.svg", aria: true, title: "Remove from folder", class: "icon icon--alert"%>
                 <% end %>
               </div>
             </li>

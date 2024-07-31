@@ -43,26 +43,6 @@ module.exports = function (api) {
       isTestEnv && require('babel-plugin-dynamic-import-node'),
       require('@babel/plugin-transform-destructuring').default,
       [
-        require('@babel/plugin-transform-class-properties').default,
-        {
-          loose: true
-        }
-      ],
-      [
-        require('@babel/plugin-proposal-object-rest-spread').default,
-        {
-          useBuiltIns: true
-        }
-      ],
-      [
-        require('@babel/plugin-transform-private-property-in-object').default,
-        { loose: true }
-      ],
-      [
-        require('@babel/plugin-transform-private-methods').default,
-        { loose: true }
-      ],
-      [
         require('@babel/plugin-transform-runtime').default,
         {
           helpers: false,

@@ -34,7 +34,7 @@
           <div class="list__item__title list__item__title--filename cell"><%= attach.filename %></div>
           <div class="list__item__details cell">
             <%= number_to_human_size(attach.byte_size) %>&nbsp;
-            <%= inline_svg_pack_tag "media/images/agree.svg", class: "icon icon--small icon--success" %>
+            <%= inline_svg_pack_tag "static/images/agree.svg", class: "icon icon--small icon--success" %>
           </div>
 
           <%= label_tag :description, "Describe the content of this video for accessibility" %>
@@ -53,14 +53,14 @@
           <%= link_to sign_attachment_path(form.object, attach, attachment_type: attribute),
                       data: { method: :delete, remote: true },
                       class: "button icon-only clear small hide-if-no-js pull-right" do %>
-            <%= inline_svg_pack_tag "media/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
+            <%= inline_svg_pack_tag "static/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
           <% end %>
 
           <%= button_tag formmethod: :post,
                         form: "delete_#{attribute.to_s.singularize}_form",
                         formaction: sign_attachment_path(form.object, attach, attachment_type: attribute),
                         class: "button icon-only clear small show-if-no-js pull-right" do %>
-            <%= inline_svg_pack_tag "media/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
+            <%= inline_svg_pack_tag "static/images/trash.svg", aria: true, title: "Remove File", class: "icon icon--small icon--alert" %>
           <% end %>
         </div>
       </li>

@@ -1,20 +1,20 @@
 <ul class="vertical menu icons">
-   <li class="<%= current_page?("/") ? "menu-text--home is-active" : "menu-text--home" %>"><%= link_to root_path do %><%= inline_svg_pack_tag "media/images/home.svg", aria_hidden: true, class: "icon--medium" %><span>Home</span><% end %>
+   <li class="<%= current_page?("/") ? "menu-text--home is-active" : "menu-text--home" %>"><%= link_to root_path do %><%= inline_svg_pack_tag "static/images/home.svg", aria_hidden: true, class: "icon--medium" %><span>Home</span><% end %>
 </ul>
 
 <ul class="vertical menu icons">
   <li class="menu-text">Manage Signs</li>
   <li class="<%= current_page?("/signs/new") && "is-active" %>">
     <%= link_to new_sign_path do %>
-      <%= inline_svg_pack_tag "media/images/add.svg", aria_hidden: true %><span>Add a sign</span>
+      <%= inline_svg_pack_tag "static/images/add.svg", aria_hidden: true %><span>Add a sign</span>
     <% end %>
   </li>
   <li class="<%= current_page?("/user/signs") && "is-active" %>">
     <%= link_to user_signs_path do %>
-      <%= inline_svg_pack_tag "media/images/ok.svg", aria_hidden: true %><span>My signs</span>
+      <%= inline_svg_pack_tag "static/images/ok.svg", aria_hidden: true %><span>My signs</span>
     <% end %>
   </li>
-  <li class="<%= current_page?("/folders") && "is-active" %>"><a href="/folders"><%= inline_svg_pack_tag "media/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
+  <li class="<%= current_page?("/folders") && "is-active" %>"><a href="/folders"><%= inline_svg_pack_tag "static/images/folder-collection.svg", aria_hidden: true %><span>My folders</span></a></li>
 </ul>
 
 <% if current_user.moderator? || current_user.administrator? %>
@@ -22,35 +22,35 @@
     <li class="menu-text">Admin Portal</li>
     <li class="<%= current_page?("/admin/signs") && "is-active" %>">
       <%= link_to admin_signs_path do %>
-        <%= inline_svg_pack_tag "media/images/moderator.svg", aria_hidden: true %><span>Moderate signs</span>
+        <%= inline_svg_pack_tag "static/images/moderator.svg", aria_hidden: true %><span>Moderate signs</span>
       <% end %>
     </li>
 
     <% if current_user.administrator %>
       <li class="<%= current_page?("/admin/approved_user_applications") && "is-active" %>">
         <%= link_to admin_approved_user_applications_path do %>
-          <%= inline_svg_pack_tag "media/images/tick.svg", class: 'icon--medium', aria_hidden: true %><span>User approvals</span>
+          <%= inline_svg_pack_tag "static/images/tick.svg", class: 'icon--medium', aria_hidden: true %><span>User approvals</span>
         <% end %>
       </li>
 
       <li class="<%= current_page?("/admin/users") && "is-active" %>">
         <%= link_to admin_users_path do %>
-          <%= inline_svg_pack_tag "media/images/users.svg", aria_hidden: true %><span>User admin</span>
+          <%= inline_svg_pack_tag "static/images/users.svg", aria_hidden: true %><span>User admin</span>
         <% end %>
       </li>
       <li class="<%= current_page?("/admin/topics") && "is-active" %>">
         <%= link_to admin_topics_path do %>
-          <%= inline_svg_pack_tag "media/images/tags.svg", class: 'icon--medium', aria_hidden: true %><span>Manage Topics</span>
+          <%= inline_svg_pack_tag "static/images/tags.svg", class: 'icon--medium', aria_hidden: true %><span>Manage Topics</span>
         <% end %>
       </li>
       <li class="<%= current_page?("/admin/comment_reports") && "is-active" %>">
       <%= link_to admin_comment_reports_path do %>
-        <%= inline_svg_pack_tag "media/images/comment.svg", aria_hidden: true %><span>Comment Reports</span>
+        <%= inline_svg_pack_tag "static/images/comment.svg", aria_hidden: true %><span>Comment Reports</span>
       <% end %>
       </li>
       <li class="<%= current_page?("/admin/exports") && "is-active" %>">
       <%= link_to admin_exports_path do %>
-        <%= inline_svg_pack_tag "media/images/table.svg", aria_hidden: true %><span>Export data</span>
+        <%= inline_svg_pack_tag "static/images/table.svg", aria_hidden: true %><span>Export data</span>
       <% end %>
       </li>
     <% end %>

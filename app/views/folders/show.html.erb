@@ -16,15 +16,15 @@
         <h1 class="cell auto"><%= @folder.title %></h1>
         <div class="cell shrink grid-x align-middle">
           <%= link_to new_folder_collaboration_path(@folder), remote: true, class: "button clear" do %>
-            <%= inline_svg_pack_tag "media/images/users.svg", class: "icon icon--royal" %>Manage team
+            <%= inline_svg_pack_tag "static/images/users.svg", class: "icon icon--royal" %>Manage team
           <% end %>
           <div class="list__divider--vertical"></div>
           <%= link_to folder_share_index_path(@folder), method: :post, class: "button clear", data: { confirm: t("folder_share.create.confirmation") } do %>
-            <%= inline_svg_pack_tag "media/images/share.svg", class: "icon icon--royal" %>Share
+            <%= inline_svg_pack_tag "static/images/share.svg", class: "icon icon--royal" %>Share
           <% end if policy(@folder).share? %>
           <div class="list__divider--vertical"></div>
           <%= link_to edit_folder_path(@folder), remote: true, class: "button clear" do %>
-            <%= inline_svg_pack_tag "media/images/edit.svg", class: "icon icon--royal" %>Edit
+            <%= inline_svg_pack_tag "static/images/edit.svg", class: "icon icon--royal" %>Edit
           <% end if policy(@folder).edit? %>
         </div>
       </div>
