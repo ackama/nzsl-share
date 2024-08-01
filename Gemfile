@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version")
 
 gem "aasm"
-gem "administrate", "~> 0.16"
+gem "administrate", "~> 0.20"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
 gem "devise"
@@ -23,11 +23,11 @@ gem "rails", "~> 7.0.0"
 gem "raygun4ruby"
 gem "redis"
 gem "sassc-rails"
+gem "shakapacker", "~> 7.0"
 gem "sidekiq"
-gem "sidekiq-batch", path: "vendor/gems/sidekiq-batch"
+gem "sidekiq-batch", github: "breamware/sidekiq-batch" # required for sidekiq v7, as changes have not yet been released
 gem "sqlite3"
 gem "turbolinks"
-gem "webpacker", "~> 5.0"
 
 gem "rack-canonical-host"
 

@@ -73,7 +73,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   end
 
   def fallback_poster_url
-    h.asset_pack_path("media/images/processing.svg")
+    h.asset_pack_path("static/images/processing.svg")
   end
 
   def sign_video_sourceset(presets = nil)

@@ -1,7 +1,6 @@
 @charset "utf-8";
 
 @import "selectize";
-@import "datetime_picker";
 
 @import "library/clearfix";
 @import "library/data-label";
@@ -12,3 +11,14 @@
 @import "components/cells";
 @import "components/pagination";
 @import "components/search";
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

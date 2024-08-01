@@ -1,5 +1,4 @@
 .navigation {
-
   @include breakpoint(medium) {
     @include flex;
     border-top: get-color(accent) solid 4px;
@@ -94,7 +93,6 @@
 
     & > a,
     & > li > a {
-
       color: $white !important; // Override default menu styles
       font-weight: bold !important; //Override default menu styles
       padding: 0.5rem;

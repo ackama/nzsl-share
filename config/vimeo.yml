@@ -4,10 +4,9 @@ default: &default
   embed_preset: <%= ENV["VIMEO_EMBED_PRESET_ID"] %>
   upload_options:
     privacy:
-      comments: "nobody"
+      comments: 'nobody'
       add: false
-      view: "nobody"
-
+      view: 'nobody'
 
 development:
   <<: *default

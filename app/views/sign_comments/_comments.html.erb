@@ -1,7 +1,7 @@
 <% return unless policy(@sign).display_comments? %>
 
 <%= content_for :head do %>
-  <%= javascript_pack_tag "videocomment", async: true, defer: true %>
+  <%= prepend_javascript_pack_tag "videocomment", defer: true %>
 <% end %>
 
 <div id="sign-comments">
@@ -34,7 +34,7 @@
   <%= content_tag(:div, class: "text-center show-if-no-js") do %>
     <%= link_to params.to_unsafe_h.merge(anchor: "sign-comments", comments_page: @comments.prev_page),
                 class: "button clear" do %>
-      <%= inline_svg_pack_tag "media/images/dropdown.svg", class: "margin-right-1" %>
+      <%= inline_svg_pack_tag "static/images/dropdown.svg", class: "margin-right-1" %>
       Show newer comments
     <% end %>
   <% end unless @comments.first_page? %>

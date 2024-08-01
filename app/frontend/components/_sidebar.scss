@@ -3,9 +3,11 @@
   max-width: 240px;
   z-index: 100;
 
-  li { padding: 0; }
+  li {
+    padding: 0;
+  }
 
-  .menu  {
+  .menu {
     border-bottom: solid 1px $extra-light-gray;
     padding: 1rem 0.5rem 1rem 0;
   }
@@ -41,7 +43,7 @@
     }
   }
 
-  .is-active  {
+  .is-active {
     @include icon-fill(get-color(royal));
 
     a {

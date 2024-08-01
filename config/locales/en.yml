@@ -37,22 +37,27 @@ en:
         created_at: Reported at
   approved_user_applications:
     create:
-      success: Thank you! An NZSL Share Admin will look at your application soon.
+      success:
+        Thank you! An NZSL Share Admin will look at your application soon.
   collaborations:
     create:
-      success: "Successfully added team member to this folder."
+      success: 'Successfully added team member to this folder.'
     destroy:
-      confirm: "Are you sure you want to remove this person from the folder?"
-      success: "Successfully removed from folder."
-      failure: "Failed to remove from folder."
+      confirm: 'Are you sure you want to remove this person from the folder?'
+      success: 'Successfully removed from folder.'
+      failure: 'Failed to remove from folder.'
   sign_comments:
     destroy:
-      confirm: Are you sure you want to remove this comment? You cannot undo this action.
+      confirm:
+        Are you sure you want to remove this comment? You cannot undo this
+        action.
   comment_reports:
     create:
       success: This comment has been flagged for review
     destroy:
-      confirm: Are you sure you want to ignore this report? It will be removed permanently.
+      confirm:
+        Are you sure you want to ignore this report? It will be removed
+        permanently.
       success: Comment report has been ignored and removed.
   folder_memberships:
     create:
@@ -64,50 +69,69 @@ en:
   signs:
     default_placeholder_word: My New Sign
     create:
-      success: Sign was uploaded successfully. Please provide more information below.
+      success:
+        Sign was uploaded successfully. Please provide more information below.
     edit:
       attachment:
         illustration:
           label: Illustrations
-          hint: Upload up to 3 images (e.g. a drawing of the sign or other illustrations).
+          hint:
+            Upload up to 3 images (e.g. a drawing of the sign or other
+            illustrations).
         usage_example:
           label: Usage
-          hint: Upload up to 2 videos - e.g. show how your sign is used in an example sentence; explain what your sign means in NZSL; explain why you think this is a good sign
+          hint:
+            Upload up to 2 videos - e.g. show how your sign is used in an
+            example sentence; explain what your sign means in NZSL; explain why
+            you think this is a good sign
     update:
       success: Sign successfully updated.
     archived:
       display_name: Archived
       moderator_display_name: Archived
     personal:
-      display_name: "Private"
+      display_name: 'Private'
       moderator_display_name: Private
-      description: "'private' means only you and the people you have shared with can see this sign."
-      status_notes: "To ask for this sign to be public click Edit"
+      description:
+        "'private' means only you and the people you have shared with can see
+        this sign."
+      status_notes: 'To ask for this sign to be public click Edit'
     submitted:
-      display_name: "In Progress"
+      display_name: 'In Progress'
       moderator_display_name: Pending
-      description: "'in progress' means that you have asked for the sign to be made public. It is waiting for an admin to check it."
+      description:
+        "'in progress' means that you have asked for the sign to be made public.
+        It is waiting for an admin to check it."
     published:
-      display_name: "Public"
+      display_name: 'Public'
       moderator_display_name: Published
       description: "'public' means that the sign to visible to everybody."
     declined:
-      display_name: "Not Accepted"
+      display_name: 'Not Accepted'
       moderator_display_name: Declined
-      description: "'not accepted' means that you have asked for the sign to be made public and an admin has requested some changes to it before making it public."
+      description:
+        "'not accepted' means that you have asked for the sign to be made public
+        and an admin has requested some changes to it before making it public."
     unpublish_requested:
-      display_name: "Asked to Unpublish"
+      display_name: 'Asked to Unpublish'
       moderator_display_name: Pending
-      description: "'asked to unpublish' means that the sign is public and you have asked for it to be private. An admin will do this soon."
+      description:
+        "'asked to unpublish' means that the sign is public and you have asked
+        for it to be private. An admin will do this soon."
     destroy:
-      link: "Remove from NZSL Share"
-      confirm: "Are you sure you want to remove your contribution? It will be permanently deleted."
+      link: 'Remove from NZSL Share'
+      confirm:
+        'Are you sure you want to remove your contribution? It will be
+        permanently deleted.'
       success: Your sign, '%{sign_name}' has been removed from NZSL Share
   sign_batch_operations:
     create:
       success: You have successfully updated %{succeeded_count} sign(s)
-      mixed_success: You have successfully updated %{succeeded_count} sign(s), but %{failed_count} sign(s) failed to update
-      failure_missing_sign_ids: No signs updated. Please select sign(s) before assigning updates
+      mixed_success:
+        You have successfully updated %{succeeded_count} sign(s), but
+        %{failed_count} sign(s) failed to update
+      failure_missing_sign_ids:
+        No signs updated. Please select sign(s) before assigning updates
   search:
     sort_by:
       alpha_asc: Alphabetical (A-Z)
@@ -116,7 +140,9 @@ en:
       relevant: Most Relevant
       popular: Most Popular
   application:
-    unauthorized: You don't have access to do this. You might not be logged in, or do not have the right permissions
+    unauthorized:
+      You don't have access to do this. You might not be logged in, or do not
+      have the right permissions
   sign_workflow:
     decline:
       confirm: Decline this sign? # Pending message
@@ -134,7 +160,9 @@ en:
       success: Sign was made private # Pending message
     request_unpublish:
       link_to: Ask to be private
-      confirm: Are you sure you want your sign to be private? Only you yourself will be able to see the sign.
+      confirm:
+        Are you sure you want your sign to be private? Only you yourself will be
+        able to see the sign.
       success: Thank you. An admin will make your sign private soon.
     cancel_request_unpublish:
       link_to: Keep sign public
@@ -156,20 +184,24 @@ en:
       failure: Folder couldn't be deleted. Please try again.
   folder_share:
     create:
-      confirmation: "If someone clicks on the link, they will see all signs in the folder (including private signs). Proceed?"
-      success: "To share, copy this link: %{share_url}"
+      confirmation:
+        'If someone clicks on the link, they will see all signs in the folder
+        (including private signs). Proceed?'
+      success: 'To share, copy this link: %{share_url}'
     destroy:
-      success: "Folder is no longer shared."
+      success: 'Folder is no longer shared.'
   sign_share:
     create:
-      success: "To share, copy this link: %{share_url}"
+      success: 'To share, copy this link: %{share_url}'
     destroy:
-      success: "Sign is no longer shared."
+      success: 'Sign is no longer shared.'
   published_sign_video:
     name: "NZSL Share: Contributed sign for '%{word}'"
-    description: "Video contributed to NZSL Share. More information: %{url}"
+    description: 'Video contributed to NZSL Share. More information: %{url}'
   users:
-    contribution_limit_reached_html: Sorry, you have reached your video upload limit. Contact <a href="mailto:%{email}">%{email}</a> to increase your limit.
+    contribution_limit_reached_html:
+      Sorry, you have reached your video upload limit. Contact <a
+      href="mailto:%{email}">%{email}</a> to increase your limit.
   admin:
     approved_user_applications:
       accept:
@@ -185,7 +217,8 @@ en:
       new:
         title: User Sign Transfer
         link_text: Transfer Signs
-        confirm: "Transfer ownership of these signs? This process is not reversible."
+        confirm:
+          'Transfer ownership of these signs? This process is not reversible.'
       create:
         success: Successfully transferred ownership of signs
     users:
@@ -222,7 +255,7 @@ en:
       <<: *activemodel_errors
       models:
         approved_user_application:
-            inclusion: an answer must be selected
+          inclusion: an answer must be selected
         collaboration:
           collaborator:
             does_not_exist: This username does not exist
@@ -230,17 +263,19 @@ en:
           attributes:
             conditions_accepted:
               format: '%{message}'
-              blank: "For your sign to be made public you must agree to follow the terms and conditions (rules)"
+              blank:
+                'For your sign to be made public you must agree to follow the
+                terms and conditions (rules)'
             illustrations:
               too_long: are limited to %{count} files
             usage_examples:
               too_long: are limited to %{count} files
   demographic:
     age_brackets:
-      "13_18": "13 - 18"
-      "19_29": "19 - 29"
-      "30_49": "30 - 49"
-      "50_plus": "50 +"
+      '13_18': '13 - 18'
+      '19_29': '19 - 29'
+      '30_49': '30 - 49'
+      '50_plus': '50 +'
     genders:
       male: Male
       female: Female

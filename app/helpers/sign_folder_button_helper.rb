@@ -53,19 +53,23 @@ module SignFolderButtonHelper
   end
 
   def in_folder_icon
-    inline_svg_pack_tag("media/images/folder-success.svg", title: "Folders", aria: true, class: "icon")
+    inline_svg_pack_tag("static/images/folder-success.svg", title: "Folders", aria: true, class: "icon")
   end
 
   def add_folder_icon
-    inline_svg_pack_tag("media/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
+    inline_svg_pack_tag("static/images/folder-add.svg", title: "Folders", aria: true, class: "icon")
   end
 
   def in_sign_show_folder_icon
-    raw "#{inline_svg_pack_tag("media/images/folder-success.svg", aria: true, class: "icon icon--medium")}Add to Folder" # rubocop:disable Rails/OutputSafety
+    icon = inline_svg_pack_tag("static/images/folder-success.svg", aria: true, class: "icon icon--medium")
+
+    raw "#{icon}Add to Folder" # rubocop:disable Rails/OutputSafety
   end
 
   def add_sign_show_folder_icon
-    raw "#{inline_svg_pack_tag("media/images/folder-add.svg", aria: true, class: "icon icon--medium")}Add to Folder" # rubocop:disable Rails/OutputSafety
+    icon = inline_svg_pack_tag("static/images/folder-add.svg", aria: true, class: "icon icon--medium")
+
+    raw "#{icon}Add to Folder" # rubocop:disable Rails/OutputSafety
   end
 
   def link_to_login(icon, classes)

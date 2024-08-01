@@ -24,7 +24,7 @@
 
   <td class="sign-table__cell sign-table__titles">
     <h1 class="sign-table__title"><%= link_to sign.word, sign %></h1>
-    <h2 class="sign-table__subtitle"><%= sign.topics.pluck(:name).join(", ") %>
+    <h2 class="sign-table__subtitle"><%= sign.topics.pluck(:name).join(", ") %></h2>
   </td>
 
   <td class="sign-table__cell">
@@ -35,7 +35,7 @@
 
   <td class="sign-table__cell">
     <div class="sign-table__contributor">
-      <%= inline_svg_pack_tag "media/images/user.svg", aria_hidden: true, class: "sign-table__contributor__icon" %>
+      <%= inline_svg_pack_tag "static/images/user.svg", aria_hidden: true, class: "sign-table__contributor__icon" %>
 
       <div class="sign-table__contributor__info">
         <%= link_to user_path(sign.contributor.username) do %>

@@ -31,8 +31,12 @@
       @include responsive-embed(dictionary);
       background: #000;
     }
-    .sign-card__title { color: $black; }
-    h3 { margin-bottom: 0.25rem; }
+    .sign-card__title {
+      color: $black;
+    }
+    h3 {
+      margin-bottom: 0.25rem;
+    }
 
     .label {
       margin-left: -4px;
@@ -119,7 +123,9 @@
         cursor: pointer;
       }
 
-      &:focus { outline: none; }
+      &:focus {
+        outline: none;
+      }
 
       // This actually means 'active' in Foundation
       &.hover {

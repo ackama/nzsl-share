@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include AASM
 
   USERNAME_REGEXP = /\A[a-zA-Z0-9_.]+\Z/
+  USERNAME_JS_REGEXP = USERNAME_REGEXP.source.gsub("\\A", "^").gsub("\\Z", "$")
   PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}
   MAXIMUM_FILE_SIZE = 250.megabytes
 

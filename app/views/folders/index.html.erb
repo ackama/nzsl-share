@@ -14,7 +14,7 @@
     <div class="list__title list__section cell grid-x align-middle">
       <h1>My folders</h1>
       <%= link_to(new_folder_path, id: "new-folder", class: "button royal primary", remote: true) do %>
-        <%= inline_svg_pack_tag "media/images/add-2.svg", class: "icon icon--white" %><span>New Folder</span>
+        <%= inline_svg_pack_tag "static/images/add-2.svg", class: "icon icon--white" %><span>New Folder</span>
       <% end %>
     </div>
     <hr class="list__divider">
@@ -22,7 +22,7 @@
       <% @folders.each do |folder| %>
         <div class="list__item list__item--interactive cell grid-x align-middle">
           <div class="cell small-5 grid-x align-middle">
-            <%= inline_svg_pack_tag "media/images/folder-collection.svg", class: "list__item__icon list__item__icon--folder icon--medium" %>
+            <%= inline_svg_pack_tag "static/images/folder-collection.svg", class: "list__item__icon list__item__icon--folder icon--medium" %>
             <div class="list__item__title">
             <%= link_to folder_path(folder) do %>
               <%= folder.title %>
@@ -40,30 +40,30 @@
           </div>
           <div class="cell shrink list__item__details grid-x align-middle">
             <a href="#" class="list__item__icon--options" data-toggle="<%= dom_id(folder, :options) %>" title="Folder Options">
-              <%= inline_svg_pack_tag "media/images/options.svg", class: "icon--medium list__item__icon" %>
+              <%= inline_svg_pack_tag "static/images/options.svg", class: "icon--medium list__item__icon" %>
             </a>
             <div class="list__item-menu__dropdown-pane list__item-menu__dropdown-pane--folders" id="<%= dom_id(folder, :options) %>" data-position="bottom" data-alignment="right" data-dropdown data-hover="true" data-hover-pane="true">
               <ul class="list__item-menu vertical icons">
                 <li class="list__item-menu__menu-item">
                   <%= link_to folder_share_index_path(folder), method: :post, data: { confirm: t("folder_share.create.confirmation") } do %>
-                    <%= inline_svg_pack_tag "media/images/share.svg", class: "icon--medium" %><span>Share</span>
+                    <%= inline_svg_pack_tag "static/images/share.svg", class: "icon--medium" %><span>Share</span>
                   <% end %>
                 </li>
                 <li class="list__item-menu__menu-item">
                   <%= link_to edit_folder_path(folder), remote: true do %>
-                    <%= inline_svg_pack_tag "media/images/edit.svg" %><span>Edit</span>
+                    <%= inline_svg_pack_tag "static/images/edit.svg" %><span>Edit</span>
                   <% end %>
                 </li>
                 <% if policy(folder).manage_collaborators? %>
                   <li class="list__item-menu__menu-item">
                     <%= link_to new_folder_collaboration_path(folder), remote: true do %>
-                      <%= inline_svg_pack_tag "media/images/users.svg" %><span>Manage team</span>
+                      <%= inline_svg_pack_tag "static/images/users.svg" %><span>Manage team</span>
                     <% end %>
                   </li>
                 <% end %>
                 <%= content_tag :li, class: "list__item-menu__menu-item" do %>
                   <%= link_to folder_path(folder), method: :delete, data: { confirm: t("folders.destroy.confirm") } do %>
-                    <%= inline_svg_pack_tag "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
+                    <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon--medium" %><span>Delete</span>
                   <% end %>
                 <% end if policy(folder).destroy? %>
               </ul>

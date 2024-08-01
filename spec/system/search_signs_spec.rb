@@ -48,10 +48,6 @@ RSpec.describe "Searching for signs" do
   def submit_search(term)
     visit root_path
     form = find(".hero-unit form.search-bar")
-    form.fill_in "Search signs", with: term
-
-    # Artificially submit the form. Normally the browser does this, but
-    # Rack::Test can't.
-    Capybara::RackTest::Form.new(page.driver, form.native).submit({})
+    form.fill_in "Search signs", with: "#{term}\n"
   end
 end

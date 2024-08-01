@@ -81,10 +81,6 @@ RSpec.describe "Sign moderation", type: :system do
 
   def submit_search(term)
     form = find("form.search")
-    form.fill_in "Search Signs", with: term
-
-    # Artificially submit the form. Normally the browser does this, but
-    # Rack::Test can't.
-    Capybara::RackTest::Form.new(page.driver, form.native).submit({})
+    form.fill_in "Search Signs", with: "#{term}\n"
   end
 end

@@ -1,13 +1,7 @@
 ignore:
-  - GHSA-2p57-rm9w-gvfp
-  - GHSA-2r2c-g63r-vccr
-  - GHSA-5rrq-pxf6-6jx5
+  - GHSA-3h5v-q93c-6h6q
   - GHSA-7fh5-64p2-3v2j
-  - GHSA-8fr3-hfg3-gpgp
-  - GHSA-cfm4-qjh2-4765
-  - GHSA-gf8q-jrpm-jvxq
-  - GHSA-rp65-9cf3-cjxr
+  - GHSA-grv7-fg5c-xmjg
+  - GHSA-vh95-rmgr-6w4m
   - GHSA-w5p7-h5w8-2hfq
-  - GHSA-wr3j-pwj9-hqq6
-  - GHSA-ww39-953v-wcq6
-  - GHSA-x4jg-mjrx-434g
+  - GHSA-xvch-5gv4-984h

@@ -1,9 +1,15 @@
 Rails.application.reloader.to_prepare do
+  path = Rails.root.join("db/nzsl-dictionary.db.sqlite3")
+
   # Update the dictionary file on boot
   Rails.application.load_tasks
 
   begin
-    Rake::Task["dictionary:update"].execute
+    if !path.exist? || path.mtime <= 1.month.ago
+      Rake::Task["dictionary:update"].execute
+    else
+      warn "Dictionary file is up to date"
+    end
   rescue StandardError => e
     warn e
   end

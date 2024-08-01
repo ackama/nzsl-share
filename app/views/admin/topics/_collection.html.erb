@@ -56,7 +56,7 @@ to display a collection of resources in an HTML table.
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
-            <% if show_action? :show, resource -%>
+            <% if accessible_action?(resource, :show) -%>
               <% if (attribute.name == "name") %>
                 <%= link_to topic_path(resource) do %>
                   <%= render_field attribute %>
@@ -70,7 +70,7 @@ to display a collection of resources in an HTML table.
 
         <td class="admin-icons">
           <button title="Options" class="button clear" data-toggle="<%= dom_id(resource, :options) %>">
-            <%= inline_svg_pack_tag "media/images/options.svg", class: "icon--medium list__item__icon" %>
+            <%= inline_svg_pack_tag "static/images/options.svg", class: "icon--medium list__item__icon" %>
           </button>
         </td>
       </tr>
@@ -78,12 +78,12 @@ to display a collection of resources in an HTML table.
         <ul class="list__item-menu vertical icons">
           <li class="list__item-menu__menu-item">
             <%= link_to([:edit, namespace, resource]) do %>
-              <%= inline_svg_pack_tag "media/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+              <%= inline_svg_pack_tag "static/images/edit.svg", class: "icon--medium" %><span>Edit</span>
             <% end %>
           </li>
           <li class="list__item-menu__menu-item">
             <%= link_to(admin_topic_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") }) do %>
-              <%= inline_svg_pack_tag "media/images/trash.svg", class: "icon--medium" %><span>Delete</span>
+              <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon--medium" %><span>Delete</span>
             <% end %>
           </li>
         </ul>

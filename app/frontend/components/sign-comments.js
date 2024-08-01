@@ -1,29 +1,35 @@
-$(document).ready(function() {
-  $("body").on("click", ".js-sign-comment-reply", function(event) {
+$(document).ready(function () {
+  $('body').on('click', '.js-sign-comment-reply', function (event) {
     event.preventDefault();
-    var dataId = $(this).closest("a").data("id");
+    var dataId = $(this).closest('a').data('id');
     var element = document.getElementById(dataId);
     $(element).toggle();
   });
 
-  $("body").on("change", ".js-sign-comment-folder", function(event) {
+  $('body').on('change', '.js-sign-comment-folder', function (event) {
     event.preventDefault();
     var folderId = $(this).val();
-    var textElement = document.getElementById("new-text-comment");
-    var videoElement = document.getElementById("new-video-comment");
-    $(textElement).children().find("input#sign_comment_folder_id").val(folderId);
-    $(videoElement).children().find("input#sign_comment_folder_id").val(folderId);
+    var textElement = document.getElementById('new-text-comment');
+    var videoElement = document.getElementById('new-video-comment');
+    $(textElement)
+      .children()
+      .find('input#sign_comment_folder_id')
+      .val(folderId);
+    $(videoElement)
+      .children()
+      .find('input#sign_comment_folder_id')
+      .val(folderId);
   });
 
-  $(".js-sign-comment-folder").trigger("change");
+  $('.js-sign-comment-folder').trigger('change');
 
-  $("body").on("change", ".js-sign-comment-type-new", function(event) {
+  $('body').on('change', '.js-sign-comment-type-new', function (event) {
     event.preventDefault();
     var option = $(this).val();
-    var text = document.getElementById("new-text-comment");
-    var video = document.getElementById("new-video-comment");
+    var text = document.getElementById('new-text-comment');
+    var video = document.getElementById('new-video-comment');
 
-    if (option === "video") {
+    if (option === 'video') {
       $(video).show();
       $(text).hide();
     } else {
@@ -32,15 +38,23 @@ $(document).ready(function() {
     }
   });
 
-  $(".js-sign-comment-type-new").trigger("change");
+  $('.js-sign-comment-type-new').trigger('change');
 
-  $("body").on("change", ".js-sign-comment-type-reply", function(event) {
+  $('body').on('change', '.js-sign-comment-type-reply', function (event) {
     event.preventDefault();
     var option = $(this).val();
-    var text = $(this).parent().parent().siblings().closest("div#new-text-comment-reply");
-    var video = $(this).parent().parent().siblings().closest("div[id^=new-video-comment-reply]");
+    var text = $(this)
+      .parent()
+      .parent()
+      .siblings()
+      .closest('div#new-text-comment-reply');
+    var video = $(this)
+      .parent()
+      .parent()
+      .siblings()
+      .closest('div[id^=new-video-comment-reply]');
 
-    if (option === "video") {
+    if (option === 'video') {
       $(video).show();
       $(text).hide();
     } else {

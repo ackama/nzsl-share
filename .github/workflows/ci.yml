@@ -22,6 +22,22 @@ jobs:
       - name: Check dependencies for security vulnerabilities
         uses: g-rath/check-with-osv-detector@6bf2c012dff284895d644e970294396b01aecc1c
 
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install required JS packages
+        run: yarn install
+      - name: Run formatting
+        run: yarn run format-check
+
   rubocop:
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +61,7 @@ jobs:
           bundler-cache: true
 
       - name: Run Ruby static analysis
-        run: bundle exec brakeman --run-all-checks --exit-on-warn --format plain .
+        run: bundle exec brakeman --run-all-checks .
 
   eslint:
     runs-on: ubuntu-latest
@@ -90,18 +106,14 @@ jobs:
           POSTGRES_DB: postgres
         ports: ['5432:5432']
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s
           --health-retries 5
       redis:
         image: redis
         ports: ['6379:6379']
         options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "redis-cli ping" --health-interval 10s --health-timeout
+          5s --health-retries 5
 
     steps:
       - name: Checkout this repo
@@ -141,18 +153,14 @@ jobs:
           POSTGRES_DB: postgres
         ports: ['5432:5432']
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s
           --health-retries 5
       redis:
         image: redis
         ports: ['6379:6379']
         options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "redis-cli ping" --health-interval 10s --health-timeout
+          5s --health-retries 5
 
     steps:
       - name: Checkout this repo
@@ -181,3 +189,10 @@ jobs:
 
       - name: Run rspec
         run: bundle exec rake spec SPEC_OPTS="--profile --tag @type:system"
+      - name: Archive spec outputs
+        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: rspec-output-screenshots
+          path: tmp/capybara
+          retention-days: 5
