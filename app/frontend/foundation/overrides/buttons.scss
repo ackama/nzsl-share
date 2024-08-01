@@ -166,6 +166,7 @@ $clear-button-palette: (
   }
 
   &--with-icon {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .button;
 
     flex-direction: row;

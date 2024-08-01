@@ -59,11 +59,11 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "lighthouse": "^12.0.0",
+    "postcss": "^8.4.0",
     "prettier": "^3.3.3",
     "prettier-config-ackama": "^1.1.0",
-    "stylelint": "^13.3.0",
-    "stylelint-config-recommended-scss": "^4.2.0",
-    "stylelint-scss": "^3.16.0",
+    "stylelint": "^16.8.0",
+    "stylelint-config-recommended-scss": "^14.1.0",
     "webpack-dev-server": "^4.0.0"
   },
   "engines": {

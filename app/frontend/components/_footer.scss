@@ -42,6 +42,7 @@
   }
 
   &__list {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .no-bullet;
     background-color: $black;
     margin-bottom: 1rem;

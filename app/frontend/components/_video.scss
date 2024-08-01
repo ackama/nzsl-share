@@ -52,7 +52,7 @@
     height: 100%;
     max-width: none;
     position: absolute;
-    right: 0px;
+    right: 0;
     z-index: 1;
 
     @include breakpoint(large) {
