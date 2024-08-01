@@ -388,7 +388,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    shakapacker (7.2.3)
+    shakapacker (8.0.1)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
@@ -485,7 +485,7 @@ DEPENDENCIES
   rubocop-rails
   sassc-rails
   selenium-webdriver
-  shakapacker (~> 7.0)
+  shakapacker (~> 8.0)
   sidekiq
   sidekiq-batch
   simplecov
