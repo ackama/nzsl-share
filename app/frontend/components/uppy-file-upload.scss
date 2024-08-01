@@ -56,7 +56,7 @@ $gray-600: $neutral-gray;
 
 // Change the SVG icon used for webcam buttons
 .uppy-DashboardTab[data-uppy-acquirer-id="Webcam"] {
-  svg {
+  .uppy-DashboardTab-inner {
     display: none;
   }
 

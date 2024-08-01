@@ -35,6 +35,8 @@ const createSignController = container => {
     },
     locale: {
       strings: {
+        ...uppy.opts.locale.strings,
+        ...dashboard.opts.locale.strings,
         done: 'Edit My Signs >'
       }
     }
