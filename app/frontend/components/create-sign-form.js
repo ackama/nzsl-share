@@ -35,6 +35,7 @@ const createSignController = container => {
     },
     locale: {
       strings: {
+        ...dashboard.opts.locale.strings,
         done: 'Edit My Signs >'
       }
     }
