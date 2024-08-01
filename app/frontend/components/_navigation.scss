@@ -76,6 +76,7 @@
   }
 
   &__title {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .navigation__item;
 
     &,
@@ -111,6 +112,7 @@
 
   &__button {
     &--close {
+      // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
       @extend .close-button;
 
       @include breakpoint(medium) {
@@ -119,6 +121,7 @@
     }
 
     &--toggle {
+      // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
       @extend .menu-icon;
     }
   }

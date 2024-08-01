@@ -59,6 +59,7 @@
   }
 
   &__bottom {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .card-section;
     border-top: solid 1px get-color(extra-light);
     height: rem-calc(56);
@@ -154,6 +155,7 @@
   }
 
   &__section {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .card-section;
     display: flex;
     flex-direction: column;
