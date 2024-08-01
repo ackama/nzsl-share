@@ -3,7 +3,7 @@
 class Sign < ApplicationRecord
   include AASM
 
-  PERMITTED_VIDEO_CONTENT_TYPE_REGEXP = %r{\Avideo/.+|application/mp4\Z}
+  PERMITTED_VIDEO_CONTENT_TYPE_REGEXP = %r{\A(?:video/.+|application/mp4)\Z}
   PERMITTED_IMAGE_CONTENT_TYPE_REGEXP = %r{\Aimage/.+\Z}
   REFERRED_TOPIC = %r{\A/topics/\d+\Z}
   MAXIMUM_FILE_SIZE = 250.megabytes
