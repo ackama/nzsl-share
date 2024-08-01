@@ -9,7 +9,17 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended'
   ],
-  ignorePatterns: ['tmp/'],
+  ignorePatterns: [
+    '!.eslintrc.js',
+    'node_modules/*',
+    'coverage/*',
+    'bundle/*',
+    'public/*',
+    'vendor/*',
+    'dist/*',
+    'lib/*',
+    'out/*'
+  ],
   env: {
     commonjs: true,
     node: true,
