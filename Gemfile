@@ -23,7 +23,7 @@ gem "rails", "~> 7.0.0"
 gem "raygun4ruby"
 gem "redis"
 gem "sassc-rails"
-gem "shakapacker", "~> 7.0"
+gem "shakapacker", "~> 8.0"
 gem "sidekiq"
 gem "sidekiq-batch", github: "breamware/sidekiq-batch" # required for sidekiq v7, as changes have not yet been released
 gem "sqlite3"
