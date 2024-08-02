@@ -5,6 +5,15 @@ GIT
     sidekiq-batch (0.1.9)
       sidekiq (>= 7, < 8)
 
+GIT
+  remote: https://github.com/tagliala/inline_svg.git
+  revision: a9ab1b00eae89bdb8a0fc6b08b3fc6fe43d2db6c
+  branch: feat/support-shakapacker
+  specs:
+    inline_svg (1.9.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -196,9 +205,6 @@ GEM
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     iniparse (1.5.0)
-    inline_svg (1.7.2)
-      activesupport (>= 3.0)
-      nokogiri (>= 1.6)
     jmespath (1.6.1)
     jquery-rails (4.6.0)
       rails-dom-testing (>= 1, < 3)
@@ -395,7 +401,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    shakapacker (7.2.3)
+    shakapacker (8.0.1)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
@@ -467,7 +473,7 @@ DEPENDENCIES
   faraday
   faraday_middleware
   image_processing
-  inline_svg
+  inline_svg!
   kaminari
   letter_opener
   lighthouse-matchers
@@ -490,7 +496,7 @@ DEPENDENCIES
   rubocop-rails
   sassc-rails
   selenium-webdriver
-  shakapacker (~> 7.0)
+  shakapacker (~> 8.0)
   sidekiq
   sidekiq-batch!
   simplecov
