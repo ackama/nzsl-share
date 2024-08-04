@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/breamware/sidekiq-batch.git
-  revision: f2ef0289ea23e652797741de96506957535099ff
-  specs:
-    sidekiq-batch (0.1.9)
-      sidekiq (>= 7, < 8)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -406,6 +399,8 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.14.0)
+    sidekiq-batch (0.2.0)
+      sidekiq (>= 7, < 8)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -492,7 +487,7 @@ DEPENDENCIES
   selenium-webdriver
   shakapacker (~> 7.0)
   sidekiq
-  sidekiq-batch!
+  sidekiq-batch
   simplecov
   sqlite3
   turbolinks
