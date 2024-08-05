@@ -33,6 +33,4 @@
 @import "components/sign-comments";
 @import "components/sign-examples";
 @import "components/sign-requests";
-
-// Extension is required, otherwise webpacker tries to bundle video.js.
-@import "components/video.scss";
+@import "components/video";

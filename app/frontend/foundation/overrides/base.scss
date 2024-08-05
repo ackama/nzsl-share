@@ -9,6 +9,7 @@
 }
 
 legend {
+  // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
   @extend label;
 }
 

@@ -3,6 +3,7 @@ label {
   margin-top: rem-calc(24);
 
   &.inline {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .middle;
     line-height: 2; // Match form input
     margin-bottom: 0;

@@ -30,7 +30,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version-file: '.node-version'
           cache: 'yarn'
 
       - name: Install required JS packages
@@ -71,7 +71,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version-file: '.node-version'
           cache: 'yarn'
 
       - name: Install required JS packages
@@ -87,7 +87,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version-file: '.node-version'
           cache: 'yarn'
 
       - name: Install required JS packages
@@ -126,7 +126,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version-file: '.node-version'
           cache: 'yarn'
 
       - name: Install Ruby (version given by .ruby-version) and Bundler
@@ -174,7 +174,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version-file: '.node-version'
           cache: 'yarn'
 
       - name: Install Ruby (version given by .ruby-version) and Bundler

@@ -8,6 +8,7 @@
   z-index: 10000;
 
   &__bar {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .title-bar;
 
     @include breakpoint(medium) {
@@ -24,6 +25,7 @@
   }
 
   &__bar-title {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .title-bar-title;
     font-size: 1.2rem;
   }

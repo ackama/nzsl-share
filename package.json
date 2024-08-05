@@ -27,10 +27,10 @@
     "@rails/ujs": "^7.0.4",
     "@types/babel__core": "^7.0.0",
     "@types/webpack": "^5.0.0",
-    "@uppy/core": "^3.0.4",
-    "@uppy/dashboard": "^3.2.0",
-    "@uppy/drop-target": "^2.0.1",
-    "@uppy/webcam": "^3.2.1",
+    "@uppy/core": "^3.13.0",
+    "@uppy/dashboard": "^3.9.0",
+    "@uppy/drop-target": "^3.0.0",
+    "@uppy/webcam": "^3.4.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-macros": "^3.0.0",
     "chosen-js": "^1.8.7",
@@ -56,21 +56,18 @@
   "devDependencies": {
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-standard": "^4.0.1",
-    "lighthouse": "^10.0.0",
+    "eslint-plugin-react": "^7.35.0",
+    "lighthouse": "^12.0.0",
+    "postcss": "^8.4.0",
     "prettier": "^3.3.3",
     "prettier-config-ackama": "^1.1.0",
-    "stylelint": "^13.3.0",
-    "stylelint-config-recommended-scss": "^4.2.0",
-    "stylelint-scss": "^3.16.0",
+    "stylelint": "^16.8.0",
+    "stylelint-config-recommended-scss": "^14.1.0",
     "webpack-dev-server": "^4.0.0"
   },
   "engines": {
-    "node": "^16.19.1",
+    "node": "^20.0.0",
     "yarn": "^1.0.0"
   }
 }
