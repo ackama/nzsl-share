@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/tagliala/inline_svg.git
-  revision: a9ab1b00eae89bdb8a0fc6b08b3fc6fe43d2db6c
-  branch: feat/support-shakapacker
-  specs:
-    inline_svg (1.9.0)
-      activesupport (>= 3.0)
-      nokogiri (>= 1.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -133,7 +124,7 @@ GEM
     coderay (1.1.3)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.3.3)
+    concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
@@ -191,13 +182,16 @@ GEM
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     iniparse (1.5.0)
+    inline_svg (1.10.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     jmespath (1.6.1)
     jquery-rails (4.6.0)
       rails-dom-testing (>= 1, < 3)
@@ -239,7 +233,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
-    minitest (5.23.1)
+    minitest (5.25.1)
     mock_redis (0.29.0)
       ruby2_keywords
     msgpack (1.4.2)
@@ -255,7 +249,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.6)
+    nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -278,7 +272,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.1.1)
       activesupport (>= 3.0.0)
-    racc (1.8.0)
+    racc (1.8.1)
     rack (2.2.9)
     rack-canonical-host (1.1.0)
       addressable (> 0, < 3)
@@ -468,7 +462,7 @@ DEPENDENCIES
   faraday
   faraday_middleware
   image_processing
-  inline_svg!
+  inline_svg
   kaminari
   letter_opener
   lighthouse-matchers
