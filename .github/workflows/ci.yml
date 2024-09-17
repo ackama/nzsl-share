@@ -195,7 +195,7 @@ jobs:
           bundle exec overcommit --uninstall
 
       - name: Run rspec
-        run: bundle exec rspec ./spec/system/edit_sign_usage_examples_spec.rb
+        run: bundle exec rake spec SPEC_OPTS="--profile --tag @type:system"
       - name: Archive spec outputs
         uses: actions/upload-artifact@v3
         if: success() || failure()
