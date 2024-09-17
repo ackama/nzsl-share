@@ -105,7 +105,7 @@ jobs:
     if: true
     runs-on: ubuntu-latest
     services:
-      db:
+      db1:
         image: postgres
         env:
           POSTGRES_USER: postgres
@@ -152,7 +152,7 @@ jobs:
   rspec-system:
     runs-on: ubuntu-latest
     services:
-      db:
+      db2:
         image: postgres
         env:
           POSTGRES_USER: postgres
