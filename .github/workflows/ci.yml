@@ -149,6 +149,9 @@ jobs:
       - name: Run rspec
         run: bundle exec rake spec SPEC_OPTS="--profile --tag ~@type:system"
 
+      - name: Run rspec2
+        run: bundle exec rspec ./spec/system/edit_sign_usage_examples_spec.rb
+
   rspec-system:
     runs-on: ubuntu-latest
     services:
