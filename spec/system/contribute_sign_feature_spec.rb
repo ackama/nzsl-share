@@ -40,7 +40,7 @@ RSpec.describe "Contributing a new sign", type: :system do
     expect(subject).to have_error "The file you selected does not comply with our upload guidelines."
   end
 
-  it "can upload a file with JS disabled", uses_javacript: false do
+  it "can upload a file with JS disabled", uses_javascript: false do
     expect do
       feature.choose_file
       feature.submit
