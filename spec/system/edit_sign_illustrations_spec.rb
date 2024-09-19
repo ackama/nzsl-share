@@ -11,10 +11,12 @@ RSpec.describe "Edit sign illustrations", type: :system do
 
   before do
     sign_in user
+    puts "before start with #{sign.id} | #{Sign.pluck(:id)}"
     visit edit_sign_path(sign)
   end
 
   it "can specify illustrations for a sign", uses_javascript: true, upload_mode: :uppy do
+    puts "test start with #{sign.id} | #{Sign.pluck(:id)}"
     within ".illustrations" do
       click_on "Upload files"
 
@@ -37,6 +39,7 @@ RSpec.describe "Edit sign illustrations", type: :system do
   end
 
   it "can drag and drop illustrations for a sign", uses_javascript: true, upload_mode: :uppy do
+    puts "test start with #{sign.id} | #{Sign.pluck(:id)}"
     within ".illustrations" do
       click_on "Upload files"
       expect(page).to have_selector(".uppy-Dashboard")
@@ -56,14 +59,17 @@ RSpec.describe "Edit sign illustrations", type: :system do
   end
 
   it "can specify illustrations for a sign without javascript", uses_javascript: false, upload_mode: :legacy do
+    puts "test start with #{sign.id} | #{Sign.pluck(:id)}"
     within(".illustrations") { choose_file Rails.root.join("spec/fixtures/image.png") }
     click_on "Update Sign"
     expect(page).to have_content I18n.t("signs.update.success")
+    puts "using #{sign.id} | #{Sign.pluck(:id)}"
     visit edit_sign_path(sign)
     expect(page).to have_selector(".sign-illustrations > *")
   end
 
   it "can specify illustrations for a sign using the legacy uploader", uses_javascript: true, upload_mode: :legacy do
+    puts "test start with #{sign.id} | #{Sign.pluck(:id)}"
     within ".illustrations" do
       choose_file Rails.root.join("spec/fixtures/image.png")
       expect(page).to have_selector(".sign-illustrations > *", count: 1)
