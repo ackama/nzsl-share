@@ -11,6 +11,7 @@ RSpec.describe "Editing sign usage examples", type: :system do
 
   before do
     sign_in user
+    puts "before start with #{sign.id} | #{Sign.pluck(:id)}"
     visit edit_sign_path(sign)
   end
 
@@ -113,6 +114,7 @@ RSpec.describe "Editing sign usage examples", type: :system do
   end
 
   it "can drag and drop usage examples for a sign", uses_javascript: true, upload_mode: :uppy do
+    puts "test start with #{sign.id} | #{Sign.pluck(:id)}"
     within ".usage-examples" do
       click_on "Upload files"
       expect(page).to have_selector(".uppy-Dashboard")
