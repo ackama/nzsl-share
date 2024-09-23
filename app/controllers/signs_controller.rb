@@ -31,7 +31,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def edit
-    puts Sign.pluck(:id)
+    # puts Sign.pluck(:id)
     @sign = signs.find(id)
     authorize @sign
     render
