@@ -6,7 +6,7 @@ RSpec.describe "Editing sign usage examples", type: :system do
   include ActionView::Helpers::NumberHelper
 
   let(:user) { FactoryBot.create(:user, :approved) }
-  let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
+  let!(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
   subject { page }
 
   before do
