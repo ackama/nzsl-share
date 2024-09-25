@@ -66,6 +66,7 @@
     "stylelint-config-recommended-scss": "^14.1.0",
     "webpack-dev-server": "^4.0.0"
   },
+  "packageManager": "yarn@1.22.22",
   "engines": {
     "node": "^20.0.0",
     "yarn": "^1.0.0"
