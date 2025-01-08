@@ -26,7 +26,7 @@ gem "sassc-rails"
 gem "shakapacker", "~> 8.0"
 gem "sidekiq"
 gem "sidekiq-batch"
-gem "sqlite3"
+gem "sqlite3", "= 1.5.4"
 gem "turbolinks"
 
 gem "rack-canonical-host"
