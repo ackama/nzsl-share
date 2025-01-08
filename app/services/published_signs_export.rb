@@ -1,3 +1,5 @@
+require "csv"
+
 class PublishedSignsExport
   QUERY = <<~SQL.squish.freeze
     SELECT
