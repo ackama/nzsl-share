@@ -60,7 +60,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   def poster_url(size: 1080) # rubocop:disable Metrics/AbcSize
     return fallback_poster_url unless sign.processed_thumbnails? && sign.processed_videos?
 
-    preset = ThumbnailPreset.default.public_send("scale_#{size}").to_h
+    preset = ThumbnailPreset.default.public_send(:"scale_#{size}").to_h
     preview = video.preview(preset)
 
     # We do not use the 'sign' instance here, because we want this cache
