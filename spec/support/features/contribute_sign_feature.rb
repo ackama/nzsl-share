@@ -1,4 +1,4 @@
-require_relative "./file_uploads"
+require_relative "file_uploads"
 require_relative "../wait_for_path"
 
 class ContributeSignFeature
