@@ -52,7 +52,7 @@ class FolderPolicy < ApplicationPolicy
   end
 
   def collaborator?
-    return unless user
+    return false unless user
 
     record.collaborators.map(&:id).include? user.id
   end

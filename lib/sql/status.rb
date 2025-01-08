@@ -4,7 +4,7 @@ module SQL
   module Status
     module_function
 
-    def public_signs(order)
+    def public_signs(order) # rubocop:disable Metrics/MethodLength
       <<-SQL.squish
         WITH sign_search(id, rank_precedence, rank_order, row_num) AS
           (SELECT rs1.id,

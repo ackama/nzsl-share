@@ -155,7 +155,7 @@ class SignPolicy < ApplicationPolicy
   end
 
   def collaborator?
-    return unless user
+    return false unless user
 
     record.folders.left_outer_joins(:collaborations)
           .exists?(folders: { collaborations: { collaborator_id: user.id } })
