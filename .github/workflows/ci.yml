@@ -190,7 +190,7 @@ jobs:
       - name: Run rspec
         run: bundle exec rake spec SPEC_OPTS="--profile --tag @type:system"
       - name: Archive spec outputs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: rspec-output-screenshots
