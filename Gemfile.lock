@@ -275,7 +275,7 @@ GEM
     pundit (2.1.1)
       activesupport (>= 3.0.0)
     racc (1.8.1)
-    rack (2.2.10)
+    rack (2.2.11)
     rack-canonical-host (1.1.0)
       addressable (> 0, < 3)
       rack (>= 1.0.0, < 3)
