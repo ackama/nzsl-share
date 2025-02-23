@@ -3,8 +3,8 @@ module FileUploads
     find(selector).drop(path)
   end
 
-  def choose_file(path = default_attachment_path, selector: "Browse files", **opts)
-    page.attach_file(selector, path, **opts)
+  def choose_file(path = default_attachment_path, selector: "Browse files", **)
+    page.attach_file(selector, path, **)
   end
 
   def default_attachment_path

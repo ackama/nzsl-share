@@ -39,13 +39,13 @@ class SignCommentPolicy < ApplicationPolicy
   private
 
   def comment_author?
-    return unless user
+    return false unless user
 
     record.user == user
   end
 
   def folder_context?
-    return if @current_folder_id.blank?
+    return false if @current_folder_id.blank?
 
     true
   end
