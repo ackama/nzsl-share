@@ -32,7 +32,6 @@
     "@uppy/drop-target": "^3.0.0",
     "@uppy/webcam": "^3.4.0",
     "babel-loader": "^8.0.0",
-    "babel-plugin-macros": "^3.0.0",
     "chosen-js": "^1.8.7",
     "compression-webpack-plugin": "^9.0.0",
     "css-loader": "^6.8.1",

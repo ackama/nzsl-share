@@ -1,64 +1,14 @@
 'use strict';
 
-module.exports = api => {
-  const validEnv = ['development', 'test', 'production'];
-  const currentEnv = api.env();
-  const isDevelopmentEnv = api.env('development');
-  const isProductionEnv = api.env('production');
-  const isTestEnv = api.env('test');
+const defaultConfigFunc = require('shakapacker/package/babel/preset.js');
 
-  if (!validEnv.includes(currentEnv)) {
-    throw new Error(
-      `${
-        'Please specify a valid `NODE_ENV` or ' +
-        '`BABEL_ENV` environment variables. Valid values are "development", ' +
-        '"test", and "production". Instead, received: '
-      }${JSON.stringify(currentEnv)}.`
-    );
-  }
+/** @type {import('@babel/core').ConfigFunction} */
+const config = api => {
+  const resultConfig = defaultConfigFunc(api);
 
-  return {
-    presets: [
-      isTestEnv && [
-        '@babel/preset-env',
-        {
-          targets: {
-            node: 'current'
-          }
-        }
-      ],
-      (isProductionEnv || isDevelopmentEnv) && [
-        '@babel/preset-env',
-        {
-          forceAllTransforms: true,
-          useBuiltIns: 'entry',
-          corejs: 3,
-          modules: false,
-          exclude: ['transform-typeof-symbol']
-        }
-      ]
-    ].filter(Boolean),
-    plugins: [
-      'babel-plugin-macros',
-      '@babel/plugin-transform-for-of',
-      '@babel/plugin-syntax-dynamic-import',
-      isTestEnv && 'babel-plugin-dynamic-import-node',
-      '@babel/plugin-transform-destructuring',
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          helpers: false,
-          regenerator: true,
-          corejs: false
-        }
-      ],
-      [
-        '@babel/plugin-transform-regenerator',
-        {
-          async: false
-        }
-      ],
-      ['@babel/plugin-transform-react-jsx']
-    ].filter(Boolean)
-  };
+  resultConfig.plugins.push(['@babel/plugin-transform-react-jsx']);
+
+  return resultConfig;
 };
+
+module.exports = config;
