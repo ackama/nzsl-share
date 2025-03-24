@@ -1,62 +1,14 @@
-module.exports = function (api) {
-  var validEnv = ['development', 'test', 'production'];
-  var currentEnv = api.env();
-  var isDevelopmentEnv = api.env('development');
-  var isProductionEnv = api.env('production');
-  var isTestEnv = api.env('test');
+'use strict';
 
-  if (!validEnv.includes(currentEnv)) {
-    throw new Error(
-      'Please specify a valid `NODE_ENV` or ' +
-        '`BABEL_ENV` environment variables. Valid values are "development", ' +
-        '"test", and "production". Instead, received: ' +
-        JSON.stringify(currentEnv) +
-        '.'
-    );
-  }
+const defaultConfigFunc = require('shakapacker/package/babel/preset.js');
 
-  return {
-    presets: [
-      isTestEnv && [
-        require('@babel/preset-env').default,
-        {
-          targets: {
-            node: 'current'
-          }
-        }
-      ],
-      (isProductionEnv || isDevelopmentEnv) && [
-        require('@babel/preset-env').default,
-        {
-          forceAllTransforms: true,
-          useBuiltIns: 'entry',
-          corejs: 3,
-          modules: false,
-          exclude: ['transform-typeof-symbol']
-        }
-      ]
-    ].filter(Boolean),
-    plugins: [
-      require('babel-plugin-macros'),
-      require('@babel/plugin-transform-for-of').default,
-      require('@babel/plugin-syntax-dynamic-import').default,
-      isTestEnv && require('babel-plugin-dynamic-import-node'),
-      require('@babel/plugin-transform-destructuring').default,
-      [
-        require('@babel/plugin-transform-runtime').default,
-        {
-          helpers: false,
-          regenerator: true,
-          corejs: false
-        }
-      ],
-      [
-        require('@babel/plugin-transform-regenerator').default,
-        {
-          async: false
-        }
-      ],
-      ['@babel/plugin-transform-react-jsx']
-    ].filter(Boolean)
-  };
+/** @type {import('@babel/core').ConfigFunction} */
+const config = api => {
+  const resultConfig = defaultConfigFunc(api);
+
+  resultConfig.plugins.push(['@babel/plugin-transform-react-jsx']);
+
+  return resultConfig;
 };
+
+module.exports = config;
