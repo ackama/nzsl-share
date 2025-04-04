@@ -196,3 +196,39 @@ jobs:
           name: rspec-output-screenshots
           path: tmp/capybara
           retention-days: 5
+
+  # ######################################################################### #
+  # Deploy to Heroku
+  # ######################################################################### #
+
+  deploy_to_heroku_staging:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - check-dependencies
+      - format
+      - rspec
+    uses: ./.github/workflows/deploy_to_heroku.yml
+    with:
+      environment: staging
+      environment_url: https://nzsl-share-uat.herokuapp.com/
+    secrets:
+      heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      heroku_email: ${{ secrets.HEROKU_EMAIL }}
+      heroku_app_name: ${{ secrets.HEROKU_APP_NAME_STAGING }}
+      slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+
+  deploy_to_heroku_production:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/production'
+    needs:
+      - check-dependencies
+      - format
+      - rspec
+    uses: ./.github/workflows/deploy_to_heroku.yml
+    with:
+      environment: production
+      environment_url: https://www.nzslshare.nz/
+    secrets:
+      heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      heroku_email: ${{ secrets.HEROKU_EMAIL }}
+      heroku_app_name: ${{ secrets.HEROKU_APP_NAME_PRODUCTION }}
+      slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
