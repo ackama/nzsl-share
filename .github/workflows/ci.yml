@@ -210,7 +210,7 @@ jobs:
     uses: ./.github/workflows/deploy_to_heroku.yml
     with:
       environment: staging
-      environment_url: https://nzsl-share-uat.herokuapp.com/
+      environment_url: https://uat.nzslshare.nz
     secrets:
       heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
       heroku_email: ${{ secrets.HEROKU_EMAIL }}
