@@ -226,7 +226,7 @@ jobs:
     uses: ./.github/workflows/deploy_to_heroku.yml
     with:
       environment: production
-      environment_url: https://www.nzslshare.nz/
+      environment_url: https://www.nzslshare.nz
     secrets:
       heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
       heroku_email: ${{ secrets.HEROKU_EMAIL }}
