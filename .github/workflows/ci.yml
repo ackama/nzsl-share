@@ -201,7 +201,7 @@ jobs:
   # Deploy to Heroku
   # ######################################################################### #
 
-  deploy_to_heroku_staging:
+  deploy_to_heroku_uat:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs:
       - check-dependencies
@@ -209,7 +209,7 @@ jobs:
       - rspec
     uses: ./.github/workflows/deploy_to_heroku.yml
     with:
-      environment: staging
+      environment: uat
       environment_url: https://uat.nzslshare.nz
     secrets:
       heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
