@@ -28,7 +28,13 @@ RSpec.describe SignAttachmentsController, type: :request do
 
     context "blob does not exist" do
       let(:signed_blob_id) { "abc123" }
-      it { expect { create_request }.to raise_error ActiveSupport::MessageVerifier::InvalidSignature }
+
+      it "returns an http error" do
+        create_request
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to include "ActiveSupport::MessageVerifier::InvalidSignature"
+      end
     end
 
     context "sign is invalid" do
