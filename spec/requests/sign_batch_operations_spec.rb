@@ -11,7 +11,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
       params = { operation: :echo, sign_ids: [sign.id] }
       post signs_batch_operations_path(params:, format: :json)
       expect(response).to be_ok
-      response_json = JSON.parse(response.body)
+      response_json = response.parsed_body
       expect(response_json).to eq("succeeded" => [sign.as_json], "failed" => [])
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
           post signs_batch_operations_path(params:, format: :json)
         end.not_to change { sign.topics }
 
-        response_json = JSON.parse(response.body)
+        response_json = response.parsed_body
         expect(response_json["failed"]).to eq [sign.as_json]
       end
     end
@@ -77,7 +77,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
           post signs_batch_operations_path(params:, format: :json)
         end.not_to change { sign.status }
 
-        response_json = JSON.parse(response.body)
+        response_json = response.parsed_body
         expect(response_json["failed"]).to eq [sign.as_json]
       end
 
@@ -87,7 +87,7 @@ RSpec.describe "/signs/batch_operation", type: :request do
           post signs_batch_operations_path(params:, format: :json)
         end.not_to change { sign.status }
 
-        response_json = JSON.parse(response.body)
+        response_json = response.parsed_body
         expect(response_json["failed"]).to eq [sign.as_json]
       end
     end
