@@ -28,7 +28,10 @@ RSpec.describe Admin::ExportsController, type: :request do
       let(:user) { FactoryBot.create(:user) }
 
       it "is unauthorised" do
-        expect { get_published_signs_admin_exports_path }.to raise_error(Pundit::NotAuthorizedError)
+        get_published_signs_admin_exports_path
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to include "NotAuthorizedError"
       end
     end
   end
@@ -60,7 +63,10 @@ RSpec.describe Admin::ExportsController, type: :request do
       let(:user) { FactoryBot.create(:user) }
 
       it "is unauthorised" do
-        expect { get_users_admin_exports_path }.to raise_error(Pundit::NotAuthorizedError)
+        get_users_admin_exports_path
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to include "NotAuthorizedError"
       end
     end
   end
