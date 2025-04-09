@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe SignPresenter, type: :presenter do
-  # let(:sign) { FactoryBot.build_stubbed(:sign) }
   let(:sign) { FactoryBot.create(:sign) }
   subject(:presenter) { SignPresenter.new(sign, view) }
 

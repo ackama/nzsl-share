@@ -17,9 +17,10 @@ RSpec.describe "/admin/user_sign_transfers", type: :request do
       let(:user) { FactoryBot.create(:user) }
 
       it "is unauthorised" do
-        expect do
-          get new_admin_user_sign_transfer_path(old_owner:)
-        end.to raise_error(Pundit::NotAuthorizedError)
+        get new_admin_user_sign_transfer_path(old_owner:)
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to include "NotAuthorizedError"
       end
     end
   end
@@ -38,9 +39,10 @@ RSpec.describe "/admin/user_sign_transfers", type: :request do
       let(:user) { FactoryBot.create(:user) }
 
       it "is unauthorised" do
-        expect do
-          post admin_user_sign_transfers_path(old_owner:, new_owner:)
-        end.to raise_error(Pundit::NotAuthorizedError)
+        post admin_user_sign_transfers_path(old_owner:, new_owner:)
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to include "NotAuthorizedError"
       end
     end
   end
