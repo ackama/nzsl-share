@@ -102,7 +102,6 @@ RSpec.describe SignAttachmentsController, type: :request do
 
     context "attachment does not exist" do
       let(:attachment_id) { 999 }
-      # it { expect { destroy_request }.to raise_error(ActiveRecord::RecordNotFound) }
 
       it "returns an http error" do
         destroy_request
@@ -115,7 +114,6 @@ RSpec.describe SignAttachmentsController, type: :request do
     context "attachment exists but does not belong to the sign" do
       let(:other_sign) { FactoryBot.create(:sign, :with_usage_examples) }
       let(:attachment_id) { other_sign.usage_examples.first.id }
-      # it { expect { destroy_request }.to raise_error(ActiveRecord::RecordNotFound) }
 
       it "returns an http error" do
         destroy_request

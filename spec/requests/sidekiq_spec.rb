@@ -17,7 +17,6 @@ RSpec.describe "Sidekiq authentication", type: :request do
         expect(response).to have_http_status(:not_found)
         expect(response.body).to include "Routing Error"
       end
-      # it { expect { subject }.to raise_error ActionController::RoutingError }
     end
 
     context "not signed in" do
