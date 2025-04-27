@@ -1,4 +1,4 @@
-require "active_storage/disk_controller"
+# require "active_storage/disk_controller"
 
 class ActiveStorage::DiskController
   private
