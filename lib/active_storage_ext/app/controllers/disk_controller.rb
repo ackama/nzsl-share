@@ -1,5 +1,3 @@
-# require "active_storage/disk_controller"
-
 class ActiveStorage::DiskController
   private
 
