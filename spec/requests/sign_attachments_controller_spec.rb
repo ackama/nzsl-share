@@ -28,7 +28,13 @@ RSpec.describe SignAttachmentsController, type: :request do
 
     context "blob does not exist" do
       let(:signed_blob_id) { "abc123" }
-      it { expect { create_request }.to raise_error ActiveSupport::MessageVerifier::InvalidSignature }
+
+      it "returns an http error" do
+        create_request
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to include "ActiveSupport::MessageVerifier::InvalidSignature"
+      end
     end
 
     context "sign is invalid" do
@@ -96,13 +102,25 @@ RSpec.describe SignAttachmentsController, type: :request do
 
     context "attachment does not exist" do
       let(:attachment_id) { 999 }
-      it { expect { destroy_request }.to raise_error(ActiveRecord::RecordNotFound) }
+
+      it "returns an http error" do
+        destroy_request
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to include "Not Found"
+      end
     end
 
     context "attachment exists but does not belong to the sign" do
       let(:other_sign) { FactoryBot.create(:sign, :with_usage_examples) }
       let(:attachment_id) { other_sign.usage_examples.first.id }
-      it { expect { destroy_request }.to raise_error(ActiveRecord::RecordNotFound) }
+
+      it "returns an http error" do
+        destroy_request
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to include "Not Found"
+      end
     end
   end
 

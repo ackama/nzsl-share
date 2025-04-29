@@ -99,7 +99,7 @@ RSpec.describe PublicSignService, type: :service do
 
       context "most popular" do
         example "be in the expected order" do
-          Sign.all.each do |sign|
+          Sign.find_each do |sign|
             rand(1..10).times { sign.activities << FactoryBot.build(:sign_activity) }
             sign.save
           end
