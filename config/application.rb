@@ -12,6 +12,11 @@ module NzslShare
     config.load_defaults 7.2
     config.time_zone = "Wellington"
 
+    # load config/app.yml into Rails.application.config.app.*
+    config.app = config_for(:app)
+    # pull the secret_key_base from our app config
+    config.secret_key_base = config.app.secret_key_base
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
