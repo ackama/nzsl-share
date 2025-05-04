@@ -98,8 +98,11 @@ RSpec.describe "share_folder", type: :request do
         allowed_folder.collaborators << user
       end
 
-      it "raises an exception" do
-        expect { invalid_show.call("soup", "pretzel") }.to raise_exception(ActiveRecord::RecordNotFound)
+      it "returns 404 Not Found" do
+        invalid_show.call("soup", "pretzel")
+
+        expect(response).to have_http_status(404)
+        expect(response.body).to include "RecordNotFound"
       end
     end
   end

@@ -80,11 +80,11 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options[:protocol] = "https"
   config.action_mailer.smtp_settings = {
-    address: Rails.application.secrets.smtp_hostname,
+    address: Rails.application.config.app.smtp_hostname,
     port: 587,
     enable_starttls_auto: true,
-    user_name: Rails.application.secrets.smtp_user_name,
-    password: Rails.application.secrets.smtp_password,
+    user_name: Rails.application.config.app.smtp_user_name,
+    password: Rails.application.config.app.smtp_password,
     authentication: "login",
     domain: ENV.fetch("HOSTNAME", nil)
   }
