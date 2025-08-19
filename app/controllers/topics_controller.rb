@@ -6,7 +6,11 @@ class TopicsController < ApplicationController
 
   def show
     @topic = policy_scope(Topic).find(params[:id])
-    @signs = policy_scope(@topic.signs)
+    @search_results ||= TopicSignService.new(search:, relation: @topic).process
+
+    @signs = @search_results.data
+    @page = @search_results.support
+
     authorize @topic
   end
 
@@ -16,5 +20,11 @@ class TopicsController < ApplicationController
     @signs = policy_scope(Sign).uncategorised
 
     render :show
+  end
+
+  private
+
+  def search
+    @search ||= Search.new(params.permit(:page, :sort))
   end
 end
