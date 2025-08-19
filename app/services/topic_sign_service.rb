@@ -18,7 +18,7 @@ class TopicSignService
   private
 
   def build_results
-    result_ids = parse_results(@relation.signs)
+    result_ids = parse_results(@relation.signs.order(search.order_clause))
     result_relation = Sign.where(Sign.primary_key => result_ids)
     search.total = result_relation.count
     fetch_results(result_relation, result_ids)
