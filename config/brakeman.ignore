@@ -26,42 +26,25 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "1f5bce3e919d9636f7e3ad264fc6b4f0e7b10914df8cecd7617afa3b55b51a60",
+      "fingerprint": "dfdbc776ac224c9d431aaa96a339f2418d07f24e9021fba8ce3212af6d891b4f",
       "check_name": "SQL",
       "message": "Possible SQL injection",
-      "file": "app/services/search_service.rb",
-      "line": 42,
+      "file": "app/services/folder_sign_service.rb",
+      "line": 37,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Arel.sql(\"array_position(array[#{result_ids.join(\",\")}]::integer[],\\n                       \\\"#{relation.table_name}\\\".\\\"#{relation.primary_key}\\\")\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "SearchService",
+        "class": "FolderSignService",
         "method": "fetch_results"
       },
       "user_input": "result_ids.join(\",\")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "378082454d97d60a7aa8ca6e6af6915b93a8480ce792b4cffb4cea39227c4969",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/static_controller.rb",
-      "line": 5,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => params[:page], {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "StaticController",
-        "method": "show"
-      },
-      "user_input": "params[:page]",
-      "confidence": "High",
-      "note": "This is protected by the gaurd clause on the line above"
     },
     {
       "warning_type": "SQL Injection",
@@ -87,6 +70,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-08-21 13:09:57 +1200",
+  "updated": "2025-08-21 14:21:48 +1200",
   "brakeman_version": "5.4.0"
 }
