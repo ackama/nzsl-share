@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require "./lib/sql/status"
+
 class TopicSignService
   attr_reader :search, :results
 
-  def initialize(search:, relation:)
+  def initialize(search:, relation:, topic:)
     @search = search
     @relation = relation
+    @topic = topic
     @results = SearchResults.new
   end
 
@@ -18,21 +21,28 @@ class TopicSignService
   private
 
   def build_results
-    result_ids = parse_results(@relation.signs.order(search.order_clause))
-    result_relation = Sign.where(Sign.primary_key => result_ids)
+    sql_arr = [SQL::Status.public_signs(search.order_clause)]
+    result_ids = parse_results(exec_query(sql_arr))
+    result_relation = @relation.joins(:sign_topics)
+                               .where(sign_topics: { topic_id: [@topic.id] })
+                               .where(@relation.primary_key => result_ids)
+
     search.total = result_relation.count
     fetch_results(result_relation, result_ids)
   end
 
   def fetch_results(result_relation, result_ids)
-    # binding.pry
     result_relation
       .limit(search.page[:limit])
       .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[],
-                       \"#{Sign.table_name}\".\"#{Sign.primary_key}\")"))
+                       \"#{@relation.table_name}\".\"#{@relation.primary_key}\")"))
   end
 
   def parse_results(results)
-    results.pluck :id
+    results.field_values(@relation.primary_key)
+  end
+
+  def exec_query(sql_arr)
+    ApplicationRecord.connection.execute(ApplicationRecord.send(:sanitize_sql_array, sql_arr))
   end
 end

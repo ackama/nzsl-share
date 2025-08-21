@@ -6,8 +6,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = policy_scope(Topic).find(params[:id])
-    @search_results ||= TopicSignService.new(search:, relation: @topic).process
-
+    @search_results ||= TopicSignService.new(search:, relation: policy_scope(Sign), topic: @topic).process
     @signs = @search_results.data
     @page = @search_results.support
 
