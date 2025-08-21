@@ -3,6 +3,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "03824bf3e00caacbe3bb32ff1a4c23578b4d0893f9494eed88d02ff41d3403d5",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/topic_sign_service.rb",
+      "line": 37,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"array_position(array[#{result_ids.join(\",\")}]::integer[],\\n                       \\\"#{relation.table_name}\\\".\\\"#{relation.primary_key}\\\")\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TopicSignService",
+        "method": "fetch_results"
+      },
+      "user_input": "result_ids.join(\",\")",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "1f5bce3e919d9636f7e3ad264fc6b4f0e7b10914df8cecd7617afa3b55b51a60",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -58,9 +81,12 @@
       },
       "user_input": "result_ids.join(\",\")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     }
   ],
-  "updated": "2021-06-10 10:53:40 +1200",
-  "brakeman_version": "5.0.4"
+  "updated": "2025-08-21 13:09:57 +1200",
+  "brakeman_version": "5.4.0"
 }
