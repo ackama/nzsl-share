@@ -1,4 +1,20 @@
 <% provide(:title, @folder.title) %>
+<div class="grid-x margin-vertical-2">
+  <div class="cell auto">
+    <h2 class="normal">
+      <% if @page[:limit] >= @page[:total] %>
+        <%= @page[:total] %> of <%= @page[:total] %> signs
+      <% else %>
+        <%= @page[:limit] %> of <%= @page[:total] %> signs
+      <% end %>
+    </h2>
+  </div>
+
+  <div class="cell shrink">
+    <%= render "search/sort_by", page: @page unless @page[:total].zero? %>
+  </div>
+</div>
+<hr class="list__divider list__divider--dark">
 
 <div class="grid-x grid-margin-x">
   <nav class="cell shrink" aria-label="You are here:" role="navigation">
@@ -42,22 +58,6 @@
         </div>
         <div class="bullet">•</div>
         <div class="list__description--metadata"><%= pluralize(@folder.collaborators.count, "team member") %></div>
-      </div>
-    </div>
-
-    <div class="grid-x margin-vertical-2">
-      <div class="cell auto">
-        <h2 class="normal">
-          <% if @page[:limit] >= @page[:total] %>
-            <%= @page[:total] %> of <%= @page[:total] %> signs
-          <% else %>
-            <%= @page[:limit] %> of <%= @page[:total] %> signs
-          <% end %>
-        </h2>
-      </div>
-
-      <div class="cell shrink">
-        <%= render "search/sort_by", page: @page unless @page[:total].zero? %>
       </div>
     </div>
 
