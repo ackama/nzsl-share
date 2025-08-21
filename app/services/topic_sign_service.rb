@@ -21,14 +21,26 @@ class TopicSignService
   private
 
   def build_results
-    sql_arr = [SQL::Status.public_signs(search.order_clause)]
+    sql_arr = [SQL::Status.all_signs(search.order_clause)]
     result_ids = parse_results(exec_query(sql_arr))
-    result_relation = @relation.joins(:sign_topics)
-                               .where(sign_topics: { topic_id: [@topic.id] })
-                               .where(@relation.primary_key => result_ids)
 
-    search.total = result_relation.count
+    result_relation = build_result_relation
+
+    # use length, so we don't try and count in SQL, because when there is a group by in the query such as in the
+    # uncategorised scope the count returns a hash of the count of each grouped result
+    # but we just want to know how many resutls there are in total
+    search.total = result_relation.length
     fetch_results(result_relation, result_ids)
+  end
+
+  def build_result_relation
+    if @topic.id.nil?
+      @relation.uncategorised.where(@relation.primary_key => result_ids)
+    else
+      @relation.joins(:sign_topics)
+               .where(sign_topics: { topic_id: [@topic.id] })
+               .where(@relation.primary_key => result_ids)
+    end
   end
 
   def fetch_results(result_relation, result_ids)
