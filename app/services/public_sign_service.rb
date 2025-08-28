@@ -3,15 +3,13 @@
 require "./lib/sql/status"
 
 class PublicSignService
-  attr_reader :search, :results
-
   def initialize(search:, relation:)
     @search = search
     @relation = relation
-    @results = SearchResults.new
   end
 
   def process
+    results = SearchResults.new
     results.data = build_results
     results.support = search.page_with_total
     results

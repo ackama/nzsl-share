@@ -1,11 +1,7 @@
 <div class="grid-x margin-vertical-2">
   <div class="cell auto">
     <h2 class="normal">
-      <% if @page[:limit] >= @page[:total] %>
-        <%= @page[:total] %> of <%= @page[:total] %> signs
-      <% else %>
-        <%= @page[:limit] %> of <%= @page[:total] %> signs
-      <% end %>
+      <%= [@page[:limit], @page[:total]].min %> of <%= @page[:total] %> signs
     </h2>
   </div>
 

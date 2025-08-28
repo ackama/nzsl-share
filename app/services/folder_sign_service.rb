@@ -3,16 +3,14 @@
 require "./lib/sql/status"
 
 class FolderSignService
-  attr_reader :search, :results
-
   def initialize(search:, relation:, folder:)
     @search = search
     @relation = relation
     @folder = folder
-    @results = SearchResults.new
   end
 
   def process
+    results = SearchResults.new
     results.data = build_results
     results.support = search.page_with_total
     results
