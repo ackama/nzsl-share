@@ -2,12 +2,14 @@ require "rails_helper"
 
 RSpec.describe FolderSignService, type: :service do
   let(:user) { FactoryBot.create(:user) }
-  let!(:folder) { FactoryBot.create(:folder, :with_35_associated_signs) }
+  let!(:folder) { FactoryBot.create(:folder) }
 
   describe "folder signs" do
     context "total" do
       context "more than 10 results" do
         it "returns page default limit and result(s) total" do
+          folder.signs = FactoryBot.build_list(:sign, 35, :published)
+
           rs1 = search(scoped_relation, sort: "alpha_asc")
           expect(rs1.data.count).to eq Search::DEFAULT_LIMIT
           expect(rs1.support[:total]).to eq 35

@@ -12,14 +12,14 @@ class TopicSignService
   def process
     results = SearchResults.new
     results.data = build_results
-    results.support = search.page_with_total
+    results.support = @search.page_with_total
     results
   end
 
   private
 
   def build_results
-    sql_arr = [SQL::Status.all_signs(search.order_clause)]
+    sql_arr = [SQL::Status.all_signs(@search.order_clause)]
     result_ids = parse_results(exec_query(sql_arr))
 
     result_relation = choose_topic.where(@relation.primary_key => result_ids)
@@ -27,7 +27,7 @@ class TopicSignService
     # use length, so we don't try and count in SQL, because when there is a group by in the query such as in the
     # uncategorised scope the count returns a hash of the count of each grouped result
     # but we just want to know how many resutls there are in total
-    search.total = result_relation.length
+    @search.total = result_relation.length
     fetch_results(result_relation, result_ids)
   end
 
@@ -42,7 +42,7 @@ class TopicSignService
 
   def fetch_results(result_relation, result_ids)
     result_relation
-      .limit(search.page[:limit])
+      .limit(@search.page[:limit])
       .order(Arel.sql("array_position(array[#{result_ids.join(",")}]::integer[],
                        \"#{@relation.table_name}\".\"#{@relation.primary_key}\")"))
   end
