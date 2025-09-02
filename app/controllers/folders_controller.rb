@@ -7,7 +7,7 @@ class FoldersController < ApplicationController
 
   def show
     @folder = policy_scope(Folder).find(id)
-    search_results ||= FolderSignService.new(search:, relation: policy_scope(Sign), folder: @folder).process
+    search_results = FolderSignService.new(search:, relation: policy_scope(Sign), folder: @folder).process
     @signs = search_results.data
     @page = search_results.support
 
