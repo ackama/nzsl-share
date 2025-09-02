@@ -7,6 +7,10 @@ class FoldersController < ApplicationController
 
   def show
     @folder = policy_scope(Folder).find(id)
+    search_results = FolderSignService.new(search:, relation: policy_scope(Sign), folder: @folder).process
+    @signs = search_results.data
+    @page = search_results.support
+
     authorize @folder
     render :show
   end
@@ -68,5 +72,9 @@ class FoldersController < ApplicationController
 
   def id
     params[:id]
+  end
+
+  def search
+    @search ||= Search.new(params.permit(:page, :sort))
   end
 end

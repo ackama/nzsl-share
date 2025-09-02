@@ -1,5 +1,18 @@
 <% provide(:title, @topic.name) %>
 
+<div class="grid-x margin-vertical-2">
+  <div class="cell auto">
+    <h2 class="normal">
+      <%= [@page[:limit], @page[:total]].min %> of <%= @page[:total] %> signs
+    </h2>
+  </div>
+
+  <div class="cell shrink">
+    <%= render "search/sort_by", page: @page unless @page[:total].zero? %>
+  </div>
+</div>
+<hr class="list__divider list__divider--dark">
+
 <div class="grid-x grid-margin-x">
   <nav class="cell shrink" aria-label="You are here:" role="navigation">
     <ul class="breadcrumbs">
@@ -20,3 +33,9 @@
     </div>
   </div>
 </div>
+
+<% if @page[:total] >= @page[:limit] %>
+  <div class="cell auto text-center margin-2">
+    <%= link_to "Show More", params.to_unsafe_h.merge(page: @page[:next_page], anchor: dom_id(@signs.last, :card)), class: "button primary" %>
+  </div>
+<% end %>
