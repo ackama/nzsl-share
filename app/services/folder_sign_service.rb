@@ -2,10 +2,11 @@
 
 require "./lib/sql/status"
 
-class PublicSignService
-  def initialize(search:, relation:)
+class FolderSignService
+  def initialize(search:, relation:, folder:)
     @search = search
     @relation = relation
+    @folder = folder
   end
 
   def process
@@ -18,9 +19,12 @@ class PublicSignService
   private
 
   def build_results
-    sql_arr = [SQL::Status.public_signs(@search.order_clause)]
+    sql_arr = [SQL::Status.all_signs(@search.order_clause)]
     result_ids = parse_results(exec_query(sql_arr))
-    result_relation = @relation.where(@relation.primary_key => result_ids)
+
+    result_relation = @relation.joins(:folder_memberships)
+                               .where(folder_memberships: { folder_id: [@folder.id] })
+                               .where(@relation.primary_key => result_ids)
     @search.total = result_relation.count
     fetch_results(result_relation, result_ids)
   end

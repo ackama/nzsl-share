@@ -7,6 +7,10 @@ class FolderShareController < ApplicationController
     @folder = fetch_folder_by_token
     authorize share_data, policy_class: SharePolicy
 
+    search_results = FolderSignService.new(search:, relation: policy_scope(Sign), folder: @folder).process
+    @signs = search_results.data
+    @page = search_results.support
+
     render "folders/show"
   end
 
@@ -50,5 +54,9 @@ class FolderShareController < ApplicationController
 
   def share_token
     params[:token]
+  end
+
+  def search
+    @search ||= Search.new(params.permit(:page, :sort))
   end
 end
