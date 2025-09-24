@@ -175,7 +175,7 @@ class ActiveStorageUpload extends BasePlugin {
       return this.upload(file, current, total);
     });
 
-    return Promise.allSettled(promises);
+    return Promise.all(promises);
   }
 
   onFileRemove(fileID, cb) {
