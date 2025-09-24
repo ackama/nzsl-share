@@ -1,6 +1,6 @@
 import { BasePlugin } from '@uppy/core';
 import { nanoid } from 'nanoid';
-import EventTracker from '@uppy/utils/lib/EventTracker';
+import EventManager from '@uppy/utils/lib/EventManager';
 import ProgressTimeout from '@uppy/utils/lib/ProgressTimeout';
 import {
   RateLimitedQueue,
@@ -100,7 +100,7 @@ class ActiveStorageUpload extends BasePlugin {
         this.opts.directUploadUrl,
         directHandlers
       );
-      this.uploaderEvents[file.id] = new EventTracker(this.uppy);
+      this.uploaderEvents[file.id] = new EventManager(this.uppy);
 
       const timer = new ProgressTimeout(opts.timeout, () => {
         upload.abort();
