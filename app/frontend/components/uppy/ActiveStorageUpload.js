@@ -1,6 +1,5 @@
 import { BasePlugin } from '@uppy/core';
 import { nanoid } from 'nanoid';
-import settle from '@uppy/utils/lib/settle';
 import EventTracker from '@uppy/utils/lib/EventTracker';
 import ProgressTimeout from '@uppy/utils/lib/ProgressTimeout';
 import {
@@ -176,7 +175,7 @@ class ActiveStorageUpload extends BasePlugin {
       return this.upload(file, current, total);
     });
 
-    return settle(promises);
+    return Promise.allSettled(promises);
   }
 
   onFileRemove(fileID, cb) {
