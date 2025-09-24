@@ -61,8 +61,6 @@ class ActiveStorageUpload extends BasePlugin {
 
     this.uppy.log(`uploading ${current} of ${total}`);
     return new Promise((resolve, reject) => {
-      this.uppy.emit('upload-start', file);
-
       var directHandlers = {
         directUploadWillStoreFileWithXHR: null,
         directUploadDidProgress: null
@@ -142,8 +140,6 @@ class ActiveStorageUpload extends BasePlugin {
       };
 
       const queuedRequest = this.requests.run(() => {
-        this.uppy.emit('upload-start', file);
-
         upload.create(handleDirectUpload);
 
         return () => {
@@ -165,6 +161,8 @@ class ActiveStorageUpload extends BasePlugin {
   }
 
   uploadFiles(files) {
+    this.uppy.emit('upload-start', files);
+
     const promises = files.map((file, i) => {
       const current = parseInt(i, 10) + 1;
       const total = files.length;
