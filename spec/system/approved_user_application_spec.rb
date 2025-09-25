@@ -21,17 +21,21 @@ RSpec.describe "Approved user application", type: :system do
   it "sends an email to the user after submitting" do
     subject.fill_in_mandatory_fields
     perform_enqueued_jobs { subject.submit }
-    mail = ActionMailer::Base.deliveries[-2]
-    expect(mail.to).to eq [user.email]
-    expect(mail.subject).to eq I18n.t("approved_user_mailer.submitted.subject")
+
+    mails = ActionMailer::Base.deliveries.select { |mail| mail.to.include?(user.email) }
+
+    expect(mails.length).to be(1)
+    expect(mails.first.subject).to eq I18n.t("approved_user_mailer.submitted.subject")
   end
 
   it "sends an email to the admin after submitting" do
     subject.fill_in_mandatory_fields
     perform_enqueued_jobs { subject.submit }
-    mail = ActionMailer::Base.deliveries[-1]
-    expect(mail.to).to eq [admin.email]
-    expect(mail.subject).to eq I18n.t("approved_user_mailer.admin_submitted.subject")
+
+    mails = ActionMailer::Base.deliveries.select { |mail| mail.to.include?(admin.email) }
+
+    expect(mails.length).to be(1)
+    expect(mails.first.subject).to eq I18n.t("approved_user_mailer.admin_submitted.subject")
   end
 
   it "leaves a required field blank" do
