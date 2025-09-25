@@ -1,7 +1,6 @@
 import { BasePlugin } from '@uppy/core';
 import { nanoid } from 'nanoid';
-import settle from '@uppy/utils/lib/settle';
-import EventTracker from '@uppy/utils/lib/EventTracker';
+import EventManager from '@uppy/utils/lib/EventManager';
 import ProgressTimeout from '@uppy/utils/lib/ProgressTimeout';
 import {
   RateLimitedQueue,
@@ -62,8 +61,6 @@ class ActiveStorageUpload extends BasePlugin {
 
     this.uppy.log(`uploading ${current} of ${total}`);
     return new Promise((resolve, reject) => {
-      this.uppy.emit('upload-started', file);
-
       var directHandlers = {
         directUploadWillStoreFileWithXHR: null,
         directUploadDidProgress: null
@@ -101,7 +98,7 @@ class ActiveStorageUpload extends BasePlugin {
         this.opts.directUploadUrl,
         directHandlers
       );
-      this.uploaderEvents[file.id] = new EventTracker(this.uppy);
+      this.uploaderEvents[file.id] = new EventManager(this.uppy);
 
       const timer = new ProgressTimeout(opts.timeout, () => {
         upload.abort();
@@ -143,8 +140,6 @@ class ActiveStorageUpload extends BasePlugin {
       };
 
       const queuedRequest = this.requests.run(() => {
-        this.uppy.emit('upload-started', file);
-
         upload.create(handleDirectUpload);
 
         return () => {
@@ -166,6 +161,8 @@ class ActiveStorageUpload extends BasePlugin {
   }
 
   uploadFiles(files) {
+    this.uppy.emit('upload-start', files);
+
     const promises = files.map((file, i) => {
       const current = parseInt(i, 10) + 1;
       const total = files.length;
@@ -176,7 +173,7 @@ class ActiveStorageUpload extends BasePlugin {
       return this.upload(file, current, total);
     });
 
-    return settle(promises);
+    return Promise.all(promises);
   }
 
   onFileRemove(fileID, cb) {
