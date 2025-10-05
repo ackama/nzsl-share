@@ -13,6 +13,13 @@ $gray-600: $neutral-gray;
   float: left; // Fix invalid inline-start float property from Uppy
 }
 
+// Make things a bit bigger on mobie
+.uppy-DashboardContent-back,
+.uppy-DashboardContent-title {
+  font-size: 14px;
+  min-width: min-content;
+}
+
 // Make bold text antialiased
 .uppy-Root {
   -webkit-font-smoothing: antialiased;
