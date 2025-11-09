@@ -531,7 +531,7 @@ DEPENDENCIES
   turbolinks
 
 RUBY VERSION
-   ruby 3.3.6p108
+   ruby 3.3.10p183
 
 BUNDLED WITH
    2.3.26
