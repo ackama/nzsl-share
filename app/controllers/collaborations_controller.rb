@@ -29,7 +29,7 @@ class CollaborationsController < ApplicationController
   private
 
   def collaboration_params
-    params.require(:collaboration).permit(:folder_id, :identifier)
+    params.expect(collaboration: %i[folder_id identifier])
   end
 
   def redirect_after_save
