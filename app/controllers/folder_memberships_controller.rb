@@ -33,6 +33,6 @@ class FolderMembershipsController < ApplicationController
   end
 
   def folder_membership_params
-    params.require(:folder_membership).permit(:folder_id, :sign_id)
+    params.expect(folder_membership: %i[folder_id sign_id])
   end
 end
