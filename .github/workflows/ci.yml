@@ -129,9 +129,6 @@ jobs:
           node-version-file: '.node-version'
           cache: 'yarn'
 
-      - name: Install required JS packages
-        run: yarn install
-
       - name: Install Ruby (version given by .ruby-version) and Bundler
         uses: ruby/setup-ruby@v1
         with:
@@ -179,9 +176,6 @@ jobs:
         with:
           node-version-file: '.node-version'
           cache: 'yarn'
-
-      - name: Install required JS packages
-        run: yarn install
 
       - name: Install Ruby (version given by .ruby-version) and Bundler
         uses: ruby/setup-ruby@v1
