@@ -58,7 +58,7 @@ class FoldersController < ApplicationController
   end
 
   def folders_params
-    params.require(:folder).permit(:title, :description, :user_id)
+    params.expect(folder: %i[title description user_id])
   end
 
   def redirect_after_save

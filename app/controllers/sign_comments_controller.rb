@@ -63,7 +63,7 @@ class SignCommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:sign_comment).permit(:comment, :parent_id, :anonymous, :folder_id)
+    params.expect(sign_comment: %i[comment parent_id anonymous folder_id])
   end
 
   def build_text_comment

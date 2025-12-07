@@ -92,7 +92,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def create_sign_params
-    params.require(:sign).permit(:video).merge(contributor: current_user)
+    params.expect(sign: [:video]).merge(contributor: current_user)
   end
 
   def update_sign_params
