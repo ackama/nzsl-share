@@ -10,6 +10,6 @@ require.context('../images', true);
 require('@rails/activestorage').start();
 
 import 'foundation';
+import '@selectize/selectize/dist/js/selectize.min.js';
 import '../application.scss';
 import '../components/header';
-import '@selectize/selectize/dist/js/selectize.min.js';
