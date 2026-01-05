@@ -498,6 +498,7 @@ DEPENDENCIES
   brakeman
   bundler-audit
   capybara
+  csv
   devise
   devise_invitable
   dotenv-rails
