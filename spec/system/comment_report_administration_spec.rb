@@ -15,7 +15,7 @@ RSpec.describe "Comment report administration", type: :system do
 
   describe "viewing", uses_javascript: true do
     it "can view a comment report" do
-      first_row.click
+      click_on_first_row
       expect(page).to have_current_path("/admin/comment_reports/#{comment_report.id}")
       expect(page).to have_content comment.comment
       expect(page).to have_content comment_report.user.email
