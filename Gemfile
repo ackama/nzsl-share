@@ -7,6 +7,7 @@ gem "aasm"
 gem "administrate", "~> 0.20"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
+gem "csv"
 gem "devise"
 gem "devise_invitable"
 gem "dotenv-rails", require: "dotenv/rails-now"
