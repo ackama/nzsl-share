@@ -58,9 +58,10 @@ as well as a link to its edit page.
         <%= link_to t("administrate.actions.back"), :back, class: "button clear" %>
       </div>
       <div>
-        <%= link_to "Remove comment", sign_comment_path(page.resource.comment.sign.id, page.resource.comment.id), method: :delete, data: { confirm: t("sign_comments.destroy.confirm") }, class: "button alert margin-right-1", remote: true %>
-
-        <%= link_to "Ignore report", admin_comment_report_path(page.resource), method: :delete, data: { confirm: t("comment_reports.destroy.confirm") }, class: "button" %>
+        <form class="button_to" method="post" action="<%= sign_comment_path(page.resource.comment.sign.id, page.resource.comment.id) %>"><input type="hidden" name="_method" value="delete" autocomplete="off"><button class="button alert" data-turbo-confirm="<%= t("comment_reports.destroy.confirm")%>" type="submit">Remove comment</button></form>
+      </div>
+      <div>
+        <form class="button_to" method="post" action="<%= admin_comment_report_path(page.resource) %>"><input type="hidden" name="_method" value="delete" autocomplete="off"><button class="button" data-turbo-confirm="<%= t("comment_reports.destroy.confirm")%>" type="submit">Ignore report</button></form>
       </div>
     </div>
   </div>

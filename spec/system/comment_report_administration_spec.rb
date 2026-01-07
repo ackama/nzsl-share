@@ -28,7 +28,7 @@ RSpec.describe "Comment report administration", type: :system do
     before { first_row.click }
 
     it "shows a confirmation alert before ignoring" do
-      click_link "Ignore report"
+      click_button "Ignore report"
       confirmation = page.driver.browser.switch_to.alert
       expect(confirmation.text).to eq I18n.t!("comment_reports.destroy.confirm")
     end
@@ -36,14 +36,14 @@ RSpec.describe "Comment report administration", type: :system do
     it "can ignore a report" do
       expect(comment.reports.count).to eq 1
       accept_confirm do
-        click_link "Ignore report"
+        click_button "Ignore report"
       end
       expect(page).to have_current_path(admin_comment_reports_path)
       expect(comment.reports.count).to eq 0
     end
 
     it "shows a confirmation alert before removing comment" do
-      click_link "Remove comment"
+      click_button "Remove comment"
       confirmation = page.driver.browser.switch_to.alert
       expect(confirmation.text).to eq I18n.t!("sign_comments.destroy.confirm")
     end
@@ -52,7 +52,7 @@ RSpec.describe "Comment report administration", type: :system do
       expect(comment.reports.count).to eq 1
 
       accept_confirm do
-        click_link "Remove comment"
+        click_button "Remove comment"
       end
       expect(page).to have_current_path(admin_comment_reports_path)
       expect(comment.reports.count).to eq 0
