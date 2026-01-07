@@ -19,8 +19,8 @@ RSpec.describe "Comment report administration", type: :system do
       expect(page).to have_current_path("/admin/comment_reports/#{comment_report.id}")
       expect(page).to have_content comment.comment
       expect(page).to have_content comment_report.user.email
-      expect(page).to have_link "Ignore report"
-      expect(page).to have_link "Remove comment"
+      expect(page).to have_button "Ignore report"
+      expect(page).to have_button "Remove comment"
     end
   end
 
