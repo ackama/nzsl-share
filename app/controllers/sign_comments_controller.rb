@@ -36,9 +36,7 @@ class SignCommentsController < ApplicationController
     @sign_comment.remove
 
     if request.referer.include?("admin/comment_reports")
-      respond_to do |format|
-        format.js { render js: "window.location.href = '#{admin_comment_reports_path}'" }
-      end
+      redirect_to admin_comment_reports_path
     else
       @sign.reload
       refresh_comments
