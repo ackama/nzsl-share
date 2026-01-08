@@ -46,7 +46,7 @@
     "react-dom": "^16.10.2",
     "sass": "^1.69.5",
     "sass-loader": "^13.0.0",
-    "shakapacker": "^7.0.0",
+    "shakapacker": "^9.5.0",
     "terser-webpack-plugin": "^5.0.0",
     "turbolinks": "^5.2.0",
     "webpack": "^5.94.0",
