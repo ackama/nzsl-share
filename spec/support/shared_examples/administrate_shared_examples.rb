@@ -30,6 +30,8 @@ RSpec.shared_examples "an Administrate dashboard" do |only: %i[index show new ed
       within(".list__item-menu", match: :first) do
         click_on "Edit"
       end
+
+      expect(page).to have_current_path(/.*edit/)
       expect(header).to start_with "Edit"
     end
   end
