@@ -39,11 +39,13 @@ RSpec.shared_examples "an Administrate dashboard" do |only: %i[index show new ed
   if actions.include?(:destroy)
     it "can destroy a record", uses_javascript: true do
       within(last_row) { click_on "Options" }
+
       within(".list__item-menu", match: :first) do
         accept_confirm do
-          click_link("Delete")
+          click_button("Delete")
         end
       end
+
       expect(page).to have_content "was successfully destroyed."
     end
   end
