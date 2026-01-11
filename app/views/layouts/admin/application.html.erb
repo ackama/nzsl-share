@@ -44,15 +44,15 @@ By default, it renders:
 
     <%= render "application/header" %>
 
-    <div class="off-canvas position-left sidebar sidebar--off-canvas" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
+    <div class="off-canvas position-left sidebar sidebar--off-canvas is-transition-push is-closed" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
 
-    <!-- Close button -->
-    <button class="close-button" aria-label="Close menu" type="button" data-close>
-      <span aria-hidden="true">&times;</span>
-    </button>
+      <!-- Close button -->
+      <button class="close-button" aria-label="Close menu" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
 
-    <!-- Menu -->
-    <%= render "application/sidebar/signed_in" %>
+      <!-- Menu -->
+      <%= render "application/sidebar/signed_in" %>
     </div>
 
     <div class="off-canvas-content grid-x" data-off-canvas-content>
