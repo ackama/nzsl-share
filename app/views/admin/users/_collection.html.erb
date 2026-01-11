@@ -83,11 +83,16 @@ to display a collection of resources in an HTML table.
           </li>
 
           <% if policy(resource).destroy? %>
-            <li class="list__item-menu__menu-item">
-              <%= link_to([namespace, resource], method: :delete, data: { confirm: t(".confirm_destroy")}) do %>
-                <%= inline_svg_pack_tag "static/images/close.svg" %><span>Delete</span>
-              <% end %>
-            </li>
+
+            <form class="button_to" method="post" action="<%= admin_user_path(resource) %>">
+              <input type="hidden" name="_method" value="delete" autocomplete="off" />
+
+              <button data-turbo-confirm="<%= t(".confirm_destroy") %>" type="submit" class="button bold clear black">
+                <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon" %>
+                Delete
+              </button>
+            </form>
+
           <% end %>
         </ul>
       </div>
