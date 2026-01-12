@@ -30,6 +30,8 @@ RSpec.shared_examples "an Administrate dashboard" do |only: %i[index show new ed
       within(".list__item-menu", match: :first) do
         click_on "Edit"
       end
+
+      expect(page).to have_current_path(/.*edit/)
       expect(header).to start_with "Edit"
     end
   end
@@ -39,7 +41,7 @@ RSpec.shared_examples "an Administrate dashboard" do |only: %i[index show new ed
       within(last_row) { click_on "Options" }
       within(".list__item-menu", match: :first) do
         accept_confirm do
-          click_link("Delete")
+          click_button("Delete")
         end
       end
       expect(page).to have_content "was successfully destroyed."

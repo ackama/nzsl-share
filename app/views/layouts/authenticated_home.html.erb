@@ -1,7 +1,7 @@
 <%# This layout is a sub-layout of the application layout for logged-in users. %>
 <%# It renders the normal grid alongside a sidebar. %>
 <%= content_for(:content) do %>
-  <div class="off-canvas position-left sidebar sidebar--off-canvas" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
+  <div class="off-canvas position-left sidebar sidebar--off-canvas is-transition-push is-closed" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
 
     <!-- Close button -->
     <button class="close-button" aria-label="Close menu" type="button" data-close>
