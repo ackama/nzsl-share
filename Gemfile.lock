@@ -275,7 +275,7 @@ GEM
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
       rexml (~> 3.2)
-    package_json (0.1.0)
+    package_json (0.2.0)
     parallel (1.26.3)
     parser (3.3.6.0)
       ast (~> 2.4.1)
@@ -424,8 +424,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
-    shakapacker (8.4.0)
+    semantic_range (3.1.0)
+    shakapacker (9.5.0)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
@@ -534,7 +534,7 @@ DEPENDENCIES
   sassc-rails
   selectize-rails
   selenium-webdriver
-  shakapacker (~> 8.0)
+  shakapacker (~> 9.0)
   sidekiq
   sidekiq-batch
   simplecov
