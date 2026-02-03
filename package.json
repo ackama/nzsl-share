@@ -5,8 +5,8 @@
   "scripts": {
     "format-check": "prettier --check .",
     "format-fix": "prettier --write .",
-    "js-lint": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
-    "js-lint-fix": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
+    "js-lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx",
+    "js-lint-fix": "ESLINT_USE_FLAT_CONFIG=false eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,tsx,jsx --fix",
     "scss-lint": "stylelint '**/*.{css,scss}'",
     "scss-lint-fix": "stylelint '**/*.{css,scss}' --fix"
   },
@@ -55,7 +55,7 @@
     "webpack-merge": "^5.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.32.0",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
