@@ -25,10 +25,10 @@ class ApprovedUserApplicationsController < ApplicationController
   private
 
   def application_params
-    params.require(:application).permit(
-      :first_name, :last_name, :gender, :ethnicity,
-      :deaf, :nzsl_first_language, :age_bracket, :location,
-      :subject_expertise, language_roles: []
+    params.expect(
+      application: [:first_name, :last_name, :gender, :ethnicity,
+                    :deaf, :nzsl_first_language, :age_bracket, :location,
+                    :subject_expertise, { language_roles: [] }]
     )
   end
 end

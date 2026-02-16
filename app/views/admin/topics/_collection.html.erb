@@ -78,13 +78,16 @@ to display a collection of resources in an HTML table.
         <ul class="list__item-menu vertical icons">
           <li class="list__item-menu__menu-item">
             <%= link_to([:edit, namespace, resource]) do %>
-              <%= inline_svg_pack_tag "static/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+              <%= inline_svg_pack_tag "static/images/edit.svg", class: "icon--medium" %>
+             <span>Edit</span>
             <% end %>
           </li>
           <li class="list__item-menu__menu-item">
-            <%= link_to(admin_topic_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") }) do %>
-              <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon--medium" %><span>Delete</span>
-            <% end %>
+            <form class="button_to" method="post" action="<%= admin_topic_path(resource) %>">
+              <input type="hidden" name="_method" value="delete" autocomplete="off" />
+
+              <button data-turbo-confirm="<%= t("administrate.actions.confirm")%>" type="submit" class="button bold clear black drop-down""><%= inline_svg_pack_tag "static/images/trash.svg", class: "icon" %>Delete</button>
+            </form>
           </li>
         </ul>
       </div>

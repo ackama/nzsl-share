@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module NzslShare
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.1
     config.time_zone = "Wellington"
 
     # load config/app.yml into Rails.application.config.app.*
