@@ -21,6 +21,6 @@ Rails.application.reloader.to_prepare do
   begin
     DictionarySign.connection.execute("ALTER TABLE words ADD COLUMN word text AS (gloss)")
   rescue ActiveRecord::StatementInvalid => e
-    raise e unless e.message == "SQLite3::SQLException: duplicate column name: word"
+    raise e unless e.message.include?("SQLite3::SQLException: duplicate column name: word")
   end
 end
