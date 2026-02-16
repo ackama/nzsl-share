@@ -7,6 +7,7 @@ gem "aasm"
 gem "administrate", "~> 0.20"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
+gem "connection_pool", "< 3.0"
 gem "csv"
 gem "devise"
 gem "devise_invitable"
