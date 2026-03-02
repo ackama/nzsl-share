@@ -44,7 +44,7 @@ RSpec.shared_examples "an Administrate dashboard" do |only: %i[index show new ed
           click_button("Delete")
         end
       end
-      # expect(page).to have_content "was successfully destroyed."
+      expect(page).to have_content "was successfully destroyed."
     end
   end
 end
