@@ -23,6 +23,7 @@ By default, it renders:
     <%= stylesheet_pack_tag("application",
                             "data-turbo-track": "reload") %>
     <%= render "stylesheet" %>
+    <%= render "javascript" %>
 
     <%# JavaScript must be in head for Turbolinks to work. %>
     <%= javascript_pack_tag "administration", "data-turbo-track": "reload" %>
@@ -63,7 +64,5 @@ By default, it renders:
       </main>
     </div>
     <%= render "application/footer" %>
-
-    <%= render "javascript" %>
   </body>
 </html>
