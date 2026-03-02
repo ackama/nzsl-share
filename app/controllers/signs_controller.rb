@@ -107,6 +107,7 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
     respond_to do |format|
       format.html { redirect_to edit_sign_path(sign) }
       format.js { render }
+      format.json { render json: { head_to: edit_sign_path(sign) } }
     end
   end
 
@@ -132,9 +133,12 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def respond_to_update(sign)
+    flash[:notice] = t(".success")
+
     respond_to do |format|
-      format.html { redirect_to sign, notice: t(".success") }
+      format.html { redirect_to sign }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" } # rubocop:disable Rails/RenderInline
+      format.json { render json: {} }
     end
   end
 

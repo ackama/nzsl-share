@@ -61,14 +61,14 @@ RSpec.describe "Contributing a new sign", type: :system do
       expect(feature).to have_current_path(%r{\A/signs/\d+/edit})
     end.to change(user.signs, :count).by(1)
 
-    # expect(subject).to have_content I18n.t!("signs.create.success")
+    expect(subject).to have_content I18n.t!("signs.create.success")
   end
 
   it "can drop a single file using Uppy", uses_javascript: true, upload_mode: :uppy do
     expect do
       feature.drop_file(selector: "body")
       click_on "Upload 1 file"
-      # expect(subject).to have_content I18n.t!("signs.create.success")
+      expect(subject).to have_content I18n.t!("signs.create.success")
     end.to change(user.signs, :count).by(1)
   end
 
