@@ -20,13 +20,12 @@ By default, it renders:
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%# CSS should go closest to the top of the document as possible. %>
-    <%= stylesheet_pack_tag("application",
-                            "data-turbo-track": "reload") %>
+    <%= stylesheet_pack_tag("application") %>
     <%= render "stylesheet" %>
     <%= render "javascript" %>
 
     <%# JavaScript must be in head for Turbolinks to work. %>
-    <%= javascript_pack_tag "administration", "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "administration" %>
 
     <%= yield(:head) %>
 
