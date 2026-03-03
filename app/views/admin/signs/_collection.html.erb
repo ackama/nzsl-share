@@ -18,6 +18,28 @@ to display a collection of resources in an HTML table.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
+<% resources.each do |resource| %>
+  <% if policy(resource).unpublish? %>
+    <%=
+      form_with(
+        url: unpublish_sign_path(resource),
+        method: :patch,
+        id: "unpublish-config-form-#{dom_id(resource, :unpublish)}",
+        data: { turbo_confirm: t("admin.sign_workflow.unpublish.confirm") }
+      ) {} # rubocop:disable Lint/EmptyBlock
+    %>
+  <% elsif existing_action?(collection_presenter.resource_name, :destroy) %>
+    <%=
+      form_with(
+        url: sign_path(resource),
+        method: :delete,
+        id: "delete-config-form-#{dom_id(resource, :delete)}",
+        data: { turbo_confirm: t("administrate.actions.confirm") }
+      ) {} # rubocop:disable Lint/EmptyBlock
+    %>
+  <% end %>
+<% end %>
+
 <table aria-labelledby="<%= table_title %>">
   <thead>
     <tr>
@@ -79,17 +101,23 @@ to display a collection of resources in an HTML table.
                 <% end %>
               </li>
               <% if policy(resource).unpublish? %>
-                <li >
-                  <form class="button_to" method="patch" action="<%= unpublish_sign_path(resource) %>">
-                    <button data-turbo-confirm="<%= t("admin.sign_workflow.unpublish.confirm")%>" type="submit" class="clear black drop-down button--with-icon"><%= inline_svg_pack_tag "static/images/archive.svg", class: "icon" %>Unpublish</button>
-                  </form>
+                <li class="list__item-menu__menu-item">
+                  <button
+                    type="submit"
+                    form="unpublish-config-form-<%= dom_id(resource, :unpublish) %>"
+                    class="clear black drop-down button--with-icon">
+                    <%= inline_svg_pack_tag "static/images/archive.svg", class: "icon" %>Unpublish
+                  </button>
                 </li>
               <% elsif existing_action?(collection_presenter.resource_name, :destroy) %>
-                <li >
+                <li class="list__item-menu__menu-item">
                   <% if accessible_action?(resource, :destroy) %>
-                  <form class="button_to" method="delete" action="<%= sign_path(resource) %>">
-                    <button data-turbo-confirm="<%= t("administrate.actions.confirm")%>" type="submit" class="clear black drop-down button--with-icon"><%= inline_svg_pack_tag "static/images/archive.svg", class: "icon" %>Destroy</button>
-                  </form>
+                    <button
+                      type="submit"
+                      form="delete-config-form-<%= dom_id(resource, :delete) %>"
+                      class="clear black drop-down button--with-icon">
+                      <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon" %>Destroy
+                    </button>
                   <% end %>
                 </li>
               <% end %>
