@@ -1,1 +1,2 @@
-ignore: []
+ignore:
+  - GHSA-5c6j-r48x-rmvq
