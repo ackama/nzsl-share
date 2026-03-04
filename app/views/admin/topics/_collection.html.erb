@@ -18,6 +18,17 @@ to display a collection of resources in an HTML table.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
+<% resources.each do |resource| %>
+  <%=
+    form_with(
+      url: admin_topic_path(resource),
+      method: :delete,
+      id: "delete-config-form-#{dom_id(resource, :delete)}",
+      data: { turbo_confirm: t("administrate.actions.confirm") }
+    ) {} # rubocop:disable Lint/EmptyBlock
+  %>
+<% end %>
+
 <table aria-labelledby="<%= table_title %>">
   <thead>
     <tr>
@@ -82,12 +93,14 @@ to display a collection of resources in an HTML table.
              <span>Edit</span>
             <% end %>
           </li>
-          <li class="list__item-menu__menu-item">
-            <form class="button_to" method="post" action="<%= admin_topic_path(resource) %>">
-              <input type="hidden" name="_method" value="delete" autocomplete="off" />
 
-              <button data-turbo-confirm="<%= t("administrate.actions.confirm")%>" type="submit" class="button bold clear black drop-down""><%= inline_svg_pack_tag "static/images/trash.svg", class: "icon" %>Delete</button>
-            </form>
+          <li class="list__item-menu__menu-item">
+            <button
+              type="submit"
+              form="delete-config-form-<%= dom_id(resource, :delete) %>"
+              class="clear black drop-down button--with-icon">
+              <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon" %>Delete
+            </button>
           </li>
         </ul>
       </div>

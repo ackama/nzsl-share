@@ -100,13 +100,17 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def respond_to_create(sign)
-    return redirect_to user_signs_path if params[:batch]
+    head_to = user_signs_path
 
-    flash[:notice] = t(".success")
+    unless params[:batch]
+      flash[:notice] = t(".success")
+      head_to = edit_sign_path(sign)
+    end
 
     respond_to do |format|
-      format.html { redirect_to edit_sign_path(sign) }
+      format.html { redirect_to head_to }
       format.js { render }
+      format.json { render json: { head_to: } }
     end
   end
 
@@ -132,9 +136,12 @@ class SignsController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def respond_to_update(sign)
+    flash[:notice] = t(".success")
+
     respond_to do |format|
-      format.html { redirect_to sign, notice: t(".success") }
+      format.html { redirect_to sign }
       format.js { render inline: "window.location = '#{sign_path(sign)}'" } # rubocop:disable Rails/RenderInline
+      format.json { render json: {} }
     end
   end
 

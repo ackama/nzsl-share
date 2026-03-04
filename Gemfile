@@ -30,7 +30,7 @@ gem "shakapacker", "~> 9.0"
 gem "sidekiq"
 gem "sidekiq-batch"
 gem "sqlite3"
-gem "turbolinks"
+gem "turbo-rails"
 
 gem "rack-canonical-host"
 
