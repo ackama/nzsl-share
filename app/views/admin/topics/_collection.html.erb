@@ -18,6 +18,17 @@ to display a collection of resources in an HTML table.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
+<% resources.each do |resource| %>
+  <%=
+    form_with(
+      url: admin_topic_path(resource),
+      method: :delete,
+      id: "delete-config-form-#{dom_id(resource, :delete)}",
+      data: { turbo_confirm: t("administrate.actions.confirm") }
+    ) {} # rubocop:disable Lint/EmptyBlock
+  %>
+<% end %>
+
 <table aria-labelledby="<%= table_title %>">
   <thead>
     <tr>
@@ -78,13 +89,18 @@ to display a collection of resources in an HTML table.
         <ul class="list__item-menu vertical icons">
           <li class="list__item-menu__menu-item">
             <%= link_to([:edit, namespace, resource]) do %>
-              <%= inline_svg_pack_tag "static/images/edit.svg", class: "icon--medium" %><span>Edit</span>
+              <%= inline_svg_pack_tag "static/images/edit.svg", class: "icon--medium" %>
+             <span>Edit</span>
             <% end %>
           </li>
+
           <li class="list__item-menu__menu-item">
-            <%= link_to(admin_topic_path(resource), method: :delete, data: { confirm: t("administrate.actions.confirm") }) do %>
-              <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon--medium" %><span>Delete</span>
-            <% end %>
+            <button
+              type="submit"
+              form="delete-config-form-<%= dom_id(resource, :delete) %>"
+              class="clear black drop-down button--with-icon">
+              <%= inline_svg_pack_tag "static/images/trash.svg", class: "icon" %>Delete
+            </button>
           </li>
         </ul>
       </div>

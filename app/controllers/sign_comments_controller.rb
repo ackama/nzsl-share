@@ -36,9 +36,7 @@ class SignCommentsController < ApplicationController
     @sign_comment.remove
 
     if request.referer.include?("admin/comment_reports")
-      respond_to do |format|
-        format.js { render js: "window.location.href = '#{admin_comment_reports_path}'" }
-      end
+      redirect_to admin_comment_reports_path
     else
       @sign.reload
       refresh_comments
@@ -63,7 +61,7 @@ class SignCommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:sign_comment).permit(:comment, :parent_id, :anonymous, :folder_id)
+    params.expect(sign_comment: %i[comment parent_id anonymous folder_id])
   end
 
   def build_text_comment

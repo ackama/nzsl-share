@@ -1,4 +1,5 @@
 require "simplecov"
+require "selenium-webdriver"
 
 # Use a consistent test timezone
 ENV["TZ"] = "UTC"
@@ -146,9 +147,12 @@ RSpec.configure do |config|
   # show exception that triggers a retry if verbose_retry is set to true
   config.display_try_failure_messages = true
 
-  # run retry on all examples
-  config.around :each do |ex|
-    ex.run_with_retry retry: ENV.fetch("RSPEC_RETRY", 1)
+  # only retry tests that fail due to an unknown web driver error
+  config.exceptions_to_retry = [Selenium::WebDriver::Error::UnknownError]
+
+  # Only run retries on system specs that use javascript
+  config.around(:each, :uses_javascript, type: :system) do |spec|
+    spec.run_with_retry retry: 3
   end
 
   # callback to be run between retries

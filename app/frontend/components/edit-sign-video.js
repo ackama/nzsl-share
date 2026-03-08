@@ -4,6 +4,7 @@ import { put } from '@rails/request.js';
 
 const updateSignVideo = (signId, signedBlobId) => {
   return put(`/signs/${signId}`, {
+    headers: { Accept: 'application/json' },
     body: JSON.stringify({
       sign: { video: signedBlobId }
     })

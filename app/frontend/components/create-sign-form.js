@@ -51,11 +51,12 @@ const createSignController = container => {
       });
 
       return post('/signs', {
+        headers: { Accept: 'application/json' },
         body: JSON.stringify({
           batch: fileIds.length > 1,
           sign: { video: file.response.signed_id }
         })
-      }).then(response => {
+      }).then(async response => {
         if (!response.ok) {
           return Promise.reject(
             new Error('Something went wrong creating this sign.')
@@ -65,7 +66,7 @@ const createSignController = container => {
         // We check the internal Uppy state to see if a single file has been selected
         // rather than fileIds, since a user can select files in more than one go.
         if (uppy.getFiles().length === 1) {
-          window.location = response.headers.get('Location');
+          window.location = (await response.json).head_to;
         } else {
           return Promise.resolve(); // Do nothing, allow the user to click 'Done'
         }

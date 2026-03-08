@@ -8,3 +8,7 @@ $(document).ready(function () {
 $(window).on('load', function () {
   $(document).foundation();
 });
+
+$(window).on('turbo:render', function () {
+  $(document).foundation();
+});
