@@ -6240,9 +6240,9 @@ setprototypeof@1.2.0, setprototypeof@~1.2.0:
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
 shakapacker@^9.0.0:
-  version "9.5.0"
-  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-9.5.0.tgz#761aee7f4c01d8a37b13d628968b6730897c967b"
-  integrity sha512-pTGHzHCc74CIoXeg8otCoBa8DjGWZUoYVKu9eyWwpdO9Jq6yHxSD9u5Qp36nXjC9jupd9gnfhCY5YHqkJHpfLA==
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-9.6.0.tgz#8685346b3792694fa2f2b549407dca6ac94db282"
+  integrity sha512-n8lpc2dYi4HWgY1Ese9/DppMaQXzmJdKT19kJxoNm3Cif5hR2u8Ik4QyId60rA4ZYPaN5b7gqqIk/9TCKIN6bA==
   dependencies:
     js-yaml "^4.1.0"
     path-complete-extname "^1.0.0"
