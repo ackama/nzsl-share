@@ -2,4 +2,4 @@
 
 set -ev
 
-yarn run eslint app/frontend
+npm run eslint app/frontend
