@@ -20,12 +20,12 @@ By default, it renders:
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%# CSS should go closest to the top of the document as possible. %>
-    <%= stylesheet_pack_tag("application",
-                            "data-turbolinks-track": "reload") %>
+    <%= stylesheet_pack_tag("application") %>
     <%= render "stylesheet" %>
+    <%= render "javascript" %>
 
     <%# JavaScript must be in head for Turbolinks to work. %>
-    <%= javascript_pack_tag "administration", "data-turbolinks-track": "reload" %>
+    <%= javascript_pack_tag "administration" %>
 
     <%= yield(:head) %>
 
@@ -42,15 +42,15 @@ By default, it renders:
 
     <%= render "application/header" %>
 
-    <div class="off-canvas position-left sidebar sidebar--off-canvas" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
+    <div class="off-canvas position-left sidebar sidebar--off-canvas is-transition-push is-closed" id="authenticated-sidebar" data-off-canvas data-auto-focus="false">
 
-    <!-- Close button -->
-    <button class="close-button" aria-label="Close menu" type="button" data-close>
-      <span aria-hidden="true">&times;</span>
-    </button>
+      <!-- Close button -->
+      <button class="close-button" aria-label="Close menu" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
 
-    <!-- Menu -->
-    <%= render "application/sidebar/signed_in" %>
+      <!-- Menu -->
+      <%= render "application/sidebar/signed_in" %>
     </div>
 
     <div class="off-canvas-content grid-x" data-off-canvas-content>
@@ -63,7 +63,5 @@ By default, it renders:
       </main>
     </div>
     <%= render "application/footer" %>
-
-    <%= render "javascript" %>
   </body>
 </html>

@@ -1,1 +1,2 @@
-ignore: []
+ignore:
+  - GHSA-w5hq-g745-h8pq

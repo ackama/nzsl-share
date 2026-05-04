@@ -7,7 +7,7 @@ const {
   generateWebpackConfig
 } = require('shakapacker');
 
-module.exports = generateWebpackConfig({
+const config = generateWebpackConfig({
   resolve: {
     alias: {
       jquery: 'jquery/src/jquery'
@@ -50,3 +50,16 @@ module.exports = generateWebpackConfig({
     /To opt into the new behavior, wrap the declaration in `& \{\}`/u
   ]
 });
+
+// stick with using the legacy sass api for now
+//
+// todo: switch to using modern api
+config.module.rules.forEach(rule => {
+  rule.use?.forEach(loader => {
+    if (loader.loader?.includes('sass-loader')) {
+      loader.options.api = 'legacy';
+    }
+  });
+});
+
+module.exports = config;
