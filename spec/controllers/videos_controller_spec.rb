@@ -19,13 +19,18 @@ RSpec.describe VideosController, type: :controller do
       context "preset representation does not exist" do
         before { allow(fake_representation).to receive(:exist?).and_return(false) }
 
-        it { expect(subject.status).to eq 202 }
-        it { expect(subject.body).to be_empty }
+        if ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false)
+          it { expect(subject.status).to eq 302 }
+        else
+          it { expect(subject.status).to eq 202 }
 
-        it "enqueues a job to transcode the missing representation" do
-          expect(fake_representation).to receive(:process_later)
-          subject
+          it "enqueues a job to transcode the missing representation" do
+            expect(fake_representation).to receive(:process_later)
+            subject
+          end
         end
+
+        it { expect(subject.body).to be_empty }
       end
 
       context "preset representation exists" do
