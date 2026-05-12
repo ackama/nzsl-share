@@ -73,6 +73,8 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   end
 
   def fallback_poster_url
+    return h.asset_pack_path("static/images/processing.svg") unless ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false)
+
     h.asset_pack_path("static/images/black.png")
   end
 
@@ -83,7 +85,7 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   def sign_video_attributes
     class_list = []
     class_list << " has-thumbnails" if sign.processed_thumbnails?
-    class_list << " has-video"
+    class_list << " has-video" if sign.processed_videos? || ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false)
 
     h.video_attributes(class: class_list, poster: poster_url)
   end
