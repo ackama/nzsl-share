@@ -73,19 +73,17 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   end
 
   def fallback_poster_url
-    h.asset_pack_path("static/images/processing.svg")
+    h.asset_pack_path("static/images/black.png")
   end
 
   def sign_video_sourceset(presets = nil)
-    return unless sign.processed_videos?
-
     h.video_sourceset(sign.video, presets)
   end
 
   def sign_video_attributes
     class_list = []
     class_list << " has-thumbnails" if sign.processed_thumbnails?
-    class_list << " has-video" if sign.processed_videos?
+    class_list << " has-video"
 
     h.video_attributes(class: class_list, poster: poster_url)
   end
