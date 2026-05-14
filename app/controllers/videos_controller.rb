@@ -6,7 +6,7 @@ class VideosController < ApplicationController
       video_location = representation.processed
     else
       representation.process_later
-      return head(:accepted) unless ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false)
+      return head(:accepted) unless Rails.application.config.enable_original_fallback_video
 
       video_location = blob.url
     end

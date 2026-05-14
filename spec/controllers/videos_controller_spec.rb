@@ -19,7 +19,7 @@ RSpec.describe VideosController, type: :controller do
       context "preset representation does not exist" do
         before { allow(fake_representation).to receive(:exist?).and_return(false) }
 
-        if ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false)
+        if Rails.application.config.enable_original_fallback_video
           it { expect(subject.status).to eq 302 }
         else
           it { expect(subject.status).to eq 202 }
