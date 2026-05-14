@@ -2,16 +2,16 @@ class VideosController < ApplicationController
   skip_before_action :store_user_location!
 
   def show
-    if representation.exist?
-      video_location = representation.processed
-    else
-      representation.process_later
-      return head(:accepted) unless Rails.application.config.enable_original_fallback_video
+    video = if representation.exist?
+              representation.processed
+            elsif ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false) == true
+              representation.process_later
+              return head(:accepted)
+            else
+              blob.url
+            end
 
-      video_location = blob.url
-    end
-
-    redirect_to video_location, allow_other_host: true
+    redirect_to video, allow_other_host: true
   end
 
   private
