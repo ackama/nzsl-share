@@ -1,10 +1,9 @@
 namespace :video_processing do
-  desc "TODO"
+  desc "Check for signs which should have been processed by now, emitting errors or reenqueueing where appropriate."
   task unstick: :environment do
     # default 24 hours
     stuck_video_age_minutes = ENV.fetch("STUCK_VIDEO_AGE_MINUTES", 1440)
     stuck_signs = Sign.where(created_at: Date.new..stuck_video_age_minutes.minutes.ago).where(processed_videos: false)
-    # stuck_signs = Sign.where(id: 12)
     blob_service = ActiveStorage::Blob.service
 
     stuck_signs.each do |sign|
