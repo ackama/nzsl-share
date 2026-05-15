@@ -16,6 +16,6 @@ class DictionarySignPresenter < ApplicationPresenter
   end
 
   def sign_video_attributes
-    h.video_attributes(class: ["has-video"])
+    h.video_attributes(class: ["has-video"], preload: "none")
   end
 end

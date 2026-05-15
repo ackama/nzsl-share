@@ -85,7 +85,19 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
     class_list << " has-thumbnails" if sign.processed_thumbnails?
     class_list << " has-video" if sign.processed_videos? || Rails.application.config.enable_original_fallback_video
 
-    h.video_attributes(class: class_list, poster: poster_url)
+    h.video_attributes(class: class_list, poster: poster_url, preload: preload)
+  end
+
+  def preload
+    if Rails.application.config.enable_original_fallback_video
+      if sign.processed_videos?
+        "none"
+      else
+        "auto"
+      end
+    else
+      "none"
+    end
   end
 
   def overview_intro_text(current_user)
