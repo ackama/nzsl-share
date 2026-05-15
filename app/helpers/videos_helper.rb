@@ -14,6 +14,7 @@ module VideosHelper
     {
       class: (class_list + (Array(extras.delete(:class)) || [])).join(" "),
       controlslist: "nodownload",
+      preload: "none",
       muted: true,
       **extras
     }

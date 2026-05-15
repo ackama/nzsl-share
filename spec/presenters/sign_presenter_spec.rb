@@ -150,7 +150,9 @@ RSpec.describe SignPresenter, type: :presenter do
   describe "#poster_url" do
     context "thumbnails are not processed" do
       it "returns a placeholder" do
-        unless Rails.application.config.enable_original_fallback_video
+        if Rails.application.config.enable_original_fallback_video
+          expect(presenter.poster_url).to match(/black.png\Z/)
+        else
           expect(presenter.poster_url).to match(/processing-[a-f0-9]+.svg\Z/)
         end
       end
@@ -160,7 +162,9 @@ RSpec.describe SignPresenter, type: :presenter do
       before { sign.assign_attributes(processed_thumbnails: true, processed_videos: false) }
 
       it "returns a placeholder" do
-        unless Rails.application.config.enable_original_fallback_video
+        if Rails.application.config.enable_original_fallback_video
+          expect(presenter.poster_url).to match(/black.png\Z/)
+        else
           expect(presenter.poster_url).to match(/processing-[a-f0-9]+.svg\Z/)
         end
       end
