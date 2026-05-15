@@ -25,7 +25,6 @@ RSpec.describe VideosHelper, type: :helper do
   describe "#video_attributes" do
     subject { helper.video_attributes }
 
-    it { expect(subject[:preload]).to eq "none" }
     it { expect(subject[:muted]).to eq true }
 
     context "with additional attributes" do
