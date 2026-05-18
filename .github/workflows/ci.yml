@@ -12,6 +12,7 @@ env:
   PGHOST: localhost
   PGUSER: postgres
   PGPASSWORD: postgres
+  ENABLE_ORIGINAL_VIDEO_FALLBACK: true
 
 jobs:
   check-dependencies:
