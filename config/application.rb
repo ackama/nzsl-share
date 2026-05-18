@@ -59,7 +59,6 @@ module NzslShare
                          else
                            :legacy
                          end
-
-    config.enable_original_fallback_video = ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", false)
+    config.enable_original_fallback_video = ENV.fetch("ENABLE_ORIGINAL_VIDEO_FALLBACK", "false") == "true"
   end
 end
