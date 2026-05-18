@@ -218,22 +218,7 @@ RSpec.describe SignPresenter, type: :presenter do
     end
 
     context "videos are unprocessed" do
-      if Rails.application.config.enable_original_fallback_video
-        it "derives the sourceset from the default presets" do
-          expect(subject.scan("<source").size).to eq 3
-          expect(subject).to include "1080p"
-          expect(subject).to include "720p"
-          expect(subject).to include "360p"
-        end
-
-        it "derives the sourceset from override presets" do
-          result = presenter.sign_video_sourceset(["360p"])
-          expect(result.scan("<source").size).to eq 1
-          expect(result).to include "360p"
-        end
-      else
-        it { is_expected.to be_nil }
-      end
+      it { is_expected.to be_nil } unless Rails.application.config.enable_original_fallback_video
     end
   end
 

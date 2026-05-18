@@ -81,6 +81,10 @@ class SignPresenter < ApplicationPresenter # rubocop:disable Metrics/ClassLength
   end
 
   def sign_video_sourceset(presets = nil)
+    return h.video_sourceset(sign.video, presets) if Rails.application.config.enable_original_fallback_video
+
+    return unless sign.processed_videos?
+
     h.video_sourceset(sign.video, presets)
   end
 
