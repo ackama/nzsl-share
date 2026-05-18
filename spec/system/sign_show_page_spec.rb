@@ -124,12 +124,20 @@ RSpec.describe "Sign show page", system: true do
     subject { sign_page.video_player }
     context "sign is unprocessed" do
       let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
-      it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+      if Rails.application.config.enable_original_fallback_video
+        it { expect(subject[:poster]).to match(/black-[a-f0-9]+.png/) }
+      else
+        it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+      end
     end
 
     context "sign has thumbnails processed, but not videos" do
       let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails, contributor: user) }
-      it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+      if Rails.application.config.enable_original_fallback_video
+        it { expect(subject[:poster]).to match(/black-[a-f0-9]+.png/) }
+      else
+        it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+      end
     end
 
     context "sign has videos" do
