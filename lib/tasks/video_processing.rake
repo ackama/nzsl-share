@@ -8,19 +8,22 @@ namespace :video_processing do
 
     stuck_signs.each do |sign|
       if sign.video.nil?
-        Rails.logger.error "Missing video for sign '#{sign.word}' id '#{sign.id}'"
+        SurfaceError.new("Missing video model for sign '#{sign.word}' id '#{sign.id}'").log
+
         next
       end
 
       if sign.video.blob.nil?
-        Rails.logger.error "Missing video blob record for sign '#{sign.word}' id '#{sign.id}'"
+        SurfaceError.new("Missing video blob record for sign '#{sign.word}' id '#{sign.id}'").log
+
         next
       end
 
       video_description = " 'sign: #{sign.word}', id: '#{sign.id}', blob key: #{sign.video.blob.key}"
 
       unless blob_service.exist? sign.video.blob.key
-        Rails.logger.error "Missing video blob in ActiveStorage for #{video_description}"
+        SurfaceError.new("Missing video blob in ActiveStorage for #{video_description}").log
+
         next
       end
 
