@@ -2,7 +2,7 @@
 
 # NZSL Share
 
-This is a Rails 7 app.
+This is a Rails 8 app.
 
 ## Documentation
 
@@ -19,7 +19,7 @@ development environment. Other sources of documentation are as follows:
 
 This project requires:
 
-- Ruby 3.1.3, preferably managed using [rbenv][]
+- Ruby 3.4.9, preferably managed using [rbenv][]
 - Google Chrome for headless Capybara testing
 - PostgreSQL must be installed and accepting connections
 - SQLite must be installed with development libraries to connect to the
