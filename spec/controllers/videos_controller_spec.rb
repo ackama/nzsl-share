@@ -19,9 +19,11 @@ RSpec.describe VideosController, type: :controller do
       context "preset representation does not exist" do
         before { allow(fake_representation).to receive(:exist?).and_return(false) }
 
-        if Rails.application.config.enable_original_fallback_video
-          it { expect(subject.status).to eq 302 }
-        else
+        it { expect(subject.body).to be_empty }
+
+        context "enable_original_fallback_video false" do
+          before { allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(false) }
+
           it { expect(subject.status).to eq 202 }
 
           it "enqueues a job to transcode the missing representation" do
@@ -30,7 +32,11 @@ RSpec.describe VideosController, type: :controller do
           end
         end
 
-        it { expect(subject.body).to be_empty }
+        context "enable_original_fallback_video true" do
+          before { allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(true) }
+
+          it { expect(subject.status).to eq 302 }
+        end
       end
 
       context "preset representation exists" do

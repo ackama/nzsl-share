@@ -121,29 +121,54 @@ RSpec.describe "Sign show page", system: true do
   end
 
   describe "sign video" do
-    subject { sign_page.video_player }
-    context "sign is unprocessed" do
-      let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
-      if Rails.application.config.enable_original_fallback_video
-        it { expect(subject[:poster]).to match(/black-[a-f0-9]+.png/) }
-      else
-        it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
-      end
-    end
-
-    context "sign has thumbnails processed, but not videos" do
-      let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails, contributor: user) }
-      if Rails.application.config.enable_original_fallback_video
-        it { expect(subject[:poster]).to match(/black-[a-f0-9]+.png/) }
-      else
-        it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
-      end
-    end
-
     context "sign has videos" do
       let(:sign) { FactoryBot.create(:sign, :processed_videos, contributor: user) }
       # 1080p, 720p, 360p
       it { expect(subject).to have_selector("source[src^='/videos']", count: 3) }
+    end
+  end
+
+  describe "sign video enable_original_fallback_video false" do
+    before do
+      allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(false)
+      sign_out :user
+      sign_in user if user
+      sign_page.start(sign)
+    end
+
+    subject { sign_page.video_player }
+    context "sign is unprocessed" do
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
+
+      it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+    end
+
+    context "sign has thumbnails processed, but not videos" do
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails, contributor: user) }
+
+      it { expect(subject[:poster]).to match(/processing-[a-f0-9]+.svg/) }
+    end
+  end
+
+  describe "sign video enable_original_fallback_video true" do
+    before do
+      allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(true)
+      sign_out :user
+      sign_in user if user
+      sign_page.start(sign)
+    end
+
+    subject { sign_page.video_player }
+    context "sign is unprocessed" do
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, contributor: user) }
+
+      it { expect(subject[:poster]).to match(/black-[a-f0-9]+.png/) }
+    end
+
+    context "sign has thumbnails processed, but not videos" do
+      let(:sign) { FactoryBot.create(:sign, :unprocessed, :processed_thumbnails, contributor: user) }
+
+      it { expect(subject[:poster]).to match(/black-[a-f0-9]+.png/) }
     end
   end
 
