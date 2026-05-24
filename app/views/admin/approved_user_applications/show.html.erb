@@ -37,15 +37,14 @@ as well as a link to its edit page.
         <div class="form__footer">
           <%= link_to "Decline",
                       [:decline, :admin, page.resource],
-                      method: :post,
+                      data: { turbo_method: :post },
                       class: "button alert margin-right-1" if policy(page.resource).decline? %>
 
           <%= link_to "Accept",
                       [:accept, :admin, page.resource],
-                      method: :post,
+                      data: { turbo_method: :post },
                       class: "button" if policy(page.resource).accept? %>
         </div>
     <% end %>
   </div>
 </div>
-
