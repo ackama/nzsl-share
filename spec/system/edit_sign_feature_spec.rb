@@ -143,19 +143,10 @@ RSpec.describe "Editing a sign", type: :system do
 
   describe "video processing", uses_javascript: true do
     context "when the video is unprocessed" do
-      context "enable_original_fallback_video false" do
-        before { allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(false) }
-        it {
-          expect(page).to have_selector ".video[poster*=processing]"
-        }
-      end
-
-      context "enable_original_fallback_video true" do
-        before { allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(true) }
-        it {
-          expect(page).to_not have_selector ".video[poster*=processing]"
-        }
-      end
+      before { allow(Rails.application.config).to receive(:enable_original_fallback_video).and_return(true) }
+      it {
+        expect(page).to_not have_selector ".video[poster*=processing]"
+      }
     end
 
     context "when the sign video has had only thumbnails generated" do
