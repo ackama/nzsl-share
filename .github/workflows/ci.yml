@@ -32,12 +32,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.node-version'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install required JS packages
-        run: yarn install
+        run: npm ci
       - name: Run formatting
-        run: yarn run format-check
+        run: npm run format-check
 
   rubocop:
     runs-on: ubuntu-latest
@@ -73,12 +73,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.node-version'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install required JS packages
-        run: yarn install
+        run: npm ci
       - name: Run JS linting
-        run: yarn run js-lint
+        run: npm run js-lint
 
   stylelint:
     runs-on: ubuntu-latest
@@ -89,12 +89,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.node-version'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install required JS packages
-        run: yarn install
+        run: npm ci
       - name: Run JS linting
-        run: yarn run scss-lint
+        run: npm run scss-lint
 
   rspec:
     runs-on: ubuntu-latest
@@ -130,7 +130,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.node-version'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install Ruby (version given by .ruby-version) and Bundler
         uses: ruby/setup-ruby@v1
@@ -180,7 +180,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.node-version'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install Ruby (version given by .ruby-version) and Bundler
         uses: ruby/setup-ruby@v1
