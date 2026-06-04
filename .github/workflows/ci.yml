@@ -12,6 +12,7 @@ env:
   PGHOST: localhost
   PGUSER: postgres
   PGPASSWORD: postgres
+  ENABLE_ORIGINAL_VIDEO_FALLBACK: true
 
 jobs:
   check-dependencies:
@@ -104,6 +105,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
+          ENABLE_ORIGINAL_VIDEO_FALLBACK: true
+
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready --health-interval 10s --health-timeout 5s
@@ -151,6 +154,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
+          ENABLE_ORIGINAL_VIDEO_FALLBACK: true
+
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready --health-interval 10s --health-timeout 5s
