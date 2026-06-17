@@ -16,7 +16,7 @@
   ],
   "prettier": "prettier-config-ackama",
   "dependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.29.6",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
