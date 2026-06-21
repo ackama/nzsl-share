@@ -1,5 +1,5 @@
 <% overlay ||= true %>
-<div class="video-wrapper" <%= "data-overlay" if overlay %>>
+<div class="video-wrapper" <%= "data-overlay" if overlay || Rails.application.config.enable_original_fallback_video %>>
   <%= content_tag :video, **sign.sign_video_attributes do %>
     <%= sign.sign_video_sourceset %>
   <% end %>
