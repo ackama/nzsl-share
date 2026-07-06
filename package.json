@@ -47,7 +47,7 @@
     "react-dom": "^16.10.2",
     "sass": "^1.69.5",
     "sass-loader": "^13.0.0",
-    "shakapacker": "^9.0.0",
+    "shakapacker": "^10.0.0",
     "terser-webpack-plugin": "^5.0.0",
     "webpack": "^5.104.1",
     "webpack-assets-manifest": "^5.0.0",
