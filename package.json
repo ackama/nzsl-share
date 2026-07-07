@@ -65,7 +65,7 @@
     "prettier-config-ackama": "^1.1.0",
     "stylelint": "^16.8.0",
     "stylelint-config-recommended-scss": "^14.1.0",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^6.0.0"
   },
   "engines": {
     "node": "^24.0.0"
