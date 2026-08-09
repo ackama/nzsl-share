@@ -42,7 +42,7 @@
     "foundation-sites": "~6.8.0",
     "jquery": "^3.4.1",
     "mini-css-extract-plugin": "^2.7.6",
-    "nanoid": "^5.1.6",
+    "nanoid": "^5.1.16",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "sass": "^1.69.5",
