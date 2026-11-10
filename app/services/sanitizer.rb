@@ -5,7 +5,7 @@ class Sanitizer
     def sanitize(input = "")
       input = ActionController::Base.helpers.sanitize(input)
       input = ActionController::Base.helpers.strip_links(input)
-      ActionController::Base.helpers.strip_tags(input)
+      ActionController::Base.helpers.class.full_sanitizer.sanitize(input)
     end
 
     def sanitize_text_with_urls(input = "")
