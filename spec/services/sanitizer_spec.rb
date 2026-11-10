@@ -30,6 +30,12 @@ RSpec.describe Sanitizer, type: :service do
         expect(Sanitizer.sanitize(input3)).to eq "nice input fieldalert('and open to xss attacks')"
       end
     end
+
+    context "quotes" do
+      it "does not escape quotes" do
+        expect(Sanitizer.sanitize(%q(Katniss's "show"))).to eq %q(Katniss's "show")
+      end
+    end
   end
 
   describe ".sanitize_text_with_urls" do
