@@ -5,6 +5,7 @@ ruby File.read(".ruby-version")
 
 gem "aasm"
 gem "administrate", "~> 1.0.0"
+gem "aws-sdk-cloudfront"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
 gem "csv"
