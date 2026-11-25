@@ -40,11 +40,14 @@ RSpec.describe SignbankExport, type: :service do
         contributor_email: sign.contributor.email,
         contributor_username: sign.contributor.username,
         agrees: sign.agree_count,
-        disagrees: sign.disagree_count,
-        sign_comments: sign.sign_comments.where(display: true).where(removed: false).map do |comment|
-                         "#{comment.anonymous ? "Anonymous" : comment.user.username}: #{comment.comment}"
-                       end.sort.join("|")
+        disagrees: sign.disagree_count
       }.stringify_keys)
+      # Postgres orders aggregated strings by DB collation, which differs from Ruby's byte order
+      expect(result["sign_comments"].split("|")).to match_array(
+        sign.sign_comments.where(display: true).where(removed: false).map do |comment|
+          "#{comment.anonymous ? "Anonymous" : comment.user.username}: #{comment.comment}"
+        end
+      )
       expect(result["created_at"].beginning_of_hour).to eq(sign.created_at.beginning_of_hour)
     end
 
