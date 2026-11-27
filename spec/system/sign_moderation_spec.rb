@@ -34,37 +34,37 @@ RSpec.describe "Sign moderation", type: :system do
 
     context "using search field" do
       it "filters a submitted sign" do
-        sign = FactoryBot.create(:sign, :submitted)
+        sign = FactoryBot.create(:sign, :submitted, word: "zz-search-sign-1")
         expect { submit_search("pending:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "filters a published sign" do
-        sign = FactoryBot.create(:sign, :published)
+        sign = FactoryBot.create(:sign, :published, word: "zz-search-sign-2")
         expect { submit_search("published:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "filters a unpublish requested sign" do
-        sign = FactoryBot.create(:sign, :unpublish_requested)
+        sign = FactoryBot.create(:sign, :unpublish_requested, word: "zz-search-sign-3")
         expect { submit_search("pending:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "filters a archived sign" do
-        sign = FactoryBot.create(:sign, :archived)
+        sign = FactoryBot.create(:sign, :archived, word: "zz-search-sign-4")
         expect { submit_search("archived:") }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "searches user email" do
-        sign = FactoryBot.create(:sign, :published)
+        sign = FactoryBot.create(:sign, :published, word: "zz-search-sign-5")
         expect { submit_search(sign.contributor.email) }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "searches user username" do
-        sign = FactoryBot.create(:sign, :published)
+        sign = FactoryBot.create(:sign, :published, word: "zz-search-sign-6")
         expect { submit_search(sign.contributor.username) }.to change { page.has_content?(sign.word) }.to eq true
       end
 
       it "searches by word" do
-        sign = FactoryBot.create(:sign, :published)
+        sign = FactoryBot.create(:sign, :published, word: "zz-search-sign-7")
         expect { submit_search(sign.word) }.to change { page.has_content?(sign.word) }.to eq true
       end
     end

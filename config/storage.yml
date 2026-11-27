@@ -7,8 +7,11 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 amazon:
-  service: S3
+  service: CloudfrontS3
   bucket: <%= ENV["S3_BUCKET_NAME"] %>
+  cloudfront_host: <%= ENV["CLOUDFRONT_HOST"] %>
+  cloudfront_key_pair_id: <%= ENV["CLOUDFRONT_KEY_PAIR_ID"] %>
+  cloudfront_private_key: <%= ENV["CLOUDFRONT_PRIVATE_KEY"].to_json %>
   # The following settings are all set with environment variables
   # access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
   # secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
